@@ -302,7 +302,8 @@ rules:
     - "fortinet.com"
     - "paloaltonetworks.com"
 
-  min_body_chars_for_real_mail: 60    # muy cortos suelen ser automáticos
+  # Ajuste: permitir correos transaccionales cortos (OTP, confirmaciones)
+  min_body_chars_for_real_mail: 40    # antes 60
   min_subject_chars: 3                # menos de 3 casi siempre es ruido
 
 
@@ -338,7 +339,7 @@ accounts:
 "# Convención de nombre {email}_{Category}_{Correlativo}_{REGION}.eml": null
 naming:
   pattern: "{email}_{category}_{index}_{region}.eml"
-  zero_pad_width: 0   # 0 o, por ejemplo, 4 => 0001, 0002, ...
+  zero_pad_width: 4   # padding para orden léxico estable
 
 "# Pre-check: profundidades y muestra": null
 precheck:
@@ -355,5 +356,5 @@ report:
 "# Detección de idioma (rechazar si no coincide)": null
 language_validation:
   enabled: true
-  accept_if_empty_body: true  # si está vacío, deja pasar y lo revisa humano
-  threshold_percent_es: 0.55  # si el texto es mayormente 'es' (heurística simple)
+  accept_if_empty_body: false  # reforzamos pureza: cuerpos vacíos se rechazan
+  threshold_percent_es: 0.70   # umbral más estricto para español
