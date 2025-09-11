@@ -141,6 +141,7 @@ def fetch_emails_for_account(
     folders: List[str],
     max_age_days: int,
     max_emails: int,
+    chunk_size: int = 200,
 ) -> List[EmailRecord]:
     if not all([host, user, password]):
         raise RuntimeError("Faltan credenciales IMAP para la cuenta. Rellenar .env.")
@@ -158,47 +159,70 @@ def fetch_emails_for_account(
             except Exception as e:
                 log.warning("No se pudo abrir carpeta %s: %s", folder, e)
                 continue
-            criteria = A()
+            # Criterio base
+            criteria = 'ALL'
             if date_gte:
                 criteria = A(date_gte=date_gte)
-            for msg in mailbox.fetch(criteria):
-                raw = msg.obj.as_bytes()
-                size = len(raw)
-                # headers to string if possible
+
+            # Obtener UIDs y leer en chunks para robustez
+            try:
+                uids = mailbox.uids(criteria)
+            except Exception as e:
+                log.warning("No se pudieron obtener UIDs en %s/%s: %s", account_name, folder, e)
+                continue
+
+            if max_emails and max_emails > 0:
+                uids = uids[:max_emails]
+
+            def chunk_iter(lst: List[str], n: int):
+                n = max(1, int(n or 200))
+                for i in range(0, len(lst), n):
+                    yield lst[i:i+n]
+
+            for uid_chunk in chunk_iter(uids, chunk_size):
                 try:
-                    headers_text = str(getattr(msg, "headers", ""))
-                except Exception:
-                    headers_text = ""
-                # msg.to can be list[str]
-                to_list: List[str] = []
-                try:
-                    to_val = getattr(msg, "to", None)
-                    if isinstance(to_val, list):
-                        to_list = to_val
-                    elif isinstance(to_val, str):
-                        to_list = [x.strip() for x in to_val.split(",") if x.strip()]
-                except Exception:
-                    to_list = []
-                body_text = (msg.text or "") if getattr(msg, "text", None) else ""
-                msg_id = getattr(msg, "message_id", None)
-                rec = EmailRecord(
-                    subject=msg.subject or "",
-                    from_addr=msg.from_ or "",
-                    to=to_list,
-                    date=str(msg.date),
-                    raw_bytes=raw,
-                    size=size,
-                    body=body_text,
-                    headers=headers_text,
-                    folder=folder,
-                    provider=provider,
-                    account_name=account_name,
-                    message_id=msg_id,
-                    account_email=user,
-                )
-                emails.append(rec)
-                if max_emails and max_emails > 0 and len(emails) >= max_emails:
-                    return emails
+                    # Buscar por UID en chunk: usar criterio raw 'UID seqset'
+                    uid_seq = ",".join(uid_chunk)
+                    uid_criteria = f"UID {uid_seq}"
+                    for msg in mailbox.fetch(uid_criteria, bulk=False):
+                        raw = msg.obj.as_bytes()
+                        size = len(raw)
+                        try:
+                            headers_text = str(getattr(msg, "headers", ""))
+                        except Exception:
+                            headers_text = ""
+                        to_list: List[str] = []
+                        try:
+                            to_val = getattr(msg, "to", None)
+                            if isinstance(to_val, list):
+                                to_list = to_val
+                            elif isinstance(to_val, str):
+                                to_list = [x.strip() for x in to_val.split(",") if x.strip()]
+                        except Exception:
+                            to_list = []
+                        body_text = (msg.text or "") if getattr(msg, "text", None) else ""
+                        msg_id = getattr(msg, "message_id", None)
+                        rec = EmailRecord(
+                            subject=msg.subject or "",
+                            from_addr=msg.from_ or "",
+                            to=to_list,
+                            date=str(msg.date),
+                            raw_bytes=raw,
+                            size=size,
+                            body=body_text,
+                            headers=headers_text,
+                            folder=folder,
+                            provider=provider,
+                            account_name=account_name,
+                            message_id=msg_id,
+                            account_email=user,
+                        )
+                        emails.append(rec)
+                        if max_emails and max_emails > 0 and len(emails) >= max_emails:
+                            return emails
+                except Exception as e:
+                    log.warning("Fallo al leer chunk (%s) en %s/%s: %s", len(uid_chunk), account_name, folder, e)
+                    continue
 
     log.info("Descargados %d correos de %s", len(emails), account_name)
     return emails
@@ -239,6 +263,8 @@ def main(argv: Optional[List[str]] = None):
     folders_cfg: Dict[str, dict] = cfg.get("folders", {})
     max_age_days = int(cfg.get("max_age_days", 0) or 0)
     max_per_acc = int(cfg.get("max_emails_per_account", 0) or 0)
+    fetch_cfg = cfg.get("fetch", {})
+    chunk_size = int(fetch_cfg.get("chunk_size", 200) or 200)
     out_root = Path(cfg.get("output_path", "emails_out"))
     naming_cfg = cfg.get("naming", {})
     name_pattern = naming_cfg.get("pattern", "{email}_{category}_{index}_{region}.eml")
@@ -248,6 +274,9 @@ def main(argv: Optional[List[str]] = None):
     # Determinar cuentas a procesar
     to_process = []
     for acc in accounts_cfg:
+        # Skip disabled accounts if 'enabled' flag is present
+        if acc.get("enabled") is False:
+            continue
         if selected_user_env and acc.get("user_env") != selected_user_env:
             continue
         user = os.getenv(acc.get("user_env", ""), "")
@@ -284,6 +313,7 @@ def main(argv: Optional[List[str]] = None):
                 folders=acc["folders"],
                 max_age_days=max_age_days,
                 max_emails=limit_pf,
+                chunk_size=chunk_size,
             )
             item = {"account": acc["name"], "fetched": len(emails), "folders": acc["folders"]}
             if sample_headers and emails:
@@ -313,6 +343,7 @@ def main(argv: Optional[List[str]] = None):
             folders=acc["folders"],
             max_age_days=max_age_days,
             max_emails=max_per_acc,
+            chunk_size=chunk_size,
         )
         for e in emails:
             # deduplicación simple por Message-ID o hash

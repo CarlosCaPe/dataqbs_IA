@@ -12,45 +12,129 @@ max_age_days: 365
 "# Límite duro de correos por cuenta (0 = sin límite)": null
 max_emails_per_account: 0
 
+"# Parámetros de lectura": null
+fetch:
+  chunk_size: 200  # tamaño de lote de UIDs por lectura para robustez
+
 "# Control de carpetas origen (por proveedor)": null
 folders:
   gmail:
     include: ["INBOX", "[Gmail]/Spam"]     # puedes quitar Spam si prefieres curar más
   hotmail:
-    include: ["INBOX", "Junk", "Spam"]
+  include: ["INBOX", "Junk Email", "Spam"]
 
-"# Reglas de clasificación (enriquecidas)": null
+# Reglas de clasificación (enriquecidas)
 rules:
   spam_keywords:
-    - "viagra"     # ejemplos
+    - "viagra"
+    - "cialis"
+    - "levitra"
+    - "sexo"
+    - "porn"
     - "casino"
+    - "apuesta"
+    - "ruleta"
+    - "tragamonedas"
+    - "lotería"
+    - "rifa"
     - "promoción"
+    - "oferta exclusiva"
+    - "descuento"
+    - "rebaja"
+    - "gratis"
+    - "free"
+    - "2x1"
+    - "liquidación"
     - "promo"
     - "suscríbete"
+    - "haz clic aquí"
+    - "click aquí"
+    - "haz click aquí"
+    - "unsubscribe"
+    - "dar de baja"
     - "bono"
+    - "regalo"
+    - "premio"
+    - "vale"
+    - "tarjeta regalo"
+    - "cupon"
+    - "cupón"
+    - "oferta limitada"
+    - "última oportunidad"
+    - "urgente"
+    - "no lo dejes pasar"
+    - "didi"
+    - "mural.com.mx"
+
   scam_keywords:
     - "transfer"
+    - "wire transfer"
     - "bitcoin"
+    - "ethereum"
+    - "criptomoneda"
+    - "crypto"
     - "herencia"
+    - "heredero"
+    - "millones"
+    - "ganador"
+    - "ganaste"
+    - "dinero fácil"
+    - "dinero rápido"
     - "dinero"
+    - "préstamo inmediato"
     - "urgent"
-    - "clave otp"
+    - "urgente"
+    - "reclama ahora"
+    - "verifica tu cuenta"
     - "restablece tu contraseña"
     - "account locked"
+    - "bloqueada"
+    - "inicia sesión"
+    - "clave otp"
+    - "token"
+    - "código de verificación"
+    - "actualiza tus datos"
+    - "confirmar identidad"
+    - "seguridad bancaria"
+    - "ganar desde casa"
+    - "trabajo fácil"
+    - "multinivel"
+    - "network marketing"
+    - "hazte rico"
+    - "retira tu dinero"
+
   suspicious_headers:
     - "spf=fail"
     - "dkim=fail"
     - "dmarc=fail"
+    - "Received-SPF: neutral"
+    - "Received-SPF: softfail"
+    - "authentication-results: fail"
+    - "from unknown"
+    - "from untrusted"
+
   clean_senders_whitelist_domains:
     - "amazon.com"
+    - "mercadolibre.com"
+    - "mercadopago.com"
+    - "banamex.com"
+    - "bbva.com"
+    - "santander.com.mx"
+    - "hsbc.com.mx"
     - "microsoft.com"
     - "google.com"
     - "github.com"
     - "paypal.com"
+    - "apple.com"
     - "outlook.com"
     - "gmail.com"
-  min_body_chars_for_real_mail: 60   # muy cortos suelen ser notificaciones/systems
-  min_subject_chars: 3
+    - "protonmail.com"
+    - "yahoo.com"
+    - "paypal.com.mx"
+
+  min_body_chars_for_real_mail: 60    # muy cortos suelen ser automáticos
+  min_subject_chars: 3                # menos de 3 casi siempre es ruido
+
 
 "# Nombres de categorías válidas": null
 categories: ["Spam", "Clean", "Unknown", "Suspicious", "Scam"]
@@ -58,6 +142,7 @@ categories: ["Spam", "Clean", "Unknown", "Suspicious", "Scam"]
 "# Cuentas a procesar (usan variables del .env)": null
 accounts:
   - name: "Gmail_cacp18"
+    enabled: true
     provider: "gmail"
     user_env: "GMAIL1_USER"
     pass_env: "GMAIL1_PASS"
@@ -65,13 +150,15 @@ accounts:
     port: 993
 
   - name: "Hotmail_cacp18"
+    enabled: false
     provider: "hotmail"
     user_env: "HOTMAIL_USER"
     pass_env: "HOTMAIL_PASS"
-    imap_server: "imap-mail.outlook.com"
+    imap_server: "outlook.office365.com"
     port: 993
 
   - name: "Gmail_dataqbs"
+    enabled: true
     provider: "gmail"
     user_env: "GMAIL2_USER"
     pass_env: "GMAIL2_PASS"
