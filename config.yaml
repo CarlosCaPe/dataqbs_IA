@@ -191,7 +191,7 @@ rules:
 
 
 "# Nombres de categorías válidas": null
-categories: ["Spam", "Clean", "Unknown", "Suspicious", "Scam"]
+categories: ["Scam", "Sus", "Spam", "Clean", "Unknown"]
 
 "# Cuentas a procesar (usan variables del .env)": null
 accounts:

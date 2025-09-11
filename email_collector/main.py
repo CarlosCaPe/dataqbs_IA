@@ -30,6 +30,33 @@ import yaml
 from dotenv import load_dotenv
 from imap_tools import MailBox, A
 from langdetect import detect
+import hashlib
+
+def _canonical_text(subject: str, body: str) -> str:
+    txt = f"{subject or ''}\n{body or ''}".lower()
+    # remove urls
+    txt = re.sub(r"https?://\S+", " ", txt)
+    # collapse whitespace
+    txt = re.sub(r"\s+", " ", txt).strip()
+    # remove digits sequences >3
+    txt = re.sub(r"\d{3,}", " ", txt)
+    return txt
+
+def _text_signature(text: str, shingle_size: int = 4) -> set:
+    tokens = [t for t in re.split(r"[^a-z0-9]+", text) if t]
+    if len(tokens) < shingle_size:
+        return set(tokens)
+    return {" ".join(tokens[i:i+shingle_size]) for i in range(len(tokens)-shingle_size+1)}
+
+def is_similar(a: EmailRecord, b_sig: set, threshold: float = 0.85) -> bool:
+    sig_a = _text_signature(_canonical_text(a.subject, a.body))
+    if not sig_a or not b_sig:
+        return False
+    inter = len(sig_a & b_sig)
+    union = len(sig_a | b_sig)
+    if union == 0:
+        return False
+    return inter / union >= threshold
 
 log = logging.getLogger("email_collector")
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
@@ -63,7 +90,7 @@ class EmailRecord:
 def classify_email(cfg: dict, rec: EmailRecord) -> str:
     """Clasificación jerárquica (prioridad):
     1. Scam
-    2. Suspicious (headers / dominios spam / patrones evasión + shorteners / marcadores sospechosos)
+        2. Sus (headers / dominios spam / patrones evasión + shorteners / marcadores sospechosos)
     3. Spam (palabras spam, gambling_terms, marketing agresivo)
     4. Clean (dominios whitelist / marketing creíble sin señales malas)
     5. Unknown
@@ -113,16 +140,16 @@ def classify_email(cfg: dict, rec: EmailRecord) -> str:
     if "Scam" in cats and scam_signal:
         return "Scam"
 
-    # 2. Suspicious (varios vectores)
-    if "Suspicious" in cats:
+    # 2. Sus (varios vectores)
+    if "Sus" in cats:
         if header_susp_signal or frequent_spam_domain_signal:
-            return "Suspicious"
+            return "Sus"
         # combinación de patrones evasión + shortener o marcadores sociales engañosos
         if (evasion_signal and url_shortener_signal) or (url_shortener_signal and suspicious_marker_signal):
-            return "Suspicious"
+            return "Sus"
         if suspicious_marker_signal and not spam_signal:
             # marcadores sospechosos sin suficiente sustento de spam => Suspicious
-            return "Suspicious"
+            return "Sus"
 
     # 3. Spam (palabras spam o gambling, o shortener aislado sin otros factores fuertes)
     if "Spam" in cats and spam_signal:
@@ -173,7 +200,7 @@ def save_eml(rec: EmailRecord, folder: Path, index: int, pattern: str, zero_pad_
     # Usar el correo de la cuenta utilizada para descargar, no el remitente
     email_for_name = (rec.account_email or rec.from_addr or "unknown").replace("/", "_")
     category = rec.category or "Unknown"
-    filename = pattern.format(email=email_for_name, category=category, index=idx_str, region=region)
+    filename = pattern.format(email=email_for_name, category=category.replace("Suspicious", "Sus"), index=idx_str, region=region)
     fn = folder / filename
     with open(fn, "wb") as fh:
         fh.write(rec.raw_bytes)
@@ -376,12 +403,14 @@ def main(argv: Optional[List[str]] = None):
     # Ejecución completa
     saved: List[str] = []
     report: List[dict] = []
-    summary_counts: Dict[str, int] = {"total": 0, "saved": 0, "duplicates": 0, "invalid_skipped": 0}
+    summary_counts: Dict[str, int] = {"total": 0, "saved": 0, "duplicates": 0, "invalid_skipped": 0, "similar_skipped": 0}
     per_category: Dict[str, int] = {}
     per_reason: Dict[str, int] = {}
     idx = 1
     seen_ids: set[str] = set()
     seen_hashes: set[int] = set()
+    # store signatures of saved emails for similarity filtering
+    saved_signatures: List[set] = []
     for acc in to_process:
         emails = fetch_emails_for_account(
             account_name=acc["name"],
@@ -458,6 +487,32 @@ def main(argv: Optional[List[str]] = None):
                     "reason": e.reason,
                 })
                 continue
+            # Similarity filter (skip near duplicates)
+            canon_sig = _text_signature(_canonical_text(e.subject, e.body))
+            is_dup = False
+            for sig in saved_signatures:
+                if sig and canon_sig and (len(canon_sig) > 1) and (len(sig) > 1):
+                    inter = len(canon_sig & sig)
+                    union = len(canon_sig | sig)
+                    if union and (inter / union) >= 0.85:
+                        is_dup = True
+                        break
+            if is_dup:
+                e.valid = False
+                e.reason = "similar"
+                summary_counts["similar_skipped"] += 1
+                per_reason[e.reason] = per_reason.get(e.reason, 0) + 1
+                report.append({
+                    "account": acc["name"],
+                    "provider": acc["provider"],
+                    "subject": e.subject,
+                    "from": e.from_addr,
+                    "folder": e.folder,
+                    "category": e.category,
+                    "valid": e.valid,
+                    "reason": e.reason,
+                })
+                continue
             # guardar solo si es válido
             account_folder = re.sub(r"[^A-Za-z0-9_-]+", "_", acc["name"]) or "account"
             target_folder = out_root / account_folder / (e.category or "Unknown")
@@ -476,6 +531,7 @@ def main(argv: Optional[List[str]] = None):
                 "valid": e.valid,
                 "reason": e.reason,
             })
+            saved_signatures.append(canon_sig)
 
     # Reportes
     out_root.mkdir(parents=True, exist_ok=True)
