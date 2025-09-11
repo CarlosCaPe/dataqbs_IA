@@ -61,32 +61,82 @@ class EmailRecord:
 
 
 def classify_email(cfg: dict, rec: EmailRecord) -> str:
+    """Clasificación jerárquica (prioridad):
+    1. Scam
+    2. Suspicious (headers / dominios spam / patrones evasión + shorteners / marcadores sospechosos)
+    3. Spam (palabras spam, gambling_terms, marketing agresivo)
+    4. Clean (dominios whitelist / marketing creíble sin señales malas)
+    5. Unknown
+    """
     rules = cfg.get("rules", {})
     cats = cfg.get("categories", ["Unknown"]) or ["Unknown"]
 
     subject = (rec.subject or "").lower()
     body = (rec.body or "").lower()
     headers = (rec.headers or "").lower()
-    text = f"{subject} {body}"
+    text_all = f"{subject} {body}".strip()
 
     def has_any(text_: str, keywords: List[str]) -> bool:
-        return any(kw.lower() in text_ for kw in (keywords or []))
+        if not text_ or not keywords:
+            return False
+        return any(kw.lower() in text_ for kw in keywords if kw)
 
-    # Scam
-    if "Scam" in cats and has_any(text, rules.get("scam_keywords", [])):
+    def domain_of(addr: str) -> str:
+        if not addr or "@" not in addr:
+            return ""
+        return addr.split("@")[-1].lower().strip()
+
+    dom = domain_of(rec.from_addr)
+
+    scam_kw = rules.get("scam_keywords", [])
+    spam_kw = rules.get("spam_keywords", [])
+    susp_hdrs = rules.get("suspicious_headers", [])
+    clean_domains = [d.lower() for d in rules.get("clean_senders_whitelist_domains", [])]
+    credible_mkt = [d.lower() for d in rules.get("credible_marketing_domains", [])]
+    freq_spam_dom = [d.lower() for d in rules.get("frequent_spam_domains", [])]
+    gambling_terms = rules.get("gambling_terms", [])
+    url_shorteners = rules.get("url_shorteners", [])
+    evasion_patterns = rules.get("evasion_patterns", [])
+    suspicious_markers = rules.get("suspicious_markers", [])
+
+    # Helper signals
+    scam_signal = has_any(text_all, scam_kw)
+    header_susp_signal = has_any(headers, susp_hdrs)
+    frequent_spam_domain_signal = dom in freq_spam_dom if dom else False
+    url_shortener_signal = has_any(text_all, url_shorteners)
+    evasion_signal = has_any(text_all, evasion_patterns)
+    suspicious_marker_signal = has_any(text_all, suspicious_markers)
+    gambling_signal = has_any(text_all, gambling_terms)
+    spam_signal = has_any(text_all, spam_kw) or gambling_signal
+
+    # 1. Scam
+    if "Scam" in cats and scam_signal:
         return "Scam"
-    # Spam
-    if "Spam" in cats and has_any(text, rules.get("spam_keywords", [])):
+
+    # 2. Suspicious (varios vectores)
+    if "Suspicious" in cats:
+        if header_susp_signal or frequent_spam_domain_signal:
+            return "Suspicious"
+        # combinación de patrones evasión + shortener o marcadores sociales engañosos
+        if (evasion_signal and url_shortener_signal) or (url_shortener_signal and suspicious_marker_signal):
+            return "Suspicious"
+        if suspicious_marker_signal and not spam_signal:
+            # marcadores sospechosos sin suficiente sustento de spam => Suspicious
+            return "Suspicious"
+
+    # 3. Spam (palabras spam o gambling, o shortener aislado sin otros factores fuertes)
+    if "Spam" in cats and spam_signal:
         return "Spam"
-    # Suspicious by headers
-    if "Suspicious" in cats and has_any(headers, rules.get("suspicious_headers", [])):
-        return "Suspicious"
-    # Clean whitelist domain
-    domain = rec.from_addr.split("@")[-1].lower() if "@" in rec.from_addr else ""
-    if domain and domain in [d.lower() for d in rules.get("clean_senders_whitelist_domains", [])]:
-        if "Clean" in cats:
+    if "Spam" in cats and url_shortener_signal and not (header_susp_signal or scam_signal):
+        return "Spam"
+
+    # 4. Clean (dominio whitelist o marketing creíble y sin señales negativas)
+    if "Clean" in cats:
+        if dom and dom in clean_domains:
             return "Clean"
-    # Fallback
+        if dom and dom in credible_mkt and not (spam_signal or header_susp_signal or scam_signal or suspicious_marker_signal or frequent_spam_domain_signal):
+            return "Clean"
+
     return "Unknown"
 
 
@@ -326,7 +376,7 @@ def main(argv: Optional[List[str]] = None):
     # Ejecución completa
     saved: List[str] = []
     report: List[dict] = []
-    summary_counts: Dict[str, int] = {"total": 0, "saved": 0, "duplicates": 0}
+    summary_counts: Dict[str, int] = {"total": 0, "saved": 0, "duplicates": 0, "invalid_skipped": 0}
     per_category: Dict[str, int] = {}
     per_reason: Dict[str, int] = {}
     idx = 1
@@ -345,7 +395,7 @@ def main(argv: Optional[List[str]] = None):
             max_emails=max_per_acc,
             chunk_size=chunk_size,
         )
-        for e in emails:
+    for e in emails:
             # deduplicación simple por Message-ID o hash
             dedup_key = e.message_id or None
             if dedup_key and dedup_key in seen_ids:
@@ -392,7 +442,23 @@ def main(argv: Optional[List[str]] = None):
             valid, reason = validate_email(cfg, e)
             e.valid = valid
             e.reason = reason
-            # carpeta por cuenta y categoría
+            summary_counts["total"] += 1
+            if not valid:
+                summary_counts["invalid_skipped"] += 1
+                per_reason[reason or "invalid"] = per_reason.get(reason or "invalid", 0) + 1
+                # Registrar en reporte aunque no se guarde el archivo
+                report.append({
+                    "account": acc["name"],
+                    "provider": acc["provider"],
+                    "subject": e.subject,
+                    "from": e.from_addr,
+                    "folder": e.folder,
+                    "category": e.category,
+                    "valid": e.valid,
+                    "reason": e.reason,
+                })
+                continue
+            # guardar solo si es válido
             account_folder = re.sub(r"[^A-Za-z0-9_-]+", "_", acc["name"]) or "account"
             target_folder = out_root / account_folder / (e.category or "Unknown")
             fn = save_eml(e, target_folder, idx, name_pattern, zero_pad, region)
@@ -410,7 +476,6 @@ def main(argv: Optional[List[str]] = None):
                 "valid": e.valid,
                 "reason": e.reason,
             })
-            summary_counts["total"] += 1
 
     # Reportes
     out_root.mkdir(parents=True, exist_ok=True)

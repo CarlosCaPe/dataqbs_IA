@@ -113,6 +113,60 @@ rules:
     - "from unknown"
     - "from untrusted"
 
+  # Dominios de marketing legítimos (permitidos para Clean si no disparan otras reglas)
+  credible_marketing_domains:
+    - "amazon.com"
+    - "mercadolibre.com"
+    - "mercadopago.com"
+    - "microsoft.com"
+    - "google.com"
+    - "netflix.com"
+    - "spotify.com"
+    - "adobe.com"
+
+  # Dominios que frecuentemente envían spam/promociones dudosas (eleva a Suspicious si coincide)
+  frequent_spam_domains:
+    - "info.news"
+    - "mailer.online"
+    - "clickmail.cc"
+    - "mail-track.io"
+
+  # Términos específicos de juegos de azar (refuerza Spam)
+  gambling_terms:
+    - "apuesta"
+    - "apuestas"
+    - "casino"
+    - "ruleta"
+    - "tragamonedas"
+    - "lotería"
+    - "loteria"
+    - "blackjack"
+
+  # Acortadores de URL comunes (pueden indicar ocultamiento -> Suspicious si junto a otros, Spam si solo)
+  url_shorteners:
+    - "bit.ly"
+    - "tinyurl.com"
+    - "t.co"
+    - "ow.ly"
+    - "is.gd"
+
+  # Patrones de evasión (caracteres repetidos, unicode engañoso, prefijos alfanuméricos largos)
+  evasion_patterns:
+  - "\\u200b"          # zero-width space (escape for YAML)
+  - "---+"            # separadores exagerados
+  - "__+"             # guiones bajos exagerados
+  - "\\d{6,}"         # secuencia muy larga de dígitos
+  - "http://"         # forzar http sin https
+
+  # Indicadores genéricos de sospecha (phishing leve, ingeniería social suave)
+  suspicious_markers:
+    - "verifica ahora"
+    - "confirma ahora"
+    - "actualiza datos"
+    - "restablecer acceso"
+    - "seguridad de cuenta"
+    - "actividad inusual"
+
   clean_senders_whitelist_domains:
     - "amazon.com"
     - "mercadolibre.com"
