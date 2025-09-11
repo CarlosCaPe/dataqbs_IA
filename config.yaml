@@ -1,0 +1,35 @@
+language: "es"
+imap:
+  host: "imap.example.com"
+  port: 993
+  use_ssl: true
+  folder: "INBOX"
+
+classification:
+  categories:
+    - name: "ventas"
+      patterns:
+        - "venta"
+        - "factura"
+    - name: "soporte"
+      patterns:
+        - "soporte"
+        - "ticket"
+    - name: "newsletter"
+      patterns:
+        - "newsletter"
+        - "boletin"
+  default_folder: "otros"
+
+validation:
+  allow_attachments: true
+  max_size_mb: 25
+  require_from_domain: []
+
+precheck:
+  max_emails_preview: 20
+  recent_days: 30
+
+report:
+  output_folder: "emails_out"
+  save_eml: true

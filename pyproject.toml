@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "email-collector"
+version = "0.1.0"
+description = "Automatiza descarga, clasificación y validación de correos .eml"
+authors = ["Your Name <you@example.com>"]
+readme = "README.md"
+packages = [{ include = "email_collector" }]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+python-dotenv = "^1.0.1"
+imap-tools = "^0.46.0"
+PyYAML = "^6.0"
+langdetect = "^1.0.9"
+
+[tool.poetry.scripts]
+email-collect = "email_collector.main:main"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
