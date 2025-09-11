@@ -149,6 +149,12 @@ rules:
     - "t.co"
     - "ow.ly"
     - "is.gd"
+    - "cutt.ly"
+    - "shorturl.at"
+    - "rebrand.ly"
+    - "lnkd.in"
+    - "buff.ly"
+    - "shorte.st"
 
   # Patrones de evasión (caracteres repetidos, unicode engañoso, prefijos alfanuméricos largos)
   evasion_patterns:
@@ -166,6 +172,70 @@ rules:
     - "restablecer acceso"
     - "seguridad de cuenta"
     - "actividad inusual"
+    - "credenciales expiradas"
+    - "tu suscripción ha expirado"
+    - "renovar suscripción"
+    - "ha sido bloqueada"
+    - "necesita verificación"
+
+  # Patrones adicionales para detección directa Scam (urgencia extrema + dinero, premios, facturas falsas, etc.)
+  scam_urgency_patterns:
+    - "has ganado"
+    - "ganaste"
+    - "click this link"  # inglés común en phishing mezclado
+    - "claim your prize"
+    - "pago pendiente"
+    - "suscripción expirada"
+    - "renovar ahora"
+    - "factura adjunta"
+    - "confirmar pago"
+    - "fee requerido"
+    - "verifica tu identidad"
+    - "reclama tu premio"
+
+  # Dominios sospechosos (frecuentes en spam/scam) adicionales
+  suspicious_domains:
+    - "fzwmodel.com"
+    - "mgjpanel.org"
+    - "portierassociates"
+    - "ctrk.klclick"
+    - "beehiiv"
+    - "hubspotlinks"
+    - "mailchi.mp"
+
+  # Palabras que elevan a Sus cuando aparecen con gambling/contexto parcial
+  gambling_soft_terms:
+    - "freespins"
+    - "spins"
+    - "lucky day"
+    - "jackpot"
+
+  # Marcas objetivo para detectar combinación local-part numérica + dominio marca => posible scam
+  brand_domains_scam_combo:
+    - "amazon"
+    - "linkedin"
+    - "apple"
+    - "netflix"
+    - "paypal"
+    - "bbva"
+    - "santander"
+    - "hsbc"
+    - "microsoft"
+    - "google"
+    - "costco"
+    - "disney"
+    - "hulu"
+
+  # Palabras que indican USPS / gobierno + shortener => escalar a scam
+  gov_postal_indicators:
+    - "usps"
+    - "irs"
+    - "gobierno"
+    - "aduana"
+    - "multas"
+    - "tránsito"
+    - "trafico"
+    - "dmv"
 
   clean_senders_whitelist_domains:
     - "amazon.com"

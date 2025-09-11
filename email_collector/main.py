@@ -122,33 +122,52 @@ def classify_email(cfg: dict, rec: EmailRecord) -> str:
     credible_mkt = [d.lower() for d in rules.get("credible_marketing_domains", [])]
     freq_spam_dom = [d.lower() for d in rules.get("frequent_spam_domains", [])]
     gambling_terms = rules.get("gambling_terms", [])
+    gambling_soft_terms = rules.get("gambling_soft_terms", [])
     url_shorteners = rules.get("url_shorteners", [])
     evasion_patterns = rules.get("evasion_patterns", [])
     suspicious_markers = rules.get("suspicious_markers", [])
+    scam_urgency_patterns = rules.get("scam_urgency_patterns", [])
+    suspicious_domains = [d.lower() for d in rules.get("suspicious_domains", [])]
+    brand_combo = [b.lower() for b in rules.get("brand_domains_scam_combo", [])]
+    gov_postal = [g.lower() for g in rules.get("gov_postal_indicators", [])]
 
     # Helper signals
-    scam_signal = has_any(text_all, scam_kw)
+    scam_signal = has_any(text_all, scam_kw) or has_any(text_all, scam_urgency_patterns)
     header_susp_signal = has_any(headers, susp_hdrs)
     frequent_spam_domain_signal = dom in freq_spam_dom if dom else False
     url_shortener_signal = has_any(text_all, url_shorteners)
     evasion_signal = has_any(text_all, evasion_patterns)
     suspicious_marker_signal = has_any(text_all, suspicious_markers)
     gambling_signal = has_any(text_all, gambling_terms)
+    gambling_soft_signal = has_any(text_all, gambling_soft_terms)
     spam_signal = has_any(text_all, spam_kw) or gambling_signal
+    suspicious_domain_signal = dom in suspicious_domains if dom else False
+
+    # Local-part numeric + well-known brand domain token => escalate to scam
+    local_part = rec.from_addr.split("@")[0].lower() if "@" in rec.from_addr else ""
+    local_numeric = bool(re.fullmatch(r"\d{6,}", local_part))
+    brand_token_hit = any(b in dom for b in brand_combo) if dom else False
+    numeric_brand_combo = local_numeric and brand_token_hit
+
+    # Government/postal + shortener => treat as scam
+    gov_postal_hit = has_any(text_all, gov_postal)
+    gov_postal_shortener = gov_postal_hit and url_shortener_signal
 
     # 1. Scam
-    if "Scam" in cats and scam_signal:
+    if "Scam" in cats and (scam_signal or numeric_brand_combo or gov_postal_shortener):
         return "Scam"
 
     # 2. Sus (varios vectores)
     if "Sus" in cats:
-        if header_susp_signal or frequent_spam_domain_signal:
+        if header_susp_signal or frequent_spam_domain_signal or suspicious_domain_signal:
             return "Sus"
         # combinación de patrones evasión + shortener o marcadores sociales engañosos
         if (evasion_signal and url_shortener_signal) or (url_shortener_signal and suspicious_marker_signal):
             return "Sus"
         if suspicious_marker_signal and not spam_signal:
             # marcadores sospechosos sin suficiente sustento de spam => Suspicious
+            return "Sus"
+        if gambling_soft_signal and not gambling_signal:
             return "Sus"
 
     # 3. Spam (palabras spam o gambling, o shortener aislado sin otros factores fuertes)
