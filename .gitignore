@@ -3,8 +3,23 @@
 venv/
 __pycache__/
 *.pyc
+*.pyo
+*.pyd
+*.egg-info/
+.cache/
+
+# Envs / deps
+.venv/
+.venv*/
+.env
+.env.*
+
+# Outputs
 emails_out/
+collector_tmp/
+*.zip
 dist/
 build/
-*.egg-info
+
+# VS Code
 .vscode/

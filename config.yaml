@@ -1,35 +1,102 @@
-language: "es"
-imap:
-  host: "imap.example.com"
-  port: 993
-  use_ssl: true
-  folder: "INBOX"
+"# Carpeta raíz de salida": null
+output_path: "./emails_out"
 
-classification:
-  categories:
-    - name: "ventas"
-      patterns:
-        - "venta"
-        - "factura"
-    - name: "soporte"
-      patterns:
-        - "soporte"
-        - "ticket"
-    - name: "newsletter"
-      patterns:
-        - "newsletter"
-        - "boletin"
-  default_folder: "otros"
+"# Idioma esperado y etiqueta de país": null
+language:
+  code: "es"        # ISO-639-1 para validación automática (langdetect)
+  region_tag: "ES_MX"  # sufijo en nombre de archivo
 
-validation:
-  allow_attachments: true
-  max_size_mb: 25
-  require_from_domain: []
+"# Ventana temporal máxima": null
+max_age_days: 365
 
+"# Límite duro de correos por cuenta (0 = sin límite)": null
+max_emails_per_account: 0
+
+"# Control de carpetas origen (por proveedor)": null
+folders:
+  gmail:
+    include: ["INBOX", "[Gmail]/Spam"]     # puedes quitar Spam si prefieres curar más
+  hotmail:
+    include: ["INBOX", "Junk", "Spam"]
+
+"# Reglas de clasificación (enriquecidas)": null
+rules:
+  spam_keywords:
+    - "viagra"     # ejemplos
+    - "casino"
+    - "promoción"
+    - "promo"
+    - "suscríbete"
+    - "bono"
+  scam_keywords:
+    - "transfer"
+    - "bitcoin"
+    - "herencia"
+    - "dinero"
+    - "urgent"
+    - "clave otp"
+    - "restablece tu contraseña"
+    - "account locked"
+  suspicious_headers:
+    - "spf=fail"
+    - "dkim=fail"
+    - "dmarc=fail"
+  clean_senders_whitelist_domains:
+    - "amazon.com"
+    - "microsoft.com"
+    - "google.com"
+    - "github.com"
+    - "paypal.com"
+    - "outlook.com"
+    - "gmail.com"
+  min_body_chars_for_real_mail: 60   # muy cortos suelen ser notificaciones/systems
+  min_subject_chars: 3
+
+"# Nombres de categorías válidas": null
+categories: ["Spam", "Clean", "Unknown", "Suspicious", "Scam"]
+
+"# Cuentas a procesar (usan variables del .env)": null
+accounts:
+  - name: "Gmail_cacp18"
+    provider: "gmail"
+    user_env: "GMAIL1_USER"
+    pass_env: "GMAIL1_PASS"
+    imap_server: "imap.gmail.com"
+    port: 993
+
+  - name: "Hotmail_cacp18"
+    provider: "hotmail"
+    user_env: "HOTMAIL_USER"
+    pass_env: "HOTMAIL_PASS"
+    imap_server: "imap-mail.outlook.com"
+    port: 993
+
+  - name: "Gmail_dataqbs"
+    provider: "gmail"
+    user_env: "GMAIL2_USER"
+    pass_env: "GMAIL2_PASS"
+    imap_server: "imap.gmail.com"
+    port: 993
+
+"# Convención de nombre {email}_{Category}_{Correlativo}_{REGION}.eml": null
+naming:
+  pattern: "{email}_{category}_{index}_{region}.eml"
+  zero_pad_width: 0   # 0 o, por ejemplo, 4 => 0001, 0002, ...
+
+"# Pre-check: profundidades y muestra": null
 precheck:
-  max_emails_preview: 20
-  recent_days: 30
+  max_list_per_folder: 10   # muestra de conteo por carpeta
+  log_headers_sample: false  # true para ver headers en precheck
 
+"# Reporte": null
 report:
-  output_folder: "emails_out"
-  save_eml: true
+  create_json: true
+  create_txt: true
+  filename_json: "validation_report.json"
+  filename_txt: "validation_report.txt"
+
+"# Detección de idioma (rechazar si no coincide)": null
+language_validation:
+  enabled: true
+  accept_if_empty_body: true  # si está vacío, deja pasar y lo revisa humano
+  threshold_percent_es: 0.55  # si el texto es mayormente 'es' (heurística simple)
