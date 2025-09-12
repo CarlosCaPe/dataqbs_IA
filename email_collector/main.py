@@ -412,7 +412,33 @@ def validate_email(cfg: dict, rec: EmailRecord) -> Tuple[bool, Optional[str]]:
     return True, None
 
 
-def save_eml(rec: EmailRecord, folder: Path, index: int, pattern: str, zero_pad_width: int, region: str) -> Path:
+# Helper para extraer dominio base
+import re as _re
+
+def _base_domain(addr: str) -> str:
+    if not addr:
+        return "unknown"
+    m = addr.split('@')
+    dom = m[-1].lower().strip() if len(m) > 1 else addr.lower().strip()
+    # quitar posibles etiquetas de nombre "Nombre <user@dom>"
+    if '<' in dom and '>' in dom:
+        dom = dom.split('<')[-1].split('>')[0]
+    # eliminar caracteres no válidos en carpeta
+    dom = _re.sub(r"[^a-z0-9._-]", "_", dom)
+    # dominio base (mantener hasta dos labels finales si tld compuesto mx, com.mx, com)
+    parts = dom.split('.')
+    if len(parts) >= 3 and parts[-2] in ("com", "org", "net"):
+        return '.'.join(parts[-3:])
+    if len(parts) >= 2:
+        return '.'.join(parts[-2:])
+    return dom
+
+
+def save_eml(rec: EmailRecord, folder: Path, index: int, pattern: str, zero_pad_width: int, region: str, cfg: Optional[dict] = None) -> Path:
+    # Ajustar subcarpeta de dominio si toggle activo
+    if cfg and cfg.get('output_structure', {}).get('domain_subfolders'):
+        bd = _base_domain(rec.from_addr or rec.account_email or '')
+        folder = folder / bd
     folder.mkdir(parents=True, exist_ok=True)
     idx_str = str(index).zfill(zero_pad_width) if zero_pad_width and zero_pad_width > 0 else str(index)
     # Usar el correo de la cuenta utilizada para descargar, no el remitente
@@ -867,7 +893,7 @@ def main(argv: Optional[List[str]] = None):
         # guardar solo si es válido
         account_folder = re.sub(r"[^A-Za-z0-9_-]+", "_", acc_name) or "account"
         target_folder = out_root / account_folder / (e.category or "Unknown")
-        fn = save_eml(e, target_folder, idx, name_pattern, zero_pad, region)
+        fn = save_eml(e, target_folder, idx, name_pattern, zero_pad, region, cfg)
         idx += 1
         saved.append(str(fn))
         summary_counts["saved"] += 1
@@ -932,6 +958,32 @@ def main(argv: Optional[List[str]] = None):
                     except OSError:
                         pass
         migrate_suspicious(out_root)
+
+        # Migración a subcarpetas de dominio si está activo el toggle
+        if cfg.get('output_structure', {}).get('domain_subfolders'):
+            moved_domain = 0
+            for acc_dir in out_root.glob('*'):
+                if not acc_dir.is_dir():
+                    continue
+                for cat_dir in acc_dir.glob('*'):
+                    if not cat_dir.is_dir():
+                        continue
+                    # detectar .eml directamente en cat_dir (sin subcarpeta dominio)
+                    for eml in list(cat_dir.glob('*.eml')):
+                        try:
+                            raw = eml.read_bytes()
+                            msg = message_from_bytes(raw, policy=policy.default)
+                            from_addr = msg.get('from') or ''
+                            bd = _base_domain(from_addr)
+                            target_dir = cat_dir / bd
+                            target_dir.mkdir(parents=True, exist_ok=True)
+                            new_path = target_dir / eml.name
+                            shutil.move(str(eml), new_path)
+                            moved_domain += 1
+                        except Exception:
+                            pass
+            if moved_domain:
+                log.info("Migrados %d correos a subcarpetas de dominio", moved_domain)
 
         def parse_eml(path: Path) -> Optional[EmailRecord]:
             try:
@@ -1001,28 +1053,42 @@ def main(argv: Optional[List[str]] = None):
             for cat_dir in acc_dir.glob('*'):
                 if not cat_dir.is_dir():
                     continue
-                for eml in cat_dir.glob('*.eml'):
-                    total_files += 1
-                    # Blacklist purge
-                    if is_blacklisted_from_file(eml):
-                        try:
-                            eml.unlink()
-                        except Exception:
-                            pass
-                        continue
-                    rec = parse_eml(eml)
-                    if not rec:
-                        continue
-                    new_cat = classify_email(cfg, rec)
-                    if new_cat != cat_dir.name:
-                        target_dir = acc_dir / new_cat
-                        target_dir.mkdir(parents=True, exist_ok=True)
-                        new_name = eml.name.replace(cat_dir.name, new_cat)
-                        try:
-                            shutil.move(str(eml), str(target_dir / new_name))
-                            changed += 1
-                        except Exception as e:
-                            log.debug("No se pudo mover %s: %s", eml, e)
+                # Si hay subcarpetas de dominio, iterar dentro; si no, usar cat_dir directamente
+                domain_mode = cfg.get('output_structure', {}).get('domain_subfolders')
+                domain_dirs = list(cat_dir.glob('*')) if domain_mode else []
+                eml_sources = []
+                if domain_mode and domain_dirs:
+                    for dsub in domain_dirs:
+                        if dsub.is_dir():
+                            eml_sources.append(dsub)
+                else:
+                    eml_sources.append(cat_dir)
+                for source_dir in eml_sources:
+                    for eml in source_dir.glob('*.eml'):
+                        total_files += 1
+                        # Blacklist purge
+                        if is_blacklisted_from_file(eml):
+                            try:
+                                eml.unlink()
+                            except Exception:
+                                pass
+                            continue
+                        rec = parse_eml(eml)
+                        if not rec:
+                            continue
+                        new_cat = classify_email(cfg, rec)
+                        if new_cat != cat_dir.name:
+                            target_dir = acc_dir / new_cat
+                            if domain_mode:
+                                bd = _base_domain(rec.from_addr or '')
+                                target_dir = target_dir / bd
+                            target_dir.mkdir(parents=True, exist_ok=True)
+                            new_name = eml.name.replace(cat_dir.name, new_cat)
+                            try:
+                                shutil.move(str(eml), str(target_dir / new_name))
+                                changed += 1
+                            except Exception as e:
+                                log.debug("No se pudo mover %s: %s", eml, e)
         log.info("Reproceso finalizado: %d archivos revisados, %d movidos", total_files, changed)
 
         # --- Reporte post-reproceso ---

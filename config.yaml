@@ -163,6 +163,8 @@ fetch:
 naming:
   pattern: "{email}_{category}_{index}_{region}.eml"
   zero_pad_width: 4
+output_structure:
+  domain_subfolders: true  # coloca los .eml dentro de Categoria/DOMINIO_BASE/
 language:
   code: es
   region_tag: ES
