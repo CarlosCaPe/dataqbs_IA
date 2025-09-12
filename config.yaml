@@ -1,108 +1,414 @@
-"# Carpeta raíz de salida": null
-output_path: "./emails_out"
+############################################################
+# Limpio y unificado config.yaml (solo 5 labels: Scam, Sus, Spam, Clean, Unknown)
+############################################################
+accounts:
+  - name: Gmail_cacp18
+    provider: gmail
+    user_env: GMAIL1_USER
+    pass_env: GMAIL1_PASS
+    imap_server: imap.gmail.com
+    port: 993
+    enabled: true
+  - name: Gmail_dataqbs
+    provider: gmail
+    user_env: GMAIL2_USER
+    pass_env: GMAIL2_PASS
+    imap_server: imap.gmail.com
+    port: 993
+    enabled: true
+  - name: Hotmail_main
+    provider: hotmail
+    user_env: HOTMAIL_USER
+    pass_env: HOTMAIL_PASS
+    imap_server: outlook.office365.com
+    port: 993
+    enabled: false  # desactivado temporalmente
 
-"# Idioma esperado y etiqueta de país": null
-language:
-  code: "es"        # ISO-639-1 para validación automática (langdetect)
-  region_tag: "ES_MX"  # sufijo en nombre de archivo
-
-"# Ventana temporal máxima": null
 max_age_days: 365
+purge_saved_older_than_days: 365
+exclude_thread_prefixes: ["re:", "fw:", "fwd:", "rv:", "res:"]
+purge_thread_chains: true
 
-"# Límite duro de correos por cuenta (0 = sin límite)": null
-max_emails_per_account: 0
+language_validation:
+  enabled: true
+  threshold_percent_es: 0.70
+  accept_if_empty_body: false
 
-"# Parámetros de lectura": null
-fetch:
-  chunk_size: 200  # tamaño de lote de UIDs por lectura para robustez
-
-"# Control de carpetas origen (por proveedor)": null
 folders:
   gmail:
-    include: ["INBOX", "[Gmail]/Spam"]     # puedes quitar Spam si prefieres curar más
+    include: ["INBOX", "[Gmail]/Spam"]
   hotmail:
-  include: ["INBOX", "Junk Email", "Spam"]
+    include: ["INBOX", "Junk Email", "Spam"]
 
-# Reglas de clasificación (enriquecidas)
-rules:
-  spam_keywords:
-    - "viagra"
-    - "cialis"
-    - "levitra"
-    - "sexo"
-    - "porn"
-    - "casino"
-    - "apuesta"
-    - "ruleta"
-    - "tragamonedas"
-    - "lotería"
-    - "rifa"
-    - "promoción"
-    - "oferta exclusiva"
-    - "descuento"
-    - "rebaja"
-    - "gratis"
-    - "free"
-    - "2x1"
-    - "liquidación"
-    - "promo"
-    - "suscríbete"
-    - "haz clic aquí"
-    - "click aquí"
-    - "haz click aquí"
-    - "unsubscribe"
-    - "dar de baja"
-    - "bono"
-    - "regalo"
-    - "premio"
-    - "vale"
-    - "tarjeta regalo"
-    - "cupon"
-    - "cupón"
-    - "oferta limitada"
-    - "última oportunidad"
-    - "urgente"
-    - "no lo dejes pasar"
-    - "didi"
-    - "mural.com.mx"
-
-  scam_keywords:
-    - "transfer"
-    - "wire transfer"
-    - "bitcoin"
-    - "ethereum"
-    - "criptomoneda"
-    - "crypto"
-    - "herencia"
-    - "heredero"
-    - "millones"
-    - "ganador"
-    - "ganaste"
-    - "dinero fácil"
-    - "dinero rápido"
-    - "dinero"
-    - "préstamo inmediato"
-    - "urgent"
-    - "urgente"
-    - "reclama ahora"
-    - "verifica tu cuenta"
-    - "restablece tu contraseña"
-    - "account locked"
-    - "bloqueada"
-    - "inicia sesión"
-    - "clave otp"
+transactional_short_allowlist:
+  min_subject_chars: 3
+  max_body_chars: 220
+  trusted_domains:
+    - bbva.mx
+    - email.bbva.mx
+    - bbva.com.mx
+    - citibanamex.com
+    - scotiabank.mx
+    - santander.com.mx
+    - banorte.com
+    - banamex.com
+    - visa.com
+    - mastercard.com
+    - paypal.com
+    - paypal.com.mx
+    - booking.com
+    - notice.aliexpress.com
+    - 99minutos.com
+    - boletomovil.com
+    - opinioncinepolis.com
+    - servicioscinepolis.com.mx
+    - tripadvisor.com
+    - accountprotection.microsoft.com
+    - google.com
+    - instagram.com
+    - x.com
+    - apple.com
+    - stripe.com
+  subject_must_match_one:
+    - "código"
     - "token"
-    - "código de verificación"
-    - "actualiza tus datos"
-    - "confirmar identidad"
-    - "seguridad bancaria"
-    - "ganar desde casa"
-    - "trabajo fácil"
-    - "multinivel"
-    - "network marketing"
-    - "hazte rico"
-    - "retira tu dinero"
+    - "verificación"
+    - "confirmación"
+    - "tu compra"
+    - "pedido"
+    - "entregado"
+    - "en tránsito"
+    - "comprobante"
+    - "recibo"
+    - "receipt"
+    - "comprobante de pago"
+    - "recuperación de contraseña"
+    - "restablecimiento de contraseña"
 
+clean_marketing_rules:
+  reputable_domains:
+    - "mailchi.mp"
+    - "hubspotlinks"
+    - "beehiiv"
+    - "adobe.com"
+    - "netflix.com"
+    - "spotify.com"
+    - "amazon.com"
+    - "openstageit.com"
+  subject_markers:
+    - "newsletter"
+    - "boletín"
+    - "novedades"
+    - "actualizaciones"
+    - "resumen semanal"
+  max_links_ratio: 0.40
+
+classifier:
+  scoring:
+    spam_keyword: 2
+    scam_keyword: 4
+    gambling_term: 2
+    url_shortener: 2
+    suspicious_header: 2
+    suspicious_marker: 1
+    evasion_pattern: 2
+    suspicious_domain: 2
+    frequent_spam_domain: 2
+    urgency_pattern: 1
+    phone_pattern: 2
+    reputable_domain_clean_bonus: -2
+    transactional_allow_bonus: -3
+  thresholds:
+    to_scam: 8
+    to_sus: 4
+    to_spam: 2
+  hard_rules:
+    scam_if:
+      - any:
+          - "scam_keywords>=2 AND url_shorteners>=1"
+          - "urgency_patterns>=1 AND suspicious_headers>=1"
+          - "evasion_patterns>=1 AND url_shorteners>=1"
+          - "phone_patterns>=1 AND scam_keywords>=1"
+    spam_if:
+      - any:
+          - "gambling_terms>=1"
+          - "frequent_spam_domains>=1 AND url_shorteners>=1"
+    clean_if:
+      - any:
+          - "newsletter>=1"
+          - "transactional_short_allowlist matched"
+          - "reputable_marketing_safe>=1"
+          - "political_keywords>=1"
+          - "fedex_shortener_combo>=1"
+
+deduplication:
+  enabled: true
+  subject_fuzzy_ratio: 0.90
+  body_min_chars_for_simhash: 120
+  window_days: 365
+
+min_body_chars_for_real_mail: 40
+min_subject_chars: 3
+
+report:
+  create_json: true
+  filename_json: validation_report.json
+  create_txt: true
+  filename_txt: validation_report.txt
+
+output_path: emails_out
+fetch:
+  parallel_accounts: 5
+  chunk_size: 200
+naming:
+  pattern: "{email}_{category}_{index}_{region}.eml"
+  zero_pad_width: 4
+language:
+  code: es
+  region_tag: ES
+
+# Clasificación declarativa de dominios para desempate
+domain_classification:
+  # Dominios claramente legítimos (Clean)
+  clean:
+    - accounts.google.com
+    - account.meta.com
+    - accountprotection.microsoft.com
+    - account.seeking.com
+    - aexp.com
+    - airbnb.com
+    - amazon.com
+    - amazon.com.mx
+    - andela.com
+  # aptino.com (clasificado como Sus/Unknown más abajo; removido de clean para coherencia)
+    - arajet.zendesk.com
+    - ascendion.com
+    - asdeporte.com
+    - ashbyhq.com
+    - a.mercadolibre.com.mx
+    - a.mercadopago.com
+    - banamex.com
+    - banregio.com
+    - bbva.com
+    - bbva.mx
+    - beneficioscinepolis.com
+    - bitso.com
+    - boletia.com
+    - boletomovil.com
+    - boletomovil.info
+    - booking.com
+    - bybit.com
+    - capgemini.com
+    - certn.co
+    - channels.primevideo.com
+    - checkout.mastercard.com
+    - chubb.com
+    - citibanamex.com
+    - coderbyte.com
+    - comunicaciones.doters.com
+    - connect.krispykreme.com.mx
+    - conecta.hey.inc
+    - contacto.volkswagen.mx
+    - crossborderxpress.com
+    - data.cloudera.com
+    - dataqbs.com
+    - deals.aliexpress.com
+    - deel.support
+    - docusign.net
+    - doctoralia.com
+    - dbtlabs.com
+    - e.pearson.com
+    - e.royaltonresorts.com
+    - e-solutionsinc.com
+    - email.bbva.mx
+    - email.meetup.com
+    - email.microsoft.com
+    - email.storytel.com
+    - email.clicktopay.visa.com
+    - emailbanamex.com
+    - emails.ticketmaster.com.mx
+    - epam.com
+    - express.medallia.com
+    - facturadorelectronico.com
+    - fans.formula1.com
+    - f1lasvegasgp.com
+    - gbm.com
+    - gbm.com.mx
+    - georgiait.com
+    - getdbt.com
+    - github.com
+    - glassdoor.com
+    - globalapplications.com
+    - gobravo.mx
+    - google.com
+    - googlemail.com
+    - hackerrankforwork.com
+    - hcl.com
+    - hcltech.com
+    - heybanco.com
+    - hola.banregio.com
+    - hola.hey.inc
+    - hotmail.com
+    - idukay.com
+    - imss.gob.mx
+    - inmuebles24.com
+    - insightglobal.com
+    - info.epson.com
+    - info.ticketmaster.com.mx
+    - infoemails.microsoft.com
+    - itransition.com
+    - joinbairesdev.com
+    - jm.indeed.com
+    - leetcode.com
+    - linkedin.com
+    - lollapalooza.com
+    - mail.formula1.com
+    - mail.gobravo.mx
+    - mail.innovasport.com
+    - mail.meetup.com # alias
+    - mailout.plex.tv
+    - marketing.descript.com
+    - match.indeed.com
+    - mc.ihg.com
+    - mercadolibre.com
+    - mercadopago.com
+    - microsoft.com
+    - microsoftonline.com
+    - microsoftstore.microsoft.com
+    - mural.com.mx
+    - mx.aeromexico.com
+    - mx.aeromexicorewards.com
+    - mx.didiglobal.com
+    - mx.bitcar.mx
+    - my.theladders.com
+    - nrfm.com.mx
+    - notifications.vivaaerobus.com
+    - occ.mx
+    - onedrive.com
+    - openstageit.com
+    - opinioncinepolis.com
+    - outlier.ai
+    - paypal.com.mx
+    - payoneer.com
+    - perficient.com
+    - pitchparkevents.com
+    - profuturo.com.mx
+    - proxyvote.com
+    - quadranttechnologies.com
+    - reforma.com
+    - reply.snowflake.com
+    - r.mercadopago.com
+    - samsung-mail.com
+    - sat.gob.mx
+    - scotiabank.mx
+    - service.storytel.com
+    - servicioscinepolis.com.mx
+    - servicios.sorteostec.mx
+    - sivale.com.mx
+    - snowflake.com
+    - snowflake.net
+    - softtek.net
+    - sonata-software.com
+    - streamingbilling.disney.com
+    - stripe.com
+    - successfactors.com
+    - successfactors.eu
+    - techmahindra.com
+    - televia.mx
+    - tipmexico.com
+    - tm.openai.com
+    - tredence.com
+    - trx.mail2.disneyplus.com
+    - tsa.dhs.gov
+    - tuexperiencia.citibanamex.com
+    - tx.occmundial.com.mx
+    - uber.com
+    - us.fieldglass.cloud.sap
+    - us.greenhouse-mail.io
+    - uala.mx
+    - vbeyond.com
+    - verify.payoneer.com
+    - vivaaerobus.com
+    - welcome.americanexpress.com
+    - whotels.com
+    - nvio.mx
+    - somoswim.com
+    - indux.com
+    - notification-2.bybit.com
+    - send001.mail.bitget.com
+    - send011.mail.bitget.com
+
+  # Clean / Sus (marketing o contenido variable)
+  clean_or_spam:
+    - newsletter.vivaaerobus.com
+    - comunicaciones.doters.com
+    - promocinepolis.com
+    - servicios.sorteostec.mx
+    - email.flexjobs.com
+    - noreply12.jobs2web.com
+    - emails.roku.com
+    - transak.com
+    - x.com
+    - updates.freelancer.com
+    - vbeyond.com
+    - aliexpress.com
+
+  # Dominios sensibles financieros / e-commerce que pueden ser objetivo de phishing (mantener vigilancia)
+  clean_or_scam_sensitive:
+    - paypal.com.mx
+    - amazon.com.mx
+    - banamex.com
+    - citibanamex.com
+    - bbva.mx
+    - payoneer.com
+    - scotiabank.mx
+    - stripe.com
+    - mercadopago.com
+
+  # Sospechosos o poco conocidos (Sus / Unknown)
+  sus_or_unknown:
+    - flap.com.mx
+    - fastdolphin.com
+    - pixie-services.com
+    - republicachivas.fxp.mx
+    - republicachivas.mx
+    - tekleaders.com
+    - aptino.com
+    - ivedha.com
+    - kryptosltd.co.uk
+    - musicvibe.mx
+    - ifit-solutions.com
+    - welland.hk
+    - astralcoach.com
+    - blue.cloud
+    - bluealtair.com
+    - amaldate.com
+    - amaze-systems.com
+    - avanset.com
+    - quantumworldit.com
+    - redleosoft.com
+    - yash.com
+    - 4gds.net
+    - 7-eleven.com.mx
+    - 99minutos.com
+
+  # Sospechosos que también pueden terminar en Spam (patrones recurrentes)
+  sus_or_spam:
+    - pegasotecnologiacfdi.mx
+    - e.bitly.com
+
+
+rules:
+  url_shorteners:
+    - "cutt.ly"
+    - "bit.ly"
+    - "shorturl.at"
+    - "rebrand.ly"
+    - "tinyurl.com"
+    - "ow.ly"
+    - "is.gd"
+    - "t.co"
+    - "lnkd.in"
   suspicious_headers:
     - "spf=fail"
     - "dkim=fail"
@@ -110,61 +416,6 @@ rules:
     - "Received-SPF: neutral"
     - "Received-SPF: softfail"
     - "authentication-results: fail"
-    - "from unknown"
-    - "from untrusted"
-
-  # Dominios de marketing legítimos (permitidos para Clean si no disparan otras reglas)
-  credible_marketing_domains:
-    - "amazon.com"
-    - "mercadolibre.com"
-    - "mercadopago.com"
-    - "microsoft.com"
-    - "google.com"
-    - "netflix.com"
-    - "spotify.com"
-    - "adobe.com"
-
-  # Dominios que frecuentemente envían spam/promociones dudosas (eleva a Suspicious si coincide)
-  frequent_spam_domains:
-    - "info.news"
-    - "mailer.online"
-    - "clickmail.cc"
-    - "mail-track.io"
-
-  # Términos específicos de juegos de azar (refuerza Spam)
-  gambling_terms:
-    - "apuesta"
-    - "apuestas"
-    - "casino"
-    - "ruleta"
-    - "tragamonedas"
-    - "lotería"
-    - "loteria"
-    - "blackjack"
-
-  # Acortadores de URL comunes (pueden indicar ocultamiento -> Suspicious si junto a otros, Spam si solo)
-  url_shorteners:
-    - "bit.ly"
-    - "tinyurl.com"
-    - "t.co"
-    - "ow.ly"
-    - "is.gd"
-    - "cutt.ly"
-    - "shorturl.at"
-    - "rebrand.ly"
-    - "lnkd.in"
-    - "buff.ly"
-    - "shorte.st"
-
-  # Patrones de evasión (caracteres repetidos, unicode engañoso, prefijos alfanuméricos largos)
-  evasion_patterns:
-  - "\\u200b"          # zero-width space (escape for YAML)
-  - "---+"            # separadores exagerados
-  - "__+"             # guiones bajos exagerados
-  - "\\d{6,}"         # secuencia muy larga de dígitos
-  - "http://"         # forzar http sin https
-
-  # Indicadores genéricos de sospecha (phishing leve, ingeniería social suave)
   suspicious_markers:
     - "verifica ahora"
     - "confirma ahora"
@@ -177,184 +428,143 @@ rules:
     - "renovar suscripción"
     - "ha sido bloqueada"
     - "necesita verificación"
-
-  # Patrones adicionales para detección directa Scam (urgencia extrema + dinero, premios, facturas falsas, etc.)
-  scam_urgency_patterns:
-    - "has ganado"
-    - "ganaste"
-    - "click this link"  # inglés común en phishing mezclado
-    - "claim your prize"
-    - "pago pendiente"
-    - "suscripción expirada"
-    - "renovar ahora"
-    - "factura adjunta"
-    - "confirmar pago"
-    - "fee requerido"
-    - "verifica tu identidad"
-    - "reclama tu premio"
-
-  # Dominios sospechosos (frecuentes en spam/scam) adicionales
+  evasion_patterns:
+    - "\\u200b"
+    - "---+"
+    - "__+"
+    - "\\d{6,}"
+    - "http://"
+  urgency_patterns:
+    - "urgente"
+    - "atención inmediata"
+    - "último aviso"
+    - "última oportunidad"
+    - "expira"
+    - "vence hoy"
+    - "no responda"
+    - "accion requerida"
+  political_keywords:
+    - "ice"
+    - "doge"
+    - "trump"
+    - "winred.com"
+  phone_patterns:
+    - "\\+52\\s?\\d{2,3}[\\s-]?\\d{3}[\\s-]?\\d{4}"
+    - "\\b52\\d{10}\\b"
+    - "\\b0?1?\\s?\\d{2,3}[\\s-]?\\d{3}[\\s-]?\\d{4}\\b"
+  domain_overrides:
+    force_clean_domains:
+      - "dataqbs.com"
+      - "mail.dataqbs.com"
+      - "beehiiv"
+      - "mailchi.mp"
+      - "hubspotlinks"
+      - "ctrk.klclick"
+      - "email.meetup.com"
+      - "indeed.com"
+      - "idukay.com"
+      - "accounts.google.com"
+      - "heybanco.com"
+      - "nrfm.com.mx"
+      - "insightglobal.com"
+      - "match.indeed.com"
+      - "promocinepolis.com"
+      - "tipmexico.com"
+      - "mural.com.mx"
+      - "reply.snowflake.com"
+      - "vbeyond.com"
+      - "redditmail.com"
+      - "hggasesores.com"
+      - "dbtlabs.com"
+      - "onedrive.com"
+      - "hexaware.com"
+      - "mercadolibre.com"
+      - "mnyl.com.mx"
+      - "banregio.com"
+      - "occ.mx"
+      - "newsletter.vivaaerobus.com"
+      - "comunicaciones.doters.com"
+      - "mx.didiglobal.com"
+      - "inmuebles24.com"
+      - "servicios.sorteostec.mx"
+    treat_fedex_shortener_as_clean: true
+    force_spam_domains:
+      - "citibanamex.com"
+      - "mx.didiglobal.com"
+      - "promocinepolis.com"
+      - "email.storytel.com"
+      - "asdeporte.com"
+      - "account.pinterest.com"
+      - "comunicaciones.doters.com"
   suspicious_domains:
     - "fzwmodel.com"
     - "mgjpanel.org"
     - "portierassociates"
     - "ctrk.klclick"
-    - "beehiiv"
-    - "hubspotlinks"
-    - "mailchi.mp"
-
-  # Palabras que elevan a Sus cuando aparecen con gambling/contexto parcial
-  gambling_soft_terms:
-    - "freespins"
-    - "spins"
-    - "lucky day"
-    - "jackpot"
-
-  # Marcas objetivo para detectar combinación local-part numérica + dominio marca => posible scam
-  brand_domains_scam_combo:
-    - "amazon"
-    - "linkedin"
-    - "apple"
-    - "netflix"
-    - "paypal"
-    - "bbva"
-    - "santander"
-    - "hsbc"
-    - "microsoft"
-    - "google"
-    - "costco"
-    - "disney"
-    - "hulu"
-
-  # Palabras que indican USPS / gobierno + shortener => escalar a scam
-  gov_postal_indicators:
-    - "usps"
-    - "irs"
-    - "gobierno"
-    - "aduana"
-    - "multas"
-    - "tránsito"
-    - "trafico"
-    - "dmv"
-
-  clean_senders_whitelist_domains:
+  credible_marketing_domains:
     - "amazon.com"
     - "mercadolibre.com"
     - "mercadopago.com"
-    - "banamex.com"
-    - "bbva.com"
-    - "santander.com.mx"
-    - "hsbc.com.mx"
-    - "banorte.com"
-    - "scotiabank.com.mx"
-    - "banregio.com"
-    - "bancoppel.com"
-    - "bancoazteca.com.mx"
-    - "afirme.com"
-    - "cibanco.com"
-    - "multiva.com.mx"
-    - "banbajio.com"
-    - "inbursa.com"
-    - "nu.com.mx"
-    - "stp.mx"
-    - "citibanamex.com"
-    - "bbva.com.mx"
     - "microsoft.com"
     - "google.com"
-    - "github.com"
-    - "paypal.com"
-    - "apple.com"
-    - "outlook.com"
-    - "gmail.com"
-    - "protonmail.com"
-    - "yahoo.com"
-    - "paypal.com.mx"
-  # Crypto exchanges (MX presence / global)
-    - "bitso.com"
-    - "binance.com"
-    - "coinbase.com"
-    - "kraken.com"
-    - "ripio.com"
-    - "bitstamp.net"
-    - "okx.com"
-    - "bybit.com"
-    - "gemini.com"
-    - "mexo.com"
-    # Telecom & ISPs Mexico
-    - "telmex.com"
-    - "telcel.com"
-    - "izzi.mx"
-    - "totalplay.com.mx"
-    - "megacable.com.mx"
-    - "movistar.com.mx"
-    - "att.com"
-    - "att.com.mx"
-    - "america-movil.com"
-    - "altanredes.com"
-    # Network / infra vendors (legitimate service notifications)
-    - "cloudflare.com"
-    - "akamai.com"
-    - "cisco.com"
-    - "juniper.net"
-    - "huawei.com"
-    - "nokia.com"
-    - "arista.com"
-    - "fortinet.com"
-    - "paloaltonetworks.com"
+    - "netflix.com"
+    - "spotify.com"
+    - "adobe.com"
+  scam_keywords:
+    - "has ganado"
+    - "ganaste"
+    - "premio"
+    - "bitcoin"
+    - "suscripción ha expirado"
+    - "renovar suscripción"
+    - "factura"
+    - "pago pendiente"
+    - "verifica tu cuenta"
+    - "credenciales expiradas"
+    - "confirmar pago"
+    - "hackeado"
+  spam_keywords:
+    - "oferta"
+    - "promoción"
+    - "descuento"
+    - "marketing"
+    - "gana dinero"
+    - "trabajo desde casa"
+    - "multinivel"
+    - "promo"
+    - "promocion"
+  gambling_terms:
+    - "casino"
+    - "apuesta"
+    - "apuestas"
+    - "freespins"
+    - "spin"
+    - "ruleta"
+    - "jackpot"
+  frequent_spam_domains:
+    - "fzwmodel.com"
+    - "mgjpanel.org"
+    - "portierassociates"
+    - "ctrk.klclick"
+    - "destinycreditcard"
+  # Duplicado temporal de umbrales (legacy fallback)
+  min_body_chars_for_real_mail: 40
+  min_subject_chars: 3
 
-  # Ajuste: permitir correos transaccionales cortos (OTP, confirmaciones)
-  min_body_chars_for_real_mail: 40    # antes 60
-  min_subject_chars: 3                # menos de 3 casi siempre es ruido
-
-
-"# Nombres de categorías válidas": null
-categories: ["Scam", "Sus", "Spam", "Clean", "Unknown"]
-
-"# Cuentas a procesar (usan variables del .env)": null
-accounts:
-  - name: "Gmail_cacp18"
-    enabled: true
-    provider: "gmail"
-    user_env: "GMAIL1_USER"
-    pass_env: "GMAIL1_PASS"
-    imap_server: "imap.gmail.com"
-    port: 993
-
-  - name: "Hotmail_cacp18"
-    enabled: false
-    provider: "hotmail"
-    user_env: "HOTMAIL_USER"
-    pass_env: "HOTMAIL_PASS"
-    imap_server: "outlook.office365.com"
-    port: 993
-
-  - name: "Gmail_dataqbs"
-    enabled: true
-    provider: "gmail"
-    user_env: "GMAIL2_USER"
-    pass_env: "GMAIL2_PASS"
-    imap_server: "imap.gmail.com"
-    port: 993
-
-"# Convención de nombre {email}_{Category}_{Correlativo}_{REGION}.eml": null
-naming:
-  pattern: "{email}_{category}_{index}_{region}.eml"
-  zero_pad_width: 4   # padding para orden léxico estable
-
-"# Pre-check: profundidades y muestra": null
-precheck:
-  max_list_per_folder: 10   # muestra de conteo por carpeta
-  log_headers_sample: false  # true para ver headers en precheck
-
-"# Reporte": null
-report:
-  create_json: true
-  create_txt: true
-  filename_json: "validation_report.json"
-  filename_txt: "validation_report.txt"
-
-"# Detección de idioma (rechazar si no coincide)": null
-language_validation:
-  enabled: true
-  accept_if_empty_body: false  # reforzamos pureza: cuerpos vacíos se rechazan
-  threshold_percent_es: 0.70   # umbral más estricto para español
+exclusions:
+  blacklist:
+    - pattern: "service@paypal.com.mx"
+      subject_contains: ["receipt", "Receipt","Payment","payment","pago","comprobante","recibo"]
+      reason: "personal_paypal_receipt"
+    - pattern: "service@paypal.com"
+      subject_contains: ["receipt","payment","pago","comprobante"]
+      reason: "personal_paypal_receipt"
+    - pattern: "member@paypal.com"
+      subject_contains: ["receipt","payment","pago","comprobante"]
+      reason: "personal_paypal_receipt"
+    - pattern: "@paypal.com"
+      subject_contains: ["receipt","payment","pago","comprobante","recibo","actividad de tu cuenta","alerta"]
+      reason: "personal_paypal_general"
+    - pattern: "families-noreply@google.com"
+      subject_contains: ["nuevo"]
+      reason: "personal_notification"
