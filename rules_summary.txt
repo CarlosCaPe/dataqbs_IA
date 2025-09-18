@@ -1,0 +1,82 @@
+Resumen de reglas y lógica de clasificación (versión pulida)
+============================================================
+
+Categorias: Scam | Sus | Spam | Clean | Unknown
+
+1. Hard Rules (Prioridad Alta)
+--------------------------------
+Scam si se cumple cualquiera:
+  - scam_keywords>=2 AND url_shorteners>=1
+  - urgency_patterns>=1 AND suspicious_headers>=1
+  - evasion_patterns>=1 AND url_shorteners>=1
+  - phone_patterns>=1 AND scam_keywords>=1
+
+Spam si:
+  - gambling_terms>=1
+  - frequent_spam_domains>=1 AND url_shorteners>=1
+
+Clean si:
+  - newsletter>=1
+  - transactional_short_allowlist matched
+  - reputable_marketing_safe>=1
+  - political_keywords>=1
+  - fedex_shortener_combo>=1
+
+2. Overrides
+------------
+force_clean_domains: dataqbs.com, mail.dataqbs.com, beehiiv, mailchi.mp, hubspotlinks, ctrk.klclick
+Si dominio remitente ∈ force_clean_domains => Clean (salvo hard scam previo).
+
+3. Scoring
+----------
+Pesos (positivos suman riesgo, negativos bonifican limpieza):
+  scam_keyword=4, spam_keyword=2, gambling_term=2, url_shortener=2,
+  suspicious_header=2, suspicious_marker=1, evasion_pattern=2,
+  suspicious_domain=2, frequent_spam_domain=2,
+  urgency_pattern=1, phone_pattern=2,
+  reputable_domain_clean_bonus=-2, transactional_allow_bonus=-3
+
+Thresholds:
+  score>=7 => Scam (si no disparó hard rule)
+  score>=4 => Sus
+  score>=2 => Spam
+
+Bonos:
+  Newsletter legítimo => -2
+  Transaccional corto confiable => -3
+
+4. Señales Sintéticas
+---------------------
+newsletter: dominio reputado + marcador de asunto.
+transactional_short_allowlist matched: dominio confiable + body corto + asunto con patrón.
+reputable_marketing_safe: dominio reputado sin keywords spam/scam ni shorteners.
+political_keywords: contiene tokens políticos (ice, doge, trump, winred.com) => Clean.
+fedex_shortener_combo: contiene 'fedex' + shortener y bandera treat_fedex_shortener_as_clean=true => Clean.
+
+5. Fallbacks
+------------
+Si no se alcanza ningún threshold/clean directo:
+  - scam_keyword_count==1 OR suspicious_marker_count==1 OR url_shortener_count==1 => Sus
+  - spam_keyword_count==1 OR frequent_spam_domain_count==1 OR evasion_pattern_count==1 => Spam
+  - gambling_terms>0 => Sus
+  - frequent_spam_domain>0 => Spam
+  - credible_marketing_domain => Clean
+  - else => Unknown
+
+6. Phone Patterns (MX)
+----------------------
+Se detectan variantes: +52 55 1234 5678, 521234567890, 01 55 1234 5678, etc.
+
+7. Buenas Prácticas Ajustes Futuro
+----------------------------------
+- Ajustar to_sus / to_spam si Unknown >15% sostenido.
+- Limitar force_clean_domains si se filtra spam masivo.
+- Añadir conteo de links y ratio para degradar newsletters saturadas de shorteners.
+- Implementar métrica domain_age (si WHOIS <100d => +1 riesgo) en futura versión.
+
+8. Métricas Sugeridas (Pendientes)
+----------------------------------
+- attachments_flag (correo vacío + adjunto podría ser mayor riesgo).
+- html_obfuscated (detectar entidades unicode mixtas).
+
+Fin del resumen.

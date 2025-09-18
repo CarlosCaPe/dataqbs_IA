@@ -26,7 +26,9 @@
 			"label": "EasyBrokers: Install deps",
 			"type": "shell",
 			"command": "poetry install",
-			"options": { "cwd": "${workspaceFolder}/easybrokers" },
+			"options": {
+				"cwd": "${workspaceFolder}/easybrokers"
+			},
 			"args": [],
 			"group": "build"
 		},
@@ -34,7 +36,9 @@
 			"label": "EasyBrokers: Run test_download.py",
 			"type": "shell",
 			"command": "poetry run python test_download.py",
-			"options": { "cwd": "${workspaceFolder}/easybrokers" },
+			"options": {
+				"cwd": "${workspaceFolder}/easybrokers"
+			},
 			"args": [],
 			"group": "build"
 		}

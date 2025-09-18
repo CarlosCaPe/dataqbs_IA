@@ -1,12 +1,16 @@
 {
-  "folders": [
-    { "path": "." },
-    { "path": "easybrokers" }
-  ],
-  "settings": {
-    // Default to Python in this repo; per-folder overrides can be added in .vscode
-    "python.analysis.autoImportCompletions": true,
-    "python.defaultInterpreterPath": "python",
-    "python.terminal.activateEnvironment": true
-  }
+    "folders": [
+        {
+            "path": "."
+        },
+        {
+            "path": "easybrokers"
+        }
+    ],
+    "settings": {
+        // Default to Python in this repo; per-folder overrides can be added in .vscode
+        "python.analysis.autoImportCompletions": true,
+        "python.defaultInterpreterPath": "python",
+        "python.terminal.activateEnvironment": true
+    }
 }

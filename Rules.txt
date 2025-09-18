@@ -1,0 +1,79 @@
+Eres mi asistente experto en Python/PowerShell. Necesito que conviertas los siguientes criterios de clasificación de correos en reglas utilizables dentro de un archivo de configuración (YAML o JSON) y funciones de clasificación en código.
+
+### Objetivo
+Cada correo debe etiquetarse con **una sola** de estas cinco categorías:
+- `scam` → correos maliciosos que intentan engañar, robar dinero o instalar software (phishing, facturas falsas, premios falsos, suscripciones vencidas, etc.).
+- `sus` → sospechosos de ser scam, pero con elementos legítimos o incompletos. Necesitan revisión adicional.
+- `spam` → correos no solicitados de marketing o propuestas de negocio dudosas (multinivel, seguros, “gana dinero rápido”, etc.). No necesariamente roban dinero directamente.
+- `clean` → correos legítimos y esperados (newsletters de dominios confiables, notificaciones de servicios conocidos).
+- `unknown` → no encajan en ninguna categoría anterior, deberían ser raros.
+
+### Reglas específicas
+- Si asunto contiene “Newsletter” + remitente es confiable (ej. Yahoo newsfeed, Hubspot, Mailchimp, Beehiiv) → `clean`.
+- Dominios con números extraños en la dirección (ej. 5436547654@amazon.com) → `scam`.
+- Dominios repetidamente marcados como spammers (ej. fzwmodel.com, mgjpanel.org, portierassociates, Destiny credit card) → `spam`.
+- Emails tipo “You have won” o con premios exagerados → `scam`.
+- Cuerpos vacíos o muy cortos sin adjunto → `unknown`.
+- Correos de préstamos, grants, IRS/gobierno con URL shorteners → `scam`.
+- URLs que usan acortadores (cutt.ly, bit.ly, shorturl.at, rebrand.ly, tinyurl, ow.ly, is.gd, t.co, lnkd.in) + contenido dudoso → `scam` o `spam` según contexto.
+- Gambling (FreeSpins, GBP £, apuestas, casinos) → `sus`.
+- Marketing de dominio no creíble + claims falsos (“pierde 10kg en 4 días”) → `spam`.
+- Políticos (ICE, DOGE, Trump) → `clean`.
+- FedEx con shortener para encuestas → `clean`.
+- Emails OTP falsos (páginas vacías con solo 4–5 cuadros de código) → `spam`.
+
+### Hints adicionales
+- Usa reglas duras: “has ganado”, “reclama tu premio”, “urgente”, “tu cuenta será bloqueada” → `scam`.
+- Usa listas de dominios confiables (google.com, microsoft.com, amazon.com, spotify.com, netflix.com, paypal.com, bancos MX).
+- Considera edad del dominio: <100 días = más probable `scam`, >100 días = más probable `spam`.
+
+### Output esperado
+1. Un bloque de configuración YAML/JSON con listas de:
+   - Palabras clave (`scam_keywords`, `spam_keywords`, `sus_keywords`).
+   - Dominios confiables y no confiables.
+   - Shorteners y headers sospechosos.
+2. Un ejemplo de función de clasificación en Python que lea esas reglas y devuelva la etiqueta (`scam`, `sus`, `spam`, `clean`, `unknown`) para un email simulado (con subject, body, from, headers).
+
+domains:
+
+| Dominio                        | Empresa / Propietario                                            | Trusted            | Clasificación (según guías) | Justificación                                                       |
+| ------------------------------ | ---------------------------------------------------------------- | ------------------ | --------------------------- | ------------------------------------------------------------------- |
+| **email.meetup.com**           | Meetup (plataforma de eventos, propiedad de WeWork en el pasado) | ✅ Sí               | **Clean / Spam**            | Legitimate newsletters, but puede caer como spam si no se solicitó. |
+| **indeed.com**                 | Indeed (portal de empleo global)                                 | ✅ Sí               | **Clean**                   | Comunicaciones esperadas de ofertas laborales.                      |
+| **paypal.com.mx**              | PayPal México                                                    | ✅ Sí               | **Clean**                   | Pagos legítimos; solo phishing sería scam.                          |
+| **google.com**                 | Google                                                           | ✅ Sí               | **Clean**                   | Dominio corporativo real.                                           |
+| **linkedin.com**               | LinkedIn (Microsoft)                                             | ✅ Sí               | **Clean**                   | Legit communication.                                                |
+| **newsletter.vivaaerobus.com** | VivaAerobus (aerolínea mexicana)                                 | ✅ Sí               | **Clean / Spam**            | Marketing legítimo, pero puede caer en spam.                        |
+| **idukay.com**                 | Idukay (plataforma educativa)                                    | ✅ Sí               | **Clean**                   | Empresa de edtech legítima.                                         |
+| **banamex.com**                | Citibanamex (Banco)                                              | ✅ Sí               | **Clean / Scam (si spoof)** | Banco real, pero usado en fraudes.                                  |
+| **accounts.google.com**        | Google Accounts                                                  | ✅ Sí               | **Clean**                   | Login/security notifications.                                       |
+| **citibanamex.com**            | Citibanamex                                                      | ✅ Sí               | **Clean / Scam (si spoof)** | Igual que banamex.com.                                              |
+| **amazon.com.mx**              | Amazon México                                                    | ✅ Sí               | **Clean / Scam (si spoof)** | Real; solo scam si spoof con números (ejemplo en guías).            |
+| **heybanco.com**               | Hey Banco (Banregio)                                             | ✅ Sí               | **Clean**                   | Banco legítimo en México.                                           |
+| **uber.com**                   | Uber                                                             | ✅ Sí               | **Clean**                   | Empresa real.                                                       |
+| **dataqbs.com**                | Consultoría (tu dominio)                                         | ✅ Sí               | **Clean**                   | Dominio legítimo corporativo.                                       |
+| **nrfm.com.mx**                | NRM Comunicaciones (radio)                                       | ✅ Sí               | **Clean**                   | Medio de comunicación real.                                         |
+| **insightglobal.com**          | Staffing / IT services                                           | ✅ Sí               | **Clean**                   | Empresa real.                                                       |
+| **match.indeed.com**           | Indeed job-matching                                              | ✅ Sí               | **Clean**                   | Subdominio legítimo.                                                |
+| **promocinepolis.com**         | Cinépolis promociones                                            | ✅ Sí               | **Clean**                   | Marketing legítimo.                                                 |
+| **comunicaciones.doters.com**  | Doters (programa de lealtad VivaAerobus + Hey Banco)             | ✅ Sí               | **Clean / Spam**            | Promos legítimas, pero marketing.                                   |
+| **tipmexico.com**              | TIP México (arrendamiento de transporte)                         | ✅ Sí               | **Clean**                   | Empresa mexicana real.                                              |
+| **mural.com.mx**               | Diario Mural (Grupo Reforma)                                     | ✅ Sí               | **Clean**                   | Medio de comunicación legítimo.                                     |
+| **reply.snowflake.com**        | Snowflake (plataforma de datos)                                  | ✅ Sí               | **Clean**                   | Correos legítimos de onboarding.                                    |
+| **vbeyond.com**                | VBeyond (recruiting & staffing)                                  | ✅ Sí               | **Clean**                   | Empresa real de reclutamiento.                                      |
+| **redditmail.com**             | Reddit notifications                                             | ✅ Sí               | **Clean**                   | Dominio legítimo de Reddit.                                         |
+| **hggasesores.com**            | HG Asesores (consultoría MX)                                     | ✅ Sí               | **Clean**                   | Empresa mexicana real.                                              |
+| **mx.didiglobal.com**          | Didi México                                                      | ✅ Sí               | **Clean / Spam**            | Comunicaciones de app real.                                         |
+| **bbva.mx**                    | BBVA México                                                      | ✅ Sí               | **Clean / Scam (si spoof)** | Banco real.                                                         |
+| **dbtlabs.com**                | dbt Labs (herramienta de datos)                                  | ✅ Sí               | **Clean**                   | Comunicaciones de software.                                         |
+| **onedrive.com**               | Microsoft Onedrive                                               | ✅ Sí               | **Clean**                   | Dominio real.                                                       |
+| **flap.com.mx**                | FLAP (posible fintech/logística)                                 | ⚠️ Poco conocido   | **Sus/Unknown**             | Requiere validación, no ampliamente reconocido.                     |
+| **inmuebles24.com**            | Portal inmobiliario MX                                           | ✅ Sí               | **Clean / Spam**            | Marketing legítimo.                                                 |
+| **banregio.com**               | Banregio (Banco MX)                                              | ✅ Sí               | **Clean**                   | Banco real.                                                         |
+| **occ.mx**                     | OCC Mundial (empleos MX)                                         | ✅ Sí               | **Clean**                   | Portal de empleos legítimo.                                         |
+| **pegasotecnologiacfdi.mx**    | Facturación CFDI                                                 | ⚠️ Poco reconocido | **Sus/Spam**                | Puede ser facturación legítima, pero dudoso uso masivo.             |
+| **hexaware.com**               | Hexaware (consultoría IT global)                                 | ✅ Sí               | **Clean**                   | Empresa real.                                                       |
+| **mercadolibre.com**           | Mercado Libre                                                    | ✅ Sí               | **Clean**                   | Plataforma real.                                                    |
+| **mnyl.com.mx**                | MetLife México (antes MetLife NYL)                               | ✅ Sí               | **Clean**                   | Aseguradora real.                                                   |
+| **servicios.sorteostec.mx**    | Sorteos Tec de Monterrey                                         | ✅ Sí               | **Clean / Spam**            | Marketing legítimo.                                                 |
+

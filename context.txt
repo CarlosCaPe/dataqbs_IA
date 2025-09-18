@@ -1,0 +1,241 @@
+Type of Emails
+Each email should be evaluated and have only one of the following five labels associated with it:
+
+Label
+Definition
+scam
+A scam email is trying to trick the user into clicking a link or responding to the message via email or phone, and the end goal is to extract money from the victim or install malicious software, typically by some threat or urgency. Scam emails generally cyberbully or threaten the victim into behavior they would not normally engage in. There is no possible legitimate use for email.
+
+Scams are unsolicited messages with manipulative tactics designed to
+deceive the recipient and induce them to take action that benefits the sender
+at the expense of the recipient.
+sus
+The email is suspected of being a scam, but there are one or more scam elements missing. Or there appears to be one or more legitimate aspects to the email message content. The email cannot be marked as a scam conclusively, but the email does not appear to be clean, and it is not spam/junk.
+Suspected emails look like scams but need further verification. The message is potentially scam or could be clean after verification.
+spam
+A spam/junk email is an unsolicited email from a sender (emails about insurance plans, "get rich quick" job proposals, multilevel marketing companies, etc.). A spam email, in general, is not necessarily about extracting money directly from the receiver. Something that is spam to one user may be an expected email for another. Spam occupies the space between scam
+and clean.
+clean
+A clean email is an expected communication from a sender (newsletters, weekly updates, marketing from legitimate companies). This may be considered spam by some users and clean by others. In no scenario is a
+scam email also clean.
+
+
+unknown
+Any email that is not a scam, not suspected of being a scam, not spam, and not clean should be marked as unknown. Ideally, this label should be rarely
+used.
+
+
+Labeling Tips
+
+
+Details
+Label
+Rationale
+When you see “Newsletter” in the subject, check the domain name to see if it’s from a reputable source (e.g.,
+Yahoo newsfeed).
+clean
+Look at who the sender is because in most cases people have signed up to receive the newsletter so it’s not spam if you’ve asked for it.
+https:://Welcome.to
+scam
+The period (‘.’ character) between the “Welcome” & “to” does not make sense so we view this as an evasion tactic. Classify evasion
+tactics as scam.
+Marketing emails from a credible domain. Examples:
+hubspotlinks
+ctrk.klclick
+beehiiv
+msdn40
+mailchi.mp
+clean
+Cannot tell what users have signed up for.
+Marketing email from a
+non-credible domain.
+spam
+Spam if the Marketing source is not credible.
+Marketing email with a fictitious claim, e.g., “lose 10lbs in 4 days with Ozempic”
+or “you’ve signed up for…”
+spam
+Fictitious claims are not credible Marketing material.
+
+
+5436547654@amazon.com
+or @linkedin.com, etc.
+scam
+The numbers are an evasion tactic, and
+evasion tactics are classified as scams.
+Destiny credit card
+mgjpanel.org
+fzwmodel.com
+Renewal by Andersen
+spam
+Noting these domains as frequent spammers.
+Portierassociates
+spam
+Noting this as a frequent source of spam.
+“You have won” emails
+scam
+It is not likely that you have won xyz and the sender is looking for you to click a link so they
+can get your details and potentially scam you.
+Blank fields that do not
+appear to be attachments.
+unknown
+You do not have enough information available
+to you to determine the classification.
+
+Other Hints & Tips:
+If you’re unsure about a specific domain and believe it could be scam, check how old the domain name is Domain Name Age Checker - Check how old any domain is. If the domain name is less than 100 days old, it’s more likely to be scam & over 100 days old is likely to be spam.
+If you see “Report Spam” in the email body please ignore these words and just assess the
+rest of the data. This does not necessarily mean this is spam.
+
+
+Scam Labeling Rules/Hints
+The following should all be labeled as scam:
+
+Grants – all kinds
+URLs that redirect to search engine home pages (e.g., Google, Bing, etc.) and social media (e.g., YouTube, TikTok), with content that has no relation to message
+Loan/Lender offers
+USPS messages with URL shorteners
+Government/IRS messages with URL shorteners
+Modified messages with look-a-like characters
+Messages with too many non-printable characters
+URL shorteners that lead to Unverified WhatsApp numbers/chats/group invites
+Messages that appear to be from US state DMV (Department of Motor Vehicles) or similar messages about traffic tickets and fines
+Messages with “Apple Pay” and asking to call back with a phone number
+Amazon scams with call back phone number
+Coinbase scams with phone number other than +1 (888) 908-7930
+AI videos and talking about finance
+Real Estate Scams: https://www.mcafee.com/learn/real-estate-scams/
+Scammy keywords to look for in real estate messages: Free, $$$, Open Now, Claim your prize, Don’t Delete, Contact us immediately, Payment failed, Not spam, Attention
+
+Sus Labeling Rules/Hints
+The following should all be labeled as sus (suspected of being a scam):
+
+Gambling
+Most appear to be coming with currency in GBP, £
+Messages with FreeSpins, Spins, etc.
+URLs that redirect to car insurance policies
+AI videos and talking about diet/o-farming (oil farming)
+
+
+Spam Labeling Rules/Hints
+The following should all be labeled as spam:
+
+Messages with URLs that lead to pages that seem to be sending OTP (one time passcode) verification code to customers for validating login to a service. Page seems almost empty, with just 4-5 empty boxes to input OTP code. No credible info on the page or on the main domain.
+
+
+Clean Labeling Rules/Hints
+The following should all be labeled as clean:
+
+All political messages: ICE, DOGE, Trump, etc.
+URLs that lead to winred.com
+FedEx messages with URL shorteners for surveys
+US Mega Lotto
+All messages not covered under any other items under scam, sus, and clean. In other words, all general, regular everyday messages.
+
+
+URL Shorteners
+Most frequently used URL shorteners:
+
+cutt.ly
+bit.ly
+shorturl.at
+rebrand.ly
+
+
+
+
+
+
+
+
+Additional Scam Email Definition With Examples
+
+The following details on scam, spam/junk, and clean emails should be considered supplemental to further refine the distinction between these labels, and to highlight examples of some of the different types of scam emails.
+
+There are many ways to define scam, spam/junk, and clean. For our purposes, this is how we think of scam, spam/junk, and clean.
+Scam
+A scam email is trying to trick the user into clicking a link or responding to the message via email or phone, and the end goal is to extract money from the victim or install malicious software, typically by some threat or urgency. Scam emails generally cyberbully or threaten the victim into behavior they would not normally engage in. There is no possible legitimate use for the email.
+
+Here are examples of what a scam email may try to do:
+
+Solicit bitcoin with the threat of fake incriminating details to be leaked
+Inform you a subscription has expired for a service you may or may not even have
+Claim to have hacked your computer
+Provide an "invoice" for services you paid while posing as a financial institution
+Offer or claim something too good to be true
+Present an unrealistic premise
+Spoof account or software messaging (phishing, renew your product, need your action, etc.)
+Spoof products or brand misuse
+Demand a fee for otherwise freely available or cheaply available services (postage stamps, passport renewal, etc.)
+Present scam charity or fund contributions Other examples:
+Phishing emails
+Smishing messages
+SpearPhishing messages
+Credential stuffing messages
+
+Scams will almost always include a link to click or a phone number to call. They may also include a real link to appear legitimate, but associated with a scam phone number.
+
+Scams come in all shapes and sizes, but if you examine the Spam/Junk folder in your favorite email provider, you’ll likely notice some patterns. Such as almost identical emails that claim “Your {Netflix/Costco/AAA/Hulu/Disney+} Subscription has Expired” with only the name/logo changed.
+
+Invoice Scam: Generates a sense of urgency or scare tactics on the payment… “deducted automatically” and “unlawful transaction”.
+
+Delivery Scam: Your package did not arrive. Includes a link that is a short URL that redirects to an attacker’s web page. The links are typically very short lived. From address is not USPS.
+Reply-To is not the USPS. Otherwise, it sort of feels legitimate - especially if you have a package you’re expecting.
+
+Tax Scam: Uses a random email address with the “Tax IRS gov” as the name. The “Claim My Payment” may use URL shorteners to redirect to the scammer’s page.
+
+Subscription Scam: Scare you into thinking a service you really like has expired or been cancelled. Goal is to get you to click on the link.
+
+Lottery or Reward Scam: Generate urgency to entice the user to click a link. For example: “Click this link! $$$ For Free for You!!! “
+
+IT Scam: This one is something along the lines of “your credentials have expired”. It asks you to click a link to verify your identity or login to your account (which is a link to a very believable looking replica of the real site).
+
+Fake Job Offer Scams: Example: “Click here for a ‘work from home & make $400,000 a year’ job.”
+
+
+Spam/Junk
+A spam/junk email is an unsolicited email from a sender (emails about insurance plans, "get rich quick" job proposals, multilevel marketing companies, etc.). A spam email, in general, is not necessarily about extracting money directly from the receiver. Something that is spam to one user may be an expected email for another. Spam occupies the space between scam and clean.
+Clean
+A clean email is an expected communication from a sender (newsletters, weekly updates, marketing from legitimate companies). This may be considered spam by some users and clean by others. In no scenario is a scam email also clean.
+
+
+
+
+
+
+
+
+
+
+
+How to download an email:
+Create EML format
+	
+Click the three dots on the email you want to download
+Then click on the download message
+
+
+
+
+
+
+
+How should I name my email?
+
+
+
+After download, save it with the following format: (“youremail”+ Label Type + Correlative number + Language)
+If it is a clean email (“youremail”_Clean_1_Language.EML)
+If it is a Scam email (“youremail”_Scam_1_Language.EML)
+
+
+Examples:
+youremail_LabelType_Correlative_ES_Other.EML
+
+
+youremail_LabelType_Correlative_JP.EML - For Japanese Only. 
+roberto@gmail.com_Spam_01_JP.EML
+miranda@gmail.com_Spam_01_JP.EML
+roberto@gmail.com_Spam_02_JP.EML
+roberto@gmail.com_Sus_01_JP.EML
+
+
