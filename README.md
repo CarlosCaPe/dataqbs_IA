@@ -80,3 +80,18 @@ También puedes usar tareas y configuraciones de VS Code:
 	- EasyBrokers: image_downloader.py
 
 Sugerencia: abre el archivo `dataqbs_IA.code-workspace` para ver ambos proyectos como carpetas del mismo workspace.
+
+### Autenticación OAuth para Hotmail/Outlook
+
+Si el login IMAP básico falla en Hotmail/Outlook, el proyecto soporta fallback a OAuth (XOAUTH2) usando MSAL (device code flow):
+
+1. Registra una app en Entra ID (Azure AD) como Public client/native.
+2. Copia el Application (client) ID en tu `.env` como `MSAL_CLIENT_ID`.
+3. Agrega el permiso API `IMAP.AccessAsUser.All` (URI: `https://outlook.office.com/IMAP.AccessAsUser.All`) y concédelo.
+4. Opcional: `MSAL_TENANT=consumers` (cuentas personales) o `common`/tu tenant.
+5. En `.env` define:
+	- `HOTMAIL_AUTH=oauth` (o `auto` para intentar basic y luego OAuth)
+	- `HOTMAIL_USER=tu_correo@hotmail.com`
+	- (Con OAuth, `HOTMAIL_PASS` es opcional.)
+
+En el primer uso se mostrará un mensaje con URL y código para autorizar. El token se cachea en `~/.email_collector/msal_hotmail_token.json`.

@@ -8,21 +8,21 @@ accounts:
     pass_env: GMAIL1_PASS
     imap_server: imap.gmail.com
     port: 993
-    enabled: true
+    enabled: false
   - name: Gmail_dataqbs
     provider: gmail
     user_env: GMAIL2_USER
     pass_env: GMAIL2_PASS
     imap_server: imap.gmail.com
     port: 993
-    enabled: true
+    enabled: false
   - name: Hotmail_main
     provider: hotmail
     user_env: HOTMAIL_USER
     pass_env: HOTMAIL_PASS
-    imap_server: outlook.office365.com
+    imap_server: imap-mail.outlook.com
     port: 993
-    enabled: false  # desactivado temporalmente
+    enabled: true
 
 max_age_days: 365
 purge_saved_older_than_days: 365

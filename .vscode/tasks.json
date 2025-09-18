@@ -11,16 +11,20 @@
 		{
 			"label": "Precheck run",
 			"type": "shell",
-			"command": "poetry run email-collect --precheck -v",
-			"options": { "cwd": "${workspaceFolder}/email_collector" },
+			"command": "poetry run email-collect --precheck -v --config ..\\config.yaml",
+			"options": {
+				"cwd": "${workspaceFolder}/email_collector"
+			},
 			"args": [],
 			"group": "build"
 		},
 		{
 			"label": "Email Collector: Full run",
 			"type": "shell",
-			"command": "poetry run email-collect -v",
-			"options": { "cwd": "${workspaceFolder}/email_collector" },
+			"command": "poetry run email-collect -v --config ..\\config.yaml",
+			"options": {
+				"cwd": "${workspaceFolder}/email_collector"
+			},
 			"args": [],
 			"group": "build"
 		},
