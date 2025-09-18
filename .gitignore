@@ -21,5 +21,18 @@ collector_tmp/
 dist/
 build/
 
-# VS Code
-.vscode/
+# VS Code (track only workspace configs)
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# Media (ignore JPEGs/JPGs)
+*.jpg
+*.JPG
+*.jpeg
+*.JPEG
+
+# Easybrokers images (explicit path)
+easybrokers/properties/images/
