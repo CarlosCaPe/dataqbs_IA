@@ -1,6 +1,9 @@
-# dataqbs_IA / email_collector
+# dataqbs_IA
 
-Colección y clasificación de correos IMAP con exportación .eml.
+Este repositorio ahora contiene dos proyectos de Python bajo la misma carpeta:
+
+- email_collector: Colección y clasificación de correos IMAP con exportación .eml.
+- easybrokers: Utilidades y scripts para manejar datos de EasyBrokers.
 
 ## Configuración de entorno
 
@@ -25,9 +28,9 @@ GMAIL2_PASS=APP_PASSWORD_GMAIL_DATAQBS
 
 2) Ajusta `config.yaml` para reglas de clasificación/validación. IMAP host/port/carpeta se pueden sobreescribir por variables de entorno `IMAP_HOST`, `IMAP_PORT`, `IMAP_FOLDER`.
 
-## Uso
+## Uso (email_collector)
 
-Con Poetry:
+Con Poetry en la raíz del repo:
 
 ```powershell
 poetry install
@@ -48,3 +51,32 @@ Resultados:
 ## Notas
 - Gmail requiere contraseña de aplicación si 2FA está habilitado.
 - Para Hotmail/Outlook se usa `outlook.office365.com` con IMAPS (993).
+
+---
+
+## Uso (easybrokers)
+
+Entra a la carpeta `easybrokers` y usa Poetry para instalar dependencias y ejecutar scripts:
+
+```powershell
+cd easybrokers
+poetry install
+poetry run python test_download.py
+```
+
+También puedes usar tareas y configuraciones de VS Code:
+
+- Tareas (Terminal > Run Task):
+	- Email Collector: Install deps
+	- Precheck run
+	- Email Collector: Full run
+	- EasyBrokers: Install deps
+	- EasyBrokers: Run test_download.py
+
+- Debug (Run and Debug):
+	- Email Collector (precheck)
+	- Email Collector (run)
+	- EasyBrokers: test_download.py
+	- EasyBrokers: image_downloader.py
+
+Sugerencia: abre el archivo `dataqbs_IA.code-workspace` para ver ambos proyectos como carpetas del mismo workspace.

@@ -1,0 +1,42 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Email Collector: Install deps",
+			"type": "shell",
+			"command": "poetry install",
+			"args": [],
+			"group": "build"
+		},
+		{
+			"label": "Precheck run",
+			"type": "shell",
+			"command": "poetry run email-collect --precheck -v",
+			"args": [],
+			"group": "build"
+		},
+		{
+			"label": "Email Collector: Full run",
+			"type": "shell",
+			"command": "poetry run email-collect -v",
+			"args": [],
+			"group": "build"
+		},
+		{
+			"label": "EasyBrokers: Install deps",
+			"type": "shell",
+			"command": "poetry install",
+			"options": { "cwd": "${workspaceFolder}/easybrokers" },
+			"args": [],
+			"group": "build"
+		},
+		{
+			"label": "EasyBrokers: Run test_download.py",
+			"type": "shell",
+			"command": "poetry run python test_download.py",
+			"options": { "cwd": "${workspaceFolder}/easybrokers" },
+			"args": [],
+			"group": "build"
+		}
+	]
+}

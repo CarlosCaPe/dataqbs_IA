@@ -1,0 +1,42 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Email Collector (precheck)",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/email_collector/main.py",
+      "console": "integratedTerminal",
+      "args": [
+        "--precheck",
+        "-v"
+      ]
+    },
+    {
+      "name": "EasyBrokers: test_download.py",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/easybrokers/test_download.py",
+      "cwd": "${workspaceFolder}/easybrokers",
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "EasyBrokers: image_downloader.py",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/easybrokers/image_downloader.py",
+      "cwd": "${workspaceFolder}/easybrokers",
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Email Collector (run)",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/email_collector/main.py",
+      "console": "integratedTerminal",
+      "args": [
+        "-v"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "easybrokers-tools"
+version = "0.1.0"
+description = "Utilities and scripts for EasyBrokers data handling"
+authors = ["Your Name <you@example.com>"]
+readme = "README.md"
+packages = [
+  # Treat everything under easybrokers/ as importable package(s) if needed
+  { include = "easybrokers", from = "." }
+]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+# Add your project-specific dependencies here, for example:
+# requests = "^2.32.0"
+# pandas = { version = "^2.2.0", extras = ["xlsx"] }
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
