@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Block staging of JPG/JPEG files
+blocked=$(git diff --cached --name-only --diff-filter=ACMR | grep -Ei '\.(jpg|jpeg)$' || true)
+if [ -n "$blocked" ]; then
+  echo "[ERROR] The following image files are not allowed to be committed:" >&2
+  echo "$blocked" >&2
+  echo "Remove them from the index (git rm --cached <file>) and try again." >&2
+  exit 1
+fi
+
+exit 0

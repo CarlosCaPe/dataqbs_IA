@@ -1,0 +1,20 @@
+name: Block JPG/JPEG files
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fail if any JPG/JPEG files are present
+        run: |
+          if git ls-files | grep -Ei '\\.(jpg|jpeg)$' >/dev/null; then
+            echo "JPG/JPEG files detected in repository. These are not allowed." >&2
+            git ls-files | grep -Ei '\\.(jpg|jpeg)$'
+            exit 1
+          fi

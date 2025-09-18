@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Read refs from stdin and check the push range for forbidden files
+while read -r local_ref local_sha remote_ref remote_sha; do
+  # When remote_sha is 0000.. it's a new branch; check all history reachable from local_sha
+  if [ "$remote_sha" = "0000000000000000000000000000000000000000" ]; then
+    range="$local_sha"
+  else
+    range="$remote_sha..$local_sha"
+  fi
+
+  if git diff --name-only "$range" | grep -Ei '\\.(jpg|jpeg)$' >/dev/null; then
+    echo "[ERROR] Push contains JPG/JPEG files, which are blocked. Aborting push." >&2
+    exit 1
+  fi
+done
+
+exit 0
