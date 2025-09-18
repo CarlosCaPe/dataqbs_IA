@@ -1,0 +1,30 @@
+{
+  "public_id": "EB-QO8488",
+  "title": "Casa en Renta Zona Bosques de Santa Anita",
+  "title_image_full": "https://assets.easybroker.com/property_images/4578488/76884293/EB-QO8488.jpeg?version=1719631440",
+  "title_image_thumb": "https://assets.easybroker.com/property_images/4578488/76884293/EB-QO8488.jpeg?version=1719631440&width=200",
+  "location": "Bosques Santa Anita, Tlajomulco de Zúñiga, Jalisco",
+  "operations": [
+    {
+      "type": "rental",
+      "amount": 15000.0,
+      "currency": "MXN",
+      "formatted_amount": "$15,000",
+      "commission": {
+        "type": "months",
+        "value": 1
+      },
+      "unit": "total"
+    }
+  ],
+  "bedrooms": 3,
+  "bathrooms": 2,
+  "parking_spaces": 2,
+  "property_type": "Casa",
+  "lot_size": 90.0,
+  "construction_size": 120.74,
+  "updated_at": "2025-05-12T12:09:04-06:00",
+  "agent": "Lic.Gabriela Martínez",
+  "show_prices": true,
+  "share_commission": false
+}

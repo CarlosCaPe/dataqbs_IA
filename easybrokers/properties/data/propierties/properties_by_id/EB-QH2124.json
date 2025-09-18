@@ -1,0 +1,30 @@
+﻿{
+    "public_id":  "EB-QH2124",
+    "title":  "Casa en venta en Providencia Montreal",
+    "title_image_full":  "https://assets.easybroker.com/property_images/4502124/75411024/EB-QH2124.jpeg?version=1716419799",
+    "title_image_thumb":  "https://assets.easybroker.com/property_images/4502124/75411024/EB-QH2124.jpeg?version=1716419799\u0026width=200",
+    "location":  "Providencia 1a Secc, Guadalajara, Jalisco",
+    "operations":  [
+                       {
+                           "type":  "sale",
+                           "amount":  13600000.0,
+                           "currency":  "MXN",
+                           "formatted_amount":  "$13,600,000",
+                           "commission":  {
+                                              "type":  "percentage",
+                                              "value":  "5.0"
+                                          },
+                           "unit":  "total"
+                       }
+                   ],
+    "bedrooms":  3,
+    "bathrooms":  4,
+    "parking_spaces":  2,
+    "property_type":  "Casa",
+    "lot_size":  249.8,
+    "construction_size":  162.0,
+    "updated_at":  "2025-05-12T12:09:04-06:00",
+    "agent":  "Lic.Gabriela Martínez",
+    "show_prices":  true,
+    "share_commission":  true
+}

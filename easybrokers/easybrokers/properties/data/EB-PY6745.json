@@ -1,0 +1,356 @@
+{
+  "public_id": "EB-PY6745",
+  "title": "Casa en venta Santa Anita",
+  "description": "Hermosa casa en Fraccionamiento Camichín de Santa Anita que consta de dos terrenos en una misma propiedad.\n\nPLANTA BAJA:\n•Cochera para 4 automóviles\n•Amplio recibidor\n•Medio baño\n•Cocina-desayunador \n•Área de lavado \n•Patio de servicio \n•Sala doble altura \n•Recámara con walking closet, baño completo y salida a terraza independiente \n• Jardín de 400 mts aprox \n•Terraza techada\n\nPLANTA ALTA: \n•Closet de blancos \n•Amplío distribuidor \n•Baño completo\n•Recámara secundaria con balcón \n•Segunda recámara con balcón a la calle con walking closet y baño completo\n\nEl fraccionamiento cuenta con:\n•Salón de usos múltiples\n•Terraza\n•Juegos infantiles\n•Alberca\n•Cancha de tenis \n\nAdemas, Camichín de Santa Anita cuenta con una ubicación privilegiada, paralela a Lopez Mateos Sur Justo entre Club de Golf Santa Anita y Plaza Galerias Santa Anita, lo que le da una ágil accesibilidad, con un ambiente tranquilo con calles empedradas pero a sólo metros de centros comerciales, escuelas de alto nivel, hospitales y todos los servicios que podrían requerirse.\n\nAgenda tu cita lo antes posible.",
+  "bedrooms": 3,
+  "bathrooms": 3,
+  "half_bathrooms": 1,
+  "parking_spaces": 4,
+  "lot_size": 755.86,
+  "construction_size": 301.87,
+  "lot_length": 37.79,
+  "lot_width": 20.0,
+  "floors": null,
+  "floor": null,
+  "age": 2008,
+  "internal_id": "APCAMICHIN",
+  "expenses": null,
+  "location": {
+    "name": "San Agustin, Tlajomulco de Zúñiga, Jalisco",
+    "latitude": 20.5596299,
+    "longitude": -103.4687784,
+    "street": "Enrique Limón Díaz",
+    "postal_code": "45645",
+    "show_exact_location": true,
+    "hide_exact_location": false,
+    "exterior_number": "210",
+    "interior_number": "44 y 43"
+  },
+  "property_type": "Casa",
+  "created_at": "2024-04-11T05:36:11-06:00",
+  "updated_at": "2025-05-12T12:09:04-06:00",
+  "published_at": "2024-04-11T05:41:04-06:00",
+  "operations": [
+    {
+      "type": "sale",
+      "amount": 9850000.0,
+      "currency": "MXN",
+      "formatted_amount": "$9,850,000",
+      "commission": {
+        "type": "percentage",
+        "value": "3.0"
+      },
+      "unit": "total"
+    }
+  ],
+  "property_files": [],
+  "videos": [],
+  "virtual_tour": null,
+  "collaboration_notes": "Compartimos el 50% de la comisión a inmobiliarias asociadas a AMPI, MIO, CAMARA DE COMERCIO o PAIS",
+  "public_url": "https://www.easybroker.com/mx/listings/casa-en-venta-santa-anita-san-agustin",
+  "shared_commission_percentage": null,
+  "exclusive": null,
+  "foreclosure": false,
+  "tags": [],
+  "private_description": null,
+  "show_prices": true,
+  "share_commission": true,
+  "property_images": [
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4416745/73773257/EB-PY6745.jpeg?version=1712835533"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4416745/73773258/EB-PY6745.jpeg?version=1712835534"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4416745/73773259/EB-PY6745.jpeg?version=1712835534"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4416745/73773260/EB-PY6745.jpeg?version=1712835535"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4416745/73773262/EB-PY6745.jpeg?version=1712835535"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4416745/73773261/EB-PY6745.jpeg?version=1712835535"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4416745/73773263/EB-PY6745.jpeg?version=1712835536"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4416745/73773264/EB-PY6745.jpeg?version=1712835536"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4416745/73773265/EB-PY6745.jpeg?version=1712835536"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4416745/73773266/EB-PY6745.jpeg?version=1712835537"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4416745/73773267/EB-PY6745.jpeg?version=1712835537"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4416745/73773269/EB-PY6745.jpeg?version=1712835538"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4416745/73773268/EB-PY6745.jpeg?version=1712835537"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4416745/73773274/EB-PY6745.jpeg?version=1712835539"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4416745/73773276/EB-PY6745.jpeg?version=1712835539"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4416745/73773278/EB-PY6745.jpeg?version=1712835540"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4416745/73773281/EB-PY6745.jpeg?version=1712835540"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4416745/73773282/EB-PY6745.jpeg?version=1712835540"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4416745/73773285/EB-PY6745.jpeg?version=1712835541"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4416745/73773287/EB-PY6745.jpeg?version=1712835541"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4416745/73773289/EB-PY6745.jpeg?version=1712835541"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4416745/73773293/EB-PY6745.jpeg?version=1712835542"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4416745/73773294/EB-PY6745.jpeg?version=1712835542"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4416745/73773297/EB-PY6745.jpeg?version=1712835543"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4416745/73773301/EB-PY6745.jpeg?version=1712835544"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4416745/73773303/EB-PY6745.jpeg?version=1712835545"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4416745/73773302/EB-PY6745.jpeg?version=1712835544"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4416745/73773300/EB-PY6745.jpeg?version=1712835544"
+    }
+  ],
+  "images": [
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4416745/73773257/EB-PY6745.jpeg?version=1712835533"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4416745/73773258/EB-PY6745.jpeg?version=1712835534"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4416745/73773259/EB-PY6745.jpeg?version=1712835534"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4416745/73773260/EB-PY6745.jpeg?version=1712835535"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4416745/73773262/EB-PY6745.jpeg?version=1712835535"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4416745/73773261/EB-PY6745.jpeg?version=1712835535"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4416745/73773263/EB-PY6745.jpeg?version=1712835536"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4416745/73773264/EB-PY6745.jpeg?version=1712835536"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4416745/73773265/EB-PY6745.jpeg?version=1712835536"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4416745/73773266/EB-PY6745.jpeg?version=1712835537"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4416745/73773267/EB-PY6745.jpeg?version=1712835537"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4416745/73773269/EB-PY6745.jpeg?version=1712835538"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4416745/73773268/EB-PY6745.jpeg?version=1712835537"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4416745/73773274/EB-PY6745.jpeg?version=1712835539"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4416745/73773276/EB-PY6745.jpeg?version=1712835539"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4416745/73773278/EB-PY6745.jpeg?version=1712835540"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4416745/73773281/EB-PY6745.jpeg?version=1712835540"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4416745/73773282/EB-PY6745.jpeg?version=1712835540"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4416745/73773285/EB-PY6745.jpeg?version=1712835541"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4416745/73773287/EB-PY6745.jpeg?version=1712835541"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4416745/73773289/EB-PY6745.jpeg?version=1712835541"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4416745/73773293/EB-PY6745.jpeg?version=1712835542"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4416745/73773294/EB-PY6745.jpeg?version=1712835542"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4416745/73773297/EB-PY6745.jpeg?version=1712835543"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4416745/73773301/EB-PY6745.jpeg?version=1712835544"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4416745/73773303/EB-PY6745.jpeg?version=1712835545"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4416745/73773302/EB-PY6745.jpeg?version=1712835544"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4416745/73773300/EB-PY6745.jpeg?version=1712835544"
+    }
+  ],
+  "agent": {
+    "id": 391012,
+    "name": "Lic.Gabriela Martínez",
+    "full_name": "Lic.Gabriela Martínez",
+    "mobile_phone": "+523338087984",
+    "profile_image_url": "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1729887594",
+    "email": "GABRIELAMTZ6@HOTMAIL.COM"
+  },
+  "features": [
+    {
+      "name": "Balcón",
+      "category": "Exterior"
+    },
+    {
+      "name": "Facilidad para estacionarse",
+      "category": "Exterior"
+    },
+    {
+      "name": "Jardín",
+      "category": "Exterior"
+    },
+    {
+      "name": "Patio",
+      "category": "Exterior"
+    },
+    {
+      "name": "Terraza",
+      "category": "Exterior"
+    },
+    {
+      "name": "Accesibilidad para adultos mayores",
+      "category": "General"
+    },
+    {
+      "name": "Accesibilidad para personas con discapacidad",
+      "category": "General"
+    },
+    {
+      "name": "Cocina integral",
+      "category": "General"
+    },
+    {
+      "name": "Dos plantas",
+      "category": "General"
+    },
+    {
+      "name": "Fraccionamiento privado",
+      "category": "General"
+    },
+    {
+      "name": "Recámara en planta baja",
+      "category": "General"
+    },
+    {
+      "name": "Alberca",
+      "category": "Recreación"
+    },
+    {
+      "name": "Área de juegos infantiles",
+      "category": "Recreación"
+    },
+    {
+      "name": "Cancha de tenis",
+      "category": "Recreación"
+    },
+    {
+      "name": "Salón de usos múltiples",
+      "category": "Recreación"
+    }
+  ]
+}

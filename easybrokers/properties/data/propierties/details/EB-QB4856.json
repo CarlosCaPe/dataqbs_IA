@@ -1,0 +1,370 @@
+﻿{
+    "public_id":  "EB-QB4856",
+    "title":  "Departamento en venta zona Las Hadas Manzanillo",
+    "description":  "Amplio departamento en Condominio PlayaSol Las Hadas\n\nCuenta con cocina equipada, barra desayunadora y alacena.\nArea sala comedor, terraza con vista a la alberca y al mar.\nBaño completo, recámara secundaria con closet.\nHabitación principal con closet y baño completo con tina además su propia terraza con vista al mar.\n\nTanto el área de sala-comedor como las habitaciones, cuentan con ventilador y aire acondicionado.\n\nEl complejo cuenta con vigilancia 24/7, dos albercas, restaurante, área de descanso frente al mar. Así como acceso a la famosa playa de Las Hadas y a solo 500 mts del embarcadero de la bahía con restaurantes con menú internacional.\n\nUna oportunidad única para disfrutar de la tranquilidad que solo la playa puede brindar.",
+    "bedrooms":  2,
+    "bathrooms":  2,
+    "half_bathrooms":  null,
+    "parking_spaces":  null,
+    "lot_size":  null,
+    "construction_size":  114.0,
+    "lot_length":  null,
+    "lot_width":  null,
+    "floors":  null,
+    "floor":  "Planta Baja",
+    "age":  2001,
+    "internal_id":  "APPLAYASOL",
+    "expenses":  "10000",
+    "location":  {
+                     "name":  "Las Hadas, Manzanillo, Colima",
+                     "latitude":  19.1007223,
+                     "longitude":  -104.3479157,
+                     "street":  "Vista Hermosa",
+                     "postal_code":  "28860 ",
+                     "show_exact_location":  true,
+                     "hide_exact_location":  false,
+                     "exterior_number":  "S/N",
+                     "interior_number":  "1701"
+                 },
+    "property_type":  "Departamento",
+    "created_at":  "2024-04-25T05:06:15-06:00",
+    "updated_at":  "2025-05-12T12:09:04-06:00",
+    "published_at":  null,
+    "operations":  [
+                       {
+                           "type":  "sale",
+                           "amount":  3850000.0,
+                           "currency":  "MXN",
+                           "formatted_amount":  "$3,850,000",
+                           "commission":  {
+                                              "type":  "percentage",
+                                              "value":  "5.0"
+                                          },
+                           "unit":  "total"
+                       }
+                   ],
+    "property_files":  [
+
+                       ],
+    "videos":  [
+
+               ],
+    "virtual_tour":  null,
+    "collaboration_notes":  "50% inmobiliarias afiliadas",
+    "public_url":  "https://www.easybroker.com/mx/listings/departamento-en-venta-zona-las-hadas-manzanillo",
+    "shared_commission_percentage":  null,
+    "exclusive":  null,
+    "foreclosure":  false,
+    "tags":  [
+
+             ],
+    "private_description":  null,
+    "show_prices":  true,
+    "share_commission":  true,
+    "property_images":  [
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4444856/74322484/EB-QB4856.jpeg?version=1714043293"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4444856/74322485/EB-QB4856.jpeg?version=1714043293"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4444856/74322486/EB-QB4856.jpeg?version=1714043293"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4444856/74322487/EB-QB4856.jpeg?version=1714043294"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4444856/74322488/EB-QB4856.jpeg?version=1714043294"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4444856/74322489/EB-QB4856.jpeg?version=1714043294"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4444856/74322490/EB-QB4856.jpeg?version=1714043295"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4444856/74322491/EB-QB4856.jpeg?version=1714043295"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4444856/74322492/EB-QB4856.jpeg?version=1714043295"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4444856/74322493/EB-QB4856.jpeg?version=1714043296"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4444856/74322494/EB-QB4856.jpeg?version=1714043296"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4444856/74322495/EB-QB4856.jpeg?version=1714043297"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4444856/74322496/EB-QB4856.jpeg?version=1714043297"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4444856/74322497/EB-QB4856.jpeg?version=1714043298"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4444856/74322498/EB-QB4856.jpeg?version=1714043298"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4444856/74322499/EB-QB4856.jpeg?version=1714043298"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4444856/74322500/EB-QB4856.jpeg?version=1714043299"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4444856/74322512/EB-QB4856.jpeg?version=1714043619"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4444856/74322502/EB-QB4856.jpeg?version=1714043300"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4444856/74322503/EB-QB4856.jpeg?version=1714043300"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4444856/74322504/EB-QB4856.jpeg?version=1714043301"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4444856/74322505/EB-QB4856.jpeg?version=1714043301"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4444856/74322506/EB-QB4856.jpeg?version=1714043301"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4444856/74322507/EB-QB4856.jpeg?version=1714043302"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4444856/74322508/EB-QB4856.jpeg?version=1714043302"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4444856/74322509/EB-QB4856.jpeg?version=1714043303"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4444856/74322510/EB-QB4856.jpeg?version=1714043303"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4444856/74322511/EB-QB4856.jpeg?version=1714043303"
+                            }
+                        ],
+    "images":  [
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4444856/74322484/EB-QB4856.jpeg?version=1714043293"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4444856/74322485/EB-QB4856.jpeg?version=1714043293"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4444856/74322486/EB-QB4856.jpeg?version=1714043293"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4444856/74322487/EB-QB4856.jpeg?version=1714043294"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4444856/74322488/EB-QB4856.jpeg?version=1714043294"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4444856/74322489/EB-QB4856.jpeg?version=1714043294"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4444856/74322490/EB-QB4856.jpeg?version=1714043295"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4444856/74322491/EB-QB4856.jpeg?version=1714043295"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4444856/74322492/EB-QB4856.jpeg?version=1714043295"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4444856/74322493/EB-QB4856.jpeg?version=1714043296"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4444856/74322494/EB-QB4856.jpeg?version=1714043296"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4444856/74322495/EB-QB4856.jpeg?version=1714043297"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4444856/74322496/EB-QB4856.jpeg?version=1714043297"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4444856/74322497/EB-QB4856.jpeg?version=1714043298"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4444856/74322498/EB-QB4856.jpeg?version=1714043298"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4444856/74322499/EB-QB4856.jpeg?version=1714043298"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4444856/74322500/EB-QB4856.jpeg?version=1714043299"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4444856/74322512/EB-QB4856.jpeg?version=1714043619"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4444856/74322502/EB-QB4856.jpeg?version=1714043300"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4444856/74322503/EB-QB4856.jpeg?version=1714043300"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4444856/74322504/EB-QB4856.jpeg?version=1714043301"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4444856/74322505/EB-QB4856.jpeg?version=1714043301"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4444856/74322506/EB-QB4856.jpeg?version=1714043301"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4444856/74322507/EB-QB4856.jpeg?version=1714043302"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4444856/74322508/EB-QB4856.jpeg?version=1714043302"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4444856/74322509/EB-QB4856.jpeg?version=1714043303"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4444856/74322510/EB-QB4856.jpeg?version=1714043303"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4444856/74322511/EB-QB4856.jpeg?version=1714043303"
+                   }
+               ],
+    "agent":  {
+                  "id":  391012,
+                  "name":  "Lic.Gabriela Martínez",
+                  "full_name":  "Lic.Gabriela Martínez",
+                  "mobile_phone":  "+523338087984",
+                  "profile_image_url":  "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1757459148",
+                  "email":  "GABRIELAMTZ6@HOTMAIL.COM"
+              },
+    "features":  [
+                     {
+                         "name":  "Acceso a la playa",
+                         "category":  "Exterior"
+                     },
+                     {
+                         "name":  "Balcón",
+                         "category":  "Exterior"
+                     },
+                     {
+                         "name":  "Facilidad para estacionarse",
+                         "category":  "Exterior"
+                     },
+                     {
+                         "name":  "Frente a la playa",
+                         "category":  "Exterior"
+                     },
+                     {
+                         "name":  "Frente al agua",
+                         "category":  "Exterior"
+                     },
+                     {
+                         "name":  "Terraza",
+                         "category":  "Exterior"
+                     },
+                     {
+                         "name":  "Vista al agua",
+                         "category":  "Exterior"
+                     },
+                     {
+                         "name":  "Vista al mar",
+                         "category":  "Exterior"
+                     },
+                     {
+                         "name":  "Accesibilidad para adultos mayores",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Accesibilidad para personas con discapacidad",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Aire acondicionado",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Amueblado",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Cocina equipada",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Fraccionamiento privado",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Recámara en planta baja",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Seguridad 24 horas",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Alberca",
+                         "category":  "Recreación"
+                     }
+                 ]
+}

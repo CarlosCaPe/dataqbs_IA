@@ -1,0 +1,30 @@
+{
+  "public_id": "EB-SE9112",
+  "title": "Casa en renta Bugambilias 1era. Seccion",
+  "title_image_full": "https://assets.easybroker.com/property_images/4999112/87110026/EB-SE9112.jpeg?version=1741470572",
+  "title_image_thumb": "https://assets.easybroker.com/property_images/4999112/87110026/EB-SE9112.jpeg?version=1741470572&width=200",
+  "location": "Fraccionamiento Bugambilias, Zapopan, Jalisco",
+  "operations": [
+    {
+      "type": "rental",
+      "amount": 24500.0,
+      "currency": "MXN",
+      "formatted_amount": "$24,500",
+      "commission": {
+        "type": "months",
+        "value": 1
+      },
+      "unit": "total"
+    }
+  ],
+  "bedrooms": 4,
+  "bathrooms": 3,
+  "parking_spaces": 2,
+  "property_type": "Casa",
+  "lot_size": 200.0,
+  "construction_size": 229.0,
+  "updated_at": "2025-05-12T12:09:04-06:00",
+  "agent": "Lic.Gabriela Martínez",
+  "show_prices": true,
+  "share_commission": true
+}

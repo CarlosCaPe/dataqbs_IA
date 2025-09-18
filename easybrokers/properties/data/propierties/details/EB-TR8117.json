@@ -1,0 +1,286 @@
+﻿{
+    "public_id":  "EB-TR8117",
+    "title":  "Casa en Venta - Rinconada la Calma",
+    "description":  "CASA EN COTO DE SOLO 6 CASAS EN RINCONADA LA CALMA   \n\n3 Recámaras con closet\n1 baño completo y medio baño \n2 Estacionamientos Descripción: \n\nCasa dentro de coto con cochera techada, terraza interior y excelente distribución en dos niveles, las tres recamaras se encuentran en el segundo nivel así como el baño completo, en primer nivel se encuentra sala, cocina, medio baño y patio interior\n\nUbicación privilegiada sobre Avenida Patria entre Lopez Mateos y cruz del Sur",
+    "bedrooms":  3,
+    "bathrooms":  1,
+    "half_bathrooms":  1,
+    "parking_spaces":  2,
+    "lot_size":  103.0,
+    "construction_size":  220.0,
+    "lot_length":  null,
+    "lot_width":  null,
+    "floors":  null,
+    "floor":  null,
+    "age":  null,
+    "internal_id":  "GABOLACALMA",
+    "expenses":  null,
+    "location":  {
+                     "name":  "Rinconada de La Calma, Zapopan, Jalisco",
+                     "latitude":  20.6323843,
+                     "longitude":  -103.4091771,
+                     "street":  "PATRIA",
+                     "postal_code":  "45080",
+                     "show_exact_location":  true,
+                     "hide_exact_location":  false,
+                     "exterior_number":  "3200 A",
+                     "interior_number":  "52"
+                 },
+    "property_type":  "Casa",
+    "created_at":  "2025-07-17T09:12:13-06:00",
+    "updated_at":  "2025-09-05T15:14:19-06:00",
+    "published_at":  "2025-07-17T10:28:45-06:00",
+    "operations":  [
+                       {
+                           "type":  "sale",
+                           "amount":  3622500.0,
+                           "currency":  "MXN",
+                           "formatted_amount":  "$3,622,500",
+                           "commission":  {
+                                              "type":  "percentage",
+                                              "value":  "5.0"
+                                          },
+                           "unit":  "total"
+                       }
+                   ],
+    "property_files":  [
+
+                       ],
+    "videos":  [
+
+               ],
+    "virtual_tour":  null,
+    "collaboration_notes":  "Comisión compartida a inmobiliarias afiliadas.",
+    "public_url":  "https://www.easybroker.com/mx/listings/casa-en-venta-rinconada-la-calma",
+    "shared_commission_percentage":  50.0,
+    "exclusive":  true,
+    "foreclosure":  false,
+    "tags":  [
+
+             ],
+    "private_description":  null,
+    "show_prices":  true,
+    "share_commission":  true,
+    "property_images":  [
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5388117/94303312/EB-TR8117.jpg?version=1755104201"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5388117/94303310/EB-TR8117.jpg?version=1755104201"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5388117/93129909/EB-TR8117.jpg?version=1755104201"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5388117/94303315/EB-TR8117.jpg?version=1755104201"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5388117/93128827/EB-TR8117.jpg?version=1755104201"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5388117/93128830/EB-TR8117.jpg?version=1755104201"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5388117/93128831/EB-TR8117.jpg?version=1755104201"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5388117/93128833/EB-TR8117.jpg?version=1755104201"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5388117/93128832/EB-TR8117.jpg?version=1755104201"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5388117/93128841/EB-TR8117.jpg?version=1755104201"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5388117/93128834/EB-TR8117.jpg?version=1755104201"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5388117/93128836/EB-TR8117.jpg?version=1755104201"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5388117/93128835/EB-TR8117.jpg?version=1755104201"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5388117/93128837/EB-TR8117.jpg?version=1755104201"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5388117/93128838/EB-TR8117.jpg?version=1755104201"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5388117/93128840/EB-TR8117.jpg?version=1755104201"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5388117/93128839/EB-TR8117.jpg?version=1755104201"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5388117/93128843/EB-TR8117.jpg?version=1755104201"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5388117/93128842/EB-TR8117.jpg?version=1755104201"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5388117/93129821/EB-TR8117.jpg?version=1755104201"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5388117/94303311/EB-TR8117.jpg?version=1755104201"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5388117/94303313/EB-TR8117.jpg?version=1755104201"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5388117/94303314/EB-TR8117.jpg?version=1755104201"
+                            }
+                        ],
+    "images":  [
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5388117/94303312/EB-TR8117.jpg?version=1755104201"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5388117/94303310/EB-TR8117.jpg?version=1755104201"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5388117/93129909/EB-TR8117.jpg?version=1755104201"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5388117/94303315/EB-TR8117.jpg?version=1755104201"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5388117/93128827/EB-TR8117.jpg?version=1755104201"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5388117/93128830/EB-TR8117.jpg?version=1755104201"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5388117/93128831/EB-TR8117.jpg?version=1755104201"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5388117/93128833/EB-TR8117.jpg?version=1755104201"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5388117/93128832/EB-TR8117.jpg?version=1755104201"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5388117/93128841/EB-TR8117.jpg?version=1755104201"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5388117/93128834/EB-TR8117.jpg?version=1755104201"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5388117/93128836/EB-TR8117.jpg?version=1755104201"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5388117/93128835/EB-TR8117.jpg?version=1755104201"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5388117/93128837/EB-TR8117.jpg?version=1755104201"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5388117/93128838/EB-TR8117.jpg?version=1755104201"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5388117/93128840/EB-TR8117.jpg?version=1755104201"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5388117/93128839/EB-TR8117.jpg?version=1755104201"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5388117/93128843/EB-TR8117.jpg?version=1755104201"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5388117/93128842/EB-TR8117.jpg?version=1755104201"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5388117/93129821/EB-TR8117.jpg?version=1755104201"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5388117/94303311/EB-TR8117.jpg?version=1755104201"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5388117/94303313/EB-TR8117.jpg?version=1755104201"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5388117/94303314/EB-TR8117.jpg?version=1755104201"
+                   }
+               ],
+    "agent":  {
+                  "id":  391012,
+                  "name":  "Lic.Gabriela Martínez",
+                  "full_name":  "Lic.Gabriela Martínez",
+                  "mobile_phone":  "+523338087984",
+                  "profile_image_url":  "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1757459148",
+                  "email":  "GABRIELAMTZ6@HOTMAIL.COM"
+              },
+    "features":  [
+                     {
+                         "name":  "Estacionamiento techado",
+                         "category":  "Exterior"
+                     },
+                     {
+                         "name":  "Patio",
+                         "category":  "Exterior"
+                     },
+                     {
+                         "name":  "Cocina",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Dos plantas",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Fraccionamiento privado",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Mascotas permitidas",
+                         "category":  "Políticas"
+                     }
+                 ]
+}

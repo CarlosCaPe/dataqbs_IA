@@ -1,0 +1,30 @@
+{
+  "public_id": "EB-SB9836",
+  "title": "Casa nueva en Venta, Zona Galerias Santa Anita",
+  "title_image_full": "https://assets.easybroker.com/property_images/4969836/84895289/EB-SB9836.jpg?version=1748643568",
+  "title_image_thumb": "https://assets.easybroker.com/property_images/4969836/84895289/EB-SB9836.jpg?version=1748643568&width=200",
+  "location": "San Agustin, Tlajomulco de Zúñiga, Jalisco",
+  "operations": [
+    {
+      "type": "sale",
+      "amount": 6800000.0,
+      "currency": "MXN",
+      "formatted_amount": "$6,800,000",
+      "commission": {
+        "type": "percentage",
+        "value": "4.0"
+      },
+      "unit": "total"
+    }
+  ],
+  "bedrooms": 4,
+  "bathrooms": 4,
+  "parking_spaces": 4,
+  "property_type": "Casa",
+  "lot_size": 140.0,
+  "construction_size": 197.0,
+  "updated_at": "2025-09-09T10:35:38-06:00",
+  "agent": "Lic.Gabriela Martínez",
+  "show_prices": true,
+  "share_commission": true
+}

@@ -1,0 +1,222 @@
+﻿{
+    "public_id":  "EB-QJ1938",
+    "title":  "Espectacular terreno en desarrollo natural",
+    "description":  "¿Disfrutas del campo y el bosque? \n¿Buscas comprar un terreno campestre? \n\nDa el primer paso y compra tu terreno de 2,604 metros cuadrados en Madre Tierra a sólo 1 hora de Guadalajara en el cerro de Tequila con una vista espectacular a la Presa de La Vega y Guachimontones.\n\nSomos un desarrollo 100% ecológico y familiar,  ideal para construir tu casa de campo.\n\nLa serenidad y biodiversidad se entrelazan en este refugio natural.\n\nEl terreno se encuentra ubicado a solo 500 mts de  nuestras amenidades, diseñadas para armonizar con la naturaleza ofreciendo un estilo de vida sostenible.\nCancha de fútbol, juegos infantiles, terraza de usos múltiples, zona de camping y un mirador que a más de 1500 metros de altura te regalaran imágenes inolvidables.\n\nExperimenta lujo con responsabilidad.\nNuestro compromiso? Seguridad y preservación del entorno.\n\nEnvía un mensaje, te estamos esperando.",
+    "bedrooms":  null,
+    "bathrooms":  null,
+    "half_bathrooms":  null,
+    "parking_spaces":  null,
+    "lot_size":  2604.0,
+    "construction_size":  null,
+    "lot_length":  52.45,
+    "lot_width":  49.71,
+    "floors":  null,
+    "floor":  null,
+    "age":  "new_construction",
+    "internal_id":  "AIDAMTIERRA",
+    "expenses":  null,
+    "location":  {
+                     "name":  "Teuchitlán, Teuchitlán, Jalisco",
+                     "latitude":  20.6954251077,
+                     "longitude":  -103.8142776489,
+                     "street":  "Desarrollo autosustentable Madre Tierra",
+                     "postal_code":  "46767",
+                     "show_exact_location":  true,
+                     "hide_exact_location":  false,
+                     "exterior_number":  null,
+                     "interior_number":  null
+                 },
+    "property_type":  "Terreno",
+    "created_at":  "2024-06-01T12:07:31-06:00",
+    "updated_at":  "2025-05-12T12:09:04-06:00",
+    "published_at":  "2024-06-01T12:09:59-06:00",
+    "operations":  [
+                       {
+                           "type":  "sale",
+                           "amount":  980000.0,
+                           "currency":  "MXN",
+                           "formatted_amount":  "$980,000",
+                           "commission":  {
+                                              "type":  "percentage",
+                                              "value":  "5.0"
+                                          },
+                           "unit":  "total"
+                       }
+                   ],
+    "property_files":  [
+
+                       ],
+    "videos":  [
+
+               ],
+    "virtual_tour":  null,
+    "collaboration_notes":  "50% inmobiliarias afiliadas",
+    "public_url":  "https://www.easybroker.com/mx/listings/espectacular-terreno-en-desarrollo-natural",
+    "shared_commission_percentage":  null,
+    "exclusive":  null,
+    "foreclosure":  false,
+    "tags":  [
+
+             ],
+    "private_description":  null,
+    "show_prices":  true,
+    "share_commission":  true,
+    "property_images":  [
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4521938/75795340/EB-QJ1938.jpeg?version=1717269666"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4521938/75794306/EB-QJ1938.jpeg?version=1717266936"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4521938/75793763/EB-QJ1938.jpeg?version=1717265368"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4521938/75793762/EB-QJ1938.jpeg?version=1717265368"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4521938/75793943/EB-QJ1938.jpeg?version=1717265698"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4521938/75793942/EB-QJ1938.jpeg?version=1717265698"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4521938/75793765/EB-QJ1938.jpeg?version=1717265369"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4521938/75793768/EB-QJ1938.jpeg?version=1717265369"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4521938/75793769/EB-QJ1938.jpeg?version=1717265370"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4521938/75793772/EB-QJ1938.jpeg?version=1717265370"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4521938/75795341/EB-QJ1938.jpeg?version=1717269666"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4521938/75793944/EB-QJ1938.jpeg?version=1717265698"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4521938/75793771/EB-QJ1938.jpeg?version=1717265370"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4521938/75793774/EB-QJ1938.jpeg?version=1717265371"
+                            }
+                        ],
+    "images":  [
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4521938/75795340/EB-QJ1938.jpeg?version=1717269666"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4521938/75794306/EB-QJ1938.jpeg?version=1717266936"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4521938/75793763/EB-QJ1938.jpeg?version=1717265368"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4521938/75793762/EB-QJ1938.jpeg?version=1717265368"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4521938/75793943/EB-QJ1938.jpeg?version=1717265698"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4521938/75793942/EB-QJ1938.jpeg?version=1717265698"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4521938/75793765/EB-QJ1938.jpeg?version=1717265369"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4521938/75793768/EB-QJ1938.jpeg?version=1717265369"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4521938/75793769/EB-QJ1938.jpeg?version=1717265370"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4521938/75793772/EB-QJ1938.jpeg?version=1717265370"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4521938/75795341/EB-QJ1938.jpeg?version=1717269666"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4521938/75793944/EB-QJ1938.jpeg?version=1717265698"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4521938/75793771/EB-QJ1938.jpeg?version=1717265370"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4521938/75793774/EB-QJ1938.jpeg?version=1717265371"
+                   }
+               ],
+    "agent":  {
+                  "id":  391012,
+                  "name":  "Lic.Gabriela Martínez",
+                  "full_name":  "Lic.Gabriela Martínez",
+                  "mobile_phone":  "+523338087984",
+                  "profile_image_url":  "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1757459148",
+                  "email":  "GABRIELAMTZ6@HOTMAIL.COM"
+              },
+    "features":  [
+                     {
+                         "name":  "Facilidad para estacionarse",
+                         "category":  "Exterior"
+                     },
+                     {
+                         "name":  "Terraza",
+                         "category":  "Exterior"
+                     },
+                     {
+                         "name":  "Vista al agua",
+                         "category":  "Exterior"
+                     },
+                     {
+                         "name":  "Accesibilidad para adultos mayores",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Accesibilidad para personas con discapacidad",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Seguridad 24 horas",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Área de juegos infantiles",
+                         "category":  "Recreación"
+                     },
+                     {
+                         "name":  "Salón de usos múltiples",
+                         "category":  "Recreación"
+                     }
+                 ]
+}

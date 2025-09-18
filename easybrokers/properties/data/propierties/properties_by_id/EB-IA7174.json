@@ -1,0 +1,29 @@
+﻿{
+    "public_id":  "EB-IA7174",
+    "title":  "DEPARTAMENTO EN VENTA TORRE NEBOT CIUDAD GRANJA",
+    "title_image_full":  "https://assets.easybroker.com/property_images/2357174/36698353/EB-IA7174.jpg?version=1627152407",
+    "title_image_thumb":  "https://assets.easybroker.com/property_images/2357174/36698353/EB-IA7174.jpg?version=1627152407\u0026width=200",
+    "location":  "Ciudad Granja, Zapopan, Jalisco",
+    "operations":  [
+                       {
+                           "type":  "sale",
+                           "amount":  3740000.0,
+                           "currency":  "MXN",
+                           "formatted_amount":  "$3,740,000",
+                           "commission":  {
+                                              "type":  "percentage"
+                                          },
+                           "unit":  "total"
+                       }
+                   ],
+    "bedrooms":  2,
+    "bathrooms":  2,
+    "parking_spaces":  2,
+    "property_type":  "Departamento",
+    "lot_size":  null,
+    "construction_size":  110.0,
+    "updated_at":  "2025-05-12T12:09:04-06:00",
+    "agent":  "Lic.Gabriela Martínez",
+    "show_prices":  true,
+    "share_commission":  true
+}

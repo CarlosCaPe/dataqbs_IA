@@ -1,0 +1,222 @@
+﻿{
+    "public_id":  "EB-RX9892",
+    "title":  "CASA EN RENTA CITALA III",
+    "description":  "Casa de dos plantas , cochera para dos autos , sala comedor muy amplios , cocina integral , patio de servicio amplio.\nMedio baño.\nPlanta alta baño completo , área de TV y dos recámaras con closet .\nCoto con áreas verdes y juegos infantiles",
+    "bedrooms":  2,
+    "bathrooms":  1,
+    "half_bathrooms":  1,
+    "parking_spaces":  2,
+    "lot_size":  null,
+    "construction_size":  100.0,
+    "lot_length":  null,
+    "lot_width":  null,
+    "floors":  null,
+    "floor":  null,
+    "age":  null,
+    "internal_id":  "CITALAGM",
+    "expenses":  "Incluido",
+    "location":  {
+                     "name":  "El Fortín, Zapopan, Jalisco",
+                     "latitude":  20.6297121,
+                     "longitude":  -103.4641983,
+                     "street":  "Subcolectora 2",
+                     "postal_code":  "45066",
+                     "show_exact_location":  true,
+                     "hide_exact_location":  false,
+                     "exterior_number":  "3105",
+                     "interior_number":  "158"
+                 },
+    "property_type":  "Casa en condominio",
+    "created_at":  "2024-12-27T14:49:15-06:00",
+    "updated_at":  "2025-05-12T12:09:04-06:00",
+    "published_at":  "2024-12-27T14:53:41-06:00",
+    "operations":  [
+                       {
+                           "type":  "rental",
+                           "amount":  9900.0,
+                           "currency":  "MXN",
+                           "formatted_amount":  "$9,900",
+                           "commission":  {
+                                              "type":  "percentage"
+                                          },
+                           "unit":  "total"
+                       }
+                   ],
+    "property_files":  [
+
+                       ],
+    "videos":  [
+
+               ],
+    "virtual_tour":  null,
+    "collaboration_notes":  null,
+    "public_url":  "https://www.easybroker.com/mx/listings/casa-en-renta-citala-iii",
+    "shared_commission_percentage":  null,
+    "exclusive":  null,
+    "foreclosure":  false,
+    "tags":  [
+
+             ],
+    "private_description":  null,
+    "show_prices":  true,
+    "share_commission":  true,
+    "property_images":  [
+                            {
+                                "title":  "Cochera dos autos fachada",
+                                "url":  "https://assets.easybroker.com/property_images/4929892/84033163/EB-RX9892.jpeg?version=1735333061"
+                            },
+                            {
+                                "title":  "Cocina",
+                                "url":  "https://assets.easybroker.com/property_images/4929892/84033164/EB-RX9892.jpeg?version=1735333060"
+                            },
+                            {
+                                "title":  "Cocina",
+                                "url":  "https://assets.easybroker.com/property_images/4929892/84033165/EB-RX9892.jpeg?version=1735333060"
+                            },
+                            {
+                                "title":  "Cocina",
+                                "url":  "https://assets.easybroker.com/property_images/4929892/84033166/EB-RX9892.jpeg?version=1735333060"
+                            },
+                            {
+                                "title":  "Medio baño",
+                                "url":  "https://assets.easybroker.com/property_images/4929892/84033167/EB-RX9892.jpeg?version=1735333060"
+                            },
+                            {
+                                "title":  "Ingreso a sala comedor",
+                                "url":  "https://assets.easybroker.com/property_images/4929892/84033168/EB-RX9892.jpeg?version=1735333060"
+                            },
+                            {
+                                "title":  "Patio de servicio",
+                                "url":  "https://assets.easybroker.com/property_images/4929892/84033169/EB-RX9892.jpeg?version=1735333060"
+                            },
+                            {
+                                "title":  "Patio de servicio",
+                                "url":  "https://assets.easybroker.com/property_images/4929892/84033170/EB-RX9892.jpeg?version=1735333060"
+                            },
+                            {
+                                "title":  "Ingreso a planta alta",
+                                "url":  "https://assets.easybroker.com/property_images/4929892/84033171/EB-RX9892.jpeg?version=1735333060"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4929892/84033172/EB-RX9892.jpeg?version=1735333060"
+                            },
+                            {
+                                "title":  "Estar de tv",
+                                "url":  "https://assets.easybroker.com/property_images/4929892/84033173/EB-RX9892.jpeg?version=1735333060"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4929892/84033174/EB-RX9892.jpeg?version=1735333060"
+                            },
+                            {
+                                "title":  "Closet",
+                                "url":  "https://assets.easybroker.com/property_images/4929892/84033175/EB-RX9892.jpeg?version=1735333060"
+                            },
+                            {
+                                "title":  "Recámara uno",
+                                "url":  "https://assets.easybroker.com/property_images/4929892/84033176/EB-RX9892.jpeg?version=1735333060"
+                            },
+                            {
+                                "title":  "Closet",
+                                "url":  "https://assets.easybroker.com/property_images/4929892/84033177/EB-RX9892.jpeg?version=1735333060"
+                            },
+                            {
+                                "title":  "Baño completo",
+                                "url":  "https://assets.easybroker.com/property_images/4929892/84033178/EB-RX9892.jpeg?version=1735333060"
+                            },
+                            {
+                                "title":  "Sala comedor",
+                                "url":  "https://assets.easybroker.com/property_images/4929892/84033269/EB-RX9892.jpeg?version=1735333060"
+                            },
+                            {
+                                "title":  "Sala comedor",
+                                "url":  "https://assets.easybroker.com/property_images/4929892/84033270/EB-RX9892.jpeg?version=1735333060"
+                            }
+                        ],
+    "images":  [
+                   {
+                       "title":  "Cochera dos autos fachada",
+                       "url":  "https://assets.easybroker.com/property_images/4929892/84033163/EB-RX9892.jpeg?version=1735333061"
+                   },
+                   {
+                       "title":  "Cocina",
+                       "url":  "https://assets.easybroker.com/property_images/4929892/84033164/EB-RX9892.jpeg?version=1735333060"
+                   },
+                   {
+                       "title":  "Cocina",
+                       "url":  "https://assets.easybroker.com/property_images/4929892/84033165/EB-RX9892.jpeg?version=1735333060"
+                   },
+                   {
+                       "title":  "Cocina",
+                       "url":  "https://assets.easybroker.com/property_images/4929892/84033166/EB-RX9892.jpeg?version=1735333060"
+                   },
+                   {
+                       "title":  "Medio baño",
+                       "url":  "https://assets.easybroker.com/property_images/4929892/84033167/EB-RX9892.jpeg?version=1735333060"
+                   },
+                   {
+                       "title":  "Ingreso a sala comedor",
+                       "url":  "https://assets.easybroker.com/property_images/4929892/84033168/EB-RX9892.jpeg?version=1735333060"
+                   },
+                   {
+                       "title":  "Patio de servicio",
+                       "url":  "https://assets.easybroker.com/property_images/4929892/84033169/EB-RX9892.jpeg?version=1735333060"
+                   },
+                   {
+                       "title":  "Patio de servicio",
+                       "url":  "https://assets.easybroker.com/property_images/4929892/84033170/EB-RX9892.jpeg?version=1735333060"
+                   },
+                   {
+                       "title":  "Ingreso a planta alta",
+                       "url":  "https://assets.easybroker.com/property_images/4929892/84033171/EB-RX9892.jpeg?version=1735333060"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4929892/84033172/EB-RX9892.jpeg?version=1735333060"
+                   },
+                   {
+                       "title":  "Estar de tv",
+                       "url":  "https://assets.easybroker.com/property_images/4929892/84033173/EB-RX9892.jpeg?version=1735333060"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4929892/84033174/EB-RX9892.jpeg?version=1735333060"
+                   },
+                   {
+                       "title":  "Closet",
+                       "url":  "https://assets.easybroker.com/property_images/4929892/84033175/EB-RX9892.jpeg?version=1735333060"
+                   },
+                   {
+                       "title":  "Recámara uno",
+                       "url":  "https://assets.easybroker.com/property_images/4929892/84033176/EB-RX9892.jpeg?version=1735333060"
+                   },
+                   {
+                       "title":  "Closet",
+                       "url":  "https://assets.easybroker.com/property_images/4929892/84033177/EB-RX9892.jpeg?version=1735333060"
+                   },
+                   {
+                       "title":  "Baño completo",
+                       "url":  "https://assets.easybroker.com/property_images/4929892/84033178/EB-RX9892.jpeg?version=1735333060"
+                   },
+                   {
+                       "title":  "Sala comedor",
+                       "url":  "https://assets.easybroker.com/property_images/4929892/84033269/EB-RX9892.jpeg?version=1735333060"
+                   },
+                   {
+                       "title":  "Sala comedor",
+                       "url":  "https://assets.easybroker.com/property_images/4929892/84033270/EB-RX9892.jpeg?version=1735333060"
+                   }
+               ],
+    "agent":  {
+                  "id":  391012,
+                  "name":  "Lic.Gabriela Martínez",
+                  "full_name":  "Lic.Gabriela Martínez",
+                  "mobile_phone":  "+523338087984",
+                  "profile_image_url":  "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1729887594",
+                  "email":  "GABRIELAMTZ6@HOTMAIL.COM"
+              },
+    "features":  [
+
+                 ]
+}

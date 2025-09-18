@@ -1,0 +1,30 @@
+{
+  "public_id": "EB-SD7226",
+  "title": "Casas nuevas en Fracc. Zona Bosques de Sta Anita",
+  "title_image_full": "https://assets.easybroker.com/property_images/4987226/90584666/EB-SD7226.jpg?version=1752783574",
+  "title_image_thumb": "https://assets.easybroker.com/property_images/4987226/90584666/EB-SD7226.jpg?version=1752783574&width=200",
+  "location": "Fraccionamiento el Origen, Tlajomulco de Zúñiga, Jalisco",
+  "operations": [
+    {
+      "type": "sale",
+      "amount": 3990000.0,
+      "currency": "MXN",
+      "formatted_amount": "$3,990,000",
+      "commission": {
+        "type": "percentage",
+        "value": "4.0"
+      },
+      "unit": "total"
+    }
+  ],
+  "bedrooms": 3,
+  "bathrooms": 2,
+  "parking_spaces": 2,
+  "property_type": "Casa",
+  "lot_size": 102.0,
+  "construction_size": 145.0,
+  "updated_at": "2025-07-17T14:19:57-06:00",
+  "agent": "Lic.Gabriela Martínez",
+  "show_prices": true,
+  "share_commission": true
+}

@@ -1,0 +1,30 @@
+{
+  "public_id": "EB-JN4525",
+  "title": "CASA EN VENTA , SENDERO DE LAS MORAS",
+  "title_image_full": null,
+  "title_image_thumb": null,
+  "location": "Sendero las Moras, Tlajomulco de Zúñiga, Jalisco",
+  "operations": [
+    {
+      "type": "sale",
+      "amount": 3990000.0,
+      "currency": "MXN",
+      "formatted_amount": "$3,990,000",
+      "commission": {
+        "type": "percentage",
+        "value": "2.0"
+      },
+      "unit": "total"
+    }
+  ],
+  "bedrooms": 4,
+  "bathrooms": 3,
+  "parking_spaces": 2,
+  "property_type": "Casa",
+  "lot_size": 144.0,
+  "construction_size": 180.0,
+  "updated_at": "2025-05-12T12:09:04-06:00",
+  "agent": "Lic.Gabriela Martínez",
+  "show_prices": true,
+  "share_commission": true
+}

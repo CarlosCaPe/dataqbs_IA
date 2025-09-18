@@ -1,0 +1,380 @@
+{
+  "public_id": "EB-TA4750",
+  "title": "Casa en Venta en Valle Imperial, coto Imperio Maya",
+  "description": "Casa en Venta con acabados de lujo, 3 niveles con excelente distribución, cada habitación cuenta con baño completo y detalles en muebles de madera de Encino Americano, habitación principal con walk in closet, cocina integral cubierta de granito con hornos marca Teka y campana, escaleras de mármol  y pasamanos de acero inoxidable con cristal templado, cisterna de 5 mil litros y aires acondicionados en todas las habitaciones y sala.\n\nPLANTA BAJA:\n- Cochera para 2 autos \n- Estudio o habitación \n- Baño Completo\n- Sala con mueble de madera de encino americano con cubierta de mármol. \n- Cuarto de lavado \n- Patio con jardín \n\nSEGUNDO NIVEL \n- Habitación principal con mueble de en madera de encino y cubierta de mármol. \n- Baño completo y walk in closet en madera de encino americano. \n- Sala de TV\n- 2 habitaciones secundarias con baño completo cada una, closet y mueble de TV\n \nTERCER NIVEL \n- Roof garden con pergola y medio baño \n- Área de TV con mueble \n\nCoto con seguridad 24/7 y áreas verdes con juegos infantiles.",
+  "bedrooms": 3,
+  "bathrooms": 4,
+  "half_bathrooms": 1,
+  "parking_spaces": 2,
+  "lot_size": 160.0,
+  "construction_size": 260.0,
+  "lot_length": null,
+  "lot_width": null,
+  "floors": 3,
+  "floor": null,
+  "age": "new_construction",
+  "internal_id": "GABOIMPMAYA",
+  "expenses": null,
+  "location": {
+    "name": "Valle Imperial, Zapopan, Jalisco",
+    "latitude": 20.7867701,
+    "longitude": -103.4366924,
+    "street": "AV DEL BOSQUE REAL",
+    "postal_code": "45130",
+    "show_exact_location": true,
+    "hide_exact_location": false,
+    "exterior_number": "1996",
+    "interior_number": "22"
+  },
+  "property_type": "Casa",
+  "created_at": "2025-05-03T08:57:27-06:00",
+  "updated_at": "2025-08-04T20:45:34-06:00",
+  "published_at": "2025-05-03T09:17:00-06:00",
+  "operations": [
+    {
+      "type": "sale",
+      "amount": 7900000.0,
+      "currency": "MXN",
+      "formatted_amount": "$7,900,000",
+      "commission": {
+        "type": "percentage",
+        "value": "4.0"
+      },
+      "unit": "total"
+    }
+  ],
+  "property_files": [],
+  "videos": [],
+  "virtual_tour": null,
+  "collaboration_notes": null,
+  "public_url": "https://www.easybroker.com/mx/listings/casa-en-venta-en-valle-imperial-coto-imperio-maya-valle-imperial",
+  "shared_commission_percentage": 50.0,
+  "exclusive": null,
+  "foreclosure": false,
+  "tags": [],
+  "private_description": null,
+  "show_prices": true,
+  "share_commission": true,
+  "property_images": [
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5214750/89683807/EB-TA4750.jpg?version=1746285614"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5214750/89683808/EB-TA4750.jpg?version=1746285614"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5214750/89683847/EB-TA4750.jpg?version=1746285614"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5214750/89683905/EB-TA4750.jpg?version=1746285614"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5214750/89683830/EB-TA4750.jpg?version=1746285614"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5214750/89683848/EB-TA4750.jpg?version=1746285614"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5214750/89683906/EB-TA4750.jpg?version=1746285614"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5214750/89683826/EB-TA4750.jpg?version=1746285614"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5214750/89683832/EB-TA4750.jpg?version=1746285614"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5214750/89683849/EB-TA4750.jpg?version=1746285614"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5214750/89684039/EB-TA4750.jpg?version=1746285614"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5214750/89683911/EB-TA4750.jpg?version=1746285614"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5214750/89684118/EB-TA4750.jpg?version=1746285614"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5214750/89683918/EB-TA4750.jpg?version=1746285614"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5214750/89683916/EB-TA4750.jpg?version=1746285614"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5214750/89684066/EB-TA4750.jpg?version=1746285614"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5214750/89683913/EB-TA4750.jpg?version=1746285614"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5214750/89683914/EB-TA4750.jpg?version=1746285614"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5214750/89683917/EB-TA4750.jpg?version=1746285614"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5214750/89683986/EB-TA4750.jpg?version=1746285614"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5214750/89684044/EB-TA4750.jpg?version=1746285614"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5214750/89684063/EB-TA4750.jpg?version=1746285614"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5214750/89684064/EB-TA4750.jpg?version=1746285614"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5214750/89684041/EB-TA4750.jpg?version=1746285614"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5214750/89684065/EB-TA4750.jpg?version=1746285614"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5214750/89684040/EB-TA4750.jpg?version=1746285614"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5214750/89684045/EB-TA4750.jpg?version=1746285614"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5214750/89684114/EB-TA4750.jpg?version=1746285614"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5214750/89684119/EB-TA4750.jpg?version=1746285614"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5214750/89684115/EB-TA4750.jpg?version=1746285614"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5214750/89684116/EB-TA4750.jpg?version=1746285614"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5214750/89684117/EB-TA4750.jpg?version=1746285614"
+    }
+  ],
+  "images": [
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5214750/89683807/EB-TA4750.jpg?version=1746285614"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5214750/89683808/EB-TA4750.jpg?version=1746285614"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5214750/89683847/EB-TA4750.jpg?version=1746285614"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5214750/89683905/EB-TA4750.jpg?version=1746285614"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5214750/89683830/EB-TA4750.jpg?version=1746285614"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5214750/89683848/EB-TA4750.jpg?version=1746285614"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5214750/89683906/EB-TA4750.jpg?version=1746285614"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5214750/89683826/EB-TA4750.jpg?version=1746285614"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5214750/89683832/EB-TA4750.jpg?version=1746285614"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5214750/89683849/EB-TA4750.jpg?version=1746285614"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5214750/89684039/EB-TA4750.jpg?version=1746285614"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5214750/89683911/EB-TA4750.jpg?version=1746285614"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5214750/89684118/EB-TA4750.jpg?version=1746285614"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5214750/89683918/EB-TA4750.jpg?version=1746285614"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5214750/89683916/EB-TA4750.jpg?version=1746285614"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5214750/89684066/EB-TA4750.jpg?version=1746285614"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5214750/89683913/EB-TA4750.jpg?version=1746285614"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5214750/89683914/EB-TA4750.jpg?version=1746285614"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5214750/89683917/EB-TA4750.jpg?version=1746285614"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5214750/89683986/EB-TA4750.jpg?version=1746285614"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5214750/89684044/EB-TA4750.jpg?version=1746285614"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5214750/89684063/EB-TA4750.jpg?version=1746285614"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5214750/89684064/EB-TA4750.jpg?version=1746285614"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5214750/89684041/EB-TA4750.jpg?version=1746285614"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5214750/89684065/EB-TA4750.jpg?version=1746285614"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5214750/89684040/EB-TA4750.jpg?version=1746285614"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5214750/89684045/EB-TA4750.jpg?version=1746285614"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5214750/89684114/EB-TA4750.jpg?version=1746285614"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5214750/89684119/EB-TA4750.jpg?version=1746285614"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5214750/89684115/EB-TA4750.jpg?version=1746285614"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5214750/89684116/EB-TA4750.jpg?version=1746285614"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5214750/89684117/EB-TA4750.jpg?version=1746285614"
+    }
+  ],
+  "agent": {
+    "id": 391012,
+    "name": "Lic.Gabriela Martínez",
+    "full_name": "Lic.Gabriela Martínez",
+    "mobile_phone": "+523338087984",
+    "profile_image_url": "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1729887594",
+    "email": "GABRIELAMTZ6@HOTMAIL.COM"
+  },
+  "features": [
+    {
+      "name": "Cisterna",
+      "category": "Exterior"
+    },
+    {
+      "name": "Facilidad para estacionarse",
+      "category": "Exterior"
+    },
+    {
+      "name": "Jardín",
+      "category": "Exterior"
+    },
+    {
+      "name": "Patio",
+      "category": "Exterior"
+    },
+    {
+      "name": "Roof garden",
+      "category": "Exterior"
+    },
+    {
+      "name": "Aire acondicionado",
+      "category": "General"
+    },
+    {
+      "name": "Cocina equipada",
+      "category": "General"
+    },
+    {
+      "name": "Cuarto de servicio",
+      "category": "General"
+    },
+    {
+      "name": "Estudio",
+      "category": "General"
+    },
+    {
+      "name": "Fraccionamiento privado",
+      "category": "General"
+    },
+    {
+      "name": "Hidroneumático",
+      "category": "General"
+    },
+    {
+      "name": "Seguridad 24 horas",
+      "category": "General"
+    },
+    {
+      "name": "Área de juegos infantiles",
+      "category": "Recreación"
+    }
+  ]
+}

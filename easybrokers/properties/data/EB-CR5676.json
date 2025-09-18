@@ -1,0 +1,30 @@
+{
+  "public_id": "EB-CR5676",
+  "title": "DEPARTAMENTO AV. TEPEYAC CERCA TIANGUIS DEL SOL",
+  "title_image_full": "https://assets.easybroker.com/property_images/965676/14510350/EB-CR5676.png?version=1551208135",
+  "title_image_thumb": "https://assets.easybroker.com/property_images/965676/14510350/EB-CR5676.png?version=1551208135&width=200",
+  "location": "Residencial Moctezuma, Zapopan, Jalisco",
+  "operations": [
+    {
+      "type": "sale",
+      "amount": 890000.0,
+      "currency": "MXN",
+      "formatted_amount": "$890,000",
+      "commission": {
+        "type": "percentage",
+        "value": "4.0"
+      },
+      "unit": "total"
+    }
+  ],
+  "bedrooms": 2,
+  "bathrooms": 1,
+  "parking_spaces": 1,
+  "property_type": "Departamento",
+  "lot_size": null,
+  "construction_size": 56.0,
+  "updated_at": "2025-05-12T12:09:04-06:00",
+  "agent": "Lic.Gabriela Martínez",
+  "show_prices": true,
+  "share_commission": true
+}

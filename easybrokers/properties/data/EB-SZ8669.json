@@ -1,0 +1,30 @@
+{
+  "public_id": "EB-SZ8669",
+  "title": "Terreno en El Edén zona Bosques de Santa Anita",
+  "title_image_full": "https://assets.easybroker.com/property_images/5208669/89564111/EB-SZ8669.jpg?version=1747926174",
+  "title_image_thumb": "https://assets.easybroker.com/property_images/5208669/89564111/EB-SZ8669.jpg?version=1747926174&width=200",
+  "location": "El Edén, Tlajomulco de Zúñiga, Jalisco",
+  "operations": [
+    {
+      "type": "sale",
+      "amount": 2200000.0,
+      "currency": "MXN",
+      "formatted_amount": "$2,200,000",
+      "commission": {
+        "type": "percentage",
+        "value": "4.0"
+      },
+      "unit": "total"
+    }
+  ],
+  "bedrooms": null,
+  "bathrooms": null,
+  "parking_spaces": null,
+  "property_type": "Terreno",
+  "lot_size": 180.0,
+  "construction_size": null,
+  "updated_at": "2025-06-27T14:09:53-06:00",
+  "agent": "Lic.Gabriela Martínez",
+  "show_prices": true,
+  "share_commission": true
+}

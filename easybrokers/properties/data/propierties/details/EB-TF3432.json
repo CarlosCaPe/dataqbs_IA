@@ -1,0 +1,142 @@
+﻿{
+    "public_id":  "EB-TF3432",
+    "title":  "Terreno en Venta Casa Fuerte Coto Muralla",
+    "description":  "Descripción:\nCasa Fuerte es un fraccionamiento residencial ubicado al sur de la Zona Metropolitana de Guadalajara. Familiar, tranquilo y seguro son algunas de sus características;  áreas verdes, canchas de fútbol y básquet, lago y su propio paso a desnivel son algunas de sus cualidades. Además disfruta de la cercanía de plazas comerciales como Galerías Santa Anita, las Plazas Outlet, Punto Sur, entre otros, así como el templo de SJPII.\n\nConstruye tu casa dentro de un fraccionamiento con plusvalía creciente.\n\nCaracterísticas:\n\nLote 5A1 del coto Muralla, con una orientación   Sur-Norte.\n250m2 (10x25)\nFraccionamiento privado\nSeguridad 24 horas\nÁrea de juegos infantiles\n\nNo dejes pasar la oportunidad de conocerlo, agenda tu cita!!!",
+    "bedrooms":  null,
+    "bathrooms":  null,
+    "half_bathrooms":  null,
+    "parking_spaces":  null,
+    "lot_size":  250.0,
+    "construction_size":  null,
+    "lot_length":  25.0,
+    "lot_width":  10.0,
+    "floors":  null,
+    "floor":  null,
+    "age":  null,
+    "internal_id":  "VANEMURALLA",
+    "expenses":  null,
+    "location":  {
+                     "name":  "El Alcázar (Casa Fuerte), Tlajomulco de Zúñiga, Jalisco",
+                     "latitude":  20.5324418,
+                     "longitude":  -103.48316,
+                     "street":  "Muralla",
+                     "postal_code":  "45645",
+                     "show_exact_location":  true,
+                     "hide_exact_location":  false,
+                     "exterior_number":  "32",
+                     "interior_number":  "5A1"
+                 },
+    "property_type":  "Terreno",
+    "created_at":  "2025-05-23T17:22:21-06:00",
+    "updated_at":  "2025-09-04T09:18:01-06:00",
+    "published_at":  "2025-09-04T09:18:01-06:00",
+    "operations":  [
+                       {
+                           "type":  "sale",
+                           "amount":  2000000.0,
+                           "currency":  "MXN",
+                           "formatted_amount":  "$2,000,000",
+                           "commission":  {
+                                              "type":  "percentage",
+                                              "value":  "4.0"
+                                          },
+                           "unit":  "total"
+                       }
+                   ],
+    "property_files":  [
+
+                       ],
+    "videos":  [
+
+               ],
+    "virtual_tour":  null,
+    "collaboration_notes":  "Se comparte el 2% con inmobiliarias afiliadas",
+    "public_url":  "https://www.easybroker.com/mx/listings/terreno-en-venta-casa-fuerte-coto-muralla",
+    "shared_commission_percentage":  null,
+    "exclusive":  true,
+    "foreclosure":  false,
+    "tags":  [
+
+             ],
+    "private_description":  null,
+    "show_prices":  true,
+    "share_commission":  true,
+    "property_images":  [
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5263432/91643309/EB-TF3432.jpeg?version=1752715078"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5263432/90647989/EB-TF3432.jpeg?version=1752715078"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5263432/90647990/EB-TF3432.jpeg?version=1752715078"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5263432/90647999/EB-TF3432.jpeg?version=1752715078"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5263432/91643311/EB-TF3432.jpeg?version=1752715078"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5263432/91643310/EB-TF3432.jpeg?version=1752715078"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5263432/91643312/EB-TF3432.jpeg?version=1752715078"
+                            }
+                        ],
+    "images":  [
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5263432/91643309/EB-TF3432.jpeg?version=1752715078"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5263432/90647989/EB-TF3432.jpeg?version=1752715078"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5263432/90647990/EB-TF3432.jpeg?version=1752715078"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5263432/90647999/EB-TF3432.jpeg?version=1752715078"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5263432/91643311/EB-TF3432.jpeg?version=1752715078"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5263432/91643310/EB-TF3432.jpeg?version=1752715078"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5263432/91643312/EB-TF3432.jpeg?version=1752715078"
+                   }
+               ],
+    "agent":  {
+                  "id":  391012,
+                  "name":  "Lic.Gabriela Martínez",
+                  "full_name":  "Lic.Gabriela Martínez",
+                  "mobile_phone":  "+523338087984",
+                  "profile_image_url":  "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1757459148",
+                  "email":  "GABRIELAMTZ6@HOTMAIL.COM"
+              },
+    "features":  [
+                     {
+                         "name":  "Seguridad 24 horas",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Área de juegos infantiles",
+                         "category":  "Recreación"
+                     }
+                 ]
+}

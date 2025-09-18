@@ -1,0 +1,30 @@
+{
+  "public_id": "EB-TA4049",
+  "title": "DEPARTAMENTO EN VENTA EN COLONIA VIRREYES  RESIDENCIAL, ZAPOPAN, TORRE LÍRICA",
+  "title_image_full": "https://assets.easybroker.com/property_images/5214049/89669493/EB-TA4049.jpeg?version=1746227276",
+  "title_image_thumb": "https://assets.easybroker.com/property_images/5214049/89669493/EB-TA4049.jpeg?version=1746227276&width=200",
+  "location": "Virreyes Residencial, Zapopan, Jalisco",
+  "operations": [
+    {
+      "type": "sale",
+      "amount": 6370000.0,
+      "currency": "MXN",
+      "formatted_amount": "$6,370,000",
+      "commission": {
+        "type": "percentage",
+        "value": "3.0"
+      },
+      "unit": "total"
+    }
+  ],
+  "bedrooms": 2,
+  "bathrooms": 2,
+  "parking_spaces": 2,
+  "property_type": "Departamento",
+  "lot_size": null,
+  "construction_size": 80.0,
+  "updated_at": "2025-05-12T12:09:04-06:00",
+  "agent": "Lic.Gabriela Martínez",
+  "show_prices": true,
+  "share_commission": true
+}

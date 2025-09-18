@@ -1,0 +1,29 @@
+﻿{
+    "public_id":  "EB-RX9892",
+    "title":  "CASA EN RENTA CITALA III",
+    "title_image_full":  "https://assets.easybroker.com/property_images/4929892/84033163/EB-RX9892.jpeg?version=1735333061",
+    "title_image_thumb":  "https://assets.easybroker.com/property_images/4929892/84033163/EB-RX9892.jpeg?version=1735333061\u0026width=200",
+    "location":  "El Fortín, Zapopan, Jalisco",
+    "operations":  [
+                       {
+                           "type":  "rental",
+                           "amount":  9900.0,
+                           "currency":  "MXN",
+                           "formatted_amount":  "$9,900",
+                           "commission":  {
+                                              "type":  "percentage"
+                                          },
+                           "unit":  "total"
+                       }
+                   ],
+    "bedrooms":  2,
+    "bathrooms":  1,
+    "parking_spaces":  2,
+    "property_type":  "Casa en condominio",
+    "lot_size":  null,
+    "construction_size":  100.0,
+    "updated_at":  "2025-05-12T12:09:04-06:00",
+    "agent":  "Lic.Gabriela Martínez",
+    "show_prices":  true,
+    "share_commission":  true
+}

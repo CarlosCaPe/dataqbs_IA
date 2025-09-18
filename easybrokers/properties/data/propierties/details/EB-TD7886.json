@@ -1,0 +1,502 @@
+﻿{
+    "public_id":  "EB-TD7886",
+    "title":  "Impecable casa en Adamar",
+    "description":  "Casa de tres niveles en coto en fraccionamiento Adamar\n\nEstado impecable y con detalles de lujo!!!\n\nLista para Habitarse\n\nPRIMER NIVEL\n-Cochera para 2 autos\n-Recibidor-Sala Comedor con gran espacio \n-Medio baño \n-Cocina integral con gran aprovechamiento de espacios \n-Cuarto de lavado amueblado \n-Jardin con pasto sintético y pasillo lateral de servicio.\n\nSEGUNDO NIVEL\n-Baño completo\n-Estudio con salida a terraza\n-Recamara 1 con baño completo, amplio closet y adecuaciones en iluminacion y persianas black out de riel\n-Recamara 2 con amplio closet y adecuaciones en iluminacion y persianas black out de riel\n\nTERCER NIVEL\n-Recamara principal con salida a terraza en Roof\n-Roof con estructuca y malla de sombra\n-Baño completo con doble lavabo \n-Walk in closet\n-Adecuaciones en iluminacion y persianas black out con rieles\n\nLa casa cuenta con tanque estacionario y línea de llenado con dispositivo satelital de lectura de gas, persianas residenciales, cortineros; y ventiladores con control remoto en todas las recamaras.\n\nAmenidades en coto: Piscina con calefacción, Area infantil, cancha de futbol (para niños) terraza para eventos, vigilancia 24/7 hrs\n\nAdamar cuenta con áeas verdes, dog park, lago, andadores para caminar, gimnasio al aire libre, cancha de pádel, cancha de básquet y futbol. El coto se encuetra a solo unos pasos de un centro comercial con Gym, cefeteria y comercios que te brindaran todas las comodidades\n\nNo pierdas la oportunidad de conocerla!",
+    "bedrooms":  3,
+    "bathrooms":  3,
+    "half_bathrooms":  1,
+    "parking_spaces":  2,
+    "lot_size":  115.0,
+    "construction_size":  148.0,
+    "lot_length":  null,
+    "lot_width":  null,
+    "floors":  3,
+    "floor":  null,
+    "age":  2019,
+    "internal_id":  "GABOADAMAR",
+    "expenses":  "900",
+    "location":  {
+                     "name":  "Adamar, Tlajomulco de Zúñiga, Jalisco",
+                     "latitude":  20.526959011,
+                     "longitude":  -103.484317922,
+                     "street":  "Avenida Adamar",
+                     "postal_code":  "45645",
+                     "show_exact_location":  true,
+                     "hide_exact_location":  false,
+                     "exterior_number":  "548",
+                     "interior_number":  "71"
+                 },
+    "property_type":  "Casa",
+    "created_at":  "2025-05-16T20:16:14-06:00",
+    "updated_at":  "2025-05-18T09:28:58-06:00",
+    "published_at":  "2025-05-16T20:36:54-06:00",
+    "operations":  [
+                       {
+                           "type":  "sale",
+                           "amount":  3690000.0,
+                           "currency":  "MXN",
+                           "formatted_amount":  "$3,690,000",
+                           "commission":  {
+                                              "type":  "percentage",
+                                              "value":  "5.0"
+                                          },
+                           "unit":  "total"
+                       }
+                   ],
+    "property_files":  [
+
+                       ],
+    "videos":  [
+
+               ],
+    "virtual_tour":  null,
+    "collaboration_notes":  null,
+    "public_url":  "https://www.easybroker.com/mx/listings/impecable-casa-en-adamar-lista-para-habitarse-con",
+    "shared_commission_percentage":  null,
+    "exclusive":  null,
+    "foreclosure":  false,
+    "tags":  [
+
+             ],
+    "private_description":  null,
+    "show_prices":  true,
+    "share_commission":  true,
+    "property_images":  [
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5247886/90336589/EB-TD7886.jpg?version=1747500196"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5247886/90336591/EB-TD7886.jpg?version=1747500196"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5247886/90336588/EB-TD7886.jpg?version=1747500196"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5247886/90336593/EB-TD7886.jpg?version=1747500196"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5247886/90336592/EB-TD7886.jpg?version=1747500196"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5247886/90336590/EB-TD7886.jpg?version=1747500196"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5247886/90336741/EB-TD7886.jpg?version=1747500196"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5247886/90336743/EB-TD7886.jpg?version=1747500196"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5247886/90336744/EB-TD7886.jpg?version=1747500196"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5247886/90336807/EB-TD7886.jpg?version=1747500196"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5247886/90336808/EB-TD7886.jpg?version=1747500196"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5247886/90336742/EB-TD7886.jpg?version=1747500196"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5247886/90336909/EB-TD7886.jpg?version=1747500196"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5247886/90336804/EB-TD7886.jpg?version=1747500196"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5247886/90336806/EB-TD7886.jpg?version=1747500196"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5247886/90336893/EB-TD7886.jpg?version=1747500196"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5247886/90336811/EB-TD7886.jpg?version=1747500196"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5247886/90336801/EB-TD7886.jpg?version=1747500196"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5247886/90336803/EB-TD7886.jpg?version=1747500196"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5247886/90336812/EB-TD7886.jpg?version=1747500196"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5247886/90336910/EB-TD7886.jpg?version=1747500196"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5247886/90336961/EB-TD7886.jpg?version=1747500196"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5247886/90336951/EB-TD7886.jpg?version=1747500196"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5247886/90336946/EB-TD7886.jpg?version=1747500196"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5247886/90336950/EB-TD7886.jpg?version=1747500196"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5247886/90336939/EB-TD7886.jpg?version=1747500196"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5247886/90336991/EB-TD7886.jpg?version=1747500196"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5247886/90336940/EB-TD7886.jpg?version=1747500196"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5247886/90336941/EB-TD7886.jpg?version=1747500196"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5247886/90336974/EB-TD7886.jpg?version=1747500196"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5247886/90343307/EB-TD7886.jpg?version=1747500196"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5247886/90336962/EB-TD7886.jpg?version=1747500196"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5247886/90336965/EB-TD7886.jpg?version=1747500196"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5247886/90336971/EB-TD7886.jpg?version=1747500196"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5247886/90336966/EB-TD7886.jpg?version=1747500196"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5247886/90336969/EB-TD7886.jpg?version=1747500196"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5247886/90336963/EB-TD7886.jpg?version=1747500196"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5247886/90336964/EB-TD7886.jpg?version=1747500196"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5247886/90336967/EB-TD7886.jpg?version=1747500196"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5247886/90336968/EB-TD7886.jpg?version=1747500196"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5247886/90336989/EB-TD7886.jpg?version=1747500196"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5247886/90337020/EB-TD7886.jpg?version=1747500196"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5247886/90336990/EB-TD7886.jpg?version=1747500196"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5247886/90336993/EB-TD7886.jpg?version=1747500196"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5247886/90336992/EB-TD7886.jpg?version=1747500196"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5247886/90337021/EB-TD7886.jpg?version=1747500196"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5247886/90337022/EB-TD7886.jpg?version=1747500196"
+                            }
+                        ],
+    "images":  [
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5247886/90336589/EB-TD7886.jpg?version=1747500196"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5247886/90336591/EB-TD7886.jpg?version=1747500196"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5247886/90336588/EB-TD7886.jpg?version=1747500196"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5247886/90336593/EB-TD7886.jpg?version=1747500196"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5247886/90336592/EB-TD7886.jpg?version=1747500196"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5247886/90336590/EB-TD7886.jpg?version=1747500196"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5247886/90336741/EB-TD7886.jpg?version=1747500196"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5247886/90336743/EB-TD7886.jpg?version=1747500196"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5247886/90336744/EB-TD7886.jpg?version=1747500196"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5247886/90336807/EB-TD7886.jpg?version=1747500196"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5247886/90336808/EB-TD7886.jpg?version=1747500196"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5247886/90336742/EB-TD7886.jpg?version=1747500196"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5247886/90336909/EB-TD7886.jpg?version=1747500196"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5247886/90336804/EB-TD7886.jpg?version=1747500196"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5247886/90336806/EB-TD7886.jpg?version=1747500196"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5247886/90336893/EB-TD7886.jpg?version=1747500196"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5247886/90336811/EB-TD7886.jpg?version=1747500196"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5247886/90336801/EB-TD7886.jpg?version=1747500196"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5247886/90336803/EB-TD7886.jpg?version=1747500196"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5247886/90336812/EB-TD7886.jpg?version=1747500196"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5247886/90336910/EB-TD7886.jpg?version=1747500196"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5247886/90336961/EB-TD7886.jpg?version=1747500196"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5247886/90336951/EB-TD7886.jpg?version=1747500196"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5247886/90336946/EB-TD7886.jpg?version=1747500196"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5247886/90336950/EB-TD7886.jpg?version=1747500196"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5247886/90336939/EB-TD7886.jpg?version=1747500196"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5247886/90336991/EB-TD7886.jpg?version=1747500196"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5247886/90336940/EB-TD7886.jpg?version=1747500196"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5247886/90336941/EB-TD7886.jpg?version=1747500196"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5247886/90336974/EB-TD7886.jpg?version=1747500196"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5247886/90343307/EB-TD7886.jpg?version=1747500196"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5247886/90336962/EB-TD7886.jpg?version=1747500196"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5247886/90336965/EB-TD7886.jpg?version=1747500196"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5247886/90336971/EB-TD7886.jpg?version=1747500196"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5247886/90336966/EB-TD7886.jpg?version=1747500196"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5247886/90336969/EB-TD7886.jpg?version=1747500196"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5247886/90336963/EB-TD7886.jpg?version=1747500196"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5247886/90336964/EB-TD7886.jpg?version=1747500196"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5247886/90336967/EB-TD7886.jpg?version=1747500196"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5247886/90336968/EB-TD7886.jpg?version=1747500196"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5247886/90336989/EB-TD7886.jpg?version=1747500196"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5247886/90337020/EB-TD7886.jpg?version=1747500196"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5247886/90336990/EB-TD7886.jpg?version=1747500196"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5247886/90336993/EB-TD7886.jpg?version=1747500196"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5247886/90336992/EB-TD7886.jpg?version=1747500196"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5247886/90337021/EB-TD7886.jpg?version=1747500196"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5247886/90337022/EB-TD7886.jpg?version=1747500196"
+                   }
+               ],
+    "agent":  {
+                  "id":  391012,
+                  "name":  "Lic.Gabriela Martínez",
+                  "full_name":  "Lic.Gabriela Martínez",
+                  "mobile_phone":  "+523338087984",
+                  "profile_image_url":  "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1757459148",
+                  "email":  "GABRIELAMTZ6@HOTMAIL.COM"
+              },
+    "features":  [
+                     {
+                         "name":  "Facilidad para estacionarse",
+                         "category":  "Exterior"
+                     },
+                     {
+                         "name":  "Roof garden",
+                         "category":  "Exterior"
+                     },
+                     {
+                         "name":  "Accesibilidad para adultos mayores",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Cocina integral",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Estudio",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Fraccionamiento privado",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Portero",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Seguridad 24 horas",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Alberca",
+                         "category":  "Recreación"
+                     },
+                     {
+                         "name":  "Área de juegos infantiles",
+                         "category":  "Recreación"
+                     },
+                     {
+                         "name":  "Cancha de pádel",
+                         "category":  "Recreación"
+                     },
+                     {
+                         "name":  "Salón de usos múltiples",
+                         "category":  "Recreación"
+                     }
+                 ]
+}

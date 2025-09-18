@@ -1,0 +1,166 @@
+{
+  "public_id": "EB-ML2763",
+  "title": "NATURA BOSQUE RESID. LISTA A PARTIR DE 1 MAYO",
+  "description": "Casa. Estrenar , en coto Livorno. \n3 plantas . Sala comedor , área de oficina. Medio baño. Cocina integral de granito .\nPatio de servicio , área de lavado .\nTres recamaras casa una con closet vestidor y baño completo .",
+  "bedrooms": 3,
+  "bathrooms": 3,
+  "half_bathrooms": 1,
+  "parking_spaces": 2,
+  "lot_size": null,
+  "construction_size": null,
+  "lot_length": null,
+  "lot_width": null,
+  "floors": 2,
+  "floor": null,
+  "age": "new_construction",
+  "internal_id": null,
+  "expenses": "0",
+  "location": {
+    "name": "Fraccionamiento Natura, Zapopan, Jalisco",
+    "latitude": 20.620453811,
+    "longitude": -103.4821581231,
+    "street": "Mariano Otero ",
+    "postal_code": null,
+    "show_exact_location": true,
+    "hide_exact_location": false,
+    "exterior_number": null,
+    "interior_number": null
+  },
+  "property_type": "Casa en condominio",
+  "created_at": "2023-01-22T10:29:18-06:00",
+  "updated_at": "2025-05-12T12:09:04-06:00",
+  "published_at": "2024-03-13T08:20:42-06:00",
+  "operations": [
+    {
+      "type": "rental",
+      "amount": 14500.0,
+      "currency": "MXN",
+      "formatted_amount": "$14,500",
+      "commission": {
+        "type": "percentage"
+      },
+      "unit": "total"
+    }
+  ],
+  "property_files": [],
+  "videos": [],
+  "virtual_tour": null,
+  "collaboration_notes": null,
+  "public_url": "https://www.easybroker.com/mx/listings/natura-bosque-residencial-fraccionamiento-natura-casa-en-condominio",
+  "shared_commission_percentage": null,
+  "exclusive": null,
+  "foreclosure": false,
+  "tags": [],
+  "private_description": null,
+  "show_prices": true,
+  "share_commission": true,
+  "property_images": [
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/3502763/56865488/EB-ML2763.jpeg?version=1674405052"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/3502763/56865489/EB-ML2763.jpeg?version=1674405052"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/3502763/56865490/EB-ML2763.jpeg?version=1674405052"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/3502763/56865491/EB-ML2763.jpeg?version=1674405053"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/3502763/56865492/EB-ML2763.jpeg?version=1674405053"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/3502763/56865493/EB-ML2763.jpeg?version=1674405053"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/3502763/56865494/EB-ML2763.jpeg?version=1674405053"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/3502763/56865495/EB-ML2763.jpeg?version=1674405053"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/3502763/56865497/EB-ML2763.jpeg?version=1674405053"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/3502763/56865496/EB-ML2763.jpeg?version=1674405053"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/3502763/56865500/EB-ML2763.jpeg?version=1674405134"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/3502763/56865529/EB-ML2763.jpeg?version=1674405180"
+    }
+  ],
+  "images": [
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/3502763/56865488/EB-ML2763.jpeg?version=1674405052"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/3502763/56865489/EB-ML2763.jpeg?version=1674405052"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/3502763/56865490/EB-ML2763.jpeg?version=1674405052"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/3502763/56865491/EB-ML2763.jpeg?version=1674405053"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/3502763/56865492/EB-ML2763.jpeg?version=1674405053"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/3502763/56865493/EB-ML2763.jpeg?version=1674405053"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/3502763/56865494/EB-ML2763.jpeg?version=1674405053"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/3502763/56865495/EB-ML2763.jpeg?version=1674405053"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/3502763/56865497/EB-ML2763.jpeg?version=1674405053"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/3502763/56865496/EB-ML2763.jpeg?version=1674405053"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/3502763/56865500/EB-ML2763.jpeg?version=1674405134"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/3502763/56865529/EB-ML2763.jpeg?version=1674405180"
+    }
+  ],
+  "agent": {
+    "id": 391012,
+    "name": "Lic.Gabriela Martínez",
+    "full_name": "Lic.Gabriela Martínez",
+    "mobile_phone": "+523338087984",
+    "profile_image_url": "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1729887594",
+    "email": "GABRIELAMTZ6@HOTMAIL.COM"
+  },
+  "features": []
+}

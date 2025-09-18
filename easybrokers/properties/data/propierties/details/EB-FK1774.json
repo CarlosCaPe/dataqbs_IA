@@ -1,0 +1,137 @@
+﻿{
+    "public_id":  "EB-FK1774",
+    "title":  "BODEGA/TERRENO",
+    "description":  "BODEGA O TERRENO UBICADO CERCA DE RIO NILO Y 5 DE FEBRERO.CASETA DE CONTROL DE INGRESO,BAÑOS,PATIOS DE MANIOBRAS,ANDEN DE CARGA Y DESCARGA,BODEGA MULTIUSOS.\nO BIEN COMO TERRENO PARA HACER DEPARTAMENTOS H1,H2,H4,H5,",
+    "bedrooms":  null,
+    "bathrooms":  null,
+    "half_bathrooms":  null,
+    "parking_spaces":  null,
+    "lot_size":  1293.0,
+    "construction_size":  556.0,
+    "lot_length":  47.0,
+    "lot_width":  28.0,
+    "floors":  null,
+    "floor":  null,
+    "age":  null,
+    "internal_id":  null,
+    "expenses":  "NO",
+    "location":  {
+                     "name":  "San Carlos, Guadalajara, Jalisco",
+                     "latitude":  20.6578772,
+                     "longitude":  -103.339887,
+                     "street":  "JOSE LUIS VERDIA ",
+                     "postal_code":  "44460",
+                     "show_exact_location":  true,
+                     "hide_exact_location":  false,
+                     "exterior_number":  "877",
+                     "interior_number":  null
+                 },
+    "property_type":  "Bodega comercial",
+    "created_at":  "2020-07-28T13:24:26-05:00",
+    "updated_at":  "2025-05-12T12:09:04-06:00",
+    "published_at":  "2020-12-01T16:52:40-06:00",
+    "operations":  [
+                       {
+                           "type":  "sale",
+                           "amount":  6980000.0,
+                           "currency":  "MXN",
+                           "formatted_amount":  "$6,980,000",
+                           "commission":  {
+                                              "type":  "percentage"
+                                          },
+                           "unit":  "total"
+                       }
+                   ],
+    "property_files":  [
+                           "https://assets.easybroker.com/property_files/1671774/91713/Captura_de_pantalla_2020-07-28_a_la_s__1.33.21_p._m..png"
+                       ],
+    "videos":  [
+
+               ],
+    "virtual_tour":  null,
+    "collaboration_notes":  null,
+    "public_url":  "https://www.easybroker.com/mx/listings/bodega-terreno-san-carlos",
+    "shared_commission_percentage":  null,
+    "exclusive":  null,
+    "foreclosure":  false,
+    "tags":  [
+
+             ],
+    "private_description":  null,
+    "show_prices":  true,
+    "share_commission":  true,
+    "property_images":  [
+                            {
+                                "title":  "FACHADA",
+                                "url":  "https://assets.easybroker.com/property_images/1671774/25243243/EB-FK1774.jpg?version=1595960973"
+                            },
+                            {
+                                "title":  "FACHADA",
+                                "url":  "https://assets.easybroker.com/property_images/1671774/25243274/EB-FK1774.jpg?version=1595960973"
+                            },
+                            {
+                                "title":  "AREA TECHADA",
+                                "url":  "https://assets.easybroker.com/property_images/1671774/25243421/EB-FK1774.jpg?version=1595960973"
+                            },
+                            {
+                                "title":  "OFICINAS",
+                                "url":  "https://assets.easybroker.com/property_images/1671774/25243428/EB-FK1774.jpg?version=1595960973"
+                            },
+                            {
+                                "title":  "PATIO DE MANIOBRAS",
+                                "url":  "https://assets.easybroker.com/property_images/1671774/25243430/EB-FK1774.jpg?version=1595960973"
+                            },
+                            {
+                                "title":  "PATIO DE MANOBRAS",
+                                "url":  "https://assets.easybroker.com/property_images/1671774/25243431/EB-FK1774.jpg?version=1595960973"
+                            },
+                            {
+                                "title":  "PATIO DE MANIOBRAS",
+                                "url":  "https://assets.easybroker.com/property_images/1671774/25243432/EB-FK1774.jpg?version=1595960973"
+                            }
+                        ],
+    "images":  [
+                   {
+                       "title":  "FACHADA",
+                       "url":  "https://assets.easybroker.com/property_images/1671774/25243243/EB-FK1774.jpg?version=1595960973"
+                   },
+                   {
+                       "title":  "FACHADA",
+                       "url":  "https://assets.easybroker.com/property_images/1671774/25243274/EB-FK1774.jpg?version=1595960973"
+                   },
+                   {
+                       "title":  "AREA TECHADA",
+                       "url":  "https://assets.easybroker.com/property_images/1671774/25243421/EB-FK1774.jpg?version=1595960973"
+                   },
+                   {
+                       "title":  "OFICINAS",
+                       "url":  "https://assets.easybroker.com/property_images/1671774/25243428/EB-FK1774.jpg?version=1595960973"
+                   },
+                   {
+                       "title":  "PATIO DE MANIOBRAS",
+                       "url":  "https://assets.easybroker.com/property_images/1671774/25243430/EB-FK1774.jpg?version=1595960973"
+                   },
+                   {
+                       "title":  "PATIO DE MANOBRAS",
+                       "url":  "https://assets.easybroker.com/property_images/1671774/25243431/EB-FK1774.jpg?version=1595960973"
+                   },
+                   {
+                       "title":  "PATIO DE MANIOBRAS",
+                       "url":  "https://assets.easybroker.com/property_images/1671774/25243432/EB-FK1774.jpg?version=1595960973"
+                   }
+               ],
+    "agent":  {
+                  "id":  391012,
+                  "name":  "Lic.Gabriela Martínez",
+                  "full_name":  "Lic.Gabriela Martínez",
+                  "mobile_phone":  "+523338087984",
+                  "profile_image_url":  "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1757459148",
+                  "email":  "GABRIELAMTZ6@HOTMAIL.COM"
+              },
+    "features":  [
+                     {
+                         "name":  "Bodega",
+                         "category":  "General"
+                     }
+                 ]
+}

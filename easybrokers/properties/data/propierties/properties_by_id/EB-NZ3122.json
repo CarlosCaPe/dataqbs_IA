@@ -1,0 +1,29 @@
+﻿{
+    "public_id":  "EB-NZ3122",
+    "title":  "IDEAL PARA OFICINAS CONSULTORIOS,CASA COLINAS DE LA NORMAL (PRECIO NEGOCIABLE)",
+    "title_image_full":  "https://assets.easybroker.com/property_images/3903122/64210014/EB-NZ3122.jpg?version=1690330339",
+    "title_image_thumb":  "https://assets.easybroker.com/property_images/3903122/64210014/EB-NZ3122.jpg?version=1690330339\u0026width=200",
+    "location":  "Colinas de La Normal, Guadalajara, Jalisco",
+    "operations":  [
+                       {
+                           "type":  "sale",
+                           "amount":  7790000.0,
+                           "currency":  "MXN",
+                           "formatted_amount":  "$7,790,000",
+                           "commission":  {
+                                              "type":  "percentage"
+                                          },
+                           "unit":  "total"
+                       }
+                   ],
+    "bedrooms":  5,
+    "bathrooms":  3,
+    "parking_spaces":  2,
+    "property_type":  "Casa",
+    "lot_size":  216.0,
+    "construction_size":  362.0,
+    "updated_at":  "2025-05-12T12:09:04-06:00",
+    "agent":  "Lic.Gabriela Martínez",
+    "show_prices":  true,
+    "share_commission":  true
+}

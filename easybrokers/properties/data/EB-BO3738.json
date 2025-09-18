@@ -1,0 +1,30 @@
+{
+  "public_id": "EB-BO3738",
+  "title": "CASA EN VENTA EN COL MARIANO OTERO",
+  "title_image_full": "https://assets.easybroker.com/property_images/673738/10266281/EB-BO3738.JPG?version=1521153309",
+  "title_image_thumb": "https://assets.easybroker.com/property_images/673738/10266281/EB-BO3738.JPG?version=1521153309&width=200",
+  "location": "Mariano Otero, Zapopan, Jalisco",
+  "operations": [
+    {
+      "type": "sale",
+      "amount": 1950000.0,
+      "currency": "MXN",
+      "formatted_amount": "$1,950,000",
+      "commission": {
+        "type": "percentage",
+        "value": "5.0"
+      },
+      "unit": "total"
+    }
+  ],
+  "bedrooms": 2,
+  "bathrooms": 2,
+  "parking_spaces": 3,
+  "property_type": "Casa",
+  "lot_size": 260.0,
+  "construction_size": 190.0,
+  "updated_at": "2025-05-12T12:09:04-06:00",
+  "agent": "Lic.Gabriela Martínez",
+  "show_prices": true,
+  "share_commission": true
+}

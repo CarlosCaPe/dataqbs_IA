@@ -1,0 +1,358 @@
+﻿{
+    "public_id":  "EB-TP1866",
+    "title":  "LUJOSO DEPARTAMENTO DE 2 NIVELES EN COLONIA AMERICANA",
+    "description":  "OLIVA RESIDENCE - Vive en el corazón de la Colonia Americana. Departamentos en venta en una de las zonas con mayor plusvalía y estilo de vida de Guadalajara.\n\nUbicados en un conjunto exclusivo de 4 torres, Oliva residence combina diseño, confort y una ubicación privilegiada.\n\nEl departamento D6 tiene en PB:\n1 Recámara con Baño completo.\nMedio baño con una bodega.\nSala - Comedor con doble altura con sistema de rociadores contra incendio.\nPersianas\nCocina equipada con una vista espectacular y cubiertas de granito.\nAlacena y Área de lavado.\nTerraza de 43 M2 con vista a la colonia americana.\n\nEn planta Alta:\n2 recámaras con 2 Baños completos (uno para cada recámara)\n\nCada departamento cuenta con 2 cajones de estacionamiento, áreas comunes y de servicio completamente equipadas.\nLobby, Motor Lobby, ludoteca, Sky Bar, Gimnasio/Spa y elevadores directo a la puerta de cada departamento.\n\nLos precios varían según la unidad: van desde los 155m2 a $8,370,000 hasta 238m2 a $13,090,000 pregunta por las unidades disponibles.\n\nNos encantará mostrártelos en persona. Agenda tu visita y enamórate de tu próximo hogar.",
+    "bedrooms":  3,
+    "bathrooms":  3,
+    "half_bathrooms":  1,
+    "parking_spaces":  2,
+    "lot_size":  null,
+    "construction_size":  237.51,
+    "lot_length":  null,
+    "lot_width":  null,
+    "floors":  null,
+    "floor":  "6",
+    "age":  null,
+    "internal_id":  "OLIVAD6HAB",
+    "expenses":  null,
+    "location":  {
+                     "name":  "Americana, Guadalajara, Jalisco",
+                     "latitude":  20.6708171,
+                     "longitude":  -103.3761087,
+                     "street":  "Juan Ruiz de Alarcón",
+                     "postal_code":  "44150",
+                     "show_exact_location":  true,
+                     "hide_exact_location":  false,
+                     "exterior_number":  "221",
+                     "interior_number":  "D6"
+                 },
+    "property_type":  "Departamento",
+    "created_at":  "2025-07-04T15:14:19-06:00",
+    "updated_at":  "2025-07-04T18:32:31-06:00",
+    "published_at":  null,
+    "operations":  [
+                       {
+                           "type":  "sale",
+                           "amount":  13090000.0,
+                           "currency":  "MXN",
+                           "formatted_amount":  "$13,090,000",
+                           "commission":  {
+                                              "type":  "percentage",
+                                              "value":  "4.0"
+                                          },
+                           "unit":  "total"
+                       }
+                   ],
+    "property_files":  [
+
+                       ],
+    "videos":  [
+
+               ],
+    "virtual_tour":  null,
+    "collaboration_notes":  "Compartimos con asesores afiliados",
+    "public_url":  "https://www.easybroker.com/mx/listings/lujoso-departamento-de-2-niveles-en-colonia-americana",
+    "shared_commission_percentage":  50.0,
+    "exclusive":  null,
+    "foreclosure":  false,
+    "tags":  [
+
+             ],
+    "private_description":  null,
+    "show_prices":  true,
+    "share_commission":  true,
+    "property_images":  [
+                            {
+                                "title":  "Lobby",
+                                "url":  "https://assets.easybroker.com/property_images/5361866/92604316/EB-TP1866.jpg?version=1751675515"
+                            },
+                            {
+                                "title":  "Recepción",
+                                "url":  "https://assets.easybroker.com/property_images/5361866/92604317/EB-TP1866.jpg?version=1751675515"
+                            },
+                            {
+                                "title":  "Terraza",
+                                "url":  "https://assets.easybroker.com/property_images/5361866/92604348/EB-TP1866.jpg?version=1751675515"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5361866/92604350/EB-TP1866.jpg?version=1751675515"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5361866/92604349/EB-TP1866.jpg?version=1751675515"
+                            },
+                            {
+                                "title":  "Cocina y terraza",
+                                "url":  "https://assets.easybroker.com/property_images/5361866/92604351/EB-TP1866.jpg?version=1751675515"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5361866/92604346/EB-TP1866.jpg?version=1751675515"
+                            },
+                            {
+                                "title":  "Chimenea",
+                                "url":  "https://assets.easybroker.com/property_images/5361866/92604352/EB-TP1866.jpg?version=1751675515"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5361866/92604353/EB-TP1866.jpg?version=1751675515"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5361866/92604354/EB-TP1866.jpg?version=1751675515"
+                            },
+                            {
+                                "title":  "área de lavado",
+                                "url":  "https://assets.easybroker.com/property_images/5361866/92604345/EB-TP1866.jpg?version=1751675515"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5361866/92604355/EB-TP1866.jpg?version=1751675515"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5361866/92604347/EB-TP1866.jpg?version=1751675515"
+                            },
+                            {
+                                "title":  "Escaleras a 2ndo nivel",
+                                "url":  "https://assets.easybroker.com/property_images/5361866/92615908/EB-TP1866.jpg?version=1751675515"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5361866/92615909/EB-TP1866.jpg?version=1751675515"
+                            },
+                            {
+                                "title":  "Spa",
+                                "url":  "https://assets.easybroker.com/property_images/5361866/92616387/EB-TP1866.jpg?version=1751675515"
+                            },
+                            {
+                                "title":  "Vapor",
+                                "url":  "https://assets.easybroker.com/property_images/5361866/92616388/EB-TP1866.jpg?version=1751675515"
+                            },
+                            {
+                                "title":  "Gimnasio",
+                                "url":  "https://assets.easybroker.com/property_images/5361866/92616389/EB-TP1866.jpg?version=1751675515"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5361866/92616390/EB-TP1866.jpg?version=1751675515"
+                            },
+                            {
+                                "title":  "Ludoteca",
+                                "url":  "https://assets.easybroker.com/property_images/5361866/92616391/EB-TP1866.jpg?version=1751675515"
+                            },
+                            {
+                                "title":  "Áreas comunes",
+                                "url":  "https://assets.easybroker.com/property_images/5361866/92616392/EB-TP1866.jpg?version=1751675515"
+                            },
+                            {
+                                "title":  "Sala de espera (junto al lobby)",
+                                "url":  "https://assets.easybroker.com/property_images/5361866/92616393/EB-TP1866.jpg?version=1751675515"
+                            },
+                            {
+                                "title":  "Sky bar",
+                                "url":  "https://assets.easybroker.com/property_images/5361866/92616394/EB-TP1866.jpg?version=1751675515"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5361866/92616395/EB-TP1866.jpg?version=1751675515"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5361866/92616396/EB-TP1866.jpg?version=1751675515"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5361866/92616397/EB-TP1866.jpg?version=1751675515"
+                            },
+                            {
+                                "title":  "Sala de juntas",
+                                "url":  "https://assets.easybroker.com/property_images/5361866/92616398/EB-TP1866.jpg?version=1751675515"
+                            },
+                            {
+                                "title":  "Sala de juntas",
+                                "url":  "https://assets.easybroker.com/property_images/5361866/92616399/EB-TP1866.jpg?version=1751675515"
+                            }
+                        ],
+    "images":  [
+                   {
+                       "title":  "Lobby",
+                       "url":  "https://assets.easybroker.com/property_images/5361866/92604316/EB-TP1866.jpg?version=1751675515"
+                   },
+                   {
+                       "title":  "Recepción",
+                       "url":  "https://assets.easybroker.com/property_images/5361866/92604317/EB-TP1866.jpg?version=1751675515"
+                   },
+                   {
+                       "title":  "Terraza",
+                       "url":  "https://assets.easybroker.com/property_images/5361866/92604348/EB-TP1866.jpg?version=1751675515"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5361866/92604350/EB-TP1866.jpg?version=1751675515"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5361866/92604349/EB-TP1866.jpg?version=1751675515"
+                   },
+                   {
+                       "title":  "Cocina y terraza",
+                       "url":  "https://assets.easybroker.com/property_images/5361866/92604351/EB-TP1866.jpg?version=1751675515"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5361866/92604346/EB-TP1866.jpg?version=1751675515"
+                   },
+                   {
+                       "title":  "Chimenea",
+                       "url":  "https://assets.easybroker.com/property_images/5361866/92604352/EB-TP1866.jpg?version=1751675515"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5361866/92604353/EB-TP1866.jpg?version=1751675515"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5361866/92604354/EB-TP1866.jpg?version=1751675515"
+                   },
+                   {
+                       "title":  "área de lavado",
+                       "url":  "https://assets.easybroker.com/property_images/5361866/92604345/EB-TP1866.jpg?version=1751675515"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5361866/92604355/EB-TP1866.jpg?version=1751675515"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5361866/92604347/EB-TP1866.jpg?version=1751675515"
+                   },
+                   {
+                       "title":  "Escaleras a 2ndo nivel",
+                       "url":  "https://assets.easybroker.com/property_images/5361866/92615908/EB-TP1866.jpg?version=1751675515"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5361866/92615909/EB-TP1866.jpg?version=1751675515"
+                   },
+                   {
+                       "title":  "Spa",
+                       "url":  "https://assets.easybroker.com/property_images/5361866/92616387/EB-TP1866.jpg?version=1751675515"
+                   },
+                   {
+                       "title":  "Vapor",
+                       "url":  "https://assets.easybroker.com/property_images/5361866/92616388/EB-TP1866.jpg?version=1751675515"
+                   },
+                   {
+                       "title":  "Gimnasio",
+                       "url":  "https://assets.easybroker.com/property_images/5361866/92616389/EB-TP1866.jpg?version=1751675515"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5361866/92616390/EB-TP1866.jpg?version=1751675515"
+                   },
+                   {
+                       "title":  "Ludoteca",
+                       "url":  "https://assets.easybroker.com/property_images/5361866/92616391/EB-TP1866.jpg?version=1751675515"
+                   },
+                   {
+                       "title":  "Áreas comunes",
+                       "url":  "https://assets.easybroker.com/property_images/5361866/92616392/EB-TP1866.jpg?version=1751675515"
+                   },
+                   {
+                       "title":  "Sala de espera (junto al lobby)",
+                       "url":  "https://assets.easybroker.com/property_images/5361866/92616393/EB-TP1866.jpg?version=1751675515"
+                   },
+                   {
+                       "title":  "Sky bar",
+                       "url":  "https://assets.easybroker.com/property_images/5361866/92616394/EB-TP1866.jpg?version=1751675515"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5361866/92616395/EB-TP1866.jpg?version=1751675515"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5361866/92616396/EB-TP1866.jpg?version=1751675515"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5361866/92616397/EB-TP1866.jpg?version=1751675515"
+                   },
+                   {
+                       "title":  "Sala de juntas",
+                       "url":  "https://assets.easybroker.com/property_images/5361866/92616398/EB-TP1866.jpg?version=1751675515"
+                   },
+                   {
+                       "title":  "Sala de juntas",
+                       "url":  "https://assets.easybroker.com/property_images/5361866/92616399/EB-TP1866.jpg?version=1751675515"
+                   }
+               ],
+    "agent":  {
+                  "id":  391012,
+                  "name":  "Lic.Gabriela Martínez",
+                  "full_name":  "Lic.Gabriela Martínez",
+                  "mobile_phone":  "+523338087984",
+                  "profile_image_url":  "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1757459148",
+                  "email":  "GABRIELAMTZ6@HOTMAIL.COM"
+              },
+    "features":  [
+                     {
+                         "name":  "Estacionamiento techado",
+                         "category":  "Exterior"
+                     },
+                     {
+                         "name":  "Roof garden",
+                         "category":  "Exterior"
+                     },
+                     {
+                         "name":  "Terraza",
+                         "category":  "Exterior"
+                     },
+                     {
+                         "name":  "Cocina equipada",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Dos plantas",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Elevador",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Fraccionamiento privado",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Portero",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Recámara en planta baja",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Seguridad 24 horas",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Área de juegos infantiles",
+                         "category":  "Recreación"
+                     },
+                     {
+                         "name":  "Gimnasio",
+                         "category":  "Recreación"
+                     },
+                     {
+                         "name":  "Ludoteca",
+                         "category":  "Recreación"
+                     },
+                     {
+                         "name":  "Sauna",
+                         "category":  "Recreación"
+                     }
+                 ]
+}

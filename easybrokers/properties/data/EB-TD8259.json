@@ -1,0 +1,30 @@
+{
+  "public_id": "EB-TD8259",
+  "title": "Terreno en Senderos de Monte Verde",
+  "title_image_full": "https://assets.easybroker.com/property_images/5248259/90344665/EB-TD8259.jpg?version=1747503216",
+  "title_image_thumb": "https://assets.easybroker.com/property_images/5248259/90344665/EB-TD8259.jpg?version=1747503216&width=200",
+  "location": "Senderos de Monte Verde, Tlajomulco de Zúñiga, Jalisco",
+  "operations": [
+    {
+      "type": "sale",
+      "amount": 1350000.0,
+      "currency": "MXN",
+      "formatted_amount": "$1,350,000",
+      "commission": {
+        "type": "percentage",
+        "value": "4.0"
+      },
+      "unit": "total"
+    }
+  ],
+  "bedrooms": null,
+  "bathrooms": null,
+  "parking_spaces": null,
+  "property_type": "Terreno",
+  "lot_size": 200.0,
+  "construction_size": null,
+  "updated_at": "2025-05-22T14:13:56-06:00",
+  "agent": "Lic.Gabriela Martínez",
+  "show_prices": true,
+  "share_commission": true
+}

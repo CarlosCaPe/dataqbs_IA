@@ -1,0 +1,178 @@
+﻿{
+    "public_id":  "EB-TD1908",
+    "title":  "LOCAL COMERCIAL EN RENTA EN TORRE BRAVANTE, AV MEXICO, CERCA DE AV CHAPULTEPEC",
+    "description":  "Local Comercial en RENTA en Torre BRAVANTE, ubicada en Av. México cerca de Av. Américas y Av. Chapultepec.\nUna de las zonas más comerciales de Guadalajara.\n\nENTREGA SEPTIEMBRE 2025\n\nLa torre cuenta con Oficinas, Departamentos y Locales Comerciales, lo que la hace una excelente oportunidad de inversión.\nMarcas AAA\nExclusividad de giro, garantizando el crecimiento de tu negocio.\n\nPLANTA ALTA\n329.41\n218.66m2 área de local\n110.75m2 de terraza\n\n\nEstacionamiento con 4 niveles\n2,038m2 de área comercial\n6,760m2 de área para oficinas\n4,386m2 de área para departamentos\n\nAvenidas cercanas como: Av. Juan Palomar y Arias, Av. Ignacio L. Vallarta, Diag, Golfo de Cortés, Av. Manuel Acuña, Av. Américas, Av. Chapultepec.",
+    "bedrooms":  null,
+    "bathrooms":  null,
+    "half_bathrooms":  null,
+    "parking_spaces":  null,
+    "lot_size":  329.41,
+    "construction_size":  329.41,
+    "lot_length":  null,
+    "lot_width":  null,
+    "floors":  null,
+    "floor":  null,
+    "age":  null,
+    "internal_id":  "YULBRAVANTE4",
+    "expenses":  null,
+    "location":  {
+                     "name":  "Residencial Juan Manuel, Guadalajara, Jalisco",
+                     "latitude":  20.6798045,
+                     "longitude":  -103.3902776,
+                     "street":  "AV MEXICO",
+                     "postal_code":  null,
+                     "show_exact_location":  true,
+                     "hide_exact_location":  false,
+                     "exterior_number":  "3016",
+                     "interior_number":  null
+                 },
+    "property_type":  "Local comercial",
+    "created_at":  "2025-05-15T11:36:10-06:00",
+    "updated_at":  "2025-05-29T13:18:33-06:00",
+    "published_at":  "2025-05-15T11:37:04-06:00",
+    "operations":  [
+                       {
+                           "type":  "rental",
+                           "amount":  144940.4,
+                           "currency":  "MXN",
+                           "formatted_amount":  "$144,940.40",
+                           "commission":  {
+                                              "type":  "months",
+                                              "value":  1
+                                          },
+                           "unit":  "total"
+                       }
+                   ],
+    "property_files":  [
+
+                       ],
+    "videos":  [
+
+               ],
+    "virtual_tour":  null,
+    "collaboration_notes":  "IMPORTANTE:\r\nLa comisión son 20 días se comparte 10 días",
+    "public_url":  "https://www.easybroker.com/mx/listings/local-comercial-en-renta-en-torre-novena-av-mexico-cerca-de-av-chapultepec-residencial-juan-manuel",
+    "shared_commission_percentage":  50.0,
+    "exclusive":  null,
+    "foreclosure":  false,
+    "tags":  [
+
+             ],
+    "private_description":  null,
+    "show_prices":  true,
+    "share_commission":  true,
+    "property_images":  [
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5241908/90228587/EB-TD1908.jpeg?version=1747346529"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5241908/90228596/EB-TD1908.jpeg?version=1747346529"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5241908/90228604/EB-TD1908.jpeg?version=1747346529"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5241908/90228606/EB-TD1908.jpeg?version=1747346529"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5241908/90228618/EB-TD1908.jpeg?version=1747346529"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5241908/90228605/EB-TD1908.jpeg?version=1747346529"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5241908/90228612/EB-TD1908.jpeg?version=1747346529"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5241908/90228616/EB-TD1908.jpeg?version=1747346529"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5241908/90228619/EB-TD1908.jpeg?version=1747346529"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5241908/90228614/EB-TD1908.jpeg?version=1747346529"
+                            }
+                        ],
+    "images":  [
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5241908/90228587/EB-TD1908.jpeg?version=1747346529"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5241908/90228596/EB-TD1908.jpeg?version=1747346529"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5241908/90228604/EB-TD1908.jpeg?version=1747346529"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5241908/90228606/EB-TD1908.jpeg?version=1747346529"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5241908/90228618/EB-TD1908.jpeg?version=1747346529"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5241908/90228605/EB-TD1908.jpeg?version=1747346529"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5241908/90228612/EB-TD1908.jpeg?version=1747346529"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5241908/90228616/EB-TD1908.jpeg?version=1747346529"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5241908/90228619/EB-TD1908.jpeg?version=1747346529"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5241908/90228614/EB-TD1908.jpeg?version=1747346529"
+                   }
+               ],
+    "agent":  {
+                  "id":  391012,
+                  "name":  "Lic.Gabriela Martínez",
+                  "full_name":  "Lic.Gabriela Martínez",
+                  "mobile_phone":  "+523338087984",
+                  "profile_image_url":  "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1757459148",
+                  "email":  "GABRIELAMTZ6@HOTMAIL.COM"
+              },
+    "features":  [
+                     {
+                         "name":  "Estacionamiento techado",
+                         "category":  "Exterior"
+                     },
+                     {
+                         "name":  "Facilidad para estacionarse",
+                         "category":  "Exterior"
+                     },
+                     {
+                         "name":  "Accesibilidad para adultos mayores",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Accesibilidad para personas con discapacidad",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Seguridad 24 horas",
+                         "category":  "General"
+                     }
+                 ]
+}

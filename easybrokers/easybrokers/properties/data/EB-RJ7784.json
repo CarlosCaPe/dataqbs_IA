@@ -1,0 +1,240 @@
+{
+  "public_id": "EB-RJ7784",
+  "title": "Terreno en venta en Rancho Contento al lado del campo de Golf",
+  "description": "Terreno en venta en a un lado del campo de golf en uno de los fraccionamientos con mayor demanda en Guadalajara: Rancho Contento\n\nEsta fraccionamiento cuenta con uno de los mejores campos de golf de la Ciudad, además de sus calles empedradas que dan una sensación a campo inigualable, areas verdes, restaurante, tienda de conveniencia, zona de asadores, parque con juegos infantiles, canchas de tenis y fútbol, alberca y gimnasio.\n\nNo dejes pasar la oportunidad de hacer una excelente inversión.",
+  "bedrooms": null,
+  "bathrooms": null,
+  "half_bathrooms": null,
+  "parking_spaces": null,
+  "lot_size": 850.0,
+  "construction_size": null,
+  "lot_length": 40.0,
+  "lot_width": 21.0,
+  "floors": null,
+  "floor": null,
+  "age": null,
+  "internal_id": "RANCHO",
+  "expenses": null,
+  "location": {
+    "name": "Rancho Contento, Zapopan, Jalisco",
+    "latitude": 20.7092390541,
+    "longitude": -103.4806337301,
+    "street": "Paseo de las primaveras",
+    "postal_code": "45222",
+    "show_exact_location": true,
+    "hide_exact_location": false,
+    "exterior_number": null,
+    "interior_number": null
+  },
+  "property_type": "Terreno",
+  "created_at": "2024-10-10T10:14:08-06:00",
+  "updated_at": "2025-05-12T12:09:04-06:00",
+  "published_at": "2024-10-10T10:15:08-06:00",
+  "operations": [
+    {
+      "type": "sale",
+      "amount": 17000000.0,
+      "currency": "MXN",
+      "formatted_amount": "$17,000,000",
+      "commission": {
+        "type": "percentage",
+        "value": "4.0"
+      },
+      "unit": "total"
+    }
+  ],
+  "property_files": [],
+  "videos": [],
+  "virtual_tour": null,
+  "collaboration_notes": "50% inmobiliarias afiliadas",
+  "public_url": "https://www.easybroker.com/mx/listings/terreno-en-venta-en-rancho-contento-al-lado-del-campo-de-golf",
+  "shared_commission_percentage": null,
+  "exclusive": null,
+  "foreclosure": false,
+  "tags": [],
+  "private_description": null,
+  "show_prices": true,
+  "share_commission": true,
+  "property_images": [
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4787784/81093269/EB-RJ7784.jpg?version=1728576895"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4787784/81093270/EB-RJ7784.jpg?version=1728576895"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4787784/81093271/EB-RJ7784.jpg?version=1728576895"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4787784/81093272/EB-RJ7784.jpg?version=1728576896"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4787784/81093274/EB-RJ7784.jpg?version=1728576896"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4787784/81093276/EB-RJ7784.jpg?version=1728576896"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4787784/81093277/EB-RJ7784.jpg?version=1728576897"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4787784/81093279/EB-RJ7784.jpg?version=1728576897"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4787784/81093280/EB-RJ7784.jpg?version=1728576897"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4787784/81093281/EB-RJ7784.jpg?version=1728576898"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4787784/81093282/EB-RJ7784.jpg?version=1728576898"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4787784/81093283/EB-RJ7784.jpg?version=1728576898"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4787784/81093284/EB-RJ7784.jpg?version=1728576899"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4787784/81093285/EB-RJ7784.jpg?version=1728576899"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4787784/81093286/EB-RJ7784.jpg?version=1728576900"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4787784/81093287/EB-RJ7784.jpg?version=1728576900"
+    }
+  ],
+  "images": [
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4787784/81093269/EB-RJ7784.jpg?version=1728576895"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4787784/81093270/EB-RJ7784.jpg?version=1728576895"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4787784/81093271/EB-RJ7784.jpg?version=1728576895"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4787784/81093272/EB-RJ7784.jpg?version=1728576896"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4787784/81093274/EB-RJ7784.jpg?version=1728576896"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4787784/81093276/EB-RJ7784.jpg?version=1728576896"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4787784/81093277/EB-RJ7784.jpg?version=1728576897"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4787784/81093279/EB-RJ7784.jpg?version=1728576897"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4787784/81093280/EB-RJ7784.jpg?version=1728576897"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4787784/81093281/EB-RJ7784.jpg?version=1728576898"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4787784/81093282/EB-RJ7784.jpg?version=1728576898"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4787784/81093283/EB-RJ7784.jpg?version=1728576898"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4787784/81093284/EB-RJ7784.jpg?version=1728576899"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4787784/81093285/EB-RJ7784.jpg?version=1728576899"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4787784/81093286/EB-RJ7784.jpg?version=1728576900"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4787784/81093287/EB-RJ7784.jpg?version=1728576900"
+    }
+  ],
+  "agent": {
+    "id": 391012,
+    "name": "Lic.Gabriela Martínez",
+    "full_name": "Lic.Gabriela Martínez",
+    "mobile_phone": "+523338087984",
+    "profile_image_url": "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1729887594",
+    "email": "GABRIELAMTZ6@HOTMAIL.COM"
+  },
+  "features": [
+    {
+      "name": "Facilidad para estacionarse",
+      "category": "Exterior"
+    },
+    {
+      "name": "Jardín",
+      "category": "Exterior"
+    },
+    {
+      "name": "Accesibilidad para adultos mayores",
+      "category": "General"
+    },
+    {
+      "name": "Accesibilidad para personas con discapacidad",
+      "category": "General"
+    },
+    {
+      "name": "Fraccionamiento privado",
+      "category": "General"
+    },
+    {
+      "name": "Seguridad 24 horas",
+      "category": "General"
+    },
+    {
+      "name": "Alberca",
+      "category": "Recreación"
+    },
+    {
+      "name": "Área de juegos infantiles",
+      "category": "Recreación"
+    },
+    {
+      "name": "Cancha de tenis",
+      "category": "Recreación"
+    },
+    {
+      "name": "Gimnasio",
+      "category": "Recreación"
+    }
+  ]
+}

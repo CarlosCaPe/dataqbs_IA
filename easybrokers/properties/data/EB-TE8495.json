@@ -1,0 +1,30 @@
+{
+  "public_id": "EB-TE8495",
+  "title": "DEPARRTAMENTO EN VENTA EN COLONIA MODERNA A 5 MIN DE AV CHAPULTEPEC",
+  "title_image_full": "https://assets.easybroker.com/property_images/5258495/90624162/EB-TE8495.jpeg?version=1748025622",
+  "title_image_thumb": "https://assets.easybroker.com/property_images/5258495/90624162/EB-TE8495.jpeg?version=1748025622&width=200",
+  "location": "Moderna, Guadalajara, Jalisco",
+  "operations": [
+    {
+      "type": "sale",
+      "amount": 2980000.0,
+      "currency": "MXN",
+      "formatted_amount": "$2,980,000",
+      "commission": {
+        "type": "percentage",
+        "value": "3.0"
+      },
+      "unit": "total"
+    }
+  ],
+  "bedrooms": 1,
+  "bathrooms": 1,
+  "parking_spaces": 1,
+  "property_type": "Departamento",
+  "lot_size": null,
+  "construction_size": 43.0,
+  "updated_at": "2025-05-23T12:51:26-06:00",
+  "agent": "Lic.Gabriela Martínez",
+  "show_prices": true,
+  "share_commission": true
+}

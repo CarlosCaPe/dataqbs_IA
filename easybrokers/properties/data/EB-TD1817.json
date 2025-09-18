@@ -1,0 +1,30 @@
+{
+  "public_id": "EB-TD1817",
+  "title": "LOCAL COMERCIAL EN RENTA EN TORRE BRAVANTE, AV MEXICO, CERCA DE AV CHAPULTEPEC",
+  "title_image_full": "https://assets.easybroker.com/property_images/5241817/90218938/EB-TD1817.jpeg?version=1747338007",
+  "title_image_thumb": "https://assets.easybroker.com/property_images/5241817/90218938/EB-TD1817.jpeg?version=1747338007&width=200",
+  "location": "Residencial Juan Manuel, Guadalajara, Jalisco",
+  "operations": [
+    {
+      "type": "rental",
+      "amount": 232892.0,
+      "currency": "MXN",
+      "formatted_amount": "$232,892",
+      "commission": {
+        "type": "months",
+        "value": 1
+      },
+      "unit": "total"
+    }
+  ],
+  "bedrooms": null,
+  "bathrooms": null,
+  "parking_spaces": null,
+  "property_type": "Local comercial",
+  "lot_size": 371.44,
+  "construction_size": 371.44,
+  "updated_at": "2025-05-29T13:18:15-06:00",
+  "agent": "Lic.Gabriela Martínez",
+  "show_prices": true,
+  "share_commission": true
+}

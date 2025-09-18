@@ -1,0 +1,30 @@
+﻿{
+    "public_id":  "EB-SZ7574",
+    "title":  "DEPARTAMENTO EN VENTA CERCA  DEL CENTRO DE GUADALAJARA, TORRE VILLADHARA",
+    "title_image_full":  "https://assets.easybroker.com/property_images/5207574/89542196/EB-SZ7574.jpeg?version=1745970060",
+    "title_image_thumb":  "https://assets.easybroker.com/property_images/5207574/89542196/EB-SZ7574.jpeg?version=1745970060\u0026width=200",
+    "location":  "El Retiro, Guadalajara, Jalisco",
+    "operations":  [
+                       {
+                           "type":  "sale",
+                           "amount":  2100000.0,
+                           "currency":  "MXN",
+                           "formatted_amount":  "$2,100,000",
+                           "commission":  {
+                                              "type":  "percentage",
+                                              "value":  "3.0"
+                                          },
+                           "unit":  "total"
+                       }
+                   ],
+    "bedrooms":  1,
+    "bathrooms":  1,
+    "parking_spaces":  1,
+    "property_type":  "Departamento",
+    "lot_size":  null,
+    "construction_size":  54.0,
+    "updated_at":  "2025-05-12T12:09:04-06:00",
+    "agent":  "Lic.Gabriela Martínez",
+    "show_prices":  true,
+    "share_commission":  true
+}

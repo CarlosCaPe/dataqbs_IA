@@ -1,0 +1,29 @@
+{
+  "public_id": "EB-SG6073",
+  "title": "CASA UNA PLANTA CALLE VAN GOGH CASI ESQ AV PATRIA",
+  "title_image_full": "https://assets.easybroker.com/property_images/5016073/85772158/EB-SG6073.jpg?version=1739297236",
+  "title_image_thumb": "https://assets.easybroker.com/property_images/5016073/85772158/EB-SG6073.jpg?version=1739297236&width=200",
+  "location": "Real Vallarta, Zapopan, Jalisco",
+  "operations": [
+    {
+      "type": "rental",
+      "amount": 19000.0,
+      "currency": "MXN",
+      "formatted_amount": "$19,000",
+      "commission": {
+        "type": "percentage"
+      },
+      "unit": "total"
+    }
+  ],
+  "bedrooms": 3,
+  "bathrooms": 2,
+  "parking_spaces": 1,
+  "property_type": "Casa",
+  "lot_size": 178.0,
+  "construction_size": 124.0,
+  "updated_at": "2025-05-12T12:09:04-06:00",
+  "agent": "Lic.Gabriela Martínez",
+  "show_prices": true,
+  "share_commission": false
+}

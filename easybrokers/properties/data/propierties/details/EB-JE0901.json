@@ -1,0 +1,309 @@
+﻿{
+    "public_id":  "EB-JE0901",
+    "title":  "CASA EN RENTA COTO ANTARA (9) SOLARES",
+    "description":  "HERMOSA CASA EN RENTA EN COTO ANTARA  9, SOLARES. \nLA CASA CONSTA DE COCHERA PARA DOS AUTOS, SALA COMEDOR,COCINA INTEGRAL, RECAMARA EN PLANTA BAJA CON BAÑO COMPLETO, PEQUEÑA TERRAZA, PEQUEÑA BODEGA PARA ALMACENAMIENTO.\nPLANTA ALTA:\nDOS RECAMARAS CADA UNA CON CLOSET VESTIDOR Y BAÑO COMPLETO.\nESTAR DE TV CONMUEBLES EMPOTRADOS.\nAREA DE LAVADO.\nNOTA:\nLA CASA CUENTA CON PERSIANAS, VENTILADORES, CANDIL EN ESCALERA, PANELES SOLARES.,CALENTADRO SOLAR.\nTODO ESTO SE QUEDA EN LA CASA.",
+    "bedrooms":  3,
+    "bathrooms":  3,
+    "half_bathrooms":  null,
+    "parking_spaces":  2,
+    "lot_size":  190.0,
+    "construction_size":  230.0,
+    "lot_length":  null,
+    "lot_width":  null,
+    "floors":  null,
+    "floor":  null,
+    "age":  2015,
+    "internal_id":  null,
+    "expenses":  null,
+    "location":  {
+                     "name":  "Solares, Zapopan, Jalisco",
+                     "latitude":  20.7272767,
+                     "longitude":  -103.4672763,
+                     "street":  "PASEO SOLARES ",
+                     "postal_code":  null,
+                     "show_exact_location":  true,
+                     "hide_exact_location":  false,
+                     "exterior_number":  "1333",
+                     "interior_number":  "36"
+                 },
+    "property_type":  "Casa",
+    "created_at":  "2021-12-13T14:06:27-04:00",
+    "updated_at":  "2025-05-12T14:09:04-04:00",
+    "published_at":  "2021-12-13T19:55:04-04:00",
+    "operations":  [
+                       {
+                           "type":  "rental",
+                           "amount":  21000.0,
+                           "currency":  "MXN",
+                           "formatted_amount":  "$21,000",
+                           "commission":  {
+                                              "type":  "percentage"
+                                          },
+                           "unit":  "total"
+                       }
+                   ],
+    "property_files":  [
+
+                       ],
+    "videos":  [
+
+               ],
+    "virtual_tour":  null,
+    "collaboration_notes":  null,
+    "public_url":  "https://www.easybroker.com/mx/listings/casa-en-renta-coto-antara-9-solares",
+    "shared_commission_percentage":  null,
+    "exclusive":  null,
+    "foreclosure":  false,
+    "tags":  [
+
+             ],
+    "private_description":  null,
+    "show_prices":  true,
+    "share_commission":  false,
+    "property_images":  [
+                            {
+                                "title":  "FACHADA",
+                                "url":  "https://assets.easybroker.com/property_images/2650901/41561026/EB-JE0901.jpg?version=1639439704"
+                            },
+                            {
+                                "title":  "INGRESO PRINCIPAL",
+                                "url":  "https://assets.easybroker.com/property_images/2650901/41561035/EB-JE0901.jpeg?version=1639439704"
+                            },
+                            {
+                                "title":  "SALA",
+                                "url":  "https://assets.easybroker.com/property_images/2650901/41586233/EB-JE0901.jpeg?version=1639439704"
+                            },
+                            {
+                                "title":  "SALA ",
+                                "url":  "https://assets.easybroker.com/property_images/2650901/41586257/EB-JE0901.jpeg?version=1639439704"
+                            },
+                            {
+                                "title":  "COMEDOR",
+                                "url":  "https://assets.easybroker.com/property_images/2650901/41583908/EB-JE0901.jpeg?version=1639439704"
+                            },
+                            {
+                                "title":  "COMEDOR",
+                                "url":  "https://assets.easybroker.com/property_images/2650901/41584040/EB-JE0901.jpeg?version=1639439704"
+                            },
+                            {
+                                "title":  "INGRESO A REC PLANTA BAJA",
+                                "url":  "https://assets.easybroker.com/property_images/2650901/41586295/EB-JE0901.jpeg?version=1639439704"
+                            },
+                            {
+                                "title":  "BAÑO COMPLETO PLANTA BAJA",
+                                "url":  "https://assets.easybroker.com/property_images/2650901/41587154/EB-JE0901.jpeg?version=1639439704"
+                            },
+                            {
+                                "title":  "RECAMARA PLANTA BAJA",
+                                "url":  "https://assets.easybroker.com/property_images/2650901/41586907/EB-JE0901.jpeg?version=1639439704"
+                            },
+                            {
+                                "title":  "COCINA INTEGRAL",
+                                "url":  "https://assets.easybroker.com/property_images/2650901/41584374/EB-JE0901.jpeg?version=1639439704"
+                            },
+                            {
+                                "title":  "TERAAZA CON BODEGA",
+                                "url":  "https://assets.easybroker.com/property_images/2650901/41584531/EB-JE0901.jpeg?version=1639439704"
+                            },
+                            {
+                                "title":  "TERRAZA",
+                                "url":  "https://assets.easybroker.com/property_images/2650901/41584488/EB-JE0901.jpeg?version=1639439704"
+                            },
+                            {
+                                "title":  "ESCALERAS",
+                                "url":  "https://assets.easybroker.com/property_images/2650901/41584426/EB-JE0901.jpeg?version=1639439704"
+                            },
+                            {
+                                "title":  "ESTAR DE TV PLANTA ALTA MUEBLES EMPOTRADOS",
+                                "url":  "https://assets.easybroker.com/property_images/2650901/41584594/EB-JE0901.jpeg?version=1639439704"
+                            },
+                            {
+                                "title":  "RECAMARA SECUNDARIA",
+                                "url":  "https://assets.easybroker.com/property_images/2650901/41584652/EB-JE0901.jpeg?version=1639439704"
+                            },
+                            {
+                                "title":  "RECAM SECUND CLOSET VESTIDOR",
+                                "url":  "https://assets.easybroker.com/property_images/2650901/41584693/EB-JE0901.jpeg?version=1639439704"
+                            },
+                            {
+                                "title":  "AÑO RECAMARA SECUNDARIA",
+                                "url":  "https://assets.easybroker.com/property_images/2650901/41584726/EB-JE0901.jpeg?version=1639439704"
+                            },
+                            {
+                                "title":  "RECAMARA PRINCIPAL MUY AMPLIA",
+                                "url":  "https://assets.easybroker.com/property_images/2650901/41584770/EB-JE0901.jpeg?version=1639439704"
+                            },
+                            {
+                                "title":  "RECAMARA PRINCIPAL",
+                                "url":  "https://assets.easybroker.com/property_images/2650901/41584807/EB-JE0901.jpeg?version=1639439704"
+                            },
+                            {
+                                "title":  "CLOSET VESTIDOR RECAMARA PRINCIPAL",
+                                "url":  "https://assets.easybroker.com/property_images/2650901/41584890/EB-JE0901.jpeg?version=1639439704"
+                            },
+                            {
+                                "title":  "BAÑO RECAMARA PRINCIPAL",
+                                "url":  "https://assets.easybroker.com/property_images/2650901/41584993/EB-JE0901.jpeg?version=1639439704"
+                            },
+                            {
+                                "title":  "AREA DE LAVADO",
+                                "url":  "https://assets.easybroker.com/property_images/2650901/41585148/EB-JE0901.jpeg?version=1639439704"
+                            }
+                        ],
+    "images":  [
+                   {
+                       "title":  "FACHADA",
+                       "url":  "https://assets.easybroker.com/property_images/2650901/41561026/EB-JE0901.jpg?version=1639439704"
+                   },
+                   {
+                       "title":  "INGRESO PRINCIPAL",
+                       "url":  "https://assets.easybroker.com/property_images/2650901/41561035/EB-JE0901.jpeg?version=1639439704"
+                   },
+                   {
+                       "title":  "SALA",
+                       "url":  "https://assets.easybroker.com/property_images/2650901/41586233/EB-JE0901.jpeg?version=1639439704"
+                   },
+                   {
+                       "title":  "SALA ",
+                       "url":  "https://assets.easybroker.com/property_images/2650901/41586257/EB-JE0901.jpeg?version=1639439704"
+                   },
+                   {
+                       "title":  "COMEDOR",
+                       "url":  "https://assets.easybroker.com/property_images/2650901/41583908/EB-JE0901.jpeg?version=1639439704"
+                   },
+                   {
+                       "title":  "COMEDOR",
+                       "url":  "https://assets.easybroker.com/property_images/2650901/41584040/EB-JE0901.jpeg?version=1639439704"
+                   },
+                   {
+                       "title":  "INGRESO A REC PLANTA BAJA",
+                       "url":  "https://assets.easybroker.com/property_images/2650901/41586295/EB-JE0901.jpeg?version=1639439704"
+                   },
+                   {
+                       "title":  "BAÑO COMPLETO PLANTA BAJA",
+                       "url":  "https://assets.easybroker.com/property_images/2650901/41587154/EB-JE0901.jpeg?version=1639439704"
+                   },
+                   {
+                       "title":  "RECAMARA PLANTA BAJA",
+                       "url":  "https://assets.easybroker.com/property_images/2650901/41586907/EB-JE0901.jpeg?version=1639439704"
+                   },
+                   {
+                       "title":  "COCINA INTEGRAL",
+                       "url":  "https://assets.easybroker.com/property_images/2650901/41584374/EB-JE0901.jpeg?version=1639439704"
+                   },
+                   {
+                       "title":  "TERAAZA CON BODEGA",
+                       "url":  "https://assets.easybroker.com/property_images/2650901/41584531/EB-JE0901.jpeg?version=1639439704"
+                   },
+                   {
+                       "title":  "TERRAZA",
+                       "url":  "https://assets.easybroker.com/property_images/2650901/41584488/EB-JE0901.jpeg?version=1639439704"
+                   },
+                   {
+                       "title":  "ESCALERAS",
+                       "url":  "https://assets.easybroker.com/property_images/2650901/41584426/EB-JE0901.jpeg?version=1639439704"
+                   },
+                   {
+                       "title":  "ESTAR DE TV PLANTA ALTA MUEBLES EMPOTRADOS",
+                       "url":  "https://assets.easybroker.com/property_images/2650901/41584594/EB-JE0901.jpeg?version=1639439704"
+                   },
+                   {
+                       "title":  "RECAMARA SECUNDARIA",
+                       "url":  "https://assets.easybroker.com/property_images/2650901/41584652/EB-JE0901.jpeg?version=1639439704"
+                   },
+                   {
+                       "title":  "RECAM SECUND CLOSET VESTIDOR",
+                       "url":  "https://assets.easybroker.com/property_images/2650901/41584693/EB-JE0901.jpeg?version=1639439704"
+                   },
+                   {
+                       "title":  "AÑO RECAMARA SECUNDARIA",
+                       "url":  "https://assets.easybroker.com/property_images/2650901/41584726/EB-JE0901.jpeg?version=1639439704"
+                   },
+                   {
+                       "title":  "RECAMARA PRINCIPAL MUY AMPLIA",
+                       "url":  "https://assets.easybroker.com/property_images/2650901/41584770/EB-JE0901.jpeg?version=1639439704"
+                   },
+                   {
+                       "title":  "RECAMARA PRINCIPAL",
+                       "url":  "https://assets.easybroker.com/property_images/2650901/41584807/EB-JE0901.jpeg?version=1639439704"
+                   },
+                   {
+                       "title":  "CLOSET VESTIDOR RECAMARA PRINCIPAL",
+                       "url":  "https://assets.easybroker.com/property_images/2650901/41584890/EB-JE0901.jpeg?version=1639439704"
+                   },
+                   {
+                       "title":  "BAÑO RECAMARA PRINCIPAL",
+                       "url":  "https://assets.easybroker.com/property_images/2650901/41584993/EB-JE0901.jpeg?version=1639439704"
+                   },
+                   {
+                       "title":  "AREA DE LAVADO",
+                       "url":  "https://assets.easybroker.com/property_images/2650901/41585148/EB-JE0901.jpeg?version=1639439704"
+                   }
+               ],
+    "agent":  {
+                  "id":  391012,
+                  "name":  "Lic.Gabriela Martínez",
+                  "full_name":  "Lic.Gabriela Martínez",
+                  "mobile_phone":  "+523338087984",
+                  "profile_image_url":  "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1757459148",
+                  "email":  "GABRIELAMTZ6@HOTMAIL.COM"
+              },
+    "features":  [
+                     {
+                         "name":  "Cisterna",
+                         "category":  "Exterior"
+                     },
+                     {
+                         "name":  "Estacionamiento techado",
+                         "category":  "Exterior"
+                     },
+                     {
+                         "name":  "Facilidad para estacionarse",
+                         "category":  "Exterior"
+                     },
+                     {
+                         "name":  "Garaje",
+                         "category":  "Exterior"
+                     },
+                     {
+                         "name":  "Jardín",
+                         "category":  "Exterior"
+                     },
+                     {
+                         "name":  "Parrilla",
+                         "category":  "Exterior"
+                     },
+                     {
+                         "name":  "Patio",
+                         "category":  "Exterior"
+                     },
+                     {
+                         "name":  "Alarma",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Bodega",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Cocina equipada",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Cocina integral",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Dos plantas",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Seguridad 24 horas",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Mascotas permitidas",
+                         "category":  "Políticas"
+                     }
+                 ]
+}

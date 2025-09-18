@@ -1,0 +1,282 @@
+﻿{
+    "public_id":  "EB-SQ3734",
+    "title":  "Casa en Renta en Nueva Galicia",
+    "description":  "Casa en renta en Coto Andalucía.\n\nPLANTA BAJA:\n•Cochera para dos automóviles\n•Medio baño\n•Sala\n•Comedor\n•Cocina integral \n•Área de lavado techada\n•Jardín\n\nPLANTA ALTA:\n•Closet de blancos\n•Dos recamaras secundarias con closet\n•Baño completo\n•Recámara principal con walking closet, aire acondicionado y baño completo\n\nZona Nueva Galicia cuenta con una ubicación privilegiada al sur de la ciudad, con varias vías de acceso a muy pocas distancia de tiendas departamentales, SAMS, Costco, hospitales, centros comerciales, etc.\n\nCoto Andalucía de caracteriza por sus áreas comunes, un amplio jardín al centro con juegos infantiles, alberca, salón de usos múltiples y gimnasio al aire libre.\nCancha de básquet y diferentes áreas verdes distribuidlas por el fraccionamiento.\n\nAgenda tu cita y conoce tu nuevo hogar.\n\n*Mantenimiento incluido\n*Mascotas bienvenidas",
+    "bedrooms":  3,
+    "bathrooms":  2,
+    "half_bathrooms":  1,
+    "parking_spaces":  2,
+    "lot_size":  119.0,
+    "construction_size":  168.0,
+    "lot_length":  null,
+    "lot_width":  null,
+    "floors":  2,
+    "floor":  null,
+    "age":  null,
+    "internal_id":  "AIDA262",
+    "expenses":  "Incluido",
+    "location":  {
+                     "name":  "Nueva Galicia Residencial, Tlajomulco de Zúñiga, Jalisco",
+                     "latitude":  20.5747668,
+                     "longitude":  -103.4396862,
+                     "street":  "Viscaya",
+                     "postal_code":  "45645",
+                     "show_exact_location":  true,
+                     "hide_exact_location":  false,
+                     "exterior_number":  "362",
+                     "interior_number":  null
+                 },
+    "property_type":  "Casa en condominio",
+    "created_at":  "2025-03-21T10:32:37-06:00",
+    "updated_at":  "2025-08-29T13:25:05-06:00",
+    "published_at":  "2025-08-14T13:28:13-06:00",
+    "operations":  [
+                       {
+                           "type":  "rental",
+                           "amount":  18000.0,
+                           "currency":  "MXN",
+                           "formatted_amount":  "$18,000",
+                           "commission":  {
+                                              "type":  "months",
+                                              "value":  1
+                                          },
+                           "unit":  "total"
+                       }
+                   ],
+    "property_files":  [
+
+                       ],
+    "videos":  [
+
+               ],
+    "virtual_tour":  null,
+    "collaboration_notes":  null,
+    "public_url":  "https://www.easybroker.com/mx/listings/casa-en-renta-en-nueva-galicia-023ffeed-1334-4539-95d3-1d2a7e74546b",
+    "shared_commission_percentage":  null,
+    "exclusive":  true,
+    "foreclosure":  false,
+    "tags":  [
+
+             ],
+    "private_description":  null,
+    "show_prices":  true,
+    "share_commission":  false,
+    "property_images":  [
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5113734/94421615/EB-SQ3734.jpeg?version=1755290415"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5113734/87709017/EB-SQ3734.jpeg?version=1755290415"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5113734/87709018/EB-SQ3734.jpeg?version=1755290415"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5113734/87709019/EB-SQ3734.jpeg?version=1755290415"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5113734/87709020/EB-SQ3734.jpeg?version=1755290415"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5113734/87709021/EB-SQ3734.jpeg?version=1755290415"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5113734/87709022/EB-SQ3734.jpeg?version=1755290415"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5113734/87709023/EB-SQ3734.jpeg?version=1755290415"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5113734/94421618/EB-SQ3734.jpeg?version=1755290415"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5113734/87709026/EB-SQ3734.jpeg?version=1755290415"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5113734/87709027/EB-SQ3734.jpeg?version=1755290415"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5113734/87709031/EB-SQ3734.jpeg?version=1755290415"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5113734/87709035/EB-SQ3734.jpeg?version=1755290415"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5113734/87709036/EB-SQ3734.jpeg?version=1755290415"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5113734/87709038/EB-SQ3734.jpeg?version=1755290415"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5113734/87756768/EB-SQ3734.jpeg?version=1755290415"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5113734/87756779/EB-SQ3734.jpeg?version=1755290415"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5113734/87756780/EB-SQ3734.jpeg?version=1755290415"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5113734/87756781/EB-SQ3734.jpeg?version=1755290415"
+                            }
+                        ],
+    "images":  [
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5113734/94421615/EB-SQ3734.jpeg?version=1755290415"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5113734/87709017/EB-SQ3734.jpeg?version=1755290415"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5113734/87709018/EB-SQ3734.jpeg?version=1755290415"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5113734/87709019/EB-SQ3734.jpeg?version=1755290415"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5113734/87709020/EB-SQ3734.jpeg?version=1755290415"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5113734/87709021/EB-SQ3734.jpeg?version=1755290415"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5113734/87709022/EB-SQ3734.jpeg?version=1755290415"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5113734/87709023/EB-SQ3734.jpeg?version=1755290415"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5113734/94421618/EB-SQ3734.jpeg?version=1755290415"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5113734/87709026/EB-SQ3734.jpeg?version=1755290415"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5113734/87709027/EB-SQ3734.jpeg?version=1755290415"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5113734/87709031/EB-SQ3734.jpeg?version=1755290415"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5113734/87709035/EB-SQ3734.jpeg?version=1755290415"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5113734/87709036/EB-SQ3734.jpeg?version=1755290415"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5113734/87709038/EB-SQ3734.jpeg?version=1755290415"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5113734/87756768/EB-SQ3734.jpeg?version=1755290415"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5113734/87756779/EB-SQ3734.jpeg?version=1755290415"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5113734/87756780/EB-SQ3734.jpeg?version=1755290415"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5113734/87756781/EB-SQ3734.jpeg?version=1755290415"
+                   }
+               ],
+    "agent":  {
+                  "id":  391012,
+                  "name":  "Lic.Gabriela Martínez",
+                  "full_name":  "Lic.Gabriela Martínez",
+                  "mobile_phone":  "+523338087984",
+                  "profile_image_url":  "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1757459148",
+                  "email":  "GABRIELAMTZ6@HOTMAIL.COM"
+              },
+    "features":  [
+                     {
+                         "name":  "Facilidad para estacionarse",
+                         "category":  "Exterior"
+                     },
+                     {
+                         "name":  "Jardín",
+                         "category":  "Exterior"
+                     },
+                     {
+                         "name":  "Patio",
+                         "category":  "Exterior"
+                     },
+                     {
+                         "name":  "Cocina integral",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Dos plantas",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Fraccionamiento privado",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Portero",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Seguridad 24 horas",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Mascotas permitidas",
+                         "category":  "Políticas"
+                     },
+                     {
+                         "name":  "Prohibido fumar",
+                         "category":  "Políticas"
+                     },
+                     {
+                         "name":  "Alberca",
+                         "category":  "Recreación"
+                     },
+                     {
+                         "name":  "Área de juegos infantiles",
+                         "category":  "Recreación"
+                     },
+                     {
+                         "name":  "Salón de usos múltiples",
+                         "category":  "Recreación"
+                     }
+                 ]
+}

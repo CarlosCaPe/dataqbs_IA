@@ -1,0 +1,30 @@
+{
+  "public_id": "EB-QO4711",
+  "title": "Casa de un piso en La Rioja",
+  "title_image_full": "https://assets.easybroker.com/property_images/4574711/76811736/EB-QO4711.jpeg?version=1719508437",
+  "title_image_thumb": "https://assets.easybroker.com/property_images/4574711/76811736/EB-QO4711.jpeg?version=1719508437&width=200",
+  "location": "La Rioja, Tlajomulco de Zúñiga, Jalisco",
+  "operations": [
+    {
+      "type": "sale",
+      "amount": 8300000.0,
+      "currency": "MXN",
+      "formatted_amount": "$8,300,000",
+      "commission": {
+        "type": "percentage",
+        "value": "5.0"
+      },
+      "unit": "total"
+    }
+  ],
+  "bedrooms": 2,
+  "bathrooms": 2,
+  "parking_spaces": 3,
+  "property_type": "Casa",
+  "lot_size": 253.0,
+  "construction_size": 200.0,
+  "updated_at": "2025-07-23T13:33:03-06:00",
+  "agent": "Lic.Gabriela Martínez",
+  "show_prices": true,
+  "share_commission": true
+}

@@ -1,0 +1,256 @@
+{
+  "public_id": "EB-LL3497",
+  "title": "SENDERO DE LAS MORAS ( JUNTO GALERIAS SANTA ANITA)",
+  "description": "EXCELENTE CASA  EN SENDERO DE LAS MORAS.\nEN DESNIVELES\nCOCHERA DOS AUTOS. COCINA INTEGRAL,AREA DE LAVADO, COMEDOR EN DOBLE ALTURA  MEDIO BAÑO, JARDIN.\nSALA.\nRECAMARA PRINCIPAL CLOSET VESTIDOR Y  BAÑO COMPLETO.\nDOS RECAMARAS SECUNDARIAS CON CLOSET Y UN BAÑO PARA AMBAS.",
+  "bedrooms": 3,
+  "bathrooms": 2,
+  "half_bathrooms": 1,
+  "parking_spaces": 2,
+  "lot_size": 135.0,
+  "construction_size": 250.0,
+  "lot_length": null,
+  "lot_width": null,
+  "floors": 4,
+  "floor": null,
+  "age": null,
+  "internal_id": null,
+  "expenses": null,
+  "location": {
+    "name": "Sendero las Moras, Tlajomulco de Zúñiga, Jalisco",
+    "latitude": 20.5571752,
+    "longitude": -103.4794351,
+    "street": "PRIVADA AMANECER ",
+    "postal_code": null,
+    "show_exact_location": true,
+    "hide_exact_location": false,
+    "exterior_number": "70",
+    "interior_number": "222"
+  },
+  "property_type": "Casa en condominio",
+  "created_at": "2022-09-08T17:04:36-05:00",
+  "updated_at": "2025-05-12T12:09:04-06:00",
+  "published_at": "2022-12-01T12:08:16-06:00",
+  "operations": [
+    {
+      "type": "sale",
+      "amount": 4390000.0,
+      "currency": "MXN",
+      "formatted_amount": "$4,390,000",
+      "commission": {
+        "type": "percentage",
+        "value": "4.0"
+      },
+      "unit": "total"
+    }
+  ],
+  "property_files": [],
+  "videos": [],
+  "virtual_tour": null,
+  "collaboration_notes": null,
+  "public_url": "https://www.easybroker.com/mx/listings/sendero-de-las-moras-junto-galerias-santa-anita",
+  "shared_commission_percentage": null,
+  "exclusive": null,
+  "foreclosure": false,
+  "tags": [],
+  "private_description": null,
+  "show_prices": true,
+  "share_commission": true,
+  "property_images": [
+    {
+      "title": "FACHADA",
+      "url": "https://assets.easybroker.com/property_images/3243497/52002791/EB-LL3497.jpg?version=1662675099"
+    },
+    {
+      "title": "INGRESO",
+      "url": "https://assets.easybroker.com/property_images/3243497/52002805/EB-LL3497.jpg?version=1662675099"
+    },
+    {
+      "title": "COCINA",
+      "url": "https://assets.easybroker.com/property_images/3243497/52002816/EB-LL3497.jpg?version=1662675099"
+    },
+    {
+      "title": "COCINA",
+      "url": "https://assets.easybroker.com/property_images/3243497/52002822/EB-LL3497.jpg?version=1662675099"
+    },
+    {
+      "title": "JARDIN",
+      "url": "https://assets.easybroker.com/property_images/3243497/52002837/EB-LL3497.jpg?version=1662675099"
+    },
+    {
+      "title": "COMEDOR",
+      "url": "https://assets.easybroker.com/property_images/3243497/52002854/EB-LL3497.jpg?version=1662675099"
+    },
+    {
+      "title": "COMEDOR",
+      "url": "https://assets.easybroker.com/property_images/3243497/52002869/EB-LL3497.jpg?version=1662675099"
+    },
+    {
+      "title": "SALA",
+      "url": "https://assets.easybroker.com/property_images/3243497/52002893/EB-LL3497.jpg?version=1662675099"
+    },
+    {
+      "title": "HABITACION",
+      "url": "https://assets.easybroker.com/property_images/3243497/52002905/EB-LL3497.jpg?version=1662675099"
+    },
+    {
+      "title": "ESCALERAS",
+      "url": "https://assets.easybroker.com/property_images/3243497/52002907/EB-LL3497.jpg?version=1662675099"
+    },
+    {
+      "title": "HABITACION SEC",
+      "url": "https://assets.easybroker.com/property_images/3243497/52002915/EB-LL3497.jpg?version=1662675099"
+    },
+    {
+      "title": "CLOSTE HAB SEC",
+      "url": "https://assets.easybroker.com/property_images/3243497/52002926/EB-LL3497.jpg?version=1662675099"
+    },
+    {
+      "title": "CLOSET",
+      "url": "https://assets.easybroker.com/property_images/3243497/52002936/EB-LL3497.jpg?version=1662675099"
+    },
+    {
+      "title": "CLOSET VESTIDOR REC PPAL",
+      "url": "https://assets.easybroker.com/property_images/3243497/52002950/EB-LL3497.jpg?version=1662675099"
+    },
+    {
+      "title": "BAÑO REC PPAL",
+      "url": "https://assets.easybroker.com/property_images/3243497/52002953/EB-LL3497.jpg?version=1662675099"
+    },
+    {
+      "title": "REC PPAL",
+      "url": "https://assets.easybroker.com/property_images/3243497/52003027/EB-LL3497.jpg?version=1662675099"
+    },
+    {
+      "title": "REC SECUNDARI",
+      "url": "https://assets.easybroker.com/property_images/3243497/52003045/EB-LL3497.jpg?version=1662675099"
+    },
+    {
+      "title": "BAÑO PARA REC SECUANDARIAS",
+      "url": "https://assets.easybroker.com/property_images/3243497/52003070/EB-LL3497.jpg?version=1662675099"
+    }
+  ],
+  "images": [
+    {
+      "title": "FACHADA",
+      "url": "https://assets.easybroker.com/property_images/3243497/52002791/EB-LL3497.jpg?version=1662675099"
+    },
+    {
+      "title": "INGRESO",
+      "url": "https://assets.easybroker.com/property_images/3243497/52002805/EB-LL3497.jpg?version=1662675099"
+    },
+    {
+      "title": "COCINA",
+      "url": "https://assets.easybroker.com/property_images/3243497/52002816/EB-LL3497.jpg?version=1662675099"
+    },
+    {
+      "title": "COCINA",
+      "url": "https://assets.easybroker.com/property_images/3243497/52002822/EB-LL3497.jpg?version=1662675099"
+    },
+    {
+      "title": "JARDIN",
+      "url": "https://assets.easybroker.com/property_images/3243497/52002837/EB-LL3497.jpg?version=1662675099"
+    },
+    {
+      "title": "COMEDOR",
+      "url": "https://assets.easybroker.com/property_images/3243497/52002854/EB-LL3497.jpg?version=1662675099"
+    },
+    {
+      "title": "COMEDOR",
+      "url": "https://assets.easybroker.com/property_images/3243497/52002869/EB-LL3497.jpg?version=1662675099"
+    },
+    {
+      "title": "SALA",
+      "url": "https://assets.easybroker.com/property_images/3243497/52002893/EB-LL3497.jpg?version=1662675099"
+    },
+    {
+      "title": "HABITACION",
+      "url": "https://assets.easybroker.com/property_images/3243497/52002905/EB-LL3497.jpg?version=1662675099"
+    },
+    {
+      "title": "ESCALERAS",
+      "url": "https://assets.easybroker.com/property_images/3243497/52002907/EB-LL3497.jpg?version=1662675099"
+    },
+    {
+      "title": "HABITACION SEC",
+      "url": "https://assets.easybroker.com/property_images/3243497/52002915/EB-LL3497.jpg?version=1662675099"
+    },
+    {
+      "title": "CLOSTE HAB SEC",
+      "url": "https://assets.easybroker.com/property_images/3243497/52002926/EB-LL3497.jpg?version=1662675099"
+    },
+    {
+      "title": "CLOSET",
+      "url": "https://assets.easybroker.com/property_images/3243497/52002936/EB-LL3497.jpg?version=1662675099"
+    },
+    {
+      "title": "CLOSET VESTIDOR REC PPAL",
+      "url": "https://assets.easybroker.com/property_images/3243497/52002950/EB-LL3497.jpg?version=1662675099"
+    },
+    {
+      "title": "BAÑO REC PPAL",
+      "url": "https://assets.easybroker.com/property_images/3243497/52002953/EB-LL3497.jpg?version=1662675099"
+    },
+    {
+      "title": "REC PPAL",
+      "url": "https://assets.easybroker.com/property_images/3243497/52003027/EB-LL3497.jpg?version=1662675099"
+    },
+    {
+      "title": "REC SECUNDARI",
+      "url": "https://assets.easybroker.com/property_images/3243497/52003045/EB-LL3497.jpg?version=1662675099"
+    },
+    {
+      "title": "BAÑO PARA REC SECUANDARIAS",
+      "url": "https://assets.easybroker.com/property_images/3243497/52003070/EB-LL3497.jpg?version=1662675099"
+    }
+  ],
+  "agent": {
+    "id": 391012,
+    "name": "Lic.Gabriela Martínez",
+    "full_name": "Lic.Gabriela Martínez",
+    "mobile_phone": "+523338087984",
+    "profile_image_url": "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1729887594",
+    "email": "GABRIELAMTZ6@HOTMAIL.COM"
+  },
+  "features": [
+    {
+      "name": "Estacionamiento techado",
+      "category": "Exterior"
+    },
+    {
+      "name": "Facilidad para estacionarse",
+      "category": "Exterior"
+    },
+    {
+      "name": "Jardín",
+      "category": "Exterior"
+    },
+    {
+      "name": "Cocina",
+      "category": "General"
+    },
+    {
+      "name": "Cocina integral",
+      "category": "General"
+    },
+    {
+      "name": "Fraccionamiento privado",
+      "category": "General"
+    },
+    {
+      "name": "Seguridad 24 horas",
+      "category": "General"
+    },
+    {
+      "name": "Alberca",
+      "category": "Recreación"
+    },
+    {
+      "name": "Área de juegos infantiles",
+      "category": "Recreación"
+    },
+    {
+      "name": "Gimnasio",
+      "category": "Recreación"
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+﻿{
+    "public_id":  "EB-RJ7784",
+    "title":  "Terreno en venta en Rancho Contento al lado del campo de Golf",
+    "title_image_full":  "https://assets.easybroker.com/property_images/4787784/81093269/EB-RJ7784.jpg?version=1728576895",
+    "title_image_thumb":  "https://assets.easybroker.com/property_images/4787784/81093269/EB-RJ7784.jpg?version=1728576895\u0026width=200",
+    "location":  "Rancho Contento, Zapopan, Jalisco",
+    "operations":  [
+                       {
+                           "type":  "sale",
+                           "amount":  17000000.0,
+                           "currency":  "MXN",
+                           "formatted_amount":  "$17,000,000",
+                           "commission":  {
+                                              "type":  "percentage",
+                                              "value":  "4.0"
+                                          },
+                           "unit":  "total"
+                       }
+                   ],
+    "bedrooms":  null,
+    "bathrooms":  null,
+    "parking_spaces":  null,
+    "property_type":  "Terreno",
+    "lot_size":  850.0,
+    "construction_size":  null,
+    "updated_at":  "2025-05-12T12:09:04-06:00",
+    "agent":  "Lic.Gabriela Martínez",
+    "show_prices":  true,
+    "share_commission":  true
+}

@@ -1,0 +1,296 @@
+{
+  "public_id": "EB-SD3587",
+  "title": "Casa nueva en venta Zona Capital Norte",
+  "description": "Hermosa y amplia casa nueva en fraccionamiento Carrara\n\nPLANTA BAJA:\n•Estacionamiento para dos automóviles\n•Amplia área de sala/Comedor\n•Patio interior\n•Medio baño\n•Cocina equipada\n•Bodega/Alacena\n•Cuarto de lavado\n•Escalera de doble altura\n\nPLANTA ALTA:\n•Dos espaciosas recámaras , una de ellas con vestidor y la otra con closet. Baño propio cada una\n•Recámara principal con walking closet y baño completo\n\nLa casa tiene una ubicación privilegiada, en esquina, sin vecinos a los lados y frente a la casa Club, la cual cuenta con áreas verdes, salón de usos múltiples, juegos infantiles y alberca.\n\nNo dejes pasar la oportunidad de estrenar esta casa.",
+  "bedrooms": 3,
+  "bathrooms": 3,
+  "half_bathrooms": 1,
+  "parking_spaces": 2,
+  "lot_size": 185.2,
+  "construction_size": 280.0,
+  "lot_length": null,
+  "lot_width": null,
+  "floors": null,
+  "floor": null,
+  "age": "new_construction",
+  "internal_id": "AIDACARRARA",
+  "expenses": null,
+  "location": {
+    "name": "Valle Imperial, Zapopan, Jalisco",
+    "latitude": 20.7887966,
+    "longitude": -103.410577,
+    "street": "Avenida Paseo de la Cantera E",
+    "postal_code": "45134",
+    "show_exact_location": true,
+    "hide_exact_location": false,
+    "exterior_number": "765",
+    "interior_number": "201"
+  },
+  "property_type": "Casa",
+  "created_at": "2025-01-23T13:46:24-06:00",
+  "updated_at": "2025-05-12T12:09:04-06:00",
+  "published_at": "2025-01-23T13:49:12-06:00",
+  "operations": [
+    {
+      "type": "sale",
+      "amount": 6345000.0,
+      "currency": "MXN",
+      "formatted_amount": "$6,345,000",
+      "commission": {
+        "type": "percentage",
+        "value": "5.0"
+      },
+      "unit": "total"
+    }
+  ],
+  "property_files": [],
+  "videos": [],
+  "virtual_tour": null,
+  "collaboration_notes": "Comisión compartida a Inmobiliarias afiliadas",
+  "public_url": "https://www.easybroker.com/mx/listings/casa-nueva-en-venta-zona-capital-norte",
+  "shared_commission_percentage": 50.0,
+  "exclusive": true,
+  "foreclosure": false,
+  "tags": [],
+  "private_description": null,
+  "show_prices": true,
+  "share_commission": true,
+  "property_images": [
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4983587/85104374/EB-SD3587.jpg?version=1737661692"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4983587/85104375/EB-SD3587.jpg?version=1737661693"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4983587/85104376/EB-SD3587.jpg?version=1737661693"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4983587/85104377/EB-SD3587.jpg?version=1737661694"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4983587/85104379/EB-SD3587.jpg?version=1737661694"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4983587/85104380/EB-SD3587.jpg?version=1737661695"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4983587/85104383/EB-SD3587.jpg?version=1737661696"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4983587/85104387/EB-SD3587.jpg?version=1737661697"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4983587/85104394/EB-SD3587.jpg?version=1737661698"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4983587/85104398/EB-SD3587.jpg?version=1737661698"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4983587/85104402/EB-SD3587.jpg?version=1737661699"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4983587/85104409/EB-SD3587.jpg?version=1737661700"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4983587/85104411/EB-SD3587.jpg?version=1737661700"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4983587/85104413/EB-SD3587.jpg?version=1737661700"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4983587/85104419/EB-SD3587.jpg?version=1737661702"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4983587/85104421/EB-SD3587.jpg?version=1737661702"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4983587/85104423/EB-SD3587.jpg?version=1737661702"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4983587/85104429/EB-SD3587.jpg?version=1737661703"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4983587/85104432/EB-SD3587.jpg?version=1737661704"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4983587/85104435/EB-SD3587.jpg?version=1737661704"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4983587/85104443/EB-SD3587.jpg?version=1737661706"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4983587/85104447/EB-SD3587.jpg?version=1737661706"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4983587/85104452/EB-SD3587.jpg?version=1737661707"
+    }
+  ],
+  "images": [
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4983587/85104374/EB-SD3587.jpg?version=1737661692"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4983587/85104375/EB-SD3587.jpg?version=1737661693"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4983587/85104376/EB-SD3587.jpg?version=1737661693"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4983587/85104377/EB-SD3587.jpg?version=1737661694"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4983587/85104379/EB-SD3587.jpg?version=1737661694"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4983587/85104380/EB-SD3587.jpg?version=1737661695"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4983587/85104383/EB-SD3587.jpg?version=1737661696"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4983587/85104387/EB-SD3587.jpg?version=1737661697"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4983587/85104394/EB-SD3587.jpg?version=1737661698"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4983587/85104398/EB-SD3587.jpg?version=1737661698"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4983587/85104402/EB-SD3587.jpg?version=1737661699"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4983587/85104409/EB-SD3587.jpg?version=1737661700"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4983587/85104411/EB-SD3587.jpg?version=1737661700"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4983587/85104413/EB-SD3587.jpg?version=1737661700"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4983587/85104419/EB-SD3587.jpg?version=1737661702"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4983587/85104421/EB-SD3587.jpg?version=1737661702"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4983587/85104423/EB-SD3587.jpg?version=1737661702"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4983587/85104429/EB-SD3587.jpg?version=1737661703"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4983587/85104432/EB-SD3587.jpg?version=1737661704"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4983587/85104435/EB-SD3587.jpg?version=1737661704"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4983587/85104443/EB-SD3587.jpg?version=1737661706"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4983587/85104447/EB-SD3587.jpg?version=1737661706"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4983587/85104452/EB-SD3587.jpg?version=1737661707"
+    }
+  ],
+  "agent": {
+    "id": 391012,
+    "name": "Lic.Gabriela Martínez",
+    "full_name": "Lic.Gabriela Martínez",
+    "mobile_phone": "+523338087984",
+    "profile_image_url": "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1729887594",
+    "email": "GABRIELAMTZ6@HOTMAIL.COM"
+  },
+  "features": [
+    {
+      "name": "Facilidad para estacionarse",
+      "category": "Exterior"
+    },
+    {
+      "name": "Patio",
+      "category": "Exterior"
+    },
+    {
+      "name": "Cocina integral",
+      "category": "General"
+    },
+    {
+      "name": "Dos plantas",
+      "category": "General"
+    },
+    {
+      "name": "Fraccionamiento privado",
+      "category": "General"
+    },
+    {
+      "name": "Portero",
+      "category": "General"
+    },
+    {
+      "name": "Seguridad 24 horas",
+      "category": "General"
+    },
+    {
+      "name": "Alberca",
+      "category": "Recreación"
+    },
+    {
+      "name": "Área de juegos infantiles",
+      "category": "Recreación"
+    },
+    {
+      "name": "Salón de usos múltiples",
+      "category": "Recreación"
+    }
+  ]
+}

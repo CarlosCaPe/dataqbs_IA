@@ -1,0 +1,30 @@
+{
+  "public_id": "EB-QN4846",
+  "title": "Terreno con uso de suelo a 30 min del aeropuerto",
+  "title_image_full": "https://assets.easybroker.com/property_images/4564846/79569724/EB-QN4846.jpg?version=1725291594",
+  "title_image_thumb": "https://assets.easybroker.com/property_images/4564846/79569724/EB-QN4846.jpg?version=1725291594&width=200",
+  "location": "El Manantial, Tlajomulco de Zúñiga, Jalisco",
+  "operations": [
+    {
+      "type": "sale",
+      "amount": 26830000.0,
+      "currency": "MXN",
+      "formatted_amount": "$26,830,000",
+      "commission": {
+        "type": "percentage",
+        "value": "5.0"
+      },
+      "unit": "total"
+    }
+  ],
+  "bedrooms": null,
+  "bathrooms": null,
+  "parking_spaces": null,
+  "property_type": "Local comercial",
+  "lot_size": 15778.51,
+  "construction_size": null,
+  "updated_at": "2025-06-13T16:34:36-06:00",
+  "agent": "Lic.Gabriela Martínez",
+  "show_prices": true,
+  "share_commission": true
+}

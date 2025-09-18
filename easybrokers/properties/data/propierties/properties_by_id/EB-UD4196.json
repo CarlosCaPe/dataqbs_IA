@@ -1,0 +1,30 @@
+﻿{
+    "public_id":  "EB-UD4196",
+    "title":  "Casa en Renta en Fracc. del Pilar",
+    "title_image_full":  "https://assets.easybroker.com/property_images/5504196/95505722/EB-UD4196.jpeg?version=1757293557",
+    "title_image_thumb":  "https://assets.easybroker.com/property_images/5504196/95505722/EB-UD4196.jpeg?version=1757293557\u0026width=200",
+    "location":  "Nueva Galicia Residencial, Tlajomulco de Zúñiga, Jalisco",
+    "operations":  [
+                       {
+                           "type":  "rental",
+                           "amount":  20500.0,
+                           "currency":  "MXN",
+                           "formatted_amount":  "$20,500",
+                           "commission":  {
+                                              "type":  "months",
+                                              "value":  1
+                                          },
+                           "unit":  "total"
+                       }
+                   ],
+    "bedrooms":  3,
+    "bathrooms":  2,
+    "parking_spaces":  2,
+    "property_type":  "Casa",
+    "lot_size":  141.76,
+    "construction_size":  194.36,
+    "updated_at":  "2025-09-08T10:47:44-06:00",
+    "agent":  "Lic.Gabriela Martínez",
+    "show_prices":  true,
+    "share_commission":  true
+}

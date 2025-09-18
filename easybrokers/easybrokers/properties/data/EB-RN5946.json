@@ -1,0 +1,223 @@
+{
+  "public_id": "EB-RN5946",
+  "title": "DEPA  COL. AMERICANA \" ELEVA ZUNO\" NUEVO EN TORRE DE 14   DEPAS",
+  "description": "EXCELENTE DEPARTAMENTO EN LA AMERICANA, CERCA DE AV LA PAZ Y LA CASA DE LOS ABANICOS, RODEADO DE RESTAURANTES CAFETERIAS  QUE HACEN DE ESTE LUGAR UNA ZONA EXCEPCIONAL.\nCONSTA DE 76 M2\nDOS RECAMARAS\nDOS BAÑOS COMPLETOS.\nCOCINA INTEGRAL EQUIPADA CON ESTUFA ELÉCTRICA.\nCENTRO DE LAVADO.\nCORTINAS. \nAIRES ACONDICIONADOS EN REC.\nUBICADO EN EL CUARTO PISO, CUENTA CON ELEVADOR Y UN ROOF GRADEN AL AIRE LIBRE IDEAL PARA RELAJARTE.\nUN ESTACIONAMIENTO. \nMANTENIMIENTO INCLUIDO",
+  "bedrooms": 2,
+  "bathrooms": 2,
+  "half_bathrooms": null,
+  "parking_spaces": 1,
+  "lot_size": null,
+  "construction_size": 76.0,
+  "lot_length": null,
+  "lot_width": null,
+  "floors": null,
+  "floor": "4",
+  "age": "new_construction",
+  "internal_id": "HABDAAME",
+  "expenses": "INCLUIDO",
+  "location": {
+    "name": "Americana, Guadalajara, Jalisco",
+    "latitude": 20.6707346,
+    "longitude": -103.3657535,
+    "street": "JOSE GUADALUPE ZUNO",
+    "postal_code": "44130",
+    "show_exact_location": true,
+    "hide_exact_location": false,
+    "exterior_number": "1860",
+    "interior_number": "4"
+  },
+  "property_type": "Departamento",
+  "created_at": "2024-10-29T16:18:05-06:00",
+  "updated_at": "2025-05-12T12:09:04-06:00",
+  "published_at": "2024-10-29T16:21:39-06:00",
+  "operations": [
+    {
+      "type": "rental",
+      "amount": 17200.0,
+      "currency": "MXN",
+      "formatted_amount": "$17,200",
+      "commission": {
+        "type": "percentage"
+      },
+      "unit": "total"
+    }
+  ],
+  "property_files": [],
+  "videos": [],
+  "virtual_tour": null,
+  "collaboration_notes": null,
+  "public_url": "https://www.easybroker.com/mx/listings/departamento-eleva-zuno-nuevo-en-torre-de-14-depas",
+  "shared_commission_percentage": null,
+  "exclusive": null,
+  "foreclosure": false,
+  "tags": [],
+  "private_description": null,
+  "show_prices": true,
+  "share_commission": false,
+  "property_images": [
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4825946/81835845/EB-RN5946.png?version=1730240770"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4825946/81835287/EB-RN5946.png?version=1730240770"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4825946/81835467/EB-RN5946.jpg?version=1730240770"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4825946/81835324/EB-RN5946.jpg?version=1730240770"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4825946/81835373/EB-RN5946.jpg?version=1730240770"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4825946/81835375/EB-RN5946.jpg?version=1730240770"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4825946/81835379/EB-RN5946.jpg?version=1730240770"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4825946/81835397/EB-RN5946.jpg?version=1730240770"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4825946/81835485/EB-RN5946.jpg?version=1730240770"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4825946/81835417/EB-RN5946.jpg?version=1730240770"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4825946/81835752/EB-RN5946.jpg?version=1730240770"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4825946/81835782/EB-RN5946.jpg?version=1730240770"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4825946/81835453/EB-RN5946.jpg?version=1730240770"
+    }
+  ],
+  "images": [
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4825946/81835845/EB-RN5946.png?version=1730240770"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4825946/81835287/EB-RN5946.png?version=1730240770"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4825946/81835467/EB-RN5946.jpg?version=1730240770"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4825946/81835324/EB-RN5946.jpg?version=1730240770"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4825946/81835373/EB-RN5946.jpg?version=1730240770"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4825946/81835375/EB-RN5946.jpg?version=1730240770"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4825946/81835379/EB-RN5946.jpg?version=1730240770"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4825946/81835397/EB-RN5946.jpg?version=1730240770"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4825946/81835485/EB-RN5946.jpg?version=1730240770"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4825946/81835417/EB-RN5946.jpg?version=1730240770"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4825946/81835752/EB-RN5946.jpg?version=1730240770"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4825946/81835782/EB-RN5946.jpg?version=1730240770"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4825946/81835453/EB-RN5946.jpg?version=1730240770"
+    }
+  ],
+  "agent": {
+    "id": 391012,
+    "name": "Lic.Gabriela Martínez",
+    "full_name": "Lic.Gabriela Martínez",
+    "mobile_phone": "+523338087984",
+    "profile_image_url": "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1729887594",
+    "email": "GABRIELAMTZ6@HOTMAIL.COM"
+  },
+  "features": [
+    {
+      "name": "Balcón",
+      "category": "Exterior"
+    },
+    {
+      "name": "Cisterna",
+      "category": "Exterior"
+    },
+    {
+      "name": "Estacionamiento techado",
+      "category": "Exterior"
+    },
+    {
+      "name": "Facilidad para estacionarse",
+      "category": "Exterior"
+    },
+    {
+      "name": "Roof garden",
+      "category": "Exterior"
+    },
+    {
+      "name": "Terraza",
+      "category": "Exterior"
+    },
+    {
+      "name": "Accesibilidad para adultos mayores",
+      "category": "General"
+    },
+    {
+      "name": "Accesibilidad para personas con discapacidad",
+      "category": "General"
+    },
+    {
+      "name": "Aire acondicionado",
+      "category": "General"
+    },
+    {
+      "name": "Circuito cerrado",
+      "category": "General"
+    },
+    {
+      "name": "Cocina",
+      "category": "General"
+    },
+    {
+      "name": "Elevador",
+      "category": "General"
+    }
+  ]
+}

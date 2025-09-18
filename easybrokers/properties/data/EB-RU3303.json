@@ -1,0 +1,30 @@
+{
+  "public_id": "EB-RU3303",
+  "title": "Casa en fraccionamiento Zona La Tijera",
+  "title_image_full": "https://assets.easybroker.com/property_images/4893303/83229492/EB-RU3303.jpg?version=1733271642",
+  "title_image_thumb": "https://assets.easybroker.com/property_images/4893303/83229492/EB-RU3303.jpg?version=1733271642&width=200",
+  "location": "El Campanario, Zapopan, Jalisco",
+  "operations": [
+    {
+      "type": "rental",
+      "amount": 16500.0,
+      "currency": "MXN",
+      "formatted_amount": "$16,500",
+      "commission": {
+        "type": "months",
+        "value": 1
+      },
+      "unit": "total"
+    }
+  ],
+  "bedrooms": 4,
+  "bathrooms": 3,
+  "parking_spaces": 2,
+  "property_type": "Casa",
+  "lot_size": null,
+  "construction_size": 175.2,
+  "updated_at": "2025-05-12T12:09:04-06:00",
+  "agent": "Lic.Gabriela Martínez",
+  "show_prices": true,
+  "share_commission": false
+}

@@ -1,0 +1,550 @@
+﻿{
+    "public_id":  "EB-OT4060",
+    "title":  "RENTA HERMOSA CASA EN CAMPO LAGO",
+    "description":  "CASA MUY AMPLIA EN FRACC. CAMPO LAGO (CARRETERA A NOGALES)\nCON UN CLUB HERMOSO MUY ARBOLADO LA ALBERCA ES CLIMATIZADA 32 GRADOS \nGIMNASIO\nAREA PARA EVENTOS\nHERMOSA E ILUMINADA\nDISTRIBUCION:\nCOCHERA  CON PORTON ELECTRICO PARA 4 AUTOS ( 2 TECHADOS) \n UNA BODEGA GRANDE EN LA COCHERA CON LAVADERO ETC\nPLANTA BAJA:\nRECIBIDOR CON ESTUDIO MUY AMPLIO.\nMEDIO BANO. \nSALA COMEDOR AMPLIO\nCOCINA INTEGRAL CON FAMILY ROOM \nTERRAZA TECHADA Y UN HERMOSO JARDIN.\nPLANTA ALTA:\nESTAR DE TV\n3 RECAMARAS \nLA PRINCIPAL CON VESTIDOR Y BAÑO COMPLETO\nLAS DOS SECUNDARIAS  UN BAÑO.\nTIENE EL AREA DE LAVADO Y/ CUARTO DE SERVICIO CON MEDIO BAÑO\nCUENTA CON PANELES SOLARES Y SE PAGAN 50.00 DE LUZ BIMESTRAL\nTIENE ALARMA\nNOTA :\nDISPONIBLE 31 ENERO 25",
+    "bedrooms":  4,
+    "bathrooms":  2,
+    "half_bathrooms":  2,
+    "parking_spaces":  4,
+    "lot_size":  597.0,
+    "construction_size":  384.0,
+    "lot_length":  33.0,
+    "lot_width":  18.0,
+    "floors":  null,
+    "floor":  null,
+    "age":  2015,
+    "internal_id":  "GABYCL",
+    "expenses":  "5587",
+    "location":  {
+                     "name":  "Campo Lago, Zapopan, Jalisco",
+                     "latitude":  20.7122253255,
+                     "longitude":  -103.475825714,
+                     "street":  "Carretera a nogales",
+                     "postal_code":  "45222",
+                     "show_exact_location":  true,
+                     "hide_exact_location":  false,
+                     "exterior_number":  null,
+                     "interior_number":  null
+                 },
+    "property_type":  "Casa en condominio",
+    "created_at":  "2023-11-02T12:11:54-06:00",
+    "updated_at":  "2025-05-12T12:09:04-06:00",
+    "published_at":  "2024-12-09T20:58:25-06:00",
+    "operations":  [
+                       {
+                           "type":  "rental",
+                           "amount":  47500.0,
+                           "currency":  "MXN",
+                           "formatted_amount":  "$47,500",
+                           "commission":  {
+                                              "type":  "months",
+                                              "value":  0.5
+                                          },
+                           "unit":  "total"
+                       }
+                   ],
+    "property_files":  [
+
+                       ],
+    "videos":  [
+
+               ],
+    "virtual_tour":  null,
+    "collaboration_notes":  null,
+    "public_url":  "https://www.easybroker.com/mx/listings/renta-hermosa-casa-en-campo-lago",
+    "shared_commission_percentage":  50.0,
+    "exclusive":  true,
+    "foreclosure":  false,
+    "tags":  [
+
+             ],
+    "private_description":  null,
+    "show_prices":  true,
+    "share_commission":  true,
+    "property_images":  [
+                            {
+                                "title":  "FACHADA",
+                                "url":  "https://assets.easybroker.com/property_images/4104060/67914498/EB-OT4060.jpg?version=1698950715"
+                            },
+                            {
+                                "title":  "FACHADA 2",
+                                "url":  "https://assets.easybroker.com/property_images/4104060/67914491/EB-OT4060.jpg?version=1698950715"
+                            },
+                            {
+                                "title":  "FACHADA 3",
+                                "url":  "https://assets.easybroker.com/property_images/4104060/67914492/EB-OT4060.jpg?version=1698950715"
+                            },
+                            {
+                                "title":  "INGRESO",
+                                "url":  "https://assets.easybroker.com/property_images/4104060/67914688/EB-OT4060.jpg?version=1698950715"
+                            },
+                            {
+                                "title":  "SALA COMEDOR",
+                                "url":  "https://assets.easybroker.com/property_images/4104060/67914476/EB-OT4060.jpg?version=1698950715"
+                            },
+                            {
+                                "title":  "MEDIO BAÑO DE VISITAS",
+                                "url":  "https://assets.easybroker.com/property_images/4104060/67914471/EB-OT4060.jpg?version=1698950715"
+                            },
+                            {
+                                "title":  "ESTUDIO EN PLANTA BAJA",
+                                "url":  "https://assets.easybroker.com/property_images/4104060/67914575/EB-OT4060.jpg?version=1698950715"
+                            },
+                            {
+                                "title":  "ESTUDIO EN PLANTA BAJA",
+                                "url":  "https://assets.easybroker.com/property_images/4104060/67914714/EB-OT4060.jpg?version=1698950715"
+                            },
+                            {
+                                "title":  "SALA",
+                                "url":  "https://assets.easybroker.com/property_images/4104060/67914535/EB-OT4060.jpg?version=1698950715"
+                            },
+                            {
+                                "title":  "COMEDOR",
+                                "url":  "https://assets.easybroker.com/property_images/4104060/67914579/EB-OT4060.jpg?version=1698950715"
+                            },
+                            {
+                                "title":  "OTRA VISTA DEL COMEDOR",
+                                "url":  "https://assets.easybroker.com/property_images/4104060/67914552/EB-OT4060.jpg?version=1698950715"
+                            },
+                            {
+                                "title":  "INGRESO A LA CASA",
+                                "url":  "https://assets.easybroker.com/property_images/4104060/67914534/EB-OT4060.jpg?version=1698950715"
+                            },
+                            {
+                                "title":  "OTRA VISTA DE LA SALA",
+                                "url":  "https://assets.easybroker.com/property_images/4104060/67914637/EB-OT4060.jpg?version=1698950715"
+                            },
+                            {
+                                "title":  "SALA",
+                                "url":  "https://assets.easybroker.com/property_images/4104060/67914757/EB-OT4060.jpg?version=1698950715"
+                            },
+                            {
+                                "title":  "AREA DE FAMILY ROOM",
+                                "url":  "https://assets.easybroker.com/property_images/4104060/67914475/EB-OT4060.jpg?version=1698950715"
+                            },
+                            {
+                                "title":  "COCINA CON ISLA",
+                                "url":  "https://assets.easybroker.com/property_images/4104060/67914537/EB-OT4060.jpg?version=1698950715"
+                            },
+                            {
+                                "title":  "OTRA VISTA DEL FAMILY ROOM A LA COCINA",
+                                "url":  "https://assets.easybroker.com/property_images/4104060/67914474/EB-OT4060.jpg?version=1698950715"
+                            },
+                            {
+                                "title":  "BARRA DESAYUNADORA EN COCINA",
+                                "url":  "https://assets.easybroker.com/property_images/4104060/67914686/EB-OT4060.jpg?version=1698950715"
+                            },
+                            {
+                                "title":  "COCINA",
+                                "url":  "https://assets.easybroker.com/property_images/4104060/67914754/EB-OT4060.jpg?version=1698950715"
+                            },
+                            {
+                                "title":  "COCINA",
+                                "url":  "https://assets.easybroker.com/property_images/4104060/67914761/EB-OT4060.jpg?version=1698950715"
+                            },
+                            {
+                                "title":  "TERRAZA TECHADA Y JARDIN",
+                                "url":  "https://assets.easybroker.com/property_images/4104060/67914477/EB-OT4060.jpg?version=1698950715"
+                            },
+                            {
+                                "title":  "VISTA AREA LATERAL DEL JARDIN",
+                                "url":  "https://assets.easybroker.com/property_images/4104060/67914483/EB-OT4060.jpg?version=1698950715"
+                            },
+                            {
+                                "title":  "TERRAZA TECHADA",
+                                "url":  "https://assets.easybroker.com/property_images/4104060/67914763/EB-OT4060.jpg?version=1698950715"
+                            },
+                            {
+                                "title":  "PARTE TRASERA JARDIN",
+                                "url":  "https://assets.easybroker.com/property_images/4104060/67914598/EB-OT4060.jpg?version=1698950715"
+                            },
+                            {
+                                "title":  "COCHERA TECHADA CON PORTON ELECTRICO",
+                                "url":  "https://assets.easybroker.com/property_images/4104060/67914718/EB-OT4060.jpg?version=1698950715"
+                            },
+                            {
+                                "title":  "PLANTA ALTA VISTA DE ESTAR DE TV",
+                                "url":  "https://assets.easybroker.com/property_images/4104060/67914724/EB-OT4060.jpg?version=1698950715"
+                            },
+                            {
+                                "title":  "BAÑO SECUNDARIO",
+                                "url":  "https://assets.easybroker.com/property_images/4104060/67914793/EB-OT4060.jpg?version=1698950715"
+                            },
+                            {
+                                "title":  "RECAMARA 2",
+                                "url":  "https://assets.easybroker.com/property_images/4104060/67914514/EB-OT4060.jpg?version=1698950715"
+                            },
+                            {
+                                "title":  "RECAMARA 3",
+                                "url":  "https://assets.easybroker.com/property_images/4104060/67914473/EB-OT4060.jpg?version=1698950715"
+                            },
+                            {
+                                "title":  "RECAMARA 3",
+                                "url":  "https://assets.easybroker.com/property_images/4104060/67914659/EB-OT4060.jpg?version=1698950715"
+                            },
+                            {
+                                "title":  "RECAMARA 3",
+                                "url":  "https://assets.easybroker.com/property_images/4104060/67914691/EB-OT4060.jpg?version=1698950715"
+                            },
+                            {
+                                "title":  "RECAMARA 2 CLOSET",
+                                "url":  "https://assets.easybroker.com/property_images/4104060/67914780/EB-OT4060.jpg?version=1698950715"
+                            },
+                            {
+                                "title":  "INGRESO RECAMARA PIRNCIPAL",
+                                "url":  "https://assets.easybroker.com/property_images/4104060/67914530/EB-OT4060.jpg?version=1698950715"
+                            },
+                            {
+                                "title":  "RECAMARA PRINCIPAL",
+                                "url":  "https://assets.easybroker.com/property_images/4104060/67914778/EB-OT4060.jpg?version=1698950715"
+                            },
+                            {
+                                "title":  "RECAMARA PRINCIPAL",
+                                "url":  "https://assets.easybroker.com/property_images/4104060/67914573/EB-OT4060.jpg?version=1698950715"
+                            },
+                            {
+                                "title":  "BANO REC PRINCIPAL",
+                                "url":  "https://assets.easybroker.com/property_images/4104060/67914533/EB-OT4060.jpg?version=1698950715"
+                            },
+                            {
+                                "title":  "CLOSET VESTIDOR RECAMARA PPAL",
+                                "url":  "https://assets.easybroker.com/property_images/4104060/67914687/EB-OT4060.jpg?version=1698950715"
+                            },
+                            {
+                                "title":  "CLOSET VESTIDOR",
+                                "url":  "https://assets.easybroker.com/property_images/4104060/67914783/EB-OT4060.jpg?version=1698950715"
+                            },
+                            {
+                                "title":  "AREA DE LAVADO EN PLANTA ALTA Y / O CUARTO DE SERVICIO",
+                                "url":  "https://assets.easybroker.com/property_images/4104060/67914570/EB-OT4060.jpg?version=1698950715"
+                            },
+                            {
+                                "title":  "INGRESO",
+                                "url":  "https://assets.easybroker.com/property_images/4104060/67914792/EB-OT4060.jpg?version=1698950715"
+                            },
+                            {
+                                "title":  "INGRESO",
+                                "url":  "https://assets.easybroker.com/property_images/4104060/67914755/EB-OT4060.jpg?version=1698950715"
+                            },
+                            {
+                                "title":  "SERVIDUMBRE LATERAL",
+                                "url":  "https://assets.easybroker.com/property_images/4104060/67914699/EB-OT4060.jpg?version=1698950715"
+                            },
+                            {
+                                "title":  "CANCHAS DE TENIS",
+                                "url":  "https://assets.easybroker.com/property_images/4104060/67914494/EB-OT4060.jpg?version=1698950715"
+                            },
+                            {
+                                "title":  "ALBERCA",
+                                "url":  "https://assets.easybroker.com/property_images/4104060/67914536/EB-OT4060.jpg?version=1698950715"
+                            },
+                            {
+                                "title":  "AREAS VERDES",
+                                "url":  "https://assets.easybroker.com/property_images/4104060/67914753/EB-OT4060.jpg?version=1698950715"
+                            }
+                        ],
+    "images":  [
+                   {
+                       "title":  "FACHADA",
+                       "url":  "https://assets.easybroker.com/property_images/4104060/67914498/EB-OT4060.jpg?version=1698950715"
+                   },
+                   {
+                       "title":  "FACHADA 2",
+                       "url":  "https://assets.easybroker.com/property_images/4104060/67914491/EB-OT4060.jpg?version=1698950715"
+                   },
+                   {
+                       "title":  "FACHADA 3",
+                       "url":  "https://assets.easybroker.com/property_images/4104060/67914492/EB-OT4060.jpg?version=1698950715"
+                   },
+                   {
+                       "title":  "INGRESO",
+                       "url":  "https://assets.easybroker.com/property_images/4104060/67914688/EB-OT4060.jpg?version=1698950715"
+                   },
+                   {
+                       "title":  "SALA COMEDOR",
+                       "url":  "https://assets.easybroker.com/property_images/4104060/67914476/EB-OT4060.jpg?version=1698950715"
+                   },
+                   {
+                       "title":  "MEDIO BAÑO DE VISITAS",
+                       "url":  "https://assets.easybroker.com/property_images/4104060/67914471/EB-OT4060.jpg?version=1698950715"
+                   },
+                   {
+                       "title":  "ESTUDIO EN PLANTA BAJA",
+                       "url":  "https://assets.easybroker.com/property_images/4104060/67914575/EB-OT4060.jpg?version=1698950715"
+                   },
+                   {
+                       "title":  "ESTUDIO EN PLANTA BAJA",
+                       "url":  "https://assets.easybroker.com/property_images/4104060/67914714/EB-OT4060.jpg?version=1698950715"
+                   },
+                   {
+                       "title":  "SALA",
+                       "url":  "https://assets.easybroker.com/property_images/4104060/67914535/EB-OT4060.jpg?version=1698950715"
+                   },
+                   {
+                       "title":  "COMEDOR",
+                       "url":  "https://assets.easybroker.com/property_images/4104060/67914579/EB-OT4060.jpg?version=1698950715"
+                   },
+                   {
+                       "title":  "OTRA VISTA DEL COMEDOR",
+                       "url":  "https://assets.easybroker.com/property_images/4104060/67914552/EB-OT4060.jpg?version=1698950715"
+                   },
+                   {
+                       "title":  "INGRESO A LA CASA",
+                       "url":  "https://assets.easybroker.com/property_images/4104060/67914534/EB-OT4060.jpg?version=1698950715"
+                   },
+                   {
+                       "title":  "OTRA VISTA DE LA SALA",
+                       "url":  "https://assets.easybroker.com/property_images/4104060/67914637/EB-OT4060.jpg?version=1698950715"
+                   },
+                   {
+                       "title":  "SALA",
+                       "url":  "https://assets.easybroker.com/property_images/4104060/67914757/EB-OT4060.jpg?version=1698950715"
+                   },
+                   {
+                       "title":  "AREA DE FAMILY ROOM",
+                       "url":  "https://assets.easybroker.com/property_images/4104060/67914475/EB-OT4060.jpg?version=1698950715"
+                   },
+                   {
+                       "title":  "COCINA CON ISLA",
+                       "url":  "https://assets.easybroker.com/property_images/4104060/67914537/EB-OT4060.jpg?version=1698950715"
+                   },
+                   {
+                       "title":  "OTRA VISTA DEL FAMILY ROOM A LA COCINA",
+                       "url":  "https://assets.easybroker.com/property_images/4104060/67914474/EB-OT4060.jpg?version=1698950715"
+                   },
+                   {
+                       "title":  "BARRA DESAYUNADORA EN COCINA",
+                       "url":  "https://assets.easybroker.com/property_images/4104060/67914686/EB-OT4060.jpg?version=1698950715"
+                   },
+                   {
+                       "title":  "COCINA",
+                       "url":  "https://assets.easybroker.com/property_images/4104060/67914754/EB-OT4060.jpg?version=1698950715"
+                   },
+                   {
+                       "title":  "COCINA",
+                       "url":  "https://assets.easybroker.com/property_images/4104060/67914761/EB-OT4060.jpg?version=1698950715"
+                   },
+                   {
+                       "title":  "TERRAZA TECHADA Y JARDIN",
+                       "url":  "https://assets.easybroker.com/property_images/4104060/67914477/EB-OT4060.jpg?version=1698950715"
+                   },
+                   {
+                       "title":  "VISTA AREA LATERAL DEL JARDIN",
+                       "url":  "https://assets.easybroker.com/property_images/4104060/67914483/EB-OT4060.jpg?version=1698950715"
+                   },
+                   {
+                       "title":  "TERRAZA TECHADA",
+                       "url":  "https://assets.easybroker.com/property_images/4104060/67914763/EB-OT4060.jpg?version=1698950715"
+                   },
+                   {
+                       "title":  "PARTE TRASERA JARDIN",
+                       "url":  "https://assets.easybroker.com/property_images/4104060/67914598/EB-OT4060.jpg?version=1698950715"
+                   },
+                   {
+                       "title":  "COCHERA TECHADA CON PORTON ELECTRICO",
+                       "url":  "https://assets.easybroker.com/property_images/4104060/67914718/EB-OT4060.jpg?version=1698950715"
+                   },
+                   {
+                       "title":  "PLANTA ALTA VISTA DE ESTAR DE TV",
+                       "url":  "https://assets.easybroker.com/property_images/4104060/67914724/EB-OT4060.jpg?version=1698950715"
+                   },
+                   {
+                       "title":  "BAÑO SECUNDARIO",
+                       "url":  "https://assets.easybroker.com/property_images/4104060/67914793/EB-OT4060.jpg?version=1698950715"
+                   },
+                   {
+                       "title":  "RECAMARA 2",
+                       "url":  "https://assets.easybroker.com/property_images/4104060/67914514/EB-OT4060.jpg?version=1698950715"
+                   },
+                   {
+                       "title":  "RECAMARA 3",
+                       "url":  "https://assets.easybroker.com/property_images/4104060/67914473/EB-OT4060.jpg?version=1698950715"
+                   },
+                   {
+                       "title":  "RECAMARA 3",
+                       "url":  "https://assets.easybroker.com/property_images/4104060/67914659/EB-OT4060.jpg?version=1698950715"
+                   },
+                   {
+                       "title":  "RECAMARA 3",
+                       "url":  "https://assets.easybroker.com/property_images/4104060/67914691/EB-OT4060.jpg?version=1698950715"
+                   },
+                   {
+                       "title":  "RECAMARA 2 CLOSET",
+                       "url":  "https://assets.easybroker.com/property_images/4104060/67914780/EB-OT4060.jpg?version=1698950715"
+                   },
+                   {
+                       "title":  "INGRESO RECAMARA PIRNCIPAL",
+                       "url":  "https://assets.easybroker.com/property_images/4104060/67914530/EB-OT4060.jpg?version=1698950715"
+                   },
+                   {
+                       "title":  "RECAMARA PRINCIPAL",
+                       "url":  "https://assets.easybroker.com/property_images/4104060/67914778/EB-OT4060.jpg?version=1698950715"
+                   },
+                   {
+                       "title":  "RECAMARA PRINCIPAL",
+                       "url":  "https://assets.easybroker.com/property_images/4104060/67914573/EB-OT4060.jpg?version=1698950715"
+                   },
+                   {
+                       "title":  "BANO REC PRINCIPAL",
+                       "url":  "https://assets.easybroker.com/property_images/4104060/67914533/EB-OT4060.jpg?version=1698950715"
+                   },
+                   {
+                       "title":  "CLOSET VESTIDOR RECAMARA PPAL",
+                       "url":  "https://assets.easybroker.com/property_images/4104060/67914687/EB-OT4060.jpg?version=1698950715"
+                   },
+                   {
+                       "title":  "CLOSET VESTIDOR",
+                       "url":  "https://assets.easybroker.com/property_images/4104060/67914783/EB-OT4060.jpg?version=1698950715"
+                   },
+                   {
+                       "title":  "AREA DE LAVADO EN PLANTA ALTA Y / O CUARTO DE SERVICIO",
+                       "url":  "https://assets.easybroker.com/property_images/4104060/67914570/EB-OT4060.jpg?version=1698950715"
+                   },
+                   {
+                       "title":  "INGRESO",
+                       "url":  "https://assets.easybroker.com/property_images/4104060/67914792/EB-OT4060.jpg?version=1698950715"
+                   },
+                   {
+                       "title":  "INGRESO",
+                       "url":  "https://assets.easybroker.com/property_images/4104060/67914755/EB-OT4060.jpg?version=1698950715"
+                   },
+                   {
+                       "title":  "SERVIDUMBRE LATERAL",
+                       "url":  "https://assets.easybroker.com/property_images/4104060/67914699/EB-OT4060.jpg?version=1698950715"
+                   },
+                   {
+                       "title":  "CANCHAS DE TENIS",
+                       "url":  "https://assets.easybroker.com/property_images/4104060/67914494/EB-OT4060.jpg?version=1698950715"
+                   },
+                   {
+                       "title":  "ALBERCA",
+                       "url":  "https://assets.easybroker.com/property_images/4104060/67914536/EB-OT4060.jpg?version=1698950715"
+                   },
+                   {
+                       "title":  "AREAS VERDES",
+                       "url":  "https://assets.easybroker.com/property_images/4104060/67914753/EB-OT4060.jpg?version=1698950715"
+                   }
+               ],
+    "agent":  {
+                  "id":  391012,
+                  "name":  "Lic.Gabriela Martínez",
+                  "full_name":  "Lic.Gabriela Martínez",
+                  "mobile_phone":  "+523338087984",
+                  "profile_image_url":  "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1757459148",
+                  "email":  "GABRIELAMTZ6@HOTMAIL.COM"
+              },
+    "features":  [
+                     {
+                         "name":  "Cisterna",
+                         "category":  "Exterior"
+                     },
+                     {
+                         "name":  "Estacionamiento techado",
+                         "category":  "Exterior"
+                     },
+                     {
+                         "name":  "Facilidad para estacionarse",
+                         "category":  "Exterior"
+                     },
+                     {
+                         "name":  "Garaje",
+                         "category":  "Exterior"
+                     },
+                     {
+                         "name":  "Jardín",
+                         "category":  "Exterior"
+                     },
+                     {
+                         "name":  "Parrilla",
+                         "category":  "Exterior"
+                     },
+                     {
+                         "name":  "Patio",
+                         "category":  "Exterior"
+                     },
+                     {
+                         "name":  "Riego por aspersión",
+                         "category":  "Exterior"
+                     },
+                     {
+                         "name":  "Circuito cerrado",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Cocina equipada",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Cocina integral",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Cuarto de servicio",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Dos plantas",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Estudio",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Fraccionamiento privado",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Hidroneumático",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Mascotas permitidas",
+                         "category":  "Políticas"
+                     },
+                     {
+                         "name":  "Panel solar",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Seguridad 24 horas",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Alberca",
+                         "category":  "Recreación"
+                     },
+                     {
+                         "name":  "Área de juegos infantiles",
+                         "category":  "Recreación"
+                     },
+                     {
+                         "name":  "Cancha de tenis",
+                         "category":  "Recreación"
+                     },
+                     {
+                         "name":  "Gimnasio",
+                         "category":  "Recreación"
+                     },
+                     {
+                         "name":  "Jacuzzi",
+                         "category":  "Recreación"
+                     },
+                     {
+                         "name":  "Salón de usos múltiples",
+                         "category":  "Recreación"
+                     },
+                     {
+                         "name":  "Alarma",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Bodega",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Terraza",
+                         "category":  "Exterior"
+                     }
+                 ]
+}

@@ -1,0 +1,30 @@
+﻿{
+    "public_id":  "EB-TC3653",
+    "title":  "DEPARTAMENTO EN PREVENTA EN TORRE LIVANA, FRENTE A PLAZA DEL SOL, MARIANO OTERO",
+    "title_image_full":  "https://assets.easybroker.com/property_images/5233653/90043597/EB-TC3653.jpeg?version=1747075019",
+    "title_image_thumb":  "https://assets.easybroker.com/property_images/5233653/90043597/EB-TC3653.jpeg?version=1747075019\u0026width=200",
+    "location":  "Rinconada Del Sol, Zapopan, Jalisco",
+    "operations":  [
+                       {
+                           "type":  "sale",
+                           "amount":  5216400.0,
+                           "currency":  "MXN",
+                           "formatted_amount":  "$5,216,400",
+                           "commission":  {
+                                              "type":  "percentage",
+                                              "value":  "4.0"
+                                          },
+                           "unit":  "total"
+                       }
+                   ],
+    "bedrooms":  1,
+    "bathrooms":  1,
+    "parking_spaces":  1,
+    "property_type":  "Departamento",
+    "lot_size":  null,
+    "construction_size":  56.16,
+    "updated_at":  "2025-05-12T20:00:59-06:00",
+    "agent":  "Lic.Gabriela Martínez",
+    "show_prices":  true,
+    "share_commission":  true
+}

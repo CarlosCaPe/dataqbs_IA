@@ -1,0 +1,29 @@
+{
+  "public_id": "EB-LB8465",
+  "title": "LOCAL COMERCIAL EN ATOTONILCO EL ALTO",
+  "title_image_full": "https://assets.easybroker.com/property_images/3148465/50357614/EB-LB8465.jpeg?version=1658950238",
+  "title_image_thumb": "https://assets.easybroker.com/property_images/3148465/50357614/EB-LB8465.jpeg?version=1658950238&width=200",
+  "location": "Atotonilco El Alto Centro, Atotonilco el Alto, Jalisco",
+  "operations": [
+    {
+      "type": "rental",
+      "amount": 17500.0,
+      "currency": "MXN",
+      "formatted_amount": "$17,500",
+      "commission": {
+        "type": "percentage"
+      },
+      "unit": "total"
+    }
+  ],
+  "bedrooms": null,
+  "bathrooms": null,
+  "parking_spaces": null,
+  "property_type": "Local comercial",
+  "lot_size": null,
+  "construction_size": 84.0,
+  "updated_at": "2025-05-12T12:09:04-06:00",
+  "agent": "Lic.Gabriela Martínez",
+  "show_prices": true,
+  "share_commission": true
+}

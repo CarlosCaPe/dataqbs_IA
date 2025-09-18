@@ -1,0 +1,212 @@
+{
+  "public_id": "EB-TC4509",
+  "title": "LOCAL COMERCIAL EN VENTA EN TORRE NOVENA, AV MEXICO, CERCA DE AV CHAPULTEPEC",
+  "description": "Local Comercial en VENTA en Torre NOVENA, ubicada en Av. México cerca de Av. Américas y Av. Chapultepec.\nUna de las zonas más comerciales de Guadalajara.\n\nLa torre cuenta con Oficinas, Locales Comerciales y Hotel, lo que la hace una excelente oportunidad de inversión.\nMarcas AAA \nExclusividad de giro, garantizando el crecimiento de tu negocio. \nMarcas como MINI, BMW, FINESTRA, BARBELLA, CSB CONSUBANCO, entre otros.\n\n402.38m2\nRenta desde $108,642.00\n\nEstacionamiento con 5 niveles\nSolo 17 locales comerciales\n13 Niveles de Oficinas\n120 habitaciones de Hotel\n\nAvenidas cercanas como: Av. Juan Palomar y Arias, Av. Ignacio L. Vallarta, Diag, Golfo de Cortés, Av. Manuel Acuña, Av. Américas, Av. Chapultepec.",
+  "bedrooms": null,
+  "bathrooms": null,
+  "half_bathrooms": null,
+  "parking_spaces": null,
+  "lot_size": 402.38,
+  "construction_size": 402.38,
+  "lot_length": null,
+  "lot_width": null,
+  "floors": null,
+  "floor": null,
+  "age": null,
+  "internal_id": "YULNOVENA",
+  "expenses": null,
+  "location": {
+    "name": "Residencial Juan Manuel, Guadalajara, Jalisco",
+    "latitude": 20.6796129,
+    "longitude": -103.3922062,
+    "street": "AV MEXICO",
+    "postal_code": null,
+    "show_exact_location": true,
+    "hide_exact_location": false,
+    "exterior_number": "3040",
+    "interior_number": null
+  },
+  "property_type": "Local comercial",
+  "created_at": "2025-05-12T15:56:16-06:00",
+  "updated_at": "2025-05-15T11:42:24-06:00",
+  "published_at": "2025-05-12T16:04:50-06:00",
+  "operations": [
+    {
+      "type": "sale",
+      "amount": 20000000.0,
+      "currency": "MXN",
+      "formatted_amount": "$20,000,000",
+      "commission": {
+        "type": "percentage",
+        "value": "4.0"
+      },
+      "unit": "total"
+    }
+  ],
+  "property_files": [],
+  "videos": [],
+  "virtual_tour": null,
+  "collaboration_notes": null,
+  "public_url": "https://www.easybroker.com/mx/listings/local-comercial-en-venta-en-torre-novena-av-mexico-cerca-de-av-chapultepec",
+  "shared_commission_percentage": 50.0,
+  "exclusive": null,
+  "foreclosure": false,
+  "tags": [],
+  "private_description": null,
+  "show_prices": true,
+  "share_commission": true,
+  "property_images": [
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5234509/90059133/EB-TC4509.jpeg?version=1747330930"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5234509/90059136/EB-TC4509.jpeg?version=1747330930"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5234509/90059150/EB-TC4509.jpeg?version=1747330930"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5234509/90059156/EB-TC4509.jpeg?version=1747330930"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5234509/90059167/EB-TC4509.jpeg?version=1747330930"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5234509/90059168/EB-TC4509.jpeg?version=1747330930"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5234509/90205814/EB-TC4509.jpg?version=1747330930"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5234509/90205853/EB-TC4509.jpg?version=1747330930"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5234509/90205852/EB-TC4509.jpg?version=1747330930"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5234509/90205914/EB-TC4509.jpg?version=1747330930"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5234509/90205917/EB-TC4509.jpg?version=1747330930"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5234509/90205930/EB-TC4509.jpg?version=1747330930"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5234509/90205992/EB-TC4509.jpg?version=1747330930"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5234509/90206399/EB-TC4509.jpg?version=1747330930"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5234509/90206400/EB-TC4509.jpg?version=1747330930"
+    }
+  ],
+  "images": [
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5234509/90059133/EB-TC4509.jpeg?version=1747330930"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5234509/90059136/EB-TC4509.jpeg?version=1747330930"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5234509/90059150/EB-TC4509.jpeg?version=1747330930"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5234509/90059156/EB-TC4509.jpeg?version=1747330930"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5234509/90059167/EB-TC4509.jpeg?version=1747330930"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5234509/90059168/EB-TC4509.jpeg?version=1747330930"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5234509/90205814/EB-TC4509.jpg?version=1747330930"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5234509/90205853/EB-TC4509.jpg?version=1747330930"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5234509/90205852/EB-TC4509.jpg?version=1747330930"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5234509/90205914/EB-TC4509.jpg?version=1747330930"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5234509/90205917/EB-TC4509.jpg?version=1747330930"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5234509/90205930/EB-TC4509.jpg?version=1747330930"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5234509/90205992/EB-TC4509.jpg?version=1747330930"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5234509/90206399/EB-TC4509.jpg?version=1747330930"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5234509/90206400/EB-TC4509.jpg?version=1747330930"
+    }
+  ],
+  "agent": {
+    "id": 391012,
+    "name": "Lic.Gabriela Martínez",
+    "full_name": "Lic.Gabriela Martínez",
+    "mobile_phone": "+523338087984",
+    "profile_image_url": "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1729887594",
+    "email": "GABRIELAMTZ6@HOTMAIL.COM"
+  },
+  "features": [
+    {
+      "name": "Estacionamiento techado",
+      "category": "Exterior"
+    },
+    {
+      "name": "Facilidad para estacionarse",
+      "category": "Exterior"
+    },
+    {
+      "name": "Accesibilidad para adultos mayores",
+      "category": "General"
+    },
+    {
+      "name": "Accesibilidad para personas con discapacidad",
+      "category": "General"
+    },
+    {
+      "name": "Seguridad 24 horas",
+      "category": "General"
+    }
+  ]
+}

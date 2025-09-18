@@ -1,0 +1,30 @@
+{
+  "public_id": "EB-TM3828",
+  "title": "Casa en esquina en Sendero las Moras",
+  "title_image_full": "https://assets.easybroker.com/property_images/5333828/92062430/EB-TM3828.jpg?version=1750790676",
+  "title_image_thumb": "https://assets.easybroker.com/property_images/5333828/92062430/EB-TM3828.jpg?version=1750790676&width=200",
+  "location": "Sendero las Moras, Tlajomulco de Zúñiga, Jalisco",
+  "operations": [
+    {
+      "type": "sale",
+      "amount": 5750000.0,
+      "currency": "MXN",
+      "formatted_amount": "$5,750,000",
+      "commission": {
+        "type": "percentage",
+        "value": "4.0"
+      },
+      "unit": "total"
+    }
+  ],
+  "bedrooms": 3,
+  "bathrooms": 3,
+  "parking_spaces": 2,
+  "property_type": "Casa",
+  "lot_size": 191.0,
+  "construction_size": 240.0,
+  "updated_at": "2025-08-02T17:01:30-06:00",
+  "agent": "Lic.Gabriela Martínez",
+  "show_prices": true,
+  "share_commission": true
+}

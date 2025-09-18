@@ -1,0 +1,30 @@
+{
+  "public_id": "EB-QM5091",
+  "title": "Casa en venta a precio de oportunidad Santa Anita",
+  "title_image_full": "https://assets.easybroker.com/property_images/4555091/76427444/EB-QM5091.jpeg?version=1718732961",
+  "title_image_thumb": "https://assets.easybroker.com/property_images/4555091/76427444/EB-QM5091.jpeg?version=1718732961&width=200",
+  "location": "Santa Anita, Tlajomulco de Zúñiga, Jalisco",
+  "operations": [
+    {
+      "type": "sale",
+      "amount": 6550000.0,
+      "currency": "MXN",
+      "formatted_amount": "$6,550,000",
+      "commission": {
+        "type": "percentage",
+        "value": "4.0"
+      },
+      "unit": "total"
+    }
+  ],
+  "bedrooms": 4,
+  "bathrooms": 4,
+  "parking_spaces": 3,
+  "property_type": "Casa",
+  "lot_size": 287.0,
+  "construction_size": 261.0,
+  "updated_at": "2025-05-12T12:09:04-06:00",
+  "agent": "Lic.Gabriela Martínez",
+  "show_prices": true,
+  "share_commission": true
+}

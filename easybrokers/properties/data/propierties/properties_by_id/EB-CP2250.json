@@ -1,0 +1,29 @@
+﻿{
+    "public_id":  "EB-CP2250",
+    "title":  "CASA FRENTE A UNIVA",
+    "title_image_full":  "https://assets.easybroker.com/property_images/942250/14182902/EB-CP2250.jpg?version=1549472976",
+    "title_image_thumb":  "https://assets.easybroker.com/property_images/942250/14182902/EB-CP2250.jpg?version=1549472976\u0026width=200",
+    "location":  "Prados Tepeyac, Zapopan, Jalisco",
+    "operations":  [
+                       {
+                           "type":  "rental",
+                           "amount":  18000.0,
+                           "currency":  "MXN",
+                           "formatted_amount":  "$18,000",
+                           "commission":  {
+                                              "type":  "percentage"
+                                          },
+                           "unit":  "total"
+                       }
+                   ],
+    "bedrooms":  5,
+    "bathrooms":  3,
+    "parking_spaces":  3,
+    "property_type":  "Casa",
+    "lot_size":  152.0,
+    "construction_size":  247.0,
+    "updated_at":  "2025-05-12T12:09:04-06:00",
+    "agent":  "Lic.Gabriela Martínez",
+    "show_prices":  true,
+    "share_commission":  true
+}

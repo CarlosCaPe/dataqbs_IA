@@ -1,0 +1,30 @@
+{
+  "public_id": "EB-PP6806",
+  "title": "Casa de un solo piso en venta zona Club de Golf Santa Anita",
+  "title_image_full": "https://assets.easybroker.com/property_images/4326806/72098178/EB-PP6806.jpeg?version=1709152132",
+  "title_image_thumb": "https://assets.easybroker.com/property_images/4326806/72098178/EB-PP6806.jpeg?version=1709152132&width=200",
+  "location": "San Agustin, Tlajomulco de Zúñiga, Jalisco",
+  "operations": [
+    {
+      "type": "sale",
+      "amount": 13400000.0,
+      "currency": "MXN",
+      "formatted_amount": "$13,400,000",
+      "commission": {
+        "type": "percentage",
+        "value": "5.0"
+      },
+      "unit": "total"
+    }
+  ],
+  "bedrooms": 5,
+  "bathrooms": 4,
+  "parking_spaces": 4,
+  "property_type": "Casa",
+  "lot_size": 980.0,
+  "construction_size": 322.44,
+  "updated_at": "2025-07-26T11:37:13-06:00",
+  "agent": "Lic.Gabriela Martínez",
+  "show_prices": true,
+  "share_commission": true
+}

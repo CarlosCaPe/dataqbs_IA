@@ -1,0 +1,30 @@
+﻿{
+    "public_id":  "EB-TM2645",
+    "title":  "Oficinas en venta en Chapalita",
+    "title_image_full":  "https://assets.easybroker.com/property_images/5332645/92033724/EB-TM2645.jpeg?version=1750727864",
+    "title_image_thumb":  "https://assets.easybroker.com/property_images/5332645/92033724/EB-TM2645.jpeg?version=1750727864\u0026width=200",
+    "location":  "Chapalita, Guadalajara, Jalisco",
+    "operations":  [
+                       {
+                           "type":  "sale",
+                           "amount":  7850000.0,
+                           "currency":  "MXN",
+                           "formatted_amount":  "$7,850,000",
+                           "commission":  {
+                                              "type":  "percentage",
+                                              "value":  "5.0"
+                                          },
+                           "unit":  "total"
+                       }
+                   ],
+    "bedrooms":  null,
+    "bathrooms":  null,
+    "parking_spaces":  4,
+    "property_type":  "Oficina",
+    "lot_size":  null,
+    "construction_size":  230.0,
+    "updated_at":  "2025-06-23T19:23:27-06:00",
+    "agent":  "Lic.Gabriela Martínez",
+    "show_prices":  true,
+    "share_commission":  true
+}

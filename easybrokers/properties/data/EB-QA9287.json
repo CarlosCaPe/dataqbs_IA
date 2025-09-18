@@ -1,0 +1,30 @@
+{
+  "public_id": "EB-QA9287",
+  "title": "Casa en renta zona Bosques de Santa Anita",
+  "title_image_full": "https://assets.easybroker.com/property_images/4439287/74213088/EB-QA9287.jpeg?version=1713832750",
+  "title_image_thumb": "https://assets.easybroker.com/property_images/4439287/74213088/EB-QA9287.jpeg?version=1713832750&width=200",
+  "location": "La Loma, Tlajomulco de Zúñiga, Jalisco",
+  "operations": [
+    {
+      "type": "rental",
+      "amount": 11000.0,
+      "currency": "MXN",
+      "formatted_amount": "$11,000",
+      "commission": {
+        "type": "months",
+        "value": 1
+      },
+      "unit": "total"
+    }
+  ],
+  "bedrooms": 2,
+  "bathrooms": 2,
+  "parking_spaces": 2,
+  "property_type": "Casa",
+  "lot_size": 108.0,
+  "construction_size": 120.0,
+  "updated_at": "2025-05-12T12:09:04-06:00",
+  "agent": "Lic.Gabriela Martínez",
+  "show_prices": true,
+  "share_commission": false
+}

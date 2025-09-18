@@ -1,0 +1,30 @@
+{
+  "public_id": "EB-SB9694",
+  "title": "Casa nueva en venta en Capital Norte",
+  "title_image_full": "https://assets.easybroker.com/property_images/4969694/84842231/EB-SB9694.jpg?version=1748643141",
+  "title_image_thumb": "https://assets.easybroker.com/property_images/4969694/84842231/EB-SB9694.jpg?version=1748643141&width=200",
+  "location": "Valle Imperial, Zapopan, Jalisco",
+  "operations": [
+    {
+      "type": "sale",
+      "amount": 5100000.0,
+      "currency": "MXN",
+      "formatted_amount": "$5,100,000",
+      "commission": {
+        "type": "percentage",
+        "value": "5.0"
+      },
+      "unit": "total"
+    }
+  ],
+  "bedrooms": 3,
+  "bathrooms": 3,
+  "parking_spaces": 2,
+  "property_type": "Casa",
+  "lot_size": 165.68,
+  "construction_size": 203.5,
+  "updated_at": "2025-09-09T10:35:52-06:00",
+  "agent": "Lic.Gabriela Martínez",
+  "show_prices": true,
+  "share_commission": true
+}

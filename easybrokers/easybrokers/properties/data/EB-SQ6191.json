@@ -1,0 +1,215 @@
+{
+  "public_id": "EB-SQ6191",
+  "title": "Oficina / Consultorio en renta en Calle Esmeralda, Residencial Victoria",
+  "description": "Espacios para oficina o consultorios que se adaptan a tus necesidades otorgándote un espacio ideal para trabajar  y brindar la mejor imagen y comodidad a tus clientes. Los espacios cuentan con servicios incluidos:\n\n•\tRecepción cubierta 12 hrs\n•\tManejo de agenda y confirmación de citas\n•\tServicios incluidos, luz, agua, internet de alta velocidad, limpieza y mas\n•\tCoffe Break ilimitado para, café, te y otras opciones\n•\tMobiliario opcional (silla ejecutiva, escritorio y dos sillas de visita)\n\nEl costo de renta cada espacio, depende de su medida y sus características, teniendo opciones disponibles desde 6m² hasta 20m²\n\n7 m² a   $4,900\n14 m² a  $6,500\n23m² a  $12,000 (baño propio y balcon)",
+  "bedrooms": null,
+  "bathrooms": 2,
+  "half_bathrooms": null,
+  "parking_spaces": null,
+  "lot_size": null,
+  "construction_size": 12.0,
+  "lot_length": null,
+  "lot_width": null,
+  "floors": null,
+  "floor": null,
+  "age": null,
+  "internal_id": "GABOOFICE",
+  "expenses": "Incluido",
+  "location": {
+    "name": "Residencial Victoria, Zapopan, Jalisco",
+    "latitude": 20.650427,
+    "longitude": -103.3945287,
+    "street": "Esmeralda",
+    "postal_code": "44550",
+    "show_exact_location": true,
+    "hide_exact_location": false,
+    "exterior_number": "2486",
+    "interior_number": null
+  },
+  "property_type": "Oficina",
+  "created_at": "2025-03-21T19:23:51-06:00",
+  "updated_at": "2025-05-12T17:29:46-06:00",
+  "published_at": "2025-03-21T19:30:17-06:00",
+  "operations": [
+    {
+      "type": "rental",
+      "amount": 4900.0,
+      "currency": "MXN",
+      "formatted_amount": "$4,900",
+      "commission": {
+        "type": "percentage"
+      },
+      "unit": "total"
+    }
+  ],
+  "property_files": [],
+  "videos": [],
+  "virtual_tour": null,
+  "collaboration_notes": null,
+  "public_url": "https://www.easybroker.com/mx/listings/oficina-consultorio-en-renta-en-calle-esmeralda-residencial-victoria",
+  "shared_commission_percentage": null,
+  "exclusive": null,
+  "foreclosure": false,
+  "tags": [],
+  "private_description": null,
+  "show_prices": true,
+  "share_commission": false,
+  "property_images": [
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5116191/87766414/EB-SQ6191.jpg?version=1742607002"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5116191/87766421/EB-SQ6191.jpg?version=1742607002"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5116191/87766415/EB-SQ6191.jpg?version=1742607002"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5116191/87766416/EB-SQ6191.jpg?version=1742607002"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5116191/87766417/EB-SQ6191.jpg?version=1742607002"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5116191/87766420/EB-SQ6191.jpg?version=1742607002"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5116191/87766418/EB-SQ6191.jpg?version=1742607002"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5116191/87766419/EB-SQ6191.jpg?version=1742607002"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5116191/87766411/EB-SQ6191.jpg?version=1742607002"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5116191/87766412/EB-SQ6191.jpg?version=1742607002"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5116191/87766413/EB-SQ6191.jpg?version=1742607002"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5116191/87766422/EB-SQ6191.jpg?version=1742607002"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5116191/87766423/EB-SQ6191.jpg?version=1742607002"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5116191/87766424/EB-SQ6191.jpg?version=1742607002"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5116191/87766426/EB-SQ6191.jpg?version=1742607002"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5116191/87766428/EB-SQ6191.jpg?version=1742607002"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5116191/87766427/EB-SQ6191.jpg?version=1742607002"
+    }
+  ],
+  "images": [
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5116191/87766414/EB-SQ6191.jpg?version=1742607002"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5116191/87766421/EB-SQ6191.jpg?version=1742607002"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5116191/87766415/EB-SQ6191.jpg?version=1742607002"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5116191/87766416/EB-SQ6191.jpg?version=1742607002"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5116191/87766417/EB-SQ6191.jpg?version=1742607002"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5116191/87766420/EB-SQ6191.jpg?version=1742607002"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5116191/87766418/EB-SQ6191.jpg?version=1742607002"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5116191/87766419/EB-SQ6191.jpg?version=1742607002"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5116191/87766411/EB-SQ6191.jpg?version=1742607002"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5116191/87766412/EB-SQ6191.jpg?version=1742607002"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5116191/87766413/EB-SQ6191.jpg?version=1742607002"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5116191/87766422/EB-SQ6191.jpg?version=1742607002"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5116191/87766423/EB-SQ6191.jpg?version=1742607002"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5116191/87766424/EB-SQ6191.jpg?version=1742607002"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5116191/87766426/EB-SQ6191.jpg?version=1742607002"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5116191/87766428/EB-SQ6191.jpg?version=1742607002"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5116191/87766427/EB-SQ6191.jpg?version=1742607002"
+    }
+  ],
+  "agent": {
+    "id": 391012,
+    "name": "Lic.Gabriela Martínez",
+    "full_name": "Lic.Gabriela Martínez",
+    "mobile_phone": "+523338087984",
+    "profile_image_url": "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1729887594",
+    "email": "GABRIELAMTZ6@HOTMAIL.COM"
+  },
+  "features": [
+    {
+      "name": "Circuito cerrado",
+      "category": "General"
+    },
+    {
+      "name": "Conmutador",
+      "category": "General"
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "public_id": "EB-EP3734",
+  "title": "CITALA I \"EL FORTIN\"",
+  "title_image_full": "https://assets.easybroker.com/property_images/1463734/21888168/EB-EP3734.jpg?version=1582170382",
+  "title_image_thumb": "https://assets.easybroker.com/property_images/1463734/21888168/EB-EP3734.jpg?version=1582170382&width=200",
+  "location": "El Fortín, Zapopan, Jalisco",
+  "operations": [
+    {
+      "type": "rental",
+      "amount": 7500.0,
+      "currency": "MXN",
+      "formatted_amount": "$7,500",
+      "commission": {
+        "type": "percentage"
+      },
+      "unit": "total"
+    }
+  ],
+  "bedrooms": 2,
+  "bathrooms": 1,
+  "parking_spaces": 1,
+  "property_type": "Casa en condominio",
+  "lot_size": null,
+  "construction_size": 80.0,
+  "updated_at": "2025-05-12T12:09:04-06:00",
+  "agent": "Lic.Gabriela Martínez",
+  "show_prices": true,
+  "share_commission": true
+}
