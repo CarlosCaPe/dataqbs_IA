@@ -1,11 +1,8 @@
 {
     "folders": [
-        {
-            "path": "."
-        },
-        {
-            "path": "easybrokers"
-        }
+        { "path": "." },
+        { "path": "email_collector" },
+        { "path": "easybrokers" }
     ],
     "settings": {
         // Default to Python in this repo; per-folder overrides can be added in .vscode

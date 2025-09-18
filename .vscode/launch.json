@@ -6,6 +6,7 @@
       "type": "debugpy",
       "request": "launch",
       "program": "${workspaceFolder}/email_collector/main.py",
+      "cwd": "${workspaceFolder}/email_collector",
       "console": "integratedTerminal",
       "args": [
         "--precheck",
@@ -33,6 +34,7 @@
       "type": "debugpy",
       "request": "launch",
       "program": "${workspaceFolder}/email_collector/main.py",
+      "cwd": "${workspaceFolder}/email_collector",
       "console": "integratedTerminal",
       "args": [
         "-v"
