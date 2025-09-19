@@ -21,17 +21,28 @@ try:
 except Exception:
     pass
 
-# Cargar config
+"""Simple driver script to download images for properties discovered in JSON files.
+
+Reads configuration from config.json. For backwards-compatibility, it accepts
+either REALSTATE_API_KEY or EASYBROKER_API_KEY in the config file.
+"""
+
+# Load config
 with open('config.json', 'r', encoding='utf-8') as f:
     config = json.load(f)
 
+# Accept REALSTATE_API_KEY or fallback to EASYBROKER_API_KEY
+api_key = config.get('REALSTATE_API_KEY') or config.get('EASYBROKER_API_KEY')
+if not api_key:
+    raise KeyError("Missing REALSTATE_API_KEY or EASYBROKER_API_KEY in config.json")
+
 downloader = RealstateImageDownloader(
-    api_key=config['EASYBROKER_API_KEY'],
+    api_key=api_key,
     base_json_folder=config['BASE_JSON_FOLDER'],
     max_workers=config.get('MAX_WORKERS', 8)
 )
 
-# Leer todos los archivos JSON de la carpeta de propiedades
+# Read all JSON files in the properties folder
 properties = []
 json_folder = config['BASE_JSON_FOLDER']
 json_dir = os.path.abspath(json_folder)
@@ -43,7 +54,7 @@ for filename in os.listdir(json_dir):
             with open(file_path, 'r', encoding='utf-8') as f:
                 data = json.load(f)
             property_id = data.get('property_id') or data.get('id') or os.path.splitext(filename)[0]
-            # Buscar imágenes en campos comunes
+            # Find images from common fields
             images = []
             if 'images' in data and isinstance(data['images'], list):
                 for img in data['images']:
@@ -60,11 +71,11 @@ for filename in os.listdir(json_dir):
             if property_id and images:
                 properties.append({'property_id': property_id, 'images': images})
         except Exception as e:
-            logger.error('Error leyendo %s: %s', file_path, e)
+            logger.error('Error reading %s: %s', file_path, e)
 
 if not properties:
-    logger.warning('No se encontraron propiedades con imágenes para descargar.')
+    logger.warning('No properties with images found to download.')
 else:
-    logger.info('Descargando imágenes para %d propiedades...', len(properties))
+    logger.info('Downloading images for %d properties...', len(properties))
     downloader.download_all_property_images(properties)
-    logger.info('Descarga finalizada para %d propiedades.', len(properties))
+    logger.info('Finished download for %d properties.', len(properties))
