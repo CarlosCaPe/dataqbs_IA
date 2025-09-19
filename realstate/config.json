@@ -1,4 +1,5 @@
 {
+  "REALSTATE_API_KEY": "9zyhdg6zdm4lmllmeombg095ftiga1",
   "EASYBROKER_API_KEY": "9zyhdg6zdm4lmllmeombg095ftiga1",
   "ENDPOINTS": {
     "properties": "https://api.easybroker.com/v1/properties",
