@@ -1,0 +1,30 @@
+{
+  "public_id": "EB-TN5998",
+  "title": "Terreno en renta cerca del aeropuerto uso comercial/industrial",
+  "title_image_full": "https://assets.easybroker.com/property_images/5345998/92292008/EB-TN5998.jpeg?version=1751133867",
+  "title_image_thumb": "https://assets.easybroker.com/property_images/5345998/92292008/EB-TN5998.jpeg?version=1751133867&width=200",
+  "location": "Santa Cruz Del Valle, Tlajomulco de Zúñiga, Jalisco",
+  "operations": [
+    {
+      "type": "rental",
+      "amount": 490000.0,
+      "currency": "MXN",
+      "formatted_amount": "$490,000",
+      "commission": {
+        "type": "months",
+        "value": 1
+      },
+      "unit": "total"
+    }
+  ],
+  "bedrooms": null,
+  "bathrooms": null,
+  "parking_spaces": null,
+  "property_type": "Terreno comercial",
+  "lot_size": 45725.36,
+  "construction_size": null,
+  "updated_at": "2025-06-28T12:10:23-06:00",
+  "agent": "Lic.Gabriela Martínez",
+  "show_prices": true,
+  "share_commission": true
+}

@@ -1,0 +1,239 @@
+﻿{
+    "public_id":  "EB-RH4174",
+    "title":  "Local Comercial Agencia con Bodega y Terreno en LopezMateos Sur por Bugambilias",
+    "description":  "Descubre este impresionante local comercial en renta! \nCon 1100 m² de terreno y 10 estacionamientos, este espacio es ideal para tu negocio.\n$390,000.00 + IVA\n\nCaracterísticas destacadas:\n- Espacios amplios y luminosos: \nGrandes ventanales que permiten la entrada de luz natural.\n\n- Comodidad y accesibilidad: \nAire acondicionado, Facilidades para discapacitados, Elevador de cargay estacionamiento de visitantes.\n\n- Seguridad: Alarma, Circuito cerrado, Caja de cobro blindada, Site con caja fuerte blindada,Seguridad contra incendios y Planta eléctrica.\n\n- Funcionalidad: Cocina, Bodega de servicio, Sistema de ventilación\n\nRed alábrica: Nodos distribuidosen las instalaciones, disponibles e interconectados al Site.\nEste local ofrece una combinación perfecta de comodidad, seguridad y funcionalidad, destacándoseentre otras opciones. \n\n¡No dejes pasar esta oportunidad y haz de este espacio el hogar de tu negocio!",
+    "bedrooms":  null,
+    "bathrooms":  null,
+    "half_bathrooms":  null,
+    "parking_spaces":  10,
+    "lot_size":  1100.0,
+    "construction_size":  1180.0,
+    "lot_length":  null,
+    "lot_width":  null,
+    "floors":  2,
+    "floor":  null,
+    "age":  2021,
+    "internal_id":  "VANELOPEZM",
+    "expenses":  null,
+    "location":  {
+                     "name":  "Los Gavilanes, Tlajomulco de Zúñiga, Jalisco",
+                     "latitude":  20.6077636,
+                     "longitude":  -103.431677,
+                     "street":  "Avenida Lopez Mateos Sur",
+                     "postal_code":  "45239",
+                     "show_exact_location":  true,
+                     "hide_exact_location":  false,
+                     "exterior_number":  "4452",
+                     "interior_number":  null
+                 },
+    "property_type":  "Bodega comercial",
+    "created_at":  "2024-09-27T09:20:42-06:00",
+    "updated_at":  "2025-05-12T12:09:04-06:00",
+    "published_at":  null,
+    "operations":  [
+                       {
+                           "type":  "rental",
+                           "amount":  390000.0,
+                           "currency":  "MXN",
+                           "formatted_amount":  "$390,000",
+                           "commission":  {
+                                              "type":  "months",
+                                              "value":  1
+                                          },
+                           "unit":  "total"
+                       }
+                   ],
+    "property_files":  [
+
+                       ],
+    "videos":  [
+
+               ],
+    "virtual_tour":  null,
+    "collaboration_notes":  null,
+    "public_url":  "https://www.easybroker.com/mx/listings/local-comercial-agencia-con-bodega-y-terreno-en-lopezmateos-sur-por-bugambilias",
+    "shared_commission_percentage":  null,
+    "exclusive":  null,
+    "foreclosure":  false,
+    "tags":  [
+
+             ],
+    "private_description":  null,
+    "show_prices":  true,
+    "share_commission":  false,
+    "property_images":  [
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4764174/80628660/EB-RH4174.jpg?version=1727450476"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4764174/80628661/EB-RH4174.jpg?version=1727450477"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4764174/80628662/EB-RH4174.jpg?version=1727450477"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4764174/80628698/EB-RH4174.jpg?version=1727450529"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4764174/80628699/EB-RH4174.jpg?version=1727450529"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4764174/80628700/EB-RH4174.jpg?version=1727450529"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4764174/80628703/EB-RH4174.jpg?version=1727450548"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4764174/80628704/EB-RH4174.jpg?version=1727450549"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4764174/80628705/EB-RH4174.jpg?version=1727450549"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4764174/80628716/EB-RH4174.jpg?version=1727450567"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4764174/80628717/EB-RH4174.jpg?version=1727450567"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4764174/80628715/EB-RH4174.jpg?version=1727450567"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4764174/80628724/EB-RH4174.jpg?version=1727450591"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4764174/80628725/EB-RH4174.jpg?version=1727450591"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4764174/80628726/EB-RH4174.jpg?version=1727450591"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4764174/80628751/EB-RH4174.jpg?version=1727450607"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4764174/80628752/EB-RH4174.jpg?version=1727450607"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4764174/80628753/EB-RH4174.jpg?version=1727450607"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4764174/80628754/EB-RH4174.jpg?version=1727450624"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4764174/80628755/EB-RH4174.jpg?version=1727450624"
+                            }
+                        ],
+    "images":  [
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4764174/80628660/EB-RH4174.jpg?version=1727450476"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4764174/80628661/EB-RH4174.jpg?version=1727450477"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4764174/80628662/EB-RH4174.jpg?version=1727450477"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4764174/80628698/EB-RH4174.jpg?version=1727450529"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4764174/80628699/EB-RH4174.jpg?version=1727450529"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4764174/80628700/EB-RH4174.jpg?version=1727450529"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4764174/80628703/EB-RH4174.jpg?version=1727450548"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4764174/80628704/EB-RH4174.jpg?version=1727450549"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4764174/80628705/EB-RH4174.jpg?version=1727450549"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4764174/80628716/EB-RH4174.jpg?version=1727450567"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4764174/80628717/EB-RH4174.jpg?version=1727450567"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4764174/80628715/EB-RH4174.jpg?version=1727450567"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4764174/80628724/EB-RH4174.jpg?version=1727450591"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4764174/80628725/EB-RH4174.jpg?version=1727450591"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4764174/80628726/EB-RH4174.jpg?version=1727450591"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4764174/80628751/EB-RH4174.jpg?version=1727450607"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4764174/80628752/EB-RH4174.jpg?version=1727450607"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4764174/80628753/EB-RH4174.jpg?version=1727450607"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4764174/80628754/EB-RH4174.jpg?version=1727450624"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4764174/80628755/EB-RH4174.jpg?version=1727450624"
+                   }
+               ],
+    "agent":  {
+                  "id":  391012,
+                  "name":  "Lic.Gabriela Martínez",
+                  "full_name":  "Lic.Gabriela Martínez",
+                  "mobile_phone":  "+523338087984",
+                  "profile_image_url":  "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1757459148",
+                  "email":  "GABRIELAMTZ6@HOTMAIL.COM"
+              },
+    "features":  [
+
+                 ]
+}

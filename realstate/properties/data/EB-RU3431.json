@@ -1,0 +1,30 @@
+{
+  "public_id": "EB-RU3431",
+  "title": "Terreno en venta en fraccionamiento en Mazamitla",
+  "title_image_full": "https://assets.easybroker.com/property_images/4893431/83229293/EB-RU3431.jpg?version=1733271354",
+  "title_image_thumb": "https://assets.easybroker.com/property_images/4893431/83229293/EB-RU3431.jpg?version=1733271354&width=200",
+  "location": "Mazamitla, Mazamitla, Jalisco",
+  "operations": [
+    {
+      "type": "sale",
+      "amount": 2800000.0,
+      "currency": "MXN",
+      "formatted_amount": "$2,800,000",
+      "commission": {
+        "type": "percentage",
+        "value": "5.0"
+      },
+      "unit": "total"
+    }
+  ],
+  "bedrooms": null,
+  "bathrooms": null,
+  "parking_spaces": null,
+  "property_type": "Terreno",
+  "lot_size": 6000.0,
+  "construction_size": null,
+  "updated_at": "2025-08-18T12:48:24-06:00",
+  "agent": "Lic.Gabriela Martínez",
+  "show_prices": true,
+  "share_commission": true
+}

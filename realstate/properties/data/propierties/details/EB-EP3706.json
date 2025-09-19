@@ -1,0 +1,185 @@
+﻿{
+    "public_id":  "EB-EP3706",
+    "title":  "CONSULTORIOS EN RENTA",
+    "description":  "MEDICAL \"ST FERNANDO\" frente a SUBDELEGACION DEL IMSS avila camacho.\nCONSULTORIOS DE 10 M2 APROX.\nCUENTAN CON SERVICIO DE RECEPCIONISTA DE L.UNES A VIERNES 8AM -9.30PM\nSABADO DE 8-6.\nMANEJO DE AGENDA.\nSERVICIO DE TELEFONO E INTERNET, LUZ Y AGUA.\nESTACIONAMIENTO PARA PACIENTES Y APARTE PARA MEDICOS.\nMONITOREO POR CAMARAS 24 HRS.\nSE PUEDEN RENTAR POR DIAS.",
+    "bedrooms":  null,
+    "bathrooms":  null,
+    "half_bathrooms":  null,
+    "parking_spaces":  null,
+    "lot_size":  null,
+    "construction_size":  null,
+    "lot_length":  null,
+    "lot_width":  null,
+    "floors":  null,
+    "floor":  "Planta Baja",
+    "age":  null,
+    "internal_id":  null,
+    "expenses":  null,
+    "location":  {
+                     "name":  "Mezquitan Country, Guadalajara, Jalisco",
+                     "latitude":  20.7018007278,
+                     "longitude":  -103.3597110656,
+                     "street":  "HAWAI",
+                     "postal_code":  null,
+                     "show_exact_location":  true,
+                     "hide_exact_location":  false,
+                     "exterior_number":  "1679",
+                     "interior_number":  null
+                 },
+    "property_type":  "Local comercial",
+    "created_at":  "2020-02-19T21:25:46-06:00",
+    "updated_at":  "2025-05-12T12:09:04-06:00",
+    "published_at":  "2024-03-13T08:16:34-06:00",
+    "operations":  [
+                       {
+                           "type":  "rental",
+                           "amount":  9500.0,
+                           "currency":  "MXN",
+                           "formatted_amount":  "$9,500",
+                           "commission":  {
+                                              "type":  "percentage"
+                                          },
+                           "unit":  "total"
+                       }
+                   ],
+    "property_files":  [
+
+                       ],
+    "videos":  [
+
+               ],
+    "virtual_tour":  null,
+    "collaboration_notes":  null,
+    "public_url":  "https://www.easybroker.com/mx/listings/consultorios-en-renta-mezquitan-country",
+    "shared_commission_percentage":  null,
+    "exclusive":  null,
+    "foreclosure":  false,
+    "tags":  [
+
+             ],
+    "private_description":  null,
+    "show_prices":  true,
+    "share_commission":  true,
+    "property_images":  [
+                            {
+                                "title":  "FACHADA NUCLEO MEDICO",
+                                "url":  "https://assets.easybroker.com/property_images/1463706/21887924/EB-EP3706.jpeg?version=1582169426"
+                            },
+                            {
+                                "title":  "CONSULTORIO",
+                                "url":  "https://assets.easybroker.com/property_images/1463706/21887940/EB-EP3706.jpeg?version=1582169426"
+                            },
+                            {
+                                "title":  "CONSULTORIO",
+                                "url":  "https://assets.easybroker.com/property_images/1463706/21887942/EB-EP3706.jpeg?version=1582169426"
+                            },
+                            {
+                                "title":  "CONSULTORIO",
+                                "url":  "https://assets.easybroker.com/property_images/1463706/21887944/EB-EP3706.jpeg?version=1582169426"
+                            },
+                            {
+                                "title":  "FACHADA DEL NUCLEO MEDICO",
+                                "url":  "https://assets.easybroker.com/property_images/1463706/21887958/EB-EP3706.jpeg?version=1582169426"
+                            },
+                            {
+                                "title":  "CONSULTORIO",
+                                "url":  "https://assets.easybroker.com/property_images/1463706/21887959/EB-EP3706.jpeg?version=1582169426"
+                            },
+                            {
+                                "title":  "CONSULTORIO",
+                                "url":  "https://assets.easybroker.com/property_images/1463706/21887961/EB-EP3706.jpeg?version=1582169426"
+                            },
+                            {
+                                "title":  "CONSULTORIO",
+                                "url":  "https://assets.easybroker.com/property_images/1463706/21887962/EB-EP3706.jpeg?version=1582169426"
+                            },
+                            {
+                                "title":  "RECEPCION",
+                                "url":  "https://assets.easybroker.com/property_images/1463706/21887965/EB-EP3706.jpeg?version=1582169426"
+                            },
+                            {
+                                "title":  "AREAS VERDES",
+                                "url":  "https://assets.easybroker.com/property_images/1463706/21887978/EB-EP3706.jpeg?version=1582169426"
+                            }
+                        ],
+    "images":  [
+                   {
+                       "title":  "FACHADA NUCLEO MEDICO",
+                       "url":  "https://assets.easybroker.com/property_images/1463706/21887924/EB-EP3706.jpeg?version=1582169426"
+                   },
+                   {
+                       "title":  "CONSULTORIO",
+                       "url":  "https://assets.easybroker.com/property_images/1463706/21887940/EB-EP3706.jpeg?version=1582169426"
+                   },
+                   {
+                       "title":  "CONSULTORIO",
+                       "url":  "https://assets.easybroker.com/property_images/1463706/21887942/EB-EP3706.jpeg?version=1582169426"
+                   },
+                   {
+                       "title":  "CONSULTORIO",
+                       "url":  "https://assets.easybroker.com/property_images/1463706/21887944/EB-EP3706.jpeg?version=1582169426"
+                   },
+                   {
+                       "title":  "FACHADA DEL NUCLEO MEDICO",
+                       "url":  "https://assets.easybroker.com/property_images/1463706/21887958/EB-EP3706.jpeg?version=1582169426"
+                   },
+                   {
+                       "title":  "CONSULTORIO",
+                       "url":  "https://assets.easybroker.com/property_images/1463706/21887959/EB-EP3706.jpeg?version=1582169426"
+                   },
+                   {
+                       "title":  "CONSULTORIO",
+                       "url":  "https://assets.easybroker.com/property_images/1463706/21887961/EB-EP3706.jpeg?version=1582169426"
+                   },
+                   {
+                       "title":  "CONSULTORIO",
+                       "url":  "https://assets.easybroker.com/property_images/1463706/21887962/EB-EP3706.jpeg?version=1582169426"
+                   },
+                   {
+                       "title":  "RECEPCION",
+                       "url":  "https://assets.easybroker.com/property_images/1463706/21887965/EB-EP3706.jpeg?version=1582169426"
+                   },
+                   {
+                       "title":  "AREAS VERDES",
+                       "url":  "https://assets.easybroker.com/property_images/1463706/21887978/EB-EP3706.jpeg?version=1582169426"
+                   }
+               ],
+    "agent":  {
+                  "id":  391012,
+                  "name":  "Lic.Gabriela Martínez",
+                  "full_name":  "Lic.Gabriela Martínez",
+                  "mobile_phone":  "+523338087984",
+                  "profile_image_url":  "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1757459148",
+                  "email":  "GABRIELAMTZ6@HOTMAIL.COM"
+              },
+    "features":  [
+                     {
+                         "name":  "Aire acondicionado",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Accesibilidad para personas con discapacidad",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Garaje",
+                         "category":  "Exterior"
+                     },
+                     {
+                         "name":  "Chimenea",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Amueblado",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Estacionamiento techado",
+                         "category":  "Exterior"
+                     },
+                     {
+                         "name":  "Accesibilidad para adultos mayores",
+                         "category":  "General"
+                     }
+                 ]
+}

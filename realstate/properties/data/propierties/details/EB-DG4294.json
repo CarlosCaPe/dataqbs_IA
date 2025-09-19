@@ -1,0 +1,177 @@
+﻿{
+    "public_id":  "EB-DG4294",
+    "title":  "RANCHO EN RENTA, TALA JALISCO",
+    "description":  "27,200 M2 A PIE DE CARRETERA TODO O POR PARTES CARRETERA TALA-EL REFUGIO KM. 01",
+    "bedrooms":  2,
+    "bathrooms":  1,
+    "half_bathrooms":  4,
+    "parking_spaces":  null,
+    "lot_size":  27000.0,
+    "construction_size":  null,
+    "lot_length":  148.0,
+    "lot_width":  123.0,
+    "floors":  null,
+    "floor":  null,
+    "age":  null,
+    "internal_id":  null,
+    "expenses":  null,
+    "location":  {
+                     "name":  "Ingenio, Tala, Jalisco",
+                     "latitude":  20.667503426,
+                     "longitude":  -103.7462330237,
+                     "street":  null,
+                     "postal_code":  null,
+                     "show_exact_location":  true,
+                     "hide_exact_location":  false,
+                     "exterior_number":  null,
+                     "interior_number":  null
+                 },
+    "property_type":  "Rancho",
+    "created_at":  "2019-06-12T13:06:08-05:00",
+    "updated_at":  "2025-05-12T12:09:04-06:00",
+    "published_at":  "2019-10-29T17:56:15-06:00",
+    "operations":  [
+                       {
+                           "type":  "rental",
+                           "amount":  5.0,
+                           "currency":  "MXN",
+                           "formatted_amount":  "$5",
+                           "commission":  {
+                                              "type":  "percentage"
+                                          },
+                           "unit":  "square_meter"
+                       }
+                   ],
+    "property_files":  [
+                           "https://assets.easybroker.com/property_files/1114294/60024/foto_tala_renta_RANCHO_LA_PALMA.jpg"
+                       ],
+    "videos":  [
+
+               ],
+    "virtual_tour":  null,
+    "collaboration_notes":  null,
+    "public_url":  "https://www.easybroker.com/mx/listings/rancho-en-renta-tala-jalisco",
+    "shared_commission_percentage":  null,
+    "exclusive":  null,
+    "foreclosure":  false,
+    "tags":  [
+                 "Rancho en renta"
+             ],
+    "private_description":  "Precio x m2  frente a carretera 5.00  fondo del terreno 4.00 x m2. ",
+    "show_prices":  true,
+    "share_commission":  true,
+    "property_images":  [
+                            {
+                                "title":  "",
+                                "url":  "https://assets.easybroker.com/property_images/1114294/16580434/EB-DG4294.jpg?version=1560363414"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/1114294/16591400/EB-DG4294.jpeg?version=1560379029"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/1114294/16591415/EB-DG4294.jpeg?version=1560379036"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/1114294/16591436/EB-DG4294.jpeg?version=1560379043"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/1114294/16591459/EB-DG4294.jpeg?version=1560379052"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/1114294/16591480/EB-DG4294.jpeg?version=1560379062"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/1114294/16591528/EB-DG4294.jpeg?version=1560379078"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/1114294/16591561/EB-DG4294.jpeg?version=1560379091"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/1114294/16591630/EB-DG4294.jpeg?version=1560379117"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/1114294/16591736/EB-DG4294.jpeg?version=1560379160"
+                            }
+                        ],
+    "images":  [
+                   {
+                       "title":  "",
+                       "url":  "https://assets.easybroker.com/property_images/1114294/16580434/EB-DG4294.jpg?version=1560363414"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/1114294/16591400/EB-DG4294.jpeg?version=1560379029"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/1114294/16591415/EB-DG4294.jpeg?version=1560379036"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/1114294/16591436/EB-DG4294.jpeg?version=1560379043"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/1114294/16591459/EB-DG4294.jpeg?version=1560379052"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/1114294/16591480/EB-DG4294.jpeg?version=1560379062"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/1114294/16591528/EB-DG4294.jpeg?version=1560379078"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/1114294/16591561/EB-DG4294.jpeg?version=1560379091"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/1114294/16591630/EB-DG4294.jpeg?version=1560379117"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/1114294/16591736/EB-DG4294.jpeg?version=1560379160"
+                   }
+               ],
+    "agent":  {
+                  "id":  391012,
+                  "name":  "Lic.Gabriela Martínez",
+                  "full_name":  "Lic.Gabriela Martínez",
+                  "mobile_phone":  "+523338087984",
+                  "profile_image_url":  "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1757459148",
+                  "email":  "GABRIELAMTZ6@HOTMAIL.COM"
+              },
+    "features":  [
+                     {
+                         "name":  "Mascotas permitidas",
+                         "category":  "Políticas"
+                     },
+                     {
+                         "name":  "Terraza",
+                         "category":  "Exterior"
+                     },
+                     {
+                         "name":  "Jardín",
+                         "category":  "Exterior"
+                     },
+                     {
+                         "name":  "Bodega",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Facilidad para estacionarse",
+                         "category":  "Exterior"
+                     }
+                 ]
+}

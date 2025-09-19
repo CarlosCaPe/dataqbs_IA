@@ -1,0 +1,328 @@
+{
+  "public_id": "EB-QK8951",
+  "title": "Departamento nuevo en renta torre Alcalde 960",
+  "description": "Excelente departamento a estrenar.\n\nCocina equipada\nÁrea de servicio \nSala comedor con balcón y vista inmejorable\nBaño completo\nDos habitaciones \nLa principal con baño privado y walking closet\nUn cajón de estacionamiento\nOrientación: sur/norte\n\nEl edificio cuenta seguridad 24/7 y amenidades tales como terraza de lectura, alberca y próximamente area comercial, gym, tienda de conveniencia y más en el primer nivel\n\nNo dejes pasar la oportunidad de vivir muy cerca de la glorieta de la Normal, el CODE, el Parque Alcalde, Acuario Michin, CUGDL, DIF, UTEG plantel Alcalde… y agenda tu cita lo antes posible.\n\n*Mantenimiento incluido\n*Incluye persianas",
+  "bedrooms": 2,
+  "bathrooms": 2,
+  "half_bathrooms": null,
+  "parking_spaces": 1,
+  "lot_size": null,
+  "construction_size": 78.05,
+  "lot_length": null,
+  "lot_width": null,
+  "floors": null,
+  "floor": "9",
+  "age": "new_construction",
+  "internal_id": "AIDAALCALDE",
+  "expenses": "Incluido",
+  "location": {
+    "name": "Alcalde Barranquitas, Guadalajara, Jalisco",
+    "latitude": 20.6999025,
+    "longitude": -103.3479012,
+    "street": "Fray Antonio Alcalde",
+    "postal_code": "44270",
+    "show_exact_location": true,
+    "hide_exact_location": false,
+    "exterior_number": "960",
+    "interior_number": "92"
+  },
+  "property_type": "Departamento",
+  "created_at": "2024-06-10T18:14:55-06:00",
+  "updated_at": "2025-05-12T12:09:04-06:00",
+  "published_at": "2024-06-10T18:17:43-06:00",
+  "operations": [
+    {
+      "type": "rental",
+      "amount": 16000.0,
+      "currency": "MXN",
+      "formatted_amount": "$16,000",
+      "commission": {
+        "type": "months",
+        "value": 0.5
+      },
+      "unit": "total"
+    }
+  ],
+  "property_files": [],
+  "videos": [],
+  "virtual_tour": null,
+  "collaboration_notes": "50%  inmobiliarias afiliadas",
+  "public_url": "https://www.easybroker.com/mx/listings/departamento-nuevo-en-renta-torre-alcalde-960",
+  "shared_commission_percentage": null,
+  "exclusive": null,
+  "foreclosure": false,
+  "tags": [],
+  "private_description": null,
+  "show_prices": true,
+  "share_commission": false,
+  "property_images": [
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4538951/76122823/EB-QK8951.jpeg?version=1718064987"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4538951/76122820/EB-QK8951.jpeg?version=1718064986"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4538951/76122826/EB-QK8951.jpeg?version=1718064987"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4538951/76122831/EB-QK8951.jpeg?version=1718064989"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4538951/76122833/EB-QK8951.jpeg?version=1718064989"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4538951/76122835/EB-QK8951.jpeg?version=1718064990"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4538951/76122837/EB-QK8951.jpeg?version=1718064991"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4538951/76122839/EB-QK8951.jpeg?version=1718064992"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4538951/76122842/EB-QK8951.jpeg?version=1718064993"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4538951/76122844/EB-QK8951.jpeg?version=1718064994"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4538951/76122846/EB-QK8951.jpeg?version=1718064995"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4538951/76122848/EB-QK8951.jpeg?version=1718064996"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4538951/76122849/EB-QK8951.jpeg?version=1718064996"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4538951/76122852/EB-QK8951.jpeg?version=1718064997"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4538951/76122856/EB-QK8951.jpeg?version=1718064999"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4538951/76122859/EB-QK8951.jpeg?version=1718065001"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4538951/76122861/EB-QK8951.jpeg?version=1718065002"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4538951/76122864/EB-QK8951.jpeg?version=1718065003"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4538951/76122866/EB-QK8951.jpeg?version=1718065004"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4538951/76122870/EB-QK8951.jpeg?version=1718065005"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4538951/76122871/EB-QK8951.jpeg?version=1718065005"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4538951/76122876/EB-QK8951.jpeg?version=1718065006"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4538951/76122878/EB-QK8951.jpeg?version=1718065007"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4538951/76122881/EB-QK8951.jpeg?version=1718065008"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4538951/76122884/EB-QK8951.jpeg?version=1718065009"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4538951/76122887/EB-QK8951.jpeg?version=1718065010"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4538951/76122888/EB-QK8951.jpeg?version=1718065011"
+    }
+  ],
+  "images": [
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4538951/76122823/EB-QK8951.jpeg?version=1718064987"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4538951/76122820/EB-QK8951.jpeg?version=1718064986"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4538951/76122826/EB-QK8951.jpeg?version=1718064987"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4538951/76122831/EB-QK8951.jpeg?version=1718064989"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4538951/76122833/EB-QK8951.jpeg?version=1718064989"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4538951/76122835/EB-QK8951.jpeg?version=1718064990"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4538951/76122837/EB-QK8951.jpeg?version=1718064991"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4538951/76122839/EB-QK8951.jpeg?version=1718064992"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4538951/76122842/EB-QK8951.jpeg?version=1718064993"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4538951/76122844/EB-QK8951.jpeg?version=1718064994"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4538951/76122846/EB-QK8951.jpeg?version=1718064995"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4538951/76122848/EB-QK8951.jpeg?version=1718064996"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4538951/76122849/EB-QK8951.jpeg?version=1718064996"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4538951/76122852/EB-QK8951.jpeg?version=1718064997"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4538951/76122856/EB-QK8951.jpeg?version=1718064999"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4538951/76122859/EB-QK8951.jpeg?version=1718065001"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4538951/76122861/EB-QK8951.jpeg?version=1718065002"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4538951/76122864/EB-QK8951.jpeg?version=1718065003"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4538951/76122866/EB-QK8951.jpeg?version=1718065004"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4538951/76122870/EB-QK8951.jpeg?version=1718065005"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4538951/76122871/EB-QK8951.jpeg?version=1718065005"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4538951/76122876/EB-QK8951.jpeg?version=1718065006"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4538951/76122878/EB-QK8951.jpeg?version=1718065007"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4538951/76122881/EB-QK8951.jpeg?version=1718065008"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4538951/76122884/EB-QK8951.jpeg?version=1718065009"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4538951/76122887/EB-QK8951.jpeg?version=1718065010"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4538951/76122888/EB-QK8951.jpeg?version=1718065011"
+    }
+  ],
+  "agent": {
+    "id": 391012,
+    "name": "Lic.Gabriela Martínez",
+    "full_name": "Lic.Gabriela Martínez",
+    "mobile_phone": "+523338087984",
+    "profile_image_url": "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1729887594",
+    "email": "GABRIELAMTZ6@HOTMAIL.COM"
+  },
+  "features": [
+    {
+      "name": "Balcón",
+      "category": "Exterior"
+    },
+    {
+      "name": "Estacionamiento techado",
+      "category": "Exterior"
+    },
+    {
+      "name": "Facilidad para estacionarse",
+      "category": "Exterior"
+    },
+    {
+      "name": "Terraza",
+      "category": "Exterior"
+    },
+    {
+      "name": "Accesibilidad para adultos mayores",
+      "category": "General"
+    },
+    {
+      "name": "Elevador",
+      "category": "General"
+    },
+    {
+      "name": "Fraccionamiento privado",
+      "category": "General"
+    },
+    {
+      "name": "Portero",
+      "category": "General"
+    },
+    {
+      "name": "Seguridad 24 horas",
+      "category": "General"
+    },
+    {
+      "name": "Alberca",
+      "category": "Recreación"
+    }
+  ]
+}

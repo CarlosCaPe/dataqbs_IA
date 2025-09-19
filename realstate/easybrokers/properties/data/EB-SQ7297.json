@@ -1,0 +1,200 @@
+{
+  "public_id": "EB-SQ7297",
+  "title": "Terreno con vista panorámica dentro de coto. Bugambilias",
+  "description": "Excelente terreno de 566 mts con doble acceso (de calle a calle) con vista panorámica tanto del Bosque de la Primavera como de la Ciudad.\n\nFraccionamiento Tortugas cuenta con seguridad, son solo 25 residencias, en calle cerrada dando la mayor privacidad dentro de Bugambilias.\n\nNo pierdas la oportunidad de construir tu nuevo hogar en este hermoso terreno.\n\nMantenimiento $1866",
+  "bedrooms": null,
+  "bathrooms": null,
+  "half_bathrooms": null,
+  "parking_spaces": null,
+  "lot_size": 566.0,
+  "construction_size": null,
+  "lot_length": 24.0,
+  "lot_width": null,
+  "floors": null,
+  "floor": null,
+  "age": null,
+  "internal_id": "AIDATORTUGA",
+  "expenses": null,
+  "location": {
+    "name": "Fraccionamiento Bugambilias, Zapopan, Jalisco",
+    "latitude": 20.6086561,
+    "longitude": -103.4809946,
+    "street": "Prolongación Paseo del Carnero",
+    "postal_code": "45238",
+    "show_exact_location": true,
+    "hide_exact_location": false,
+    "exterior_number": "494",
+    "interior_number": null
+  },
+  "property_type": "Terreno",
+  "created_at": "2025-03-22T20:52:26-06:00",
+  "updated_at": "2025-08-30T12:52:28-06:00",
+  "published_at": "2025-03-22T20:53:46-06:00",
+  "operations": [
+    {
+      "type": "sale",
+      "amount": 5200000.0,
+      "currency": "MXN",
+      "formatted_amount": "$5,200,000",
+      "commission": {
+        "type": "percentage",
+        "value": "4.0"
+      },
+      "unit": "total"
+    }
+  ],
+  "property_files": [],
+  "videos": [],
+  "virtual_tour": null,
+  "collaboration_notes": "Comisión compartida a Inmobiliarias Afiliadas",
+  "public_url": "https://www.easybroker.com/mx/listings/terreno-con-vista-panoramica-dentro-de-coto-bugambilias",
+  "shared_commission_percentage": 50.0,
+  "exclusive": true,
+  "foreclosure": false,
+  "tags": [],
+  "private_description": null,
+  "show_prices": true,
+  "share_commission": true,
+  "property_images": [
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5117297/87788017/EB-SQ7297.jpeg?version=1742698387"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5117297/87788018/EB-SQ7297.jpeg?version=1742698387"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5117297/87788019/EB-SQ7297.jpeg?version=1742698388"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5117297/87788020/EB-SQ7297.jpeg?version=1742698388"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5117297/87788021/EB-SQ7297.jpeg?version=1742698388"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5117297/87788030/EB-SQ7297.jpeg?version=1742698394"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5117297/87788031/EB-SQ7297.jpeg?version=1742698394"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5117297/87788032/EB-SQ7297.jpeg?version=1742698395"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5117297/87788033/EB-SQ7297.jpeg?version=1742698396"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5117297/87788034/EB-SQ7297.jpeg?version=1742698397"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5117297/87788035/EB-SQ7297.jpeg?version=1742698398"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5117297/87788036/EB-SQ7297.jpeg?version=1742698400"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5117297/87788037/EB-SQ7297.jpeg?version=1742698400"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5117297/87788038/EB-SQ7297.jpeg?version=1742698401"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5117297/87788039/EB-SQ7297.jpeg?version=1742698402"
+    }
+  ],
+  "images": [
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5117297/87788017/EB-SQ7297.jpeg?version=1742698387"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5117297/87788018/EB-SQ7297.jpeg?version=1742698387"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5117297/87788019/EB-SQ7297.jpeg?version=1742698388"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5117297/87788020/EB-SQ7297.jpeg?version=1742698388"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5117297/87788021/EB-SQ7297.jpeg?version=1742698388"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5117297/87788030/EB-SQ7297.jpeg?version=1742698394"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5117297/87788031/EB-SQ7297.jpeg?version=1742698394"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5117297/87788032/EB-SQ7297.jpeg?version=1742698395"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5117297/87788033/EB-SQ7297.jpeg?version=1742698396"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5117297/87788034/EB-SQ7297.jpeg?version=1742698397"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5117297/87788035/EB-SQ7297.jpeg?version=1742698398"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5117297/87788036/EB-SQ7297.jpeg?version=1742698400"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5117297/87788037/EB-SQ7297.jpeg?version=1742698400"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5117297/87788038/EB-SQ7297.jpeg?version=1742698401"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5117297/87788039/EB-SQ7297.jpeg?version=1742698402"
+    }
+  ],
+  "agent": {
+    "id": 391012,
+    "name": "Lic.Gabriela Martínez",
+    "full_name": "Lic.Gabriela Martínez",
+    "mobile_phone": "+523338087984",
+    "profile_image_url": "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1729887594",
+    "email": "GABRIELAMTZ6@HOTMAIL.COM"
+  },
+  "features": [
+    {
+      "name": "Facilidad para estacionarse",
+      "category": "Exterior"
+    },
+    {
+      "name": "Seguridad 24 horas",
+      "category": "General"
+    }
+  ]
+}

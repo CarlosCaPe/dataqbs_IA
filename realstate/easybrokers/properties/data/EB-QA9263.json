@@ -1,0 +1,114 @@
+{
+  "public_id": "EB-QA9263",
+  "title": "Casa en renta zona Bosques de Santa Anita",
+  "description": "Casa en renta al sur de la ciudad en Fraccionamiento La Loma con detalles únicos y excelente aprovechamiento de espacios.  \n\nPLANTA BAJA:\n•Cocina integral \n•Amplia área de sala-comedor\n•Medio bañ •Terraza techad\n•Jardín\n•Área de servicio\n•Bodega   \n\nPLANTA ALTA:\n•Estar de televisión\n•Baño completo\n•Recámara secundaria con baño propio y balcón hacia el jardín interno de la casa\n•Habitación principal con aire acondicionado, vestidor y baño completo.   \n\nLas áreas verdes rodean todo el fraccionamiento, el cual, cuenta con seguridad 24/7, calles empedradas que brindan frescura y paisajismo así como una de las áreas comunes más bonitas de la zona, con juegos infantiles, gran terraza, baños para los invitados y alberca. \n\n  La Loma brinda la tranquilidad de vivir cerca del Bosque de la Primavera pero al mismo tiempo, se ubica a solo poco minutos de instituciones de alto nivel que van desde preescolar hasta preparatoria, como lo es la Prepa TEC, Instituto Tepeyac, entre otros.\n   Plazas, comercios y todos los atractivos que ofrece el sur, una de las zonas con mayor plusvalía de la ciudad.   \n\nAgenda tu cita y conoce ya tu nuevo hogar.\n\n*Mantenimiento incluido\n*Mascota permitida",
+  "bedrooms": 2,
+  "bathrooms": 2,
+  "half_bathrooms": 1,
+  "parking_spaces": 2,
+  "lot_size": 108.0,
+  "construction_size": 120.0,
+  "lot_length": 21.33,
+  "lot_width": 6.0,
+  "floors": 2,
+  "floor": null,
+  "age": 2010,
+  "internal_id": "APLALOMA",
+  "expenses": "Incluido",
+  "location": {
+    "name": "La Loma, Tlajomulco de Zúñiga, Jalisco",
+    "latitude": 20.5688419016,
+    "longitude": -103.4945046902,
+    "street": "Boulevard La Loma",
+    "postal_code": "45645",
+    "show_exact_location": true,
+    "hide_exact_location": false,
+    "exterior_number": "1000",
+    "interior_number": "20"
+  },
+  "property_type": "Casa",
+  "created_at": "2024-04-22T18:25:43-06:00",
+  "updated_at": "2025-05-12T12:09:04-06:00",
+  "published_at": null,
+  "operations": [
+    {
+      "type": "rental",
+      "amount": 11000.0,
+      "currency": "MXN",
+      "formatted_amount": "$11,000",
+      "commission": {
+        "type": "months",
+        "value": 1
+      },
+      "unit": "total"
+    }
+  ],
+  "property_files": [],
+  "videos": [],
+  "virtual_tour": null,
+  "collaboration_notes": "50% inmobiliarias afiliadas",
+  "public_url": "https://www.easybroker.com/mx/listings/casa-en-renta-zona-bosques-de-santa-anita-la-loma",
+  "shared_commission_percentage": null,
+  "exclusive": null,
+  "foreclosure": false,
+  "tags": [],
+  "private_description": null,
+  "show_prices": true,
+  "share_commission": true,
+  "property_images": [],
+  "images": [],
+  "agent": {
+    "id": 391012,
+    "name": "Lic.Gabriela Martínez",
+    "full_name": "Lic.Gabriela Martínez",
+    "mobile_phone": "+523338087984",
+    "profile_image_url": "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1729887594",
+    "email": "GABRIELAMTZ6@HOTMAIL.COM"
+  },
+  "features": [
+    {
+      "name": "Cisterna",
+      "category": "Exterior"
+    },
+    {
+      "name": "Jardín",
+      "category": "Exterior"
+    },
+    {
+      "name": "Terraza",
+      "category": "Exterior"
+    },
+    {
+      "name": "Cocina integral",
+      "category": "General"
+    },
+    {
+      "name": "Dos plantas",
+      "category": "General"
+    },
+    {
+      "name": "Fraccionamiento privado",
+      "category": "General"
+    },
+    {
+      "name": "Mascotas permitidas",
+      "category": "Políticas"
+    },
+    {
+      "name": "Seguridad 24 horas",
+      "category": "General"
+    },
+    {
+      "name": "Alberca",
+      "category": "Recreación"
+    },
+    {
+      "name": "Área de juegos infantiles",
+      "category": "Recreación"
+    },
+    {
+      "name": "Salón de usos múltiples",
+      "category": "Recreación"
+    }
+  ]
+}

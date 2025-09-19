@@ -1,0 +1,279 @@
+{
+  "public_id": "EB-DY4088",
+  "title": "CASA EN RENTA CONDOMINIO NATURA BOSQUE (MARIANO OTERO)",
+  "description": "EXCELENTE CASA EN RENTA CONDOMINIO NATURA COTO AMALFI.\nCASA DE DOS PLANTAS ,COCHERA DOS AUTOS,SALA COMEDOR,COCINA INTEGRAL,RECAMARA EN PLANTA BAJA CON BAÑO COMPLETO, PATIO DE SERVICIO.\nPLANTA ALTA DOS RECAMARAS CADA UNA CON BAÑO COMPLETO Y ESTAR DE TV. \nCASA CLUB CON ALBERCA Y AREA DE JUEGOS.\nDISPONIBLE NOVIEMBRE 2021",
+  "bedrooms": 3,
+  "bathrooms": 3,
+  "half_bathrooms": null,
+  "parking_spaces": 2,
+  "lot_size": null,
+  "construction_size": null,
+  "lot_length": null,
+  "lot_width": null,
+  "floors": null,
+  "floor": null,
+  "age": null,
+  "internal_id": null,
+  "expenses": "INCLUIDO",
+  "location": {
+    "name": "Fraccionamiento Natura, Zapopan, Jalisco",
+    "latitude": 20.6219394,
+    "longitude": -103.4796305,
+    "street": null,
+    "postal_code": null,
+    "show_exact_location": true,
+    "hide_exact_location": false,
+    "exterior_number": null,
+    "interior_number": null
+  },
+  "property_type": "Casa en condominio",
+  "created_at": "2019-10-16T10:58:32-05:00",
+  "updated_at": "2025-05-12T12:09:04-06:00",
+  "published_at": "2023-03-22T20:00:13-06:00",
+  "operations": [
+    {
+      "type": "rental",
+      "amount": 11500.0,
+      "currency": "MXN",
+      "formatted_amount": "$11,500",
+      "commission": {
+        "type": "percentage"
+      },
+      "unit": "total"
+    }
+  ],
+  "property_files": [],
+  "videos": [],
+  "virtual_tour": null,
+  "collaboration_notes": null,
+  "public_url": "https://www.easybroker.com/mx/listings/casa-en-renta-condominio-natura",
+  "shared_commission_percentage": null,
+  "exclusive": null,
+  "foreclosure": false,
+  "tags": [],
+  "private_description": null,
+  "show_prices": true,
+  "share_commission": false,
+  "property_images": [
+    {
+      "title": "Fachada ",
+      "url": "https://assets.easybroker.com/property_images/1294088/56746073/EB-DY4088.jpeg?version=1674150336"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/1294088/56746072/EB-DY4088.jpeg?version=1674150287"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/1294088/56746074/EB-DY4088.jpeg?version=1674150287"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/1294088/56746076/EB-DY4088.jpeg?version=1674150287"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/1294088/56746075/EB-DY4088.jpeg?version=1674150287"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/1294088/56746077/EB-DY4088.jpeg?version=1674150287"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/1294088/56746078/EB-DY4088.jpeg?version=1674150287"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/1294088/56746080/EB-DY4088.jpeg?version=1674150287"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/1294088/56746079/EB-DY4088.jpeg?version=1674150287"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/1294088/56746081/EB-DY4088.jpeg?version=1674150287"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/1294088/56746082/EB-DY4088.jpeg?version=1674150287"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/1294088/56746083/EB-DY4088.jpeg?version=1674150287"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/1294088/56746084/EB-DY4088.jpeg?version=1674150287"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/1294088/56746085/EB-DY4088.jpeg?version=1674150287"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/1294088/56746086/EB-DY4088.jpeg?version=1674150287"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/1294088/56746087/EB-DY4088.jpeg?version=1674150287"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/1294088/56746088/EB-DY4088.jpeg?version=1674150287"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/1294088/56746089/EB-DY4088.jpeg?version=1674150287"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/1294088/56746090/EB-DY4088.jpeg?version=1674150287"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/1294088/56746091/EB-DY4088.jpeg?version=1674150287"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/1294088/56746093/EB-DY4088.jpeg?version=1674150287"
+    }
+  ],
+  "images": [
+    {
+      "title": "Fachada ",
+      "url": "https://assets.easybroker.com/property_images/1294088/56746073/EB-DY4088.jpeg?version=1674150336"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/1294088/56746072/EB-DY4088.jpeg?version=1674150287"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/1294088/56746074/EB-DY4088.jpeg?version=1674150287"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/1294088/56746076/EB-DY4088.jpeg?version=1674150287"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/1294088/56746075/EB-DY4088.jpeg?version=1674150287"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/1294088/56746077/EB-DY4088.jpeg?version=1674150287"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/1294088/56746078/EB-DY4088.jpeg?version=1674150287"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/1294088/56746080/EB-DY4088.jpeg?version=1674150287"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/1294088/56746079/EB-DY4088.jpeg?version=1674150287"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/1294088/56746081/EB-DY4088.jpeg?version=1674150287"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/1294088/56746082/EB-DY4088.jpeg?version=1674150287"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/1294088/56746083/EB-DY4088.jpeg?version=1674150287"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/1294088/56746084/EB-DY4088.jpeg?version=1674150287"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/1294088/56746085/EB-DY4088.jpeg?version=1674150287"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/1294088/56746086/EB-DY4088.jpeg?version=1674150287"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/1294088/56746087/EB-DY4088.jpeg?version=1674150287"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/1294088/56746088/EB-DY4088.jpeg?version=1674150287"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/1294088/56746089/EB-DY4088.jpeg?version=1674150287"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/1294088/56746090/EB-DY4088.jpeg?version=1674150287"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/1294088/56746091/EB-DY4088.jpeg?version=1674150287"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/1294088/56746093/EB-DY4088.jpeg?version=1674150287"
+    }
+  ],
+  "agent": {
+    "id": 391012,
+    "name": "Lic.Gabriela Martínez",
+    "full_name": "Lic.Gabriela Martínez",
+    "mobile_phone": "+523338087984",
+    "profile_image_url": "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1729887594",
+    "email": "GABRIELAMTZ6@HOTMAIL.COM"
+  },
+  "features": [
+    {
+      "name": "Alberca",
+      "category": "Recreación"
+    },
+    {
+      "name": "Portero",
+      "category": "General"
+    },
+    {
+      "name": "Seguridad 24 horas",
+      "category": "General"
+    },
+    {
+      "name": "Patio",
+      "category": "Exterior"
+    },
+    {
+      "name": "Cisterna",
+      "category": "Exterior"
+    },
+    {
+      "name": "Cocina integral",
+      "category": "General"
+    },
+    {
+      "name": "Fraccionamiento privado",
+      "category": "General"
+    },
+    {
+      "name": "Área de juegos infantiles",
+      "category": "Recreación"
+    },
+    {
+      "name": "Salón de usos múltiples",
+      "category": "Recreación"
+    },
+    {
+      "name": "Facilidad para estacionarse",
+      "category": "Exterior"
+    }
+  ]
+}

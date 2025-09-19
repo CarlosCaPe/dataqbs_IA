@@ -1,0 +1,30 @@
+{
+  "public_id": "EB-SB8750",
+  "title": "Terreno en renta ideal para negocio",
+  "title_image_full": "https://assets.easybroker.com/property_images/4968750/84822716/EB-SB8750.jpg?version=1737137267",
+  "title_image_thumb": "https://assets.easybroker.com/property_images/4968750/84822716/EB-SB8750.jpg?version=1737137267&width=200",
+  "location": "Lagos de Oriente, Guadalajara, Jalisco",
+  "operations": [
+    {
+      "type": "rental",
+      "amount": 21000.0,
+      "currency": "MXN",
+      "formatted_amount": "$21,000",
+      "commission": {
+        "type": "months",
+        "value": 1
+      },
+      "unit": "total"
+    }
+  ],
+  "bedrooms": null,
+  "bathrooms": null,
+  "parking_spaces": null,
+  "property_type": "Terreno",
+  "lot_size": 314.0,
+  "construction_size": null,
+  "updated_at": "2025-07-14T13:08:15-06:00",
+  "agent": "Lic.Gabriela Martínez",
+  "show_prices": true,
+  "share_commission": false
+}

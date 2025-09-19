@@ -1,0 +1,30 @@
+{
+  "public_id": "EB-TJ7419",
+  "title": "Terreno en venta en fraccionamiento privado en Jocotepec",
+  "title_image_full": "https://assets.easybroker.com/property_images/5307419/91531391/EB-TJ7419.jpeg?version=1749704138",
+  "title_image_thumb": "https://assets.easybroker.com/property_images/5307419/91531391/EB-TJ7419.jpeg?version=1749704138&width=200",
+  "location": "Camino Real, Jocotepec, Jalisco",
+  "operations": [
+    {
+      "type": "sale",
+      "amount": 1350000.0,
+      "currency": "MXN",
+      "formatted_amount": "$1,350,000",
+      "commission": {
+        "type": "percentage",
+        "value": "5.0"
+      },
+      "unit": "total"
+    }
+  ],
+  "bedrooms": null,
+  "bathrooms": null,
+  "parking_spaces": null,
+  "property_type": "Terreno",
+  "lot_size": 254.34,
+  "construction_size": null,
+  "updated_at": "2025-08-14T19:17:23-06:00",
+  "agent": "Lic.Gabriela Martínez",
+  "show_prices": true,
+  "share_commission": true
+}

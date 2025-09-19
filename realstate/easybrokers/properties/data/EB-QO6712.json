@@ -1,0 +1,287 @@
+{
+  "public_id": "EB-QO6712",
+  "title": "Departamento en Arcos Vallarta (opción amueblado)",
+  "description": "Departamento en venta en el piso 8 de Coordenada Living, Colonia Arcos Vallarta\n\nCuenta con \n•Dos recámaras, la principal con baño completo y la secundaria con baño compartido con visitas.\n•Cocina integral con sala\n•Comedor\n•Balcón\n•Área de lavado. \n•1 cajón de estacionamiento. \n\nComparte áreas comunes como gimnasio, terraza para eventos, asadores, jacuzzis ciclopuertos y seguridad 24/7 \n\nTanto para vivirlo como para inversion, la ubicación estratégica de Coordenada Living es la mejor opción a precio de oportunidad ya que es una de las zonas con mayor plusvalía en Guadalajara.\n\nAgenda tu cita ya!\n\n*Opción  amueblado\nEn el caso de renta se pediría un mes adicional como depósito en garantía",
+  "bedrooms": 2,
+  "bathrooms": 2,
+  "half_bathrooms": null,
+  "parking_spaces": 1,
+  "lot_size": null,
+  "construction_size": 74.0,
+  "lot_length": null,
+  "lot_width": null,
+  "floors": null,
+  "floor": "8",
+  "age": null,
+  "internal_id": "AÍDAARCOS",
+  "expenses": "2363",
+  "location": {
+    "name": "Arcos Vallarta, Guadalajara, Jalisco",
+    "latitude": 20.6678683,
+    "longitude": -103.3792538,
+    "street": "Agustín Yáñez",
+    "postal_code": "44130",
+    "show_exact_location": true,
+    "hide_exact_location": false,
+    "exterior_number": "2471",
+    "interior_number": "804"
+  },
+  "property_type": "Departamento",
+  "created_at": "2024-06-28T07:45:08-06:00",
+  "updated_at": "2025-05-12T12:09:04-06:00",
+  "published_at": "2024-06-28T07:46:51-06:00",
+  "operations": [
+    {
+      "type": "sale",
+      "amount": 3450000.0,
+      "currency": "MXN",
+      "formatted_amount": "$3,450,000",
+      "commission": {
+        "type": "percentage",
+        "value": "4.0"
+      },
+      "unit": "total"
+    },
+    {
+      "type": "rental",
+      "amount": 23000.0,
+      "currency": "MXN",
+      "formatted_amount": "$23,000",
+      "commission": {
+        "type": "months",
+        "value": 1
+      },
+      "unit": "total"
+    }
+  ],
+  "property_files": [],
+  "videos": [],
+  "virtual_tour": null,
+  "collaboration_notes": "50% Inmobiliarias afiliadas",
+  "public_url": "https://www.easybroker.com/mx/listings/departamento-en-venta-arcos-vallarta-964bae95-bd5b-465b-bc43-03da193d6ac6",
+  "shared_commission_percentage": null,
+  "exclusive": null,
+  "foreclosure": false,
+  "tags": [],
+  "private_description": null,
+  "show_prices": true,
+  "share_commission": true,
+  "property_images": [
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4576712/76849745/EB-QO6712.jpeg?version=1719582382"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4576712/76850543/EB-QO6712.jpeg?version=1719586080"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4576712/76849744/EB-QO6712.jpeg?version=1719582382"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4576712/76849743/EB-QO6712.jpeg?version=1719582382"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4576712/76849746/EB-QO6712.jpeg?version=1719582383"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4576712/76849747/EB-QO6712.jpeg?version=1719582383"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4576712/76849748/EB-QO6712.jpeg?version=1719582383"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4576712/76849749/EB-QO6712.jpeg?version=1719582384"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4576712/76849750/EB-QO6712.jpeg?version=1719582384"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4576712/76849751/EB-QO6712.jpeg?version=1719582384"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4576712/76849752/EB-QO6712.jpeg?version=1719582385"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4576712/76849753/EB-QO6712.jpeg?version=1719582385"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4576712/76849754/EB-QO6712.jpeg?version=1719582385"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4576712/76849755/EB-QO6712.jpeg?version=1719582386"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4576712/76849756/EB-QO6712.jpeg?version=1719582386"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4576712/76849757/EB-QO6712.jpeg?version=1719582386"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4576712/76849758/EB-QO6712.jpeg?version=1719582387"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4576712/76849759/EB-QO6712.jpeg?version=1719582387"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4576712/76849760/EB-QO6712.jpeg?version=1719582387"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4576712/76849761/EB-QO6712.jpeg?version=1719582387"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4576712/76849762/EB-QO6712.jpeg?version=1719582388"
+    }
+  ],
+  "images": [
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4576712/76849745/EB-QO6712.jpeg?version=1719582382"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4576712/76850543/EB-QO6712.jpeg?version=1719586080"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4576712/76849744/EB-QO6712.jpeg?version=1719582382"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4576712/76849743/EB-QO6712.jpeg?version=1719582382"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4576712/76849746/EB-QO6712.jpeg?version=1719582383"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4576712/76849747/EB-QO6712.jpeg?version=1719582383"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4576712/76849748/EB-QO6712.jpeg?version=1719582383"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4576712/76849749/EB-QO6712.jpeg?version=1719582384"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4576712/76849750/EB-QO6712.jpeg?version=1719582384"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4576712/76849751/EB-QO6712.jpeg?version=1719582384"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4576712/76849752/EB-QO6712.jpeg?version=1719582385"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4576712/76849753/EB-QO6712.jpeg?version=1719582385"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4576712/76849754/EB-QO6712.jpeg?version=1719582385"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4576712/76849755/EB-QO6712.jpeg?version=1719582386"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4576712/76849756/EB-QO6712.jpeg?version=1719582386"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4576712/76849757/EB-QO6712.jpeg?version=1719582386"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4576712/76849758/EB-QO6712.jpeg?version=1719582387"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4576712/76849759/EB-QO6712.jpeg?version=1719582387"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4576712/76849760/EB-QO6712.jpeg?version=1719582387"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4576712/76849761/EB-QO6712.jpeg?version=1719582387"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4576712/76849762/EB-QO6712.jpeg?version=1719582388"
+    }
+  ],
+  "agent": {
+    "id": 391012,
+    "name": "Lic.Gabriela Martínez",
+    "full_name": "Lic.Gabriela Martínez",
+    "mobile_phone": "+523338087984",
+    "profile_image_url": "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1729887594",
+    "email": "GABRIELAMTZ6@HOTMAIL.COM"
+  },
+  "features": [
+    {
+      "name": "Balcón",
+      "category": "Exterior"
+    },
+    {
+      "name": "Estacionamiento techado",
+      "category": "Exterior"
+    },
+    {
+      "name": "Accesibilidad para adultos mayores",
+      "category": "General"
+    },
+    {
+      "name": "Accesibilidad para personas con discapacidad",
+      "category": "General"
+    },
+    {
+      "name": "Amueblado",
+      "category": "General"
+    },
+    {
+      "name": "Cocina equipada",
+      "category": "General"
+    },
+    {
+      "name": "Elevador",
+      "category": "General"
+    },
+    {
+      "name": "Seguridad 24 horas",
+      "category": "General"
+    },
+    {
+      "name": "Gimnasio",
+      "category": "Recreación"
+    }
+  ]
+}

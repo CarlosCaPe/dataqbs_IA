@@ -1,0 +1,102 @@
+{
+  "public_id": "EB-BQ3840",
+  "title": "TERRENO EN VENTA EN BELISARIO DOMINGUEZ, HUENTITAN",
+  "description": "Topografía plana. Terreno en esquina, zona comercial a 3 cuadras de la Barranca de Huentitan, Av. con flujo vehicular a 2 cuadras del acceso a la Barranca de Huentitan, frente a la terminal de la ruta 66, cerca del templo de Nuestra Señora Perpetuo Socorro.\n*Se entrega con atractivo proyecto de Plaza comercial de 2 niveles con 8 locales.",
+  "bedrooms": null,
+  "bathrooms": null,
+  "half_bathrooms": null,
+  "parking_spaces": null,
+  "lot_size": 221.0,
+  "construction_size": null,
+  "lot_length": 18.95,
+  "lot_width": 11.34,
+  "floors": null,
+  "floor": null,
+  "age": null,
+  "internal_id": null,
+  "expenses": null,
+  "location": {
+    "name": "Dr. Atl, Guadalajara, Jalisco",
+    "latitude": 20.7244114,
+    "longitude": -103.2947045,
+    "street": null,
+    "postal_code": null,
+    "show_exact_location": true,
+    "hide_exact_location": false,
+    "exterior_number": null,
+    "interior_number": null
+  },
+  "property_type": "Terreno",
+  "created_at": "2018-04-12T15:34:32-05:00",
+  "updated_at": "2025-05-12T12:09:04-06:00",
+  "published_at": "2018-04-12T15:36:50-05:00",
+  "operations": [
+    {
+      "type": "sale",
+      "amount": 1100000.0,
+      "currency": "MXN",
+      "formatted_amount": "$1,100,000",
+      "commission": {
+        "type": "percentage"
+      },
+      "unit": "total"
+    }
+  ],
+  "property_files": [],
+  "videos": [],
+  "virtual_tour": null,
+  "collaboration_notes": "",
+  "public_url": "https://www.easybroker.com/mx/listings/terreno-en-venta-en-belisario-dominguez-huentitan",
+  "shared_commission_percentage": null,
+  "exclusive": null,
+  "foreclosure": false,
+  "tags": [],
+  "private_description": null,
+  "show_prices": true,
+  "share_commission": true,
+  "property_images": [
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/693840/10551679/EB-BQ3840.jpg?version=1523565410"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/693840/10551681/EB-BQ3840.jpg?version=1523565410"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/693840/10551682/EB-BQ3840.jpg?version=1523565410"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/693840/10551683/EB-BQ3840.jpg?version=1523565410"
+    }
+  ],
+  "images": [
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/693840/10551679/EB-BQ3840.jpg?version=1523565410"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/693840/10551681/EB-BQ3840.jpg?version=1523565410"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/693840/10551682/EB-BQ3840.jpg?version=1523565410"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/693840/10551683/EB-BQ3840.jpg?version=1523565410"
+    }
+  ],
+  "agent": {
+    "id": 391012,
+    "name": "Lic.Gabriela Martínez",
+    "full_name": "Lic.Gabriela Martínez",
+    "mobile_phone": "+523338087984",
+    "profile_image_url": "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1729887594",
+    "email": "GABRIELAMTZ6@HOTMAIL.COM"
+  },
+  "features": []
+}

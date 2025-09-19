@@ -1,0 +1,29 @@
+﻿{
+    "public_id":  "EB-EP8146",
+    "title":  "HEMOSO RANCHO CABALLERIZAS Y LIENZO",
+    "title_image_full":  "https://assets.easybroker.com/property_images/1468146/21965562/EB-EP8146.jpg?version=1582555436",
+    "title_image_thumb":  "https://assets.easybroker.com/property_images/1468146/21965562/EB-EP8146.jpg?version=1582555436\u0026width=200",
+    "location":  "Tala Centro, Tala, Jalisco",
+    "operations":  [
+                       {
+                           "type":  "sale",
+                           "amount":  25000000.0,
+                           "currency":  "MXN",
+                           "formatted_amount":  "$25,000,000",
+                           "commission":  {
+                                              "type":  "percentage"
+                                          },
+                           "unit":  "total"
+                       }
+                   ],
+    "bedrooms":  1,
+    "bathrooms":  7,
+    "parking_spaces":  5,
+    "property_type":  "Rancho",
+    "lot_size":  8300.0,
+    "construction_size":  null,
+    "updated_at":  "2025-05-12T12:09:04-06:00",
+    "agent":  "Lic.Gabriela Martínez",
+    "show_prices":  true,
+    "share_commission":  true
+}

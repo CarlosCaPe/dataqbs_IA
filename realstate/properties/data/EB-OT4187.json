@@ -1,0 +1,29 @@
+{
+  "public_id": "EB-OT4187",
+  "title": "RENTA AMPLIA CASA EN EL COLLI IDEAL PARA OFICINAS Y/O CASA HABITACION",
+  "title_image_full": "https://assets.easybroker.com/property_images/4104187/67916776/EB-OT4187.jpg?version=1698952129",
+  "title_image_thumb": "https://assets.easybroker.com/property_images/4104187/67916776/EB-OT4187.jpg?version=1698952129&width=200",
+  "location": "El Colli Urbano 1a. Sección, Zapopan, Jalisco",
+  "operations": [
+    {
+      "type": "rental",
+      "amount": 16000.0,
+      "currency": "MXN",
+      "formatted_amount": "$16,000",
+      "commission": {
+        "type": "percentage"
+      },
+      "unit": "total"
+    }
+  ],
+  "bedrooms": 3,
+  "bathrooms": 2,
+  "parking_spaces": 2,
+  "property_type": "Casa",
+  "lot_size": 100.0,
+  "construction_size": 115.0,
+  "updated_at": "2025-05-12T12:09:04-06:00",
+  "agent": "Lic.Gabriela Martínez",
+  "show_prices": true,
+  "share_commission": false
+}

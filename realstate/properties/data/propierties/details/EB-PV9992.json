@@ -1,0 +1,318 @@
+﻿{
+    "public_id":  "EB-PV9992",
+    "title":  "Departamento nuevo en renta  zona Palomar",
+    "description":  "Departamento a estrenar en torre Balanty Torre Viva en el primer piso.\n\nCuenta con cocina integral, área de servicio, sala comedor y baño completo.\nLa habitación secundaria tiene closet y la principal con vestidor y baño independiente.\n\nEl conjunto residencial tiene:\n\n•Alberca\n•Juegos acuáticos\n•Cancha\n•Dos terrazas con baños\n•Sala de cine\n•Área de co-working\n•Ludoteca\n•Salón de usos múltiples \n•Dos gimnasios \n•Juegos infantiles\n•Jardín para mascotas \n•Áreas verdes\n•Salón de usos múltiples\n\nTodo esto con seguridad 24/7 y sistema de circuito cerrado.\nAdemás, Balanty está estratégicamente ubicado cerca de escuelas de alto nivel, hospitales, autoservicios y a sólo unos metros de López Mateos Sur con vías alternas a Periférico Sur.\n\nNo puedes dejar pasar esta oportunidad.\n\n*Mantenimiento incluido\n*Mascotas bienvenidas",
+    "bedrooms":  2,
+    "bathrooms":  2,
+    "half_bathrooms":  null,
+    "parking_spaces":  1,
+    "lot_size":  null,
+    "construction_size":  73.0,
+    "lot_length":  null,
+    "lot_width":  null,
+    "floors":  null,
+    "floor":  "1",
+    "age":  2023,
+    "internal_id":  "AP",
+    "expenses":  "Incluido",
+    "location":  {
+                     "name":  "El Campanario, Zapopan, Jalisco",
+                     "latitude":  20.5904752,
+                     "longitude":  -103.4373303,
+                     "street":  "Puente el Palomar",
+                     "postal_code":  "45234",
+                     "show_exact_location":  true,
+                     "hide_exact_location":  false,
+                     "exterior_number":  "400",
+                     "interior_number":  "3102"
+                 },
+    "property_type":  "Departamento",
+    "created_at":  "2024-03-29T11:46:54-07:00",
+    "updated_at":  "2025-06-11T16:55:24-07:00",
+    "published_at":  "2025-05-26T19:06:18-07:00",
+    "operations":  [
+                       {
+                           "type":  "rental",
+                           "amount":  12000.0,
+                           "currency":  "MXN",
+                           "formatted_amount":  "$12,000",
+                           "commission":  {
+                                              "type":  "months",
+                                              "value":  1
+                                          },
+                           "unit":  "total"
+                       }
+                   ],
+    "property_files":  [
+
+                       ],
+    "videos":  [
+
+               ],
+    "virtual_tour":  null,
+    "collaboration_notes":  "Compartimos el 50% de la comisión a inmobiliarias asociadas a AMPI, MIO, CAMARA DE COMERCIO o PAIS",
+    "public_url":  "https://www.easybroker.com/mx/listings/departamento-nuevo-en-renta-zona-palomar-el-campanario",
+    "shared_commission_percentage":  null,
+    "exclusive":  null,
+    "foreclosure":  false,
+    "tags":  [
+
+             ],
+    "private_description":  null,
+    "show_prices":  true,
+    "share_commission":  false,
+    "property_images":  [
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4389992/73281571/EB-PV9992.jpeg?version=1711738115"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4389992/73281570/EB-PV9992.jpeg?version=1711738115"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4389992/73281569/EB-PV9992.jpeg?version=1711738115"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4389992/73281572/EB-PV9992.jpeg?version=1711738116"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4389992/73281573/EB-PV9992.jpeg?version=1711738116"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4389992/73281574/EB-PV9992.jpeg?version=1711738116"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4389992/73281575/EB-PV9992.jpeg?version=1711738117"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4389992/73281576/EB-PV9992.jpeg?version=1711738117"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4389992/73281577/EB-PV9992.jpeg?version=1711738117"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4389992/73281578/EB-PV9992.jpeg?version=1711738118"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4389992/73281579/EB-PV9992.jpeg?version=1711738118"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4389992/73281580/EB-PV9992.jpeg?version=1711738118"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4389992/73281582/EB-PV9992.jpeg?version=1711738119"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4389992/73281590/EB-PV9992.jpeg?version=1711738147"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4389992/73281583/EB-PV9992.jpeg?version=1711738119"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4389992/73281584/EB-PV9992.jpeg?version=1711738119"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4389992/73281585/EB-PV9992.jpeg?version=1711738120"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4389992/73281586/EB-PV9992.jpeg?version=1711738121"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4389992/73281587/EB-PV9992.jpeg?version=1711738121"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4389992/73281588/EB-PV9992.jpeg?version=1711738121"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4389992/73281589/EB-PV9992.jpeg?version=1711738122"
+                            }
+                        ],
+    "images":  [
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4389992/73281571/EB-PV9992.jpeg?version=1711738115"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4389992/73281570/EB-PV9992.jpeg?version=1711738115"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4389992/73281569/EB-PV9992.jpeg?version=1711738115"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4389992/73281572/EB-PV9992.jpeg?version=1711738116"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4389992/73281573/EB-PV9992.jpeg?version=1711738116"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4389992/73281574/EB-PV9992.jpeg?version=1711738116"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4389992/73281575/EB-PV9992.jpeg?version=1711738117"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4389992/73281576/EB-PV9992.jpeg?version=1711738117"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4389992/73281577/EB-PV9992.jpeg?version=1711738117"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4389992/73281578/EB-PV9992.jpeg?version=1711738118"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4389992/73281579/EB-PV9992.jpeg?version=1711738118"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4389992/73281580/EB-PV9992.jpeg?version=1711738118"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4389992/73281582/EB-PV9992.jpeg?version=1711738119"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4389992/73281590/EB-PV9992.jpeg?version=1711738147"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4389992/73281583/EB-PV9992.jpeg?version=1711738119"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4389992/73281584/EB-PV9992.jpeg?version=1711738119"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4389992/73281585/EB-PV9992.jpeg?version=1711738120"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4389992/73281586/EB-PV9992.jpeg?version=1711738121"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4389992/73281587/EB-PV9992.jpeg?version=1711738121"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4389992/73281588/EB-PV9992.jpeg?version=1711738121"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4389992/73281589/EB-PV9992.jpeg?version=1711738122"
+                   }
+               ],
+    "agent":  {
+                  "id":  391012,
+                  "name":  "Lic.Gabriela Martínez",
+                  "full_name":  "Lic.Gabriela Martínez",
+                  "mobile_phone":  "+523338087984",
+                  "profile_image_url":  "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1757459148",
+                  "email":  "GABRIELAMTZ6@HOTMAIL.COM"
+              },
+    "features":  [
+                     {
+                         "name":  "Cine",
+                         "category":  "Recreación"
+                     },
+                     {
+                         "name":  "Facilidad para estacionarse",
+                         "category":  "Exterior"
+                     },
+                     {
+                         "name":  "Terraza",
+                         "category":  "Exterior"
+                     },
+                     {
+                         "name":  "Accesibilidad para adultos mayores",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Accesibilidad para personas con discapacidad",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Circuito cerrado",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Cocina integral",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Elevador",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Fraccionamiento privado",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Mascotas permitidas",
+                         "category":  "Políticas"
+                     },
+                     {
+                         "name":  "Oficina",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Seguridad 24 horas",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Una sola planta",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Alberca",
+                         "category":  "Recreación"
+                     },
+                     {
+                         "name":  "Área de juegos infantiles",
+                         "category":  "Recreación"
+                     },
+                     {
+                         "name":  "Cancha de tenis",
+                         "category":  "Recreación"
+                     },
+                     {
+                         "name":  "Gimnasio",
+                         "category":  "Recreación"
+                     },
+                     {
+                         "name":  "Salón de usos múltiples",
+                         "category":  "Recreación"
+                     }
+                 ]
+}

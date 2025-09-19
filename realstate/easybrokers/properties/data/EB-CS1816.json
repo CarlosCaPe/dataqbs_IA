@@ -1,0 +1,132 @@
+{
+  "public_id": "EB-CS1816",
+  "title": "EXCELENTE DEPARTAMENTO EN VENTA ARBOLEDAS",
+  "description": "DEPARTAMENTO EN VENTA  MUY BUENA UBICACION MUY AMPLIO,TRES RECAMARA  SALA COMEDOR COCINA INTEGRAL DOS BAÑOS UNA EN RECAMARA PRICIPLA Y EL OTRO COMPARTE A LAS DOS RECAMARAS RESTANTES",
+  "bedrooms": 3,
+  "bathrooms": 2,
+  "half_bathrooms": null,
+  "parking_spaces": 2,
+  "lot_size": null,
+  "construction_size": 158.0,
+  "lot_length": null,
+  "lot_width": null,
+  "floors": null,
+  "floor": "2",
+  "age": 1995,
+  "internal_id": null,
+  "expenses": "NO",
+  "location": {
+    "name": "Arboledas 2a Secc, Zapopan, Jalisco",
+    "latitude": 20.6471169,
+    "longitude": -103.388437,
+    "street": "ISLA AUSTRALIA",
+    "postal_code": "44540",
+    "show_exact_location": true,
+    "hide_exact_location": false,
+    "exterior_number": null,
+    "interior_number": null
+  },
+  "property_type": "Departamento",
+  "created_at": "2019-03-04T12:44:42-06:00",
+  "updated_at": "2025-05-12T12:09:04-06:00",
+  "published_at": "2019-08-05T12:12:29-05:00",
+  "operations": [
+    {
+      "type": "sale",
+      "amount": 2500000.0,
+      "currency": "MXN",
+      "formatted_amount": "$2,500,000",
+      "commission": {
+        "type": "percentage",
+        "value": "5.0"
+      },
+      "unit": "total"
+    }
+  ],
+  "property_files": [],
+  "videos": [],
+  "virtual_tour": null,
+  "collaboration_notes": null,
+  "public_url": "https://www.easybroker.com/mx/listings/departamento-en-venta-arboledas-arboledas-2a-secc",
+  "shared_commission_percentage": null,
+  "exclusive": null,
+  "foreclosure": false,
+  "tags": [],
+  "private_description": "Muy buenas tardes\r\nA la orden para visitar el departamento.\r\nSaludos!\r\n",
+  "show_prices": true,
+  "share_commission": true,
+  "property_images": [
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/971816/14601417/EB-CS1816.jpg?version=1551728291"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/971816/14601422/EB-CS1816.jpg?version=1551728291"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/971816/14601408/EB-CS1816.jpg?version=1551728291"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/971816/14601420/EB-CS1816.jpg?version=1551728291"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/971816/14601421/EB-CS1816.jpg?version=1551728291"
+    }
+  ],
+  "images": [
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/971816/14601417/EB-CS1816.jpg?version=1551728291"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/971816/14601422/EB-CS1816.jpg?version=1551728291"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/971816/14601408/EB-CS1816.jpg?version=1551728291"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/971816/14601420/EB-CS1816.jpg?version=1551728291"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/971816/14601421/EB-CS1816.jpg?version=1551728291"
+    }
+  ],
+  "agent": {
+    "id": 391012,
+    "name": "Lic.Gabriela Martínez",
+    "full_name": "Lic.Gabriela Martínez",
+    "mobile_phone": "+523338087984",
+    "profile_image_url": "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1729887594",
+    "email": "GABRIELAMTZ6@HOTMAIL.COM"
+  },
+  "features": [
+    {
+      "name": "Mascotas permitidas",
+      "category": "Políticas"
+    },
+    {
+      "name": "Permitido fumar",
+      "category": "Políticas"
+    },
+    {
+      "name": "Bodega",
+      "category": "General"
+    },
+    {
+      "name": "Cocina equipada",
+      "category": "General"
+    },
+    {
+      "name": "Facilidad para estacionarse",
+      "category": "Exterior"
+    }
+  ]
+}

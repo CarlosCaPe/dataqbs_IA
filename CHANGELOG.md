@@ -10,7 +10,7 @@ Highlights
 - Email Collector: Hotmail/Outlook IMAP OAuth device-code support with clearer error messages and safer folder selection (handles Junk/Spam variants more robustly).
 - Configuration: Wider Hotmail folder include list; tightened spam heuristics; expanded Spanish transactional short allowlist; disabled domain subfolders so exports are organized by category only.
 - Logging: Unified file logging for collectors and utilities under emails_out/logs/.
-- EasyBrokers tools: Structured logging to console and file; improved image downloader; declared dependencies (requests, openpyxl) and added lockfile.
+- Realstate tools: Structured logging to console and file; improved image downloader; declared dependencies (requests, openpyxl) and added lockfile.
 - Developer experience: VS Code tasks to install deps and run both projects; docs updated.
 
 Changes by area
@@ -19,8 +19,8 @@ Changes by area
   - Harden OAuth device flow for Hotmail/Outlook (clearer errors, instructions, and token handling).
   - Improve folder selection (INBOX, Junk Email, Junk, Junk E-mail, Spam) with quoting and fuzzy matching fallbacks.
   - Config tweaks: keep Spanish validation, tune allowlist/keywords, and disable domain subfolders in output.
-- EasyBrokers
-  - Add logging to file at easybrokers/logs/easybroker_export.log.
+- Realstate
+  - Add logging to file at realstate/logs/realstate_export.log.
   - Improve image downloader diagnostics and safety; sanitize filenames.
   - Add requests and openpyxl to pyproject; include poetry.lock for reproducible installs.
 - Utilities & Docs

@@ -1,0 +1,30 @@
+{
+  "public_id": "EB-BP1556",
+  "title": "TERRENO EN VENTA EN VALLE DE LAS FLORES",
+  "title_image_full": "https://assets.easybroker.com/property_images/681556/10364359/EB-BP1556.jpg?version=1522090065",
+  "title_image_thumb": "https://assets.easybroker.com/property_images/681556/10364359/EB-BP1556.jpg?version=1522090065&width=200",
+  "location": "Las Víboras (Fraccionamiento Valle de las Flores), Tlajomulco de Zúñiga, Jalisco",
+  "operations": [
+    {
+      "type": "sale",
+      "amount": 298000.0,
+      "currency": "MXN",
+      "formatted_amount": "$298,000",
+      "commission": {
+        "type": "percentage",
+        "value": "5.0"
+      },
+      "unit": "total"
+    }
+  ],
+  "bedrooms": null,
+  "bathrooms": null,
+  "parking_spaces": null,
+  "property_type": "Terreno",
+  "lot_size": 140.0,
+  "construction_size": null,
+  "updated_at": "2025-05-12T12:09:04-06:00",
+  "agent": "Lic.Gabriela Martínez",
+  "show_prices": true,
+  "share_commission": true
+}

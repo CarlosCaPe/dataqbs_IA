@@ -1,0 +1,41 @@
+﻿{
+    "public_id":  "EB-TE9024",
+    "title":  "TERRENO TALA-AMECA INDUSTRIAL",
+    "title_image_full":  "https://assets.easybroker.com/property_images/5259024/90560585/EB-TE9024.jpeg?version=1747930330",
+    "title_image_thumb":  "https://assets.easybroker.com/property_images/5259024/90560585/EB-TE9024.jpeg?version=1747930330\u0026width=200",
+    "location":  "Acacias, Tala, Jalisco",
+    "operations":  [
+                       {
+                           "type":  "sale",
+                           "amount":  750.0,
+                           "currency":  "MXN",
+                           "formatted_amount":  "$750",
+                           "commission":  {
+                                              "type":  "percentage",
+                                              "value":  "5.0"
+                                          },
+                           "unit":  "square_meter"
+                       },
+                       {
+                           "type":  "rental",
+                           "amount":  3.0,
+                           "currency":  "MXN",
+                           "formatted_amount":  "$3",
+                           "commission":  {
+                                              "type":  "months",
+                                              "value":  1
+                                          },
+                           "unit":  "total"
+                       }
+                   ],
+    "bedrooms":  null,
+    "bathrooms":  null,
+    "parking_spaces":  null,
+    "property_type":  "Terreno",
+    "lot_size":  null,
+    "construction_size":  null,
+    "updated_at":  "2025-05-22T10:12:16-06:00",
+    "agent":  "Lic.Gabriela Martínez",
+    "show_prices":  true,
+    "share_commission":  true
+}

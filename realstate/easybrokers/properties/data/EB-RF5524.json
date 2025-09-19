@@ -1,0 +1,280 @@
+{
+  "public_id": "EB-RF5524",
+  "title": "Local/edificio en Renta con subdivisiones en Col. Americana",
+  "description": "Este edificio multiusos se encuentra subdividio de la siguiente manera:\n\nPrimer nivel:\n•Amplio distribuidor con luz natural y acceso a patio interior.\n•Privado con acceso a balcón.\n•Medio baño\n•Privado con closet/archivero\n\nPatio trasero con excelente iluminación natural\n\nSegundo nivel:\n•Privado\n•Área común/salón de usos múltiples\n•Medio baño\n•Cocineta\n•Dos oficinas con vista a la calle\n\nPuede modificarse según sus necesidades ya sea para su total aprovechamiento o bien, para subarrendar.\n\nEl espacio cuenta con dos  estacionamientos\t\n\nLa ubicación es inmejorable, en la colonia con mayor demanda y plusvalía de toda la Ciudad: La Americana\n\nCon acceso a transporte público,\tcercana a\tcomercios,restaurantes\t Bancos, centros médicos entre otros.\n\nA una cuadra de\t Av. Chapultepec, a pocos minutos de Av. Vallarta, Av.\tMéxico y otras vialidades importantes \n\nBienvenido cualquier giro comercial: \tconsultorios médicos, oficinas, cafetería, spa, boutique, etc.\n\n*Pregunta por el espacio adicional e independiente de 90mts a pie de calle y un cajón extra de estacionamiento.",
+  "bedrooms": null,
+  "bathrooms": null,
+  "half_bathrooms": 2,
+  "parking_spaces": 2,
+  "lot_size": null,
+  "construction_size": 250.0,
+  "lot_length": null,
+  "lot_width": null,
+  "floors": null,
+  "floor": null,
+  "age": null,
+  "internal_id": "AIDAMORELOS",
+  "expenses": "Incluído",
+  "location": {
+    "name": "Americana, Guadalajara, Jalisco",
+    "latitude": 20.6757674,
+    "longitude": -103.3697847,
+    "street": "C. José María Morelos",
+    "postal_code": "44600",
+    "show_exact_location": true,
+    "hide_exact_location": false,
+    "exterior_number": "1707",
+    "interior_number": null
+  },
+  "property_type": "Local comercial",
+  "created_at": "2024-09-18T15:20:59-06:00",
+  "updated_at": "2025-06-12T18:46:59-06:00",
+  "published_at": "2025-02-15T15:28:07-06:00",
+  "operations": [
+    {
+      "type": "rental",
+      "amount": 40000.0,
+      "currency": "MXN",
+      "formatted_amount": "$40,000",
+      "commission": {
+        "type": "months",
+        "value": 1
+      },
+      "unit": "total"
+    }
+  ],
+  "property_files": [],
+  "videos": [],
+  "virtual_tour": null,
+  "collaboration_notes": "50% Asesores afiliados",
+  "public_url": "https://www.easybroker.com/mx/listings/local-edificio-en-renta-con-subdivisiones-en-col-americana",
+  "shared_commission_percentage": null,
+  "exclusive": null,
+  "foreclosure": false,
+  "tags": [],
+  "private_description": null,
+  "show_prices": true,
+  "share_commission": true,
+  "property_images": [
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4745524/80234992/EB-RF5524.jpg?version=1739654882"
+    },
+    {
+      "title": "Distribuidor",
+      "url": "https://assets.easybroker.com/property_images/4745524/86140111/EB-RF5524.jpg?version=1739654882"
+    },
+    {
+      "title": "Distribuidor y acceso a privados y patio interior",
+      "url": "https://assets.easybroker.com/property_images/4745524/86140102/EB-RF5524.jpg?version=1739654882"
+    },
+    {
+      "title": "Privado con balcón 1er nivel",
+      "url": "https://assets.easybroker.com/property_images/4745524/86140103/EB-RF5524.jpg?version=1739654882"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4745524/86140104/EB-RF5524.jpg?version=1739654882"
+    },
+    {
+      "title": "1/2 baño primer nivel",
+      "url": "https://assets.easybroker.com/property_images/4745524/80238301/EB-RF5524.jpg?version=1739654882"
+    },
+    {
+      "title": "Privado con almacenamiento 1er nivel",
+      "url": "https://assets.easybroker.com/property_images/4745524/86140105/EB-RF5524.jpg?version=1739654882"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4745524/80238339/EB-RF5524.jpg?version=1739654882"
+    },
+    {
+      "title": "Acceso a patio",
+      "url": "https://assets.easybroker.com/property_images/4745524/86140106/EB-RF5524.jpg?version=1739654882"
+    },
+    {
+      "title": "Patio",
+      "url": "https://assets.easybroker.com/property_images/4745524/80239260/EB-RF5524.jpg?version=1739654882"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4745524/80239261/EB-RF5524.jpg?version=1739654882"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4745524/86140107/EB-RF5524.jpg?version=1739654882"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4745524/80239481/EB-RF5524.jpg?version=1739654882"
+    },
+    {
+      "title": "Espacio común segundo nivel",
+      "url": "https://assets.easybroker.com/property_images/4745524/80239336/EB-RF5524.jpg?version=1739654882"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4745524/80239339/EB-RF5524.jpg?version=1739654882"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4745524/80239403/EB-RF5524.jpg?version=1739654882"
+    },
+    {
+      "title": "Privado #1 segundo nivel",
+      "url": "https://assets.easybroker.com/property_images/4745524/80239402/EB-RF5524.jpg?version=1739654882"
+    },
+    {
+      "title": "1/2 baño segundo nivel",
+      "url": "https://assets.easybroker.com/property_images/4745524/80239452/EB-RF5524.jpg?version=1739654882"
+    },
+    {
+      "title": "Privado #2 con vista a la calle 2do nivel",
+      "url": "https://assets.easybroker.com/property_images/4745524/80239474/EB-RF5524.jpg?version=1739654882"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4745524/80239473/EB-RF5524.jpg?version=1739654882"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4745524/80239475/EB-RF5524.jpg?version=1739654882"
+    },
+    {
+      "title": "Tercer privado con vista a la calle 2do nivel",
+      "url": "https://assets.easybroker.com/property_images/4745524/80239697/EB-RF5524.jpg?version=1739654882"
+    }
+  ],
+  "images": [
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4745524/80234992/EB-RF5524.jpg?version=1739654882"
+    },
+    {
+      "title": "Distribuidor",
+      "url": "https://assets.easybroker.com/property_images/4745524/86140111/EB-RF5524.jpg?version=1739654882"
+    },
+    {
+      "title": "Distribuidor y acceso a privados y patio interior",
+      "url": "https://assets.easybroker.com/property_images/4745524/86140102/EB-RF5524.jpg?version=1739654882"
+    },
+    {
+      "title": "Privado con balcón 1er nivel",
+      "url": "https://assets.easybroker.com/property_images/4745524/86140103/EB-RF5524.jpg?version=1739654882"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4745524/86140104/EB-RF5524.jpg?version=1739654882"
+    },
+    {
+      "title": "1/2 baño primer nivel",
+      "url": "https://assets.easybroker.com/property_images/4745524/80238301/EB-RF5524.jpg?version=1739654882"
+    },
+    {
+      "title": "Privado con almacenamiento 1er nivel",
+      "url": "https://assets.easybroker.com/property_images/4745524/86140105/EB-RF5524.jpg?version=1739654882"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4745524/80238339/EB-RF5524.jpg?version=1739654882"
+    },
+    {
+      "title": "Acceso a patio",
+      "url": "https://assets.easybroker.com/property_images/4745524/86140106/EB-RF5524.jpg?version=1739654882"
+    },
+    {
+      "title": "Patio",
+      "url": "https://assets.easybroker.com/property_images/4745524/80239260/EB-RF5524.jpg?version=1739654882"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4745524/80239261/EB-RF5524.jpg?version=1739654882"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4745524/86140107/EB-RF5524.jpg?version=1739654882"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4745524/80239481/EB-RF5524.jpg?version=1739654882"
+    },
+    {
+      "title": "Espacio común segundo nivel",
+      "url": "https://assets.easybroker.com/property_images/4745524/80239336/EB-RF5524.jpg?version=1739654882"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4745524/80239339/EB-RF5524.jpg?version=1739654882"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4745524/80239403/EB-RF5524.jpg?version=1739654882"
+    },
+    {
+      "title": "Privado #1 segundo nivel",
+      "url": "https://assets.easybroker.com/property_images/4745524/80239402/EB-RF5524.jpg?version=1739654882"
+    },
+    {
+      "title": "1/2 baño segundo nivel",
+      "url": "https://assets.easybroker.com/property_images/4745524/80239452/EB-RF5524.jpg?version=1739654882"
+    },
+    {
+      "title": "Privado #2 con vista a la calle 2do nivel",
+      "url": "https://assets.easybroker.com/property_images/4745524/80239474/EB-RF5524.jpg?version=1739654882"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4745524/80239473/EB-RF5524.jpg?version=1739654882"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4745524/80239475/EB-RF5524.jpg?version=1739654882"
+    },
+    {
+      "title": "Tercer privado con vista a la calle 2do nivel",
+      "url": "https://assets.easybroker.com/property_images/4745524/80239697/EB-RF5524.jpg?version=1739654882"
+    }
+  ],
+  "agent": {
+    "id": 391012,
+    "name": "Lic.Gabriela Martínez",
+    "full_name": "Lic.Gabriela Martínez",
+    "mobile_phone": "+523338087984",
+    "profile_image_url": "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1729887594",
+    "email": "GABRIELAMTZ6@HOTMAIL.COM"
+  },
+  "features": [
+    {
+      "name": "Balcón",
+      "category": "Exterior"
+    },
+    {
+      "name": "Cisterna",
+      "category": "Exterior"
+    },
+    {
+      "name": "Facilidad para estacionarse",
+      "category": "Exterior"
+    },
+    {
+      "name": "Patio",
+      "category": "Exterior"
+    },
+    {
+      "name": "Dos plantas",
+      "category": "General"
+    },
+    {
+      "name": "Estudio",
+      "category": "General"
+    },
+    {
+      "name": "Oficina",
+      "category": "General"
+    },
+    {
+      "name": "Salón de usos múltiples",
+      "category": "Recreación"
+    }
+  ]
+}

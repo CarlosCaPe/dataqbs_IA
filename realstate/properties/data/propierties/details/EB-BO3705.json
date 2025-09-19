@@ -1,0 +1,261 @@
+﻿{
+    "public_id":  "EB-BO3705",
+    "title":  "CASA EN VENTA EN LOMA DORADA TONALA",
+    "description":  "Amplia casa, con buena ubicación.\nP.B. Cochera para tres autos, sala comedor, medio baño, cocina, patio de servicio y jardín. \nP.A. Tres recamaras, don baños muy amplios y escalera de servicio. Con buena distribución en su construcción. \nServicios de  Agua potable, drenajes y boiler. Áreas verdes, cerca de Av. Principal de la colonia, escuelas y mercados.",
+    "bedrooms":  3,
+    "bathrooms":  2,
+    "half_bathrooms":  1,
+    "parking_spaces":  2,
+    "lot_size":  123.0,
+    "construction_size":  230.0,
+    "lot_length":  null,
+    "lot_width":  null,
+    "floors":  null,
+    "floor":  null,
+    "age":  "new_construction",
+    "internal_id":  null,
+    "expenses":  null,
+    "location":  {
+                     "name":  "Loma Dorada Secc A, Tonalá, Jalisco",
+                     "latitude":  20.6237413,
+                     "longitude":  -103.2413723,
+                     "street":  "LOMA SOMBREADA ",
+                     "postal_code":  null,
+                     "show_exact_location":  true,
+                     "hide_exact_location":  false,
+                     "exterior_number":  "2293",
+                     "interior_number":  null
+                 },
+    "property_type":  "Casa",
+    "created_at":  "2018-03-15T16:17:13-06:00",
+    "updated_at":  "2025-05-12T12:09:04-06:00",
+    "published_at":  "2018-03-15T16:19:03-06:00",
+    "operations":  [
+                       {
+                           "type":  "sale",
+                           "amount":  1950000.0,
+                           "currency":  "MXN",
+                           "formatted_amount":  "$1,950,000",
+                           "commission":  {
+                                              "type":  "percentage"
+                                          },
+                           "unit":  "total"
+                       }
+                   ],
+    "property_files":  [
+
+                       ],
+    "videos":  [
+
+               ],
+    "virtual_tour":  null,
+    "collaboration_notes":  "",
+    "public_url":  "https://www.easybroker.com/mx/listings/casa-en-venta-en-loma-dorada-tonala-loma-dorada-secc-a",
+    "shared_commission_percentage":  null,
+    "exclusive":  null,
+    "foreclosure":  false,
+    "tags":  [
+
+             ],
+    "private_description":  null,
+    "show_prices":  true,
+    "share_commission":  true,
+    "property_images":  [
+                            {
+                                "title":  "",
+                                "url":  "https://assets.easybroker.com/property_images/673705/10265813/EB-BO3705.jpg?version=1521152343"
+                            },
+                            {
+                                "title":  "",
+                                "url":  "https://assets.easybroker.com/property_images/673705/10265814/EB-BO3705.jpg?version=1521152343"
+                            },
+                            {
+                                "title":  "",
+                                "url":  "https://assets.easybroker.com/property_images/673705/10265818/EB-BO3705.jpg?version=1521152343"
+                            },
+                            {
+                                "title":  "",
+                                "url":  "https://assets.easybroker.com/property_images/673705/10265817/EB-BO3705.jpg?version=1521152343"
+                            },
+                            {
+                                "title":  "",
+                                "url":  "https://assets.easybroker.com/property_images/673705/10265819/EB-BO3705.jpg?version=1521152343"
+                            },
+                            {
+                                "title":  "",
+                                "url":  "https://assets.easybroker.com/property_images/673705/10265820/EB-BO3705.jpg?version=1521152343"
+                            },
+                            {
+                                "title":  "",
+                                "url":  "https://assets.easybroker.com/property_images/673705/10265823/EB-BO3705.jpg?version=1521152343"
+                            },
+                            {
+                                "title":  "",
+                                "url":  "https://assets.easybroker.com/property_images/673705/10265824/EB-BO3705.jpg?version=1521152343"
+                            },
+                            {
+                                "title":  "",
+                                "url":  "https://assets.easybroker.com/property_images/673705/10265825/EB-BO3705.jpg?version=1521152343"
+                            },
+                            {
+                                "title":  "",
+                                "url":  "https://assets.easybroker.com/property_images/673705/10265821/EB-BO3705.jpg?version=1521152343"
+                            },
+                            {
+                                "title":  "",
+                                "url":  "https://assets.easybroker.com/property_images/673705/10265826/EB-BO3705.jpg?version=1521152343"
+                            },
+                            {
+                                "title":  "",
+                                "url":  "https://assets.easybroker.com/property_images/673705/10265827/EB-BO3705.jpg?version=1521152343"
+                            },
+                            {
+                                "title":  "",
+                                "url":  "https://assets.easybroker.com/property_images/673705/10265828/EB-BO3705.jpg?version=1521152343"
+                            },
+                            {
+                                "title":  "",
+                                "url":  "https://assets.easybroker.com/property_images/673705/10265829/EB-BO3705.jpg?version=1521152343"
+                            },
+                            {
+                                "title":  "",
+                                "url":  "https://assets.easybroker.com/property_images/673705/10265830/EB-BO3705.jpg?version=1521152343"
+                            },
+                            {
+                                "title":  "",
+                                "url":  "https://assets.easybroker.com/property_images/673705/10265831/EB-BO3705.jpg?version=1521152343"
+                            },
+                            {
+                                "title":  "",
+                                "url":  "https://assets.easybroker.com/property_images/673705/10265832/EB-BO3705.jpg?version=1521152343"
+                            },
+                            {
+                                "title":  "",
+                                "url":  "https://assets.easybroker.com/property_images/673705/10265833/EB-BO3705.jpg?version=1521152343"
+                            },
+                            {
+                                "title":  "",
+                                "url":  "https://assets.easybroker.com/property_images/673705/10265835/EB-BO3705.jpg?version=1521152343"
+                            },
+                            {
+                                "title":  "",
+                                "url":  "https://assets.easybroker.com/property_images/673705/10265838/EB-BO3705.jpg?version=1521152343"
+                            },
+                            {
+                                "title":  "",
+                                "url":  "https://assets.easybroker.com/property_images/673705/10265839/EB-BO3705.jpg?version=1521152343"
+                            },
+                            {
+                                "title":  "",
+                                "url":  "https://assets.easybroker.com/property_images/673705/10265841/EB-BO3705.jpg?version=1521152343"
+                            }
+                        ],
+    "images":  [
+                   {
+                       "title":  "",
+                       "url":  "https://assets.easybroker.com/property_images/673705/10265813/EB-BO3705.jpg?version=1521152343"
+                   },
+                   {
+                       "title":  "",
+                       "url":  "https://assets.easybroker.com/property_images/673705/10265814/EB-BO3705.jpg?version=1521152343"
+                   },
+                   {
+                       "title":  "",
+                       "url":  "https://assets.easybroker.com/property_images/673705/10265818/EB-BO3705.jpg?version=1521152343"
+                   },
+                   {
+                       "title":  "",
+                       "url":  "https://assets.easybroker.com/property_images/673705/10265817/EB-BO3705.jpg?version=1521152343"
+                   },
+                   {
+                       "title":  "",
+                       "url":  "https://assets.easybroker.com/property_images/673705/10265819/EB-BO3705.jpg?version=1521152343"
+                   },
+                   {
+                       "title":  "",
+                       "url":  "https://assets.easybroker.com/property_images/673705/10265820/EB-BO3705.jpg?version=1521152343"
+                   },
+                   {
+                       "title":  "",
+                       "url":  "https://assets.easybroker.com/property_images/673705/10265823/EB-BO3705.jpg?version=1521152343"
+                   },
+                   {
+                       "title":  "",
+                       "url":  "https://assets.easybroker.com/property_images/673705/10265824/EB-BO3705.jpg?version=1521152343"
+                   },
+                   {
+                       "title":  "",
+                       "url":  "https://assets.easybroker.com/property_images/673705/10265825/EB-BO3705.jpg?version=1521152343"
+                   },
+                   {
+                       "title":  "",
+                       "url":  "https://assets.easybroker.com/property_images/673705/10265821/EB-BO3705.jpg?version=1521152343"
+                   },
+                   {
+                       "title":  "",
+                       "url":  "https://assets.easybroker.com/property_images/673705/10265826/EB-BO3705.jpg?version=1521152343"
+                   },
+                   {
+                       "title":  "",
+                       "url":  "https://assets.easybroker.com/property_images/673705/10265827/EB-BO3705.jpg?version=1521152343"
+                   },
+                   {
+                       "title":  "",
+                       "url":  "https://assets.easybroker.com/property_images/673705/10265828/EB-BO3705.jpg?version=1521152343"
+                   },
+                   {
+                       "title":  "",
+                       "url":  "https://assets.easybroker.com/property_images/673705/10265829/EB-BO3705.jpg?version=1521152343"
+                   },
+                   {
+                       "title":  "",
+                       "url":  "https://assets.easybroker.com/property_images/673705/10265830/EB-BO3705.jpg?version=1521152343"
+                   },
+                   {
+                       "title":  "",
+                       "url":  "https://assets.easybroker.com/property_images/673705/10265831/EB-BO3705.jpg?version=1521152343"
+                   },
+                   {
+                       "title":  "",
+                       "url":  "https://assets.easybroker.com/property_images/673705/10265832/EB-BO3705.jpg?version=1521152343"
+                   },
+                   {
+                       "title":  "",
+                       "url":  "https://assets.easybroker.com/property_images/673705/10265833/EB-BO3705.jpg?version=1521152343"
+                   },
+                   {
+                       "title":  "",
+                       "url":  "https://assets.easybroker.com/property_images/673705/10265835/EB-BO3705.jpg?version=1521152343"
+                   },
+                   {
+                       "title":  "",
+                       "url":  "https://assets.easybroker.com/property_images/673705/10265838/EB-BO3705.jpg?version=1521152343"
+                   },
+                   {
+                       "title":  "",
+                       "url":  "https://assets.easybroker.com/property_images/673705/10265839/EB-BO3705.jpg?version=1521152343"
+                   },
+                   {
+                       "title":  "",
+                       "url":  "https://assets.easybroker.com/property_images/673705/10265841/EB-BO3705.jpg?version=1521152343"
+                   }
+               ],
+    "agent":  {
+                  "id":  391012,
+                  "name":  "Lic.Gabriela Martínez",
+                  "full_name":  "Lic.Gabriela Martínez",
+                  "mobile_phone":  "+523338087984",
+                  "profile_image_url":  "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1757459148",
+                  "email":  "GABRIELAMTZ6@HOTMAIL.COM"
+              },
+    "features":  [
+                     {
+                         "name":  "Estacionamiento techado",
+                         "category":  "Exterior"
+                     },
+                     {
+                         "name":  "Facilidad para estacionarse",
+                         "category":  "Exterior"
+                     }
+                 ]
+}

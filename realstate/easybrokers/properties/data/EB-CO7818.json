@@ -1,0 +1,171 @@
+{
+  "public_id": "EB-CO7818",
+  "title": "JARDINES DEL SOL, CASA EN RENTA",
+  "description": "CASA GRANDE EXCELENTE OFICINAS A PUERTA CERRADA . ANTES FUE CLINICA DELIMSS",
+  "bedrooms": 8,
+  "bathrooms": 3,
+  "half_bathrooms": 1,
+  "parking_spaces": 5,
+  "lot_size": 440.0,
+  "construction_size": null,
+  "lot_length": 20.0,
+  "lot_width": 22.0,
+  "floors": null,
+  "floor": null,
+  "age": 1989,
+  "internal_id": null,
+  "expenses": null,
+  "location": {
+    "name": "Jardines Del Sol, Zapopan, Jalisco",
+    "latitude": 20.6486072,
+    "longitude": -103.4136486,
+    "street": "TENCOHTITLAN",
+    "postal_code": "45050",
+    "show_exact_location": true,
+    "hide_exact_location": false,
+    "exterior_number": "380",
+    "interior_number": null
+  },
+  "property_type": "Casa",
+  "created_at": "2019-01-31T18:15:13-06:00",
+  "updated_at": "2025-05-12T12:09:04-06:00",
+  "published_at": "2019-06-07T14:44:18-05:00",
+  "operations": [
+    {
+      "type": "rental",
+      "amount": 33000.0,
+      "currency": "MXN",
+      "formatted_amount": "$33,000",
+      "commission": {
+        "type": "percentage"
+      },
+      "unit": "total"
+    }
+  ],
+  "property_files": [],
+  "videos": [],
+  "virtual_tour": null,
+  "collaboration_notes": "MEDIO MES DE RENTA",
+  "public_url": "https://www.easybroker.com/mx/listings/casa-en-renta-jardines-del-sol",
+  "shared_commission_percentage": null,
+  "exclusive": null,
+  "foreclosure": false,
+  "tags": [],
+  "private_description": null,
+  "show_prices": true,
+  "share_commission": true,
+  "property_images": [
+    {
+      "title": "FACHADA",
+      "url": "https://assets.easybroker.com/property_images/937818/14112559/EB-CO7818.jpg?version=1548980221"
+    },
+    {
+      "title": "RECAMARA",
+      "url": "https://assets.easybroker.com/property_images/937818/14112581/EB-CO7818.jpg?version=1548980221"
+    },
+    {
+      "title": "COCHERA",
+      "url": "https://assets.easybroker.com/property_images/937818/14112561/EB-CO7818.jpg?version=1548980221"
+    },
+    {
+      "title": "PATIO INTERIORE",
+      "url": "https://assets.easybroker.com/property_images/937818/14112562/EB-CO7818.jpg?version=1548980221"
+    },
+    {
+      "title": "FACHADA",
+      "url": "https://assets.easybroker.com/property_images/937818/14112558/EB-CO7818.jpg?version=1548980221"
+    },
+    {
+      "title": "RECAMARA",
+      "url": "https://assets.easybroker.com/property_images/937818/14112563/EB-CO7818.jpg?version=1548980221"
+    },
+    {
+      "title": "COCINA",
+      "url": "https://assets.easybroker.com/property_images/937818/14112564/EB-CO7818.jpg?version=1548980221"
+    },
+    {
+      "title": "BAÑO",
+      "url": "https://assets.easybroker.com/property_images/937818/14112568/EB-CO7818.jpg?version=1548980221"
+    }
+  ],
+  "images": [
+    {
+      "title": "FACHADA",
+      "url": "https://assets.easybroker.com/property_images/937818/14112559/EB-CO7818.jpg?version=1548980221"
+    },
+    {
+      "title": "RECAMARA",
+      "url": "https://assets.easybroker.com/property_images/937818/14112581/EB-CO7818.jpg?version=1548980221"
+    },
+    {
+      "title": "COCHERA",
+      "url": "https://assets.easybroker.com/property_images/937818/14112561/EB-CO7818.jpg?version=1548980221"
+    },
+    {
+      "title": "PATIO INTERIORE",
+      "url": "https://assets.easybroker.com/property_images/937818/14112562/EB-CO7818.jpg?version=1548980221"
+    },
+    {
+      "title": "FACHADA",
+      "url": "https://assets.easybroker.com/property_images/937818/14112558/EB-CO7818.jpg?version=1548980221"
+    },
+    {
+      "title": "RECAMARA",
+      "url": "https://assets.easybroker.com/property_images/937818/14112563/EB-CO7818.jpg?version=1548980221"
+    },
+    {
+      "title": "COCINA",
+      "url": "https://assets.easybroker.com/property_images/937818/14112564/EB-CO7818.jpg?version=1548980221"
+    },
+    {
+      "title": "BAÑO",
+      "url": "https://assets.easybroker.com/property_images/937818/14112568/EB-CO7818.jpg?version=1548980221"
+    }
+  ],
+  "agent": {
+    "id": 391012,
+    "name": "Lic.Gabriela Martínez",
+    "full_name": "Lic.Gabriela Martínez",
+    "mobile_phone": "+523338087984",
+    "profile_image_url": "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1729887594",
+    "email": "GABRIELAMTZ6@HOTMAIL.COM"
+  },
+  "features": [
+    {
+      "name": "Accesibilidad para personas con discapacidad",
+      "category": "General"
+    },
+    {
+      "name": "Mascotas permitidas",
+      "category": "Políticas"
+    },
+    {
+      "name": "Jardín",
+      "category": "Exterior"
+    },
+    {
+      "name": "Estacionamiento techado",
+      "category": "Exterior"
+    },
+    {
+      "name": "Patio",
+      "category": "Exterior"
+    },
+    {
+      "name": "Cisterna",
+      "category": "Exterior"
+    },
+    {
+      "name": "Cocina integral",
+      "category": "General"
+    },
+    {
+      "name": "Cuarto de servicio",
+      "category": "General"
+    },
+    {
+      "name": "Accesibilidad para adultos mayores",
+      "category": "General"
+    }
+  ]
+}

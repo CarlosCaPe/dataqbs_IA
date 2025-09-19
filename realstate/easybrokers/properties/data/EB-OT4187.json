@@ -1,0 +1,187 @@
+{
+  "public_id": "EB-OT4187",
+  "title": "RENTA AMPLIA CASA EN EL COLLI IDEAL PARA OFICINAS Y/O CASA HABITACION",
+  "description": "LA CASA CONSTA DE DOS PLANTAS: \nCASA A DOBLE ALTURA Y DESNIVELES\nPLANTA BAJA:\nSALA COMEDOR ,AL FONDO ESTÁ LA COCINA CON SU BARRA.\nPATIO DE SERVICIO MEDIO TECHADO CON PROTECCIONES. \nMEDIO NIVEL HACIA ABAJO.\nBAÑO  COMPLETO  Y RECÁMARA CON VENTANA A LA CALLE.\nSUBES OTRO MEDIO NIVEL Y SE ENCUENTRA \n LA SEGUNDA HABITACIÓN Y BAÑO COMPLETO CON VISTA A LA CALLE . \n HABITACIÓN PPAL CON VISTA AL COTO INTERIOR.\nCOCHERA PARA DOS AUTOS \n CUENTA CON PROTECCIONES EN TODA LA CASA.\nTANQUE ESTACIONARIO.\nNOTA: SE PUEDE FACTURAR.\n\n*Citas disponibles a partir del 15 de Diciembre",
+  "bedrooms": 3,
+  "bathrooms": 2,
+  "half_bathrooms": null,
+  "parking_spaces": 2,
+  "lot_size": 100.0,
+  "construction_size": 115.0,
+  "lot_length": null,
+  "lot_width": null,
+  "floors": null,
+  "floor": null,
+  "age": null,
+  "internal_id": null,
+  "expenses": null,
+  "location": {
+    "name": "El Colli Urbano 1a. Sección, Zapopan, Jalisco",
+    "latitude": 20.6447233,
+    "longitude": -103.4271336,
+    "street": "VOLCAN JORULLO",
+    "postal_code": null,
+    "show_exact_location": true,
+    "hide_exact_location": false,
+    "exterior_number": "5474",
+    "interior_number": null
+  },
+  "property_type": "Casa",
+  "created_at": "2023-11-02T13:05:01-06:00",
+  "updated_at": "2025-05-12T12:09:04-06:00",
+  "published_at": "2025-01-10T15:15:21-06:00",
+  "operations": [
+    {
+      "type": "rental",
+      "amount": 16000.0,
+      "currency": "MXN",
+      "formatted_amount": "$16,000",
+      "commission": {
+        "type": "percentage"
+      },
+      "unit": "total"
+    }
+  ],
+  "property_files": [],
+  "videos": [],
+  "virtual_tour": null,
+  "collaboration_notes": null,
+  "public_url": "https://www.easybroker.com/mx/listings/renta-amplia-casa-en-el-colli-ideal-para-oficinas-y-o-casa-habitacion",
+  "shared_commission_percentage": null,
+  "exclusive": null,
+  "foreclosure": false,
+  "tags": [],
+  "private_description": null,
+  "show_prices": true,
+  "share_commission": false,
+  "property_images": [
+    {
+      "title": "FACHADA",
+      "url": "https://assets.easybroker.com/property_images/4104187/67916776/EB-OT4187.jpg?version=1698952129"
+    },
+    {
+      "title": "INGRESO",
+      "url": "https://assets.easybroker.com/property_images/4104187/67916777/EB-OT4187.jpg?version=1698952129"
+    },
+    {
+      "title": "COCINA",
+      "url": "https://assets.easybroker.com/property_images/4104187/67916775/EB-OT4187.jpg?version=1698952129"
+    },
+    {
+      "title": "COCINA",
+      "url": "https://assets.easybroker.com/property_images/4104187/67916800/EB-OT4187.jpg?version=1698952129"
+    },
+    {
+      "title": "BAÑO COMPLETO",
+      "url": "https://assets.easybroker.com/property_images/4104187/67916774/EB-OT4187.jpg?version=1698952129"
+    },
+    {
+      "title": "RECAMARA",
+      "url": "https://assets.easybroker.com/property_images/4104187/67916785/EB-OT4187.jpg?version=1698952129"
+    },
+    {
+      "title": "RECAMARA",
+      "url": "https://assets.easybroker.com/property_images/4104187/67916822/EB-OT4187.jpg?version=1698952129"
+    },
+    {
+      "title": "BAÑO COMPLETO 2",
+      "url": "https://assets.easybroker.com/property_images/4104187/67916823/EB-OT4187.jpg?version=1698952129"
+    },
+    {
+      "title": "AREA DE LAVADO SEMITECHADO",
+      "url": "https://assets.easybroker.com/property_images/4104187/67916821/EB-OT4187.jpg?version=1698952129"
+    },
+    {
+      "title": "OTRA RECAMARA",
+      "url": "https://assets.easybroker.com/property_images/4104187/67916826/EB-OT4187.jpg?version=1698952129"
+    },
+    {
+      "title": "DOBLE ALTURA",
+      "url": "https://assets.easybroker.com/property_images/4104187/67916836/EB-OT4187.jpg?version=1698952129"
+    },
+    {
+      "title": "VISTA DE SALA",
+      "url": "https://assets.easybroker.com/property_images/4104187/67916837/EB-OT4187.jpg?version=1698952129"
+    }
+  ],
+  "images": [
+    {
+      "title": "FACHADA",
+      "url": "https://assets.easybroker.com/property_images/4104187/67916776/EB-OT4187.jpg?version=1698952129"
+    },
+    {
+      "title": "INGRESO",
+      "url": "https://assets.easybroker.com/property_images/4104187/67916777/EB-OT4187.jpg?version=1698952129"
+    },
+    {
+      "title": "COCINA",
+      "url": "https://assets.easybroker.com/property_images/4104187/67916775/EB-OT4187.jpg?version=1698952129"
+    },
+    {
+      "title": "COCINA",
+      "url": "https://assets.easybroker.com/property_images/4104187/67916800/EB-OT4187.jpg?version=1698952129"
+    },
+    {
+      "title": "BAÑO COMPLETO",
+      "url": "https://assets.easybroker.com/property_images/4104187/67916774/EB-OT4187.jpg?version=1698952129"
+    },
+    {
+      "title": "RECAMARA",
+      "url": "https://assets.easybroker.com/property_images/4104187/67916785/EB-OT4187.jpg?version=1698952129"
+    },
+    {
+      "title": "RECAMARA",
+      "url": "https://assets.easybroker.com/property_images/4104187/67916822/EB-OT4187.jpg?version=1698952129"
+    },
+    {
+      "title": "BAÑO COMPLETO 2",
+      "url": "https://assets.easybroker.com/property_images/4104187/67916823/EB-OT4187.jpg?version=1698952129"
+    },
+    {
+      "title": "AREA DE LAVADO SEMITECHADO",
+      "url": "https://assets.easybroker.com/property_images/4104187/67916821/EB-OT4187.jpg?version=1698952129"
+    },
+    {
+      "title": "OTRA RECAMARA",
+      "url": "https://assets.easybroker.com/property_images/4104187/67916826/EB-OT4187.jpg?version=1698952129"
+    },
+    {
+      "title": "DOBLE ALTURA",
+      "url": "https://assets.easybroker.com/property_images/4104187/67916836/EB-OT4187.jpg?version=1698952129"
+    },
+    {
+      "title": "VISTA DE SALA",
+      "url": "https://assets.easybroker.com/property_images/4104187/67916837/EB-OT4187.jpg?version=1698952129"
+    }
+  ],
+  "agent": {
+    "id": 391012,
+    "name": "Lic.Gabriela Martínez",
+    "full_name": "Lic.Gabriela Martínez",
+    "mobile_phone": "+523338087984",
+    "profile_image_url": "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1729887594",
+    "email": "GABRIELAMTZ6@HOTMAIL.COM"
+  },
+  "features": [
+    {
+      "name": "Cisterna",
+      "category": "Exterior"
+    },
+    {
+      "name": "Facilidad para estacionarse",
+      "category": "Exterior"
+    },
+    {
+      "name": "Garaje",
+      "category": "Exterior"
+    },
+    {
+      "name": "Dos plantas",
+      "category": "General"
+    },
+    {
+      "name": "Fraccionamiento privado",
+      "category": "General"
+    }
+  ]
+}

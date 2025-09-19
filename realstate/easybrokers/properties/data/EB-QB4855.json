@@ -1,0 +1,260 @@
+{
+  "public_id": "EB-QB4855",
+  "title": "Casa en renta Nueva Galicia. Coto Andalucía",
+  "description": "Casa en renta en Coto Andalucía.\n\nPLANTA BAJA:\n•Cochera para dos automóviles \n•Área sala-comedor\n•Cantina\n•Patio\n•Cocina integral con barra desayunadora \n•Patio de servicio semitechado\n•Medio baño\n\nPLANTA ALTA:\n•Amplió distribuidor\n•Dos recamaras secundarias con closet\n•Baño completo\n•Recámara principal con amplio closet y baño completo\n\nZona Nueva Galicia cuenta con una ubicación privilegiada al sur de la ciudad, con varias vías de acceso a muy pocas distancia de tiendas departamentales, SAMS, Costco, hospitales, centros comerciales, etc.\n\nCoto Andalucía de caracteriza por sus áreas comunes, un amplio jardín al centro con juegos infantiles, alberca, salón de usos múltiples y gimnasio al aire libre. \nCancha de básquet y diferentes áreas verdes distribuidlas por el fraccionamiento.\n\nAgenda tu cita y conoce tu nuevo hogar.\n\n*Mantenimiento incluido\n*Mascotas bienvenidas",
+  "bedrooms": 3,
+  "bathrooms": 2,
+  "half_bathrooms": 1,
+  "parking_spaces": 2,
+  "lot_size": 119.0,
+  "construction_size": 168.0,
+  "lot_length": null,
+  "lot_width": null,
+  "floors": 2,
+  "floor": null,
+  "age": 2011,
+  "internal_id": "APANDALUCIA",
+  "expenses": "Incluido",
+  "location": {
+    "name": "Nueva Galicia Residencial, Tlajomulco de Zúñiga, Jalisco",
+    "latitude": 20.5747668,
+    "longitude": -103.4396862,
+    "street": "Viscaya",
+    "postal_code": "45645",
+    "show_exact_location": true,
+    "hide_exact_location": false,
+    "exterior_number": "364",
+    "interior_number": null
+  },
+  "property_type": "Casa en condominio",
+  "created_at": "2024-04-25T04:04:52-06:00",
+  "updated_at": "2025-05-12T12:09:04-06:00",
+  "published_at": "2024-04-26T11:40:43-06:00",
+  "operations": [
+    {
+      "type": "rental",
+      "amount": 15000.0,
+      "currency": "MXN",
+      "formatted_amount": "$15,000",
+      "commission": {
+        "type": "months",
+        "value": 1
+      },
+      "unit": "total"
+    }
+  ],
+  "property_files": [],
+  "videos": [],
+  "virtual_tour": null,
+  "collaboration_notes": "50% inmobiliarias afiliadas",
+  "public_url": "https://www.easybroker.com/mx/listings/casa-en-renta-nueva-galicia-coto-andalucia-nueva-galicia-residencial-casa-en-condominio",
+  "shared_commission_percentage": null,
+  "exclusive": null,
+  "foreclosure": false,
+  "tags": [],
+  "private_description": null,
+  "show_prices": true,
+  "share_commission": true,
+  "property_images": [
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4444855/74322448/EB-QB4855.jpeg?version=1714039545"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4444855/74322437/EB-QB4855.jpeg?version=1714039542"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4444855/74807935/EB-QB4855.jpeg?version=1715127200"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4444855/74322440/EB-QB4855.jpeg?version=1714039543"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4444855/74322439/EB-QB4855.jpeg?version=1714039542"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4444855/74322441/EB-QB4855.jpeg?version=1714039543"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4444855/74322442/EB-QB4855.jpeg?version=1714039543"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4444855/74322443/EB-QB4855.jpeg?version=1714039544"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4444855/74322444/EB-QB4855.jpeg?version=1714039544"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4444855/74322445/EB-QB4855.jpeg?version=1714039544"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4444855/74807933/EB-QB4855.jpeg?version=1715127200"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4444855/74807928/EB-QB4855.jpeg?version=1715127199"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4444855/74807930/EB-QB4855.jpeg?version=1715127199"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4444855/74807938/EB-QB4855.jpeg?version=1715127201"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4444855/74807931/EB-QB4855.jpeg?version=1715127199"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4444855/74322449/EB-QB4855.jpeg?version=1714039546"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4444855/74322450/EB-QB4855.jpeg?version=1714039546"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4444855/74322451/EB-QB4855.jpeg?version=1714039546"
+    }
+  ],
+  "images": [
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4444855/74322448/EB-QB4855.jpeg?version=1714039545"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4444855/74322437/EB-QB4855.jpeg?version=1714039542"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4444855/74807935/EB-QB4855.jpeg?version=1715127200"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4444855/74322440/EB-QB4855.jpeg?version=1714039543"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4444855/74322439/EB-QB4855.jpeg?version=1714039542"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4444855/74322441/EB-QB4855.jpeg?version=1714039543"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4444855/74322442/EB-QB4855.jpeg?version=1714039543"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4444855/74322443/EB-QB4855.jpeg?version=1714039544"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4444855/74322444/EB-QB4855.jpeg?version=1714039544"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4444855/74322445/EB-QB4855.jpeg?version=1714039544"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4444855/74807933/EB-QB4855.jpeg?version=1715127200"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4444855/74807928/EB-QB4855.jpeg?version=1715127199"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4444855/74807930/EB-QB4855.jpeg?version=1715127199"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4444855/74807938/EB-QB4855.jpeg?version=1715127201"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4444855/74807931/EB-QB4855.jpeg?version=1715127199"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4444855/74322449/EB-QB4855.jpeg?version=1714039546"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4444855/74322450/EB-QB4855.jpeg?version=1714039546"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4444855/74322451/EB-QB4855.jpeg?version=1714039546"
+    }
+  ],
+  "agent": {
+    "id": 391012,
+    "name": "Lic.Gabriela Martínez",
+    "full_name": "Lic.Gabriela Martínez",
+    "mobile_phone": "+523338087984",
+    "profile_image_url": "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1729887594",
+    "email": "GABRIELAMTZ6@HOTMAIL.COM"
+  },
+  "features": [
+    {
+      "name": "Cisterna",
+      "category": "Exterior"
+    },
+    {
+      "name": "Patio",
+      "category": "Exterior"
+    },
+    {
+      "name": "Cocina integral",
+      "category": "General"
+    },
+    {
+      "name": "Dos plantas",
+      "category": "General"
+    },
+    {
+      "name": "Fraccionamiento privado",
+      "category": "General"
+    },
+    {
+      "name": "Mascotas permitidas",
+      "category": "Políticas"
+    },
+    {
+      "name": "Seguridad 24 horas",
+      "category": "General"
+    },
+    {
+      "name": "Alberca",
+      "category": "Recreación"
+    },
+    {
+      "name": "Área de juegos infantiles",
+      "category": "Recreación"
+    },
+    {
+      "name": "Cancha de tenis",
+      "category": "Recreación"
+    },
+    {
+      "name": "Salón de usos múltiples",
+      "category": "Recreación"
+    }
+  ]
+}

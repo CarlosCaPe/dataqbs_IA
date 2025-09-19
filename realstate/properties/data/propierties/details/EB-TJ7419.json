@@ -1,0 +1,186 @@
+﻿{
+    "public_id":  "EB-TJ7419",
+    "title":  "Terreno en venta en fraccionamiento privado en Jocotepec",
+    "description":  "Terreno en venta en coto privado con una excelente ubicación a la orilla del Lago de Chapala.\n\nPor qué no puedes dejar pasar esta oportunidad?\n\n• Posibilidad de desarrollar vivienda residencial o vacacional a sólo 30 minutos del sur de Gdl.\n• Acceso a exclusivas y amplias\namenidades del Club Roca Azul\n• Concepto privado y seguro con control de acceso.\n• El mejor precio y en uno de los mejores lugares de la Ribera de Chapala\n• Zona con excelente plusvalía.\n\nAmenidades:\n\nAlberca. Alberca termal. Baños con vestidores y vapor. Amplias áreas verdes. Terrazas. Salón de conferencias. canchas de fútbol. Canchas deportivas.Zona de juegos infantiles. Restaurante/Bar. Áreas para acampar. Amplio estacionamiento para residentes. Trailer Park.\n\nContáctanos lo antes posible, será un gusto atenderte.\n\n*Mantenimiento $2000",
+    "bedrooms":  null,
+    "bathrooms":  null,
+    "half_bathrooms":  null,
+    "parking_spaces":  null,
+    "lot_size":  254.34,
+    "construction_size":  null,
+    "lot_length":  null,
+    "lot_width":  null,
+    "floors":  null,
+    "floor":  null,
+    "age":  null,
+    "internal_id":  "AIDAROCAAZUL",
+    "expenses":  null,
+    "location":  {
+                     "name":  "Camino Real, Jocotepec, Jalisco",
+                     "latitude":  20.4822129,
+                     "longitude":  -102.9381112,
+                     "street":  "Km 53 Carretera Guadalajara-Morelia",
+                     "postal_code":  "45800",
+                     "show_exact_location":  true,
+                     "hide_exact_location":  false,
+                     "exterior_number":  "22",
+                     "interior_number":  null
+                 },
+    "property_type":  "Terreno",
+    "created_at":  "2025-06-11T22:54:49-06:00",
+    "updated_at":  "2025-08-14T19:17:23-06:00",
+    "published_at":  "2025-06-11T22:56:01-06:00",
+    "operations":  [
+                       {
+                           "type":  "sale",
+                           "amount":  1350000.0,
+                           "currency":  "MXN",
+                           "formatted_amount":  "$1,350,000",
+                           "commission":  {
+                                              "type":  "percentage",
+                                              "value":  "5.0"
+                                          },
+                           "unit":  "total"
+                       }
+                   ],
+    "property_files":  [
+
+                       ],
+    "videos":  [
+
+               ],
+    "virtual_tour":  null,
+    "collaboration_notes":  "Comisión compartida a inmobiliarias afiliadas",
+    "public_url":  "https://www.easybroker.com/mx/listings/terreno-en-venta-en-fraccionamiento-privado-en-jocotepec",
+    "shared_commission_percentage":  50.0,
+    "exclusive":  false,
+    "foreclosure":  false,
+    "tags":  [
+
+             ],
+    "private_description":  null,
+    "show_prices":  true,
+    "share_commission":  true,
+    "property_images":  [
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5307419/91531391/EB-TJ7419.jpeg?version=1749704138"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5307419/91531392/EB-TJ7419.jpeg?version=1749704142"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5307419/91531393/EB-TJ7419.jpeg?version=1749704143"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5307419/91531394/EB-TJ7419.jpeg?version=1749704144"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5307419/91531395/EB-TJ7419.jpeg?version=1749704144"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5307419/91531399/EB-TJ7419.jpeg?version=1749704146"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5307419/91531400/EB-TJ7419.jpeg?version=1749704147"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5307419/91531401/EB-TJ7419.jpeg?version=1749704149"
+                            }
+                        ],
+    "images":  [
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5307419/91531391/EB-TJ7419.jpeg?version=1749704138"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5307419/91531392/EB-TJ7419.jpeg?version=1749704142"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5307419/91531393/EB-TJ7419.jpeg?version=1749704143"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5307419/91531394/EB-TJ7419.jpeg?version=1749704144"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5307419/91531395/EB-TJ7419.jpeg?version=1749704144"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5307419/91531399/EB-TJ7419.jpeg?version=1749704146"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5307419/91531400/EB-TJ7419.jpeg?version=1749704147"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5307419/91531401/EB-TJ7419.jpeg?version=1749704149"
+                   }
+               ],
+    "agent":  {
+                  "id":  391012,
+                  "name":  "Lic.Gabriela Martínez",
+                  "full_name":  "Lic.Gabriela Martínez",
+                  "mobile_phone":  "+523338087984",
+                  "profile_image_url":  "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1757459148",
+                  "email":  "GABRIELAMTZ6@HOTMAIL.COM"
+              },
+    "features":  [
+                     {
+                         "name":  "Frente al agua",
+                         "category":  "Exterior"
+                     },
+                     {
+                         "name":  "Vista al agua",
+                         "category":  "Exterior"
+                     },
+                     {
+                         "name":  "Accesibilidad para adultos mayores",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Accesibilidad para personas con discapacidad",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Seguridad 24 horas",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Alberca",
+                         "category":  "Recreación"
+                     },
+                     {
+                         "name":  "Área de juegos infantiles",
+                         "category":  "Recreación"
+                     },
+                     {
+                         "name":  "Cancha de tenis",
+                         "category":  "Recreación"
+                     },
+                     {
+                         "name":  "Fogatero",
+                         "category":  "Recreación"
+                     },
+                     {
+                         "name":  "Salón de usos múltiples",
+                         "category":  "Recreación"
+                     },
+                     {
+                         "name":  "Sauna",
+                         "category":  "Recreación"
+                     }
+                 ]
+}

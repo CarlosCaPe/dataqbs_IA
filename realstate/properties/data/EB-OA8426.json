@@ -1,0 +1,29 @@
+{
+  "public_id": "EB-OA8426",
+  "title": "RENTA DEPA UNA CUADRA PLAZA CIUDADELA",
+  "title_image_full": "https://assets.easybroker.com/property_images/3918426/64484599/EB-OA8426.JPG?version=1690922955",
+  "title_image_thumb": "https://assets.easybroker.com/property_images/3918426/64484599/EB-OA8426.JPG?version=1690922955&width=200",
+  "location": "Mirador Del Sol, Zapopan, Jalisco",
+  "operations": [
+    {
+      "type": "rental",
+      "amount": 9650.0,
+      "currency": "MXN",
+      "formatted_amount": "$9,650",
+      "commission": {
+        "type": "percentage"
+      },
+      "unit": "total"
+    }
+  ],
+  "bedrooms": 2,
+  "bathrooms": 1,
+  "parking_spaces": 1,
+  "property_type": "Departamento",
+  "lot_size": null,
+  "construction_size": null,
+  "updated_at": "2025-05-12T12:09:04-06:00",
+  "agent": "Lic.Gabriela Martínez",
+  "show_prices": true,
+  "share_commission": false
+}

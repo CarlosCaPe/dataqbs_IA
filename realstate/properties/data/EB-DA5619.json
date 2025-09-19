@@ -1,0 +1,30 @@
+{
+  "public_id": "EB-DA5619",
+  "title": "AJIJIC",
+  "title_image_full": "https://assets.easybroker.com/property_images/1055619/15802645/EB-DA5619.JPG?version=1557333883",
+  "title_image_thumb": "https://assets.easybroker.com/property_images/1055619/15802645/EB-DA5619.JPG?version=1557333883&width=200",
+  "location": "Ajijic Centro, Chapala, Jalisco",
+  "operations": [
+    {
+      "type": "sale",
+      "amount": 9000000.0,
+      "currency": "MXN",
+      "formatted_amount": "$9,000,000",
+      "commission": {
+        "type": "percentage",
+        "value": "5.0"
+      },
+      "unit": "total"
+    }
+  ],
+  "bedrooms": null,
+  "bathrooms": null,
+  "parking_spaces": null,
+  "property_type": "Terreno",
+  "lot_size": 9000.0,
+  "construction_size": null,
+  "updated_at": "2025-05-12T12:09:04-06:00",
+  "agent": "Lic.Gabriela Martínez",
+  "show_prices": true,
+  "share_commission": true
+}

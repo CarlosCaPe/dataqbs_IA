@@ -1,0 +1,30 @@
+﻿{
+    "public_id":  "EB-RC2517",
+    "title":  "Bodega en renta en La Tijera",
+    "title_image_full":  "https://assets.easybroker.com/property_images/4712517/79612548/EB-RC2517.jpeg?version=1725332310",
+    "title_image_thumb":  "https://assets.easybroker.com/property_images/4712517/79612548/EB-RC2517.jpeg?version=1725332310\u0026width=200",
+    "location":  "La Tijera, Tlajomulco de Zúñiga, Jalisco",
+    "operations":  [
+                       {
+                           "type":  "rental",
+                           "amount":  30000.0,
+                           "currency":  "MXN",
+                           "formatted_amount":  "$30,000",
+                           "commission":  {
+                                              "type":  "months",
+                                              "value":  1
+                                          },
+                           "unit":  "total"
+                       }
+                   ],
+    "bedrooms":  null,
+    "bathrooms":  null,
+    "parking_spaces":  null,
+    "property_type":  "Bodega comercial",
+    "lot_size":  170.0,
+    "construction_size":  170.0,
+    "updated_at":  "2025-05-12T12:09:04-06:00",
+    "agent":  "Lic.Gabriela Martínez",
+    "show_prices":  true,
+    "share_commission":  false
+}

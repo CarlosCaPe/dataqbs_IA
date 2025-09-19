@@ -1,0 +1,30 @@
+﻿{
+    "public_id":  "EB-SS3219",
+    "title":  "Casa en venta un solo nivel zona Santa Anita",
+    "title_image_full":  "https://assets.easybroker.com/property_images/5133219/88103385/EB-SS3219.jpeg?version=1743241463",
+    "title_image_thumb":  "https://assets.easybroker.com/property_images/5133219/88103385/EB-SS3219.jpeg?version=1743241463\u0026width=200",
+    "location":  "San Agustin, Tlajomulco de Zúñiga, Jalisco",
+    "operations":  [
+                       {
+                           "type":  "sale",
+                           "amount":  14900000.0,
+                           "currency":  "MXN",
+                           "formatted_amount":  "$14,900,000",
+                           "commission":  {
+                                              "type":  "percentage",
+                                              "value":  "5.0"
+                                          },
+                           "unit":  "total"
+                       }
+                   ],
+    "bedrooms":  4,
+    "bathrooms":  4,
+    "parking_spaces":  4,
+    "property_type":  "Casa en condominio",
+    "lot_size":  1100.0,
+    "construction_size":  900.0,
+    "updated_at":  "2025-05-12T12:09:04-06:00",
+    "agent":  "Lic.Gabriela Martínez",
+    "show_prices":  true,
+    "share_commission":  true
+}

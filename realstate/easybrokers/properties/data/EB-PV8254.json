@@ -1,0 +1,244 @@
+{
+  "public_id": "EB-PV8254",
+  "title": "Casa en renta, zona Santa Anita",
+  "description": "Casa en renta en Fraccionamiento Foresta Santa Anita\n\nPLANTA BAJA:\n•Área de sala comedor\n•Medio baño\n•Cocina integral\n•Terraza\n•Patio de servicio tachado \n\nPLANTA ALTA:\n•Recámara principal con closet, aire acondicionado, ventilador y baño independiente.\n•Recámara secundaria con closet, aire acondicionado y ventilador.\n•Estudio/recámara con ventilador.\n•Baño completo \n\nLa casa se encuentra estratégicamente ubicada frente a la casa club con alberca, terraza con mobiliario y amenidades.\n\nEl fraccionamiento cuenta con seguridad 24/7.\n\nNo pierdas la oportunidad de conocerla.\n\nEl precio incluye mantenimiento*",
+  "bedrooms": 3,
+  "bathrooms": 2,
+  "half_bathrooms": 1,
+  "parking_spaces": 2,
+  "lot_size": 133.0,
+  "construction_size": 135.0,
+  "lot_length": null,
+  "lot_width": null,
+  "floors": 2,
+  "floor": null,
+  "age": null,
+  "internal_id": "VANE",
+  "expenses": "800",
+  "location": {
+    "name": "Bosques Santa Anita, Tlajomulco de Zúñiga, Jalisco",
+    "latitude": 20.562163,
+    "longitude": -103.469483,
+    "street": "Enebro",
+    "postal_code": "45645",
+    "show_exact_location": true,
+    "hide_exact_location": false,
+    "exterior_number": "5",
+    "interior_number": null
+  },
+  "property_type": "Casa en condominio",
+  "created_at": "2024-03-27T20:54:00-06:00",
+  "updated_at": "2025-05-12T12:09:04-06:00",
+  "published_at": null,
+  "operations": [
+    {
+      "type": "rental",
+      "amount": 11800.0,
+      "currency": "MXN",
+      "formatted_amount": "$11,800",
+      "commission": {
+        "type": "months",
+        "value": 1
+      },
+      "unit": "total"
+    }
+  ],
+  "property_files": [],
+  "videos": [],
+  "virtual_tour": null,
+  "collaboration_notes": "50% a inmobiliarias afiliadas.",
+  "public_url": "https://www.easybroker.com/mx/listings/casa-en-renta-zona-santa-anita",
+  "shared_commission_percentage": null,
+  "exclusive": null,
+  "foreclosure": false,
+  "tags": [],
+  "private_description": null,
+  "show_prices": true,
+  "share_commission": true,
+  "property_images": [
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4388254/73248574/EB-PV8254.jpeg?version=1711594473"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4388254/73248575/EB-PV8254.jpeg?version=1711594473"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4388254/73248576/EB-PV8254.jpeg?version=1711594473"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4388254/73248577/EB-PV8254.jpeg?version=1711594474"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4388254/73248578/EB-PV8254.jpeg?version=1711594474"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4388254/73248579/EB-PV8254.jpeg?version=1711594475"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4388254/73248580/EB-PV8254.jpeg?version=1711594475"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4388254/73248581/EB-PV8254.jpeg?version=1711594476"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4388254/73248582/EB-PV8254.jpeg?version=1711594476"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4388254/73248583/EB-PV8254.jpeg?version=1711594477"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4388254/73248584/EB-PV8254.jpeg?version=1711594477"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4388254/73248585/EB-PV8254.jpeg?version=1711594477"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4388254/73248586/EB-PV8254.jpeg?version=1711594478"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4388254/73248587/EB-PV8254.jpeg?version=1711594478"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4388254/73248588/EB-PV8254.jpeg?version=1711594479"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4388254/73248589/EB-PV8254.jpeg?version=1711594479"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4388254/73248590/EB-PV8254.jpeg?version=1711594480"
+    }
+  ],
+  "images": [
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4388254/73248574/EB-PV8254.jpeg?version=1711594473"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4388254/73248575/EB-PV8254.jpeg?version=1711594473"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4388254/73248576/EB-PV8254.jpeg?version=1711594473"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4388254/73248577/EB-PV8254.jpeg?version=1711594474"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4388254/73248578/EB-PV8254.jpeg?version=1711594474"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4388254/73248579/EB-PV8254.jpeg?version=1711594475"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4388254/73248580/EB-PV8254.jpeg?version=1711594475"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4388254/73248581/EB-PV8254.jpeg?version=1711594476"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4388254/73248582/EB-PV8254.jpeg?version=1711594476"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4388254/73248583/EB-PV8254.jpeg?version=1711594477"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4388254/73248584/EB-PV8254.jpeg?version=1711594477"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4388254/73248585/EB-PV8254.jpeg?version=1711594477"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4388254/73248586/EB-PV8254.jpeg?version=1711594478"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4388254/73248587/EB-PV8254.jpeg?version=1711594478"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4388254/73248588/EB-PV8254.jpeg?version=1711594479"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4388254/73248589/EB-PV8254.jpeg?version=1711594479"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4388254/73248590/EB-PV8254.jpeg?version=1711594480"
+    }
+  ],
+  "agent": {
+    "id": 391012,
+    "name": "Lic.Gabriela Martínez",
+    "full_name": "Lic.Gabriela Martínez",
+    "mobile_phone": "+523338087984",
+    "profile_image_url": "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1729887594",
+    "email": "GABRIELAMTZ6@HOTMAIL.COM"
+  },
+  "features": [
+    {
+      "name": "Patio",
+      "category": "Exterior"
+    },
+    {
+      "name": "Aire acondicionado",
+      "category": "General"
+    },
+    {
+      "name": "Cocina integral",
+      "category": "General"
+    },
+    {
+      "name": "Dos plantas",
+      "category": "General"
+    },
+    {
+      "name": "Estudio",
+      "category": "General"
+    },
+    {
+      "name": "Seguridad 24 horas",
+      "category": "General"
+    },
+    {
+      "name": "Alberca",
+      "category": "Recreación"
+    },
+    {
+      "name": "Mascotas permitidas",
+      "category": "Políticas"
+    },
+    {
+      "name": "Terraza",
+      "category": "Exterior"
+    }
+  ]
+}

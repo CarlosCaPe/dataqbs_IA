@@ -1,0 +1,83 @@
+﻿{
+    "public_id":  "EB-JF1688",
+    "title":  "exclenter casa nva falaici",
+    "description":  "ffgfghhg",
+    "bedrooms":  9,
+    "bathrooms":  1,
+    "half_bathrooms":  4,
+    "parking_spaces":  5,
+    "lot_size":  120.0,
+    "construction_size":  120.0,
+    "lot_length":  8.0,
+    "lot_width":  25.0,
+    "floors":  null,
+    "floor":  null,
+    "age":  null,
+    "internal_id":  null,
+    "expenses":  "inc",
+    "location":  {
+                     "name":  "Nueva Galicia, Zapopan, Jalisco",
+                     "latitude":  20.6551658,
+                     "longitude":  -103.4426872,
+                     "street":  "fggg",
+                     "postal_code":  null,
+                     "show_exact_location":  true,
+                     "hide_exact_location":  false,
+                     "exterior_number":  null,
+                     "interior_number":  null
+                 },
+    "property_type":  "Casa",
+    "created_at":  "2021-12-16T10:57:11-08:00",
+    "updated_at":  "2025-05-12T11:09:04-07:00",
+    "published_at":  "2021-12-16T10:57:37-08:00",
+    "operations":  [
+                       {
+                           "type":  "rental",
+                           "amount":  12000.0,
+                           "currency":  "MXN",
+                           "formatted_amount":  "$12,000",
+                           "commission":  {
+                                              "type":  "percentage"
+                                          },
+                           "unit":  "total"
+                       }
+                   ],
+    "property_files":  [
+
+                       ],
+    "videos":  [
+
+               ],
+    "virtual_tour":  null,
+    "collaboration_notes":  null,
+    "public_url":  "https://www.easybroker.com/mx/listings/exclenter-casa-nva-falaici",
+    "shared_commission_percentage":  null,
+    "exclusive":  null,
+    "foreclosure":  false,
+    "tags":  [
+
+             ],
+    "private_description":  null,
+    "show_prices":  true,
+    "share_commission":  true,
+    "property_images":  [
+
+                        ],
+    "images":  [
+
+               ],
+    "agent":  {
+                  "id":  391012,
+                  "name":  "Lic.Gabriela Martínez",
+                  "full_name":  "Lic.Gabriela Martínez",
+                  "mobile_phone":  "+523338087984",
+                  "profile_image_url":  "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1757459148",
+                  "email":  "GABRIELAMTZ6@HOTMAIL.COM"
+              },
+    "features":  [
+                     {
+                         "name":  "Cisterna",
+                         "category":  "Exterior"
+                     }
+                 ]
+}

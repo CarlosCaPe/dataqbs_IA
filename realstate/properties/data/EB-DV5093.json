@@ -1,0 +1,29 @@
+{
+  "public_id": "EB-DV5093",
+  "title": "VENTA SANTILLANA RESID COTO 1 CERCA SOLARES",
+  "title_image_full": "https://assets.easybroker.com/property_images/1265093/18805172/EB-DV5093.jpg?version=1569515810",
+  "title_image_thumb": "https://assets.easybroker.com/property_images/1265093/18805172/EB-DV5093.jpg?version=1569515810&width=200",
+  "location": "Solares, Zapopan, Jalisco",
+  "operations": [
+    {
+      "type": "sale",
+      "amount": 4190000.0,
+      "currency": "MXN",
+      "formatted_amount": "$4,190,000",
+      "commission": {
+        "type": "percentage"
+      },
+      "unit": "total"
+    }
+  ],
+  "bedrooms": 3,
+  "bathrooms": 3,
+  "parking_spaces": 2,
+  "property_type": "Casa",
+  "lot_size": 163.0,
+  "construction_size": 193.0,
+  "updated_at": "2025-05-12T12:09:04-06:00",
+  "agent": "Lic.Gabriela Martínez",
+  "show_prices": true,
+  "share_commission": true
+}

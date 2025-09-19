@@ -1,0 +1,41 @@
+{
+  "public_id": "EB-TJ7353",
+  "title": "Departamento en renta o venta en La Rioja",
+  "title_image_full": "https://assets.easybroker.com/property_images/5307353/91534616/EB-TJ7353.jpeg?version=1749737027",
+  "title_image_thumb": "https://assets.easybroker.com/property_images/5307353/91534616/EB-TJ7353.jpeg?version=1749737027&width=200",
+  "location": "Los Gavilanes, Tlajomulco de Zúñiga, Jalisco",
+  "operations": [
+    {
+      "type": "sale",
+      "amount": 5700000.0,
+      "currency": "MXN",
+      "formatted_amount": "$5,700,000",
+      "commission": {
+        "type": "percentage",
+        "value": "5.0"
+      },
+      "unit": "total"
+    },
+    {
+      "type": "rental",
+      "amount": 25000.0,
+      "currency": "MXN",
+      "formatted_amount": "$25,000",
+      "commission": {
+        "type": "months",
+        "value": 1
+      },
+      "unit": "total"
+    }
+  ],
+  "bedrooms": 2,
+  "bathrooms": 2,
+  "parking_spaces": 2,
+  "property_type": "Departamento",
+  "lot_size": null,
+  "construction_size": 159.92,
+  "updated_at": "2025-07-17T18:32:35-06:00",
+  "agent": "Lic.Gabriela Martínez",
+  "show_prices": true,
+  "share_commission": true
+}

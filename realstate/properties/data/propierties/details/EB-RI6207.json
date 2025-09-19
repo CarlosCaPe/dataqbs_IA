@@ -1,0 +1,382 @@
+﻿{
+    "public_id":  "EB-RI6207",
+    "title":  "Departamento en venta en Punto Sur",
+    "description":  "Tenemos para ti este departamento listo para ser estrenado en una de las zonas con mayor plusvalia del sur de Guadalajara. Punto Sur.\nCon su conectividad entre Lopez Mateos y Camino Real a Colima y con uno de los mejores centros comerciales de la ciudad a tan solo unos pasos, no puedes dejar pasar la oportunidad de invertir en esta propiedad.\n\nLa Torre 1 cuenta con seguridad 24/7, Lobby, salon de juegos y Alberca climatizada con chapoteadero techado y zona de camastros.\n\nEl departamento se encuentra en el 3er nivel, brindándote una hermosa vista.\n\nSon 95 mts donde encontrarás:\n\n•Cocina equipada\n•Area de lavado\n•Sala comedor\n•Balcón\n•Baño completo \n•Estudio/oficina con closet\n•Recámara secundaria con closet \n•Recámara principal con walking closet y baño completo.\n\nAdemás de dos cajones de estacionamientos asignados en el S2.\n\nNo dejes pasar esta oportunidad y agenda tu cita ya!\n\nhttps://puntosurapartments.mx/",
+    "bedrooms":  3,
+    "bathrooms":  2,
+    "half_bathrooms":  null,
+    "parking_spaces":  2,
+    "lot_size":  null,
+    "construction_size":  95.0,
+    "lot_length":  null,
+    "lot_width":  null,
+    "floors":  null,
+    "floor":  null,
+    "age":  2022,
+    "internal_id":  "AIDAPTOSUR",
+    "expenses":  "2950",
+    "location":  {
+                     "name":  "Los Gavilanes, Tlajomulco de Zúñiga, Jalisco",
+                     "latitude":  20.5683952,
+                     "longitude":  -103.4519902,
+                     "street":  "Avenida Paseo Punto Sur",
+                     "postal_code":  "45645",
+                     "show_exact_location":  true,
+                     "hide_exact_location":  false,
+                     "exterior_number":  "724",
+                     "interior_number":  "301"
+                 },
+    "property_type":  "Departamento",
+    "created_at":  "2024-10-03T22:35:51-06:00",
+    "updated_at":  "2025-05-12T12:09:04-06:00",
+    "published_at":  "2024-10-04T10:07:47-06:00",
+    "operations":  [
+                       {
+                           "type":  "sale",
+                           "amount":  4890000.0,
+                           "currency":  "MXN",
+                           "formatted_amount":  "$4,890,000",
+                           "commission":  {
+                                              "type":  "percentage",
+                                              "value":  "4.0"
+                                          },
+                           "unit":  "total"
+                       }
+                   ],
+    "property_files":  [
+
+                       ],
+    "videos":  [
+
+               ],
+    "virtual_tour":  null,
+    "collaboration_notes":  "50% inmobiliarias afiliadas",
+    "public_url":  "https://www.easybroker.com/mx/listings/departamento-en-venta-en-punto-sur",
+    "shared_commission_percentage":  null,
+    "exclusive":  null,
+    "foreclosure":  false,
+    "tags":  [
+
+             ],
+    "private_description":  null,
+    "show_prices":  true,
+    "share_commission":  true,
+    "property_images":  [
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4776207/80867789/EB-RI6207.jpg?version=1728016655"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4776207/80867791/EB-RI6207.jpg?version=1728016667"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4776207/80867792/EB-RI6207.jpg?version=1728016668"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4776207/80867805/EB-RI6207.jpg?version=1728016687"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4776207/80874712/EB-RI6207.jpg?version=1728058036"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4776207/80874713/EB-RI6207.jpg?version=1728058036"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4776207/80874714/EB-RI6207.jpg?version=1728058037"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4776207/80874716/EB-RI6207.jpg?version=1728058038"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4776207/80874717/EB-RI6207.jpg?version=1728058038"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4776207/80874718/EB-RI6207.jpg?version=1728058039"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4776207/80874721/EB-RI6207.jpg?version=1728058040"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4776207/80874722/EB-RI6207.jpg?version=1728058041"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4776207/80874724/EB-RI6207.jpg?version=1728058042"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4776207/80874725/EB-RI6207.jpg?version=1728058043"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4776207/80874728/EB-RI6207.jpg?version=1728058044"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4776207/80874729/EB-RI6207.jpg?version=1728058045"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4776207/80874731/EB-RI6207.jpg?version=1728058046"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4776207/80874732/EB-RI6207.jpg?version=1728058048"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4776207/80874733/EB-RI6207.jpg?version=1728058048"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4776207/80874734/EB-RI6207.jpg?version=1728058049"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4776207/80874736/EB-RI6207.jpg?version=1728058050"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4776207/80874737/EB-RI6207.jpg?version=1728058050"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4776207/80874738/EB-RI6207.jpg?version=1728058051"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4776207/80874739/EB-RI6207.jpg?version=1728058052"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4776207/80874741/EB-RI6207.jpg?version=1728058053"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4776207/80874742/EB-RI6207.jpg?version=1728058054"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4776207/80874743/EB-RI6207.jpg?version=1728058054"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4776207/80874745/EB-RI6207.jpg?version=1728058055"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4776207/80874747/EB-RI6207.jpg?version=1728058057"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4776207/80874750/EB-RI6207.jpg?version=1728058057"
+                            }
+                        ],
+    "images":  [
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4776207/80867789/EB-RI6207.jpg?version=1728016655"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4776207/80867791/EB-RI6207.jpg?version=1728016667"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4776207/80867792/EB-RI6207.jpg?version=1728016668"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4776207/80867805/EB-RI6207.jpg?version=1728016687"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4776207/80874712/EB-RI6207.jpg?version=1728058036"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4776207/80874713/EB-RI6207.jpg?version=1728058036"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4776207/80874714/EB-RI6207.jpg?version=1728058037"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4776207/80874716/EB-RI6207.jpg?version=1728058038"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4776207/80874717/EB-RI6207.jpg?version=1728058038"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4776207/80874718/EB-RI6207.jpg?version=1728058039"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4776207/80874721/EB-RI6207.jpg?version=1728058040"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4776207/80874722/EB-RI6207.jpg?version=1728058041"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4776207/80874724/EB-RI6207.jpg?version=1728058042"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4776207/80874725/EB-RI6207.jpg?version=1728058043"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4776207/80874728/EB-RI6207.jpg?version=1728058044"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4776207/80874729/EB-RI6207.jpg?version=1728058045"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4776207/80874731/EB-RI6207.jpg?version=1728058046"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4776207/80874732/EB-RI6207.jpg?version=1728058048"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4776207/80874733/EB-RI6207.jpg?version=1728058048"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4776207/80874734/EB-RI6207.jpg?version=1728058049"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4776207/80874736/EB-RI6207.jpg?version=1728058050"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4776207/80874737/EB-RI6207.jpg?version=1728058050"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4776207/80874738/EB-RI6207.jpg?version=1728058051"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4776207/80874739/EB-RI6207.jpg?version=1728058052"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4776207/80874741/EB-RI6207.jpg?version=1728058053"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4776207/80874742/EB-RI6207.jpg?version=1728058054"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4776207/80874743/EB-RI6207.jpg?version=1728058054"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4776207/80874745/EB-RI6207.jpg?version=1728058055"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4776207/80874747/EB-RI6207.jpg?version=1728058057"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4776207/80874750/EB-RI6207.jpg?version=1728058057"
+                   }
+               ],
+    "agent":  {
+                  "id":  391012,
+                  "name":  "Lic.Gabriela Martínez",
+                  "full_name":  "Lic.Gabriela Martínez",
+                  "mobile_phone":  "+523338087984",
+                  "profile_image_url":  "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1757459148",
+                  "email":  "GABRIELAMTZ6@HOTMAIL.COM"
+              },
+    "features":  [
+                     {
+                         "name":  "Balcón",
+                         "category":  "Exterior"
+                     },
+                     {
+                         "name":  "Estacionamiento techado",
+                         "category":  "Exterior"
+                     },
+                     {
+                         "name":  "Facilidad para estacionarse",
+                         "category":  "Exterior"
+                     },
+                     {
+                         "name":  "Accesibilidad para adultos mayores",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Accesibilidad para personas con discapacidad",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Cocina integral",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Elevador",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Estudio",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Fraccionamiento privado",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Oficina",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Portero",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Seguridad 24 horas",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Una sola planta",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Mascotas permitidas",
+                         "category":  "Políticas"
+                     },
+                     {
+                         "name":  "Alberca",
+                         "category":  "Recreación"
+                     },
+                     {
+                         "name":  "Salón de usos múltiples",
+                         "category":  "Recreación"
+                     }
+                 ]
+}

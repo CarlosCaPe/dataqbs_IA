@@ -3,7 +3,7 @@
 This repository contains two Python projects in a single workspace:
 
 - email_collector: IMAP email collection and classification with .eml export.
-- easybrokers: Utilities and scripts to handle EasyBrokers data.
+- realstate: Utilities and scripts to handle real estate data.
 
 See also: CHANGELOG.md for English release notes, visible to external collaborators/recruiters.
 
@@ -53,7 +53,7 @@ Results:
 ### Unified logs
 
 - Email Collector logs to `emails_out/logs/email_collector.log` in addition to the console.
-- EasyBrokers logs to `easybrokers/logs/easybroker_export.log`.
+- Realstate logs to `realstate/logs/realstate_export.log`.
 - Utility scripts in the repo root write logs to `emails_out/logs/*.log`.
 
 Increase verbosity with `-v/--verbose` (Email Collector) or set `LOGLEVEL=DEBUG`.
@@ -64,12 +64,12 @@ Increase verbosity with `-v/--verbose` (Email Collector) or set `LOGLEVEL=DEBUG`
 
 ---
 
-## Usage (easybrokers)
+## Usage (realstate)
 
-Enter the `easybrokers` folder and use Poetry to install dependencies and run scripts:
+Enter the `realstate` folder and use Poetry to install dependencies and run scripts:
 
 ```powershell
-cd easybrokers
+cd realstate
 poetry install
 poetry run python test_download.py
 ```
@@ -80,14 +80,14 @@ You can also use VS Code tasks and debug configurations:
   - Email Collector: Install deps
   - Precheck run
   - Email Collector: Full run
-  - EasyBrokers: Install deps
-  - EasyBrokers: Run test_download.py
+  - Realstate: Install deps
+  - Realstate: Run test_download.py
 
 - Debug (Run and Debug):
   - Email Collector (precheck)
   - Email Collector (run)
-  - EasyBrokers: test_download.py
-  - EasyBrokers: image_downloader.py
+  - Realstate: test_download.py
+  - Realstate: image_downloader.py
 
 Tip: Open `dataqbs_IA.code-workspace` to load both projects as folders in one workspace.
 

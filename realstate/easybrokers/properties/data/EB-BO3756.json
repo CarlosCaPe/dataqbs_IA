@@ -1,0 +1,232 @@
+{
+  "public_id": "EB-BO3756",
+  "title": "CABAÑA EN VENTA EN PINARES TAPALPA",
+  "description": "Casa de Campo con excelente arquitectura y todas las comodidades en fraccionamiento campestre con vigilancia. A 15 minutos de Tapalpa. El lugar ideal para disfrutar con familia y amigos, conócela y te encantará. \nLas áreas sociales y área de dormitorios son independientes.\nLa casa cuenta con una amplia explanada con instalación para fogata, en la cual convergen tres secciones de la casa:\n1.- Terraza con cristal con barra y asador dual (carbón y conexión a instalación de gas)\n2.- Área Social con sala, comedor, chimenea, cocina y medio baño\n3.-Área de recámaras comunicada con el área social pero independiente de ella; en ésta sección está la sala de T.V.  recámara principal con baño y otra recámara con baño.\nEn una cuarta sección está el área de visitas con 2 habitaciones con baño propio. Construcción con paredes de ladrillo aparente que le da una imagen relajada y estética en perfecta combinación con el entorno, detalles de madera, amplios ventanales, pisos de cantera en zona social y \"madera\" cerámica en habitaciones, ambientación con luces indirectas y  rodeada de un hermoso jardín.\nPozo propio dentro del fraccionamiento.\nSistema de riego para el jardín, 2 cisternas de 5,000l. c/u Dos tinacos de 1000l. c/u pequeña planta para pasar agua entre cisternas y tinacos. 2 Circuitos eléctricos uno para áreas comunes y otro para recámaras alimentados con paneles solares cuenta con inversores y baterías (8 para área común y 4 para recámaras) propiedad totalmente cercada.",
+  "bedrooms": 4,
+  "bathrooms": null,
+  "half_bathrooms": 4,
+  "parking_spaces": 1,
+  "lot_size": 1631.0,
+  "construction_size": 300.0,
+  "lot_length": null,
+  "lot_width": null,
+  "floors": null,
+  "floor": null,
+  "age": null,
+  "internal_id": null,
+  "expenses": null,
+  "location": {
+    "name": "Tapalpa, Tapalpa, Jalisco",
+    "latitude": 19.9462798,
+    "longitude": -103.6900873,
+    "street": "Pinares Tapalpa",
+    "postal_code": null,
+    "show_exact_location": true,
+    "hide_exact_location": false,
+    "exterior_number": null,
+    "interior_number": null
+  },
+  "property_type": "Casa",
+  "created_at": "2018-03-15T16:48:57-06:00",
+  "updated_at": "2025-05-12T12:09:04-06:00",
+  "published_at": "2018-03-15T16:54:34-06:00",
+  "operations": [
+    {
+      "type": "sale",
+      "amount": 3300000.0,
+      "currency": "MXN",
+      "formatted_amount": "$3,300,000",
+      "commission": {
+        "type": "percentage",
+        "value": "5.0"
+      },
+      "unit": "total"
+    }
+  ],
+  "property_files": [],
+  "videos": [],
+  "virtual_tour": null,
+  "collaboration_notes": "",
+  "public_url": "https://www.easybroker.com/mx/listings/cabana-en-venta-en-pinares-tapalpa-tapalpa",
+  "shared_commission_percentage": null,
+  "exclusive": null,
+  "foreclosure": false,
+  "tags": [],
+  "private_description": null,
+  "show_prices": true,
+  "share_commission": true,
+  "property_images": [
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/673756/10266528/EB-BO3756.jpg?version=1521154474"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/673756/10266516/EB-BO3756.jpg?version=1521154474"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/673756/10266517/EB-BO3756.jpg?version=1521154474"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/673756/10266518/EB-BO3756.jpg?version=1521154474"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/673756/10266520/EB-BO3756.jpg?version=1521154474"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/673756/10266521/EB-BO3756.jpg?version=1521154474"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/673756/10266522/EB-BO3756.jpg?version=1521154474"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/673756/10266523/EB-BO3756.jpg?version=1521154474"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/673756/10266524/EB-BO3756.jpg?version=1521154474"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/673756/10266526/EB-BO3756.jpg?version=1521154474"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/673756/10266525/EB-BO3756.jpg?version=1521154474"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/673756/10266529/EB-BO3756.jpg?version=1521154474"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/673756/10266530/EB-BO3756.jpg?version=1521154474"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/673756/10266532/EB-BO3756.jpg?version=1521154474"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/673756/10266534/EB-BO3756.jpg?version=1521154474"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/673756/10266535/EB-BO3756.jpg?version=1521154474"
+    }
+  ],
+  "images": [
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/673756/10266528/EB-BO3756.jpg?version=1521154474"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/673756/10266516/EB-BO3756.jpg?version=1521154474"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/673756/10266517/EB-BO3756.jpg?version=1521154474"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/673756/10266518/EB-BO3756.jpg?version=1521154474"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/673756/10266520/EB-BO3756.jpg?version=1521154474"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/673756/10266521/EB-BO3756.jpg?version=1521154474"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/673756/10266522/EB-BO3756.jpg?version=1521154474"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/673756/10266523/EB-BO3756.jpg?version=1521154474"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/673756/10266524/EB-BO3756.jpg?version=1521154474"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/673756/10266526/EB-BO3756.jpg?version=1521154474"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/673756/10266525/EB-BO3756.jpg?version=1521154474"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/673756/10266529/EB-BO3756.jpg?version=1521154474"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/673756/10266530/EB-BO3756.jpg?version=1521154474"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/673756/10266532/EB-BO3756.jpg?version=1521154474"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/673756/10266534/EB-BO3756.jpg?version=1521154474"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/673756/10266535/EB-BO3756.jpg?version=1521154474"
+    }
+  ],
+  "agent": {
+    "id": 391012,
+    "name": "Lic.Gabriela Martínez",
+    "full_name": "Lic.Gabriela Martínez",
+    "mobile_phone": "+523338087984",
+    "profile_image_url": "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1729887594",
+    "email": "GABRIELAMTZ6@HOTMAIL.COM"
+  },
+  "features": [
+    {
+      "name": "Chimenea",
+      "category": "General"
+    },
+    {
+      "name": "Terraza",
+      "category": "Exterior"
+    },
+    {
+      "name": "Jardín",
+      "category": "Exterior"
+    },
+    {
+      "name": "Estacionamiento techado",
+      "category": "Exterior"
+    },
+    {
+      "name": "Seguridad 24 horas",
+      "category": "General"
+    },
+    {
+      "name": "Cisterna",
+      "category": "Exterior"
+    },
+    {
+      "name": "Planta eléctrica",
+      "category": "General"
+    },
+    {
+      "name": "Accesibilidad para adultos mayores",
+      "category": "General"
+    }
+  ]
+}

@@ -1,0 +1,119 @@
+{
+  "public_id": "EB-TU4548",
+  "title": "Terreno ideal para Desarrollo en zona Bosques de Santa Anita",
+  "description": "Terreno con uso de suelo Habitacional en zona bosques de Santa Anita, a unos metros del fraccionamiento Pontevedra.\n\nEl terreno es ideal para proyecto que otorgue vistas panoramicas y una cercania a la naturaleza al colindar con el bosque.\n\nTerreno ejidal con documentos en regla revisados por inmobiliaria con propietarios y el Ejido al que pertenece, el terreno colinda con tierras de uso comun del Ejido teniendo con esto minimas posibilidades de fraccionamientos aledaños\n\nEl terreno cuenta con ubicacion privilejiada ofreciendo salida a López Mateos por San Agustin o Bosuques de Santa Anita la cual se encuentra cerca de escuelas, centros comerciales, restaurantes y todos los servicios. ",
+  "bedrooms": null,
+  "bathrooms": null,
+  "half_bathrooms": null,
+  "parking_spaces": null,
+  "lot_size": 29357.54,
+  "construction_size": null,
+  "lot_length": null,
+  "lot_width": null,
+  "floors": null,
+  "floor": null,
+  "age": null,
+  "internal_id": "TEAMSUR",
+  "expenses": null,
+  "location": {
+    "name": "Pontevedra, Tlajomulco de Zúñiga, Jalisco",
+    "latitude": 20.5595378834,
+    "longitude": -103.4947723405,
+    "street": null,
+    "postal_code": null,
+    "show_exact_location": true,
+    "hide_exact_location": false,
+    "exterior_number": null,
+    "interior_number": null
+  },
+  "property_type": "Terreno",
+  "created_at": "2025-07-29T20:47:29-06:00",
+  "updated_at": "2025-07-29T21:12:57-06:00",
+  "published_at": "2025-07-29T20:50:14-06:00",
+  "operations": [
+    {
+      "type": "sale",
+      "amount": 88072620.0,
+      "currency": "MXN",
+      "formatted_amount": "$88,072,620",
+      "commission": {
+        "type": "percentage",
+        "value": "5.0"
+      },
+      "unit": "total"
+    }
+  ],
+  "property_files": [],
+  "videos": [],
+  "virtual_tour": null,
+  "collaboration_notes": "Estar afiliado a AMPI o asociacion Inmobiliaria",
+  "public_url": "https://www.easybroker.com/mx/listings/terreno-ideal-para-desarrollo-en-zona-bosques-de-santa-anita",
+  "shared_commission_percentage": 50.0,
+  "exclusive": true,
+  "foreclosure": false,
+  "tags": [],
+  "private_description": null,
+  "show_prices": true,
+  "share_commission": true,
+  "property_images": [
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5414548/93667089/EB-TU4548.jpg?version=1753845156"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5414548/93667091/EB-TU4548.jpg?version=1753845156"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5414548/93667090/EB-TU4548.jpg?version=1753845156"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5414548/93667088/EB-TU4548.jpg?version=1753845156"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5414548/93666536/EB-TU4548.jpg?version=1753845156"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5414548/93666534/EB-TU4548.jpg?version=1753845156"
+    }
+  ],
+  "images": [
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5414548/93667089/EB-TU4548.jpg?version=1753845156"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5414548/93667091/EB-TU4548.jpg?version=1753845156"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5414548/93667090/EB-TU4548.jpg?version=1753845156"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5414548/93667088/EB-TU4548.jpg?version=1753845156"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5414548/93666536/EB-TU4548.jpg?version=1753845156"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5414548/93666534/EB-TU4548.jpg?version=1753845156"
+    }
+  ],
+  "agent": {
+    "id": 391012,
+    "name": "Lic.Gabriela Martínez",
+    "full_name": "Lic.Gabriela Martínez",
+    "mobile_phone": "+523338087984",
+    "profile_image_url": "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1729887594",
+    "email": "GABRIELAMTZ6@HOTMAIL.COM"
+  },
+  "features": []
+}

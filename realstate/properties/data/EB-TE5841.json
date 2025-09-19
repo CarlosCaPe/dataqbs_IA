@@ -1,0 +1,30 @@
+{
+  "public_id": "EB-TE5841",
+  "title": "DEPARTAMENTO  EN VENTA EN ZAPOPAN CENTRO CERCA DEL AUDITORIO TELMEX",
+  "title_image_full": "https://assets.easybroker.com/property_images/5255841/90548637/EB-TE5841.jpeg?version=1747880682",
+  "title_image_thumb": "https://assets.easybroker.com/property_images/5255841/90548637/EB-TE5841.jpeg?version=1747880682&width=200",
+  "location": "Zapopan Centro, Zapopan, Jalisco",
+  "operations": [
+    {
+      "type": "sale",
+      "amount": 1920000.0,
+      "currency": "MXN",
+      "formatted_amount": "$1,920,000",
+      "commission": {
+        "type": "percentage",
+        "value": "3.0"
+      },
+      "unit": "total"
+    }
+  ],
+  "bedrooms": 1,
+  "bathrooms": 1,
+  "parking_spaces": null,
+  "property_type": "Departamento",
+  "lot_size": null,
+  "construction_size": 35.0,
+  "updated_at": "2025-05-21T20:31:09-06:00",
+  "agent": "Lic.Gabriela Martínez",
+  "show_prices": true,
+  "share_commission": true
+}

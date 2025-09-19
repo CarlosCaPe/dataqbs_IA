@@ -1,0 +1,30 @@
+{
+  "public_id": "EB-BO3746",
+  "title": "CASA EN VENTA EN MORELOS, MANZANILLO",
+  "title_image_full": "https://assets.easybroker.com/property_images/673746/10266378/EB-BO3746.JPG?version=1521153785",
+  "title_image_thumb": "https://assets.easybroker.com/property_images/673746/10266378/EB-BO3746.JPG?version=1521153785&width=200",
+  "location": "Morelos, Manzanillo, Colima",
+  "operations": [
+    {
+      "type": "sale",
+      "amount": 2100000.0,
+      "currency": "MXN",
+      "formatted_amount": "$2,100,000",
+      "commission": {
+        "type": "percentage",
+        "value": "5.0"
+      },
+      "unit": "total"
+    }
+  ],
+  "bedrooms": 4,
+  "bathrooms": 2,
+  "parking_spaces": 2,
+  "property_type": "Casa",
+  "lot_size": 268.0,
+  "construction_size": 350.0,
+  "updated_at": "2025-05-12T12:09:04-06:00",
+  "agent": "Lic.Gabriela Martínez",
+  "show_prices": true,
+  "share_commission": true
+}

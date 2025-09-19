@@ -1,0 +1,140 @@
+{
+  "public_id": "EB-BO3746",
+  "title": "CASA EN VENTA EN MORELOS, MANZANILLO",
+  "description": "Sala,comedor,medio baño y cocina integral,amplios ventanales,áreas verdes, cuenta con aire acondicionado. La playa a tres minutos caminando.",
+  "bedrooms": 4,
+  "bathrooms": 2,
+  "half_bathrooms": null,
+  "parking_spaces": 2,
+  "lot_size": 268.0,
+  "construction_size": 350.0,
+  "lot_length": null,
+  "lot_width": null,
+  "floors": null,
+  "floor": null,
+  "age": null,
+  "internal_id": null,
+  "expenses": null,
+  "location": {
+    "name": "Morelos, Manzanillo, Colima",
+    "latitude": 19.0799674,
+    "longitude": -104.3050633,
+    "street": "CONSTITUCION ",
+    "postal_code": null,
+    "show_exact_location": true,
+    "hide_exact_location": false,
+    "exterior_number": "4",
+    "interior_number": null
+  },
+  "property_type": "Casa",
+  "created_at": "2018-03-15T16:40:18-06:00",
+  "updated_at": "2025-05-12T12:09:04-06:00",
+  "published_at": "2018-03-15T16:43:05-06:00",
+  "operations": [
+    {
+      "type": "sale",
+      "amount": 2100000.0,
+      "currency": "MXN",
+      "formatted_amount": "$2,100,000",
+      "commission": {
+        "type": "percentage",
+        "value": "5.0"
+      },
+      "unit": "total"
+    }
+  ],
+  "property_files": [],
+  "videos": [],
+  "virtual_tour": null,
+  "collaboration_notes": "",
+  "public_url": "https://www.easybroker.com/mx/listings/casa-en-venta-en-morelos-manzanillo",
+  "shared_commission_percentage": null,
+  "exclusive": null,
+  "foreclosure": false,
+  "tags": [],
+  "private_description": null,
+  "show_prices": true,
+  "share_commission": true,
+  "property_images": [
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/673746/10266378/EB-BO3746.JPG?version=1521153785"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/673746/10266380/EB-BO3746.JPG?version=1521153785"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/673746/10266375/EB-BO3746.JPG?version=1521153785"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/673746/10266377/EB-BO3746.JPG?version=1521153785"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/673746/10266379/EB-BO3746.JPG?version=1521153785"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/673746/10266381/EB-BO3746.JPG?version=1521153785"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/673746/10266376/EB-BO3746.JPG?version=1521153785"
+    }
+  ],
+  "images": [
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/673746/10266378/EB-BO3746.JPG?version=1521153785"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/673746/10266380/EB-BO3746.JPG?version=1521153785"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/673746/10266375/EB-BO3746.JPG?version=1521153785"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/673746/10266377/EB-BO3746.JPG?version=1521153785"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/673746/10266379/EB-BO3746.JPG?version=1521153785"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/673746/10266381/EB-BO3746.JPG?version=1521153785"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/673746/10266376/EB-BO3746.JPG?version=1521153785"
+    }
+  ],
+  "agent": {
+    "id": 391012,
+    "name": "Lic.Gabriela Martínez",
+    "full_name": "Lic.Gabriela Martínez",
+    "mobile_phone": "+523338087984",
+    "profile_image_url": "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1729887594",
+    "email": "GABRIELAMTZ6@HOTMAIL.COM"
+  },
+  "features": [
+    {
+      "name": "Seguridad 24 horas",
+      "category": "General"
+    },
+    {
+      "name": "Patio",
+      "category": "Exterior"
+    },
+    {
+      "name": "Facilidad para estacionarse",
+      "category": "Exterior"
+    }
+  ]
+}

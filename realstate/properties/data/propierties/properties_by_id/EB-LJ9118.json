@@ -1,0 +1,30 @@
+﻿{
+    "public_id":  "EB-LJ9118",
+    "title":  "\" SOLE RESIDENCIAL \" FRENTE TEC (SOLARES)",
+    "title_image_full":  "https://assets.easybroker.com/property_images/3229118/87703819/EB-LJ9118.jpeg?version=1742573681",
+    "title_image_thumb":  "https://assets.easybroker.com/property_images/3229118/87703819/EB-LJ9118.jpeg?version=1742573681\u0026width=200",
+    "location":  "Solares, Zapopan, Jalisco",
+    "operations":  [
+                       {
+                           "type":  "sale",
+                           "amount":  7990000.0,
+                           "currency":  "MXN",
+                           "formatted_amount":  "$7,990,000",
+                           "commission":  {
+                                              "type":  "percentage",
+                                              "value":  "4.0"
+                                          },
+                           "unit":  "total"
+                       }
+                   ],
+    "bedrooms":  4,
+    "bathrooms":  4,
+    "parking_spaces":  4,
+    "property_type":  "Casa en condominio",
+    "lot_size":  169.0,
+    "construction_size":  310.0,
+    "updated_at":  "2025-07-27T13:27:04-06:00",
+    "agent":  "Lic.Gabriela Martínez",
+    "show_prices":  true,
+    "share_commission":  true
+}

@@ -1,0 +1,159 @@
+{
+  "public_id": "EB-SB8750",
+  "title": "Terreno en renta ideal para negocio",
+  "description": "Terreno de 314 mts ubicado en esquina de amplias calles.\n\nDIMENSIONES:\n-Sur (sobre calle Irán): 24.5 mts\n-Oriente (sobre calle Procuradores) 26 mts\n-Poniente (fondo): 18 mts\n\nEste terreno es ideal para algún negocio por ejemplo: taller, tienda de conveniencia, farmacia etc.\n\nEn un radio de 1 Km. se localizan: Parroquia San Pablo Apostol, Muebles Americas, Mercado Lazaro Cardenas, Suc. Hermosa Provincia, Veterinaria, Tienda Six, Tiendas de Conveniencia, Tiendas de Abarrotes, Comercios, Casas Habitacionales y Areas de Servicios \n\nNo dejes pasar esta oportunidad.",
+  "bedrooms": null,
+  "bathrooms": null,
+  "half_bathrooms": null,
+  "parking_spaces": null,
+  "lot_size": 314.0,
+  "construction_size": null,
+  "lot_length": null,
+  "lot_width": null,
+  "floors": null,
+  "floor": null,
+  "age": null,
+  "internal_id": "AIDAPROCU",
+  "expenses": null,
+  "location": {
+    "name": "Lagos de Oriente, Guadalajara, Jalisco",
+    "latitude": 20.6702953,
+    "longitude": -103.2902354,
+    "street": "Procuradores",
+    "postal_code": "44750",
+    "show_exact_location": true,
+    "hide_exact_location": false,
+    "exterior_number": "3187",
+    "interior_number": null
+  },
+  "property_type": "Terreno",
+  "created_at": "2025-01-17T12:03:35-06:00",
+  "updated_at": "2025-07-14T13:08:15-06:00",
+  "published_at": "2025-01-17T12:07:51-06:00",
+  "operations": [
+    {
+      "type": "rental",
+      "amount": 21000.0,
+      "currency": "MXN",
+      "formatted_amount": "$21,000",
+      "commission": {
+        "type": "months",
+        "value": 1
+      },
+      "unit": "total"
+    }
+  ],
+  "property_files": [],
+  "videos": [],
+  "virtual_tour": null,
+  "collaboration_notes": null,
+  "public_url": "https://www.easybroker.com/mx/listings/terreno-en-renta-ideal-para-negocio-lagos-de-oriente",
+  "shared_commission_percentage": null,
+  "exclusive": true,
+  "foreclosure": false,
+  "tags": [],
+  "private_description": null,
+  "show_prices": true,
+  "share_commission": false,
+  "property_images": [
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4968750/84822716/EB-SB8750.jpg?version=1737137267"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4968750/84822713/EB-SB8750.jpg?version=1737137267"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4968750/84822714/EB-SB8750.jpg?version=1737137267"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4968750/84822800/EB-SB8750.jpg?version=1737137267"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4968750/84822804/EB-SB8750.jpg?version=1737137267"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4968750/84822856/EB-SB8750.jpg?version=1737137267"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4968750/84822857/EB-SB8750.jpg?version=1737137267"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4968750/84822887/EB-SB8750.jpg?version=1737137267"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4968750/84822888/EB-SB8750.jpg?version=1737137267"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4968750/84822892/EB-SB8750.jpg?version=1737137267"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4968750/84822932/EB-SB8750.jpg?version=1737137267"
+    }
+  ],
+  "images": [
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4968750/84822716/EB-SB8750.jpg?version=1737137267"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4968750/84822713/EB-SB8750.jpg?version=1737137267"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4968750/84822714/EB-SB8750.jpg?version=1737137267"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4968750/84822800/EB-SB8750.jpg?version=1737137267"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4968750/84822804/EB-SB8750.jpg?version=1737137267"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4968750/84822856/EB-SB8750.jpg?version=1737137267"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4968750/84822857/EB-SB8750.jpg?version=1737137267"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4968750/84822887/EB-SB8750.jpg?version=1737137267"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4968750/84822888/EB-SB8750.jpg?version=1737137267"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4968750/84822892/EB-SB8750.jpg?version=1737137267"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4968750/84822932/EB-SB8750.jpg?version=1737137267"
+    }
+  ],
+  "agent": {
+    "id": 391012,
+    "name": "Lic.Gabriela Martínez",
+    "full_name": "Lic.Gabriela Martínez",
+    "mobile_phone": "+523338087984",
+    "profile_image_url": "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1729887594",
+    "email": "GABRIELAMTZ6@HOTMAIL.COM"
+  },
+  "features": []
+}

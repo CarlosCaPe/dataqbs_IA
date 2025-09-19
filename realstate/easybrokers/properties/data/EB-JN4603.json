@@ -1,0 +1,200 @@
+{
+  "public_id": "EB-JN4603",
+  "title": "CASA EN VENTA , SENDERO DE LAS MORAS",
+  "description": "Moderna casa en Sendero de las Moras, Tlajomulco de Zuñiga, Jalisco.\nExcelente distribucion y acabados de lujo.\nCuenta con cuatro habitaciones, una de ellas en planta baja, ideal para oficina o estudio, vista a la calle, baño completo compartido con zona común. La habitacion principal con amplio vestidor en U, 3 baños completos,  sala, comedor, cocina integral con barra desayunador, concepto abierto, cochera para dos autos, terraza y area de lavado oculto.\nCasa club con alberca, area infantil, gimnasio, areas de asador, sala de usos multiples, vigilancia \nlas 24 horas.",
+  "bedrooms": 4,
+  "bathrooms": 3,
+  "half_bathrooms": null,
+  "parking_spaces": 2,
+  "lot_size": 144.0,
+  "construction_size": 180.0,
+  "lot_length": 20.0,
+  "lot_width": 7.0,
+  "floors": 2,
+  "floor": null,
+  "age": "new_construction",
+  "internal_id": null,
+  "expenses": null,
+  "location": {
+    "name": "Sendero las Moras, Tlajomulco de Zúñiga, Jalisco",
+    "latitude": 20.5574822,
+    "longitude": -103.4786508,
+    "street": "Anochecer",
+    "postal_code": "45645",
+    "show_exact_location": true,
+    "hide_exact_location": false,
+    "exterior_number": "70",
+    "interior_number": "186"
+  },
+  "property_type": "Casa",
+  "created_at": "2022-02-02T18:29:48-06:00",
+  "updated_at": "2025-05-12T12:09:04-06:00",
+  "published_at": "2022-09-02T13:27:06-05:00",
+  "operations": [
+    {
+      "type": "sale",
+      "amount": 3790000.0,
+      "currency": "MXN",
+      "formatted_amount": "$3,790,000",
+      "commission": {
+        "type": "percentage",
+        "value": "2.0"
+      },
+      "unit": "total"
+    }
+  ],
+  "property_files": [],
+  "videos": [],
+  "virtual_tour": null,
+  "collaboration_notes": "2%",
+  "public_url": "https://www.easybroker.com/mx/listings/casa-en-venta-sendero-de-las-moras-sendero-las-moras-tlajomulco-de-zuniga",
+  "shared_commission_percentage": null,
+  "exclusive": null,
+  "foreclosure": false,
+  "tags": [],
+  "private_description": null,
+  "show_prices": true,
+  "share_commission": true,
+  "property_images": [
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/2744603/43336968/EB-JN4603.jpg?version=1643850448"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/2744603/43336975/EB-JN4603.jpg?version=1643850448"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/2744603/43336997/EB-JN4603.jpg?version=1643850448"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/2744603/43337047/EB-JN4603.jpg?version=1643850448"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/2744603/43337064/EB-JN4603.jpg?version=1643850448"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/2744603/43337082/EB-JN4603.jpg?version=1643850448"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/2744603/43337092/EB-JN4603.jpg?version=1643850448"
+    }
+  ],
+  "images": [
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/2744603/43336968/EB-JN4603.jpg?version=1643850448"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/2744603/43336975/EB-JN4603.jpg?version=1643850448"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/2744603/43336997/EB-JN4603.jpg?version=1643850448"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/2744603/43337047/EB-JN4603.jpg?version=1643850448"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/2744603/43337064/EB-JN4603.jpg?version=1643850448"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/2744603/43337082/EB-JN4603.jpg?version=1643850448"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/2744603/43337092/EB-JN4603.jpg?version=1643850448"
+    }
+  ],
+  "agent": {
+    "id": 391012,
+    "name": "Lic.Gabriela Martínez",
+    "full_name": "Lic.Gabriela Martínez",
+    "mobile_phone": "+523338087984",
+    "profile_image_url": "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1729887594",
+    "email": "GABRIELAMTZ6@HOTMAIL.COM"
+  },
+  "features": [
+    {
+      "name": "Cisterna",
+      "category": "Exterior"
+    },
+    {
+      "name": "Facilidad para estacionarse",
+      "category": "Exterior"
+    },
+    {
+      "name": "Garaje",
+      "category": "Exterior"
+    },
+    {
+      "name": "Jardín",
+      "category": "Exterior"
+    },
+    {
+      "name": "Patio",
+      "category": "Exterior"
+    },
+    {
+      "name": "Terraza",
+      "category": "Exterior"
+    },
+    {
+      "name": "Cocina integral",
+      "category": "General"
+    },
+    {
+      "name": "Dos plantas",
+      "category": "General"
+    },
+    {
+      "name": "Fraccionamiento privado",
+      "category": "General"
+    },
+    {
+      "name": "Hidroneumático",
+      "category": "General"
+    },
+    {
+      "name": "Planta Baja",
+      "category": "General"
+    },
+    {
+      "name": "Portero",
+      "category": "General"
+    },
+    {
+      "name": "Seguridad 24 horas",
+      "category": "General"
+    },
+    {
+      "name": "Alberca",
+      "category": "Recreación"
+    },
+    {
+      "name": "Área de juegos infantiles",
+      "category": "Recreación"
+    },
+    {
+      "name": "Gimnasio",
+      "category": "Recreación"
+    },
+    {
+      "name": "Salón de usos múltiples",
+      "category": "Recreación"
+    },
+    {
+      "name": "Mascotas permitidas",
+      "category": "Políticas"
+    }
+  ]
+}

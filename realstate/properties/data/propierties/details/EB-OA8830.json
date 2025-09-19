@@ -1,0 +1,191 @@
+﻿{
+    "public_id":  "EB-OA8830",
+    "title":  "SANTA TERE, ,BODEGA PARA ALMACENAR, PARA OFICINAS,CONSULTORIOS,CASA HABITACION",
+    "description":  "CASA MUY AMPLIA EN ALTOS, CALLE IGNACIO RAMIREZ 508 SANTA TERE. \nESTA EN PLANTA ALTA, A UN LADO DE DOS LOCALES. \nEXCELENTE PARA OFICINAS, CONSUTORIOS CASA ETC ETC\nCUETA CON 4 RECAMARAS MUY AMLIAS. DOS BAÑOS CMPLETOS,SALA COMEDOR.COCINA INTEGRAL AREA DE LAVADO. NO TIENE COCHERA",
+    "bedrooms":  null,
+    "bathrooms":  null,
+    "half_bathrooms":  null,
+    "parking_spaces":  null,
+    "lot_size":  null,
+    "construction_size":  null,
+    "lot_length":  null,
+    "lot_width":  null,
+    "floors":  null,
+    "floor":  null,
+    "age":  null,
+    "internal_id":  null,
+    "expenses":  null,
+    "location":  {
+                     "name":  "Santa Teresita, Guadalajara, Jalisco",
+                     "latitude":  20.6843128,
+                     "longitude":  -103.3635337,
+                     "street":  "IGNACIO RAMIREZ",
+                     "postal_code":  "44600",
+                     "show_exact_location":  true,
+                     "hide_exact_location":  false,
+                     "exterior_number":  "508",
+                     "interior_number":  null
+                 },
+    "property_type":  "Bodega comercial",
+    "created_at":  "2023-08-01T16:48:53-06:00",
+    "updated_at":  "2025-05-12T12:09:04-06:00",
+    "published_at":  "2023-08-01T17:26:57-06:00",
+    "operations":  [
+                       {
+                           "type":  "rental",
+                           "amount":  21000.0,
+                           "currency":  "MXN",
+                           "formatted_amount":  "$21,000",
+                           "commission":  {
+                                              "type":  "amount",
+                                              "currency":  "MXN"
+                                          },
+                           "unit":  "total"
+                       }
+                   ],
+    "property_files":  [
+
+                       ],
+    "videos":  [
+
+               ],
+    "virtual_tour":  null,
+    "collaboration_notes":  null,
+    "public_url":  "https://www.easybroker.com/mx/listings/casa-en-santa-tere-para-oficinas-consultorios-casa-habitacion",
+    "shared_commission_percentage":  null,
+    "exclusive":  null,
+    "foreclosure":  false,
+    "tags":  [
+
+             ],
+    "private_description":  null,
+    "show_prices":  true,
+    "share_commission":  false,
+    "property_images":  [
+                            {
+                                "title":  "RECAMARA UNO",
+                                "url":  "https://assets.easybroker.com/property_images/3918830/64493258/EB-OA8830.JPG?version=1690932417"
+                            },
+                            {
+                                "title":  "COCINA",
+                                "url":  "https://assets.easybroker.com/property_images/3918830/64492823/EB-OA8830.JPG?version=1690932417"
+                            },
+                            {
+                                "title":  "COCINA",
+                                "url":  "https://assets.easybroker.com/property_images/3918830/64492827/EB-OA8830.JPG?version=1690932417"
+                            },
+                            {
+                                "title":  "FACHADA",
+                                "url":  "https://assets.easybroker.com/property_images/3918830/64492840/EB-OA8830.JPG?version=1690932417"
+                            },
+                            {
+                                "title":  "PASILLO RECIBIDOR",
+                                "url":  "https://assets.easybroker.com/property_images/3918830/64492859/EB-OA8830.JPG?version=1690932417"
+                            },
+                            {
+                                "title":  "SALA",
+                                "url":  "https://assets.easybroker.com/property_images/3918830/64492869/EB-OA8830.JPG?version=1690932417"
+                            },
+                            {
+                                "title":  "SALA",
+                                "url":  "https://assets.easybroker.com/property_images/3918830/64492870/EB-OA8830.JPG?version=1690932417"
+                            },
+                            {
+                                "title":  "ALACENA",
+                                "url":  "https://assets.easybroker.com/property_images/3918830/64492877/EB-OA8830.JPG?version=1690932417"
+                            },
+                            {
+                                "title":  "ESCALERAS",
+                                "url":  "https://assets.easybroker.com/property_images/3918830/64492881/EB-OA8830.JPG?version=1690932417"
+                            },
+                            {
+                                "title":  "BAÑO",
+                                "url":  "https://assets.easybroker.com/property_images/3918830/64493265/EB-OA8830.JPG?version=1690932417"
+                            },
+                            {
+                                "title":  "PASILLO",
+                                "url":  "https://assets.easybroker.com/property_images/3918830/64493272/EB-OA8830.JPG?version=1690932417"
+                            },
+                            {
+                                "title":  "BAÑO",
+                                "url":  "https://assets.easybroker.com/property_images/3918830/64493302/EB-OA8830.JPG?version=1690932417"
+                            },
+                            {
+                                "title":  "INGRESO",
+                                "url":  "https://assets.easybroker.com/property_images/3918830/64493307/EB-OA8830.JPG?version=1690932417"
+                            },
+                            {
+                                "title":  "RECAMARA DOS",
+                                "url":  "https://assets.easybroker.com/property_images/3918830/64493312/EB-OA8830.JPG?version=1690932417"
+                            }
+                        ],
+    "images":  [
+                   {
+                       "title":  "RECAMARA UNO",
+                       "url":  "https://assets.easybroker.com/property_images/3918830/64493258/EB-OA8830.JPG?version=1690932417"
+                   },
+                   {
+                       "title":  "COCINA",
+                       "url":  "https://assets.easybroker.com/property_images/3918830/64492823/EB-OA8830.JPG?version=1690932417"
+                   },
+                   {
+                       "title":  "COCINA",
+                       "url":  "https://assets.easybroker.com/property_images/3918830/64492827/EB-OA8830.JPG?version=1690932417"
+                   },
+                   {
+                       "title":  "FACHADA",
+                       "url":  "https://assets.easybroker.com/property_images/3918830/64492840/EB-OA8830.JPG?version=1690932417"
+                   },
+                   {
+                       "title":  "PASILLO RECIBIDOR",
+                       "url":  "https://assets.easybroker.com/property_images/3918830/64492859/EB-OA8830.JPG?version=1690932417"
+                   },
+                   {
+                       "title":  "SALA",
+                       "url":  "https://assets.easybroker.com/property_images/3918830/64492869/EB-OA8830.JPG?version=1690932417"
+                   },
+                   {
+                       "title":  "SALA",
+                       "url":  "https://assets.easybroker.com/property_images/3918830/64492870/EB-OA8830.JPG?version=1690932417"
+                   },
+                   {
+                       "title":  "ALACENA",
+                       "url":  "https://assets.easybroker.com/property_images/3918830/64492877/EB-OA8830.JPG?version=1690932417"
+                   },
+                   {
+                       "title":  "ESCALERAS",
+                       "url":  "https://assets.easybroker.com/property_images/3918830/64492881/EB-OA8830.JPG?version=1690932417"
+                   },
+                   {
+                       "title":  "BAÑO",
+                       "url":  "https://assets.easybroker.com/property_images/3918830/64493265/EB-OA8830.JPG?version=1690932417"
+                   },
+                   {
+                       "title":  "PASILLO",
+                       "url":  "https://assets.easybroker.com/property_images/3918830/64493272/EB-OA8830.JPG?version=1690932417"
+                   },
+                   {
+                       "title":  "BAÑO",
+                       "url":  "https://assets.easybroker.com/property_images/3918830/64493302/EB-OA8830.JPG?version=1690932417"
+                   },
+                   {
+                       "title":  "INGRESO",
+                       "url":  "https://assets.easybroker.com/property_images/3918830/64493307/EB-OA8830.JPG?version=1690932417"
+                   },
+                   {
+                       "title":  "RECAMARA DOS",
+                       "url":  "https://assets.easybroker.com/property_images/3918830/64493312/EB-OA8830.JPG?version=1690932417"
+                   }
+               ],
+    "agent":  {
+                  "id":  391012,
+                  "name":  "Lic.Gabriela Martínez",
+                  "full_name":  "Lic.Gabriela Martínez",
+                  "mobile_phone":  "+523338087984",
+                  "profile_image_url":  "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1757459148",
+                  "email":  "GABRIELAMTZ6@HOTMAIL.COM"
+              },
+    "features":  [
+
+                 ]
+}

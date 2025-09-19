@@ -1,0 +1,370 @@
+﻿{
+    "public_id":  "EB-SN4503",
+    "title":  "Casa en Venta en Cd Granja (a espaldas del parque Metropolitano)",
+    "description":  "Casa en coto en Cd Granja a solo unas cuadras del parque Metropolitano y a pocos metros de la Universidad Panamericana \n\nPLANTA BAJA:\n•Estacionamiento para dos automóviles \n•Sala/comedor con gran iluminación natural\n•Medio baño\n•Family room\n•Cocina equipada con amplia alacena\n•Patio interior semi techado.\n•Área de lavado\n•Cuarto de servicio con baño completo  \n\nPLANTA ALTA:\n•Distribuidor\n•Dos recamaras gemelas con closet\n•Baño completo\n•Recámara principal con closet, aire acondicionado + baño completo y balcón.\n\n-Hidroneumático\n-Boiler con menos de 2 años\n\nFraccionamiento Tauro cuenta con áreas comunes con juegos infantiles y la privacidad de contar solo con 22 casas.\n\nNo pierdas la oportunidad de vivir en una de las zonas con mayor plusvalía y mejor ubicación de todo Guadalajara.",
+    "bedrooms":  4,
+    "bathrooms":  3,
+    "half_bathrooms":  1,
+    "parking_spaces":  2,
+    "lot_size":  148.75,
+    "construction_size":  137.0,
+    "lot_length":  null,
+    "lot_width":  null,
+    "floors":  2,
+    "floor":  null,
+    "age":  2005,
+    "internal_id":  null,
+    "expenses":  "1350",
+    "location":  {
+                     "name":  "Ciudad Granja, Zapopan, Jalisco",
+                     "latitude":  20.6721653,
+                     "longitude":  -103.4521388,
+                     "street":  "Calz. Circunvalacion Ote. 621.",
+                     "postal_code":  "45010",
+                     "show_exact_location":  true,
+                     "hide_exact_location":  false,
+                     "exterior_number":  "621",
+                     "interior_number":  "34"
+                 },
+    "property_type":  "Casa en condominio",
+    "created_at":  "2025-03-09T14:58:36-06:00",
+    "updated_at":  "2025-08-01T17:09:03-06:00",
+    "published_at":  "2025-03-09T15:27:06-06:00",
+    "operations":  [
+                       {
+                           "type":  "sale",
+                           "amount":  7200000.0,
+                           "currency":  "MXN",
+                           "formatted_amount":  "$7,200,000",
+                           "commission":  {
+                                              "type":  "percentage",
+                                              "value":  "4.0"
+                                          },
+                           "unit":  "total"
+                       }
+                   ],
+    "property_files":  [
+
+                       ],
+    "videos":  [
+
+               ],
+    "virtual_tour":  null,
+    "collaboration_notes":  "Comisión compartida del 50% a Inmobiliarias afiliadas",
+    "public_url":  "https://www.easybroker.com/mx/listings/casa-en-venta-en-cd-granja-a-espaldas-del-parque-metropolitano",
+    "shared_commission_percentage":  50.0,
+    "exclusive":  true,
+    "foreclosure":  false,
+    "tags":  [
+
+             ],
+    "private_description":  null,
+    "show_prices":  true,
+    "share_commission":  true,
+    "property_images":  [
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5084503/87126294/EB-SN4503.jpeg?version=1742405125"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5084503/87543449/EB-SN4503.jpeg?version=1742405125"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5084503/87126293/EB-SN4503.jpeg?version=1742405125"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5084503/87126292/EB-SN4503.jpeg?version=1742405125"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5084503/87126305/EB-SN4503.jpeg?version=1742405125"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5084503/87126306/EB-SN4503.jpeg?version=1742405125"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5084503/87126307/EB-SN4503.jpeg?version=1742405125"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5084503/87126309/EB-SN4503.jpeg?version=1742405125"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5084503/87126310/EB-SN4503.jpeg?version=1742405125"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5084503/87126311/EB-SN4503.jpeg?version=1742405125"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5084503/87126312/EB-SN4503.jpeg?version=1742405125"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5084503/87126313/EB-SN4503.jpeg?version=1742405125"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5084503/87126314/EB-SN4503.jpeg?version=1742405125"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5084503/87126315/EB-SN4503.jpeg?version=1742405125"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5084503/87126316/EB-SN4503.jpeg?version=1742405125"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5084503/87126317/EB-SN4503.jpeg?version=1742405125"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5084503/87126318/EB-SN4503.jpeg?version=1742405125"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5084503/87126319/EB-SN4503.jpeg?version=1742405125"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5084503/87126320/EB-SN4503.jpeg?version=1742405125"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5084503/87126321/EB-SN4503.jpeg?version=1742405125"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5084503/87126322/EB-SN4503.jpeg?version=1742405125"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5084503/87126323/EB-SN4503.jpeg?version=1742405125"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5084503/87126324/EB-SN4503.jpeg?version=1742405125"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5084503/87126325/EB-SN4503.jpeg?version=1742405125"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5084503/87126326/EB-SN4503.jpeg?version=1742405125"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5084503/87126327/EB-SN4503.jpeg?version=1742405125"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5084503/87126328/EB-SN4503.jpeg?version=1742405125"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5084503/87126329/EB-SN4503.jpeg?version=1742405125"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5084503/87126330/EB-SN4503.jpeg?version=1742405125"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5084503/87126331/EB-SN4503.jpeg?version=1742405125"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5084503/87126332/EB-SN4503.jpeg?version=1742405125"
+                            }
+                        ],
+    "images":  [
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5084503/87126294/EB-SN4503.jpeg?version=1742405125"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5084503/87543449/EB-SN4503.jpeg?version=1742405125"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5084503/87126293/EB-SN4503.jpeg?version=1742405125"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5084503/87126292/EB-SN4503.jpeg?version=1742405125"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5084503/87126305/EB-SN4503.jpeg?version=1742405125"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5084503/87126306/EB-SN4503.jpeg?version=1742405125"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5084503/87126307/EB-SN4503.jpeg?version=1742405125"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5084503/87126309/EB-SN4503.jpeg?version=1742405125"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5084503/87126310/EB-SN4503.jpeg?version=1742405125"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5084503/87126311/EB-SN4503.jpeg?version=1742405125"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5084503/87126312/EB-SN4503.jpeg?version=1742405125"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5084503/87126313/EB-SN4503.jpeg?version=1742405125"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5084503/87126314/EB-SN4503.jpeg?version=1742405125"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5084503/87126315/EB-SN4503.jpeg?version=1742405125"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5084503/87126316/EB-SN4503.jpeg?version=1742405125"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5084503/87126317/EB-SN4503.jpeg?version=1742405125"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5084503/87126318/EB-SN4503.jpeg?version=1742405125"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5084503/87126319/EB-SN4503.jpeg?version=1742405125"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5084503/87126320/EB-SN4503.jpeg?version=1742405125"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5084503/87126321/EB-SN4503.jpeg?version=1742405125"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5084503/87126322/EB-SN4503.jpeg?version=1742405125"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5084503/87126323/EB-SN4503.jpeg?version=1742405125"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5084503/87126324/EB-SN4503.jpeg?version=1742405125"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5084503/87126325/EB-SN4503.jpeg?version=1742405125"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5084503/87126326/EB-SN4503.jpeg?version=1742405125"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5084503/87126327/EB-SN4503.jpeg?version=1742405125"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5084503/87126328/EB-SN4503.jpeg?version=1742405125"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5084503/87126329/EB-SN4503.jpeg?version=1742405125"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5084503/87126330/EB-SN4503.jpeg?version=1742405125"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5084503/87126331/EB-SN4503.jpeg?version=1742405125"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5084503/87126332/EB-SN4503.jpeg?version=1742405125"
+                   }
+               ],
+    "agent":  {
+                  "id":  391012,
+                  "name":  "Lic.Gabriela Martínez",
+                  "full_name":  "Lic.Gabriela Martínez",
+                  "mobile_phone":  "+523338087984",
+                  "profile_image_url":  "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1757459148",
+                  "email":  "GABRIELAMTZ6@HOTMAIL.COM"
+              },
+    "features":  [
+                     {
+                         "name":  "Cisterna",
+                         "category":  "Exterior"
+                     },
+                     {
+                         "name":  "Facilidad para estacionarse",
+                         "category":  "Exterior"
+                     },
+                     {
+                         "name":  "Patio",
+                         "category":  "Exterior"
+                     },
+                     {
+                         "name":  "Terraza",
+                         "category":  "Exterior"
+                     },
+                     {
+                         "name":  "Aire acondicionado",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Cocina equipada",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Cuarto de servicio",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Dos plantas",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Estudio",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Fraccionamiento privado",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Área de juegos infantiles",
+                         "category":  "Recreación"
+                     }
+                 ]
+}

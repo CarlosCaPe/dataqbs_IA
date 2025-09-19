@@ -1,0 +1,100 @@
+{
+  "public_id": "EB-BP1673",
+  "title": "TERRENO EN VENTA EN EL RIO HABITAT COTO LA NORIA",
+  "description": "Hermoso terreno en forma regular, plano, en un coto con seguridad y vigilancia, cuenta con un gran campo de golf.",
+  "bedrooms": null,
+  "bathrooms": null,
+  "half_bathrooms": null,
+  "parking_spaces": null,
+  "lot_size": 816.0,
+  "construction_size": null,
+  "lot_length": null,
+  "lot_width": null,
+  "floors": null,
+  "floor": null,
+  "age": null,
+  "internal_id": null,
+  "expenses": null,
+  "location": {
+    "name": "El Arenal, El Arenal, Jalisco",
+    "latitude": 20.775698,
+    "longitude": -103.6951543,
+    "street": null,
+    "postal_code": null,
+    "show_exact_location": true,
+    "hide_exact_location": false,
+    "exterior_number": null,
+    "interior_number": null
+  },
+  "property_type": "Terreno",
+  "created_at": "2018-03-26T14:10:00-06:00",
+  "updated_at": "2025-05-12T12:09:04-06:00",
+  "published_at": "2018-03-26T15:11:14-06:00",
+  "operations": [
+    {
+      "type": "sale",
+      "amount": 2774400.0,
+      "currency": "MXN",
+      "formatted_amount": "$2,774,400",
+      "commission": {
+        "type": "percentage",
+        "value": "5.0"
+      },
+      "unit": "total"
+    }
+  ],
+  "property_files": [],
+  "videos": [],
+  "virtual_tour": null,
+  "collaboration_notes": "",
+  "public_url": "https://www.easybroker.com/mx/listings/terreno-en-venta-en-el-rio-habitat-coto-la-noria",
+  "shared_commission_percentage": null,
+  "exclusive": null,
+  "foreclosure": false,
+  "tags": [],
+  "private_description": null,
+  "show_prices": true,
+  "share_commission": true,
+  "property_images": [
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/681673/10367406/EB-BP1673.JPG?version=1522098674"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/681673/10367494/EB-BP1673.JPG?version=1522098674"
+    }
+  ],
+  "images": [
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/681673/10367406/EB-BP1673.JPG?version=1522098674"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/681673/10367494/EB-BP1673.JPG?version=1522098674"
+    }
+  ],
+  "agent": {
+    "id": 391012,
+    "name": "Lic.Gabriela Martínez",
+    "full_name": "Lic.Gabriela Martínez",
+    "mobile_phone": "+523338087984",
+    "profile_image_url": "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1729887594",
+    "email": "GABRIELAMTZ6@HOTMAIL.COM"
+  },
+  "features": [
+    {
+      "name": "Jardín",
+      "category": "Exterior"
+    },
+    {
+      "name": "Seguridad 24 horas",
+      "category": "General"
+    },
+    {
+      "name": "Área de juegos infantiles",
+      "category": "Recreación"
+    }
+  ]
+}

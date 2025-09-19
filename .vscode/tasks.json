@@ -32,21 +32,21 @@
 			"group": "build"
 		},
 		{
-			"label": "EasyBrokers: Install deps",
+			"label": "Realstate: Install deps",
 			"type": "shell",
 			"command": "poetry install",
 			"options": {
-				"cwd": "${workspaceFolder}/easybrokers"
+				"cwd": "${workspaceFolder}/realstate"
 			},
 			"args": [],
 			"group": "build"
 		},
 		{
-			"label": "EasyBrokers: Run test_download.py",
+			"label": "Realstate: Run test_download.py",
 			"type": "shell",
 			"command": "poetry run python test_download.py",
 			"options": {
-				"cwd": "${workspaceFolder}/easybrokers"
+				"cwd": "${workspaceFolder}/realstate"
 			},
 			"args": [],
 			"group": "build"

@@ -1,0 +1,127 @@
+{
+  "public_id": "EB-CP2250",
+  "title": "CASA FRENTE A UNIVA",
+  "description": "EXCELENTE CASA EN DOS PLANTAS.\nCOCHERA TECHADA PARA TRES AUTOS CON PORTON ELECTRICO.\nPLANTA BAJA: SALA,COMEDOR,COCINA INTEGRASL ,MEDIOBAÑO,ARE DE LAVADO,CUARTO DE SERVICIO CON BAÑO.\nPLANTA ALTA: 4 RECAMARAS LA PRINCIPAL CON CLOSET VESTIDOR Y BAÑO Y LAS OTRAS TRES UNA BAÑO COMPLETO.",
+  "bedrooms": 5,
+  "bathrooms": 3,
+  "half_bathrooms": 1,
+  "parking_spaces": 3,
+  "lot_size": 152.0,
+  "construction_size": 247.0,
+  "lot_length": null,
+  "lot_width": null,
+  "floors": null,
+  "floor": null,
+  "age": null,
+  "internal_id": null,
+  "expenses": "NO",
+  "location": {
+    "name": "Prados Tepeyac, Zapopan, Jalisco",
+    "latitude": 20.6573731,
+    "longitude": -103.4192548,
+    "street": "SANTA CATALINA DE SIENA",
+    "postal_code": "45047",
+    "show_exact_location": true,
+    "hide_exact_location": false,
+    "exterior_number": "1065",
+    "interior_number": null
+  },
+  "property_type": "Casa",
+  "created_at": "2019-02-06T11:08:13-06:00",
+  "updated_at": "2025-05-12T12:09:04-06:00",
+  "published_at": "2019-02-06T11:09:36-06:00",
+  "operations": [
+    {
+      "type": "rental",
+      "amount": 18000.0,
+      "currency": "MXN",
+      "formatted_amount": "$18,000",
+      "commission": {
+        "type": "percentage"
+      },
+      "unit": "total"
+    }
+  ],
+  "property_files": [],
+  "videos": [],
+  "virtual_tour": null,
+  "collaboration_notes": "MEDI O MES DE RENTA",
+  "public_url": "https://www.easybroker.com/mx/listings/casa-frente-a-univa",
+  "shared_commission_percentage": null,
+  "exclusive": null,
+  "foreclosure": false,
+  "tags": [],
+  "private_description": null,
+  "show_prices": true,
+  "share_commission": true,
+  "property_images": [
+    {
+      "title": "FACHADA",
+      "url": "https://assets.easybroker.com/property_images/942250/14182902/EB-CP2250.jpg?version=1549472976"
+    },
+    {
+      "title": "FACHADA",
+      "url": "https://assets.easybroker.com/property_images/942250/14182911/EB-CP2250.jpg?version=1549472976"
+    },
+    {
+      "title": "BAÑO",
+      "url": "https://assets.easybroker.com/property_images/942250/14182912/EB-CP2250.jpg?version=1549472976"
+    },
+    {
+      "title": "RECAMARA",
+      "url": "https://assets.easybroker.com/property_images/942250/14182923/EB-CP2250.jpg?version=1549472976"
+    }
+  ],
+  "images": [
+    {
+      "title": "FACHADA",
+      "url": "https://assets.easybroker.com/property_images/942250/14182902/EB-CP2250.jpg?version=1549472976"
+    },
+    {
+      "title": "FACHADA",
+      "url": "https://assets.easybroker.com/property_images/942250/14182911/EB-CP2250.jpg?version=1549472976"
+    },
+    {
+      "title": "BAÑO",
+      "url": "https://assets.easybroker.com/property_images/942250/14182912/EB-CP2250.jpg?version=1549472976"
+    },
+    {
+      "title": "RECAMARA",
+      "url": "https://assets.easybroker.com/property_images/942250/14182923/EB-CP2250.jpg?version=1549472976"
+    }
+  ],
+  "agent": {
+    "id": 391012,
+    "name": "Lic.Gabriela Martínez",
+    "full_name": "Lic.Gabriela Martínez",
+    "mobile_phone": "+523338087984",
+    "profile_image_url": "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1729887594",
+    "email": "GABRIELAMTZ6@HOTMAIL.COM"
+  },
+  "features": [
+    {
+      "name": "Estacionamiento techado",
+      "category": "Exterior"
+    },
+    {
+      "name": "Patio",
+      "category": "Exterior"
+    },
+    {
+      "name": "Cisterna",
+      "category": "Exterior"
+    },
+    {
+      "name": "Cocina integral",
+      "category": "General"
+    },
+    {
+      "name": "Cuarto de servicio",
+      "category": "General"
+    },
+    {
+      "name": "Facilidad para estacionarse",
+      "category": "Exterior"
+    }
+  ]
+}

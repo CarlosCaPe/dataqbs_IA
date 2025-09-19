@@ -1,0 +1,178 @@
+﻿{
+    "public_id":  "EB-BO3738",
+    "title":  "CASA EN VENTA EN COL MARIANO OTERO",
+    "description":  "Ubicada en esquina con mucho espacio para estacionamiento, cochera media techada para 3 autos con portón corredizo. Al ingreso un espacio de 5x20 aproximadamente para sala comedor, del lado izquierdo la cocina con alacena, un baño completo, patio de servicio y la recamara principal con baño completo. en la parte trasera una terraza y una habitación con closet. La casa está habilitada para un segundo piso, todos los espacios son bastante amplios y bien iluminados. Servicios básicos, agua, luz, gas y teléfono. En los alrededores hay todo tipo de comercios esta sobre una calle con bastante movimiento vehicular.\nEs para remodelar esta en esquina, puede usarse para oficinas, locales o bien remodelada como casa habitación.\nEsta a 2 minutos de Periférico y a una cuadra de Mariano Otero.",
+    "bedrooms":  2,
+    "bathrooms":  2,
+    "half_bathrooms":  null,
+    "parking_spaces":  3,
+    "lot_size":  260.0,
+    "construction_size":  190.0,
+    "lot_length":  null,
+    "lot_width":  null,
+    "floors":  null,
+    "floor":  null,
+    "age":  null,
+    "internal_id":  null,
+    "expenses":  null,
+    "location":  {
+                     "name":  "Mariano Otero, Zapopan, Jalisco",
+                     "latitude":  20.6319527,
+                     "longitude":  -103.4483451,
+                     "street":  "BELISARIO DOMINGUEZ",
+                     "postal_code":  null,
+                     "show_exact_location":  true,
+                     "hide_exact_location":  false,
+                     "exterior_number":  null,
+                     "interior_number":  null
+                 },
+    "property_type":  "Casa",
+    "created_at":  "2018-03-15T16:33:15-06:00",
+    "updated_at":  "2025-05-12T12:09:04-06:00",
+    "published_at":  "2018-03-15T16:35:09-06:00",
+    "operations":  [
+                       {
+                           "type":  "sale",
+                           "amount":  1950000.0,
+                           "currency":  "MXN",
+                           "formatted_amount":  "$1,950,000",
+                           "commission":  {
+                                              "type":  "percentage",
+                                              "value":  "5.0"
+                                          },
+                           "unit":  "total"
+                       }
+                   ],
+    "property_files":  [
+
+                       ],
+    "videos":  [
+
+               ],
+    "virtual_tour":  null,
+    "collaboration_notes":  "",
+    "public_url":  "https://www.easybroker.com/mx/listings/casa-en-venta-en-col-mariano-otero",
+    "shared_commission_percentage":  null,
+    "exclusive":  null,
+    "foreclosure":  false,
+    "tags":  [
+
+             ],
+    "private_description":  null,
+    "show_prices":  true,
+    "share_commission":  true,
+    "property_images":  [
+                            {
+                                "title":  "",
+                                "url":  "https://assets.easybroker.com/property_images/673738/10266281/EB-BO3738.JPG?version=1521153309"
+                            },
+                            {
+                                "title":  "",
+                                "url":  "https://assets.easybroker.com/property_images/673738/10266271/EB-BO3738.JPG?version=1521153309"
+                            },
+                            {
+                                "title":  "",
+                                "url":  "https://assets.easybroker.com/property_images/673738/10266272/EB-BO3738.JPG?version=1521153309"
+                            },
+                            {
+                                "title":  "",
+                                "url":  "https://assets.easybroker.com/property_images/673738/10266273/EB-BO3738.JPG?version=1521153309"
+                            },
+                            {
+                                "title":  "",
+                                "url":  "https://assets.easybroker.com/property_images/673738/10266275/EB-BO3738.JPG?version=1521153309"
+                            },
+                            {
+                                "title":  "",
+                                "url":  "https://assets.easybroker.com/property_images/673738/10266276/EB-BO3738.JPG?version=1521153310"
+                            },
+                            {
+                                "title":  "",
+                                "url":  "https://assets.easybroker.com/property_images/673738/10266277/EB-BO3738.png?version=1521153310"
+                            },
+                            {
+                                "title":  "",
+                                "url":  "https://assets.easybroker.com/property_images/673738/10266278/EB-BO3738.png?version=1521153310"
+                            },
+                            {
+                                "title":  "",
+                                "url":  "https://assets.easybroker.com/property_images/673738/10266279/EB-BO3738.png?version=1521153310"
+                            },
+                            {
+                                "title":  "",
+                                "url":  "https://assets.easybroker.com/property_images/673738/10266280/EB-BO3738.JPG?version=1521153310"
+                            },
+                            {
+                                "title":  "",
+                                "url":  "https://assets.easybroker.com/property_images/673738/10266282/EB-BO3738.png?version=1521153310"
+                            },
+                            {
+                                "title":  "",
+                                "url":  "https://assets.easybroker.com/property_images/673738/10266283/EB-BO3738.png?version=1521153310"
+                            }
+                        ],
+    "images":  [
+                   {
+                       "title":  "",
+                       "url":  "https://assets.easybroker.com/property_images/673738/10266281/EB-BO3738.JPG?version=1521153309"
+                   },
+                   {
+                       "title":  "",
+                       "url":  "https://assets.easybroker.com/property_images/673738/10266271/EB-BO3738.JPG?version=1521153309"
+                   },
+                   {
+                       "title":  "",
+                       "url":  "https://assets.easybroker.com/property_images/673738/10266272/EB-BO3738.JPG?version=1521153309"
+                   },
+                   {
+                       "title":  "",
+                       "url":  "https://assets.easybroker.com/property_images/673738/10266273/EB-BO3738.JPG?version=1521153309"
+                   },
+                   {
+                       "title":  "",
+                       "url":  "https://assets.easybroker.com/property_images/673738/10266275/EB-BO3738.JPG?version=1521153309"
+                   },
+                   {
+                       "title":  "",
+                       "url":  "https://assets.easybroker.com/property_images/673738/10266276/EB-BO3738.JPG?version=1521153310"
+                   },
+                   {
+                       "title":  "",
+                       "url":  "https://assets.easybroker.com/property_images/673738/10266277/EB-BO3738.png?version=1521153310"
+                   },
+                   {
+                       "title":  "",
+                       "url":  "https://assets.easybroker.com/property_images/673738/10266278/EB-BO3738.png?version=1521153310"
+                   },
+                   {
+                       "title":  "",
+                       "url":  "https://assets.easybroker.com/property_images/673738/10266279/EB-BO3738.png?version=1521153310"
+                   },
+                   {
+                       "title":  "",
+                       "url":  "https://assets.easybroker.com/property_images/673738/10266280/EB-BO3738.JPG?version=1521153310"
+                   },
+                   {
+                       "title":  "",
+                       "url":  "https://assets.easybroker.com/property_images/673738/10266282/EB-BO3738.png?version=1521153310"
+                   },
+                   {
+                       "title":  "",
+                       "url":  "https://assets.easybroker.com/property_images/673738/10266283/EB-BO3738.png?version=1521153310"
+                   }
+               ],
+    "agent":  {
+                  "id":  391012,
+                  "name":  "Lic.Gabriela Martínez",
+                  "full_name":  "Lic.Gabriela Martínez",
+                  "mobile_phone":  "+523338087984",
+                  "profile_image_url":  "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1757459148",
+                  "email":  "GABRIELAMTZ6@HOTMAIL.COM"
+              },
+    "features":  [
+                     {
+                         "name":  "Facilidad para estacionarse",
+                         "category":  "Exterior"
+                     }
+                 ]
+}

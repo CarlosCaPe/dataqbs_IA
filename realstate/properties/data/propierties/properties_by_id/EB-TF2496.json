@@ -1,0 +1,30 @@
+﻿{
+    "public_id":  "EB-TF2496",
+    "title":  "DEPARTAMENTO EN VENTA EN COLONIA COLOMOS PROVIDENCIA, AV PATRIA Y AMERICAS",
+    "title_image_full":  null,
+    "title_image_thumb":  null,
+    "location":  "Colomos Providencia, Guadalajara, Jalisco",
+    "operations":  [
+                       {
+                           "type":  "sale",
+                           "amount":  7480000.0,
+                           "currency":  "MXN",
+                           "formatted_amount":  "$7,480,000",
+                           "commission":  {
+                                              "type":  "percentage",
+                                              "value":  "3.0"
+                                          },
+                           "unit":  "total"
+                       }
+                   ],
+    "bedrooms":  2,
+    "bathrooms":  2,
+    "parking_spaces":  2,
+    "property_type":  "Departamento",
+    "lot_size":  null,
+    "construction_size":  101.0,
+    "updated_at":  "2025-05-26T12:25:05-06:00",
+    "agent":  "Lic.Gabriela Martínez",
+    "show_prices":  true,
+    "share_commission":  true
+}

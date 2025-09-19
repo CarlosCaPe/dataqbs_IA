@@ -1,0 +1,30 @@
+{
+  "public_id": "EB-TY6670",
+  "title": "Casa en renta en coto cerca de Plaza Galerias Gdl",
+  "title_image_full": "https://assets.easybroker.com/property_images/5456670/94510386/EB-TY6670.jpeg?version=1755554156",
+  "title_image_thumb": "https://assets.easybroker.com/property_images/5456670/94510386/EB-TY6670.jpeg?version=1755554156&width=200",
+  "location": "Plaza Guadalupe, Zapopan, Jalisco",
+  "operations": [
+    {
+      "type": "rental",
+      "amount": 14000.0,
+      "currency": "MXN",
+      "formatted_amount": "$14,000",
+      "commission": {
+        "type": "months",
+        "value": 1
+      },
+      "unit": "total"
+    }
+  ],
+  "bedrooms": 3,
+  "bathrooms": 2,
+  "parking_spaces": 2,
+  "property_type": "Casa",
+  "lot_size": 64.26,
+  "construction_size": 84.11,
+  "updated_at": "2025-09-05T09:12:58-06:00",
+  "agent": "Lic.Gabriela Martínez",
+  "show_prices": true,
+  "share_commission": false
+}

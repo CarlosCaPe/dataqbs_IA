@@ -1,0 +1,279 @@
+{
+  "public_id": "EB-TR9891",
+  "title": "Casa nueva en renta o venta a precio de oportunidad en Bosques de Santa Anita",
+  "description": "Casa nueva en fraccionamiento privado con seguridad 24/7\n\nPLANTA BAJA:\n•Estacionamiento para dos automóviles \n•Sala-comedor\n•Medio baño\n•Cocina (no cuenta con estufa)\n•Área de servicio\n•Jardín\n\nPLANTA ALTA:\n•Dos recámaras con closet\n•Baño completo\n•Recámara principal con closet \n\nFraccionamiento Pontevedra está estratégicamente ubicado entre dos salidas hacia López Mateos, cerca de escuelas, centros comerciales, restaurantes y todos los servicios. \nCoto Abelan cuenta con casa club con alberca y juegos infantiles.\n\nAdemás se tiene acceso al área común de Pontevedra que tiene areas verdes, canchas, juegos infantiles, terraza y alberca.\n\nNo dejes pasar la oportunidad de hacer de esta casa, tu nuevo hogar. \n\nAgenda tu visita lo antes posible! \n*Mascotas bienvenidas!\n*La opción a renta incluye mantenimiento",
+  "bedrooms": 3,
+  "bathrooms": 1,
+  "half_bathrooms": 1,
+  "parking_spaces": 2,
+  "lot_size": 122.5,
+  "construction_size": 80.0,
+  "lot_length": null,
+  "lot_width": null,
+  "floors": 2,
+  "floor": null,
+  "age": null,
+  "internal_id": "ABELANYOLI",
+  "expenses": null,
+  "location": {
+    "name": "Pontevedra, Tlajomulco de Zúñiga, Jalisco",
+    "latitude": 20.5576167257,
+    "longitude": -103.4892934537,
+    "street": "Abelán",
+    "postal_code": "45645",
+    "show_exact_location": true,
+    "hide_exact_location": false,
+    "exterior_number": "50",
+    "interior_number": null
+  },
+  "property_type": "Casa en condominio",
+  "created_at": "2025-07-17T19:50:56-06:00",
+  "updated_at": "2025-07-31T21:13:31-06:00",
+  "published_at": "2025-07-17T20:47:53-06:00",
+  "operations": [
+    {
+      "type": "sale",
+      "amount": 2700000.0,
+      "currency": "MXN",
+      "formatted_amount": "$2,700,000",
+      "commission": {
+        "type": "percentage",
+        "value": "5.0"
+      },
+      "unit": "total"
+    },
+    {
+      "type": "rental",
+      "amount": 10800.0,
+      "currency": "MXN",
+      "formatted_amount": "$10,800",
+      "commission": {
+        "type": "months",
+        "value": 1
+      },
+      "unit": "total"
+    }
+  ],
+  "property_files": [],
+  "videos": [],
+  "virtual_tour": null,
+  "collaboration_notes": "Comisión del 2.5% o 1/2 mes de renta (según corresponda) a inmobiliarias afiliadas",
+  "public_url": "https://www.easybroker.com/mx/listings/casa-nueva-en-renta-o-venta-a-precio-de-oportunidad-en-bosques-de-santa-anita",
+  "shared_commission_percentage": 50.0,
+  "exclusive": true,
+  "foreclosure": false,
+  "tags": [],
+  "private_description": null,
+  "show_prices": true,
+  "share_commission": true,
+  "property_images": [
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5389891/93166483/EB-TR9891.jpeg?version=1752806868"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5389891/93166484/EB-TR9891.jpeg?version=1752806868"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5389891/93166485/EB-TR9891.jpeg?version=1752806868"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5389891/93166487/EB-TR9891.jpeg?version=1752806868"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5389891/93166486/EB-TR9891.jpeg?version=1752806868"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5389891/93166495/EB-TR9891.jpeg?version=1752806868"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5389891/93166499/EB-TR9891.jpeg?version=1752806868"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5389891/93166496/EB-TR9891.jpeg?version=1752806868"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5389891/93166488/EB-TR9891.jpeg?version=1752806868"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5389891/93166490/EB-TR9891.jpeg?version=1752806868"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5389891/93166498/EB-TR9891.jpeg?version=1752806868"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5389891/93166491/EB-TR9891.jpeg?version=1752806868"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5389891/93166489/EB-TR9891.jpeg?version=1752806868"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5389891/93166492/EB-TR9891.jpeg?version=1752806868"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5389891/93166493/EB-TR9891.jpeg?version=1752806868"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5389891/93166500/EB-TR9891.jpeg?version=1752806868"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5389891/93166501/EB-TR9891.jpeg?version=1752806868"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5389891/93166503/EB-TR9891.jpeg?version=1752806868"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5389891/93166502/EB-TR9891.jpeg?version=1752806868"
+    }
+  ],
+  "images": [
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5389891/93166483/EB-TR9891.jpeg?version=1752806868"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5389891/93166484/EB-TR9891.jpeg?version=1752806868"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5389891/93166485/EB-TR9891.jpeg?version=1752806868"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5389891/93166487/EB-TR9891.jpeg?version=1752806868"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5389891/93166486/EB-TR9891.jpeg?version=1752806868"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5389891/93166495/EB-TR9891.jpeg?version=1752806868"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5389891/93166499/EB-TR9891.jpeg?version=1752806868"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5389891/93166496/EB-TR9891.jpeg?version=1752806868"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5389891/93166488/EB-TR9891.jpeg?version=1752806868"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5389891/93166490/EB-TR9891.jpeg?version=1752806868"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5389891/93166498/EB-TR9891.jpeg?version=1752806868"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5389891/93166491/EB-TR9891.jpeg?version=1752806868"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5389891/93166489/EB-TR9891.jpeg?version=1752806868"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5389891/93166492/EB-TR9891.jpeg?version=1752806868"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5389891/93166493/EB-TR9891.jpeg?version=1752806868"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5389891/93166500/EB-TR9891.jpeg?version=1752806868"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5389891/93166501/EB-TR9891.jpeg?version=1752806868"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5389891/93166503/EB-TR9891.jpeg?version=1752806868"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5389891/93166502/EB-TR9891.jpeg?version=1752806868"
+    }
+  ],
+  "agent": {
+    "id": 391012,
+    "name": "Lic.Gabriela Martínez",
+    "full_name": "Lic.Gabriela Martínez",
+    "mobile_phone": "+523338087984",
+    "profile_image_url": "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1729887594",
+    "email": "GABRIELAMTZ6@HOTMAIL.COM"
+  },
+  "features": [
+    {
+      "name": "Facilidad para estacionarse",
+      "category": "Exterior"
+    },
+    {
+      "name": "Jardín",
+      "category": "Exterior"
+    },
+    {
+      "name": "Patio",
+      "category": "Exterior"
+    },
+    {
+      "name": "Terraza",
+      "category": "Exterior"
+    },
+    {
+      "name": "Dos plantas",
+      "category": "General"
+    },
+    {
+      "name": "Fraccionamiento privado",
+      "category": "General"
+    },
+    {
+      "name": "Seguridad 24 horas",
+      "category": "General"
+    },
+    {
+      "name": "Mascotas permitidas",
+      "category": "Políticas"
+    },
+    {
+      "name": "Alberca",
+      "category": "Recreación"
+    },
+    {
+      "name": "Área de juegos infantiles",
+      "category": "Recreación"
+    },
+    {
+      "name": "Salón de usos múltiples",
+      "category": "Recreación"
+    }
+  ]
+}

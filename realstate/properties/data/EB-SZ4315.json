@@ -1,0 +1,30 @@
+{
+  "public_id": "EB-SZ4315",
+  "title": "DEPARTAMENTO EN VENTA EN COLONIA VILLAS DEL COUNTRY, CERCA DE PUNTO SAO PAULO",
+  "title_image_full": "https://assets.easybroker.com/property_images/5204315/89485740/EB-SZ4315.jpeg?version=1745886257",
+  "title_image_thumb": "https://assets.easybroker.com/property_images/5204315/89485740/EB-SZ4315.jpeg?version=1745886257&width=200",
+  "location": "Villas Del Country, Guadalajara, Jalisco",
+  "operations": [
+    {
+      "type": "sale",
+      "amount": 4000000.0,
+      "currency": "MXN",
+      "formatted_amount": "$4,000,000",
+      "commission": {
+        "type": "percentage",
+        "value": "3.0"
+      },
+      "unit": "total"
+    }
+  ],
+  "bedrooms": 2,
+  "bathrooms": 1,
+  "parking_spaces": 1,
+  "property_type": "Departamento",
+  "lot_size": null,
+  "construction_size": 65.0,
+  "updated_at": "2025-05-12T12:09:04-06:00",
+  "agent": "Lic.Gabriela Martínez",
+  "show_prices": true,
+  "share_commission": true
+}
