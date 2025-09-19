@@ -5,6 +5,8 @@ Este repositorio ahora contiene dos proyectos de Python bajo la misma carpeta:
 - email_collector: Colección y clasificación de correos IMAP con exportación .eml.
 - easybrokers: Utilidades y scripts para manejar datos de EasyBrokers.
 
+See also: CHANGELOG.md for English release notes visible to external collaborators/recruiters.
+
 ## Configuración de entorno
 
 1) Crea un archivo `.env` en la raíz (ya agregado) con credenciales:
