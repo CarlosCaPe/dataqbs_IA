@@ -1,5 +1,5 @@
 ############################################################
-# Limpio y unificado config.yaml (solo 5 labels: Scam, Sus, Spam, Clean, Unknown)
+# Clean and unified config.yaml (only 5 labels: Scam, Sus, Spam, Clean, Unknown)
 ############################################################
 accounts:
   - name: Gmail_cacp18
@@ -170,14 +170,14 @@ naming:
   pattern: "{email}_{category}_{index}_{region}.eml"
   zero_pad_width: 4
 output_structure:
-  domain_subfolders: false  # guarda solo por categoria, sin subcarpetas por dominio
+  domain_subfolders: false  # save only by category, no subfolders by domain
 language:
   code: es
   region_tag: ES
 
-# Clasificación declarativa de dominios para desempate
+# Declarative domain classification used as tie-breakers
 domain_classification:
-  # Dominios claramente legítimos (Clean)
+  # Clearly legitimate domains (Clean)
   clean:
     - accounts.google.com
     - account.meta.com
@@ -346,7 +346,7 @@ domain_classification:
     - send001.mail.bitget.com
     - send011.mail.bitget.com
 
-  # Clean / Sus (marketing o contenido variable)
+  # Clean / Sus (marketing or variable content)
   clean_or_spam:
     - newsletter.vivaaerobus.com
     - comunicaciones.doters.com
@@ -361,7 +361,7 @@ domain_classification:
     - vbeyond.com
     - aliexpress.com
 
-  # Dominios sensibles financieros / e-commerce que pueden ser objetivo de phishing (mantener vigilancia)
+  # Financial/e-commerce sensitive domains (potential phishing targets; keep watch)
   clean_or_scam_sensitive:
     - paypal.com.mx
     - amazon.com.mx
@@ -373,7 +373,7 @@ domain_classification:
     - stripe.com
     - mercadopago.com
 
-  # Sospechosos o poco conocidos (Sus / Unknown)
+  # Suspicious or lesser-known (Sus / Unknown)
   sus_or_unknown:
     - flap.com.mx
     - fastdolphin.com
@@ -400,7 +400,7 @@ domain_classification:
     - 7-eleven.com.mx
     - 99minutos.com
 
-  # Sospechosos que también pueden terminar en Spam (patrones recurrentes)
+  # Suspicious that may also end up as Spam (recurring patterns)
   sus_or_spam:
     - pegasotecnologiacfdi.mx
     - e.bitly.com

@@ -1,7 +1,7 @@
 # EasyBrokers Tools
 
-Pequeños scripts para procesar datos de EasyBrokers.
+Small helper scripts to process EasyBrokers data.
 
-- Configuración: edita `config.json`.
-- Ejecutar: `poetry run python test_download.py`.
+- Configure: edit `config.json`.
+- Run: `poetry run python test_download.py`.
 - Logs: `easybrokers/logs/easybroker_export.log`.
