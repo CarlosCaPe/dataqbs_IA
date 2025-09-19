@@ -435,7 +435,6 @@ def _get_oauth_token_hotmail(user: str) -> Optional[str]:
     pca = msal.PublicClientApplication(client_id=client_id, authority=authority, token_cache=token_cache)
     scopes = [
         'https://outlook.office.com/IMAP.AccessAsUser.All',
-        'offline_access',
     ]
     # Try silent first
     accounts = pca.get_accounts(username=user) or pca.get_accounts()
@@ -448,7 +447,8 @@ def _get_oauth_token_hotmail(user: str) -> Optional[str]:
     if not result or 'access_token' not in result:
         flow = pca.initiate_device_flow(scopes=scopes)
         if 'user_code' not in flow:
-            raise RuntimeError("No se pudo iniciar device code flow para OAuth.")
+            err_msg = flow.get('error_description') or flow.get('error') or 'desconocido'
+            raise RuntimeError(f"No se pudo iniciar device code flow para OAuth: {err_msg}")
         # Print instructions to console
         log.info(flow.get('message') or f"Visita {flow.get('verification_uri')} y usa el código {flow.get('user_code')}")
         result = pca.acquire_token_by_device_flow(flow)
@@ -489,6 +489,31 @@ def fetch_emails_for_account(
 
     log.info("Conectando a IMAP %s (%s)", host, account_name)
 
+    class _MailBoxContext:
+        def __init__(self, mb: MailBox):
+            self._mb = mb
+        def __enter__(self):
+            return self._mb
+        def __exit__(self, exc_type, exc, tb):
+            try:
+                self._mb.logout()
+            except Exception:
+                pass
+
+    class _SimpleFolderManager:
+        def __init__(self, mb: MailBox):
+            self._mb = mb
+        def set(self, folder: str):
+            try:
+                # Try selecting folder as-is
+                self._mb.box.select(folder)
+            except Exception:
+                # Fallback: quote folder name (handles spaces like "Junk Email")
+                try:
+                    self._mb.box.select(f'"{folder}"')
+                except Exception as e:
+                    raise e
+
     def login_with_fallback(host, port, user, password):
         # Try a sequence of known Outlook/Hotmail IMAP hosts
         base_hosts = [host]
@@ -503,6 +528,7 @@ def fetch_emails_for_account(
                 try:
                     log.debug("IMAP login attempt (basic) host=%s user=%s", h, user)
                     mb = MailBox(h, port=port)
+                    # imap-tools returns a context manager from login()
                     return mb.login(user, password)
                 except Exception as e:
                     log.warning("Error en login básico con host %s: %s", h, e)
@@ -525,7 +551,17 @@ def fetch_emails_for_account(
                         sasl = f"user={user}\x01auth=Bearer {access_token}\x01\x01"
                         return sasl.encode('utf-8')
                     mb.box.authenticate('XOAUTH2', _auth_cb)
-                    return mb
+                    # Ensure folder manager exists similar to login()
+                    try:
+                        if getattr(mb, 'folder', None) is None:
+                            mb.folder = _SimpleFolderManager(mb)  # type: ignore[attr-defined]
+                    except Exception:
+                        try:
+                            mb.folder = _SimpleFolderManager(mb)  # type: ignore[attr-defined]
+                        except Exception:
+                            pass
+                    # Wrap in context so 'with ... as mailbox' receives a valid object
+                    return _MailBoxContext(mb)
                 except Exception as e:
                     log.warning("Error en login OAuth con host %s: %s", h, e)
                     continue
@@ -533,11 +569,64 @@ def fetch_emails_for_account(
         raise RuntimeError("IMAP login failed for all hosts tried")
 
     with login_with_fallback(host, port, user, password) as mailbox:
-        for folder in folders:
+        def _select_folder(mb: MailBox, desired: str) -> bool:
+            # 1) Try mailbox.folder.set if available
             try:
-                mailbox.folder.set(folder)
-            except Exception as e:
-                log.warning("No se pudo abrir carpeta %s: %s", folder, e)
+                fm = getattr(mb, 'folder', None)
+                if fm is not None and hasattr(fm, 'set'):
+                    fm.set(desired)
+                    return True
+            except Exception:
+                pass
+            # 2) Directly select via lower-level imaplib
+            try:
+                mb.box.select(desired)
+                return True
+            except Exception:
+                # Try quoting for names with spaces
+                try:
+                    mb.box.select(f'"{desired}"')
+                    return True
+                except Exception:
+                    pass
+            # 3) Fallback: list mailboxes and fuzzy match
+            try:
+                typ, data = mb.box.list()
+                candidates = []
+                if typ == 'OK' and data:
+                    for raw in data:
+                        # raw like: b'(\HasNoChildren) "/" INBOX'
+                        try:
+                            s = raw.decode('utf-8', 'ignore')
+                        except Exception:
+                            s = str(raw)
+                        name = s.split(' "')[-1].rstrip('"') if ' "' in s else s.split(')')[-1].strip()
+                        candidates.append(name)
+                # Try exact (case-insensitive)
+                for c in candidates:
+                    if c.lower() == desired.lower():
+                        try:
+                            mb.box.select(c)
+                            return True
+                        except Exception:
+                            pass
+                # Try contains/Junk synonyms for Outlook
+                synonyms = [desired, desired.replace('Junk Email', 'Junk'), desired.replace('Spam', 'Junk'), 'Junk', 'Junk E-mail']
+                for syn in synonyms:
+                    for c in candidates:
+                        if syn.lower() in c.lower():
+                            try:
+                                mb.box.select(c)
+                                return True
+                            except Exception:
+                                continue
+            except Exception:
+                pass
+            return False
+
+        for folder in folders:
+            if not _select_folder(mailbox, folder):
+                log.warning("No se pudo abrir carpeta %s: fallback tras LIST también falló", folder)
                 continue
             criteria = 'ALL'
             if date_gte:
@@ -654,6 +743,23 @@ def main(argv: Optional[List[str]] = None):
             # final fallback: two levels up from src/email_collector/main.py -> project root
             cfg_path = Path(__file__).resolve().parents[3] / "config.yaml"
     cfg = load_config(str(cfg_path))
+
+    # Ensure logs go to file as well as console
+    try:
+        out_root = Path(cfg.get("output_path", "emails_out"))
+        log_dir = out_root / "logs"
+        log_dir.mkdir(parents=True, exist_ok=True)
+        file_path = log_dir / "email_collector.log"
+        if not any(isinstance(h, logging.FileHandler) and getattr(h, 'baseFilename', '').endswith(str(file_path)) for h in log.handlers):
+            fh = logging.FileHandler(file_path, encoding="utf-8")
+            fh.setLevel(logging.INFO)
+            fh.setFormatter(logging.Formatter("%(asctime)s %(levelname)s %(message)s"))
+            log.addHandler(fh)
+    except Exception:
+        # Do not block execution on logging setup issues
+        pass
+
+    log.info("Email Collector start | precheck=%s | account=%s | config=%s", bool(args.precheck), args.account or os.getenv("EMAIL_ACCOUNT"), str(cfg_path))
 
     accounts_cfg = cfg.get("accounts", [])
     folders_cfg: Dict[str, dict] = cfg.get("folders", {})

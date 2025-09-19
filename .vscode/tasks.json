@@ -5,6 +5,9 @@
 			"label": "Email Collector: Install deps",
 			"type": "shell",
 			"command": "poetry install",
+			"options": {
+				"cwd": "${workspaceFolder}/email_collector"
+			},
 			"args": [],
 			"group": "build"
 		},

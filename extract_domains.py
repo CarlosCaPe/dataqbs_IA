@@ -1,12 +1,27 @@
-import json, collections, sys
+import json, collections, sys, logging
 from pathlib import Path
 
 REPORT_PATH = Path('emails_out/validation_report.json')
 OUTPUT_CSV = Path('emails_out/domain_inventory.csv')
 OUTPUT_LIST = Path('emails_out/domains_list.txt')
+LOG_DIR = Path('emails_out/logs')
+
+logger = logging.getLogger('dataqbs')
+if not logger.handlers:
+    sh = logging.StreamHandler()
+    sh.setFormatter(logging.Formatter('%(asctime)s %(levelname)s %(message)s'))
+    logger.addHandler(sh)
+try:
+    LOG_DIR.mkdir(parents=True, exist_ok=True)
+    fh = logging.FileHandler(LOG_DIR / 'extract_domains.log', encoding='utf-8')
+    fh.setFormatter(logging.Formatter('%(asctime)s %(levelname)s %(message)s'))
+    logger.addHandler(fh)
+except Exception:
+    pass
+logger.setLevel(logging.INFO)
 
 if not REPORT_PATH.exists():
-    print('validation_report.json not found', file=sys.stderr)
+    logger.error('validation_report.json not found at %s', REPORT_PATH)
     sys.exit(1)
 
 data = json.loads(REPORT_PATH.read_text(encoding='utf-8'))
@@ -32,4 +47,4 @@ OUTPUT_CSV.write_text('\n'.join(lines), encoding='utf-8')
 # Plain list (just domain names sorted by frequency desc)
 plain = [l.split(',')[0] for l in lines[1:]]
 OUTPUT_LIST.write_text('\n'.join(plain), encoding='utf-8')
-print(f"Generated {OUTPUT_CSV} and {OUTPUT_LIST} with {len(counts)} domains.")
+logger.info("Generated %s and %s with %d domains.", OUTPUT_CSV, OUTPUT_LIST, len(counts))

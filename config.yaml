@@ -38,7 +38,7 @@ folders:
   gmail:
     include: ["INBOX", "[Gmail]/Spam"]
   hotmail:
-    include: ["INBOX", "Junk Email", "Spam"]
+    include: ["INBOX", "Junk Email", "Junk", "Junk E-mail", "Spam"]
 
 transactional_short_allowlist:
   min_subject_chars: 3
@@ -47,6 +47,7 @@ transactional_short_allowlist:
     - bbva.mx
     - email.bbva.mx
     - bbva.com.mx
+    - cfe.mx
     - citibanamex.com
     - scotiabank.mx
     - santander.com.mx
@@ -64,11 +65,14 @@ transactional_short_allowlist:
     - servicioscinepolis.com.mx
     - tripadvisor.com
     - accountprotection.microsoft.com
+    - accounts.nintendo.com
     - google.com
     - instagram.com
     - x.com
     - apple.com
     - stripe.com
+    - correo.profuturo.mx
+    - support.facebook.com
   subject_must_match_one:
     - "código"
     - "token"
@@ -79,6 +83,9 @@ transactional_short_allowlist:
     - "entregado"
     - "en tránsito"
     - "comprobante"
+    - "aviso"
+    - "aviso de factura"
+    - "estado de cuenta"
     - "recibo"
     - "receipt"
     - "comprobante de pago"
@@ -101,22 +108,22 @@ clean_marketing_rules:
     - "novedades"
     - "actualizaciones"
     - "resumen semanal"
-  max_links_ratio: 0.40
+  max_links_ratio: 0.25
 
 classifier:
   scoring:
-    spam_keyword: 2
+    spam_keyword: 3
     scam_keyword: 4
     gambling_term: 2
-    url_shortener: 2
+    url_shortener: 3
     suspicious_header: 2
     suspicious_marker: 1
     evasion_pattern: 2
-    suspicious_domain: 2
-    frequent_spam_domain: 2
+    suspicious_domain: 3
+    frequent_spam_domain: 3
     urgency_pattern: 1
     phone_pattern: 2
-    reputable_domain_clean_bonus: -2
+    reputable_domain_clean_bonus: -1
     transactional_allow_bonus: -3
   thresholds:
     to_scam: 8
@@ -137,7 +144,6 @@ classifier:
       - any:
           - "newsletter>=1"
           - "transactional_short_allowlist matched"
-          - "reputable_marketing_safe>=1"
           - "political_keywords>=1"
           - "fedex_shortener_combo>=1"
 
@@ -147,7 +153,7 @@ deduplication:
   body_min_chars_for_simhash: 120
   window_days: 365
 
-min_body_chars_for_real_mail: 40
+min_body_chars_for_real_mail: 20
 min_subject_chars: 3
 
 report:
@@ -164,7 +170,7 @@ naming:
   pattern: "{email}_{category}_{index}_{region}.eml"
   zero_pad_width: 4
 output_structure:
-  domain_subfolders: true  # coloca los .eml dentro de Categoria/DOMINIO_BASE/
+  domain_subfolders: false  # guarda solo por categoria, sin subcarpetas por dominio
 language:
   code: es
   region_tag: ES
@@ -458,10 +464,6 @@ rules:
     force_clean_domains:
       - "dataqbs.com"
       - "mail.dataqbs.com"
-      - "beehiiv"
-      - "mailchi.mp"
-      - "hubspotlinks"
-      - "ctrk.klclick"
       - "email.meetup.com"
       - "indeed.com"
       - "idukay.com"
@@ -470,11 +472,9 @@ rules:
       - "nrfm.com.mx"
       - "insightglobal.com"
       - "match.indeed.com"
-      - "promocinepolis.com"
       - "tipmexico.com"
       - "mural.com.mx"
       - "reply.snowflake.com"
-      - "vbeyond.com"
       - "redditmail.com"
       - "hggasesores.com"
       - "dbtlabs.com"
@@ -484,10 +484,7 @@ rules:
       - "mnyl.com.mx"
       - "banregio.com"
       - "occ.mx"
-      - "newsletter.vivaaerobus.com"
-      - "comunicaciones.doters.com"
       - "mx.didiglobal.com"
-      - "inmuebles24.com"
       - "servicios.sorteostec.mx"
     treat_fedex_shortener_as_clean: true
     force_spam_domains:
@@ -535,6 +532,21 @@ rules:
     - "multinivel"
     - "promo"
     - "promocion"
+    - "seguro de auto"
+    - "aseguradora"
+    - "garantizado"
+    - "pierde *kg"
+    - "pierde peso"
+    - "baja de peso"
+    - "aprovecha"
+    - "no te lo pierdas"
+    - "imperdible"
+    - "última oportunidad"
+    - "hoy solamente"
+    - "vence hoy"
+    - "envío gratis"
+    - "sin costo"
+    - "solo por hoy"
   gambling_terms:
     - "casino"
     - "apuesta"
@@ -550,7 +562,7 @@ rules:
     - "ctrk.klclick"
     - "destinycreditcard"
   # Duplicado temporal de umbrales (legacy fallback)
-  min_body_chars_for_real_mail: 40
+  min_body_chars_for_real_mail: 20
   min_subject_chars: 3
 
 exclusions:

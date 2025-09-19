@@ -4,6 +4,14 @@ import requests
 import logging
 from concurrent.futures import ThreadPoolExecutor
 
+logger = logging.getLogger("easybrokers")
+if not logger.handlers:
+    _h = logging.StreamHandler()
+    _h.setFormatter(logging.Formatter('%(asctime)s - %(levelname)s - %(message)s'))
+    logger.addHandler(_h)
+logger.setLevel(logging.INFO)
+
+
 class EasyBrokerImageDownloader:
     def __init__(self, api_key, base_json_folder, max_workers):
         self.api_key = api_key
@@ -21,9 +29,9 @@ class EasyBrokerImageDownloader:
             with open(save_path, 'wb') as f:
                 for chunk in response.iter_content(chunk_size=8192):
                     f.write(chunk)
-            logging.info(f"Image downloaded: {save_path}")
+            logger.info(f"Image downloaded: {save_path}")
         except Exception as e:
-            logging.error(f"Failed to download image {image_url}: {e}")
+            logger.error(f"Failed to download image {image_url}: {e}")
 
     def sanitize_file_name(self, file_name):
         """Remove invalid characters and query parameters from file name."""

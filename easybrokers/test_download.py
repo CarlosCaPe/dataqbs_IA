@@ -1,6 +1,25 @@
 import json
 import os
+import logging
+from pathlib import Path
 from image_downloader import EasyBrokerImageDownloader
+
+logger = logging.getLogger("easybrokers")
+if not logger.handlers:
+    sh = logging.StreamHandler()
+    sh.setFormatter(logging.Formatter('%(asctime)s - %(levelname)s - %(message)s'))
+    logger.addHandler(sh)
+logger.setLevel(logging.INFO)
+
+# also log to file under properties/logs
+try:
+    log_dir = Path(__file__).resolve().parent / 'logs'
+    log_dir.mkdir(parents=True, exist_ok=True)
+    fh = logging.FileHandler(log_dir / 'easybroker_export.log', encoding='utf-8')
+    fh.setFormatter(logging.Formatter('%(asctime)s - %(levelname)s - %(message)s'))
+    logger.addHandler(fh)
+except Exception:
+    pass
 
 # Cargar config
 with open('config.json', 'r', encoding='utf-8') as f:
@@ -9,13 +28,14 @@ with open('config.json', 'r', encoding='utf-8') as f:
 downloader = EasyBrokerImageDownloader(
     api_key=config['EASYBROKER_API_KEY'],
     base_json_folder=config['BASE_JSON_FOLDER'],
-    max_workers=config['MAX_WORKERS']
+    max_workers=config.get('MAX_WORKERS', 8)
 )
 
 # Leer todos los archivos JSON de la carpeta de propiedades
 properties = []
 json_folder = config['BASE_JSON_FOLDER']
 json_dir = os.path.abspath(json_folder)
+logger.info('Starting image download discovery in %s', json_dir)
 for filename in os.listdir(json_dir):
     if filename.endswith('.json'):
         file_path = os.path.join(json_dir, filename)
@@ -40,10 +60,11 @@ for filename in os.listdir(json_dir):
             if property_id and images:
                 properties.append({'property_id': property_id, 'images': images})
         except Exception as e:
-            print(f'Error leyendo {file_path}: {e}')
+            logger.error('Error leyendo %s: %s', file_path, e)
 
 if not properties:
-    print('No se encontraron propiedades con imágenes para descargar.')
+    logger.warning('No se encontraron propiedades con imágenes para descargar.')
 else:
+    logger.info('Descargando imágenes para %d propiedades...', len(properties))
     downloader.download_all_property_images(properties)
-    print(f'Descarga finalizada para {len(properties)} propiedades.')
+    logger.info('Descarga finalizada para %d propiedades.', len(properties))

@@ -1,4 +1,20 @@
-import os, shutil
+import os, shutil, logging
+from pathlib import Path
+
+logger = logging.getLogger('dataqbs')
+if not logger.handlers:
+    sh = logging.StreamHandler()
+    sh.setFormatter(logging.Formatter('%(asctime)s %(levelname)s %(message)s'))
+    logger.addHandler(sh)
+try:
+    log_dir = Path(r'c:\Users\Lenovo\dataqbs_IA\emails_out\logs')
+    log_dir.mkdir(parents=True, exist_ok=True)
+    fh = logging.FileHandler(log_dir / 'migrate_suspicious.log', encoding='utf-8')
+    fh.setFormatter(logging.Formatter('%(asctime)s %(levelname)s %(message)s'))
+    logger.addHandler(fh)
+except Exception:
+    pass
+logger.setLevel(logging.INFO)
 SRC = r'c:\Users\Lenovo\dataqbs_IA\emails_out\Gmail_dataqbs\Suspicious'
 DST = r'c:\Users\Lenovo\dataqbs_IA\emails_out\Gmail_dataqbs\Sus'
 count=0
@@ -17,4 +33,4 @@ if os.path.isdir(SRC):
         os.rmdir(SRC)
     except OSError:
         pass
-print(f'Migrated {count} files.')
+logger.info('Migrated %d files from %s to %s', count, SRC, DST)

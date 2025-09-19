@@ -48,6 +48,14 @@ poetry run email-collect --precheck
 Resultados:
 - EML y reportes JSON en la carpeta configurada (`emails_out` por defecto).
 
+### Logs unificados
+
+- Email Collector escribe logs a `emails_out/logs/email_collector.log` además de la consola.
+- EasyBrokers escribe logs a `easybrokers/logs/easybroker_export.log`.
+- Scripts utilitarios de raíz guardan logs en `emails_out/logs/*.log`.
+
+Puedes aumentar el nivel con `-v/--verbose` (Email Collector) o definiendo `LOGLEVEL=DEBUG` y ajustando manualmente si lo requieres.
+
 ## Notas
 - Gmail requiere contraseña de aplicación si 2FA está habilitado.
 - Para Hotmail/Outlook se usa `outlook.office365.com` con IMAPS (993).

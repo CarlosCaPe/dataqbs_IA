@@ -11,6 +11,14 @@ if not logger.handlers:
     h = logging.StreamHandler()
     h.setFormatter(logging.Formatter('%(asctime)s - %(levelname)s - %(message)s'))
     logger.addHandler(h)
+    try:
+        log_dir = os.path.join(os.path.dirname(__file__), 'logs')
+        os.makedirs(log_dir, exist_ok=True)
+        fh = logging.FileHandler(os.path.join(log_dir, 'easybroker_export.log'), encoding='utf-8')
+        fh.setFormatter(logging.Formatter('%(asctime)s - %(levelname)s - %(message)s'))
+        logger.addHandler(fh)
+    except Exception:
+        pass
 
 
 class PropertyJsonDownloader:
@@ -295,7 +303,7 @@ def format_easybrokers_files(exporter, excel_filename):
             thumb_col_idx = headers.index("title_image_thumb") + 1
             ws.delete_cols(thumb_col_idx)
             headers = [cell.value for cell in ws[1]]
-    
+
     # Aplica SAP style a todas las pestañas y habilita filtros en row1
     exporter.styler.apply(wb)
 
@@ -447,7 +455,7 @@ def format_easybrokers_files(exporter, excel_filename):
             thumb_col_idx = headers.index("title_image_thumb") + 1
             ws.delete_cols(thumb_col_idx)
             headers = [cell.value for cell in ws[1]]
-    
+
     # Aplica SAP style a todas las pestañas y habilita filtros en row1
     exporter.styler.apply(wb)
 
@@ -599,7 +607,7 @@ def format_easybrokers_files(exporter, excel_filename):
             thumb_col_idx = headers.index("title_image_thumb") + 1
             ws.delete_cols(thumb_col_idx)
             headers = [cell.value for cell in ws[1]]
-    
+
     # Aplica SAP style a todas las pestañas y habilita filtros en row1
     exporter.styler.apply(wb)
 
@@ -751,7 +759,7 @@ def format_easybrokers_files(exporter, excel_filename):
             thumb_col_idx = headers.index("title_image_thumb") + 1
             ws.delete_cols(thumb_col_idx)
             headers = [cell.value for cell in ws[1]]
-    
+
     # Aplica SAP style a todas las pestañas y habilita filtros en row1
     exporter.styler.apply(wb)
 
@@ -903,7 +911,7 @@ def format_easybrokers_files(exporter, excel_filename):
             thumb_col_idx = headers.index("title_image_thumb") + 1
             ws.delete_cols(thumb_col_idx)
             headers = [cell.value for cell in ws[1]]
-    
+
     # Aplica SAP style a todas las pestañas y habilita filtros en row1
     exporter.styler.apply(wb)
 
@@ -1055,7 +1063,7 @@ def format_easybrokers_files(exporter, excel_filename):
             thumb_col_idx = headers.index("title_image_thumb") + 1
             ws.delete_cols(thumb_col_idx)
             headers = [cell.value for cell in ws[1]]
-    
+
     # Aplica SAP style a todas las pestañas y habilita filtros en row1
     exporter.styler.apply(wb)
 
@@ -1207,7 +1215,7 @@ def format_easybrokers_files(exporter, excel_filename):
             thumb_col_idx = headers.index("title_image_thumb") + 1
             ws.delete_cols(thumb_col_idx)
             headers = [cell.value for cell in ws[1]]
-    
+
     # Aplica SAP style a todas las pestañas y habilita filtros en row1
     exporter.styler.apply(wb)
 
@@ -1359,7 +1367,7 @@ def format_easybrokers_files(exporter, excel_filename):
             thumb_col_idx = headers.index("title_image_thumb") + 1
             ws.delete_cols(thumb_col_idx)
             headers = [cell.value for cell in ws[1]]
-    
+
     # Aplica SAP style a todas las pestañas y habilita filtros en row1
     exporter.styler.apply(wb)
 
@@ -1511,7 +1519,7 @@ def format_easybrokers_files(exporter, excel_filename):
             thumb_col_idx = headers.index("title_image_thumb") + 1
             ws.delete_cols(thumb_col_idx)
             headers = [cell.value for cell in ws[1]]
-    
+
     # Aplica SAP style a todas las pestañas y habilita filtros en row1
     exporter.styler.apply(wb)
 
@@ -1663,7 +1671,7 @@ def format_easybrokers_files(exporter, excel_filename):
             thumb_col_idx = headers.index("title_image_thumb") + 1
             ws.delete_cols(thumb_col_idx)
             headers = [cell.value for cell in ws[1]]
-    
+
     # Aplica SAP style a todas las pestañas y habilita filtros en row1
     exporter.styler.apply(wb)
 
@@ -1815,7 +1823,7 @@ def format_easybrokers_files(exporter, excel_filename):
             thumb_col_idx = headers.index("title_image_thumb") + 1
             ws.delete_cols(thumb_col_idx)
             headers = [cell.value for cell in ws[1]]
-    
+
     # Aplica SAP style a todas las pestañas y habilita filtros en row1
     exporter.styler.apply(wb)
 
@@ -1967,7 +1975,7 @@ def format_easybrokers_files(exporter, excel_filename):
             thumb_col_idx = headers.index("title_image_thumb") + 1
             ws.delete_cols(thumb_col_idx)
             headers = [cell.value for cell in ws[1]]
-    
+
     # Aplica SAP style a todas las pestañas y habilita filtros en row1
     exporter.styler.apply(wb)
 
@@ -2119,7 +2127,7 @@ def format_easybrokers_files(exporter, excel_filename):
             thumb_col_idx = headers.index("title_image_thumb") + 1
             ws.delete_cols(thumb_col_idx)
             headers = [cell.value for cell in ws[1]]
-    
+
     # Aplica SAP style a todas las pestañas y habilita filtros en row1
     exporter.styler.apply(wb)
 
@@ -2271,7 +2279,7 @@ def format_easybrokers_files(exporter, excel_filename):
             thumb_col_idx = headers.index("title_image_thumb") + 1
             ws.delete_cols(thumb_col_idx)
             headers = [cell.value for cell in ws[1]]
-    
+
     # Aplica SAP style a todas las pestañas y habilita filtros en row1
     exporter.styler.apply(wb)
 
@@ -2423,7 +2431,7 @@ def format_easybrokers_files(exporter, excel_filename):
             thumb_col_idx = headers.index("title_image_thumb") + 1
             ws.delete_cols(thumb_col_idx)
             headers = [cell.value for cell in ws[1]]
-    
+
     # Aplica SAP style a todas las pestañas y habilita filtros en row1
     exporter.styler.apply(wb)
 
@@ -2575,7 +2583,7 @@ def format_easybrokers_files(exporter, excel_filename):
             thumb_col_idx = headers.index("title_image_thumb") + 1
             ws.delete_cols(thumb_col_idx)
             headers = [cell.value for cell in ws[1]]
-    
+
     # Aplica SAP style a todas las pestañas y habilita filtros en row1
     exporter.styler.apply(wb)
 
@@ -2727,7 +2735,7 @@ def format_easybrokers_files(exporter, excel_filename):
             thumb_col_idx = headers.index("title_image_thumb") + 1
             ws.delete_cols(thumb_col_idx)
             headers = [cell.value for cell in ws[1]]
-    
+
     # Aplica SAP style a todas las pestañas y habilita filtros en row1
     exporter.styler.apply(wb)
 
@@ -2879,7 +2887,7 @@ def format_easybrokers_files(exporter, excel_filename):
             thumb_col_idx = headers.index("title_image_thumb") + 1
             ws.delete_cols(thumb_col_idx)
             headers = [cell.value for cell in ws[1]]
-    
+
     # Aplica SAP style a todas las pestañas y habilita filtros en row1
     exporter.styler.apply(wb)
 
@@ -3031,7 +3039,7 @@ def format_easybrokers_files(exporter, excel_filename):
             thumb_col_idx = headers.index("title_image_thumb") + 1
             ws.delete_cols(thumb_col_idx)
             headers = [cell.value for cell in ws[1]]
-    
+
     # Aplica SAP style a todas las pestañas y habilita filtros en row1
     exporter.styler.apply(wb)
 
@@ -3183,7 +3191,7 @@ def format_easybrokers_files(exporter, excel_filename):
             thumb_col_idx = headers.index("title_image_thumb") + 1
             ws.delete_cols(thumb_col_idx)
             headers = [cell.value for cell in ws[1]]
-    
+
     # Aplica SAP style a todas las pestañas y habilita filtros en row1
     exporter.styler.apply(wb)
 
@@ -3335,7 +3343,7 @@ def format_easybrokers_files(exporter, excel_filename):
             thumb_col_idx = headers.index("title_image_thumb") + 1
             ws.delete_cols(thumb_col_idx)
             headers = [cell.value for cell in ws[1]]
-    
+
     # Aplica SAP style a todas las pestañas y habilita filtros en row1
     exporter.styler.apply(wb)
 
@@ -3487,7 +3495,7 @@ def format_easybrokers_files(exporter, excel_filename):
             thumb_col_idx = headers.index("title_image_thumb") + 1
             ws.delete_cols(thumb_col_idx)
             headers = [cell.value for cell in ws[1]]
-    
+
     # Aplica SAP style a todas las pestañas y habilita filtros en row1
     exporter.styler.apply(wb)
 
@@ -3639,7 +3647,7 @@ def format_easybrokers_files(exporter, excel_filename):
             thumb_col_idx = headers.index("title_image_thumb") + 1
             ws.delete_cols(thumb_col_idx)
             headers = [cell.value for cell in ws[1]]
-    
+
     # Aplica SAP style a todas las pestañas y habilita filtros en row1
     exporter.styler.apply(wb)
 
@@ -3791,7 +3799,7 @@ def format_easybrokers_files(exporter, excel_filename):
             thumb_col_idx = headers.index("title_image_thumb") + 1
             ws.delete_cols(thumb_col_idx)
             headers = [cell.value for cell in ws[1]]
-    
+
     # Aplica SAP style a todas las pestañas y habilita filtros en row1
     exporter.styler.apply(wb)
 
@@ -3943,7 +3951,7 @@ def format_easybrokers_files(exporter, excel_filename):
             thumb_col_idx = headers.index("title_image_thumb") + 1
             ws.delete_cols(thumb_col_idx)
             headers = [cell.value for cell in ws[1]]
-    
+
     # Aplica SAP style a todas las pestañas y habilita filtros en row1
     exporter.styler.apply(wb)
 
@@ -4095,7 +4103,7 @@ def format_easybrokers_files(exporter, excel_filename):
             thumb_col_idx = headers.index("title_image_thumb") + 1
             ws.delete_cols(thumb_col_idx)
             headers = [cell.value for cell in ws[1]]
-    
+
     # Aplica SAP style a todas las pestañas y habilita filtros en row1
     exporter.styler.apply(wb)
 
@@ -4247,7 +4255,7 @@ def format_easybrokers_files(exporter, excel_filename):
             thumb_col_idx = headers.index("title_image_thumb") + 1
             ws.delete_cols(thumb_col_idx)
             headers = [cell.value for cell in ws[1]]
-    
+
     # Aplica SAP style a todas las pestañas y habilita filtros en row1
     exporter.styler.apply(wb)
 
@@ -4390,7 +4398,7 @@ def format_easybrokers_files(exporter, excel_filename):
     wb = openpyxl.load_workbook(excel_filename)
 
     # Clean and style "properties" tab
-   
+
     if exporter.tab_names['properties'] in wb.sheetnames:
         ws = wb[exporter.tab_names['properties']]
         exporter.cleaner.format_operations_column(ws)
@@ -4400,159 +4408,7 @@ def format_easybrokers_files(exporter, excel_filename):
             thumb_col_idx = headers.index("title_image_thumb") + 1
             ws.delete_cols(thumb_col_idx)
             headers = [cell.value for cell in ws[1]]
-    
-    # Aplica SAP style a todas las pestañas y habilita filtros en row1
-    exporter.styler.apply(wb)
 
-    # Reemplaza el valor en "title_image_full" con el "public_url" obtenido de cada JSON
-    if exporter.tab_names['properties'] in wb.sheetnames:
-        ws = wb[exporter.tab_names['properties']]
-        headers = [cell.value for cell in ws[1]]
-        if "title_image_full" in headers:
-            image_full_col_idx = headers.index("title_image_full")
-            public_id_col_idx = headers.index(exporter.col_indices['public_id_column_name'])
-            for row in ws.iter_rows(min_row=2, max_row=ws.max_row):
-                public_id = row[public_id_col_idx].value
-                json_path = os.path.join(exporter.base_json_folder, f"{public_id}.json")
-                public_url = None
-                if public_id and os.path.exists(json_path):
-                    try:
-                        with open(json_path, "r", encoding="utf-8") as f:
-                            data = json.load(f)
-                            public_url = data.get("public_url")
-                    except Exception as e:
-                        logger.warning(f"Error reading JSON for {public_id}: {e}")
-                target_cell = row[image_full_col_idx]
-                if public_url and isinstance(public_url, str):
-                    # Reemplaza el valor por la URL y crea el hipervínculo
-                    exporter.hyperlink_helper.set_hyperlink(target_cell, public_url, display=public_url)
-                else:
-                    target_cell.value = ''
-        # Vuelve a habilitar filtro sobre la fila 1 (por si se perdió)
-        ws.auto_filter.ref = ws.dimensions
-
-    # Elimina la pestaña "Property Types" si existe y hay más de una pestaña
-    if 'Property Types' in wb.sheetnames and len(wb.sheetnames) > 1:
-        del wb['Property Types']
-
-    wb.save(excel_filename)
-    logger.info("Completed formatting of Easybrokers Excel files.")
-
-def download_images():
-    logger.info("Starting image download process.")
-    from test_download import downloader
-    properties = []
-    json_folder = config.base_json_folder
-    json_dir = os.path.abspath(json_folder)
-    for filename in os.listdir(json_dir):
-        if filename.endswith('.json'):
-            file_path = os.path.join(json_dir, filename)
-            try:
-                with open(file_path, 'r', encoding='utf-8') as f:
-                    data = json.load(f)
-                property_id = data.get('property_id') or data.get('id') or os.path.splitext(filename)[0]
-                images = []
-                if 'images' in data and isinstance(data['images'], list):
-                    for img in data['images']:
-                        if isinstance(img, dict) and 'url' in img:
-                            images.append(img['url'])
-                        elif isinstance(img, str):
-                            images.append(img)
-                elif 'photos' in data and isinstance(data['photos'], list):
-                    for img in data['photos']:
-                        if isinstance(img, dict) and 'url' in img:
-                            images.append(img['url'])
-                        elif isinstance(img, str):
-                            images.append(img)
-                if property_id and images:
-                    properties.append({'property_id': property_id, 'images': images})
-            except Exception as e:
-                logger.error(f"Error reading {file_path}: {e}")
-    if not properties:
-        logger.warning("No properties with images found for download.")
-    else:
-        downloader.download_all_property_images(properties)
-        logger.info(f"Image download completed for {len(properties)} properties.")
-    logger.info("Completed image download process.")
-
-def upsert_data_into_wiggot():
-    logger.info("Starting upsert process for Wiggot data.")
-    wiggot_file = os.path.join(config.excel_folder, "wiggot.xlsx")
-
-    # Dynamically locate the latest easybrokers file
-    easybrokers_files = [f for f in os.listdir(config.excel_folder) if f.startswith("easybrokers_") and f.endswith(".xlsx")]
-    if not easybrokers_files:
-        logger.error("No Easybrokers file found in the directory.")
-        return
-
-    easybrokers_file = os.path.join(config.excel_folder, max(easybrokers_files))
-
-    try:
-        wiggot_wb = load_workbook(wiggot_file)
-        easybrokers_wb = load_workbook(easybrokers_file)
-
-        wiggot_sheet = wiggot_wb.active
-        easybrokers_sheet = easybrokers_wb.active
-
-        wiggot_data = {row[0].value: row for row in wiggot_sheet.iter_rows(min_row=2)}
-        for row in easybrokers_sheet.iter_rows(min_row=2):
-            property_id = row[0].value
-            if property_id not in wiggot_data:
-                # Ensure all records are mapped correctly
-                wiggot_sheet.append([cell.value for cell in row])
-
-        wiggot_wb.save(wiggot_file)
-        logger.info("Wiggot file successfully updated.")
-    except Exception as e:
-        logger.error(f"Error during Wiggot file upsertion: {e}")
-    logger.info("Completed upsert process for Wiggot data.")
-
-# --- Config Loader ---
-def load_config():
-    config_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'config.json')
-    config = {}
-    if os.path.exists(config_path):
-        try:
-            with open(config_path, 'r', encoding='utf-8') as f:
-                config = json.load(f)
-        except Exception:
-            pass  # Suprime errores en la lectura
-    if 'LOG_FOLDER' in config:
-        os.makedirs(config['LOG_FOLDER'], exist_ok=True)
-    return EasyBrokerConfig(config)
-
-# --- Logging Configuration ---
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
-logger = logging.getLogger(__name__)
-
-# --- Main Workflow Steps ---
-def download_jsons(exporter):
-    logger.info("Starting JSON download process.")
-    properties = exporter.get_properties(excel_filename)
-    exporter.save_property_jsons(properties, max_workers=exporter.max_workers)
-    logger.info("Completed JSON download process.")
-
-def create_easybrokers_files(exporter):
-    logger.info("Creating Easybrokers Excel files.")
-    excel_filename = exporter.fetch_endpoints_to_excel()
-    logger.info(f"Easybrokers Excel file created: {excel_filename}")
-    return excel_filename
-
-def format_easybrokers_files(exporter, excel_filename):
-    logger.info("Formatting Easybrokers Excel files.")
-    wb = openpyxl.load_workbook(excel_filename)
-
-    # Clean and style "properties" tab
-    if exporter.tab_names['properties'] in wb.sheetnames:
-        ws = wb[exporter.tab_names['properties']]
-        exporter.cleaner.format_operations_column(ws)
-        headers = [cell.value for cell in ws[1]]
-        # Elimina columna "title_image_thumb" si existe
-        if "title_image_thumb" in headers:
-            thumb_col_idx = headers.index("title_image_thumb") + 1
-            ws.delete_cols(thumb_col_idx)
-            headers = [cell.value for cell in ws[1]]
-    
     # Aplica SAP style a todas las pestañas y habilita filtros en row1
     exporter.styler.apply(wb)
 
@@ -4704,7 +4560,7 @@ def format_easybrokers_files(exporter, excel_filename):
             thumb_col_idx = headers.index("title_image_thumb") + 1
             ws.delete_cols(thumb_col_idx)
             headers = [cell.value for cell in ws[1]]
-    
+
     # Aplica SAP style a todas las pestañas y habilita filtros en row1
     exporter.styler.apply(wb)
 
@@ -4856,7 +4712,7 @@ def format_easybrokers_files(exporter, excel_filename):
             thumb_col_idx = headers.index("title_image_thumb") + 1
             ws.delete_cols(thumb_col_idx)
             headers = [cell.value for cell in ws[1]]
-    
+
     # Aplica SAP style a todas las pestañas y habilita filtros en row1
     exporter.styler.apply(wb)
 
@@ -5008,7 +4864,7 @@ def format_easybrokers_files(exporter, excel_filename):
             thumb_col_idx = headers.index("title_image_thumb") + 1
             ws.delete_cols(thumb_col_idx)
             headers = [cell.value for cell in ws[1]]
-    
+
     # Aplica SAP style a todas las pestañas y habilita filtros en row1
     exporter.styler.apply(wb)
 
@@ -5160,7 +5016,7 @@ def format_easybrokers_files(exporter, excel_filename):
             thumb_col_idx = headers.index("title_image_thumb") + 1
             ws.delete_cols(thumb_col_idx)
             headers = [cell.value for cell in ws[1]]
-    
+
     # Aplica SAP style a todas las pestañas y habilita filtros en row1
     exporter.styler.apply(wb)
 
@@ -5312,7 +5168,7 @@ def format_easybrokers_files(exporter, excel_filename):
             thumb_col_idx = headers.index("title_image_thumb") + 1
             ws.delete_cols(thumb_col_idx)
             headers = [cell.value for cell in ws[1]]
-    
+
     # Aplica SAP style a todas las pestañas y habilita filtros en row1
     exporter.styler.apply(wb)
 
@@ -5464,7 +5320,7 @@ def format_easybrokers_files(exporter, excel_filename):
             thumb_col_idx = headers.index("title_image_thumb") + 1
             ws.delete_cols(thumb_col_idx)
             headers = [cell.value for cell in ws[1]]
-    
+
     # Aplica SAP style a todas las pestañas y habilita filtros en row1
     exporter.styler.apply(wb)
 
@@ -5616,7 +5472,7 @@ def format_easybrokers_files(exporter, excel_filename):
             thumb_col_idx = headers.index("title_image_thumb") + 1
             ws.delete_cols(thumb_col_idx)
             headers = [cell.value for cell in ws[1]]
-    
+
     # Aplica SAP style a todas las pestañas y habilita filtros en row1
     exporter.styler.apply(wb)
 
@@ -5768,7 +5624,7 @@ def format_easybrokers_files(exporter, excel_filename):
             thumb_col_idx = headers.index("title_image_thumb") + 1
             ws.delete_cols(thumb_col_idx)
             headers = [cell.value for cell in ws[1]]
-    
+
     # Aplica SAP style a todas las pestañas y habilita filtros en row1
     exporter.styler.apply(wb)
 
@@ -5920,7 +5776,159 @@ def format_easybrokers_files(exporter, excel_filename):
             thumb_col_idx = headers.index("title_image_thumb") + 1
             ws.delete_cols(thumb_col_idx)
             headers = [cell.value for cell in ws[1]]
-    
+
+    # Aplica SAP style a todas las pestañas y habilita filtros en row1
+    exporter.styler.apply(wb)
+
+    # Reemplaza el valor en "title_image_full" con el "public_url" obtenido de cada JSON
+    if exporter.tab_names['properties'] in wb.sheetnames:
+        ws = wb[exporter.tab_names['properties']]
+        headers = [cell.value for cell in ws[1]]
+        if "title_image_full" in headers:
+            image_full_col_idx = headers.index("title_image_full")
+            public_id_col_idx = headers.index(exporter.col_indices['public_id_column_name'])
+            for row in ws.iter_rows(min_row=2, max_row=ws.max_row):
+                public_id = row[public_id_col_idx].value
+                json_path = os.path.join(exporter.base_json_folder, f"{public_id}.json")
+                public_url = None
+                if public_id and os.path.exists(json_path):
+                    try:
+                        with open(json_path, "r", encoding="utf-8") as f:
+                            data = json.load(f)
+                            public_url = data.get("public_url")
+                    except Exception as e:
+                        logger.warning(f"Error reading JSON for {public_id}: {e}")
+                target_cell = row[image_full_col_idx]
+                if public_url and isinstance(public_url, str):
+                    # Reemplaza el valor por la URL y crea el hipervínculo
+                    exporter.hyperlink_helper.set_hyperlink(target_cell, public_url, display=public_url)
+                else:
+                    target_cell.value = ''
+        # Vuelve a habilitar filtro sobre la fila 1 (por si se perdió)
+        ws.auto_filter.ref = ws.dimensions
+
+    # Elimina la pestaña "Property Types" si existe y hay más de una pestaña
+    if 'Property Types' in wb.sheetnames and len(wb.sheetnames) > 1:
+        del wb['Property Types']
+
+    wb.save(excel_filename)
+    logger.info("Completed formatting of Easybrokers Excel files.")
+
+def download_images():
+    logger.info("Starting image download process.")
+    from test_download import downloader
+    properties = []
+    json_folder = config.base_json_folder
+    json_dir = os.path.abspath(json_folder)
+    for filename in os.listdir(json_dir):
+        if filename.endswith('.json'):
+            file_path = os.path.join(json_dir, filename)
+            try:
+                with open(file_path, 'r', encoding='utf-8') as f:
+                    data = json.load(f)
+                property_id = data.get('property_id') or data.get('id') or os.path.splitext(filename)[0]
+                images = []
+                if 'images' in data and isinstance(data['images'], list):
+                    for img in data['images']:
+                        if isinstance(img, dict) and 'url' in img:
+                            images.append(img['url'])
+                        elif isinstance(img, str):
+                            images.append(img)
+                elif 'photos' in data and isinstance(data['photos'], list):
+                    for img in data['photos']:
+                        if isinstance(img, dict) and 'url' in img:
+                            images.append(img['url'])
+                        elif isinstance(img, str):
+                            images.append(img)
+                if property_id and images:
+                    properties.append({'property_id': property_id, 'images': images})
+            except Exception as e:
+                logger.error(f"Error reading {file_path}: {e}")
+    if not properties:
+        logger.warning("No properties with images found for download.")
+    else:
+        downloader.download_all_property_images(properties)
+        logger.info(f"Image download completed for {len(properties)} properties.")
+    logger.info("Completed image download process.")
+
+def upsert_data_into_wiggot():
+    logger.info("Starting upsert process for Wiggot data.")
+    wiggot_file = os.path.join(config.excel_folder, "wiggot.xlsx")
+
+    # Dynamically locate the latest easybrokers file
+    easybrokers_files = [f for f in os.listdir(config.excel_folder) if f.startswith("easybrokers_") and f.endswith(".xlsx")]
+    if not easybrokers_files:
+        logger.error("No Easybrokers file found in the directory.")
+        return
+
+    easybrokers_file = os.path.join(config.excel_folder, max(easybrokers_files))
+
+    try:
+        wiggot_wb = load_workbook(wiggot_file)
+        easybrokers_wb = load_workbook(easybrokers_file)
+
+        wiggot_sheet = wiggot_wb.active
+        easybrokers_sheet = easybrokers_wb.active
+
+        wiggot_data = {row[0].value: row for row in wiggot_sheet.iter_rows(min_row=2)}
+        for row in easybrokers_sheet.iter_rows(min_row=2):
+            property_id = row[0].value
+            if property_id not in wiggot_data:
+                # Ensure all records are mapped correctly
+                wiggot_sheet.append([cell.value for cell in row])
+
+        wiggot_wb.save(wiggot_file)
+        logger.info("Wiggot file successfully updated.")
+    except Exception as e:
+        logger.error(f"Error during Wiggot file upsertion: {e}")
+    logger.info("Completed upsert process for Wiggot data.")
+
+# --- Config Loader ---
+def load_config():
+    config_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'config.json')
+    config = {}
+    if os.path.exists(config_path):
+        try:
+            with open(config_path, 'r', encoding='utf-8') as f:
+                config = json.load(f)
+        except Exception:
+            pass  # Suprime errores en la lectura
+    if 'LOG_FOLDER' in config:
+        os.makedirs(config['LOG_FOLDER'], exist_ok=True)
+    return EasyBrokerConfig(config)
+
+# --- Logging Configuration ---
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logger = logging.getLogger(__name__)
+
+# --- Main Workflow Steps ---
+def download_jsons(exporter):
+    logger.info("Starting JSON download process.")
+    properties = exporter.get_properties(excel_filename)
+    exporter.save_property_jsons(properties, max_workers=exporter.max_workers)
+    logger.info("Completed JSON download process.")
+
+def create_easybrokers_files(exporter):
+    logger.info("Creating Easybrokers Excel files.")
+    excel_filename = exporter.fetch_endpoints_to_excel()
+    logger.info(f"Easybrokers Excel file created: {excel_filename}")
+    return excel_filename
+
+def format_easybrokers_files(exporter, excel_filename):
+    logger.info("Formatting Easybrokers Excel files.")
+    wb = openpyxl.load_workbook(excel_filename)
+
+    # Clean and style "properties" tab
+    if exporter.tab_names['properties'] in wb.sheetnames:
+        ws = wb[exporter.tab_names['properties']]
+        exporter.cleaner.format_operations_column(ws)
+        headers = [cell.value for cell in ws[1]]
+        # Elimina columna "title_image_thumb" si existe
+        if "title_image_thumb" in headers:
+            thumb_col_idx = headers.index("title_image_thumb") + 1
+            ws.delete_cols(thumb_col_idx)
+            headers = [cell.value for cell in ws[1]]
+
     # Aplica SAP style a todas las pestañas y habilita filtros en row1
     exporter.styler.apply(wb)
 
