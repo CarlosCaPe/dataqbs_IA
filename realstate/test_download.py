@@ -42,11 +42,15 @@ downloader = RealstateImageDownloader(
     max_workers=config.get('MAX_WORKERS', 8)
 )
 
-# Read all JSON files in the properties folder
-properties = []
 json_folder = config['BASE_JSON_FOLDER']
 json_dir = os.path.abspath(json_folder)
+images_root = os.path.join(json_folder, "images")
 logger.info('Starting image download discovery in %s', json_dir)
+
+properties_to_download = []
+skipped = 0
+total = 0
+
 for filename in os.listdir(json_dir):
     if filename.endswith('.json'):
         file_path = os.path.join(json_dir, filename)
@@ -54,7 +58,6 @@ for filename in os.listdir(json_dir):
             with open(file_path, 'r', encoding='utf-8') as f:
                 data = json.load(f)
             property_id = data.get('property_id') or data.get('id') or os.path.splitext(filename)[0]
-            # Find images from common fields
             images = []
             if 'images' in data and isinstance(data['images'], list):
                 for img in data['images']:
@@ -69,13 +72,21 @@ for filename in os.listdir(json_dir):
                     elif isinstance(img, str):
                         images.append(img)
             if property_id and images:
-                properties.append({'property_id': property_id, 'images': images})
+                total += 1
+                property_img_dir = os.path.join(images_root, property_id)
+                # If folder exists and has at least one image, skip
+                if os.path.isdir(property_img_dir) and any(os.listdir(property_img_dir)):
+                    logger.info(f"Skipping {property_id}: images already exist.")
+                    skipped += 1
+                else:
+                    properties_to_download.append({'property_id': property_id, 'images': images})
         except Exception as e:
             logger.error('Error reading %s: %s', file_path, e)
 
-if not properties:
-    logger.warning('No properties with images found to download.')
+if not properties_to_download:
+    logger.info(f"No new properties to download. {skipped} already had images.")
 else:
-    logger.info('Downloading images for %d properties...', len(properties))
-    downloader.download_all_property_images(properties)
+    logger.info(f"Downloading images for {len(properties_to_download)} properties (skipped {skipped} of {total})...")
+    downloader.download_all_property_images(properties_to_download)
+    logger.info(f"Finished download for {len(properties_to_download)} properties.")
     logger.info('Finished download for %d properties.', len(properties))
