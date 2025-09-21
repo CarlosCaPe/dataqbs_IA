@@ -136,14 +136,14 @@ def export_wiggot_excel(email: str, password: str, out_path: Path, headed: bool 
         context.set_default_timeout(60000)
         page = context.new_page()
 
-        # 1) Go to login or properties page depending on whether we have auth state
+        # 1) Go to login page explicitly (more stable) or straight to my-properties if we have state
         try:
             if state_path.exists():
                 page.goto("https://new.wiggot.com/my-properties", wait_until="domcontentloaded")
             else:
-                page.goto("https://new.wiggot.com/login", wait_until="domcontentloaded")
+                page.goto("https://new.wiggot.com/auth/login", wait_until="domcontentloaded")
         except Exception:
-            page.goto("https://new.wiggot.com/", wait_until="domcontentloaded")
+            page.goto("https://new.wiggot.com/auth/login", wait_until="domcontentloaded")
 
         # Handle cookie banners if present (best-effort)
         for cookie_sel in [
@@ -188,6 +188,7 @@ def export_wiggot_excel(email: str, password: str, out_path: Path, headed: bool 
             _try_click_email_login_toggle(page)
 
             # First try on main page
+            # Tune selectors for /auth/login form variants
             if not _try_fill_email(page, email):
                 # Try inside iframes (Auth providers often use iframes)
                 for frame in page.frames:
