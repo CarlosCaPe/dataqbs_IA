@@ -171,7 +171,7 @@ def export_wiggot_excel(email: str, password: str, out_path: Path, headed: bool 
             # Not authenticated yet; proceed with login
             pass
 
-    if manual_login:
+        if manual_login:
             # Allow user to complete login manually (headed recommended)
             print("Manual login mode: complete Wiggot login in the opened browser window...")
             try:
