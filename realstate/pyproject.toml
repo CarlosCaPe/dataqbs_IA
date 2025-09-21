@@ -11,7 +11,7 @@ python = "^3.9"
 requests = "^2.32.0"
 # openpyxl is used by some helper flows in realstate_list.py
 openpyxl = "^3.1.5"
-playwright = "^1.48.0"
+playwright = "^1.55.0"
 python-dotenv = "^1.0.1"
 
 [tool.poetry.scripts]

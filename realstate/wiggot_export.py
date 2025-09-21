@@ -107,52 +107,178 @@ def _click_login_submit(ctx) -> None:
         pass
 
 
-def export_wiggot_excel(email: str, password: str, out_path: Path, headed: bool = False, slow_mo: int = 0, manual_login: bool = False, manual_export: bool = False) -> Path:
+def _attempt_export_download(page, per_attempt_timeout_ms: int = 30000):
     """
-    Automate Wiggot web UI to download the Excel from My Properties -> Exportar.
-
-    Inputs:
-    - email/password: Wiggot credentials
-    - out_path: target path to save the downloaded file as wiggot.xlsx
-    Options:
-    - headed: run with visible browser
-    - slow_mo: milliseconds to slow interactions for stability/debugging
-
-    Returns the saved file path.
+    Try to trigger the Wiggot export and capture the download using several selector strategies.
+    Returns the Download object on success, raises on failure.
     """
-    out_path = out_path.resolve()
-    out_path.parent.mkdir(parents=True, exist_ok=True)
+    selectors = [
+        "button:has-text('Exportar')",
+        "[role=button]:has-text('Exportar')",
+        "text=Exportar",
+        "[data-testid*=export]",
+        "[aria-label*=Export]",
+        "[title*=Export]",
+    ]
 
-    download_dir = out_path.parent
-    state_path = download_dir / ".auth_wiggot.json"
-
-    with sync_playwright() as pw:
-        browser = pw.chromium.launch(headless=not headed, slow_mo=slow_mo)
-        context = browser.new_context(
-            accept_downloads=True,
-            storage_state=str(state_path) if state_path.exists() else None,
-        )
-        # Be generous with timeouts; Wiggot can be slow or show modals
-        context.set_default_timeout(60000)
-        page = context.new_page()
-
-        # 1) Go to login page explicitly (more stable) or straight to my-properties if we have state
+    # First, attempt direct clicks in the main page
+    for sel in selectors:
         try:
-            if state_path.exists():
-                page.goto("https://new.wiggot.com/my-properties", wait_until="domcontentloaded")
-            else:
-                page.goto("https://new.wiggot.com/auth/login", wait_until="domcontentloaded")
+            with page.expect_download(timeout=per_attempt_timeout_ms) as download_info:
+                page.click(sel, timeout=4000)
+            return download_info.value
         except Exception:
-            page.goto("https://new.wiggot.com/auth/login", wait_until="domcontentloaded")
+            continue
 
-        # Handle cookie banners if present (best-effort)
-        for cookie_sel in [
-            "button:has-text('Aceptar')",
-            "button:has-text('Acepto')",
-            "button:has-text('Accept')",
-            "[id*='accept'][role='button']",
-            "[data-testid*='accept']",
-        ]:
+    # Some UIs hide Export behind a menu, try opening common menus first
+    menu_triggers = [
+        "button[aria-haspopup]",
+        "[role=button][aria-expanded]",
+        "button:has([class*='menu'])",
+        "[aria-label*='Más']",
+        "[aria-label*='More']",
+    ]
+    menu_items = [
+        "text=Exportar",
+        "text=Export",
+        "[role=menuitem]:has-text('Export')",
+        "[role=menuitem]:has-text('Exportar')",
+    ]
+
+    for trigger in menu_triggers:
+        try:
+            page.click(trigger, timeout=2000)
+            for item in menu_items:
+                try:
+                    with page.expect_download(timeout=per_attempt_timeout_ms) as download_info:
+                        page.click(item, timeout=3000)
+                    return download_info.value
+                except Exception:
+                    continue
+        except Exception:
+            continue
+
+    # Try inside iframes as a last resort
+    for frame in page.frames:
+        # Skip the main frame, already tried
+        if frame == page.main_frame:
+            continue
+        for sel in selectors:
+            try:
+                with page.expect_download(timeout=per_attempt_timeout_ms) as download_info:
+                    frame.click(sel, timeout=4000)
+                return download_info.value
+            except Exception:
+                continue
+    raise RuntimeError("Couldn't find or trigger the 'Exportar' control.")
+
+
+def _wait_for_excel_response(page, timeout_ms: int = 30000):
+    """
+    Wait for a network response that looks like an Excel export. Returns the Response or raises on timeout.
+    """
+    def is_excel(resp):
+        try:
+            ct = (resp.headers.get('content-type') or '').lower()
+            cd = (resp.headers.get('content-disposition') or '').lower()
+            url = resp.url.lower()
+            if 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' in ct:
+                return True
+            if 'application/vnd.ms-excel' in ct:
+                return True
+            if 'application/octet-stream' in ct and ('filename=' in cd or url.endswith('.xlsx') or url.endswith('.xls')):
+                return True
+            if 'text/csv' in ct and ('export' in url or 'download' in url):
+                return True
+        except Exception:
+            pass
+        return False
+
+    return page.wait_for_response(lambda r: is_excel(r), timeout=timeout_ms)
+
+
+def _wait_for_export_button(ctx, timeout_ms: int = 20000) -> bool:
+    """
+    Wait until an element that looks like the 'Exportar' button appears.
+    Returns True if found, False otherwise.
+    """
+        # 4) Capture the download
+        if manual_export:
+            print("Manual export mode: please click 'Exportar' in the Wiggot UI now… waiting for download…")
+            try:
+                with page.expect_download(timeout=180000) as download_info:
+                    # Just block waiting for the user's click to trigger download
+                    pass
+                download = download_info.value
+            except Exception:
+                page.screenshot(path=str(out_path.parent / "wiggot_manual_export_timeout.png"))
+                raise
+        else:
+            # Automated export with retries, popup handling, and network fallback
+            total_deadline = time.time() + 240  # 4 minutes total
+            last_error = None
+            attempt = 1
+            download = None
+            while time.time() < total_deadline and download is None:
+                print(f"[wiggot] Attempt {attempt}: looking for 'Exportar' and triggering export…")
+                try:
+                    # Ensure page is ready and the Exportar control is likely present
+                    try:
+                        page.wait_for_selector("text=Exportar", timeout=7000)
+                    except Exception:
+                        # Try a gentle reload to refresh UI state
+                        try:
+                            page.reload(wait_until="networkidle")
+                        except Exception:
+                            pass
+
+                    # First try normal download event
+                    try:
+                        download = _attempt_export_download(page, per_attempt_timeout_ms=25000)
+                    except Exception as e1:
+                        last_error = e1
+                        print("[wiggot] No direct download event, trying popup/network fallback…")
+
+                        # Some sites open a new popup/tab for export; listen for it
+                        popup = None
+                        try:
+                            with context.expect_page(timeout=8000) as popup_info:
+                                # Try clicking again to force popup
+                                page.click("text=Exportar", timeout=3000)
+                            popup = popup_info.value
+                        except Exception:
+                            popup = None
+
+                        target_page = popup if popup is not None else page
+
+                        # Network response fallback: wait for an Excel-looking response
+                        try:
+                            resp = _wait_for_excel_response(target_page, timeout_ms=25000)
+                            # Save to out_path
+                            body = resp.body()
+                            with open(out_path, 'wb') as f:
+                                f.write(body)
+                            # Small wait to ensure write completion
+                            time.sleep(0.5)
+                            download = True  # sentinel indicating success via network
+                            break
+                        except Exception as e2:
+                            last_error = e2
+
+                except Exception as e:
+                    last_error = e
+
+                # Scroll and retry; sometimes controls render lazily
+                try:
+                    page.mouse.wheel(0, 1200)
+                    page.wait_for_timeout(800)
+                except Exception:
+                    pass
+                attempt += 1
+
+            if download is None:
+                page.screenshot(path=str(out_path.parent / "wiggot_export_button_debug.png"))
+                raise RuntimeError(f"Failed to export within timeout. Last error: {last_error}")
             try:
                 page.click(cookie_sel, timeout=2000)
                 break
@@ -170,6 +296,9 @@ def export_wiggot_excel(email: str, password: str, out_path: Path, headed: bool 
         except Exception:
             # Not authenticated yet; proceed with login
             pass
+
+        # Decide if we're allowed to attempt automated login
+        allow_auto_login = bool(email) and bool(password) and not manual_login
 
         if manual_login:
             # Allow user to complete login manually (headed recommended)
@@ -189,7 +318,7 @@ def export_wiggot_excel(email: str, password: str, out_path: Path, headed: bool 
             else:
                 page.screenshot(path=str(out_path.parent / "wiggot_manual_login_timeout.png"))
                 raise RuntimeError("Manual login timed out. Saved screenshot.")
-        else:
+        elif allow_auto_login:
             # Automated login attempt, try top-level, then any iframes
             _try_click_email_login_toggle(page)
 
@@ -219,7 +348,16 @@ def export_wiggot_excel(email: str, password: str, out_path: Path, headed: bool 
                     page.screenshot(path=str(out_path.parent / "wiggot_password_debug.png"))
                     raise RuntimeError("Could not locate the password field on Wiggot login page. Saved screenshot.")
                 _click_login_submit(page)
-        # End automated login
+        else:
+            # No credentials provided and manual login not requested. If a saved session exists,
+            # we will proceed; otherwise we cannot log in automatically.
+            if not state_path.exists():
+                page.screenshot(path=str(out_path.parent / "wiggot_need_login.png"))
+                raise RuntimeError(
+                    "No Wiggot credentials provided and no saved session found. "
+                    "Run once with --manual-login (headed) or provide --email/--password."
+                )
+        # End login handling
 
         # 3) Navigate to My Properties
         page.wait_for_load_state("networkidle")
@@ -244,7 +382,22 @@ def export_wiggot_excel(email: str, password: str, out_path: Path, headed: bool 
         else:
             # Option B: automated click
             # The export button typically has text 'Exportar' and a download icon.
-            with page.expect_download(timeout=120000) as download_info:
+            # First ensure the button is present (with a few retries)
+            found = False
+            for _ in range(3):
+                if _wait_for_export_button(page, timeout_ms=15000):
+                    found = True
+                    break
+                # If not found, refresh or re-navigate once to stabilize
+                try:
+                    page.reload(wait_until="networkidle")
+                except Exception:
+                    page.goto("https://new.wiggot.com/my-properties", wait_until="networkidle")
+            if not found:
+                page.screenshot(path=str(out_path.parent / "wiggot_export_button_not_found.png"))
+                raise RuntimeError("Couldn't locate 'Exportar' on the page. Saved screenshot.")
+
+            with page.expect_download(timeout=180000) as download_info:
                 # Try a few candidate selectors for robustness
                 clicked = False
                 for sel in [
@@ -256,7 +409,7 @@ def export_wiggot_excel(email: str, password: str, out_path: Path, headed: bool 
                     "[title*=Export]",
                 ]:
                     try:
-                        page.click(sel, timeout=4000)
+                        page.click(sel, timeout=6000)
                         clicked = True
                         break
                     except Exception:
@@ -271,7 +424,7 @@ def export_wiggot_excel(email: str, password: str, out_path: Path, headed: bool 
                         "[aria-label*='More']",
                     ]:
                         try:
-                            page.click(trigger, timeout=2000)
+                            page.click(trigger, timeout=3000)
                             # After menu opens, try export options again
                             for menu_item in [
                                 "text=Exportar",
@@ -280,7 +433,7 @@ def export_wiggot_excel(email: str, password: str, out_path: Path, headed: bool 
                                 "[role=menuitem]:has-text('Exportar')",
                             ]:
                                 try:
-                                    page.click(menu_item, timeout=2000)
+                                    page.click(menu_item, timeout=3000)
                                     clicked = True
                                     break
                                 except Exception:
@@ -294,20 +447,21 @@ def export_wiggot_excel(email: str, password: str, out_path: Path, headed: bool 
                     raise RuntimeError("Couldn't find the 'Exportar' control on Wiggot page. Saved screenshot.")
             download = download_info.value
 
-        # 5) Save to desired path (overwrite)
-        # Wiggot likely generates a .xlsx; keep name consistent
-        tmp_path = download.path()
-        if tmp_path is None:
-            tmp_path = download.save_as(str(download_dir / download.suggested_filename))
-        else:
-            # Ensure overwrite behavior
-            download.save_as(str(out_path))
+        # 5) Save to desired path (overwrite) if we used a real Download object
+        if download is not True:  # True means we saved via network fallback already
+            # Wiggot likely generates a .xlsx; keep name consistent
+            tmp_path = download.path()
+            if tmp_path is None:
+                tmp_path = download.save_as(str(download_dir / download.suggested_filename))
+            else:
+                # Ensure overwrite behavior
+                download.save_as(str(out_path))
 
-        # If saved via suggested_filename, move/rename to out_path
-        suggested = download.suggested_filename
-        suggested_path = download_dir / suggested if suggested else None
-        if suggested_path and suggested_path.exists() and suggested_path.resolve() != out_path:
-            suggested_path.replace(out_path)
+            # If saved via suggested_filename, move/rename to out_path
+            suggested = download.suggested_filename
+            suggested_path = download_dir / suggested if suggested else None
+            if suggested_path and suggested_path.exists() and suggested_path.resolve() != out_path:
+                suggested_path.replace(out_path)
 
         # Small wait to ensure file lock released on Windows
         time.sleep(0.5)
@@ -347,6 +501,7 @@ def main():
     parser.add_argument("--slow-mo", type=int, default=int(os.getenv("WIGGOT_SLOWMO", "0")), help="Slow motion in ms")
     parser.add_argument("--manual-login", action="store_true", help="Skip automated login and let user sign in manually (headed recommended)")
     parser.add_argument("--manual-export", action="store_true", help="Do not click Exportar automatically; you will click it and we will capture the download")
+    parser.add_argument("--total-timeout", type=int, default=int(os.getenv("WIGGOT_TOTAL_TIMEOUT", "240")), help="Overall timeout in seconds before failing (default 240s)")
     parser.add_argument(
         "--out",
         default=str(Path(__file__).parent / "properties" / "wiggot.xlsx"),
@@ -354,14 +509,18 @@ def main():
     )
     args = parser.parse_args()
 
-    if not args.email or not args.password:
-        print("Missing Wiggot credentials. Provide --email/--password or set WIGGOT_EMAIL/WIGGOT_PASSWORD env vars.")
+    # If no credentials provided, allow running if a saved session exists for the target output folder
+    out_path = Path(args.out)
+    state_path = out_path.resolve().parent / ".auth_wiggot.json"
+    if (not args.email or not args.password) and not state_path.exists() and not args.manual_login:
+        print("Missing Wiggot credentials and no saved session found. "
+              "Provide --email/--password or run once with --manual-login to persist a session.")
         sys.exit(2)
 
     out = export_wiggot_excel(
-        args.email,
-        args.password,
-        Path(args.out),
+        args.email or "",
+        args.password or "",
+        out_path,
         headed=args.headed,
         slow_mo=args.slow_mo,
         manual_login=args.manual_login,
