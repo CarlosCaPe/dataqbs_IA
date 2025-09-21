@@ -23,6 +23,10 @@ class RealstateImageDownloader:
         }
 
     def download_image(self, image_url, save_path):
+        # Skip if the file already exists
+        if os.path.exists(save_path):
+            logger.info(f"Skipping existing image: {save_path}")
+            return
         try:
             response = requests.get(image_url, headers=self.headers, stream=True)
             response.raise_for_status()

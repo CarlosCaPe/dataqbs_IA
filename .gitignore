@@ -1,3 +1,20 @@
+# Local environment files
+.env
+realstate/.env
+
+# Realstate data artifacts to avoid committing
+realstate/properties/data/**/*.json
+realstate/properties/images/**
+realstate/properties/wiggot_login_debug.png
+
+# Common image types
+*.jpg
+*.jpeg
+*.png
+
+# Logs
+realstate/logs/**
+emails_out/**
 .env
 .venv
 venv/

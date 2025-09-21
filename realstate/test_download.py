@@ -89,4 +89,3 @@ else:
     logger.info(f"Downloading images for {len(properties_to_download)} properties (skipped {skipped} of {total})...")
     downloader.download_all_property_images(properties_to_download)
     logger.info(f"Finished download for {len(properties_to_download)} properties.")
-    logger.info('Finished download for %d properties.', len(properties))

@@ -1,8 +1,25 @@
 """
-email_collector.main
+DEPRECATED entrypoint.
 
-Orquesta descarga, clasificación y validación de correos .eml
-según el esquema de configuración nuevo en `config.yaml`.
+This file is intentionally kept to avoid import errors but should not be used.
+Use the canonical entrypoint at `email_collector/src/email_collector/main.py`.
+"""
+
+import sys
+
+def main():
+    msg = (
+        "Deprecated module: email_collector/main.py.\n"
+        "Please run the tool via Poetry or import from 'email_collector.src.email_collector.main'.\n"
+        "Example: poetry run email-collect --precheck --config ..\\config.yaml\n"
+    )
+    print(msg)
+    # Non-zero to discourage accidental use in scripts still pointing here
+    raise SystemExit(2)
+
+
+if __name__ == "__main__":
+    main()
 
 - Cuentas múltiples (gmail/hotmail) definidas en config + .env
 - Carpetas por proveedor
