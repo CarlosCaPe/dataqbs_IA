@@ -107,7 +107,7 @@ def _click_login_submit(ctx) -> None:
         pass
 
 
-def export_wiggot_excel(email: str, password: str, out_path: Path, headed: bool = False, slow_mo: int = 0, manual_login: bool = False) -> Path:
+def export_wiggot_excel(email: str, password: str, out_path: Path, headed: bool = False, slow_mo: int = 0, manual_login: bool = False, manual_export: bool = False) -> Path:
     """
     Automate Wiggot web UI to download the Excel from My Properties -> Exportar.
 
@@ -223,36 +223,69 @@ def export_wiggot_excel(email: str, password: str, out_path: Path, headed: bool 
             page.wait_for_timeout(1500)
             page.goto("https://new.wiggot.com/my-properties", wait_until="networkidle")
 
-        # 4) Click "Exportar" button and capture the download
-        # The export button typically has text 'Exportar' and a download icon.
-        with page.expect_download(timeout=60000) as download_info:
-            # Try a few candidate selectors for robustness
-            clicked = False
-            for sel in [
-                "button:has-text('Exportar')",
-                "text=Exportar",
-                "[data-testid*=export]",
-                "[aria-label*=Export]",
-            ]:
+        # 4) Capture the download
+        # Option A: manual export: user clicks 'Exportar' themselves
+        if manual_export:
+            print("Manual export mode: please click 'Exportar' in the Wiggot UI now… waiting for download…")
+            with page.expect_download(timeout=180000) as download_info:
+                # Wait for the user to click the export control
                 try:
-                    page.click(sel, timeout=4000)
-                    clicked = True
-                    break
+                    page.wait_for_selector("text=Exportar", timeout=20000)
                 except Exception:
-                    continue
-            if not clicked:
-                # Try a menu variant first
-                for alt in ["text=Export", "[title*=Export]"]:
+                    pass
+            download = download_info.value
+        else:
+            # Option B: automated click
+            # The export button typically has text 'Exportar' and a download icon.
+            with page.expect_download(timeout=120000) as download_info:
+                # Try a few candidate selectors for robustness
+                clicked = False
+                for sel in [
+                    "button:has-text('Exportar')",
+                    "[role=button]:has-text('Exportar')",
+                    "text=Exportar",
+                    "[data-testid*=export]",
+                    "[aria-label*=Export]",
+                    "[title*=Export]",
+                ]:
                     try:
-                        page.click(alt, timeout=3000)
+                        page.click(sel, timeout=4000)
                         clicked = True
                         break
                     except Exception:
                         continue
-            if not clicked:
-                page.screenshot(path=str(out_path.parent / "wiggot_export_button_debug.png"))
-                raise RuntimeError("Couldn't find the 'Exportar' button on Wiggot page. Saved screenshot.")
-        download = download_info.value
+                if not clicked:
+                    # Some UIs use a menu: try opening common menu triggers first
+                    for trigger in [
+                        "button[aria-haspopup]",
+                        "[role=button][aria-expanded]",
+                        "button:has([class*='menu'])",
+                        "[aria-label*='Más']",
+                        "[aria-label*='More']",
+                    ]:
+                        try:
+                            page.click(trigger, timeout=2000)
+                            # After menu opens, try export options again
+                            for menu_item in [
+                                "text=Exportar",
+                                "text=Export",
+                                "[role=menuitem]:has-text('Export')",
+                                "[role=menuitem]:has-text('Exportar')",
+                            ]:
+                                try:
+                                    page.click(menu_item, timeout=2000)
+                                    clicked = True
+                                    break
+                                except Exception:
+                                    continue
+                            if clicked:
+                                break
+                        except Exception:
+                            continue
+                if not clicked:
+                    page.screenshot(path=str(out_path.parent / "wiggot_export_button_debug.png"))
+                    raise RuntimeError("Couldn't find the 'Exportar' control on Wiggot page. Saved screenshot.")
+            download = download_info.value
 
         # 5) Save to desired path (overwrite)
         # Wiggot likely generates a .xlsx; keep name consistent
@@ -306,6 +339,7 @@ def main():
     parser.add_argument("--headed", action="store_true", help="Run browser headed for debugging")
     parser.add_argument("--slow-mo", type=int, default=int(os.getenv("WIGGOT_SLOWMO", "0")), help="Slow motion in ms")
     parser.add_argument("--manual-login", action="store_true", help="Skip automated login and let user sign in manually (headed recommended)")
+    parser.add_argument("--manual-export", action="store_true", help="Do not click Exportar automatically; you will click it and we will capture the download")
     parser.add_argument(
         "--out",
         default=str(Path(__file__).parent / "properties" / "wiggot.xlsx"),
@@ -317,7 +351,15 @@ def main():
         print("Missing Wiggot credentials. Provide --email/--password or set WIGGOT_EMAIL/WIGGOT_PASSWORD env vars.")
         sys.exit(2)
 
-    out = export_wiggot_excel(args.email, args.password, Path(args.out), headed=args.headed, slow_mo=args.slow_mo, manual_login=args.manual_login)
+    out = export_wiggot_excel(
+        args.email,
+        args.password,
+        Path(args.out),
+        headed=args.headed,
+        slow_mo=args.slow_mo,
+        manual_login=args.manual_login,
+        manual_export=args.manual_export,
+    )
     print(f"Saved Wiggot export to: {out}")
 
 
