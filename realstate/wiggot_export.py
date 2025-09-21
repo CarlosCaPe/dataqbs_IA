@@ -173,16 +173,22 @@ def export_wiggot_excel(email: str, password: str, out_path: Path, headed: bool 
 
         if manual_login:
             # Allow user to complete login manually (headed recommended)
-            print("Manual login mode: complete Wiggot login in the opened browser window...")
-            try:
-                page.wait_for_url(lambda url: "wiggot.com" in url and ("prop" in url or "my-properties" in url), timeout=120000)
-            except Exception:
-                # Try waiting for export controls as a proxy for authenticated state
+            print("Manual login mode: complete Wiggot login in the opened browser window…")
+            # Poll for authenticated state by checking Exportar presence on my-properties
+            deadline = time.time() + 180  # 3 minutes
+            while time.time() < deadline:
                 try:
-                    page.wait_for_selector("text=Exportar", timeout=120000)
+                    if "my-properties" not in page.url:
+                        # Try to navigate to target page; if not logged in, Wiggot may redirect back to login
+                        page.goto("https://new.wiggot.com/my-properties", wait_until="domcontentloaded")
+                    # Check for export control
+                    page.wait_for_selector("text=Exportar", timeout=3000)
+                    break
                 except Exception:
-                    page.screenshot(path=str(out_path.parent / "wiggot_manual_login_timeout.png"))
-                    raise RuntimeError("Manual login timed out. Saved screenshot.")
+                    page.wait_for_timeout(1500)
+            else:
+                page.screenshot(path=str(out_path.parent / "wiggot_manual_login_timeout.png"))
+                raise RuntimeError("Manual login timed out. Saved screenshot.")
         else:
             # Automated login attempt, try top-level, then any iframes
             _try_click_email_login_toggle(page)
