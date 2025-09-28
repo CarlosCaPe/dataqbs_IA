@@ -13,12 +13,10 @@ python-dotenv = "^1.0.1"
 imap-tools = "^0.46.0"
 PyYAML = "^6.0"
 langdetect = "^1.0.9"
-playwright = "^1.55.0"
 
 
 [tool.poetry.scripts]
 email-collect = "email_collector.main:main"
-wiggot-export = "wiggot_export:main"
 
 [build-system]
 requires = ["poetry-core"]

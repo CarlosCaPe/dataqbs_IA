@@ -6,6 +6,11 @@ realstate/.env
 realstate/properties/data/**/*.json
 realstate/properties/images/**
 realstate/properties/wiggot_login_debug.png
+realstate/properties/.auth_wiggot.json
+realstate/properties/.auth_*.json
+
+# Ignore entire realstate data folder (generated artifacts)
+realstate/properties/data/**
 
 # Common image types
 *.jpg
@@ -53,3 +58,10 @@ build/
 
 # Easybrokers images (explicit path)
 easybrokers/properties/images/
+
+# Telus compare local artifacts
+telus_compara_imagenes/.user_data/**
+telus_compara_imagenes/audit/**
+
+# Realstate data images under data/
+realstate/properties/data/images/**

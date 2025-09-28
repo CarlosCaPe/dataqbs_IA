@@ -5,7 +5,7 @@
       "name": "Email Collector (precheck)",
       "type": "debugpy",
       "request": "launch",
-      "program": "${workspaceFolder}/email_collector/main.py",
+      "program": "${workspaceFolder}/email_collector/src/email_collector/main.py",
       "cwd": "${workspaceFolder}/email_collector",
       "console": "integratedTerminal",
       "args": [
@@ -33,7 +33,7 @@
       "name": "Email Collector (run)",
       "type": "debugpy",
       "request": "launch",
-      "program": "${workspaceFolder}/email_collector/main.py",
+      "program": "${workspaceFolder}/email_collector/src/email_collector/main.py",
       "cwd": "${workspaceFolder}/email_collector",
       "console": "integratedTerminal",
       "args": [
