@@ -844,6 +844,9 @@ def main():
             logger.info("Panel de comparación encontrado. Iniciando iteraciones…")
 
         while True:
+            # On-screen iteration progress (X/Y). If max-iters is 0, show '?'
+            total_str = str(args.max_iters) if args.max_iters else "?"
+            logger.info(f"Iteración {iterations + 1}/{total_str}")
             iter_start = time.time()
             if not wait_for_compare_panel(page, timeout_s=10):
                 logger.info("Panel de comparación no visible. Asumimos fin de tareas.")

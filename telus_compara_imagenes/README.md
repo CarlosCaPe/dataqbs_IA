@@ -8,7 +8,8 @@ Automatiza la tarea "Image Quality Compare" (Side by Side) en Multimango.
 - En cada iteración: compara A vs B mediante una métrica de nitidez (Laplaciano) y decide A/B/Tie
 - Aplica un retardo humano (~30s por foto, configurable)
 - Envía la evaluación y avanza hasta que el sitio no responda
-- Lleva contador de iteraciones y tiempo total en un log y stdout
+- Muestra un contador en pantalla por iteración ("Iteración X/Y"; Y es '?' si no se definió `--max-iters`)
+- Lleva contador de iteraciones y tiempo total en un log y en stdout
 
 ## Uso rápido
 
