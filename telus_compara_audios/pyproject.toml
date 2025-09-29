@@ -10,6 +10,7 @@ package-mode = false
 python = ">=3.9,<3.14"
 playwright = "^1.55.0"
 requests = "^2.32.0"
+numpy = ">=1.24,<3"
 
 [tool.poetry.scripts]
 telus-compare-audio = "telus_compara_audios.runner:main"

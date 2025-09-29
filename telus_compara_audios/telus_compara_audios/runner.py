@@ -3,7 +3,9 @@ import time
 import logging
 from pathlib import Path
 import csv
+from typing import Optional, Tuple
 
+import numpy as np
 from playwright.sync_api import sync_playwright
 
 
@@ -145,6 +147,119 @@ def submit_and_next(page) -> bool:
     return True
 
 
+# -------- Audio Capture & Similarity ---------
+def _js_get_audio_srcs():
+        # Returns an array of objects with {role, src} for audio elements
+        return """
+        () => {
+            const out = [];
+            const buttons = Array.from(document.querySelectorAll('button, [role=button]'));
+            // Heuristic: find audio players or data-src near the labels
+            const areas = [
+                {key: 'A', label: ['Audio A','Version A']},
+                {key: 'B', label: ['Audio B','Version B']},
+                {key: 'R', label: ['Reference','Referencia']}
+            ];
+            const getClosestAudioOrSrc = (el) => {
+                const container = el.closest('section,div') || document.body;
+                const audio = container.querySelector('audio');
+                if (audio && audio.src) return audio.src;
+                // look for data attributes commonly used
+                const cand = container.querySelector('[data-src], [data-url]');
+                if (cand) return cand.getAttribute('data-src') || cand.getAttribute('data-url');
+                // try links
+                const a = container.querySelector('a[href$=".mp3"],a[href$=".wav"],a[href*="audio"]');
+                if (a) return a.href;
+                return null;
+            };
+            for (const area of areas) {
+                let found = null;
+                for (const txt of area.label) {
+                    const btn = buttons.find(b => (b.textContent||'').toLowerCase().includes(txt.toLowerCase()));
+                    if (btn) { found = btn; break; }
+                }
+                if (found) {
+                    const src = getClosestAudioOrSrc(found);
+                    if (src) out.push({role: area.key, src});
+                }
+            }
+            // Also include any obvious <audio> tags if not found
+            if (out.length < 3) {
+                document.querySelectorAll('audio').forEach(a => {
+                    if (a.src) out.push({role: 'U', src: a.src});
+                });
+            }
+            return out;
+        }
+        """
+
+
+def _js_fetch_pcm_from_src(src: str):
+        # Decode audio via WebAudio and return Float32Array as Array
+        return f"""
+        async () => {{
+            const Ctor = window.AudioContext || window.webkitAudioContext;
+            const ctx = new Ctor();
+            const res = await fetch('{src}');
+            const buf = await res.arrayBuffer();
+            const audio = await ctx.decodeAudioData(buf.slice(0));
+            const ch = audio.numberOfChannels > 0 ? 0 : 0;
+            const data = audio.getChannelData(ch);
+            // Downsample to ~22050 to limit size
+            const step = Math.max(1, Math.floor(audio.sampleRate / 22050));
+            const out = [];
+            for (let i=0;i<data.length;i+=step) out.push(data[i]);
+            const result = {{sampleRate: audio.sampleRate/step, data: out}};
+            try {{ ctx.close(); }} catch (e) {{}}
+            return result;
+        }}
+        """
+
+
+def _normalize(sig: np.ndarray) -> np.ndarray:
+        sig = sig.astype(np.float32)
+        sig -= np.mean(sig) if sig.size else 0.0
+        std = float(np.std(sig))
+        if std > 1e-12:
+                sig /= std
+        return sig
+
+
+def _sim_time_corr(ref: np.ndarray, x: np.ndarray) -> float:
+        a = _normalize(ref)
+        b = _normalize(x)
+        n = min(len(a), len(b))
+        if n < 64:
+                return 0.0
+        a = a[:n]
+        b = b[:n]
+        return float(np.clip(np.mean(a * b), -1.0, 1.0))
+
+
+def _sim_freq_cos(ref: np.ndarray, x: np.ndarray) -> float:
+        n = min(len(ref), len(x))
+        if n < 256:
+                return 0.0
+        n = int(2 ** np.floor(np.log2(n)))  # power of two
+        A = np.fft.rfft(_normalize(ref[:n]))
+        B = np.fft.rfft(_normalize(x[:n]))
+        magA = np.abs(A)
+        magB = np.abs(B)
+        num = float(np.dot(magA, magB))
+        den = float(np.linalg.norm(magA) * np.linalg.norm(magB))
+        return float(num / den) if den > 1e-9 else 0.0
+
+
+def compute_similarity(ref: np.ndarray, cand: np.ndarray) -> float:
+        # Blend time correlation and spectral cosine
+        t = _sim_time_corr(ref, cand)
+        f = _sim_freq_cos(ref, cand)
+        # map to [0,1]
+        t_n = (t + 1) / 2
+        f_n = (f + 1) / 2
+        return 0.6 * t_n + 0.4 * f_n
+
+
 def main():
     parser = argparse.ArgumentParser(description="Automatiza comparaciones de calidad de audio en Multimango")
     parser.add_argument("--headed", action="store_true", help="Abrir navegador con UI")
@@ -157,7 +272,8 @@ def main():
     parser.add_argument("--audit-limit", type=int, default=0, help="Máximo de filas a guardar en CSV (0 = todas)")
     parser.add_argument("--manual-login", action="store_true", help="Hacer login manualmente (3 min)")
     parser.add_argument("--iter-timeout", type=int, default=20, help="Tiempo máximo por iteración (s)")
-    parser.add_argument("--strategy", type=str, default="tie", choices=["tie","alternate","always-a","always-b"], help="Estrategia simple para decidir")
+    parser.add_argument("--strategy", type=str, default="smart", choices=["smart","tie","alternate","always-a","always-b"], help="Estrategia para decidir")
+    parser.add_argument("--tie-diff", type=float, default=0.02, help="Umbral |simA-simB| para Tie")
     args = parser.parse_args()
 
     log_path = Path(args.log_file) if args.log_file else None
@@ -221,7 +337,7 @@ def main():
                 logger.info("Panel de audio no visible. Terminando.")
                 break
 
-            # Estrategias simples para decidir sin análisis de audio
+            # Estrategias: simple o SMART (analiza PCM vs Reference)
             if args.strategy == "always-a":
                 decision = "Version A"
             elif args.strategy == "always-b":
@@ -229,8 +345,34 @@ def main():
             elif args.strategy == "alternate":
                 decision = "Version A" if not pick_toggle else "Version B"
                 pick_toggle = not pick_toggle
-            else:
+            elif args.strategy == "tie":
                 decision = "Tie"
+            else:
+                # SMART: intenta recuperar URLs y decodificar PCM en el navegador
+                decision = "Tie"
+                try:
+                    srcs = page.evaluate(_js_get_audio_srcs())
+                    # Mapear por rol
+                    urlA = next((s['src'] for s in srcs if s.get('role')=='A'), None)
+                    urlB = next((s['src'] for s in srcs if s.get('role')=='B'), None)
+                    urlR = next((s['src'] for s in srcs if s.get('role') in ('R','Ref')), None)
+                    if urlA and urlB and urlR:
+                        ref = page.evaluate(_js_fetch_pcm_from_src(urlR))
+                        a = page.evaluate(_js_fetch_pcm_from_src(urlA))
+                        b = page.evaluate(_js_fetch_pcm_from_src(urlB))
+                        ref_sig = np.array(ref.get('data', []), dtype=np.float32)
+                        a_sig = np.array(a.get('data', []), dtype=np.float32)
+                        b_sig = np.array(b.get('data', []), dtype=np.float32)
+                        sA = compute_similarity(ref_sig, a_sig)
+                        sB = compute_similarity(ref_sig, b_sig)
+                        delta = sA - sB
+                        logger.info(f"SimAudio-> A:{sA:.4f} B:{sB:.4f} (Δ={delta:.4f}, tie≤{args.tie_diff})")
+                        if abs(delta) < args.tie_diff:
+                            decision = "Tie"
+                        else:
+                            decision = "Version A" if delta > 0 else "Version B"
+                except Exception as e:
+                    logger.info(f"SMART fallo, usando respaldo: {e}")
 
             if not click_decision(page, decision):
                 logger.info("No se pudo hacer clic en la opción; se intenta Tie.")
