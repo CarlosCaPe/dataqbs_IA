@@ -260,6 +260,97 @@ def compute_similarity(ref: np.ndarray, cand: np.ndarray) -> float:
         return 0.6 * t_n + 0.4 * f_n
 
 
+def _best_lag(ref: np.ndarray, x: np.ndarray, max_lag: int = 2048) -> int:
+        n = min(len(ref), len(x))
+        if n < 256:
+            return 0
+        a = _normalize(ref[:n])
+        b = _normalize(x[:n])
+        max_lag = int(min(max_lag, n - 1))
+        # compute correlation around zero lag
+        lags = range(-max_lag, max_lag + 1)
+        best_val = -1e9
+        best_l = 0
+        for L in lags:
+            if L >= 0:
+                val = float(np.mean(a[L:] * b[: n - L])) if (n - L) > 0 else -1e9
+            else:
+                L2 = -L
+                val = float(np.mean(a[: n - L2] * b[L2:])) if (n - L2) > 0 else -1e9
+            if val > best_val:
+                best_val = val
+                best_l = L
+        return best_l
+
+
+def _align_by_lag(ref: np.ndarray, x: np.ndarray, max_lag: int = 2048) -> Tuple[np.ndarray, np.ndarray]:
+        L = _best_lag(ref, x, max_lag=max_lag)
+        n = min(len(ref), len(x))
+        if L >= 0:
+            a = ref[L:n]
+            b = x[: n - L]
+        else:
+            k = -L
+            a = ref[: n - k]
+            b = x[k:n]
+        m = min(len(a), len(b))
+        return a[:m], b[:m]
+
+
+def _rmse(a: np.ndarray, b: np.ndarray) -> float:
+        m = min(len(a), len(b))
+        if m == 0:
+            return 1.0
+        d = _normalize(a[:m]) - _normalize(b[:m])
+        return float(np.sqrt(np.mean(d * d)))
+
+
+def _psnr_from_rmse(rmse: float) -> float:
+        eps = 1e-9
+        rmse = max(rmse, eps)
+        return float(20.0 * np.log10(1.0 / rmse))  # signals normalized
+
+
+def _symmetric_kl_spectrum(a: np.ndarray, b: np.ndarray) -> float:
+        n = min(len(a), len(b))
+        if n < 256:
+            return 1.0
+        n = int(2 ** np.floor(np.log2(n)))
+        A = np.abs(np.fft.rfft(_normalize(a[:n]))) ** 2
+        B = np.abs(np.fft.rfft(_normalize(b[:n]))) ** 2
+        eps = 1e-12
+        A = A + eps
+        B = B + eps
+        A = A / np.sum(A)
+        B = B / np.sum(B)
+        kl_ab = float(np.sum(A * np.log(A / B)))
+        kl_ba = float(np.sum(B * np.log(B / A)))
+        return 0.5 * (kl_ab + kl_ba)
+
+
+def compute_audio_metrics(ref: np.ndarray, cand: np.ndarray) -> dict:
+        r, c = _align_by_lag(ref, cand, max_lag=2048)
+        corr_t = _sim_time_corr(r, c)
+        cos_f = _sim_freq_cos(r, c)
+        rmse = _rmse(r, c)
+        psnr = _psnr_from_rmse(rmse)
+        kl = _symmetric_kl_spectrum(r, c)
+        # Composite score in [0,1]
+        corr_n = (corr_t + 1) / 2
+        cos_n = max(0.0, min(1.0, cos_f))
+        psnr_n = max(0.0, min(1.0, psnr / 60.0))
+        kl_inv = 1.0 / (1.0 + 5.0 * kl)
+        score = 0.4 * corr_n + 0.3 * cos_n + 0.2 * psnr_n + 0.1 * kl_inv
+        return {
+            "corr_t": corr_t,
+            "cos_f": cos_f,
+            "rmse": rmse,
+            "psnr": psnr,
+            "kl": kl,
+            "score": float(score),
+        }
+
+
 def main():
     parser = argparse.ArgumentParser(description="Automatiza comparaciones de calidad de audio en Multimango")
     parser.add_argument("--headed", action="store_true", help="Abrir navegador con UI")
@@ -363,10 +454,19 @@ def main():
                         ref_sig = np.array(ref.get('data', []), dtype=np.float32)
                         a_sig = np.array(a.get('data', []), dtype=np.float32)
                         b_sig = np.array(b.get('data', []), dtype=np.float32)
-                        sA = compute_similarity(ref_sig, a_sig)
-                        sB = compute_similarity(ref_sig, b_sig)
-                        delta = sA - sB
-                        logger.info(f"SimAudio-> A:{sA:.4f} B:{sB:.4f} (Δ={delta:.4f}, tie≤{args.tie_diff})")
+                        mA = compute_audio_metrics(ref_sig, a_sig)
+                        mB = compute_audio_metrics(ref_sig, b_sig)
+                        delta = mA['score'] - mB['score']
+                        logger.info(
+                            "AudioMetrics-> A: corr={mA_corr:.4f} cos={mA_cos:.4f} rmse={mA_rmse:.4f} psnr={mA_psnr:.2f} kl={mA_kl:.4f} | "
+                            "B: corr={mB_corr:.4f} cos={mB_cos:.4f} rmse={mB_rmse:.4f} psnr={mB_psnr:.2f} kl={mB_kl:.4f}".format(
+                                mA_corr=mA['corr_t'], mA_cos=mA['cos_f'], mA_rmse=mA['rmse'], mA_psnr=mA['psnr'], mA_kl=mA['kl'],
+                                mB_corr=mB['corr_t'], mB_cos=mB['cos_f'], mB_rmse=mB['rmse'], mB_psnr=mB['psnr'], mB_kl=mB['kl']
+                            )
+                        )
+                        logger.info(
+                            f"CombinedScore-> A:{mA['score']:.4f} B:{mB['score']:.4f} (Δ={delta:.4f}, tie≤{args.tie_diff})"
+                        )
                         if abs(delta) < args.tie_diff:
                             decision = "Tie"
                         else:

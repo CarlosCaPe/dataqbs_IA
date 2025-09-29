@@ -5,6 +5,10 @@ Automatiza la tarea "Audio Quality Compare" en Multimango.
 - URL de tarea: https://www.multimango.com/tasks/080825-audio-quality-compare
 - Interactúa con los botones "Audio A", "Audio B" y "Reference" y envía la elección (Version A/B/Tie)
 - Soporta modo headed/headless, login manual, contador por iteración y límites con `--max-iters`
+ - Modo SMART (por defecto):
+	 - Decodifica PCM en el navegador con Web Audio
+	 - Métricas: correlación temporal, coseno espectral, RMSE/PSNR, KL simétrica del espectro
+	 - Score combinado y decisión con umbral de empate `--tie-diff`
 
 ## Uso rápido
 
@@ -21,4 +25,4 @@ poetry run playwright install chromium
 poetry run telus-compare-audio --headed --delay-seconds 1 --strict
 ```
 
-Parámetros comunes: `--max-iters`, `--delay-seconds`, `--log-file`, `--manual-login`, `--iter-timeout`.
+Parámetros comunes: `--max-iters`, `--delay-seconds`, `--log-file`, `--manual-login`, `--iter-timeout`, `--tie-diff`.
