@@ -62,6 +62,8 @@ easybrokers/properties/images/
 # Telus compare local artifacts
 telus_compara_imagenes/.user_data/**
 telus_compara_imagenes/audit/**
+telus_compara_audios/.user_data/**
+telus_compara_audios/audit/**
 
 # Realstate data images under data/
 realstate/properties/data/images/**

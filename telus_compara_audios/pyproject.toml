@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "telus-compara-audios"
+version = "0.1.0"
+description = "Automatiza comparaciones de calidad de audio en Multimango (A/B/Referencia) con Playwright"
+authors = ["Carlos <you@example.com>"]
+license = "MIT"
+package-mode = false
+
+[tool.poetry.dependencies]
+python = ">=3.9,<3.14"
+playwright = "^1.55.0"
+requests = "^2.32.0"
+
+[tool.poetry.scripts]
+telus-compare-audio = "telus_compara_audios.runner:main"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
