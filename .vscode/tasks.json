@@ -50,6 +50,34 @@
 			},
 			"args": [],
 			"group": "build"
+		},
+		{
+			"label": "Telus Audios: Run 3x (headed, manual login)",
+			"type": "shell",
+			"command": "poetry run python -m telus_compara_audios.runner --max-iters 3 --log-file logs/run.log --headed --manual-login",
+			"options": {
+				"cwd": "${workspaceFolder}/telus_compara_audios"
+			},
+			"group": "build"
+		},
+		{
+			"label": "Telus Audios: Install deps",
+			"type": "shell",
+			"command": "poetry install",
+			"options": {
+				"cwd": "${workspaceFolder}/telus_compara_audios"
+			},
+			"args": [],
+			"group": "build"
+		},
+		{
+			"label": "Telus Audios: Run 3x (headed, devtools, network-first)",
+			"type": "shell",
+			"command": "poetry run python -m telus_compara_audios.runner --max-iters 3 --log-file logs/run.log --headed --devtools --network-first --manual-login --manual-login-timeout 240",
+			"options": {
+				"cwd": "${workspaceFolder}/telus_compara_audios"
+			},
+			"group": "build"
 		}
 	]
 }

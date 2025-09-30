@@ -1,0 +1,13 @@
+2025-09-30 10:12:52,099 INFO Panel no visible. Esperando login manual…
+2025-09-30 10:13:27,734 INFO Iteración 1…
+2025-09-30 10:13:28,889 INFO Heurística tamaños (bytes) -> R:25886 A:25886 B:25886 => Tie
+2025-09-30 10:13:36,426 INFO Iteración 1 OK en 8.7s
+2025-09-30 10:13:37,427 INFO Iteración 2…
+2025-09-30 10:13:37,599 INFO Heurística tamaños (bytes) -> R:433964 A:433964 B:433964 => Tie
+2025-09-30 10:13:40,271 INFO Perf sizes/durations -> R:(0B,78ms) A:(0B,0ms) B:(0B,0ms) => Tie
+2025-09-30 10:13:47,838 INFO Iteración 2 OK en 10.4s
+2025-09-30 10:13:48,840 INFO Iteración 3…
+2025-09-30 10:13:49,062 INFO Heurística tamaños (bytes) -> R:337964 A:337964 B:337964 => Tie
+2025-09-30 10:13:51,646 INFO Perf sizes/durations -> R:(0B,78ms) A:(0B,0ms) B:(0B,0ms) => Tie
+2025-09-30 10:13:57,973 INFO Iteración 3 OK en 9.1s
+2025-09-30 10:13:59,769 INFO Proceso completado.

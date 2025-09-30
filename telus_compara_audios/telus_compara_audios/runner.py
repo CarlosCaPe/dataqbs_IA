@@ -47,27 +47,37 @@ def _wait_submit_enabled(submit_btn, timeout_ms: int = 5000) -> bool:
         time.sleep(0.2)
     return False
 def click_decision(page, decision: str) -> bool:
-    """Click the decision button (Version A, Version B, Tie) in the UI."""
-    # Map decision to button text
-    btn_map = {
-        "Version A": "Version A",
-        "Version B": "Version B",
-        "Tie": "Tie"
-    }
-    label = btn_map.get(decision, "Tie")
-    # Try role-based and text-based selectors
-    for sel in [
-        f"button:has-text('{label}')",
-        f"[role=button]:has-text('{label}')",
-        f"text={label}",
-    ]:
+    """Click the decision button (Version A, Version B, Tie/Empate) in the UI.
+    Waits briefly for the button to become visible/clickable.
+    """
+    candidates = []
+    if decision == "Version A":
+        candidates = ["Version A", "Versión A", "A"]
+    elif decision == "Version B":
+        candidates = ["Version B", "Versión B", "B"]
+    else:  # Tie
+        candidates = ["Tie", "Empate"]
+
+    # Poll up to ~5s for a visible button
+    deadline = time.time() + 5.0
+    while time.time() < deadline:
+        for label in candidates:
+            for sel in [
+                f"button:has-text('{label}')",
+                f"[role=button]:has-text('{label}')",
+                f"text={label}",
+            ]:
+                try:
+                    el = page.locator(sel).first
+                    if el.is_visible():
+                        el.click(timeout=1500)
+                        return True
+                except Exception:
+                    continue
         try:
-            el = page.locator(sel).first
-            if el.is_visible():
-                el.click(timeout=1500)
-                return True
+            page.wait_for_timeout(200)
         except Exception:
-            continue
+            pass
     return False
 import argparse
 import time
@@ -104,17 +114,34 @@ def setup_logger(log_file: Path | None):
 
 def wait_for_audio_panel(page, timeout_s: int = 30) -> bool:
     end = time.time() + timeout_s
+    labels = [
+        # Audio controls
+        "Reference Audio", "Reference", "Referencia", "Original",
+        "Audio A", "Audio B", "A", "B",
+        # Decision buttons
+        "Version A", "Version B", "Tie", "Empate"
+    ]
     while time.time() < end:
         try:
-            # Busca los botones clave en la página
-            for label in ["Reference Audio", "Audio A", "Audio B"]:
-                btn = page.query_selector(f"button:has-text('{label}')")
-                if btn:
-                    return True
+            # direct audio element present is a strong signal
+            if page.query_selector("audio, video"):
+                return True
         except Exception:
             pass
         try:
-            page.wait_for_timeout(500)
+            all_found = 0
+            for label in labels:
+                try:
+                    if page.query_selector(f"*:has-text('{label}')"):
+                        all_found += 1
+                except Exception:
+                    continue
+            if all_found >= 2:
+                return True
+        except Exception:
+            pass
+        try:
+            page.wait_for_timeout(400)
         except Exception:
             pass
     return False
@@ -489,6 +516,157 @@ def _js_decode_base64_to_pcm(b64: str):
         """
 
 
+def _js_fetch_pcm_from_src(url: str):
+        safe_url = url.replace("'", "%27")
+        return f"""
+        async () => {{
+            try {{
+                const url = '{safe_url}';
+                if (!url || url.toLowerCase().endsWith('.m3u8')) return null;
+                const Ctor = window.AudioContext || window.webkitAudioContext;
+                const ctx = new Ctor();
+                const res = await fetch(url, {{ credentials: 'include' }});
+                if (!res.ok) {{ try {{ ctx.close(); }} catch (e) {{}} return null; }}
+                const arr = await res.arrayBuffer();
+                const ab = await ctx.decodeAudioData(arr.slice(0));
+                const ch = ab.numberOfChannels > 0 ? 0 : 0;
+                const data = ab.getChannelData(ch);
+                const step = Math.max(1, Math.floor(ab.sampleRate / 22050));
+                const out = [];
+                for (let i=0;i<data.length;i+=step) out.push(data[i]);
+                const result = {{ sampleRate: ab.sampleRate/step, data: out }};
+                try {{ ctx.close(); }} catch (e) {{}}
+                return result;
+            }} catch (e) {{ return null; }}
+        }}
+        """
+
+
+def _js_fetch_byte_length(url: str):
+        safe_url = url.replace("'", "%27")
+        return f"""
+        async () => {{
+            try {{
+                const res = await fetch('{safe_url}', {{ credentials: 'include' }});
+                if (!res.ok) return 0;
+                const buf = await res.arrayBuffer();
+                return buf.byteLength || 0;
+            }} catch (e) {{ return 0; }}
+        }}
+        """
+
+
+def _js_head_or_range_size(url: str):
+        safe_url = url.replace("'", "%27")
+        return f"""
+        async () => {{
+            const url = '{safe_url}';
+            try {{
+                // Try HEAD first
+                const head = await fetch(url, {{ method: 'HEAD', credentials: 'include' }});
+                if (head && head.ok) {{
+                    const cl = head.headers.get('content-length');
+                    if (cl) {{
+                        const n = parseInt(cl, 10);
+                        if (!Number.isNaN(n) && n > 0) return n;
+                    }}
+                }}
+            }} catch (e) {{ /* ignore */ }}
+            try {{
+                // Fallback: Range GET to obtain Content-Range: bytes 0-0/TOTAL
+                const res = await fetch(url, {{ method: 'GET', headers: {{ 'Range': 'bytes=0-0' }}, credentials: 'include' }});
+                if (res && res.ok) {{
+                    const cr = res.headers.get('content-range') || '';
+                    const slash = cr.lastIndexOf('/');
+                    if (slash > -1) {{
+                        const part = cr.substring(slash + 1).trim();
+                        const n = parseInt(part, 10);
+                        if (!Number.isNaN(n) && n > 0) return n;
+                    }}
+                    // As a last resort, try content-length
+                    const cl = res.headers.get('content-length');
+                    if (cl) {{
+                        const n = parseInt(cl, 10);
+                        if (!Number.isNaN(n) && n > 0) return n;
+                    }}
+                }}
+            }} catch (e) {{ /* ignore */ }}
+            return 0;
+        }}
+        """
+
+
+def _js_pause_for_label(label_key: str):
+        safe_key = label_key.replace("'", "")
+        return r"""
+        () => {
+            const LABELS = {
+                'A': ['Version A','Audio A','A'],
+                'B': ['Version B','Audio B','B'],
+                'R': ['Reference','Referencia','Ref','Original']
+            };
+            const texts = LABELS['__KEY__'] || [];
+            const all = Array.from(document.querySelectorAll('button,[role=button],div,section,article,*'));
+            let labelEl = null;
+            for (const t of texts) {
+                labelEl = all.find(el => (el.textContent||'').toLowerCase().includes(t.toLowerCase()));
+                if (labelEl) break;
+            }
+            const container = (labelEl && (labelEl.closest('section,div,article') || labelEl)) || document.body;
+            const el = container.querySelector('audio') || document.querySelector('audio');
+            if (el) { try { el.pause(); } catch (e) {} }
+            return true;
+        }
+        """.replace('__KEY__', safe_key)
+
+
+def _js_capture_analyser_pcm(label_key: str, duration_ms: int = 1500):
+        safe_key = label_key.replace("'", "")
+        return r"""
+        async () => {
+            try {
+                const LABELS = {
+                    'A': ['Version A','Audio A','A'],
+                    'B': ['Version B','Audio B','B'],
+                    'R': ['Reference','Referencia','Ref','Original']
+                };
+                const texts = LABELS['__KEY__'] || [];
+                const all = Array.from(document.querySelectorAll('button,[role=button],div,section,article,*'));
+                let labelEl = null;
+                for (const t of texts) {
+                    labelEl = all.find(el => (el.textContent||'').toLowerCase().includes(t.toLowerCase()));
+                    if (labelEl) break;
+                }
+                const container = (labelEl && (labelEl.closest('section,div,article') || labelEl)) || document.body;
+                const audio = container.querySelector('audio') || document.querySelector('audio');
+                if (!audio) return null;
+                try { audio.crossOrigin = audio.crossOrigin || 'anonymous'; } catch (e) {}
+                try { await audio.play(); } catch (e) {}
+                const Ctx = window.AudioContext || window.webkitAudioContext;
+                const ctx = new Ctx();
+                const src = ctx.createMediaElementSource(audio);
+                const analyser = ctx.createAnalyser();
+                analyser.fftSize = 2048;
+                const buf = new Float32Array(analyser.fftSize);
+                src.connect(analyser);
+                analyser.connect(ctx.destination);
+                const stepMs = 40;
+                const loops = Math.max(1, Math.floor(__DUR__ / stepMs));
+                const out = [];
+                for (let i = 0; i < loops; i++) {
+                    analyser.getFloatTimeDomainData(buf);
+                    for (let j = 0; j < buf.length; j += 4) out.push(buf[j]);
+                    await new Promise(r => setTimeout(r, stepMs));
+                }
+                try { audio.pause(); } catch (e) {}
+                const sr = ctx.sampleRate / 4;
+                try { src.disconnect(); analyser.disconnect(); ctx.close(); } catch (e) {}
+                return { sampleRate: sr, data: out };
+            } catch (e) { return null; }
+        }
+        """.replace('__KEY__', safe_key).replace('__DUR__', str(int(duration_ms)))
+
+
 def _js_overlay_show(message: str):
         # Show a non-blocking overlay instruction banner
         msg = message.replace("'", "\'")
@@ -552,690 +730,653 @@ def _sim_freq_cos(ref: np.ndarray, x: np.ndarray) -> float:
         return float(num / den) if den > 1e-9 else 0.0
 
 
-def compute_similarity(ref: np.ndarray, cand: np.ndarray) -> float:
-        # Blend time correlation and spectral cosine
-        t = _sim_time_corr(ref, cand)
-        f = _sim_freq_cos(ref, cand)
-        # map to [0,1]
-        t_n = (t + 1) / 2
-        f_n = (f + 1) / 2
-        return 0.6 * t_n + 0.4 * f_n
-
-
 def _best_lag(ref: np.ndarray, x: np.ndarray, max_lag: int = 2048) -> int:
-        n = min(len(ref), len(x))
-        if n < 256:
-            return 0
-        a = _normalize(ref[:n])
-        b = _normalize(x[:n])
-        max_lag = int(min(max_lag, n - 1))
-        # compute correlation around zero lag
-        lags = range(-max_lag, max_lag + 1)
-        best_val = -1e9
-        best_l = 0
-        for L in lags:
-            if L >= 0:
-                val = float(np.mean(a[L:] * b[: n - L])) if (n - L) > 0 else -1e9
-            else:
-                L2 = -L
-                val = float(np.mean(a[: n - L2] * b[L2:])) if (n - L2) > 0 else -1e9
-            if val > best_val:
-                best_val = val
-                best_l = L
-        return best_l
-
-
-def _align_by_lag(ref: np.ndarray, x: np.ndarray, max_lag: int = 2048) -> Tuple[np.ndarray, np.ndarray]:
-        L = _best_lag(ref, x, max_lag=max_lag)
-        n = min(len(ref), len(x))
-        if L >= 0:
-            a = ref[L:n]
-            b = x[: n - L]
+    """Return lag (ref delayed positive) that maximizes mean product (correlation)."""
+    a = _normalize(ref)
+    b = _normalize(x)
+    n = min(len(a), len(b))
+    if n < 64:
+        return 0
+    a = a[:n]
+    b = b[:n]
+    L = int(min(max_lag, n - 1))
+    best_lag = 0
+    best_val = -1e9
+    # Evaluate correlations for lags in [-L, L]
+    for lag in range(-L, L + 1):
+        if lag >= 0:
+            aa = a[lag:]
+            bb = b[: len(aa)]
         else:
-            k = -L
-            a = ref[: n - k]
-            b = x[k:n]
-        m = min(len(a), len(b))
-        return a[:m], b[:m]
+            bb = b[-lag:]
+            aa = a[: len(bb)]
+        m = len(aa)
+        if m < 64:
+            continue
+        val = float(np.mean(aa * bb))
+        if val > best_val:
+            best_val = val
+            best_lag = lag
+    return best_lag
 
 
-def _rmse(a: np.ndarray, b: np.ndarray) -> float:
-        m = min(len(a), len(b))
-        if m == 0:
-            return 1.0
-        d = _normalize(a[:m]) - _normalize(b[:m])
-        return float(np.sqrt(np.mean(d * d)))
+def _align_by_lag(ref: np.ndarray, x: np.ndarray, max_lag: int = 2048) -> tuple[np.ndarray, np.ndarray]:
+    """Align x to ref by best lag and return overlapping segments of equal length."""
+    if len(ref) == 0 or len(x) == 0:
+        return np.asarray([], dtype=np.float32), np.asarray([], dtype=np.float32)
+    lag = _best_lag(ref, x, max_lag=max_lag)
+    a = ref
+    b = x
+    if lag >= 0:
+        a2 = a[lag:]
+        n = min(len(a2), len(b))
+        a2 = a2[:n]
+        b2 = b[:n]
+    else:
+        b2 = b[-lag:]
+        n = min(len(a), len(b2))
+        a2 = a[:n]
+        b2 = b2[:n]
+    return a2.astype(np.float32, copy=False), b2.astype(np.float32, copy=False)
 
 
-def _psnr_from_rmse(rmse: float) -> float:
-        eps = 1e-9
-        rmse = max(rmse, eps)
-        return float(20.0 * np.log10(1.0 / rmse))  # signals normalized
+def _peak_normalize(sig: np.ndarray) -> np.ndarray:
+    """Scale by peak absolute value to fit within [-1, 1]."""
+    if sig.size == 0:
+        return sig.astype(np.float32)
+    s = sig.astype(np.float32)
+    peak = float(np.max(np.abs(s)))
+    if peak > 1e-9:
+        s = s / peak
+    return s
 
 
-def _symmetric_kl_spectrum(a: np.ndarray, b: np.ndarray) -> float:
-        n = min(len(a), len(b))
-        if n < 256:
-            return 1.0
-        n = int(2 ** np.floor(np.log2(n)))
-        A = np.abs(np.fft.rfft(_normalize(a[:n]))) ** 2
-        B = np.abs(np.fft.rfft(_normalize(b[:n]))) ** 2
-        eps = 1e-12
-        A = A + eps
-        B = B + eps
-        A = A / np.sum(A)
-        B = B / np.sum(B)
-        kl_ab = float(np.sum(A * np.log(A / B)))
-        kl_ba = float(np.sum(B * np.log(B / A)))
-        return 0.5 * (kl_ab + kl_ba)
+def _rmse(ref: np.ndarray, x: np.ndarray) -> float:
+    """Root-mean-square error after alignment and peak normalization."""
+    a, b = _align_by_lag(ref, x, max_lag=2048)
+    if a.size == 0 or b.size == 0:
+        return 1.0
+    a = _peak_normalize(a)
+    b = _peak_normalize(b)
+    m = min(a.size, b.size)
+    if m < 64:
+        return 1.0
+    a = a[:m]
+    b = b[:m]
+    return float(np.sqrt(np.mean((a - b) ** 2)))
 
+
+def _psnr_from_rmse(rmse: float, peak: float = 1.0) -> float:
+    """PSNR in dB given RMSE and peak amplitude (default 1.0)."""
+    if rmse <= 1e-12:
+        return 100.0
+    return float(20.0 * np.log10(peak / rmse))
+
+
+def _symmetric_kl_spectrum(ref: np.ndarray, x: np.ndarray) -> float:
+    """Compute a bounded symmetric KL divergence between power spectra (0..1)."""
+    n = min(len(ref), len(x))
+    if n < 256:
+        return 0.0
+    n = int(2 ** np.floor(np.log2(n)))
+    a = _normalize(ref[:n])
+    b = _normalize(x[:n])
+    A = np.fft.rfft(a)
+    B = np.fft.rfft(b)
+    p = np.abs(A) ** 2
+    q = np.abs(B) ** 2
+    eps = 1e-12
+    p = p + eps
+    q = q + eps
+    p = p / float(np.sum(p))
+    q = q / float(np.sum(q))
+    kl_pq = float(np.sum(p * np.log(p / q)))
+    kl_qp = float(np.sum(q * np.log(q / p)))
+    sym = max(0.0, 0.5 * (kl_pq + kl_qp))
+    # Map to 0..1 for stability
+    return float(sym / (1.0 + sym))
+
+
+def _snr(ref: np.ndarray, x: np.ndarray) -> float:
+    """Compute SNR in dB treating difference as noise after time alignment."""
+    a, b = _align_by_lag(ref, x, max_lag=2048)
+    if len(a) == 0 or len(b) == 0:
+        return 0.0
+    sig = _normalize(a)
+    rec = _normalize(b)
+    noise = sig - rec
+    sp = float(np.mean(sig * sig))
+    npow = float(np.mean(noise * noise))
+    if npow <= 1e-12:
+        return 100.0
+    return float(10.0 * np.log10(sp / npow))
+
+
+def compute_audio_quality(ref: np.ndarray, cand: np.ndarray) -> float:
+    """Evalúa la calidad del audio candidato en comparación con el de referencia."""
+    # Calcular métricas existentes
+    rmse_score = _rmse(ref, cand)
+    psnr_score = _psnr_from_rmse(rmse_score)
+    kl_divergence = _symmetric_kl_spectrum(ref, cand)
+
+    # Calcular nuevas métricas
+    snr_score = _snr(ref, cand)
+    clarity_score = _sim_freq_cos(ref, cand)  # Usar correlación espectral como claridad
+
+    # Normalizar y ponderar las métricas
+    psnr_n = min(psnr_score / 60.0, 1.0)  # Cap suave en 60 dB
+    kl_n = 1.0 - min(kl_divergence, 1.0)  # Invertir para que 1 sea mejor
+    snr_n = min(snr_score / 60.0, 1.0)
+    clarity_n = (clarity_score + 1) / 2  # Normalizar a [0, 1]
+
+    # Ponderación de las métricas
+    score = 0.4 * psnr_n + 0.3 * snr_n + 0.2 * clarity_n + 0.1 * kl_n
+    return score
 
 def compute_audio_metrics(ref: np.ndarray, cand: np.ndarray) -> dict:
-        r, c = _align_by_lag(ref, cand, max_lag=2048)
-        corr_t = _sim_time_corr(r, c)
-        cos_f = _sim_freq_cos(r, c)
-        rmse = _rmse(r, c)
-        psnr = _psnr_from_rmse(rmse)
-        kl = _symmetric_kl_spectrum(r, c)
-        # Composite score in [0,1]
-        corr_n = (corr_t + 1) / 2
-        cos_n = max(0.0, min(1.0, cos_f))
-        psnr_n = max(0.0, min(1.0, psnr / 60.0))
-        kl_inv = 1.0 / (1.0 + 5.0 * kl)
-        score = 0.4 * corr_n + 0.3 * cos_n + 0.2 * psnr_n + 0.1 * kl_inv
-        return {
-            "corr_t": corr_t,
-            "cos_f": cos_f,
-            "rmse": rmse,
-            "psnr": psnr,
-            "kl": kl,
-            "score": float(score),
+    """Devuelve un diccionario con métricas detalladas de calidad de audio."""
+    rmse_score = _rmse(ref, cand)
+    psnr_score = _psnr_from_rmse(rmse_score)
+    kl_divergence = _symmetric_kl_spectrum(ref, cand)
+    snr_score = _snr(ref, cand)
+    clarity_score = _sim_freq_cos(ref, cand)
+
+    return {
+        "RMSE": rmse_score,
+        "PSNR": psnr_score,
+        "KL-Divergence": kl_divergence,
+        "SNR": snr_score,
+        "Clarity": clarity_score,
+    }
+
+
+def _capture_pcm(page, label: str, capture_ms: int = 1800, timeout_ms: int = 1800) -> Optional[dict]:
+    """Try to capture downsampled PCM for a label ('R','A','B'), selecting it first, then fetching src, then hooks, then analyser."""
+    try:
+        frames = page.frames
+    except Exception:
+        frames = [page]
+    # Install hooks
+    for fr in frames:
+        try:
+            fr.evaluate(_js_setup_audio_hooks())
+        except Exception:
+            pass
+    for fr in frames:
+        try:
+            fr.evaluate(_js_setup_deep_audio_hooks())
+        except Exception:
+            pass
+    # Select label and start playback first
+    for fr in frames:
+        try:
+            fr.evaluate(_js_set_current_label(label))
+            fr.evaluate(_js_click_play_for_label(label))
+        except Exception:
+            pass
+    try:
+        page.wait_for_timeout(250)
+    except Exception:
+        pass
+    # Try to fetch/decode via detected media src near the label (after selection)
+    try:
+        for fr in frames:
+            try:
+                url = fr.evaluate(_js_get_audio_src_for_label(label))
+                if url and isinstance(url, str) and not url.lower().endswith('.m3u8'):
+                    got = fr.evaluate(_js_fetch_pcm_from_src(url))
+                    if got and isinstance(got, dict) and got.get("data"):
+                        try:
+                            fr.evaluate(_js_pause_for_label(label))
+                        except Exception:
+                            pass
+                        got["method"] = "fetch"
+                        return got
+            except Exception:
+                continue
+    except Exception:
+        pass
+    # Attempt via hooks
+    for fr in frames:
+        try:
+            res = fr.evaluate(_js_grab_pcm_via_hooks(label, capture_ms, timeout_ms))
+            if res and isinstance(res, dict) and res.get("data"):
+                try:
+                    fr.evaluate(_js_pause_for_label(label))
+                except Exception:
+                    pass
+                res["method"] = "hooks"
+                return res
+        except Exception:
+            continue
+    # Finally, try analyser-based capture on the element directly
+    for fr in frames:
+        try:
+            res2 = fr.evaluate(_js_capture_analyser_pcm(label, duration_ms=capture_ms))
+            if res2 and isinstance(res2, dict) and res2.get("data"):
+                res2["method"] = "analyser"
+                return res2
+        except Exception:
+            continue
+    return None
+
+
+def _measure_media_sizes(page) -> Optional[dict]:
+    """Return dict with urls and byte sizes for labels R/A/B if detectable."""
+    try:
+        frames = page.frames
+    except Exception:
+        frames = [page]
+    result = {"R": None, "A": None, "B": None}
+    # First, collect URLs
+    for lab in ("R","A","B"):
+        for fr in frames:
+            try:
+                url = fr.evaluate(_js_get_audio_src_for_label(lab))
+                if url and isinstance(url, str):
+                    result[lab] = {"url": url, "bytes": None}
+                    break
+            except Exception:
+                continue
+    # Then, fetch byte lengths
+    for lab in ("R","A","B"):
+        rec = result.get(lab)
+        if rec and rec.get("url") and rec.get("bytes") is None:
+            for fr in frames:
+                try:
+                    bl = fr.evaluate(_js_head_or_range_size(rec["url"]))
+                    if isinstance(bl, (int, float)) and bl > 0:
+                        rec["bytes"] = int(bl)
+                        break
+                except Exception:
+                    continue
+    return result
+
+
+def _js_click_save_for_label(label_key: str):
+        safe_key = label_key.replace("'", "")
+        return r"""
+        () => {
+            const LABELS = {
+                'A': ['Version A','Audio A','A'],
+                'B': ['Version B','Audio B','B'],
+                'R': ['Reference','Referencia','Ref','Original']
+            };
+            const texts = LABELS['__KEY__'] || [];
+            const all = Array.from(document.querySelectorAll('button,[role=button],div,section,article,*'));
+            let labelEl = null;
+            for (const t of texts) {
+                labelEl = all.find(el => (el.textContent||'').toLowerCase().includes(t.toLowerCase()));
+                if (labelEl) break;
+            }
+            const container = (labelEl && (labelEl.closest('section,div,article') || labelEl)) || document.body;
+            const sels = [
+                'button:has-text("Save")','[role=button]:has-text("Save")','text=Save',
+                'button:has-text("Guardar")','[role=button]:has-text("Guardar")','text=Guardar',
+                'button:has-text("Save clip")','button:has-text("Save sample")','button:has-text("Set")'
+            ];
+            for (const s of sels) {
+                const btn = container.querySelector(s) || document.querySelector(s);
+                if (btn) { try { btn.click(); return true; } catch (e) { /*noop*/ } }
+            }
+            return false;
         }
+        """.replace('__KEY__', safe_key)
 
 
-def _sig_is_silent(sig: np.ndarray) -> bool:
-        if sig.size == 0:
-            return True
-        # Use both stddev and max-abs to detect near-silence
-        return float(np.std(sig)) < 5e-6 or float(np.max(np.abs(sig))) < 5e-5
+def _js_collect_media_stats_for_label(label_key: str, wait_ms: int = 700):
+        safe_key = label_key.replace("'", "")
+        return r"""
+        async () => {
+            try {
+                const LABELS = {
+                    'A': ['Version A','Audio A','A'],
+                    'B': ['Version B','Audio B','B'],
+                    'R': ['Reference','Referencia','Ref','Original']
+                };
+                const texts = LABELS['__KEY__'] || [];
+                const all = Array.from(document.querySelectorAll('button,[role=button],div,section,article,*'));
+                let labelEl = null;
+                for (const t of texts) {
+                    labelEl = all.find(el => (el.textContent||'').toLowerCase().includes(t.toLowerCase()));
+                    if (labelEl) break;
+                }
+                const container = (labelEl && (labelEl.closest('section,div,article') || labelEl)) || document.body;
+                const audio = container.querySelector('audio') || document.querySelector('audio');
+                if (!audio) return null;
+                try { labelEl && labelEl.click && labelEl.click(); } catch (e) {}
+                try { audio.preload = 'auto'; } catch (e) {}
+                try { performance.clearResourceTimings(); } catch (e) {}
+                try { audio.load(); } catch (e) {}
+                try { await audio.play(); } catch (e) {}
+                await new Promise(r => setTimeout(r, __WAIT__));
+                try { audio.pause(); } catch (e) {}
+                const src = audio.currentSrc || audio.src || '';
+                const entriesByName = src ? performance.getEntriesByName(src) : [];
+                let cand = entriesByName && entriesByName.length ? entriesByName[entriesByName.length-1] : null;
+                if (!cand) {
+                    const allRes = performance.getEntriesByType('resource');
+                    const wavs = allRes.filter(e => (e.name||'').toLowerCase().includes('.wav') || (e.initiatorType||'')==='media');
+                    cand = wavs.length ? wavs[wavs.length-1] : null;
+                }
+                const size = cand ? (cand.transferSize || cand.decodedBodySize || cand.encodedBodySize || 0) : 0;
+                const duration = cand ? (cand.duration || 0) : 0;
+                return { url: src||null, size, duration };
+            } catch (e) { return null; }
+        }
+        """.replace('__KEY__', safe_key).replace('__WAIT__', str(int(wait_ms)))
 
 
+def _measure_media_stats_via_perf(page) -> Optional[dict]:
+    """Click each label and collect {size (bytes), duration (ms)} via Performance API."""
+    labels = ['R','A','B']
+    out = {}
+    try:
+        frames = page.frames
+    except Exception:
+        frames = [page]
+    for lab in labels:
+        stat = None
+        for fr in frames:
+            try:
+                stat = fr.evaluate(_js_collect_media_stats_for_label(lab, wait_ms=800))
+                if stat and isinstance(stat, dict):
+                    out[lab] = stat
+                    break
+            except Exception:
+                continue
+        if lab not in out:
+            out[lab] = None
+    return out
+
+
+def _decide_by_cdp_media(page, logger, timeout_s: int = 15) -> Optional[str]:
+    """Usa CDP (Network.*) para capturar 3 WAV (A,B,Referencia) tras el refresh.
+    Decide por cercanía a la referencia usando size (bytes) y time (ms).
+    Mapea por orden de inicio: A, luego B, y al final Reference.
+    """
+    try:
+        session = page.context.new_cdp_session(page)
+    except Exception:
+        return None
+
+    try:
+        session.send("Network.enable", {})
+        session.send("Network.setCacheDisabled", {"cacheDisabled": True})
+        try:
+            session.send("Network.clearBrowserCache", {})
+        except Exception:
+            pass
+    except Exception:
+        pass
+
+    entries = {}  # requestId -> dict
+
+    def on_request(e):
+        try:
+            req_id = e.get("requestId")
+            req = e.get("request", {})
+            url = (req.get("url") or "")
+            lower = url.lower()
+            rtype = (e.get("type") or "").lower()
+            data = entries.setdefault(req_id, {})
+            data.update({
+                "url": url,
+                "start": float(e.get("timestamp") or 0.0),
+                "rtype": rtype,
+            })
+        except Exception:
+            pass
+
+    def on_response(e):
+        try:
+            req_id = e.get("requestId")
+            resp = e.get("response", {})
+            status = int(resp.get("status") or 0)
+            mime = (resp.get("mimeType") or "").lower()
+            headers = resp.get("headers") or {}
+            cl = headers.get("content-length") or headers.get("Content-Length")
+            data = entries.setdefault(req_id, {})
+            data["status"] = status
+            data["mime"] = mime
+            if cl is not None:
+                try:
+                    data["bytes_header"] = int(str(cl).strip())
+                except Exception:
+                    pass
+        except Exception:
+            pass
+
+    def on_finished(e):
+        try:
+            req_id = e.get("requestId")
+            ts = float(e.get("timestamp") or 0.0)
+            enc = e.get("encodedDataLength")
+            data = entries.setdefault(req_id, {})
+            data["end"] = ts
+            try:
+                if isinstance(enc, (int, float)):
+                    data["bytes_encoded"] = int(enc)
+            except Exception:
+                pass
+        except Exception:
+            pass
+
+    session.on("Network.requestWillBeSent", on_request)
+    session.on("Network.responseReceived", on_response)
+    session.on("Network.responseReceivedExtraInfo", lambda e: (
+        entries.setdefault(e.get("requestId"), {}).update({
+            "extraHeaders": e.get("headers")
+        }) if e else None
+    ))
+    session.on("Network.loadingFinished", on_finished)
+
+    # Hard reload ignoring cache ensures fresh media loads AFTER listeners are attached
+    try:
+        session.send("Page.reload", {"ignoreCache": True})
+    except Exception:
+        try:
+            page.reload(wait_until="domcontentloaded")
+        except Exception:
+            pass
+
+    deadline = time.time() + timeout_s
+    while time.time() < deadline:
+        time.sleep(0.1)
+        # Gather completed, successful media entries likely to be audio
+        fins = []
+        for d in entries.values():
+            if ("start" in d) and ("end" in d):
+                st = int(d.get("status") or 0)
+                ok_status = (st == 206 or st == 200)
+                size = int(d.get("bytes_header") or d.get("bytes_encoded") or 0)
+                url = (d.get("url") or "").lower()
+                mime = (d.get("mime") or "").lower()
+                rtype = (d.get("rtype") or "").lower()
+                has_audio_ext = any(ext in url for ext in [
+                    ".wav", ".mp3", ".m4a", ".aac", ".ogg", ".opus", ".flac", ".webm"
+                ])
+                looks_audio = has_audio_ext or mime.startswith("audio") or (rtype == "media")
+                if ok_status and size > 0 and looks_audio and not mime.startswith("image"):
+                    # If no size from headers, try extra headers (responseReceivedExtraInfo)
+                    if size == 0:
+                        eh = d.get("extraHeaders") or {}
+                        cl = eh.get("content-length") or eh.get("Content-Length")
+                        try:
+                            size = int(str(cl).strip()) if cl else 0
+                        except Exception:
+                            size = 0
+                    fins.append(d)
+        # We need exactly the 3 relevant clips (A,B,Ref). Use last 3 by start time.
+        if len(fins) >= 3:
+            fins.sort(key=lambda x: x.get("start", 0.0))
+            fins = fins[-3:]
+            # Assume order A, B, Reference
+            A, B, R = fins[0], fins[1], fins[2]
+
+            def size_kb(d):
+                sz = int(d.get("bytes_header") or d.get("bytes_encoded") or 0)
+                return sz / 1024.0
+
+            def time_ms(d):
+                return max(0.0, (float(d.get("end") or 0.0) - float(d.get("start") or 0.0)) * 1000.0)
+
+            sizes = [size_kb(A), size_kb(B), size_kb(R)]
+            times = [time_ms(A), time_ms(B), time_ms(R)]
+            # Heurística adicional: Reference suele ser el mayor tamaño
+            r_idx = int(max(range(3), key=lambda i: sizes[i]))
+            if r_idx != 2:
+                # Reordenar para que R sea el último
+                order = [0,1,2]
+                order.remove(r_idx)
+                order.append(r_idx)
+                A, B, R = [ [A,B,R][i] for i in order ]
+                sizes = [ sizes[i] for i in order ]
+                times = [ times[i] for i in order ]
+            sa, sb, sr = sizes[0], sizes[1], sizes[2]
+            ta, tb, tr = times[0], times[1], times[2]
+
+            # Normalized closeness to Reference (relative to R)
+            def closeness(sx, tx):
+                ns = abs(sx - sr) / max(sr, 1e-6)
+                nt = abs(tx - tr) / max(tr, 1e-6)
+                return 0.7 * ns + 0.3 * nt
+
+            ca = closeness(sa, ta)
+            cb = closeness(sb, tb)
+            if abs(ca - cb) <= 0.01:  # 1% tolerance -> Tie
+                choice = "Tie"
+            elif ca < cb:
+                choice = "Version A"
+            else:
+                choice = "Version B"
+            try:
+                logger.info(
+                    f"CDP media (kB/ms, 200/206) -> R:({sr:.0f}kB,{tr:.0f}ms) A:({sa:.0f}kB,{ta:.0f}ms) B:({sb:.0f}kB,{tb:.0f}ms) => {choice}"
+                )
+            except Exception:
+                pass
+            return choice
+    # Debug: log what we saw if nothing decided
+    try:
+        dbg = []
+        for d in entries.values():
+            st = d.get("status")
+            size = int(d.get("bytes_header") or d.get("bytes_encoded") or 0)
+            dbg.append({
+                "url": (d.get("url") or "")[-80:],
+                "rtype": d.get("rtype"),
+                "status": st,
+                "mime": d.get("mime"),
+                "size": size,
+                "hasEnd": "end" in d
+            })
+        if dbg:
+            logger.info(f"CDP debug entries: {json.dumps(dbg)[:800]}")
+    except Exception:
+        pass
+    return None
 def main():
     parser = argparse.ArgumentParser(description="Automatiza comparaciones de calidad de audio en Multimango")
     parser.add_argument("--headed", action="store_true", help="Abrir navegador con UI")
-    parser.add_argument("--delay-seconds", type=int, default=2, help="Retardo humano por iteración (s)")
-    parser.add_argument("--max-iters", type=int, default=0, help="Máximo de iteraciones (0 = ilimitado)")
+    parser.add_argument("--devtools", action="store_true", help="Abrir Chrome DevTools (solo Chromium headed)")
+    parser.add_argument("--delay-seconds", type=int, default=1, help="Retardo humano por iteración (s)")
+    parser.add_argument("--max-iters", type=int, default=3, help="Máximo de iteraciones (0 = ilimitado)")
     parser.add_argument("--log-file", type=str, default="", help="Ruta del log")
-    parser.add_argument("--out-dir", type=str, default="runs/audio", help="Directorio base para salidas (log/CSV) si no se especifican rutas explícitas")
-    parser.add_argument("--use-chrome", action="store_true", help="Usar canal Chrome y perfil persistente")
-    parser.add_argument("--no-persistent", action="store_true", help="No usar perfil persistente (contexto efímero)")
-    parser.add_argument("--audit-csv", type=str, default="", help="Ruta de CSV para auditar decisiones")
-    parser.add_argument("--audit-limit", type=int, default=0, help="Máximo de filas a guardar en CSV (0 = todas)")
-    parser.add_argument("--manual-login", action="store_true", help="Hacer login manualmente (3 min)")
-    parser.add_argument("--manual-login-timeout", type=int, default=180, help="Tiempo máximo para completar el login manual (s)")
-    parser.add_argument("--iter-timeout", type=int, default=20, help="Tiempo máximo por iteración (s)")
-    parser.add_argument("--strategy", type=str, default="smart", choices=["smart","tie","alternate","always-a","always-b"], help="Estrategia para decidir")
-    parser.add_argument("--tie-diff", type=float, default=0.02, help="Umbral |simA-simB| para Tie")
-    parser.add_argument("--fallback-strategy", type=str, default="alternate", choices=["tie","alternate","always-a","always-b"], help="Qué hacer si SMART no puede leer audio (solo si smart-fail-policy=fallback)")
-    parser.add_argument("--smart-fail-policy", type=str, default="stop", choices=["stop","skip","fallback"], help="Acción cuando SMART no puede comparar: stop=detener y avisar; skip=recargar e intentar siguiente; fallback=usar --fallback-strategy")
-    parser.add_argument("--smart-retries", type=int, default=2, help="Reintentos locales al fallar SMART (errores transitorios)")
-    parser.add_argument("--smart-retry-wait", type=float, default=1.0, help="Espera entre reintentos SMART (s)")
-    parser.add_argument("--no-mute-audio", action="store_true", help="No silenciar audio del navegador (por defecto se silencia)")
-    parser.add_argument("--smart-capture-mode", type=str, default="auto", choices=["auto","fetch","media"], help="Cómo obtener PCM: auto=URLs luego media; fetch=solo URLs; media=solo reproducción del elemento")
-    parser.add_argument("--capture-ms", type=int, default=1500, help="Milisegundos de audio a capturar por cada clip en modo media")
-    parser.add_argument("--manual-play", action="store_true", help="Pedirte que hagas clic en Play para Ref/A/B antes de capturar")
-    parser.add_argument("--play-a-sel", type=str, default="", help="Selector CSS para botón Play de Version A (opcional)")
-    parser.add_argument("--play-b-sel", type=str, default="", help="Selector CSS para botón Play de Version B (opcional)")
-    parser.add_argument("--play-ref-sel", type=str, default="", help="Selector CSS para botón Play de Reference (opcional)")
-    parser.add_argument("--diagnose", action="store_true", help="Volcar diagnóstico de botones y fuentes de audio/video para ayudar a configurar selectores")
+    parser.add_argument("--tie-diff", type=float, default=0.02, help="Umbral |scoreA-scoreB| para declarar Tie")
+    parser.add_argument("--capture-ms", type=int, default=1800, help="Milisegundos de audio a capturar por muestra")
+    parser.add_argument("--iter-timeout", type=int, default=25, help="Tiempo máximo (s) por iteración antes de abortar")
+    parser.add_argument("--url", type=str, default="https://www.multimango.com/tasks/080825-audio-quality-compare", help="URL de la tarea")
+    parser.add_argument("--manual-login", action="store_true", help="Permitir login manual si el panel no aparece")
+    parser.add_argument("--manual-login-timeout", type=int, default=180, help="Segundos para esperar login manual")
+    parser.add_argument("--network-first", action="store_true", help="Usar primero la heurística de red (size/time de WAV)")
     args = parser.parse_args()
 
-    # Begin main execution after parsing args
-    base_out = Path(args.out_dir)
-    try:
-        base_out.mkdir(parents=True, exist_ok=True)
-    except Exception:
-        pass
-    # Resolve default paths under out-dir if not provided
-    log_path = Path(args.log_file) if args.log_file else base_out / "audio_run.log"
-    csv_default = base_out / "audio_audit.csv"
+    log_path = Path(args.log_file) if args.log_file else None
     logger = setup_logger(log_path)
 
-    url = "https://www.multimango.com/tasks/080825-audio-quality-compare"
     start = time.time()
     iterations = 0
 
-    csv_path = Path(args.audit_csv) if args.audit_csv else csv_default
-    csv_rows: list[dict] = []
-
     with sync_playwright() as p:
-        context = None
-        browser = None
-        # Lanzar navegador: intentar persistente si no se desactiva, con fallback a efímero
-        if not args.no_persistent:
-            try:
-                user_data = Path.cwd() / ".user_data"
-                user_data.mkdir(exist_ok=True)
-                if args.use_chrome:
-                    context = p.chromium.launch_persistent_context(
-                        str(user_data), headless=not args.headed, channel="chrome"
-                    )
-                else:
-                    context = p.chromium.launch_persistent_context(
-                        str(user_data), headless=not args.headed
-                    )
-            except Exception as e:
-                logger.warning(f"Fallo al abrir contexto persistente: {e}. Se intentará modo efímero.")
-
-        if context is None:
-            # Fallback a efímero; si canal chrome falla, intentar sin canal.
-            try:
-                if args.use_chrome:
-                    browser = p.chromium.launch(headless=not args.headed, channel="chrome")
-                else:
-                    browser = p.chromium.launch(headless=not args.headed)
-            except Exception as e:
-                logger.warning(f"Fallo al abrir con canal especificado: {e}. Reintentando con Chromium por defecto.")
-                browser = p.chromium.launch(headless=not args.headed)
-            context = browser.new_context()
-
+        browser = p.chromium.launch(headless=not args.headed, devtools=True if (args.headed and args.devtools) else False)
+        context = browser.new_context()
         page = context.new_page()
-        # Lower default timeouts to keep things snappy
         try:
-            page.set_default_timeout(1500)
-            page.set_default_navigation_timeout(8000)
+            page.set_default_timeout(2000)
+            page.set_default_navigation_timeout(10000)
         except Exception:
             pass
-        page.goto(url, wait_until="domcontentloaded")
+        page.goto(args.url, wait_until="domcontentloaded")
 
-        if not wait_for_audio_panel(page, timeout_s=8):
+        if not wait_for_audio_panel(page, timeout_s=15):
             if args.headed and args.manual_login:
-                # Solo mostrar overlay y esperar si el panel de audio NO está visible
-                if not wait_for_audio_panel(page, timeout_s=2):
-                    try:
-                        page.evaluate("""
-                        () => {
-                            const div = document.createElement('div');
-                            div.id = 'telus-login-overlay';
-                            div.textContent = 'Por favor inicia sesión. La automatización reanudará sola.';
-                            Object.assign(div.style, {
-                                position: 'fixed', left: '0', top: '0', width: '100%', height: '60px',
-                                background: 'rgba(0,0,0,0.8)', color: '#fff', display: 'flex',
-                                alignItems: 'center', justifyContent: 'center', zIndex: 999999,
-                                fontSize: '18px', fontFamily: 'system-ui, sans-serif'
-                            });
-                            document.body.appendChild(div);
-                        }
-                        """)
-                    except Exception:
-                        pass
-                    logger.info(f"Esperando login manual (hasta {args.manual_login_timeout//60} minutos)…")
-                    end = time.time() + float(args.manual_login_timeout)
-                    while time.time() < end:
-                        if wait_for_audio_panel(page, timeout_s=2):
-                            break
-                        page.wait_for_timeout(1000)
-                    # Remove overlay if present
-                    try:
-                        page.evaluate("() => { const d=document.getElementById('telus-login-overlay'); if(d) d.remove(); }")
-                    except Exception:
-                        pass
-                if not wait_for_audio_panel(page, timeout_s=10):
-                    logger.info("No se pudo acceder al panel de audio.")
-                    return
+                logger.info("Panel no visible. Esperando login manual…")
+                try:
+                    page.evaluate(_js_overlay_show("Inicia sesión y navega a la tarea. Se reanudará automáticamente…"))
+                except Exception:
+                    pass
+                end = time.time() + float(max(30, args.manual_login_timeout))
+                while time.time() < end:
+                    if wait_for_audio_panel(page, timeout_s=2):
+                        break
+                try:
+                    page.evaluate(_js_overlay_hide())
+                except Exception:
+                    pass
+            if not wait_for_audio_panel(page, timeout_s=5):
+                logger.error("No se encontró el panel de audio. Verifica login o URL.")
+                return
 
-        logger.info("Panel de Audio encontrado. Iniciando iteraciones…")
-        # Optional diagnostics: dump candidate buttons and media sources
-        if args.diagnose:
-            try:
-                diag = {"frames": []}
-                for fr in page.frames:
-                    try:
-                        data = fr.evaluate(r"""
-                        () => {
-                            const info = {};
-                            info.buttons = Array.from(document.querySelectorAll('button,[role=button]')).slice(0, 100).map(el => ({
-                                text: (el.textContent||'').trim().slice(0,200),
-                                aria: el.getAttribute('aria-label')||'',
-                                title: el.getAttribute('title')||'',
-                                cls: el.className||''
-                            }));
-                            info.media = Array.from(document.querySelectorAll('audio,video')).map((m,i) => ({
-                                tag: m.tagName.toLowerCase(),
-                                id: m.id||'',
-                                cls: m.className||'',
-                                src: m.getAttribute('src')||'',
-                                currentSrc: m.currentSrc||'',
-                                paused: !!m.paused,
-                                muted: !!m.muted,
-                                volume: m.volume,
-                                readyState: m.readyState||0,
-                                duration: isFinite(m.duration) ? m.duration : null
-                            }));
-                            return info;
-                        }
-                        """)
-                        diag["frames"].append(data)
-                    except Exception:
-                        diag["frames"].append({"error": "frame eval failed"})
-                # Add per-label source guesses
-                try:
-                    diag["src_ref"] = page.evaluate(_js_get_audio_src_for_label('R'))
-                except Exception:
-                    diag["src_ref"] = None
-                try:
-                    diag["src_a"] = page.evaluate(_js_get_audio_src_for_label('A'))
-                except Exception:
-                    diag["src_a"] = None
-                try:
-                    diag["src_b"] = page.evaluate(_js_get_audio_src_for_label('B'))
-                except Exception:
-                    diag["src_b"] = None
-                diag_path = base_out / f"diagnostics_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
-                with diag_path.open('w', encoding='utf-8') as f:
-                    json.dump(diag, f, ensure_ascii=False, indent=2)
-                logger.info(f"Diagnóstico escrito en: {diag_path}")
-            except Exception as e:
-                logger.warning(f"No se pudo escribir diagnóstico: {e}")
-        # Asegurar que elementos <audio> se reproduzcan en silencio si llegan a cargarse
-        if not args.no_mute_audio:
-            try:
-                page.evaluate("() => { document.querySelectorAll('audio').forEach(a => { a.muted = true; a.volume = 0; }); }")
-            except Exception:
-                pass
-
-        pick_toggle = False
-        aborted_due_to_smart = False
-        while True:
-            total_str = str(args.max_iters) if args.max_iters else "?"
-            logger.info(f"Iteración {iterations + 1}/{total_str}")
+        while args.max_iters == 0 or iterations < args.max_iters:
             iter_start = time.time()
+            logger.info(f"Iteración {iterations + 1}…")
 
-            if not wait_for_audio_panel(page, timeout_s=10):
-                logger.info("Panel de audio no visible. Terminando.")
-                break
+            decision = None
 
-            # Estrategias: simple o SMART (analiza PCM vs Reference)
-            if args.strategy == "always-a":
-                decision = "Version A"
-            elif args.strategy == "always-b":
-                decision = "Version B"
-            elif args.strategy == "alternate":
-                decision = "Version A" if not pick_toggle else "Version B"
-                pick_toggle = not pick_toggle
-            elif args.strategy == "tie":
+            # Capturar 3 WAV por CDP (Network) y decidir por Size y Time
+            try:
+                dec_net = _decide_by_cdp_media(page, logger, timeout_s=10)
+            except Exception:
+                dec_net = None
+            if dec_net:
+                decision = dec_net
+
+            # Sin fallback PCM: decisión 100% por Network (Media)
+            ref_rec = a_rec = b_rec = None
+
+            if not decision:
+                logger.warning("No se detectaron 3 entradas Media .wav válidas (206) para decidir. Declarando Tie.")
                 decision = "Tie"
-            else:
-                # SMART: intenta recuperar URLs y decodificar PCM en el navegador
-                decision = "Tie"
-                smart_ok = False
-                last_err: Optional[Exception] = None
-                # placeholders para auditoría
-                metrics_A: Optional[dict] = None
-                metrics_B: Optional[dict] = None
-                delta: Optional[float] = None
-                # Reintentos locales para manejar "Execution context was destroyed" o latencias de carga
-                for attempt in range(max(1, args.smart_retries + 1)):
-                    try:
-                        # Pequeña espera de estabilidad antes de consultar el DOM/Audio
-                        page.wait_for_timeout(int(args.smart_retry_wait * 1000))
-                        # Try to grab PCM via hooks or URLs/media across all frames
-                        frames = page.frames
-                        # Install hooks in all frames
-                        for fr in frames:
-                            try:
-                                fr.evaluate(_js_setup_audio_hooks())
-                            except Exception:
-                                pass
-                        for fr in frames:
-                            try:
-                                fr.evaluate(_js_setup_deep_audio_hooks())
-                            except Exception:
-                                pass
-                        # Merge audio URLs detected across frames
-                        merged_srcs = []
-                        for fr in frames:
-                            try:
-                                part = fr.evaluate(_js_get_audio_srcs())
-                                if isinstance(part, list):
-                                    merged_srcs.extend(part)
-                            except Exception:
-                                pass
-                        # Mapear por rol
-                        urlA = next((s['src'] for s in merged_srcs if s.get('role')=='A'), None)
-                        urlB = next((s['src'] for s in merged_srcs if s.get('role')=='B'), None)
-                        urlR = next((s['src'] for s in merged_srcs if s.get('role') in ('R','Ref')), None)
-                        have_urls = bool(urlA and urlB and urlR)
-                        ref = a = b = None
-                        # Decide capture path according to mode and availability
-                        if args.smart_capture_mode in ("auto", "fetch") and have_urls:
-                            ref = page.evaluate(_js_fetch_pcm_from_src(urlR))
-                            a = page.evaluate(_js_fetch_pcm_from_src(urlA))
-                            b = page.evaluate(_js_fetch_pcm_from_src(urlB))
-                        elif args.smart_capture_mode in ("auto", "media"):
-                            # Sequential media capture using optional selectors for determinism
-                            def _click_label(fr, label: str):
-                                if label == 'A' and args.play_a_sel:
-                                    return fr.evaluate(_js_click_selector_and_play(args.play_a_sel))
-                                if label == 'B' and args.play_b_sel:
-                                    return fr.evaluate(_js_click_selector_and_play(args.play_b_sel))
-                                if label == 'R' and args.play_ref_sel:
-                                    return fr.evaluate(_js_click_selector_and_play(args.play_ref_sel))
-                                return fr.evaluate(_js_click_play_for_label(label))
 
-                            def _grab_media_seq(label: str):
-                                if args.manual_play:
-                                    try:
-                                        page.evaluate(_js_overlay_show(f"Haz clic en Play de {label} y no pares la reproducción…"))
-                                    except Exception:
-                                        pass
-                                for fr in frames:
-                                    try:
-                                        fr.evaluate(_js_set_current_label(label))
-                                        _ = _click_label(fr, label)
-                                        fr.wait_for_timeout(150)
-                                    except Exception:
-                                        pass
-                                # Try immediate hook capture (deep/fetch/XHR/src interception)
-                                try:
-                                    for fr in frames:
-                                        try:
-                                            res = fr.evaluate(_js_grab_pcm_via_hooks(label, args.capture_ms, 1200))
-                                            if res and len(res.get('data', [])) >= 256:
-                                                try:
-                                                    if args.manual_play:
-                                                        page.evaluate(_js_overlay_hide())
-                                                except Exception:
-                                                    pass
-                                                return res
-                                        except Exception:
-                                            pass
-                                except Exception:
-                                    pass
-                                # First, try to capture the audio bytes from network response and decode client-side
-                                try:
-                                    def _is_audio_response(r):
-                                        try:
-                                            if not r.ok:
-                                                return False
-                                            url = (r.url or '').lower()
-                                            if url.endswith(('.mp3', '.wav', '.ogg', '.m4a', '.aac', '.flac')):
-                                                return True
-                                            ctype = (r.headers.get('content-type', '') or '').lower()
-                                            return ('audio/' in ctype) or ('mpegurl' in ctype and url.endswith('.m3u8') == False)
-                                        except Exception:
-                                            return False
-                                    resp = page.wait_for_event('response', _is_audio_response, timeout=4000)
-                                    if resp:
-                                        try:
-                                            body = resp.body()
-                                            if body and len(body) > 256:
-                                                b64 = base64.b64encode(body).decode('ascii')
-                                                decoded = page.evaluate(_js_decode_base64_to_pcm(b64))
-                                                if decoded and len(decoded.get('data', [])) >= 256:
-                                                    try:
-                                                        if args.manual_play:
-                                                            page.evaluate(_js_overlay_hide())
-                                                    except Exception:
-                                                        pass
-                                                    return decoded
-                                        except Exception:
-                                            pass
-                                except Exception:
-                                    pass
-                                for fr in frames:
-                                    try:
-                                        res = fr.evaluate(_js_capture_pcm_from_label(label, args.capture_ms))
-                                        if res and len(res.get('data', [])) >= 256:
-                                            try:
-                                                if args.manual_play:
-                                                    page.evaluate(_js_overlay_hide())
-                                            except Exception:
-                                                pass
-                                            return res
-                                    except Exception:
-                                        pass
-                                try:
-                                    if args.manual_play:
-                                        page.evaluate(_js_overlay_hide())
-                                except Exception:
-                                    pass
-                                return None
-
-                            logger.info("Playback order: Audio A → Audio B → Reference")
-                            a = _grab_media_seq('A')
-                            b = _grab_media_seq('B')
-                            ref = _grab_media_seq('R')
-                            # If media failed, fall back to hook-based capture
-                            if not ref or not a or not b:
-                                def _grab_hooks(label: str):
-                                    for fr in frames:
-                                        try:
-                                            res = fr.evaluate(_js_grab_pcm_via_hooks(label, args.capture_ms))
-                                            if res and len(res.get('data', [])) >= 128:
-                                                return res
-                                        except Exception:
-                                            pass
-                                    return None
-                                ref = ref or _grab_hooks('R')
-                                a = a or _grab_hooks('A')
-                                b = b or _grab_hooks('B')
-                            # If hooks didn't capture, try direct URL fetch via page context base64 decode
-                            if not ref or not a or not b:
-                                try:
-                                    # attempt to get current src per label from any frame
-                                    def _get_src(label: str):
-                                        # prefer merged URL if present
-                                        if label == 'R' and urlR: return urlR
-                                        if label == 'A' and urlA: return urlA
-                                        if label == 'B' and urlB: return urlB
-                                        for fr in frames:
-                                            try:
-                                                u = fr.evaluate(_js_get_audio_src_for_label(label))
-                                                if u: return u
-                                            except Exception:
-                                                pass
-                                        return None
-                                    urlR2 = _get_src('R')
-                                    urlA2 = _get_src('A')
-                                    urlB2 = _get_src('B')
-                                    if urlR2 and (not ref or len(ref.get('data', [])) < 128):
-                                        try:
-                                            resp = page.context.request.get(urlR2)
-                                            if resp.ok:
-                                                import base64
-                                                b64 = base64.b64encode(resp.body()).decode('ascii')
-                                                # use main frame to decode
-                                                ref = page.evaluate(_js_decode_base64_to_pcm(b64))
-                                        except Exception:
-                                            pass
-                                    if urlA2 and (not a or len(a.get('data', [])) < 128):
-                                        try:
-                                            resp = page.context.request.get(urlA2)
-                                            if resp.ok:
-                                                import base64
-                                                b64 = base64.b64encode(resp.body()).decode('ascii')
-                                                a = page.evaluate(_js_decode_base64_to_pcm(b64))
-                                        except Exception:
-                                            pass
-                                    if urlB2 and (not b or len(b.get('data', [])) < 128):
-                                        try:
-                                            resp = page.context.request.get(urlB2)
-                                            if resp.ok:
-                                                import base64
-                                                b64 = base64.b64encode(resp.body()).decode('ascii')
-                                                b = page.evaluate(_js_decode_base64_to_pcm(b64))
-                                        except Exception:
-                                            pass
-                                except Exception:
-                                    pass
-                            # If hooks/URL didn't capture, fall back to media element capture per frame
-                            if not ref or not a or not b:
-                                def _grab_media(label: str):
-                                    for fr in frames:
-                                        try:
-                                            res = fr.evaluate(_js_capture_pcm_from_label(label, args.capture_ms))
-                                            if res and len(res.get('data', [])) >= 128:
-                                                return res
-                                        except Exception:
-                                            pass
-                                    return None
-                                ref = ref or _grab_media('R')
-                                a = a or _grab_media('A')
-                                b = b or _grab_media('B')
-                        else:
-                            raise Exception('No se detectaron URLs de audio A/B/Ref')
-                        # Validate capture results
-                        if not ref or not a or not b:
-                            raise Exception('Captura de audio incompleta (R/A/B)')
-                        ref_sig = np.array(ref.get('data', []), dtype=np.float32)
-                        a_sig = np.array(a.get('data', []), dtype=np.float32)
-                        b_sig = np.array(b.get('data', []), dtype=np.float32)
-                        if ref_sig.size < 256 or a_sig.size < 256 or b_sig.size < 256:
-                            raise Exception('PCM insuficiente para comparar (tamaño)')
-                        # Silence guard: if any capture is near-silent, treat as failure so we don't Tie wrongly
-                        if _sig_is_silent(ref_sig) or _sig_is_silent(a_sig) or _sig_is_silent(b_sig):
-                            raise Exception('Captura silenciosa/near-zero en R/A/B')
-                        # Identical-capture guard: if A and B are effectively identical and both match Ref, treat as failure
-                        try:
-                            if _sim_time_corr(a_sig, b_sig) > 0.999 and _rmse(a_sig, b_sig) < 1e-6:
-                                if _sim_time_corr(ref_sig, a_sig) > 0.999 and _rmse(ref_sig, a_sig) < 1e-6:
-                                    raise Exception('Capturas A/B idénticas y coinciden con Reference (posible fuente única)')
-                        except Exception:
-                            # If metrics functions throw (shouldn't), ignore and continue
-                            pass
-                        mA = compute_audio_metrics(ref_sig, a_sig)
-                        mB = compute_audio_metrics(ref_sig, b_sig)
-                        metrics_A = mA
-                        metrics_B = mB
-                        delta = mA['score'] - mB['score']
-                        logger.info(
-                            "AudioMetrics-> A: corr={mA_corr:.4f} cos={mA_cos:.4f} rmse={mA_rmse:.4f} psnr={mA_psnr:.2f} kl={mA_kl:.4f} | "
-                            "B: corr={mB_corr:.4f} cos={mB_cos:.4f} rmse={mB_rmse:.4f} psnr={mB_psnr:.2f} kl={mB_kl:.4f}".format(
-                                mA_corr=mA['corr_t'], mA_cos=mA['cos_f'], mA_rmse=mA['rmse'], mA_psnr=mA['psnr'], mA_kl=mA['kl'],
-                                mB_corr=mB['corr_t'], mB_cos=mB['cos_f'], mB_rmse=mB['rmse'], mB_psnr=mB['psnr'], mB_kl=mB['kl']
-                            )
-                        )
-                        logger.info(
-                            f"CombinedScore-> A:{mA['score']:.4f} B:{mB['score']:.4f} (Δ={delta:.4f}, tie≤{args.tie_diff})"
-                        )
-                        logger.info(f"Decision taken: {decision}")
-                        if abs(delta) < args.tie_diff:
-                            decision = "Tie"
-                        else:
-                            decision = "Version A" if delta > 0 else "Version B"
-                        smart_ok = True
-                        break
-                    except Exception as e:
-                        last_err = e
-                        # Si aún hay reintentos, esperar y volver a intentar
-                        continue
-                if not smart_ok:
-                    msg = f"SMART no pudo comparar tras reintentos: {last_err}"
-                    if args.smart_fail_policy == 'stop':
-                        logger.error(msg)
-                        aborted_due_to_smart = True
-                        # No tomar decisión ni enviar, salir del bucle principal
-                        break
-                    elif args.smart_fail_policy == 'skip':
-                        logger.warning(msg + "; se saltará esta iteración recargando la página.")
-                        try:
-                            page.reload(wait_until="domcontentloaded")
-                            wait_for_audio_panel(page, timeout_s=15)
-                        except Exception:
-                            pass
-                        # No incrementar iteración ni enviar nada
-                        continue
-                    else:  # fallback
-                        logger.warning(msg + "; usando fallback-strategy")
-                        if args.fallback_strategy == 'alternate':
-                            decision = "Version A" if not pick_toggle else "Version B"
-                            pick_toggle = not pick_toggle
-                        elif args.fallback_strategy == 'always-a':
-                            decision = "Version A"
-                        elif args.fallback_strategy == 'always-b':
-                            decision = "Version B"
-                        else:
-                            decision = "Tie"
-
+            # Ensure panel still visible before clicking
+            wait_for_audio_panel(page, timeout_s=3)
+            # Click decisión
             if not click_decision(page, decision):
-                logger.info("No se pudo hacer clic en la opción; se intenta Tie.")
-                _ = click_decision(page, "Tie")
-
-            if not _wait_submit_enabled(_get_submit_button(page), timeout_ms=2000):
-                logger.info("Submit no habilitado; se intenta activar con Enter.")
-                try:
-                    page.keyboard.press("Enter")
-                except Exception:
-                    pass
-
-            submitted = submit_and_next(page)
-            if not submitted:
-                logger.info("No fue posible enviar o no hay más items. Terminando.")
+                logger.warning("No se pudo hacer clic en la decisión. Abortando.")
                 break
 
-            # Delay humano breve
-            time.sleep(max(0, min(args.delay_seconds, 2)))
-
-            if (time.time() - iter_start) > args.iter_timeout:
-                logger.info(f"Iteración excedió {args.iter_timeout}s; recargando y continuando…")
-                try:
-                    page.reload(wait_until="domcontentloaded")
-                    wait_for_audio_panel(page, timeout_s=15)
-                except Exception:
-                    pass
+            # Enviar
+            submit_btn = _get_submit_button(page)
+            if not _wait_submit_enabled(submit_btn, timeout_ms=8000):
+                logger.warning("Botón Submit no habilitado a tiempo.")
+                break
+            time.sleep(0.3)
+            if not submit_and_next(page):
+                logger.warning("No se pudo enviar/avanzar.")
+                break
 
             iterations += 1
+            logger.info(f"Iteración {iterations} OK en {time.time() - iter_start:.1f}s")
+            time.sleep(max(0, args.delay_seconds))
 
-            if csv_path:
-                # Compose a richer audit row similar to images audit
-                row = {
-                    "iter": iterations,
-                    "decision": decision,
-                    "scoreA": (metrics_A["score"] if 'metrics_A' in locals() and metrics_A else None),
-                    "scoreB": (metrics_B["score"] if 'metrics_B' in locals() and metrics_B else None),
-                    "delta": (delta if 'delta' in locals() else None),
-                    "corrA": (metrics_A["corr_t"] if 'metrics_A' in locals() and metrics_A else None),
-                    "cosA": (metrics_A["cos_f"] if 'metrics_A' in locals() and metrics_A else None),
-                    "rmseA": (metrics_A["rmse"] if 'metrics_A' in locals() and metrics_A else None),
-                    "psnrA": (metrics_A["psnr"] if 'metrics_A' in locals() and metrics_A else None),
-                    "klA": (metrics_A["kl"] if 'metrics_A' in locals() and metrics_A else None),
-                    "corrB": (metrics_B["corr_t"] if 'metrics_B' in locals() and metrics_B else None),
-                    "cosB": (metrics_B["cos_f"] if 'metrics_B' in locals() and metrics_B else None),
-                    "rmseB": (metrics_B["rmse"] if 'metrics_B' in locals() and metrics_B else None),
-                    "psnrB": (metrics_B["psnr"] if 'metrics_B' in locals() and metrics_B else None),
-                    "klB": (metrics_B["kl"] if 'metrics_B' in locals() and metrics_B else None),
-                    "tie_diff": args.tie_diff,
-                    "timestamp": time.time(),
-                }
-                csv_rows.append(row)
-                if args.audit_limit and len(csv_rows) > args.audit_limit:
-                    csv_rows = csv_rows[-args.audit_limit:]
-                csv_path.parent.mkdir(parents=True, exist_ok=True)
-                with csv_path.open("w", newline="", encoding="utf-8") as f:
-                    writer = csv.DictWriter(f, fieldnames=list(row.keys()))
-                    writer.writeheader()
-                    writer.writerows(csv_rows)
-
-            if args.max_iters and iterations >= args.max_iters:
-                logger.info(f"Alcanzado max-iters={args.max_iters}")
-                break
-
-        elapsed = time.time() - start
-        logger.info(f"Iteraciones realizadas: {iterations}")
-        logger.info(f"Tiempo total: {elapsed:.1f}s  (~{(elapsed/iterations) if iterations else 0:.1f}s/iter)")
         try:
             context.close()
-        finally:
-            if browser is not None:
-                try:
-                    browser.close()
-                except Exception:
-                    pass
-        # Salir con código distinto de cero si se abortó por fallo SMART
-        if aborted_due_to_smart:
-            raise SystemExit(2)
+            browser.close()
+        except Exception:
+            pass
 
+    logger.info("Proceso completado.")
 
 if __name__ == "__main__":
     main()
