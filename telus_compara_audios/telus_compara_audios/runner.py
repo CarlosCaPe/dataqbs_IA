@@ -3,9 +3,8 @@ import time
 import logging
 from pathlib import Path
 import csv
-from typing import Optional, Tuple
+from typing import Optional
 
-import numpy as np
 from playwright.sync_api import sync_playwright
 
 
@@ -147,208 +146,179 @@ def submit_and_next(page) -> bool:
     return True
 
 
-# -------- Audio Capture & Similarity ---------
-def _js_get_audio_srcs():
-        # Returns an array of objects with {role, src} for audio elements
-        return """
-        () => {
-            const out = [];
-            const buttons = Array.from(document.querySelectorAll('button, [role=button]'));
-            // Heuristic: find audio players or data-src near the labels
-            const areas = [
-                {key: 'A', label: ['Audio A','Version A']},
-                {key: 'B', label: ['Audio B','Version B']},
-                {key: 'R', label: ['Reference','Referencia']}
-            ];
-            const getClosestAudioOrSrc = (el) => {
-                const container = el.closest('section,div') || document.body;
-                const audio = container.querySelector('audio');
-                if (audio && audio.src) return audio.src;
-                // look for data attributes commonly used
-                const cand = container.querySelector('[data-src], [data-url]');
-                if (cand) return cand.getAttribute('data-src') || cand.getAttribute('data-url');
-                // try links
-                const a = container.querySelector('a[href$=".mp3"],a[href$=".wav"],a[href*="audio"]');
-                if (a) return a.href;
-                return null;
-            };
-            for (const area of areas) {
-                let found = null;
-                for (const txt of area.label) {
-                    const btn = buttons.find(b => (b.textContent||'').toLowerCase().includes(txt.toLowerCase()));
-                    if (btn) { found = btn; break; }
-                }
-                if (found) {
-                    const src = getClosestAudioOrSrc(found);
-                    if (src) out.push({role: area.key, src});
-                }
+# -------- Network-based Audio Comparison via CDP ---------
+def capture_wav_network_metrics(page, logger) -> Optional[dict]:
+    """
+    Use Chrome DevTools Protocol to capture .wav file metadata from Network panel.
+    Returns dict with 'A', 'B', 'Reference' keys containing {size_kb, time_ms} or None if failed.
+    """
+    try:
+        cdp = page.context.new_cdp_session(page)
+        
+        # Enable Network tracking
+        cdp.send("Network.enable")
+        cdp.send("Network.setCacheDisabled", {"cacheDisabled": True})
+        
+        # Storage for wav requests
+        wav_requests = []
+        
+        def handle_response_received(params):
+            try:
+                response = params.get("response", {})
+                request_id = params.get("requestId", "")
+                url = response.get("url", "")
+                mime_type = response.get("mimeType", "")
+                status = response.get("status", 0)
+                
+                # Filter for .wav media files (status 200 or 206 partial content)
+                if (url.lower().endswith('.wav') or 'audio/wav' in mime_type or 'audio/x-wav' in mime_type) and status in [200, 206]:
+                    # Get timing info
+                    timing = response.get("timing", {})
+                    headers = response.get("headers", {})
+                    
+                    # Extract size from Content-Length header
+                    size_bytes = 0
+                    content_length = headers.get("Content-Length") or headers.get("content-length") or "0"
+                    try:
+                        size_bytes = int(content_length)
+                    except:
+                        pass
+                    
+                    wav_requests.append({
+                        "url": url,
+                        "request_id": request_id,
+                        "size_bytes": size_bytes,
+                        "status": status,
+                        "timestamp": params.get("timestamp", 0)
+                    })
+            except Exception as e:
+                logger.debug(f"Error in handle_response_received: {e}")
+        
+        def handle_loading_finished(params):
+            try:
+                request_id = params.get("requestId", "")
+                timestamp = params.get("timestamp", 0)
+                encoded_data_length = params.get("encodedDataLength", 0)
+                
+                # Update the corresponding request with final size and timing
+                for req in wav_requests:
+                    if req["request_id"] == request_id:
+                        if req["size_bytes"] == 0 and encoded_data_length > 0:
+                            req["size_bytes"] = encoded_data_length
+                        req["end_timestamp"] = timestamp
+                        break
+            except Exception as e:
+                logger.debug(f"Error in handle_loading_finished: {e}")
+        
+        # Attach listeners
+        cdp.on("Network.responseReceived", handle_response_received)
+        cdp.on("Network.loadingFinished", handle_loading_finished)
+        
+        # Reload page to capture fresh .wav loads
+        page.reload(wait_until="domcontentloaded")
+        
+        # Wait for audio panel and .wav files to load
+        wait_for_audio_panel(page, timeout_s=10)
+        page.wait_for_timeout(3000)  # Give time for all .wav files to load
+        
+        # Detach and disable network
+        cdp.detach()
+        
+        # Sort by timestamp to get load order
+        wav_requests.sort(key=lambda x: x.get("timestamp", 0))
+        
+        # Filter valid requests with size > 0
+        valid_wavs = [w for w in wav_requests if w["size_bytes"] > 0]
+        
+        if len(valid_wavs) < 3:
+            logger.warning(f"Se detectaron solo {len(valid_wavs)} archivos .wav válidos (se esperaban 3).")
+            logger.info(f"Debug: Archivos .wav capturados: {valid_wavs}")
+            return None
+        
+        # Map first 3 .wav files: order is typically A, B, Reference based on user's description
+        # User said: "los carga asi, a,b y al ultimo reference"
+        a_wav = valid_wavs[0]
+        b_wav = valid_wavs[1]
+        ref_wav = valid_wavs[2]
+        
+        # Calculate load time in ms
+        def calc_load_time(wav):
+            start = wav.get("timestamp", 0)
+            end = wav.get("end_timestamp", start)
+            return max(0, (end - start) * 1000)  # Convert to ms
+        
+        result = {
+            "A": {
+                "size_kb": round(a_wav["size_bytes"] / 1024, 1),
+                "time_ms": round(calc_load_time(a_wav), 0)
+            },
+            "B": {
+                "size_kb": round(b_wav["size_bytes"] / 1024, 1),
+                "time_ms": round(calc_load_time(b_wav), 0)
+            },
+            "Reference": {
+                "size_kb": round(ref_wav["size_bytes"] / 1024, 1),
+                "time_ms": round(calc_load_time(ref_wav), 0)
             }
-            // Also include any obvious <audio> tags if not found
-            if (out.length < 3) {
-                document.querySelectorAll('audio').forEach(a => {
-                    if (a.src) out.push({role: 'U', src: a.src});
-                });
-            }
-            return out;
         }
-        """
+        
+        logger.info(
+            f"CDP Network -> Reference: {result['Reference']['size_kb']}kB/{result['Reference']['time_ms']}ms, "
+            f"A: {result['A']['size_kb']}kB/{result['A']['time_ms']}ms, "
+            f"B: {result['B']['size_kb']}kB/{result['B']['time_ms']}ms"
+        )
+        
+        return result
+        
+    except Exception as e:
+        logger.error(f"Error capturando métricas de Network: {e}")
+        return None
 
 
-def _js_fetch_pcm_from_src(src: str):
-        # Decode audio via WebAudio and return Float32Array as Array
-        return f"""
-        async () => {{
-            const Ctor = window.AudioContext || window.webkitAudioContext;
-            const ctx = new Ctor();
-            const res = await fetch('{src}');
-            const buf = await res.arrayBuffer();
-            const audio = await ctx.decodeAudioData(buf.slice(0));
-            const ch = audio.numberOfChannels > 0 ? 0 : 0;
-            const data = audio.getChannelData(ch);
-            // Downsample to ~22050 to limit size
-            const step = Math.max(1, Math.floor(audio.sampleRate / 22050));
-            const out = [];
-            for (let i=0;i<data.length;i+=step) out.push(data[i]);
-            const result = {{sampleRate: audio.sampleRate/step, data: out}};
-            try {{ ctx.close(); }} catch (e) {{}}
-            return result;
-        }}
-        """
-
-
-def _normalize(sig: np.ndarray) -> np.ndarray:
-        sig = sig.astype(np.float32)
-        sig -= np.mean(sig) if sig.size else 0.0
-        std = float(np.std(sig))
-        if std > 1e-12:
-                sig /= std
-        return sig
-
-
-def _sim_time_corr(ref: np.ndarray, x: np.ndarray) -> float:
-        a = _normalize(ref)
-        b = _normalize(x)
-        n = min(len(a), len(b))
-        if n < 64:
-                return 0.0
-        a = a[:n]
-        b = b[:n]
-        return float(np.clip(np.mean(a * b), -1.0, 1.0))
-
-
-def _sim_freq_cos(ref: np.ndarray, x: np.ndarray) -> float:
-        n = min(len(ref), len(x))
-        if n < 256:
-                return 0.0
-        n = int(2 ** np.floor(np.log2(n)))  # power of two
-        A = np.fft.rfft(_normalize(ref[:n]))
-        B = np.fft.rfft(_normalize(x[:n]))
-        magA = np.abs(A)
-        magB = np.abs(B)
-        num = float(np.dot(magA, magB))
-        den = float(np.linalg.norm(magA) * np.linalg.norm(magB))
-        return float(num / den) if den > 1e-9 else 0.0
-
-
-def compute_similarity(ref: np.ndarray, cand: np.ndarray) -> float:
-        # Blend time correlation and spectral cosine
-        t = _sim_time_corr(ref, cand)
-        f = _sim_freq_cos(ref, cand)
-        # map to [0,1]
-        t_n = (t + 1) / 2
-        f_n = (f + 1) / 2
-        return 0.6 * t_n + 0.4 * f_n
-
-
-def _best_lag(ref: np.ndarray, x: np.ndarray, max_lag: int = 2048) -> int:
-        n = min(len(ref), len(x))
-        if n < 256:
-            return 0
-        a = _normalize(ref[:n])
-        b = _normalize(x[:n])
-        max_lag = int(min(max_lag, n - 1))
-        # compute correlation around zero lag
-        lags = range(-max_lag, max_lag + 1)
-        best_val = -1e9
-        best_l = 0
-        for L in lags:
-            if L >= 0:
-                val = float(np.mean(a[L:] * b[: n - L])) if (n - L) > 0 else -1e9
-            else:
-                L2 = -L
-                val = float(np.mean(a[: n - L2] * b[L2:])) if (n - L2) > 0 else -1e9
-            if val > best_val:
-                best_val = val
-                best_l = L
-        return best_l
-
-
-def _align_by_lag(ref: np.ndarray, x: np.ndarray, max_lag: int = 2048) -> Tuple[np.ndarray, np.ndarray]:
-        L = _best_lag(ref, x, max_lag=max_lag)
-        n = min(len(ref), len(x))
-        if L >= 0:
-            a = ref[L:n]
-            b = x[: n - L]
-        else:
-            k = -L
-            a = ref[: n - k]
-            b = x[k:n]
-        m = min(len(a), len(b))
-        return a[:m], b[:m]
-
-
-def _rmse(a: np.ndarray, b: np.ndarray) -> float:
-        m = min(len(a), len(b))
-        if m == 0:
-            return 1.0
-        d = _normalize(a[:m]) - _normalize(b[:m])
-        return float(np.sqrt(np.mean(d * d)))
-
-
-def _psnr_from_rmse(rmse: float) -> float:
-        eps = 1e-9
-        rmse = max(rmse, eps)
-        return float(20.0 * np.log10(1.0 / rmse))  # signals normalized
-
-
-def _symmetric_kl_spectrum(a: np.ndarray, b: np.ndarray) -> float:
-        n = min(len(a), len(b))
-        if n < 256:
-            return 1.0
-        n = int(2 ** np.floor(np.log2(n)))
-        A = np.abs(np.fft.rfft(_normalize(a[:n]))) ** 2
-        B = np.abs(np.fft.rfft(_normalize(b[:n]))) ** 2
-        eps = 1e-12
-        A = A + eps
-        B = B + eps
-        A = A / np.sum(A)
-        B = B / np.sum(B)
-        kl_ab = float(np.sum(A * np.log(A / B)))
-        kl_ba = float(np.sum(B * np.log(B / A)))
-        return 0.5 * (kl_ab + kl_ba)
-
-
-def compute_audio_metrics(ref: np.ndarray, cand: np.ndarray) -> dict:
-        r, c = _align_by_lag(ref, cand, max_lag=2048)
-        corr_t = _sim_time_corr(r, c)
-        cos_f = _sim_freq_cos(r, c)
-        rmse = _rmse(r, c)
-        psnr = _psnr_from_rmse(rmse)
-        kl = _symmetric_kl_spectrum(r, c)
-        # Composite score in [0,1]
-        corr_n = (corr_t + 1) / 2
-        cos_n = max(0.0, min(1.0, cos_f))
-        psnr_n = max(0.0, min(1.0, psnr / 60.0))
-        kl_inv = 1.0 / (1.0 + 5.0 * kl)
-        score = 0.4 * corr_n + 0.3 * cos_n + 0.2 * psnr_n + 0.1 * kl_inv
-        return {
-            "corr_t": corr_t,
-            "cos_f": cos_f,
-            "rmse": rmse,
-            "psnr": psnr,
-            "kl": kl,
-            "score": float(score),
-        }
+def decide_from_network_metrics(metrics: dict, logger, tie_threshold: float = 0.001) -> str:
+    """
+    Compare A and B to Reference using size and time metrics.
+    Returns "Version A", "Version B", or "Tie".
+    """
+    if not metrics or "A" not in metrics or "B" not in metrics or "Reference" not in metrics:
+        logger.warning("Métricas incompletas, declarando Tie.")
+        return "Tie"
+    
+    ref = metrics["Reference"]
+    a = metrics["A"]
+    b = metrics["B"]
+    
+    # Calculate normalized distance (weighted: 70% size, 30% time)
+    # Normalize by reference values to make them comparable
+    size_weight = 0.7
+    time_weight = 0.3
+    
+    ref_size = max(ref["size_kb"], 1)  # Avoid division by zero
+    ref_time = max(ref["time_ms"], 1)
+    
+    # Distance for A
+    size_diff_a = abs(a["size_kb"] - ref["size_kb"]) / ref_size
+    time_diff_a = abs(a["time_ms"] - ref["time_ms"]) / ref_time
+    distance_a = size_weight * size_diff_a + time_weight * time_diff_a
+    
+    # Distance for B
+    size_diff_b = abs(b["size_kb"] - ref["size_kb"]) / ref_size
+    time_diff_b = abs(b["time_ms"] - ref["time_ms"]) / ref_time
+    distance_b = size_weight * size_diff_b + time_weight * time_diff_b
+    
+    logger.info(f"Distancia normalizada -> A: {distance_a:.4f}, B: {distance_b:.4f}")
+    
+    # Decide based on smallest distance
+    diff = abs(distance_a - distance_b)
+    if diff <= tie_threshold:
+        decision = "Tie"
+    elif distance_a < distance_b:
+        decision = "Version A"
+    else:
+        decision = "Version B"
+    
+    logger.info(f"Decisión basada en Network: {decision}")
+    return decision
 
 
 def main():
@@ -362,9 +332,8 @@ def main():
     parser.add_argument("--audit-csv", type=str, default="", help="Ruta de CSV para auditar decisiones")
     parser.add_argument("--audit-limit", type=int, default=0, help="Máximo de filas a guardar en CSV (0 = todas)")
     parser.add_argument("--manual-login", action="store_true", help="Hacer login manualmente (3 min)")
-    parser.add_argument("--iter-timeout", type=int, default=20, help="Tiempo máximo por iteración (s)")
-    parser.add_argument("--strategy", type=str, default="smart", choices=["smart","tie","alternate","always-a","always-b"], help="Estrategia para decidir")
-    parser.add_argument("--tie-diff", type=float, default=0.02, help="Umbral |simA-simB| para Tie")
+    parser.add_argument("--iter-timeout", type=int, default=30, help="Tiempo máximo por iteración (s)")
+    parser.add_argument("--tie-threshold", type=float, default=0.001, help="Umbral para declarar Tie (diferencia normalizada mínima)")
     args = parser.parse_args()
 
     log_path = Path(args.log_file) if args.log_file else None
@@ -418,7 +387,6 @@ def main():
 
         logger.info("Panel de Audio encontrado. Iniciando iteraciones…")
 
-        pick_toggle = False
         while True:
             total_str = str(args.max_iters) if args.max_iters else "?"
             logger.info(f"Iteración {iterations + 1}/{total_str}")
@@ -428,51 +396,17 @@ def main():
                 logger.info("Panel de audio no visible. Terminando.")
                 break
 
-            # Estrategias: simple o SMART (analiza PCM vs Reference)
-            if args.strategy == "always-a":
-                decision = "Version A"
-            elif args.strategy == "always-b":
-                decision = "Version B"
-            elif args.strategy == "alternate":
-                decision = "Version A" if not pick_toggle else "Version B"
-                pick_toggle = not pick_toggle
-            elif args.strategy == "tie":
-                decision = "Tie"
-            else:
-                # SMART: intenta recuperar URLs y decodificar PCM en el navegador
-                decision = "Tie"
-                try:
-                    srcs = page.evaluate(_js_get_audio_srcs())
-                    # Mapear por rol
-                    urlA = next((s['src'] for s in srcs if s.get('role')=='A'), None)
-                    urlB = next((s['src'] for s in srcs if s.get('role')=='B'), None)
-                    urlR = next((s['src'] for s in srcs if s.get('role') in ('R','Ref')), None)
-                    if urlA and urlB and urlR:
-                        ref = page.evaluate(_js_fetch_pcm_from_src(urlR))
-                        a = page.evaluate(_js_fetch_pcm_from_src(urlA))
-                        b = page.evaluate(_js_fetch_pcm_from_src(urlB))
-                        ref_sig = np.array(ref.get('data', []), dtype=np.float32)
-                        a_sig = np.array(a.get('data', []), dtype=np.float32)
-                        b_sig = np.array(b.get('data', []), dtype=np.float32)
-                        mA = compute_audio_metrics(ref_sig, a_sig)
-                        mB = compute_audio_metrics(ref_sig, b_sig)
-                        delta = mA['score'] - mB['score']
-                        logger.info(
-                            "AudioMetrics-> A: corr={mA_corr:.4f} cos={mA_cos:.4f} rmse={mA_rmse:.4f} psnr={mA_psnr:.2f} kl={mA_kl:.4f} | "
-                            "B: corr={mB_corr:.4f} cos={mB_cos:.4f} rmse={mB_rmse:.4f} psnr={mB_psnr:.2f} kl={mB_kl:.4f}".format(
-                                mA_corr=mA['corr_t'], mA_cos=mA['cos_f'], mA_rmse=mA['rmse'], mA_psnr=mA['psnr'], mA_kl=mA['kl'],
-                                mB_corr=mB['corr_t'], mB_cos=mB['cos_f'], mB_rmse=mB['rmse'], mB_psnr=mB['psnr'], mB_kl=mB['kl']
-                            )
-                        )
-                        logger.info(
-                            f"CombinedScore-> A:{mA['score']:.4f} B:{mB['score']:.4f} (Δ={delta:.4f}, tie≤{args.tie_diff})"
-                        )
-                        if abs(delta) < args.tie_diff:
-                            decision = "Tie"
-                        else:
-                            decision = "Version A" if delta > 0 else "Version B"
-                except Exception as e:
-                    logger.info(f"SMART fallo, usando respaldo: {e}")
+            # Use Network-based approach to capture .wav metrics
+            decision = "Tie"
+            try:
+                metrics = capture_wav_network_metrics(page, logger)
+                if metrics:
+                    decision = decide_from_network_metrics(metrics, logger, args.tie_threshold)
+                else:
+                    logger.warning("No se pudieron capturar métricas de Network. Declarando Tie.")
+            except Exception as e:
+                logger.error(f"Error en captura de métricas: {e}")
+                logger.info("Declarando Tie por error.")
 
             if not click_decision(page, decision):
                 logger.info("No se pudo hacer clic en la opción; se intenta Tie.")
