@@ -275,7 +275,7 @@ def capture_wav_network_metrics(page, logger) -> Optional[dict]:
         return None
 
 
-def decide_from_network_metrics(metrics: dict, logger, tie_threshold: float = 0.01) -> str:
+def decide_from_network_metrics(metrics: dict, logger, tie_threshold: float = 0.001) -> str:
     """
     Compare A and B to Reference using size and time metrics.
     Returns "Version A", "Version B", or "Tie".
@@ -333,7 +333,7 @@ def main():
     parser.add_argument("--audit-limit", type=int, default=0, help="Máximo de filas a guardar en CSV (0 = todas)")
     parser.add_argument("--manual-login", action="store_true", help="Hacer login manualmente (3 min)")
     parser.add_argument("--iter-timeout", type=int, default=30, help="Tiempo máximo por iteración (s)")
-    parser.add_argument("--tie-threshold", type=float, default=0.01, help="Umbral para declarar Tie")
+    parser.add_argument("--tie-threshold", type=float, default=0.001, help="Umbral para declarar Tie (diferencia normalizada mínima)")
     args = parser.parse_args()
 
     log_path = Path(args.log_file) if args.log_file else None
