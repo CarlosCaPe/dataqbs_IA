@@ -1971,6 +1971,10 @@ def main():
     parser.add_argument("--network-first", action="store_true", help="Usar primero la heurística de red (size/time de WAV)")
     parser.add_argument("--header-first", action="store_true", help="Preferir tamaños totales por headers (Content-Range/Length) usando los src de audio del DOM")
     parser.add_argument("--urls", nargs='*', help="Opcional: pasar 3 URLs WAV (A B R) para calcular tamaños por headers sin navegador")
+    # Audit CSV (similar a imágenes)
+    parser.add_argument("--audit-csv", type=str, default="", help="Ruta de CSV para auditar decisiones/medidas")
+    parser.add_argument("--audit-limit", type=int, default=0, help="Máximo de filas a guardar en CSV (0 = todas)")
+    parser.add_argument("--audit-batch", type=int, default=1, help="Escribir el CSV cada N iteraciones (1 = cada iteración)")
     args = parser.parse_args()
 
     log_path = Path(args.log_file) if args.log_file else None
@@ -1978,6 +1982,11 @@ def main():
 
     start = time.time()
     iterations = 0
+    # Config de auditoría CSV
+    # Default CSV under the current project folder: telus_compara_audios/audit/decisions.csv
+    default_csv = (Path.cwd() / "audit" / "decisions.csv")
+    csv_path = Path(args.audit_csv) if args.audit_csv else default_csv
+    csv_rows: list[dict] = []
 
     # If --urls provided, run header-only mode and exit
     if args.urls and len(args.urls) >= 3:
@@ -2052,6 +2061,7 @@ def main():
 
             decision = None
             iter_sizes_kb = None  # tuple (R,A,B) in kB for the concise summary
+            iter_source = None    # fuente usada para decidir (header-first/cdp/perf-http/dom-http)
 
             # If requested, try header-based sizes from DOM audio srcs first
             if args.header_first and not decision:
@@ -2085,6 +2095,7 @@ def main():
                             return 0.7*ns + 0.3*nt
                         ca,cb = closeness(sa,ta), closeness(sb,tb)
                         decision = 'Tie' if abs(ca-cb)<=0.01 else ('Version A' if ca<cb else 'Version B')
+                        iter_source = 'header-first'
                         iter_sizes_kb = (sr, sa, sb)
                         logger.debug(f"Header media (kB/ms) -> R:({sr:.0f}kB,{tr:.0f}ms) A:({sa:.0f}kB,{ta:.0f}ms) B:({sb:.0f}kB,{tb:.0f}ms) => {decision}")
                 except Exception:
@@ -2097,6 +2108,7 @@ def main():
                 dec_net = None
             if dec_net:
                 decision = dec_net
+                iter_source = iter_source or 'cdp'
 
             # Sin fallback PCM: decisión 100% por Network (Media)
             ref_rec = a_rec = b_rec = None
@@ -2135,6 +2147,7 @@ def main():
                                 return 0.7*ns + 0.3*nt
                             ca,cb = closeness(sa,ta), closeness(sb,tb)
                             decision = 'Tie' if abs(ca-cb)<=0.01 else ('Version A' if ca<cb else 'Version B')
+                            iter_source = 'perf-http'
                             iter_sizes_kb = (sr, sa, sb)
                             logger.debug(f"Perf last3+HTTP -> R:{sr:.0f}kB A:{sa:.0f}kB B:{sb:.0f}kB => {decision}")
                 except Exception:
@@ -2181,6 +2194,7 @@ def main():
                             decision = "Version A"
                         else:
                             decision = "Version B"
+                        iter_source = 'dom-http'
                         iter_sizes_kb = (sr, sa, sb)
                         logger.debug(f"DOM srcs+HTTP -> R:{sr:.0f}kB A:{sa:.0f}kB B:{sb:.0f}kB => {decision}")
                 except Exception:
@@ -2210,6 +2224,8 @@ def main():
                                 iter_sizes_kb = (float(int(sizes.get('R') or 0))/1024.0,
                                                  float(int(sizes.get('A') or 0))/1024.0,
                                                  float(int(sizes.get('B') or 0))/1024.0)
+                                if not iter_source:
+                                    iter_source = 'perf-http'
                         except Exception:
                             pass
                 except Exception:
@@ -2242,6 +2258,31 @@ def main():
             try:
                 sr_kb, sa_kb, sb_kb = iter_sizes_kb or (0.0, 0.0, 0.0)
                 logger.info(f"Iter {iterations + 1} -> Sizes kB R:{sr_kb:.0f} A:{sa_kb:.0f} B:{sb_kb:.0f} | Decision: {decision}")
+                # Audit CSV row
+                if csv_path:
+                    row = {
+                        "iter": iterations + 1,
+                        "decision": decision,
+                        "sizeR_kB": round(float(sr_kb), 1),
+                        "sizeA_kB": round(float(sa_kb), 1),
+                        "sizeB_kB": round(float(sb_kb), 1),
+                        "source": iter_source or "unknown",
+                        "timestamp": time.time(),
+                    }
+                    csv_rows.append(row)
+                    # enforce tail limit
+                    if args.audit_limit and len(csv_rows) > args.audit_limit:
+                        csv_rows = csv_rows[-args.audit_limit:]
+                    # write file every N iterations
+                    if (args.audit_batch <= 1) or (((iterations + 1) % args.audit_batch) == 0):
+                        try:
+                            csv_path.parent.mkdir(parents=True, exist_ok=True)
+                            with csv_path.open("w", newline="", encoding="utf-8") as f:
+                                writer = csv.DictWriter(f, fieldnames=list(row.keys()))
+                                writer.writeheader()
+                                writer.writerows(csv_rows)
+                        except Exception:
+                            pass
             except Exception:
                 pass
 
