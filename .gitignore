@@ -64,6 +64,11 @@ telus_compara_imagenes/.user_data/**
 telus_compara_imagenes/audit/**
 telus_compara_audios/.user_data/**
 telus_compara_audios/audit/**
+telus_compara_audios/logs/**
+telus_compara_audios/emails_out/**
 
 # Realstate data images under data/
 realstate/properties/data/images/**
+
+# Ensure realstate JSON data artifacts are ignored (redundant with folder ignore, kept explicit)
+realstate/properties/data/**/*.json

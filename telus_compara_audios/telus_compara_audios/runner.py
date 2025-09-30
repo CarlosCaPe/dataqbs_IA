@@ -91,6 +91,8 @@ from playwright.sync_api import sync_playwright
 import base64
 import json
 from datetime import datetime
+from urllib.parse import urlparse
+import requests
 
 
 def setup_logger(log_file: Path | None):
@@ -110,6 +112,31 @@ def setup_logger(log_file: Path | None):
         fh.setFormatter(fmt)
         logger.addHandler(fh)
     return logger
+
+
+def _header_sizes_kb_for_current(page) -> dict:
+    """Return header-based total sizes in kB for current A/B/R audio srcs.
+    Uses HEAD/Content-Length or GET Range/Content-Range as needed.
+    """
+    sizes_kb = {"A": 0.0, "B": 0.0, "R": 0.0}
+    try:
+        srcs = _get_audio_srcs(page)
+        urls = {"A": srcs.get("A"), "B": srcs.get("B"), "R": srcs.get("R")}
+        ua = None
+        try:
+            ua = page.evaluate("() => navigator.userAgent")
+        except Exception:
+            ua = None
+        sizes = _measure_sizes_via_http(page, urls, ua=ua)
+        for k in ("A","B","R"):
+            v = sizes.get(k) or 0
+            try:
+                sizes_kb[k] = float(int(v)) / 1024.0
+            except Exception:
+                sizes_kb[k] = 0.0
+    except Exception:
+        pass
+    return sizes_kb
 
 
 def wait_for_audio_panel(page, timeout_s: int = 30) -> bool:
@@ -145,6 +172,468 @@ def wait_for_audio_panel(page, timeout_s: int = 30) -> bool:
         except Exception:
             pass
     return False
+def _click_refresh(page) -> bool:
+    """Try to click the task's Refresh control to load new audio clips.
+    Returns True if a click was attempted successfully.
+    """
+    selectors = [
+        "text=Refresh",
+        "button:has-text('Refresh')",
+        "[role=button]:has-text('Refresh')",
+        "a:has-text('Refresh')",
+        "[aria-label='Refresh']",
+    ]
+    for sel in selectors:
+        try:
+            el = page.locator(sel).first
+            if el and el.is_visible():
+                el.click(timeout=1500)
+                return True
+        except Exception:
+            continue
+    return False
+
+def _collect_media_via_page(page, logger, timeout_s: int = 12) -> list[dict]:
+    """Fallback: use Playwright page events to capture media/audios.
+    Returns a list of dicts with url, start, end, status, mime, bytes, rtype.
+    """
+    start_deadline = time.time() + timeout_s
+    store = {}
+    results = []
+
+    def _try_size_from_headers(headers: dict) -> int:
+        if not headers:
+            return 0
+        h = {str(k).lower(): v for k, v in headers.items()}
+        # Content-Range total
+        cr = h.get("content-range")
+        if cr and "/" in cr:
+            try:
+                total = cr.split("/")[-1].strip()
+                if total.isdigit():
+                    return int(total)
+            except Exception:
+                pass
+        cl = h.get("content-length")
+        try:
+            return int(str(cl).strip()) if cl else 0
+        except Exception:
+            return 0
+
+    def on_request(req):
+        try:
+            url = (req.url or "")
+            rtype = (req.resource_type or "").lower()
+            # Track all potentially relevant requests; filter later by response
+            store[req] = {
+                "url": url,
+                "start": time.time(),
+                "rtype": rtype,
+            }
+        except Exception:
+            pass
+
+    def _finalize_from_resp(req, resp):
+        try:
+            rec = store.get(req)
+            if not rec:
+                return
+            status = int(resp.status or 0)
+            headers = resp.headers or {}
+            size = _try_size_from_headers(headers)
+            ctype = str(headers.get("content-type") or headers.get("Content-Type") or "").lower()
+            mime = ctype
+            rec.update({
+                "end": time.time(),
+                "status": status,
+                "mime": mime,
+                "bytes": size,
+            })
+            url_lower = rec["url"].lower()
+            has_audio_ext = any(ext in url_lower for ext in [
+                ".wav", ".mp3", ".m4a", ".aac", ".ogg", ".opus", ".flac", ".webm"
+            ])
+            looks_audio = has_audio_ext or mime.startswith("audio") or (rec.get("rtype") == "media")
+            ok_status = status in (200, 206)
+            if looks_audio and ok_status:
+                results.append(rec)
+        except Exception:
+            pass
+
+    def on_finished(req):
+        try:
+            resp = req.response()
+            if resp:
+                _finalize_from_resp(req, resp)
+        except Exception:
+            pass
+
+    def on_response(resp):
+        try:
+            req = resp.request
+            if req in store:
+                _finalize_from_resp(req, resp)
+        except Exception:
+            pass
+
+    page.on("request", on_request)
+    page.on("requestfinished", on_finished)
+    page.on("response", on_response)
+
+    # Trigger refresh for new items
+    tried_refresh = False
+    # Helper JS to force reload audio elements with cache-busting
+    js_force_reload = r"""
+    () => {
+        try {
+            const audios = Array.from(document.querySelectorAll('audio'));
+            for (const a of audios) {
+                const src = a.currentSrc || a.src || '';
+                if (!src) continue;
+                const bust = src + (src.includes('?') ? '&' : '?') + 'rnd=' + Date.now();
+                try { a.pause && a.pause(); } catch {}
+                try { a.src = bust; } catch {}
+                try { a.load && a.load(); } catch {}
+            }
+            return audios.length;
+        } catch (e) { return -1; }
+    }
+    """
+    # Try page Refresh; if not available, force reload audios; do both if possible
+    try:
+        tried_refresh = _click_refresh(page)
+        if not tried_refresh:
+            page.evaluate(js_force_reload)
+        else:
+            page.wait_for_timeout(400)
+            page.evaluate(js_force_reload)
+    except Exception:
+        try:
+            page.evaluate(js_force_reload)
+        except Exception:
+            pass
+
+    while time.time() < start_deadline:
+        if len(results) >= 3:
+            break
+        try:
+            page.wait_for_timeout(200)
+        except Exception:
+            pass
+
+    # Detach listeners
+    try:
+        page.remove_listener("request", on_request)
+        page.remove_listener("requestfinished", on_finished)
+        page.remove_listener("response", on_response)
+    except Exception:
+        pass
+
+    return results
+
+def _collect_media_via_perf(page) -> list[dict]:
+    """Passive fallback: read Performance resource entries and filter media/audio.
+    Returns up to the last 3 entries with fields: url, size(bytes), time(ms), start(s).
+    """
+    js = r"""
+    () => {
+        try {
+            const all = performance.getEntriesByType('resource') || [];
+            const media = all.filter(e => {
+                const name = (e.name||'').toLowerCase();
+                const it = (e.initiatorType||'').toLowerCase();
+                return it === 'media' || /\.(wav|mp3|m4a|aac|ogg|opus|flac|webm)(\?|$)/.test(name);
+            }).map(e => ({
+                url: e.name || '',
+                size: e.transferSize || e.encodedBodySize || e.decodedBodySize || 0,
+                time: (e.duration || (e.responseEnd - e.startTime) || 0) * 1.0,
+                start: e.startTime || 0
+            }));
+            media.sort((a,b) => (a.start||0) - (b.start||0));
+            return media.slice(-3);
+        } catch (err) {
+            return [];
+        }
+    }
+    """
+    try:
+        items = page.evaluate(js)
+    except Exception:
+        items = []
+    # Normalize to expected structure
+    out = []
+    for it in (items or []):
+        try:
+            out.append({
+                "url": it.get("url"),
+                "bytes": int(float(it.get("size") or 0)),
+                "time": float(it.get("time") or 0.0),
+                "start": float(it.get("start") or 0.0)
+            })
+        except Exception:
+            continue
+    return out
+
+def _collect_media_via_context(context, page, logger, timeout_s: int = 12) -> list[dict]:
+    """Capture audio-like network traffic at BrowserContext level (covers iframes).
+    Returns list of dicts: {url, start, end, status, mime, bytes}
+    """
+    records = []
+    store = {}
+
+    def _size_from_headers(headers: dict) -> int:
+        if not headers:
+            return 0
+        h = {str(k).lower(): v for k, v in headers.items()}
+        cr = h.get('content-range')
+        if cr and '/' in cr:
+            try:
+                total = int(cr.split('/')[-1].strip())
+                return total
+            except Exception:
+                pass
+        cl = h.get('content-length')
+        try:
+            return int(str(cl).strip()) if cl else 0
+        except Exception:
+            return 0
+
+    def on_req(req):
+        try:
+            store[req] = {
+                'url': req.url,
+                'start': time.time(),
+                'rtype': (req.resource_type or '').lower(),
+            }
+        except Exception:
+            pass
+
+    def on_resp(resp):
+        try:
+            req = resp.request
+            rec = store.get(req)
+            if not rec:
+                return
+            headers = resp.headers or {}
+            size = _size_from_headers(headers)
+            mime = str(headers.get('content-type') or headers.get('Content-Type') or '').lower()
+            st = int(resp.status or 0)
+            rec.update({'status': st, 'mime': mime, 'bytes': size})
+        except Exception:
+            pass
+
+    def on_done(req):
+        try:
+            rec = store.get(req)
+            if not rec:
+                return
+            rec['end'] = time.time()
+            url = (rec.get('url') or '').lower()
+            has_audio_ext = any(ext in url for ext in ['.wav','.mp3','.m4a','.aac','.ogg','.opus','.flac','.webm'])
+            looks_audio = has_audio_ext or (rec.get('mime') or '').startswith('audio') or (rec.get('rtype') == 'media')
+            st = int(rec.get('status') or 0)
+            if looks_audio and st in (200,206):
+                records.append(rec)
+        except Exception:
+            pass
+
+    context.on('request', on_req)
+    context.on('response', on_resp)
+    context.on('requestfinished', on_done)
+
+    # Trigger in-page Refresh; if missing, force audio reload
+    try:
+        clicked = _click_refresh(page)
+        if not clicked:
+            page.evaluate("() => { const as = Array.from(document.querySelectorAll('audio')); as.forEach(a=>{try{a.load&&a.load()}catch{}}); }")
+    except Exception:
+        pass
+
+    deadline = time.time() + timeout_s
+    while time.time() < deadline:
+        if len(records) >= 3:
+            break
+        try:
+            page.wait_for_timeout(200)
+        except Exception:
+            pass
+
+    try:
+        context.remove_listener('request', on_req)
+        context.remove_listener('response', on_resp)
+        context.remove_listener('requestfinished', on_done)
+    except Exception:
+        pass
+
+    return records
+
+def _js_get_audio_srcs_by_label():
+    return r"""
+    () => {
+        function byText(txt) {
+            const xpath = `//*[contains(normalize-space(text()), ${JSON.stringify(txt)})]`;
+            const x = document.evaluate(xpath, document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
+            const nodes = [];
+            for (let i=0;i<x.snapshotLength;i++) nodes.push(x.snapshotItem(i));
+            return nodes;
+        }
+        function nearestAudio(el){
+            if (!el) return null;
+            // search within same container then ancestors
+            let n = el;
+            for (let depth=0; depth<4 && n; depth++, n=n.parentElement){
+                const a = n.querySelector('audio');
+                if (a) return a.currentSrc || a.src || null;
+            }
+            // fallback: any audio in document
+            const any = document.querySelector('audio');
+            return any ? (any.currentSrc || any.src || null) : null;
+        }
+        const result = {A:null,B:null,R:null, all:[]};
+        const auds = Array.from(document.querySelectorAll('audio'));
+        result.all = auds.map(a=>a.currentSrc||a.src||'').filter(Boolean);
+        const aNodes = [...byText('Audio A'), ...byText('Audio  A')];
+        const bNodes = [...byText('Audio B'), ...byText('Audio  B')];
+        const rNodes = [...byText('Reference'), ...byText('Reference Audio'), ...byText('Referencia')];
+        result.A = nearestAudio(aNodes[0]);
+        result.B = nearestAudio(bNodes[0]);
+        result.R = nearestAudio(rNodes[0]);
+        return result;
+    }
+    """
+
+def _get_audio_srcs(page) -> dict:
+    try:
+        data = page.evaluate(_js_get_audio_srcs_by_label())
+        if not isinstance(data, dict):
+            data = {}
+    except Exception:
+        data = {}
+    # Normalize
+    A = data.get('A') if isinstance(data, dict) else None
+    B = data.get('B') if isinstance(data, dict) else None
+    R = data.get('R') if isinstance(data, dict) else None
+    all_urls = []
+    try:
+        all_urls = data.get('all') or []
+    except Exception:
+        all_urls = []
+    # If any missing, try to use first three audios
+    if not (A and B and R) and len(all_urls) >= 3:
+        A, B, R = all_urls[0], all_urls[1], all_urls[2]
+    return {"A": A, "B": B, "R": R, "all": all_urls}
+
+def _cookies_for_url(page, url: str) -> dict:
+    try:
+        cookies = page.context.cookies([url])
+    except Exception:
+        cookies = []
+    jar = {}
+    for c in cookies or []:
+        try:
+            jar[c.get('name')] = c.get('value')
+        except Exception:
+            continue
+    return jar
+
+def _measure_sizes_via_http(page, urls: dict, ua: str | None = None) -> dict:
+    out = {k: 0 for k in urls}
+    headers_base = {
+        "Accept": "*/*",
+        # Range is not added by default here; we first try HEAD for total size.
+        "Referer": page.url,
+    }
+    if ua:
+        headers_base["User-Agent"] = ua
+    for key, url in urls.items():
+        if not url:
+            continue
+        try:
+            parsed = urlparse(url)
+            cookies = _cookies_for_url(page, url)
+            s = requests.Session()
+            # Build cookie header
+            cookie_header = "; ".join([f"{k}={v}" for k, v in cookies.items()]) if cookies else None
+            headers = dict(headers_base)
+            if cookie_header:
+                headers["Cookie"] = cookie_header
+            total = 0
+            # 1) Try HEAD first: for S3 this typically returns 200 and full Content-Length
+            try:
+                head_headers = dict(headers)
+                head_headers.pop("Range", None)
+                head_resp = s.head(url, headers=head_headers, timeout=8, allow_redirects=True)
+                cl = head_resp.headers.get('Content-Length') or head_resp.headers.get('content-length')
+                if cl:
+                    total = int(str(cl).strip())
+            except Exception:
+                total = 0
+
+            # 2) If HEAD didn't yield, try Range GET to obtain Content-Range: bytes 0-0/TOTAL (or sometimes 0-end/TOTAL)
+            if not total:
+                try:
+                    range_headers = dict(headers)
+                    range_headers["Range"] = "bytes=0-0"
+                    get_resp = s.get(url, headers=range_headers, stream=True, timeout=12)
+                    cr = get_resp.headers.get('Content-Range') or get_resp.headers.get('content-range')
+                    if cr and '/' in cr:
+                        total = int(cr.split('/')[-1].strip())
+                    if not total:
+                        cl2 = get_resp.headers.get('Content-Length') or get_resp.headers.get('content-length')
+                        if cl2:
+                            total = int(str(cl2).strip())
+                except Exception:
+                    total = 0
+            out[key] = max(0, int(total))
+        except Exception:
+            out[key] = 0
+    return out
+
+def _perf_times_for_urls(page, urls: dict) -> dict:
+    js = r"""
+    (urls) => {
+        const res = {};
+        try {
+            const entries = performance.getEntriesByType('resource') || [];
+            for (const [key, url] of Object.entries(urls||{})){
+                if (!url) { res[key] = 0; continue; }
+                const list = performance.getEntriesByName(url) || [];
+                const e = list.length ? list[list.length-1] : null;
+                let dur = 0;
+                if (e) dur = e.duration || (e.responseEnd - e.startTime) || 0;
+                res[key] = dur * 1.0;
+            }
+        } catch (e) {
+            for (const k of Object.keys(urls||{})) res[k] = 0;
+        }
+        return res;
+    }
+    """
+    try:
+        return page.evaluate(js, {k: v for k, v in urls.items()})
+    except Exception:
+        return {k: 0 for k in urls}
+
+def _perf_get_last3_media_urls(page) -> list[str]:
+    js = r"""
+    () => {
+        try {
+            const all = performance.getEntriesByType('resource') || [];
+            const media = all.filter(e => {
+                const name = (e.name||'').toLowerCase();
+                const it = (e.initiatorType||'').toLowerCase();
+                return it === 'media' || /\.(wav|mp3|m4a|aac|ogg|opus|flac|webm)(\?|$)/.test(name);
+            }).map(e => ({ url: e.name || '', start: e.startTime||0 }));
+            media.sort((a,b)=> (a.start||0)-(b.start||0));
+            return media.slice(-3).map(m=>m.url);
+        } catch (e) { return []; }
+    }
+    """
+    try:
+        urls = page.evaluate(js)
+        return [u for u in urls if isinstance(u, str) and u]
+    except Exception:
+        return []
     # If you need to inject JS, use a string like below:
     tmpl = """
         // JS code for PCM capture goes here
@@ -1107,13 +1596,21 @@ def _decide_by_cdp_media(page, logger, timeout_s: int = 15) -> Optional[str]:
             session.send("Network.clearBrowserCache", {})
         except Exception:
             pass
+        # Auto-attach to all sub-targets (iframes/service workers) and enable Network there too
+        session.send("Target.setAutoAttach", {
+            "autoAttach": True,
+            "waitForDebuggerOnStart": False,
+            "flatten": True
+        })
     except Exception:
         pass
 
     entries = {}  # requestId -> dict
+    counters = {"req": 0, "resp": 0, "finish": 0}
 
     def on_request(e):
         try:
+            counters["req"] += 1
             req_id = e.get("requestId")
             req = e.get("request", {})
             url = (req.get("url") or "")
@@ -1130,6 +1627,7 @@ def _decide_by_cdp_media(page, logger, timeout_s: int = 15) -> Optional[str]:
 
     def on_response(e):
         try:
+            counters["resp"] += 1
             req_id = e.get("requestId")
             resp = e.get("response", {})
             status = int(resp.get("status") or 0)
@@ -1149,6 +1647,7 @@ def _decide_by_cdp_media(page, logger, timeout_s: int = 15) -> Optional[str]:
 
     def on_finished(e):
         try:
+            counters["finish"] += 1
             req_id = e.get("requestId")
             ts = float(e.get("timestamp") or 0.0)
             enc = e.get("encodedDataLength")
@@ -1162,23 +1661,141 @@ def _decide_by_cdp_media(page, logger, timeout_s: int = 15) -> Optional[str]:
         except Exception:
             pass
 
-    session.on("Network.requestWillBeSent", on_request)
-    session.on("Network.responseReceived", on_response)
-    session.on("Network.responseReceivedExtraInfo", lambda e: (
-        entries.setdefault(e.get("requestId"), {}).update({
-            "extraHeaders": e.get("headers")
-        }) if e else None
-    ))
-    session.on("Network.loadingFinished", on_finished)
-
-    # Hard reload ignoring cache ensures fresh media loads AFTER listeners are attached
-    try:
-        session.send("Page.reload", {"ignoreCache": True})
-    except Exception:
+    def on_data(e):
         try:
-            page.reload(wait_until="domcontentloaded")
+            req_id = e.get("requestId")
+            data_len = e.get("dataLength")
+            enc_len = e.get("encodedDataLength")
+            d = entries.setdefault(req_id, {})
+            prev = int(d.get("bytes_data") or 0)
+            add = 0
+            try:
+                if isinstance(enc_len, (int, float)) and enc_len > 0:
+                    add = int(enc_len)
+                elif isinstance(data_len, (int, float)) and data_len > 0:
+                    add = int(data_len)
+            except Exception:
+                add = 0
+            d["bytes_data"] = prev + add
         except Exception:
             pass
+
+    def _apply_headers_to_entry(req_id, headers):
+        if not headers:
+            return
+        d = entries.setdefault(req_id, {})
+        # Normalize keys to case-insensitive lookup
+        h = {str(k).lower(): v for k, v in headers.items()}
+        # Content-Length
+        cl = h.get("content-length")
+        if cl is not None:
+            try:
+                d["bytes_header"] = int(str(cl).strip())
+            except Exception:
+                pass
+        # Content-Range: bytes start-end/total
+        cr = h.get("content-range")
+        if cr and "/" in cr:
+            try:
+                total = cr.split("/")[-1].strip()
+                if total.isdigit():
+                    d["bytes_total"] = int(total)
+            except Exception:
+                pass
+
+    session.on("Network.requestWillBeSent", on_request)
+    session.on("Network.responseReceived", lambda e: (on_response(e), _apply_headers_to_entry(e.get("requestId"), (e.get("response") or {}).get("headers"))) )
+    session.on("Network.responseReceivedExtraInfo", lambda e: _apply_headers_to_entry(e.get("requestId"), e.get("headers")))
+    session.on("Network.loadingFinished", on_finished)
+    session.on("Network.dataReceived", on_data)
+
+    def _send_to_target(session_id: str, method: str, params: dict | None = None):
+        try:
+            msg = {"id": int(time.time()*1000)%1000000, "method": method}
+            if params:
+                msg["params"] = params
+            session.send("Target.sendMessageToTarget", {"sessionId": session_id, "message": json.dumps(msg)})
+        except Exception:
+            pass
+
+    # When attached to a sub-target, enable Network there as well
+    session.on("Target.attachedToTarget", lambda e: _send_to_target(e.get("sessionId"), "Network.enable", {}))
+
+    # Parse Network events from child sessions
+    def _on_msg_from_target(e):
+        try:
+            sid = e.get("sessionId")
+            raw = e.get("message")
+            if not raw:
+                return
+            msg = json.loads(raw)
+            method = msg.get("method")
+            params = msg.get("params") or {}
+            if method == "Network.requestWillBeSent":
+                on_request(params)
+            elif method == "Network.responseReceived":
+                on_response(params)
+                try:
+                    _apply_headers_to_entry(params.get("requestId"), ((params.get("response") or {}).get("headers") or {}))
+                except Exception:
+                    pass
+            elif method == "Network.loadingFinished":
+                on_finished(params)
+            elif method == "Network.dataReceived":
+                on_data(params)
+        except Exception:
+            pass
+    session.on("Target.receivedMessageFromTarget", _on_msg_from_target)
+
+    # Prefer clicking the in-page Refresh button to load new audio items
+    tried_refresh = False
+    try:
+        tried_refresh = _click_refresh(page)
+    except Exception:
+        tried_refresh = False
+    if not tried_refresh:
+        # Fallback to a hard reload ignoring cache
+        try:
+            session.send("Page.reload", {"ignoreCache": True})
+        except Exception:
+            try:
+                page.reload(wait_until="domcontentloaded")
+            except Exception:
+                pass
+
+    # Try BrowserContext-level capture first
+    try:
+        ctx_records = _collect_media_via_context(page.context, page, logger, timeout_s=min(6, timeout_s//2 or 5))
+        if len(ctx_records) >= 3:
+            ctx_records.sort(key=lambda x: x.get('start', 0.0))
+            A,B,R = ctx_records[-3:]
+            def size_kb_c(d): return float(int(d.get('bytes') or 0))/1024.0
+            def time_ms_c(d): return max(0.0, (float(d.get('end') or 0.0)-float(d.get('start') or 0.0))*1000.0)
+            sizes = [size_kb_c(A), size_kb_c(B), size_kb_c(R)]
+            times = [time_ms_c(A), time_ms_c(B), time_ms_c(R)]
+            r_idx = int(max(range(3), key=lambda i: sizes[i]))
+            if r_idx != 2:
+                order = [0,1,2]
+                order.remove(r_idx)
+                order.append(r_idx)
+                A,B,R = [ [A,B,R][i] for i in order ]
+                sizes = [ sizes[i] for i in order ]
+                times = [ times[i] for i in order ]
+            sa,sb,sr = sizes
+            ta,tb,tr = times
+            def closeness(sx,tx):
+                ns = abs(sx-sr)/max(sr,1e-6)
+                nt = abs(tx-tr)/max(tr,1e-6)
+                return 0.7*ns + 0.3*nt
+            ca,cb = closeness(sa,ta), closeness(sb,tb)
+            choice = 'Tie' if abs(ca-cb)<=0.01 else ('Version A' if ca<cb else 'Version B')
+            try:
+                logger.debug(f"Context media (kB/ms) -> R:({sr:.0f}kB,{tr:.0f}ms) A:({sa:.0f}kB,{ta:.0f}ms) B:({sb:.0f}kB,{tb:.0f}ms) => {choice}")
+            except Exception:
+                pass
+            return choice
+    except Exception:
+        pass
 
     deadline = time.time() + timeout_s
     while time.time() < deadline:
@@ -1189,7 +1806,8 @@ def _decide_by_cdp_media(page, logger, timeout_s: int = 15) -> Optional[str]:
             if ("start" in d) and ("end" in d):
                 st = int(d.get("status") or 0)
                 ok_status = (st == 206 or st == 200)
-                size = int(d.get("bytes_header") or d.get("bytes_encoded") or 0)
+                # Resolve size: prefer total > header > encoded
+                size = int(d.get("bytes_total") or d.get("bytes_header") or d.get("bytes_encoded") or d.get("bytes_data") or 0)
                 url = (d.get("url") or "").lower()
                 mime = (d.get("mime") or "").lower()
                 rtype = (d.get("rtype") or "").lower()
@@ -1197,15 +1815,9 @@ def _decide_by_cdp_media(page, logger, timeout_s: int = 15) -> Optional[str]:
                     ".wav", ".mp3", ".m4a", ".aac", ".ogg", ".opus", ".flac", ".webm"
                 ])
                 looks_audio = has_audio_ext or mime.startswith("audio") or (rtype == "media")
-                if ok_status and size > 0 and looks_audio and not mime.startswith("image"):
+                if ok_status and looks_audio and not mime.startswith("image"):
                     # If no size from headers, try extra headers (responseReceivedExtraInfo)
-                    if size == 0:
-                        eh = d.get("extraHeaders") or {}
-                        cl = eh.get("content-length") or eh.get("Content-Length")
-                        try:
-                            size = int(str(cl).strip()) if cl else 0
-                        except Exception:
-                            size = 0
+                    # Size will be recalculated later via helper; keep entry regardless of current size
                     fins.append(d)
         # We need exactly the 3 relevant clips (A,B,Ref). Use last 3 by start time.
         if len(fins) >= 3:
@@ -1215,7 +1827,7 @@ def _decide_by_cdp_media(page, logger, timeout_s: int = 15) -> Optional[str]:
             A, B, R = fins[0], fins[1], fins[2]
 
             def size_kb(d):
-                sz = int(d.get("bytes_header") or d.get("bytes_encoded") or 0)
+                sz = int(d.get("bytes_total") or d.get("bytes_header") or d.get("bytes_encoded") or d.get("bytes_data") or 0)
                 return sz / 1024.0
 
             def time_ms(d):
@@ -1251,7 +1863,7 @@ def _decide_by_cdp_media(page, logger, timeout_s: int = 15) -> Optional[str]:
             else:
                 choice = "Version B"
             try:
-                logger.info(
+                logger.debug(
                     f"CDP media (kB/ms, 200/206) -> R:({sr:.0f}kB,{tr:.0f}ms) A:({sa:.0f}kB,{ta:.0f}ms) B:({sb:.0f}kB,{tb:.0f}ms) => {choice}"
                 )
             except Exception:
@@ -1262,7 +1874,7 @@ def _decide_by_cdp_media(page, logger, timeout_s: int = 15) -> Optional[str]:
         dbg = []
         for d in entries.values():
             st = d.get("status")
-            size = int(d.get("bytes_header") or d.get("bytes_encoded") or 0)
+            size = int(d.get("bytes_total") or d.get("bytes_header") or d.get("bytes_encoded") or d.get("bytes_data") or 0)
             dbg.append({
                 "url": (d.get("url") or "")[-80:],
                 "rtype": d.get("rtype"),
@@ -1271,15 +1883,82 @@ def _decide_by_cdp_media(page, logger, timeout_s: int = 15) -> Optional[str]:
                 "size": size,
                 "hasEnd": "end" in d
             })
+        logger.debug(f"CDP debug counters: {counters}; entries={len(entries)}; audioLike={len(dbg)}")
         if dbg:
-            logger.info(f"CDP debug entries: {json.dumps(dbg)[:800]}")
+            logger.debug(f"CDP debug entries: {json.dumps(dbg)[:1200]}")
+    except Exception:
+        pass
+    # Last fallback: Performance API passive media
+    try:
+        perf_items = _collect_media_via_perf(page)
+        if len(perf_items) >= 3:
+            perf_items.sort(key=lambda x: x.get("start", 0.0))
+            perf_items = perf_items[-3:]
+            A, B, R = perf_items[0], perf_items[1], perf_items[2]
+            # Attempt to replace perf sizes (often 0) with header totals via HTTP
+            ua = None
+            try:
+                ua = page.evaluate("() => navigator.userAgent")
+            except Exception:
+                ua = None
+            urls_hdr = {
+                "A": A.get("url"),
+                "B": B.get("url"),
+                "R": R.get("url"),
+            }
+            sizes_hdr = {}
+            try:
+                sizes_hdr = _measure_sizes_via_http(page, urls_hdr, ua=ua)
+            except Exception:
+                sizes_hdr = {}
+
+            def size_kb_p(d, key=None):
+                # Prefer header totals when available; else perf sizes
+                if key and sizes_hdr and isinstance(sizes_hdr.get(key), (int, float)) and sizes_hdr.get(key, 0) > 0:
+                    return float(int(sizes_hdr.get(key) or 0)) / 1024.0
+                return float(int(d.get("bytes") or 0)) / 1024.0
+            def time_ms_p(d):
+                return float(d.get("time") or 0.0)
+            sizes = [size_kb_p(A, "A"), size_kb_p(B, "B"), size_kb_p(R, "R")]
+            times = [time_ms_p(A), time_ms_p(B), time_ms_p(R)]
+            r_idx = int(max(range(3), key=lambda i: sizes[i]))
+            if r_idx != 2:
+                order = [0,1,2]
+                order.remove(r_idx)
+                order.append(r_idx)
+                A, B, R = [ [A,B,R][i] for i in order ]
+                sizes = [ sizes[i] for i in order ]
+                times = [ times[i] for i in order ]
+            sa, sb, sr = sizes[0], sizes[1], sizes[2]
+            ta, tb, tr = times[0], times[1], times[2]
+            def closeness(sx, tx):
+                ns = abs(sx - sr) / max(sr, 1e-6)
+                nt = abs(tx - tr) / max(tr, 1e-6)
+                return 0.7 * ns + 0.3 * nt
+            ca = closeness(sa, ta)
+            cb = closeness(sb, tb)
+            if abs(ca - cb) <= 0.01:
+                choice = "Tie"
+            elif ca < cb:
+                choice = "Version A"
+            else:
+                choice = "Version B"
+            try:
+                src = "Perf+HTTP" if any((sizes_hdr.get(k, 0) or 0) > 0 for k in ["A","B","R"]) else "Perf"
+                logger.debug(
+                    f"{src} media (kB/ms) -> R:({sr:.0f}kB,{tr:.0f}ms) A:({sa:.0f}kB,{ta:.0f}ms) B:({sb:.0f}kB,{tb:.0f}ms) => {choice}"
+                )
+            except Exception:
+                pass
+            return choice
     except Exception:
         pass
     return None
 def main():
     parser = argparse.ArgumentParser(description="Automatiza comparaciones de calidad de audio en Multimango")
     parser.add_argument("--headed", action="store_true", help="Abrir navegador con UI")
-    parser.add_argument("--devtools", action="store_true", help="Abrir Chrome DevTools (solo Chromium headed)")
+    # DevTools no longer required for logging; keep flag but default unused
+    parser.add_argument("--devtools", action="store_true", help="(Opcional) Abrir Chrome DevTools (diagnóstico)")
     parser.add_argument("--delay-seconds", type=int, default=1, help="Retardo humano por iteración (s)")
     parser.add_argument("--max-iters", type=int, default=3, help="Máximo de iteraciones (0 = ilimitado)")
     parser.add_argument("--log-file", type=str, default="", help="Ruta del log")
@@ -1290,6 +1969,8 @@ def main():
     parser.add_argument("--manual-login", action="store_true", help="Permitir login manual si el panel no aparece")
     parser.add_argument("--manual-login-timeout", type=int, default=180, help="Segundos para esperar login manual")
     parser.add_argument("--network-first", action="store_true", help="Usar primero la heurística de red (size/time de WAV)")
+    parser.add_argument("--header-first", action="store_true", help="Preferir tamaños totales por headers (Content-Range/Length) usando los src de audio del DOM")
+    parser.add_argument("--urls", nargs='*', help="Opcional: pasar 3 URLs WAV (A B R) para calcular tamaños por headers sin navegador")
     args = parser.parse_args()
 
     log_path = Path(args.log_file) if args.log_file else None
@@ -1298,8 +1979,44 @@ def main():
     start = time.time()
     iterations = 0
 
+    # If --urls provided, run header-only mode and exit
+    if args.urls and len(args.urls) >= 3:
+        urls_list = args.urls[:3]
+        urls = {"A": urls_list[0], "B": urls_list[1], "R": urls_list[2]}
+        # Use requests directly (no browser). HEAD then Range GET logic.
+        def size_for(u: str) -> int:
+            try:
+                s = requests.Session()
+                # 1) HEAD
+                try:
+                    r = s.head(u, timeout=10, allow_redirects=True)
+                    cl = r.headers.get('Content-Length') or r.headers.get('content-length')
+                    if cl:
+                        return int(str(cl).strip())
+                except Exception:
+                    pass
+                # 2) Range GET
+                try:
+                    r = s.get(u, headers={"Range": "bytes=0-0"}, stream=True, timeout=15)
+                    cr = r.headers.get('Content-Range') or r.headers.get('content-range')
+                    if cr and '/' in cr:
+                        return int(cr.split('/')[-1].strip())
+                    cl2 = r.headers.get('Content-Length') or r.headers.get('content-length')
+                    if cl2:
+                        return int(str(cl2).strip())
+                except Exception:
+                    pass
+            except Exception:
+                return 0
+            return 0
+
+        sizes = {k: size_for(v) for k, v in urls.items()}
+        kb = {k: (v/1024.0 if v else 0.0) for k, v in sizes.items()}
+        print(f"Header sizes -> R:{kb['R']:.1f} kB A:{kb['A']:.1f} kB B:{kb['B']:.1f} kB (bytes R:{sizes['R']} A:{sizes['A']} B:{sizes['B']})")
+        return
+
     with sync_playwright() as p:
-        browser = p.chromium.launch(headless=not args.headed, devtools=True if (args.headed and args.devtools) else False)
+        browser = p.chromium.launch(headless=not args.headed, devtools=False)
         context = browser.new_context()
         page = context.new_page()
         try:
@@ -1308,6 +2025,7 @@ def main():
         except Exception:
             pass
         page.goto(args.url, wait_until="domcontentloaded")
+        # No dependence on DevTools UI anymore
 
         if not wait_for_audio_panel(page, timeout_s=15):
             if args.headed and args.manual_login:
@@ -1330,9 +2048,47 @@ def main():
 
         while args.max_iters == 0 or iterations < args.max_iters:
             iter_start = time.time()
-            logger.info(f"Iteración {iterations + 1}…")
+            logger.debug(f"Iteración {iterations + 1}…")
 
             decision = None
+            iter_sizes_kb = None  # tuple (R,A,B) in kB for the concise summary
+
+            # If requested, try header-based sizes from DOM audio srcs first
+            if args.header_first and not decision:
+                try:
+                    srcs = _get_audio_srcs(page)  # {A,B,R,all}
+                    urls = {"A": srcs.get("A"), "B": srcs.get("B"), "R": srcs.get("R")}
+                    ua = None
+                    try:
+                        ua = page.evaluate("() => navigator.userAgent")
+                    except Exception:
+                        ua = None
+                    sizes = _measure_sizes_via_http(page, urls, ua=ua)
+                    times = _perf_times_for_urls(page, urls)
+                    vals = [sizes.get("A",0), sizes.get("B",0), sizes.get("R",0)]
+                    tvals = [times.get("A",0.0), times.get("B",0.0), times.get("R",0.0)]
+                    if sum(1 for v in vals if v>0) >= 2:
+                        sizes_kb = [v/1024.0 for v in vals]
+                        # Maintain mapping by remapping R as largest
+                        r_idx = int(max(range(3), key=lambda i: sizes_kb[i]))
+                        order = [0,1,2]
+                        if r_idx != 2:
+                            order.remove(r_idx)
+                            order.append(r_idx)
+                            sizes_kb = [sizes_kb[i] for i in order]
+                            tvals = [tvals[i] for i in order]
+                        sa,sb,sr = sizes_kb[0], sizes_kb[1], sizes_kb[2]
+                        ta,tb,tr = tvals[0], tvals[1], tvals[2]
+                        def closeness(sx, tx):
+                            ns = abs(sx - sr) / max(sr, 1e-6)
+                            nt = abs(tx - tr) / max(tr, 1e-6)
+                            return 0.7*ns + 0.3*nt
+                        ca,cb = closeness(sa,ta), closeness(sb,tb)
+                        decision = 'Tie' if abs(ca-cb)<=0.01 else ('Version A' if ca<cb else 'Version B')
+                        iter_sizes_kb = (sr, sa, sb)
+                        logger.debug(f"Header media (kB/ms) -> R:({sr:.0f}kB,{tr:.0f}ms) A:({sa:.0f}kB,{ta:.0f}ms) B:({sb:.0f}kB,{tb:.0f}ms) => {decision}")
+                except Exception:
+                    decision = None
 
             # Capturar 3 WAV por CDP (Network) y decidir por Size y Time
             try:
@@ -1346,8 +2102,118 @@ def main():
             ref_rec = a_rec = b_rec = None
 
             if not decision:
-                logger.warning("No se detectaron 3 entradas Media .wav válidas (206) para decidir. Declarando Tie.")
-                decision = "Tie"
+                # Try Perf last3 media URLs + HTTP sizes first
+                try:
+                    last3 = _perf_get_last3_media_urls(page)
+                    if len(last3) == 3:
+                        # Assume order A,B,R then remap by largest size
+                        urls = {"A": last3[0], "B": last3[1], "R": last3[2]}
+                        ua = None
+                        try:
+                            ua = page.evaluate("() => navigator.userAgent")
+                        except Exception:
+                            ua = None
+                        sizes = _measure_sizes_via_http(page, urls, ua=ua)
+                        times = _perf_times_for_urls(page, urls)
+                        vals = [sizes.get("A",0), sizes.get("B",0), sizes.get("R",0)]
+                        tvals = [times.get("A",0.0), times.get("B",0.0), times.get("R",0.0)]
+                        if sum(1 for v in vals if v>0) >= 2:
+                            sizes_kb = [v/1024.0 for v in vals]
+                            times_ms = tvals
+                            r_idx = int(max(range(3), key=lambda i: sizes_kb[i]))
+                            order = [0,1,2]
+                            if r_idx != 2:
+                                order.remove(r_idx)
+                                order.append(r_idx)
+                                sizes_kb = [sizes_kb[i] for i in order]
+                                times_ms = [times_ms[i] for i in order]
+                            sa,sb,sr = sizes_kb
+                            ta,tb,tr = times_ms
+                            def closeness(sx, tx):
+                                ns = abs(sx - sr) / max(sr, 1e-6)
+                                nt = abs(tx - tr) / max(tr, 1e-6)
+                                return 0.7*ns + 0.3*nt
+                            ca,cb = closeness(sa,ta), closeness(sb,tb)
+                            decision = 'Tie' if abs(ca-cb)<=0.01 else ('Version A' if ca<cb else 'Version B')
+                            iter_sizes_kb = (sr, sa, sb)
+                            logger.debug(f"Perf last3+HTTP -> R:{sr:.0f}kB A:{sa:.0f}kB B:{sb:.0f}kB => {decision}")
+                except Exception:
+                    decision = None
+
+            if not decision:
+                # Final fallback: DOM srcs + HTTP HEAD/RANGE sizes + Performance durations
+                try:
+                    srcs = _get_audio_srcs(page)  # {A,B,R,all}
+                    urls = {"A": srcs.get("A"), "B": srcs.get("B"), "R": srcs.get("R")}
+                    # User-Agent from browser context if possible
+                    ua = None
+                    try:
+                        ua = page.evaluate("() => navigator.userAgent")
+                    except Exception:
+                        ua = None
+                    sizes = _measure_sizes_via_http(page, urls, ua=ua)
+                    times = _perf_times_for_urls(page, urls)
+                    # Require at least two non-zero sizes and three non-zero times
+                    vals = [sizes.get("A",0), sizes.get("B",0), sizes.get("R",0)]
+                    tvals = [times.get("A",0.0), times.get("B",0.0), times.get("R",0.0)]
+                    if sum(1 for v in vals if v>0) >= 2 and all(t>=0 for t in tvals):
+                        # remap reference as largest size
+                        sizes_kb = [val/1024.0 for val in vals]
+                        times_ms = tvals
+                        r_idx = int(max(range(3), key=lambda i: sizes_kb[i]))
+                        order = [0,1,2]
+                        if r_idx != 2:
+                            order.remove(r_idx)
+                            order.append(r_idx)
+                            sizes_kb = [sizes_kb[i] for i in order]
+                            times_ms = [times_ms[i] for i in order]
+                        sa,sb,sr = sizes_kb[0], sizes_kb[1], sizes_kb[2]
+                        ta,tb,tr = times_ms[0], times_ms[1], times_ms[2]
+                        def closeness(sx, tx):
+                            ns = abs(sx - sr) / max(sr, 1e-6)
+                            nt = abs(tx - tr) / max(tr, 1e-6)
+                            return 0.7*ns + 0.3*nt
+                        ca = closeness(sa,ta)
+                        cb = closeness(sb,tb)
+                        if abs(ca-cb) <= 0.01:
+                            decision = "Tie"
+                        elif ca < cb:
+                            decision = "Version A"
+                        else:
+                            decision = "Version B"
+                        iter_sizes_kb = (sr, sa, sb)
+                        logger.debug(f"DOM srcs+HTTP -> R:{sr:.0f}kB A:{sa:.0f}kB B:{sb:.0f}kB => {decision}")
+                except Exception:
+                    decision = None
+                if not decision:
+                    logger.warning("No se detectaron 3 entradas Media tras CDP/Page/Perf. Declarando Tie.")
+                    decision = "Tie"
+
+            # If we haven't captured sizes yet for summary, try now BEFORE submitting (DOM still on current item)
+            if not iter_sizes_kb:
+                try:
+                    hdr = _header_sizes_kb_for_current(page)
+                    # Use sizes as-is mapped by labels (R,A,B)
+                    iter_sizes_kb = (hdr.get('R', 0.0), hdr.get('A', 0.0), hdr.get('B', 0.0))
+                    # If still zeros, try perf last3 + HTTP as a secondary attempt
+                    if (iter_sizes_kb[0] == 0.0 and iter_sizes_kb[1] == 0.0 and iter_sizes_kb[2] == 0.0):
+                        try:
+                            last3 = _perf_get_last3_media_urls(page)
+                            if len(last3) == 3:
+                                urls = {"A": last3[0], "B": last3[1], "R": last3[2]}
+                                ua = None
+                                try:
+                                    ua = page.evaluate("() => navigator.userAgent")
+                                except Exception:
+                                    ua = None
+                                sizes = _measure_sizes_via_http(page, urls, ua=ua)
+                                iter_sizes_kb = (float(int(sizes.get('R') or 0))/1024.0,
+                                                 float(int(sizes.get('A') or 0))/1024.0,
+                                                 float(int(sizes.get('B') or 0))/1024.0)
+                        except Exception:
+                            pass
+                except Exception:
+                    pass
 
             # Ensure panel still visible before clicking
             wait_for_audio_panel(page, timeout_s=3)
@@ -1366,8 +2232,21 @@ def main():
                 logger.warning("No se pudo enviar/avanzar.")
                 break
 
+            # Per-iteration concise summary. Prefer sizes computed above; as fallback use header totals now.
+            try:
+                if not iter_sizes_kb:
+                    hdr = _header_sizes_kb_for_current(page)
+                    iter_sizes_kb = (hdr.get('R', 0.0), hdr.get('A', 0.0), hdr.get('B', 0.0))
+            except Exception:
+                iter_sizes_kb = iter_sizes_kb or (0.0, 0.0, 0.0)
+            try:
+                sr_kb, sa_kb, sb_kb = iter_sizes_kb or (0.0, 0.0, 0.0)
+                logger.info(f"Iter {iterations + 1} -> Sizes kB R:{sr_kb:.0f} A:{sa_kb:.0f} B:{sb_kb:.0f} | Decision: {decision}")
+            except Exception:
+                pass
+
             iterations += 1
-            logger.info(f"Iteración {iterations} OK en {time.time() - iter_start:.1f}s")
+            logger.debug(f"Iteración {iterations} OK en {time.time() - iter_start:.1f}s")
             time.sleep(max(0, args.delay_seconds))
 
         try:
