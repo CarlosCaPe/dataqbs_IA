@@ -1,17 +1,29 @@
 # oai_code_evaluator
 
-Herramienta CLI para simular la experiencia real de un REVISOR (reviewer) evaluando una sumisión prellenada (prompt + respuestas de modelo + ranking + calificaciones iniciales + rewrite) tal como se describe en el flujo LATAM.
+Evaluador configurable (rule‑engine declarativo) que asiste al revisor humano sobre una *submission* (prompt + respuestas de modelo + ranking + calificaciones iniciales + rewrite). No sustituye criterio experto: propone ajustes y genera trazabilidad.
 
-## Propósito
+## Objetivos y Alcance
 
-Permite cargar un archivo JSON/YAML que representa la sumisión entregada al revisor y producir una salida estructurada con:
-- Correcciones numéricas por dimensión (Instructions, Accuracy, Optimality, Presentation, Freshness)
-- Feedback/rationale de ranking
-- Prompt feedback
-- Reescritura final refinada
-- Resumen global
+Automatiza:
+- Ajuste suave de dimensiones (pull hacia ideales + reglas de ajuste incremental).
+- Evaluación de reglas declarativas (`rules.yaml`) con explicación (`fired_rules`).
+- Normalización de ranking y generación de feedback.
+- Transformaciones del rewrite (nota por longitud, cierre, etc.).
+- Validación mínima de metadatos del prompt.
+- Acumulación de `score`, `flags` y `label` genérica (thresholds declarados, no clasificación de dominios/email).
+- Generación de metadatos de auditoría (`rule_version`, `config_hash`, señales básicas).
 
-La lógica actual es un esqueleto heurístico: NO reemplaza criterio experto ni las rúbricas oficiales. Sirve como base para extender reglas, validaciones, integración de guías versionadas y, eventualmente, ejecución segura de código para validar evidencia.
+Responsabilidad HUMANA (no delegada):
+- Confirmar o rechazar ajustes de dimensiones frente a la rúbrica oficial.
+- Ajustar manualmente comentarios para feedback final a publicar.
+- Interpretar `label` como sugerencia interna, no como decisión de producción.
+- Aplicar guías de clasificación de correos (Scam/Sus/Spam/Clean/Unknown) — fuera de alcance actual.
+- Mantener y versionar el contenido de reglas YAML asegurando calidad/consistencia.
+
+Explícitamente NO hace:
+- Detección de phishing o spam real (no parsea headers, dominios, enlaces).
+- Ejecución de código arbitrario ni acceso a red.
+- Inferencia automática de justificaciones semánticas extensas.
 
 ## Instalación rápida
 
@@ -39,14 +51,22 @@ Salida esperada (fragmento):
 }
 ```
 
-## Extensiones futuras sugeridas
+## Flujo Operativo Recomendado
+1. Preparar `submission` (JSON/YAML) con campos requeridos.
+2. Ejecutar:
+  ```bash
+  poetry run oai-eval samples/sample_submission.json --config-dir config_samples --out result.json
+  ```
+3. Revisar `fired_rules` y `corrected_ratings` (¿algún ajuste inesperado?).
+4. Revisor humano valida/edita (fuera de la herramienta) antes de consolidar.
+5. Para auditoría mínima: guardar `result.json` + hash (`meta.config_hash`).
+6. Para análisis de motor únicamente: usar `--explain-json explain.json`.
 
-1. Cargar rúbricas oficiales (JSON versionado) y validar rangos/justificaciones obligatorias.
-2. Motor de reglas (ej. JSON Schema + expresiones) para aplicar ajustes más explicables.
-3. Validación de ejecución de código en sandbox aislado (timeout + resource limits).
-4. Generación de un reporte Markdown/HTML comparativo.
-5. Modo interactivo para que el revisor confirme o edite ajustes sugeridos.
-6. Integración con almacenamiento de evidencias (hashes, timestamps, firma).
+## Roadmap (futuro sugerido)
+- Enforce de justificación mínima si |Δ| supera umbral.
+- Interfaz interactiva (aceptar/descartar por regla).
+- Módulo independiente de clasificación email con señales anti-phishing.
+- Firma y timestamping de resultados.
 
 ## Estructura
 
@@ -64,9 +84,10 @@ oai_code_evaluator/
 ```
 
 ## Notas
-- El evaluador actual ajusta valores desplazados hacia un ideal heurístico. Ajustar la lógica en `rubric.py` según necesidades.
-- Los nombres de dimensiones siguen la traducción: Instructions, Accuracy, Optimality, Presentation, Freshness (Actualización).
-- `--log-file` permite registrar salida detallada para auditoría.
+- Ajuste base en `rubric.py` + reglas; cambios delicados deben pasar por revisión.
+- Dimensiones: Instructions, Accuracy, Optimality, Presentation, Freshness.
+- Logging: `--log-file` para traza reproducible.
+- Integridad: `config_hash` = SHA256 de todos los YAML concatenados ordenados.
 
 MIT License.
 
@@ -182,7 +203,6 @@ Ejemplo con OR + longitud mínima:
     add_comment: "Se reconoce mención de estructura eficiente o complejidad explícita (regla OR)."
 ```
 
-### Explain de Reglas
 ### Fase de Decisión y Score
 El motor ahora ejecuta fases separadas:
 1. Preprocesamiento (`_preprocess`): genera señales (longitudes, conteos) sin mutar estado.
@@ -240,14 +260,8 @@ Disponible en `add_comment_template`. Variables:
 - `detail` (estructura de condiciones evaluadas)
 - `corrected` (mapa dimensión->valor ajustado)
 
-### Limitaciones y Compliance
-El sistema se limita a:
-- Ajustar dimensiones y producir feedback textual.
-- Acumular score y derivar una etiqueta interna genérica (no implementa todavía categorías scam/sus/spam/clean/unknown del dominio de emails — solo ejemplo neutral).
-- No ejecuta acciones fuera de las definidas ni realiza clasificación de emails completa.
-
-Para extender a un clasificador de emails multi-clase se requeriría una capa adicional de extracción de señales específicas (headers, dominios, patrones regex de phishing) y un conjunto de reglas con prioridades (ver `rules_summary.txt`). Esto NO está incluido por diseño para mantener alcance controlado.
-El resultado expone `fired_rules`: lista ordenada, cada entrada incluye:
+### Explicabilidad (`fired_rules`)
+Cada entrada incluye: id, tipo, detalle de condiciones evaluadas y acciones aplicadas.
 ```json
 {
   "id": "lower_accuracy_if_no_example",
@@ -256,6 +270,12 @@ El resultado expone `fired_rules`: lista ordenada, cada entrada incluye:
   "actions": [ { "adjust_dimension": {"dimension": "accuracy", "from": 5.0, "to": 4.5, "delta": -0.5} } ]
 }
 ```
+
+### Limitaciones y Compliance
+- No clasificación phishing/spam (requiere módulo separado + señales específicas).
+- No eval de código ni acceso externo.
+- Plantillas controladas (contexto interno, sin ejecutar código Python arbitrario).
+- `label` generada es indicativa y debe revisarse manualmente.
 
 ### Validación de Esquema
 Cada YAML se valida contra un JSON Schema interno (ver `schemas.py`). Un error lanza `ValueError` con mensaje de detalle.
