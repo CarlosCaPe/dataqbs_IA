@@ -41,27 +41,27 @@ def load_input(path: Path) -> EvaluationInput:
 
 
 def main():  # pragma: no cover - CLI orchestration
-    parser = argparse.ArgumentParser(description="Simula el rol de revisor para submissions Outlier.ai LATAM")
-    parser.add_argument("input", type=Path, help="Ruta a JSON/YAML con la submission prellenada")
-    parser.add_argument("--log-file", dest="log_file", type=Path, default=None, help="Archivo de log opcional")
-    parser.add_argument("--out", dest="out", type=Path, default=None, help="Ruta de salida JSON con resultados")
-    parser.add_argument("--config-dir", dest="config_dir", type=Path, default=Path("config_samples"), help="Directorio con archivos YAML de configuración")
-    parser.add_argument("--report-md", dest="report_md", type=Path, default=None, help="Ruta para generar reporte Markdown")
-    parser.add_argument("--fail-on-invalid", action="store_true", help="Falla si la configuración no es válida")
-    parser.add_argument("--explain-json", dest="explain_json", type=Path, default=None, help="Exporta solo árbol fired_rules + meta y termina")
+    parser = argparse.ArgumentParser(description="Simulate reviewer assistance on a prepared submission")
+    parser.add_argument("input", type=Path, help="Path to JSON/YAML submission file")
+    parser.add_argument("--log-file", dest="log_file", type=Path, default=None, help="Optional log file path")
+    parser.add_argument("--out", dest="out", type=Path, default=None, help="Output JSON result path")
+    parser.add_argument("--config-dir", dest="config_dir", type=Path, default=Path("config_samples"), help="Directory with YAML configuration files")
+    parser.add_argument("--report-md", dest="report_md", type=Path, default=None, help="Markdown report output path")
+    parser.add_argument("--fail-on-invalid", action="store_true", help="Fail fast if configuration invalid")
+    parser.add_argument("--explain-json", dest="explain_json", type=Path, default=None, help="Export only fired_rules tree + meta and exit")
     args = parser.parse_args()
 
     logger = setup_logger(args.log_file)
-    logger.info("Cargando submission de entrada…")
+    logger.info("Loading submission input…")
 
     data = load_input(args.input)
     # Cargar configuración
     config_bundle = None
     if args.config_dir and args.config_dir.exists():
         config_bundle = validate_bundle(load_config_dir(args.config_dir))
-        logger.info("Configuración cargada desde %s", args.config_dir)
+        logger.info("Configuration loaded from %s", args.config_dir)
     else:
-        logger.warning("No se encontró config_dir %s, usando heurísticas por defecto", args.config_dir)
+        logger.warning("Config dir %s not found, using fallback heuristics", args.config_dir)
 
     evaluator = Evaluator(config_bundle)
     result = evaluator.evaluate(data)
@@ -85,7 +85,7 @@ def main():  # pragma: no cover - CLI orchestration
         return
 
     # Console summary minimal
-    logger.info("Resumen global: %s", result.global_summary)
+    logger.info("Global summary: %s", result.global_summary)
     for dim, corr in result.corrected_ratings.items():
         logger.info("%s: %.2f -> %.2f (%s)", dim, corr.original, corr.updated, corr.rationale)
 
@@ -109,16 +109,16 @@ def main():  # pragma: no cover - CLI orchestration
 
     if args.report_md:
         lines = [
-            f"# Evaluación",
-            "## Resumen",
+            f"# Evaluation",
+            "## Summary",
             result.global_summary,
             "## Prompt Feedback",
             result.prompt_feedback,
             "## Ranking",
             result.ranking_feedback,
             "",
-            "| Dimensión | Original | Ajustado | Racional |",
-            "|-----------|----------|----------|----------|",
+            "| Dimension | Original | Adjusted | Rationale |",
+            "|-----------|----------|----------|-----------|",
         ]
         for dim, corr in result.corrected_ratings.items():
             lines.append(f"| {dim} | {corr.original:.2f} | {corr.updated:.2f} | {corr.rationale} |")

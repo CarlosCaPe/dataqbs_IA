@@ -29,7 +29,7 @@ def load_yaml(path: Path) -> Dict[str, Any]:
     if data is None:
         data = {}
     if not isinstance(data, dict):
-        raise ValueError(f"El archivo {path.name} debe contener un objeto YAML (mapping).")
+        raise ValueError(f"File {path.name} must contain a YAML object (mapping).")
     return data
 
 
@@ -49,7 +49,7 @@ def validate_dimensions(dim_conf: Dict[str, Any]):
     for dim, spec in dims.items():
         for key in ["ideal", "tolerance"]:
             if key not in spec:
-                raise ValueError(f"Dimension '{dim}' sin clave requerida '{key}' en dimensions.yaml")
+                raise ValueError(f"Dimension '{dim}' missing required key '{key}' in dimensions.yaml")
 
 
 def validate_bundle(bundle: ConfigBundle):
@@ -59,5 +59,5 @@ def validate_bundle(bundle: ConfigBundle):
         try:
             validate(instance=data, schema=schema)
         except ValidationError as e:
-            raise ValueError(f"Error de esquema en '{key}': {e.message}") from e
+            raise ValueError(f"Schema error in '{key}': {e.message}") from e
     return bundle

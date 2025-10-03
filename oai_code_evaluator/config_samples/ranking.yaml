@@ -1,7 +1,7 @@
-# Reglas para ranking y validación
+# Ranking normalization and validation rules
 require_all_ids: true
 allow_duplicates: false
-# Si falta justificación mínima para ranking extenso
+# Rationale requirements for long rankings
 rationale:
   min_length: 20
   warn_if_missing: true
@@ -9,6 +9,6 @@ corrections:
   append_missing: true
   drop_unknown: true
 feedback_templates:
-  complete: "Ranking incluye todas las respuestas sin duplicados."
-  missing_ids: "Se añadieron IDs faltantes al ranking."
-  had_duplicates: "Se eliminaron duplicados en el ranking."
+  complete: "Ranking includes all answers without duplicates."
+  missing_ids: "Missing IDs were appended to the ranking."
+  had_duplicates: "Duplicates were removed from the ranking."

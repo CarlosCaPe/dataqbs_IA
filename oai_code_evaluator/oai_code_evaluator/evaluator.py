@@ -8,17 +8,16 @@ from .models import EvaluationInput, EvaluationResult, DimensionCorrection
 from .rubric import DIMENSIONS, suggest_adjustment, clamp
 from .config_loader import ConfigBundle
 
-
 class Evaluator:
-    """Evaluator configurable por YAML.
+    """Configurable evaluator (YAML-driven).
 
-    Orden de pasos:
-      1. Ajuste base de dimensiones (heurística o config dimensions.yaml)
-      2. Aplicar reglas de rating (rules.yaml)
-      3. Normalizar ranking según ranking.yaml
-      4. Mejorar rewrite según rewrite.yaml + rewrite_rules
-      5. Validar prompt y generar feedback
-      6. Calcular resumen global
+    Pipeline order:
+        1. Dimension base adjustment (heuristic or dimensions.yaml)
+        2. Apply rating rules (rules.yaml)
+        3. Normalize ranking (ranking.yaml)
+        4. Improve rewrite (rewrite.yaml + rewrite_rules)
+        5. Prompt validation / feedback
+        6. Compute global summary
     """
 
     def __init__(self, config: ConfigBundle | None = None):
@@ -26,10 +25,10 @@ class Evaluator:
 
     # ----------------- preprocessing -----------------
     def _preprocess(self, sub) -> Dict[str, Any]:
-        """Extrae señales reutilizables para reglas.
+        """Extract reusable signals for rule evaluation.
 
-        Retorna dict con:
-          text_space, text_lower, rewrite_lower, length_total, response_count
+        Returns dict with:
+            text_space, text_lower, rewrite_lower, length_total, response_count
         """
         text_space = "\n".join([r.text for r in sub.responses]) + "\n" + sub.rewrite_preferred
         signals = {
@@ -54,14 +53,14 @@ class Evaluator:
                 tol = dims_meta[dim].get("tolerance", 1.0)
                 if abs(original_val - ideal) <= tol:
                     updated_val = original_val
-                    rationale = "Dentro de tolerancia"
+                    rationale = "Within tolerance"
                 else:
                     updated_val = clamp(original_val + pull_fraction * (ideal - original_val))
-                    rationale = f"Ajustado hacia ideal {ideal} con fracción {pull_fraction}"
+                    rationale = f"Adjusted toward ideal {ideal} with fraction {pull_fraction}"
             else:
                 # fallback to original heuristic
                 updated_val = suggest_adjustment(original_val, dim)
-                rationale = "Heurística por defecto"
+                rationale = "Default heuristic"
             corrected[dim] = DimensionCorrection(
                 original=original_val,
                 updated=updated_val,
@@ -89,7 +88,7 @@ class Evaluator:
                 if dim in corrected:
                     prev = corrected[dim].updated
                     new_val = clamp(prev + delta)
-                    corrected[dim].rationale += f" | Regla {rule['id']} (Δ {delta:+.2f})"
+                    corrected[dim].rationale += f" | Rule {rule['id']} (Δ {delta:+.2f})"
                     corrected[dim].updated = new_val
                     explanation["actions"].append({"adjust_dimension": {"dimension": dim, "from": prev, "to": new_val, "delta": delta}})
             if actions.get("add_comment"):
@@ -100,7 +99,7 @@ class Evaluator:
                 explanation["actions"].append({"add_comment": msg})
             if actions.get("add_comment_template"):
                 template_str = actions["add_comment_template"]
-                # Variables disponibles: dimension del ajuste (si lo hubo), signals, detail
+                # Available variables: corrected (dimension->post-adjust value), signals, detail
                 context = {"signals": signals, "detail": detail, "corrected": {k: v.updated for k, v in corrected.items()}}
                 try:
                     msg = Template(template_str).render(**context)
@@ -216,7 +215,7 @@ class Evaluator:
         if had_dup:
             feedback_key = "had_duplicates"
         templates = ranking_conf.get("feedback_templates", {})
-        feedback = templates.get(feedback_key, "Ranking procesado.")
+        feedback = templates.get(feedback_key, "Ranking processed.")
         return ranking, feedback
 
     # ----------------- rewrite improvements -----------------
@@ -224,7 +223,7 @@ class Evaluator:
         text = sub.rewrite_preferred.strip()
         min_len = rewrite_conf.get("min_length", 0)
         if len(text) < min_len and rewrite_conf.get("add_note_if_short", True):
-            text += "\n\n" + rewrite_conf.get("note_text", "Expandir contenido.")
+            text += "\n\n" + rewrite_conf.get("note_text", "Expand content.")
         # apply rewrite_rules with simple conditions
         for rule in rules_conf.get("rewrite_rules", []):
             when = rule.get("when", {})
@@ -241,7 +240,7 @@ class Evaluator:
             if actions.get("append_text"):
                 text += actions["append_text"]
             if actions.get("append_note"):
-                text += "\n\n" + rewrite_conf.get("note_text", "Expandir contenido.")
+                text += "\n\n" + rewrite_conf.get("note_text", "Expand content.")
         return text
 
     # ----------------- prompt feedback -----------------
@@ -249,13 +248,13 @@ class Evaluator:
         required = prompt_conf.get("required_fields", [])
         missing = [f for f in required if not getattr(sub, f, None)]
         if missing:
-            return prompt_conf.get("feedback", {}).get("missing_field", "Faltan campos: {missing}").format(missing=",".join(missing))
+            return prompt_conf.get("feedback", {}).get("missing_field", "Missing fields: {missing}").format(missing=",".join(missing))
         # Validate allowed labels
         for field, allow in prompt_conf.get("label_checks", {}).items():
             val = getattr(sub, field, None)
             if allow and val and val not in allow:
-                return prompt_conf.get("feedback", {}).get("invalid_label", "Etiqueta inválida {field}").format(field=field, value=val)
-        return prompt_conf.get("feedback", {}).get("ok", "Prompt válido.")
+                return prompt_conf.get("feedback", {}).get("invalid_label", "Invalid label {field}={value}").format(field=field, value=val)
+        return prompt_conf.get("feedback", {}).get("ok", "Prompt valid.")
 
     def _final_decision(self, state: Dict[str, Any], rules_conf: Dict[str, Any]) -> Dict[str, Any]:
         decision_conf = rules_conf.get("decision", {})
@@ -291,9 +290,9 @@ class Evaluator:
         # Preprocess signals
         signals = self._preprocess(sub)
         state: Dict[str, Any] = {}
-        # 1. Ajuste dimensiones
+        # 1. Dimension adjustment
         corrected = self._adjust_dimensions(sub)
-        # 2. Reglas de rating
+        # 2. Rating rules
         rules_conf = (self.config.rules if self.config else {}) or {}
         fired_rules: List[Dict[str, Any]] = []
         self._apply_rating_rules(corrected, sub, rules_conf, comments, fired_rules, signals, state)
@@ -306,16 +305,16 @@ class Evaluator:
         # 5. Prompt feedback
         prompt_conf = (self.config.prompt if self.config else {}) or {}
         prompt_feedback = self._prompt_feedback(sub, prompt_conf)
-        # 6. Resumen global
+        # 6. Global summary
         deltas = [abs(c.updated - c.original) for c in corrected.values()]
         mean_delta = statistics.mean(deltas) if deltas else 0.0
         global_summary = (
-            f"Correcciones aplicadas a {len(corrected)} dimensiones. Δ media={mean_delta:.2f}. "
-            + (f"Comentarios: {' | '.join(comments)}" if comments else "")
+            f"Adjustments applied to {len(corrected)} dimensions. mean Δ={mean_delta:.2f}. "
+            + (f"Comments: {' | '.join(comments)}" if comments else "")
         )
-        # 7. Decisión final
+        # 7. Final decision
         decision = self._final_decision(state, rules_conf)
-        # 8. Meta auditoría
+        # 8. Audit metadata
         meta = {
             "rule_version": rules_conf.get("version"),
             "config_hash": self._config_hash(),

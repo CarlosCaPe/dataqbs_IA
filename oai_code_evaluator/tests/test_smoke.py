@@ -24,7 +24,7 @@ def test_eval_with_config(tmp_path):
     md_path = tmp_path / "report.md"
     md_path.write_text("placeholder", encoding="utf-8")
     # Simulate markdown generation logic (simplified)
-    lines = ["# Evaluación", result.global_summary]
+    lines = ["# Evaluation", result.global_summary]
     md_path.write_text("\n".join(lines), encoding="utf-8")
-    assert md_path.read_text(encoding="utf-8").startswith("# Evaluación")
+    assert md_path.read_text(encoding="utf-8").startswith("# Evaluation")
 

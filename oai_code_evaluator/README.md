@@ -1,74 +1,74 @@
 # oai_code_evaluator
 
-Evaluador configurable (rule‑engine declarativo) que asiste al revisor humano sobre una *submission* (prompt + respuestas de modelo + ranking + calificaciones iniciales + rewrite). No sustituye criterio experto: propone ajustes y genera trazabilidad.
+Configurable evaluator (declarative rule engine) that assists a human reviewer over a submission (prompt + model responses + ranking + initial ratings + rewrite). It does not replace expert judgement: it proposes adjustments and produces traceability.
 
-## Objetivos y Alcance
+## Purpose and Scope
 
-Automatiza:
-- Ajuste suave de dimensiones (pull hacia ideales + reglas de ajuste incremental).
-- Evaluación de reglas declarativas (`rules.yaml`) con explicación (`fired_rules`).
-- Normalización de ranking y generación de feedback.
-- Transformaciones del rewrite (nota por longitud, cierre, etc.).
-- Validación mínima de metadatos del prompt.
-- Acumulación de `score`, `flags` y `label` genérica (thresholds declarados, no clasificación de dominios/email).
-- Generación de metadatos de auditoría (`rule_version`, `config_hash`, señales básicas).
+Automates:
+- Gentle dimension adjustment (pull toward ideals + incremental rule adjustments).
+- Declarative rule evaluation (`rules.yaml`) with explanation (`fired_rules`).
+- Ranking normalization and feedback generation.
+- Rewrite transformations (length note, final punctuation, etc.).
+- Basic validation of prompt metadata.
+- Accumulation of `score`, `flags` and generic `label` (declared thresholds; no domain/email classification).
+- Audit metadata generation (`rule_version`, `config_hash`, basic signals).
 
-Responsabilidad HUMANA (no delegada):
-- Confirmar o rechazar ajustes de dimensiones frente a la rúbrica oficial.
-- Ajustar manualmente comentarios para feedback final a publicar.
-- Interpretar `label` como sugerencia interna, no como decisión de producción.
-- Aplicar guías de clasificación de correos (Scam/Sus/Spam/Clean/Unknown) — fuera de alcance actual.
-- Mantener y versionar el contenido de reglas YAML asegurando calidad/consistencia.
+Human (non-delegated) responsibilities:
+- Accept or reject dimension adjustments against the official rubric.
+- Manually refine comments for final feedback publication.
+- Treat `label` as internal suggestion, not production decision.
+- Apply separate email classification guidelines (Scam/Sus/Spam/Clean/Unknown) — out of scope here.
+- Maintain and version YAML rule content ensuring consistency & quality.
 
-Explícitamente NO hace:
-- Detección de phishing o spam real (no parsea headers, dominios, enlaces).
-- Ejecución de código arbitrario ni acceso a red.
-- Inferencia automática de justificaciones semánticas extensas.
+Explicitly does NOT:
+- Perform real phishing or spam detection (no header/domain/link parsing).
+- Execute arbitrary code or reach the network.
+- Generate long semantic justifications automatically.
 
-## Instalación rápida
+## Quick Install
 
 ```bash
 poetry install
 ```
 
-## Uso
+## Usage
 
-Ejecutar con la muestra incluida:
+Run with included sample:
 
 ```bash
 poetry run oai-eval samples/sample_submission.json --out report.json
 ```
 
-Salida esperada (fragmento):
+Expected output (fragment):
 ```json
 {
   "corrected_ratings": {"accuracy": {"original": 5.0, "updated": 5.0, ...}},
   "corrected_ranking": ["resp_b", "resp_a"],
-  "ranking_feedback": "Ranking ajustado ...",
-  "rewrite_final": "Dijkstra halla...",
-  "prompt_feedback": "Prompt con etiquetas claras.",
-  "global_summary": "Correcciones aplicadas ..."
+  "ranking_feedback": "Ranking adjusted ...",
+  "rewrite_final": "Dijkstra finds...",
+  "prompt_feedback": "Prompt has clear labels.",
+  "global_summary": "Adjustments applied ..."
 }
 ```
 
-## Flujo Operativo Recomendado
-1. Preparar `submission` (JSON/YAML) con campos requeridos.
-2. Ejecutar:
+## Recommended Operational Flow
+1. Prepare `submission` (JSON/YAML) with required fields.
+2. Run:
   ```bash
   poetry run oai-eval samples/sample_submission.json --config-dir config_samples --out result.json
   ```
-3. Revisar `fired_rules` y `corrected_ratings` (¿algún ajuste inesperado?).
-4. Revisor humano valida/edita (fuera de la herramienta) antes de consolidar.
-5. Para auditoría mínima: guardar `result.json` + hash (`meta.config_hash`).
-6. Para análisis de motor únicamente: usar `--explain-json explain.json`.
+3. Inspect `fired_rules` and `corrected_ratings` (any unexpected adjustment?).
+4. Human reviewer validates/edits outside the tool.
+5. For minimal audit: keep `result.json` + hash (`meta.config_hash`).
+6. For engine analysis only: use `--explain-json explain.json`.
 
-## Roadmap (futuro sugerido)
-- Enforce de justificación mínima si |Δ| supera umbral.
-- Interfaz interactiva (aceptar/descartar por regla).
-- Módulo independiente de clasificación email con señales anti-phishing.
-- Firma y timestamping de resultados.
+## Roadmap (suggested future)
+- Enforce justification if |Δ| exceeds threshold.
+- Interactive interface (accept/decline per rule).
+- Stand‑alone email classification module with anti‑phishing signals.
+- Result signing and timestamping.
 
-## Estructura
+## Structure
 
 ```
 oai_code_evaluator/
@@ -83,20 +83,20 @@ oai_code_evaluator/
   pyproject.toml
 ```
 
-## Notas
-- Ajuste base en `rubric.py` + reglas; cambios delicados deben pasar por revisión.
-- Dimensiones: Instructions, Accuracy, Optimality, Presentation, Freshness.
-- Logging: `--log-file` para traza reproducible.
-- Integridad: `config_hash` = SHA256 de todos los YAML concatenados ordenados.
+## Notes
+- Base adjustment in `rubric.py` + rules; sensitive changes need review.
+- Dimensions: Instructions, Accuracy, Optimality, Presentation, Freshness.
+- Logging: `--log-file` for reproducible trace.
+- Integrity: `config_hash` = SHA256 of all YAML dumps sorted.
 
 MIT License.
 
-## Formatos de Configuración (YAML)
+## Configuration Formats (YAML)
 
-El evaluador puede ingerir un directorio (`--config-dir`) con los siguientes archivos:
+The evaluator consumes a directory (`--config-dir`) with:
 
 ### 1. dimensions.yaml
-Define ideales, tolerancias y parámetros de ajuste de cada dimensión.
+Defines ideals, tolerances and adjustment parameters per dimension.
 ```yaml
 scale: [0,5]
 dimensions:
@@ -110,10 +110,10 @@ adjustment:
 validation:
   require_justification_if_delta_ge: 0.75
 ```
-Campos:
-- `dimensions.<dim>.ideal` y `tolerance`: límite para considerar valor “aceptable”.
-- `pull_fraction`: fracción usada para mover puntuaciones fuera de tolerancia hacia el ideal.
-- `weight`: reservado para futuros cálculos agregados.
+Fields:
+- `dimensions.<dim>.ideal` and `tolerance`: acceptable band around the ideal.
+- `pull_fraction`: fraction used to pull scores outside tolerance toward the ideal.
+- `weight`: reserved for future aggregate computations.
 
 ### 2. ranking.yaml
 ```yaml
@@ -122,13 +122,13 @@ allow_duplicates: false
 corrections:
   append_missing: true
 feedback_templates:
-  complete: "Ranking incluye todas las respuestas sin duplicados."
-  missing_ids: "Se añadieron IDs faltantes al ranking."
-  had_duplicates: "Se eliminaron duplicados en el ranking."
+  complete: "Ranking includes all answers without duplicates."
+  missing_ids: "Missing IDs were appended to the ranking."
+  had_duplicates: "Duplicates were removed from the ranking."
 ```
-Lógica:
-- Siempre se normaliza el ranking a un conjunto único de IDs válidos.
-- Si faltan IDs y `append_missing`=true se añaden al final.
+Logic:
+- Ranking normalized to a unique ordered set of valid response IDs.
+- Missing IDs appended if `append_missing` = true.
 
 ### 3. prompt.yaml
 ```yaml
@@ -137,83 +137,83 @@ label_checks:
   category_allow: [algorithms, data, infra]
   difficulty_allow: [easy, medium, hard]
 feedback:
-  ok: "Prompt con etiquetas claras."
-  missing_field: "Faltan campos obligatorios en el prompt: {missing}."
-  invalid_label: "Etiqueta fuera de catálogo: {field}={value}."
+  ok: "Prompt has clear labels."
+  missing_field: "Missing required prompt fields: {missing}."
+  invalid_label: "Label not in allowed catalog: {field}={value}."
 ```
-Síntesis: valida metadatos obligatorios y catálogos permitidos.
+Summary: validates mandatory metadata and allowed catalogs.
 
 ### 4. rewrite.yaml
 ```yaml
 min_length: 60
 add_note_if_short: true
-note_text: "Nota: ampliar detalles para cubrir completamente la solución según la documentación."
+note_text: "Note: expand details to fully cover the solution as per documentation."
 postprocessors:
   - type: ensure_period
   - type: trim_spaces
 ```
-La lógica actual usa `min_length` y agrega nota si el texto es breve. `postprocessors` es extensible.
+Current logic uses `min_length` and appends a note if text is short. `postprocessors` is extensible.
 
 ### 5. rules.yaml
-Estructura de motor declarativo. Bloques principales: `rating_rules`, `ranking_rules`, `rewrite_rules`.
+Declarative engine structure. Sections: `rating_rules`, `ranking_rules`, `rewrite_rules`.
 
-Cada regla:
+Each rule:
 ```yaml
-- id: nombre_unico
-  when: { ... condiciones ... }
-  actions: { ... efectos ... }
+- id: unique_name
+  when: { ... conditions ... }
+  actions: { ... effects ... }
 ```
 
-Condiciones soportadas (en `when`):
-- `response_contains_any: [str, ...]` — Alguna palabra/substring aparece en cualquier respuesta o rewrite.
-- `preferred_rewrite_missing_substring: [str, ...]` — Todas las substrings listadas están ausentes (modo penalización).
-- `rewrite_regex_any: [pat1, pat2]` — Al menos un patrón regex casa contra el rewrite.
-- `not_contains_any: [str, ...]` — Si alguna aparece, la regla NO se dispara.
-- `min_total_length: N` / `max_total_length: N` — Longitud agregada (respuestas + rewrite).
-- `any_of: [ {sub-condiciones}, {sub-condiciones} ]` — OR lógico: basta con que un bloque interno se cumpla.
-- `dimension_gt: { accuracy: 4.5 }` — Requiere que la dimensión indicada sea estrictamente mayor al umbral (usa valores originales de entrada).
-- `dimension_lt: { optimality: 2.5 }` — Requiere que la dimensión sea menor al umbral.
+Conditions supported (`when`):
+- `response_contains_any: [str, ...]` — Any substring appears in any response or rewrite.
+- `preferred_rewrite_missing_substring: [str, ...]` — All listed substrings absent (penalty mode).
+- `rewrite_regex_any: [pat1, pat2]` — At least one regex matches the rewrite.
+- `not_contains_any: [str, ...]` — If any appears the rule does NOT fire.
+- `min_total_length: N` / `max_total_length: N` — Aggregate length (responses + rewrite).
+- `any_of: [ {sub-conditions}, {sub-conditions} ]` — Logical OR: one inner block suffices.
+- `dimension_gt: { accuracy: 4.5 }` — Dimension strictly greater than threshold.
+- `dimension_lt: { optimality: 2.5 }` — Dimension strictly below threshold.
 
-Acciones (en `actions`):
-- `adjust_dimension: { dimension: accuracy, delta: -0.5 }` — Suma delta (positivo o negativo) a la dimensión.
-- `add_comment: "Texto"` — Agrega comentario global al resumen.
-- `add_comment_template: "Signal eficiencia detectada (length_total={{signals.length_total}})."` — Renderiza plantilla Jinja2 con contexto (`signals`, `detail`, `corrected`).
-- `increment_score: 2` — Acumula puntaje para decisión final.
-- `set_flag: low_accuracy` — Marca un flag booleano en el estado.
-- `assign_label: needs_review` — Fija etiqueta preliminar (puede sobrescribirse por thresholds de score).
-- (Rewrite rules) `append_text: "."` / `append_note: true` — Modifican el rewrite final.
+Actions (`actions`):
+- `adjust_dimension: { dimension: accuracy, delta: -0.5 }` — Applies delta to dimension.
+- `add_comment: "Text"` — Adds global comment to summary.
+- `add_comment_template: "Efficiency signal (length_total={{signals.length_total}})."` — Renders Jinja2 template with context (`signals`, `detail`, `corrected`).
+- `increment_score: 2` — Adds to cumulative score.
+- `set_flag: low_accuracy` — Sets a boolean flag.
+- `assign_label: needs_review` — Preliminary label (may be overridden by thresholds).
+- (Rewrite rules) `append_text: "."` / `append_note: true` — Modify final rewrite.
 
-Opciones globales (`options` en `rules.yaml`):
+Global options (`options` in `rules.yaml`):
 ```yaml
 options:
-  dedupe_comments: true    # evita comentarios repetidos
-  stop_after_first: false  # si true, detiene evaluación de reglas tras la primera que dispare
-  default_label: neutral   # etiqueta base si no hay asignaciones
+  dedupe_comments: true    # avoid repeated comments
+  stop_after_first: false  # stop evaluation after first fired rule if true
+  default_label: neutral   # base label if nothing assigned
 ```
 
-Ejemplo con OR + longitud mínima:
+Example with OR + minimum length:
 ```yaml
 - id: optimality_or_accuracy_guard
   when:
     any_of:
-      - { response_contains_any: ["heap", "cola de prioridad"] }
-      - { response_contains_any: ["priority queue", "O(E log V)"] }
+      - { response_contains_any: ["heap", "priority queue"] }
+      - { response_contains_any: ["O(E log V)"] }
     min_total_length: 120
   actions:
-    add_comment: "Se reconoce mención de estructura eficiente o complejidad explícita (regla OR)."
+    add_comment: "Efficient structure mention or explicit complexity recognized (OR rule)."
 ```
 
-### Fase de Decisión y Score
-El motor ahora ejecuta fases separadas:
-1. Preprocesamiento (`_preprocess`): genera señales (longitudes, conteos) sin mutar estado.
-2. Ajuste de dimensiones.
-3. Reglas de rating (aplican acciones, suman score, flags, label preliminar).
-4. Normalización ranking.
-5. Mejora rewrite.
-6. Validación prompt.
-7. Decisión final: se aplican `decision.score_thresholds` para derivar `label` si `score` alcanza umbrales.
+### Decision & Score Phase
+Separate phases:
+1. Preprocessing (`_preprocess`): derives signals without mutating state.
+2. Dimension adjustment.
+3. Rating rules (apply actions, accumulate score, flags, preliminary label).
+4. Ranking normalization.
+5. Rewrite improvement.
+6. Prompt validation.
+7. Final decision: apply `decision.score_thresholds` if `score` meets thresholds.
 
-Ejemplo en `rules.yaml`:
+Example:
 ```yaml
 decision:
   score_thresholds:
@@ -222,10 +222,10 @@ decision:
     neutral: 0
     weak: -1
 ```
-Se evalúan en orden descendente de puntaje mínimo.
+Evaluated in descending order of minimum score.
 
-### Meta y Auditoría
-El resultado incluye `meta` con:
+### Metadata & Audit
+Result includes `meta`:
 ```json
 {
   "rule_version": 2,
@@ -233,16 +233,16 @@ El resultado incluye `meta` con:
   "signals": {"length_total": 345, "response_count": 2}
 }
 ```
-`config_hash` permite verificar integridad exacta de los YAML (diferente hash => configuración modificada).
+`config_hash` ensures integrity (different hash => config changed).
 
-### Nuevo flag CLI: --explain-json
-Permite exportar únicamente el árbol de reglas disparadas / estado de decisión:
+### New CLI flag: --explain-json
+Exports only fired rules / decision state:
 ```bash
 poetry run oai-eval samples/sample_submission.json \
   --config-dir config_samples \
   --explain-json explain.json
 ```
-Contenido ejemplo:
+Example content:
 ```json
 {
   "fired_rules": [ {"id": "scoring_positive_signal", "actions": [...]} ],
@@ -253,39 +253,39 @@ Contenido ejemplo:
 }
 ```
 
-### Plantillas Jinja2 en Comentarios
-Disponible en `add_comment_template`. Variables:
+### Jinja2 Templates in Comments
+Available via `add_comment_template`. Variables:
 - `signals.length_total`
 - `signals.response_count`
-- `detail` (estructura de condiciones evaluadas)
-- `corrected` (mapa dimensión->valor ajustado)
+- `detail` (condition evaluation structure)
+- `corrected` (dimension -> updated value)
 
-### Explicabilidad (`fired_rules`)
-Cada entrada incluye: id, tipo, detalle de condiciones evaluadas y acciones aplicadas.
+### Explainability (`fired_rules`)
+Each entry includes: id, type, condition detail, applied actions.
 ```json
 {
   "id": "lower_accuracy_if_no_example",
   "type": "rating",
-  "detail": { ... condiciones evaluadas ... },
+  "detail": { ... conditions ... },
   "actions": [ { "adjust_dimension": {"dimension": "accuracy", "from": 5.0, "to": 4.5, "delta": -0.5} } ]
 }
 ```
 
-### Limitaciones y Compliance
-- No clasificación phishing/spam (requiere módulo separado + señales específicas).
-- No eval de código ni acceso externo.
-- Plantillas controladas (contexto interno, sin ejecutar código Python arbitrario).
-- `label` generada es indicativa y debe revisarse manualmente.
+### Limitations & Compliance
+- No phishing/spam classification.
+- No code execution or external access.
+- Templates sandboxed (only internal context).
+- Generated `label` is advisory and must be reviewed.
 
-### Validación de Esquema
-Cada YAML se valida contra un JSON Schema interno (ver `schemas.py`). Un error lanza `ValueError` con mensaje de detalle.
+### Schema Validation
+Each YAML validated against an internal JSON Schema (see `schemas.py`). On error a `ValueError` is raised.
 
-## Flag CLI relevantes
-- `--config-dir DIR` Ruta a YAMLs.
-- `--report-md salida.md` Genera reporte Markdown.
-- `--log-file log.txt` Logging adicional.
+## Relevant CLI Flags
+- `--config-dir DIR` YAML path.
+- `--report-md output.md` Markdown report.
+- `--log-file log.txt` Additional logging.
 
-## Ejecución con configuración personalizada
+## Run with custom configuration
 ```bash
 poetry run oai-eval samples/sample_submission.json \
   --config-dir config_samples \

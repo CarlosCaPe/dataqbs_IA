@@ -1,4 +1,4 @@
-# Configuración de dimensiones y ajustes heurísticos
+# Dimension configuration and heuristic adjustments
 scale: [0,5]
 dimensions:
   instructions:
@@ -22,7 +22,7 @@ dimensions:
     tolerance: 1.5
     weight: 0.7
 adjustment:
-  pull_fraction: 0.4  # Qué tan fuerte acercar al ideal si sale de tolerancia
-  round: 2            # Redondeo final de puntuaciones
+  pull_fraction: 0.4  # Strength of pull toward ideal when value outside tolerance
+  round: 2            # Final score rounding
 validation:
   require_justification_if_delta_ge: 0.75

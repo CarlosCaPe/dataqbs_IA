@@ -1,49 +1,49 @@
-# Motor de reglas declarativas para ajustar puntuaciones y feedback
-# Cada regla tiene condiciones AND implícitas; se pueden agrupar OR mediante listas internas.
+# Declarative rule engine for score adjustments and feedback
+# Each rule has implicit AND conditions; OR groupings via 'any_of' list blocks.
 
 version: 2
 
 rating_rules:
   - id: lower_accuracy_if_no_example
     when:
-      response_contains_any: ["Dijkstra", "camino más corto"]
-      preferred_rewrite_missing_substring: ["complejidad", "O(E log V)"]
+      response_contains_any: ["Dijkstra", "shortest path"]
+      preferred_rewrite_missing_substring: ["complexity", "O(E log V)"]
     actions:
       adjust_dimension:
         dimension: accuracy
         delta: -0.5
-      add_comment: "Se penaliza exactitud por no incluir complejidad temporal."
+      add_comment: "Accuracy penalized for missing time complexity reference."
 
   - id: boost_presentation_if_structured
     when:
-      # Detect estructura: palabra 'paso', enumeración "1." o bullets '- '
+      # Detect structure: word 'paso'/step, enumeration "1." or bullet '- '
       rewrite_regex_any:
-        - "(?i)paso"
+        - "(?i)paso"  # keep Spanish variant in regex to match content
         - "(?i)1\\."
         - "\\n- "
     actions:
       adjust_dimension:
         dimension: presentation
         delta: 0.3
-      add_comment: "Formato estructurado mejora presentación."
+      add_comment: "Structured format improves presentation."
 
   - id: freshness_penalty_if_no_update
     when:
-      not_contains_any: ["2024", "actual", "reciente"]
+      not_contains_any: ["2024", "current", "recent"]
     actions:
       adjust_dimension:
         dimension: freshness
         delta: -0.4
-      add_comment: "Falta referencia a actualidad / versión reciente."
+      add_comment: "Missing reference to current / recent version context."
 
   - id: optimality_or_accuracy_guard
     when:
       any_of:
-        - { response_contains_any: ["heap", "cola de prioridad"] }
+        - { response_contains_any: ["heap", "cola de prioridad"] }  # keep bilingual tokens
         - { response_contains_any: ["priority queue", "O(E log V)"] }
       min_total_length: 120
     actions:
-      add_comment: "Se reconoce mención de estructura eficiente o complejidad explícita (regla OR)."
+      add_comment: "Recognized mention of efficient structure or explicit complexity (OR rule)."
 
   - id: boost_if_high_accuracy
     when:
@@ -53,7 +53,7 @@ rating_rules:
       adjust_dimension:
         dimension: optimality
         delta: 0.2
-      add_comment: "Incremento ligero de optimality por alta exactitud base."
+      add_comment: "Slight optimality boost due to high base accuracy."
 
   - id: penalize_low_optimality
     when:
@@ -63,14 +63,14 @@ rating_rules:
       adjust_dimension:
         dimension: optimality
         delta: -0.3
-      add_comment: "Penalización por optimality inicial muy baja."
+      add_comment: "Penalty for very low initial optimality."
 
   - id: scoring_positive_signal
     when:
-      response_contains_any: ["eficiente", "optimizado"]
+      response_contains_any: ["eficiente", "optimizado", "efficient", "optimized"]
     actions:
       increment_score: 2
-      add_comment_template: "Signal eficiencia detectada (length_total={{signals.length_total}})."
+      add_comment_template: "Efficiency signal detected (length_total={{signals.length_total}})."
 
   - id: flag_and_label_if_low_accuracy
     when:
@@ -79,14 +79,14 @@ rating_rules:
     actions:
       set_flag: low_accuracy
       assign_label: needs_review
-      add_comment: "Marcado para revisión por accuracy baja."
+      add_comment: "Flagged for review due to low accuracy."
 
 ranking_rules:
   - id: ensure_best_longer
     when:
       preferred_longer_than_second: true
     actions:
-      add_ranking_feedback: "La mejor respuesta es efectivamente más completa."
+      add_ranking_feedback: "Top-ranked response is indeed more comprehensive."
 
 rewrite_rules:
   - id: ensure_period

@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "oai-code-evaluator"
 version = "0.3.0"
-description = "Herramienta CLI para simular el rol de revisor: evalúa prompts, calificaciones y correcciones de código/model responses siguiendo rúbricas LATAM Outlier.ai"
+description = "CLI tool to assist reviewers: evaluates prompts, initial ratings and model responses with a configurable rule engine"
 authors = ["Carlos <you@example.com>"]
 license = "MIT"
 readme = "README.md"

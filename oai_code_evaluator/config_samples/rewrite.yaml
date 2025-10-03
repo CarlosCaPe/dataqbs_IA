@@ -1,7 +1,7 @@
-# Reglas para mejorar reescritura
+# Rewrite improvement rules
 min_length: 60
 add_note_if_short: true
-note_text: "Nota: ampliar detalles para cubrir completamente la solución según la documentación."
+note_text: "Note: expand details to fully cover the solution as per documentation."
 postprocessors:
   - type: ensure_period
   - type: trim_spaces
