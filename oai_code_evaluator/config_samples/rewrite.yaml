@@ -1,0 +1,7 @@
+# Reglas para mejorar reescritura
+min_length: 60
+add_note_if_short: true
+note_text: "Nota: ampliar detalles para cubrir completamente la solución según la documentación."
+postprocessors:
+  - type: ensure_period
+  - type: trim_spaces

@@ -1,0 +1,9 @@
+# Validación de prompt y metadatos
+required_fields: [prompt, category, subcategory, difficulty]
+label_checks:
+  category_allow: [algorithms, data, infra, ml, nlp, graphs]
+  difficulty_allow: [easy, medium, hard]
+feedback:
+  ok: "Prompt con etiquetas claras."
+  missing_field: "Faltan campos obligatorios en el prompt: {missing}."
+  invalid_label: "Etiqueta fuera de catálogo: {field}={value}."

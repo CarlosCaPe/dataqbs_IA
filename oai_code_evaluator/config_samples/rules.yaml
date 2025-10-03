@@ -1,0 +1,113 @@
+# Motor de reglas declarativas para ajustar puntuaciones y feedback
+# Cada regla tiene condiciones AND implícitas; se pueden agrupar OR mediante listas internas.
+
+version: 2
+
+rating_rules:
+  - id: lower_accuracy_if_no_example
+    when:
+      response_contains_any: ["Dijkstra", "camino más corto"]
+      preferred_rewrite_missing_substring: ["complejidad", "O(E log V)"]
+    actions:
+      adjust_dimension:
+        dimension: accuracy
+        delta: -0.5
+      add_comment: "Se penaliza exactitud por no incluir complejidad temporal."
+
+  - id: boost_presentation_if_structured
+    when:
+      # Detect estructura: palabra 'paso', enumeración "1." o bullets '- '
+      rewrite_regex_any:
+        - "(?i)paso"
+        - "(?i)1\\."
+        - "\\n- "
+    actions:
+      adjust_dimension:
+        dimension: presentation
+        delta: 0.3
+      add_comment: "Formato estructurado mejora presentación."
+
+  - id: freshness_penalty_if_no_update
+    when:
+      not_contains_any: ["2024", "actual", "reciente"]
+    actions:
+      adjust_dimension:
+        dimension: freshness
+        delta: -0.4
+      add_comment: "Falta referencia a actualidad / versión reciente."
+
+  - id: optimality_or_accuracy_guard
+    when:
+      any_of:
+        - { response_contains_any: ["heap", "cola de prioridad"] }
+        - { response_contains_any: ["priority queue", "O(E log V)"] }
+      min_total_length: 120
+    actions:
+      add_comment: "Se reconoce mención de estructura eficiente o complejidad explícita (regla OR)."
+
+  - id: boost_if_high_accuracy
+    when:
+      dimension_gt:
+        accuracy: 4.5
+    actions:
+      adjust_dimension:
+        dimension: optimality
+        delta: 0.2
+      add_comment: "Incremento ligero de optimality por alta exactitud base."
+
+  - id: penalize_low_optimality
+    when:
+      dimension_lt:
+        optimality: 2.5
+    actions:
+      adjust_dimension:
+        dimension: optimality
+        delta: -0.3
+      add_comment: "Penalización por optimality inicial muy baja."
+
+  - id: scoring_positive_signal
+    when:
+      response_contains_any: ["eficiente", "optimizado"]
+    actions:
+      increment_score: 2
+      add_comment_template: "Signal eficiencia detectada (length_total={{signals.length_total}})."
+
+  - id: flag_and_label_if_low_accuracy
+    when:
+      dimension_lt:
+        accuracy: 2.0
+    actions:
+      set_flag: low_accuracy
+      assign_label: needs_review
+      add_comment: "Marcado para revisión por accuracy baja."
+
+ranking_rules:
+  - id: ensure_best_longer
+    when:
+      preferred_longer_than_second: true
+    actions:
+      add_ranking_feedback: "La mejor respuesta es efectivamente más completa."
+
+rewrite_rules:
+  - id: ensure_period
+    when:
+      ends_without_punct: true
+    actions:
+      append_text: "."
+
+  - id: add_length_note
+    when:
+      shorter_than_min: true
+    actions:
+      append_note: true
+
+feedback_priorities:
+  add_comment: 10
+  add_ranking_feedback: 5
+
+decision:
+  score_thresholds:
+    excellent: 5
+    good: 3
+    neutral: 0
+    weak: -1

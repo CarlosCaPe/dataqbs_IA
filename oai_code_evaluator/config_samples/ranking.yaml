@@ -1,0 +1,14 @@
+# Reglas para ranking y validación
+require_all_ids: true
+allow_duplicates: false
+# Si falta justificación mínima para ranking extenso
+rationale:
+  min_length: 20
+  warn_if_missing: true
+corrections:
+  append_missing: true
+  drop_unknown: true
+feedback_templates:
+  complete: "Ranking incluye todas las respuestas sin duplicados."
+  missing_ids: "Se añadieron IDs faltantes al ranking."
+  had_duplicates: "Se eliminaron duplicados en el ranking."
