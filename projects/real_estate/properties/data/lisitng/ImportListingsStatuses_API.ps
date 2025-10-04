@@ -1,0 +1,24 @@
+﻿clear
+
+Set-ExecutionPolicy RemoteSigned -Scope CurrentUser# Define the API URL
+
+
+$url = "https://api.easybroker.com/v1/listing_statuses?page=1"
+
+# Define headers
+$headers = @{
+    "X-Authorization" = "9zyhdg6zdm4lmllmeombg095ftiga1"
+    "accept"          = "application/json"
+}
+
+# Make the request and get JSON response
+$response = Invoke-RestMethod -Uri $url -Headers $headers -Method Get
+
+# Convert the response back to JSON string (pretty formatted)
+$json = $response | ConvertTo-Json -Depth 10 -Compress:$false
+
+# Save to file
+$outputFile = "listing_statuses.json"
+$json | Out-File -FilePath $outputFile -Encoding utf8
+
+Write-Host "JSON saved to $outputFile"

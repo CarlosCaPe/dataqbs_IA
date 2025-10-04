@@ -1,0 +1,30 @@
+﻿{
+    "public_id":  "EB-TD2108",
+    "title":  "LOCAL COMERCIAL EN RENTA EN PLAZA D´LUCCA EN ZONA REAL, ZAPOPAN, VALLE REAL.",
+    "title_image_full":  "https://assets.easybroker.com/property_images/5242108/90209339/EB-TD2108.jpg?version=1747333080",
+    "title_image_thumb":  "https://assets.easybroker.com/property_images/5242108/90209339/EB-TD2108.jpg?version=1747333080\u0026width=200",
+    "location":  "Valle Real, Zapopan, Jalisco",
+    "operations":  [
+                       {
+                           "type":  "rental",
+                           "amount":  29250.0,
+                           "currency":  "MXN",
+                           "formatted_amount":  "$29,250",
+                           "commission":  {
+                                              "type":  "months",
+                                              "value":  1
+                                          },
+                           "unit":  "total"
+                       }
+                   ],
+    "bedrooms":  null,
+    "bathrooms":  null,
+    "parking_spaces":  null,
+    "property_type":  "Local comercial",
+    "lot_size":  75.0,
+    "construction_size":  75.0,
+    "updated_at":  "2025-05-29T13:20:31-06:00",
+    "agent":  "Lic.Gabriela Martínez",
+    "show_prices":  true,
+    "share_commission":  true
+}

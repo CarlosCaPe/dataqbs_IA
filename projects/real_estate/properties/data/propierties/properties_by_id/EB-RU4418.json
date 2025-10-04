@@ -1,0 +1,30 @@
+﻿{
+    "public_id":  "EB-RU4418",
+    "title":  "Casa en venta en Royal Country con habitación en planta baja",
+    "title_image_full":  "https://assets.easybroker.com/property_images/4894418/83229040/EB-RU4418.jpg?version=1737412478",
+    "title_image_thumb":  "https://assets.easybroker.com/property_images/4894418/83229040/EB-RU4418.jpg?version=1737412478\u0026width=200",
+    "location":  "Royal Country, Zapopan, Jalisco",
+    "operations":  [
+                       {
+                           "type":  "sale",
+                           "amount":  14000000.0,
+                           "currency":  "MXN",
+                           "formatted_amount":  "$14,000,000",
+                           "commission":  {
+                                              "type":  "percentage",
+                                              "value":  "4.0"
+                                          },
+                           "unit":  "total"
+                       }
+                   ],
+    "bedrooms":  5,
+    "bathrooms":  4,
+    "parking_spaces":  2,
+    "property_type":  "Casa",
+    "lot_size":  339.47,
+    "construction_size":  344.0,
+    "updated_at":  "2025-05-12T12:09:04-06:00",
+    "agent":  "Lic.Gabriela Martínez",
+    "show_prices":  true,
+    "share_commission":  true
+}

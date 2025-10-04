@@ -1,0 +1,271 @@
+{
+  "public_id": "EB-DV5093",
+  "title": "VENTA SANTILLANA RESID COTO 1 CERCA SOLARES",
+  "description": "TERRENO 163 MTS.\nCONSTRUCCION 193 MTS\nPLANTA BAJA: \nCOCHERA PARA DOS AUTOS, MEDIO BAÑO, RECAMARA CON BAÑO COMPLETO. AREA PARA ALMACENAR TIPO BODEGA, SALA ,COMEDOR COCINA INTEGRAL ,AREA DE LAVADO TECHADA, JARDIN.\nPLANTA ALTA:\nDOS RECAMARAS CON BAÑO COMPLETO MUY AMPLIO Y CLOSET VESTIDOR.\nESTAR DE T.V.\nLA CASA ES LA ULITMA DE UNA CALLE CERRADA Y NO TIENEN ACCESO MAS AUTOS.\nCUENTA CON AREA DE CASA CLUB PEQUEÑA PARA EVENTOS.\nESTA PROPIEDAD TIENE UN GRAVAMEN DE 1'187,000 CON SANTANDER.",
+  "bedrooms": 3,
+  "bathrooms": 3,
+  "half_bathrooms": 1,
+  "parking_spaces": 2,
+  "lot_size": 163.0,
+  "construction_size": 193.0,
+  "lot_length": 11.0,
+  "lot_width": 18.0,
+  "floors": 2,
+  "floor": null,
+  "age": 2014,
+  "internal_id": null,
+  "expenses": "1",
+  "location": {
+    "name": "Solares, Zapopan, Jalisco",
+    "latitude": 20.7171,
+    "longitude": -103.4636164,
+    "street": "BOULEVARD SANTILLANA ",
+    "postal_code": "45019",
+    "show_exact_location": false,
+    "hide_exact_location": true,
+    "exterior_number": "11",
+    "interior_number": "J35"
+  },
+  "property_type": "Casa",
+  "created_at": "2019-09-26T11:29:52-05:00",
+  "updated_at": "2025-05-12T12:09:04-06:00",
+  "published_at": "2019-12-03T16:53:00-06:00",
+  "operations": [
+    {
+      "type": "sale",
+      "amount": 4190000.0,
+      "currency": "MXN",
+      "formatted_amount": "$4,190,000",
+      "commission": {
+        "type": "percentage"
+      },
+      "unit": "total"
+    }
+  ],
+  "property_files": [],
+  "videos": [],
+  "virtual_tour": null,
+  "collaboration_notes": null,
+  "public_url": "https://www.easybroker.com/mx/listings/venta-santillana-resid-coto-1-cerca-solares",
+  "shared_commission_percentage": null,
+  "exclusive": null,
+  "foreclosure": false,
+  "tags": [],
+  "private_description": null,
+  "show_prices": true,
+  "share_commission": true,
+  "property_images": [
+    {
+      "title": "FACHADA",
+      "url": "https://assets.easybroker.com/property_images/1265093/18805172/EB-DV5093.jpg?version=1569515810"
+    },
+    {
+      "title": "EJMPLO DE UNO DE LOS AMPLIOS BAÑOS COMPLETOS",
+      "url": "https://assets.easybroker.com/property_images/1265093/18805193/EB-DV5093.jpg?version=1569515810"
+    },
+    {
+      "title": "JARDIN TRASERO",
+      "url": "https://assets.easybroker.com/property_images/1265093/18805218/EB-DV5093.jpg?version=1569515810"
+    },
+    {
+      "title": "RECAMARA EN PLANTA BAJA",
+      "url": "https://assets.easybroker.com/property_images/1265093/18805244/EB-DV5093.jpg?version=1569515810"
+    },
+    {
+      "title": "COCINA INTEGRAL",
+      "url": "https://assets.easybroker.com/property_images/1265093/18805276/EB-DV5093.jpg?version=1569515810"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/1265093/20786830/EB-DV5093.jpeg?version=1577632976"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/1265093/20786831/EB-DV5093.jpeg?version=1577633000"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/1265093/20786832/EB-DV5093.jpeg?version=1577633021"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/1265093/20786833/EB-DV5093.jpeg?version=1577633051"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/1265093/20786840/EB-DV5093.jpeg?version=1577633079"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/1265093/20786844/EB-DV5093.jpeg?version=1577633102"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/1265093/20786845/EB-DV5093.jpeg?version=1577633130"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/1265093/20786850/EB-DV5093.jpeg?version=1577633294"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/1265093/20786851/EB-DV5093.jpeg?version=1577633307"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/1265093/20786852/EB-DV5093.jpeg?version=1577633322"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/1265093/20786866/EB-DV5093.jpeg?version=1577633364"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/1265093/20786872/EB-DV5093.jpeg?version=1577633511"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/1265093/20786891/EB-DV5093.jpeg?version=1577633523"
+    }
+  ],
+  "images": [
+    {
+      "title": "FACHADA",
+      "url": "https://assets.easybroker.com/property_images/1265093/18805172/EB-DV5093.jpg?version=1569515810"
+    },
+    {
+      "title": "EJMPLO DE UNO DE LOS AMPLIOS BAÑOS COMPLETOS",
+      "url": "https://assets.easybroker.com/property_images/1265093/18805193/EB-DV5093.jpg?version=1569515810"
+    },
+    {
+      "title": "JARDIN TRASERO",
+      "url": "https://assets.easybroker.com/property_images/1265093/18805218/EB-DV5093.jpg?version=1569515810"
+    },
+    {
+      "title": "RECAMARA EN PLANTA BAJA",
+      "url": "https://assets.easybroker.com/property_images/1265093/18805244/EB-DV5093.jpg?version=1569515810"
+    },
+    {
+      "title": "COCINA INTEGRAL",
+      "url": "https://assets.easybroker.com/property_images/1265093/18805276/EB-DV5093.jpg?version=1569515810"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/1265093/20786830/EB-DV5093.jpeg?version=1577632976"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/1265093/20786831/EB-DV5093.jpeg?version=1577633000"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/1265093/20786832/EB-DV5093.jpeg?version=1577633021"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/1265093/20786833/EB-DV5093.jpeg?version=1577633051"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/1265093/20786840/EB-DV5093.jpeg?version=1577633079"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/1265093/20786844/EB-DV5093.jpeg?version=1577633102"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/1265093/20786845/EB-DV5093.jpeg?version=1577633130"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/1265093/20786850/EB-DV5093.jpeg?version=1577633294"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/1265093/20786851/EB-DV5093.jpeg?version=1577633307"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/1265093/20786852/EB-DV5093.jpeg?version=1577633322"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/1265093/20786866/EB-DV5093.jpeg?version=1577633364"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/1265093/20786872/EB-DV5093.jpeg?version=1577633511"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/1265093/20786891/EB-DV5093.jpeg?version=1577633523"
+    }
+  ],
+  "agent": {
+    "id": 391012,
+    "name": "Lic.Gabriela Martínez",
+    "full_name": "Lic.Gabriela Martínez",
+    "mobile_phone": "+523338087984",
+    "profile_image_url": "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1757459148",
+    "email": "GABRIELAMTZ6@HOTMAIL.COM"
+  },
+  "features": [
+    {
+      "name": "Mascotas permitidas",
+      "category": "Políticas"
+    },
+    {
+      "name": "Permitido fumar",
+      "category": "Políticas"
+    },
+    {
+      "name": "Jardín",
+      "category": "Exterior"
+    },
+    {
+      "name": "Seguridad 24 horas",
+      "category": "General"
+    },
+    {
+      "name": "Patio",
+      "category": "Exterior"
+    },
+    {
+      "name": "Cisterna",
+      "category": "Exterior"
+    },
+    {
+      "name": "Bodega",
+      "category": "General"
+    },
+    {
+      "name": "Cocina equipada",
+      "category": "General"
+    },
+    {
+      "name": "Cocina integral",
+      "category": "General"
+    },
+    {
+      "name": "Fraccionamiento privado",
+      "category": "General"
+    },
+    {
+      "name": "Área de juegos infantiles",
+      "category": "Recreación"
+    },
+    {
+      "name": "Salón de usos múltiples",
+      "category": "Recreación"
+    },
+    {
+      "name": "Facilidad para estacionarse",
+      "category": "Exterior"
+    },
+    {
+      "name": "Portero",
+      "category": "General"
+    }
+  ]
+}

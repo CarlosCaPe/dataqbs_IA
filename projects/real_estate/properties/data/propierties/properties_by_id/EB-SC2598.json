@@ -1,0 +1,30 @@
+﻿{
+    "public_id":  "EB-SC2598",
+    "title":  "Casa nueva en fraccionamiento zona Santa Anita",
+    "title_image_full":  "https://assets.easybroker.com/property_images/4972598/84897293/EB-SC2598.jpg?version=1737388163",
+    "title_image_thumb":  "https://assets.easybroker.com/property_images/4972598/84897293/EB-SC2598.jpg?version=1737388163\u0026width=200",
+    "location":  "San Agustin, Tlajomulco de Zúñiga, Jalisco",
+    "operations":  [
+                       {
+                           "type":  "sale",
+                           "amount":  6700000.0,
+                           "currency":  "MXN",
+                           "formatted_amount":  "$6,700,000",
+                           "commission":  {
+                                              "type":  "percentage",
+                                              "value":  "4.0"
+                                          },
+                           "unit":  "total"
+                       }
+                   ],
+    "bedrooms":  4,
+    "bathrooms":  4,
+    "parking_spaces":  4,
+    "property_type":  "Casa",
+    "lot_size":  140.0,
+    "construction_size":  145.42,
+    "updated_at":  "2025-09-08T10:21:06-06:00",
+    "agent":  "Lic.Gabriela Martínez",
+    "show_prices":  true,
+    "share_commission":  true
+}

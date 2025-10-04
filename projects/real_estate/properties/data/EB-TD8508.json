@@ -1,0 +1,372 @@
+{
+  "public_id": "EB-TD8508",
+  "title": "Casa en Venta en Las Cañadas, habitación en planta baja",
+  "description": "Esta amplia casa está en venta en fraccionamiento Las Cañadas.\n\nPLANTA BAJA:\n•Amplia sala-comedor\n•Cocina con alacena y amplio espacio de almacenamiento\n•Cuarto con patio de servicio \n•Baño completo\n•Recámara con balcón \n•Terraza\n•Amplio jardín\n•Sótano \n\nPLANTA ALTA\n•Amplia Recámara principal de 70mts cuadrados con balcón, closet vestidor y baño completo.\n•Espacio con todas las instalaciones para construir otra recámara con baño.\n\nLa casa cuenta con una amplio jardín tanto en la parte posterior como en la parte de enfrente donde caben hasta 6 autos.\nEn el sótano se puede acondicionar para family room, cuarto de juegos o hasta para hacer 2 o 3 recámaras.\n\nEl fraccionamiento cuenta con locales comerciales, colegio Alemán, además de seguridad 24 hrs.\n\nNo dejes pasar la oportunidad de vivir en un lugar rodeado de naturaleza y amplios espacios.",
+  "bedrooms": 2,
+  "bathrooms": 2,
+  "half_bathrooms": null,
+  "parking_spaces": 6,
+  "lot_size": 980.0,
+  "construction_size": 400.0,
+  "lot_length": 70.0,
+  "lot_width": 12.0,
+  "floors": 3,
+  "floor": null,
+  "age": 2015,
+  "internal_id": "VANECAÑADAS",
+  "expenses": "2083",
+  "location": {
+    "name": "Las Cañadas, Zapopan, Jalisco",
+    "latitude": 20.7048846,
+    "longitude": -103.3910733,
+    "street": "Bosques de los colomos",
+    "postal_code": "45133",
+    "show_exact_location": false,
+    "hide_exact_location": true,
+    "exterior_number": null,
+    "interior_number": "21A"
+  },
+  "property_type": "Casa",
+  "created_at": "2025-05-17T14:20:44-06:00",
+  "updated_at": "2025-09-04T09:18:35-06:00",
+  "published_at": "2025-09-04T09:18:35-06:00",
+  "operations": [
+    {
+      "type": "sale",
+      "amount": 12500000.0,
+      "currency": "MXN",
+      "formatted_amount": "$12,500,000",
+      "commission": {
+        "type": "percentage",
+        "value": "5.0"
+      },
+      "unit": "total"
+    }
+  ],
+  "property_files": [],
+  "videos": [],
+  "virtual_tour": null,
+  "collaboration_notes": null,
+  "public_url": "https://www.easybroker.com/mx/listings/casa-en-venta-en-las-canadas-habitacion-en-planta-baja",
+  "shared_commission_percentage": 50.0,
+  "exclusive": false,
+  "foreclosure": false,
+  "tags": [],
+  "private_description": null,
+  "show_prices": true,
+  "share_commission": true,
+  "property_images": [
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5248508/90349342/EB-TD8508.jpeg?version=1747688179"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5248508/90349343/EB-TD8508.jpeg?version=1747688179"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5248508/90349344/EB-TD8508.jpeg?version=1747688179"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5248508/90349345/EB-TD8508.jpeg?version=1747688179"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5248508/90349346/EB-TD8508.jpeg?version=1747688179"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5248508/90349347/EB-TD8508.jpeg?version=1747688179"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5248508/90349348/EB-TD8508.jpeg?version=1747688179"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5248508/90349349/EB-TD8508.jpeg?version=1747688179"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5248508/90349350/EB-TD8508.jpeg?version=1747688179"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5248508/90349351/EB-TD8508.jpeg?version=1747688179"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5248508/90349352/EB-TD8508.jpeg?version=1747688179"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5248508/90349353/EB-TD8508.jpeg?version=1747688179"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5248508/90349354/EB-TD8508.jpeg?version=1747688179"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5248508/90349355/EB-TD8508.jpeg?version=1747688179"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5248508/90349356/EB-TD8508.jpeg?version=1747688179"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5248508/90349358/EB-TD8508.jpeg?version=1747688179"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5248508/90349360/EB-TD8508.jpeg?version=1747688179"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5248508/90349361/EB-TD8508.jpeg?version=1747688179"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5248508/90349362/EB-TD8508.jpeg?version=1747688179"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5248508/90349363/EB-TD8508.jpeg?version=1747688179"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5248508/90349365/EB-TD8508.jpeg?version=1747688179"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5248508/90349366/EB-TD8508.jpeg?version=1747688179"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5248508/90349367/EB-TD8508.jpeg?version=1747688179"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5248508/90349368/EB-TD8508.jpeg?version=1747688179"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5248508/90349369/EB-TD8508.jpeg?version=1747688179"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5248508/90349453/EB-TD8508.jpeg?version=1747688179"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5248508/90349451/EB-TD8508.jpeg?version=1747688179"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5248508/90349452/EB-TD8508.jpeg?version=1747688179"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5248508/90349454/EB-TD8508.jpeg?version=1747688179"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5248508/90349455/EB-TD8508.jpeg?version=1747688179"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5248508/90349456/EB-TD8508.jpeg?version=1747688179"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5248508/90349457/EB-TD8508.jpeg?version=1747688179"
+    }
+  ],
+  "images": [
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5248508/90349342/EB-TD8508.jpeg?version=1747688179"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5248508/90349343/EB-TD8508.jpeg?version=1747688179"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5248508/90349344/EB-TD8508.jpeg?version=1747688179"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5248508/90349345/EB-TD8508.jpeg?version=1747688179"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5248508/90349346/EB-TD8508.jpeg?version=1747688179"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5248508/90349347/EB-TD8508.jpeg?version=1747688179"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5248508/90349348/EB-TD8508.jpeg?version=1747688179"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5248508/90349349/EB-TD8508.jpeg?version=1747688179"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5248508/90349350/EB-TD8508.jpeg?version=1747688179"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5248508/90349351/EB-TD8508.jpeg?version=1747688179"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5248508/90349352/EB-TD8508.jpeg?version=1747688179"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5248508/90349353/EB-TD8508.jpeg?version=1747688179"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5248508/90349354/EB-TD8508.jpeg?version=1747688179"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5248508/90349355/EB-TD8508.jpeg?version=1747688179"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5248508/90349356/EB-TD8508.jpeg?version=1747688179"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5248508/90349358/EB-TD8508.jpeg?version=1747688179"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5248508/90349360/EB-TD8508.jpeg?version=1747688179"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5248508/90349361/EB-TD8508.jpeg?version=1747688179"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5248508/90349362/EB-TD8508.jpeg?version=1747688179"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5248508/90349363/EB-TD8508.jpeg?version=1747688179"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5248508/90349365/EB-TD8508.jpeg?version=1747688179"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5248508/90349366/EB-TD8508.jpeg?version=1747688179"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5248508/90349367/EB-TD8508.jpeg?version=1747688179"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5248508/90349368/EB-TD8508.jpeg?version=1747688179"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5248508/90349369/EB-TD8508.jpeg?version=1747688179"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5248508/90349453/EB-TD8508.jpeg?version=1747688179"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5248508/90349451/EB-TD8508.jpeg?version=1747688179"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5248508/90349452/EB-TD8508.jpeg?version=1747688179"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5248508/90349454/EB-TD8508.jpeg?version=1747688179"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5248508/90349455/EB-TD8508.jpeg?version=1747688179"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5248508/90349456/EB-TD8508.jpeg?version=1747688179"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5248508/90349457/EB-TD8508.jpeg?version=1747688179"
+    }
+  ],
+  "agent": {
+    "id": 391012,
+    "name": "Lic.Gabriela Martínez",
+    "full_name": "Lic.Gabriela Martínez",
+    "mobile_phone": "+523338087984",
+    "profile_image_url": "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1757459148",
+    "email": "GABRIELAMTZ6@HOTMAIL.COM"
+  },
+  "features": [
+    {
+      "name": "Balcón",
+      "category": "Exterior"
+    },
+    {
+      "name": "Cisterna",
+      "category": "Exterior"
+    },
+    {
+      "name": "Facilidad para estacionarse",
+      "category": "Exterior"
+    },
+    {
+      "name": "Jardín",
+      "category": "Exterior"
+    },
+    {
+      "name": "Terraza",
+      "category": "Exterior"
+    },
+    {
+      "name": "Cocina integral",
+      "category": "General"
+    },
+    {
+      "name": "Cuarto de servicio",
+      "category": "General"
+    },
+    {
+      "name": "Fraccionamiento privado",
+      "category": "General"
+    },
+    {
+      "name": "Hidroneumático",
+      "category": "General"
+    },
+    {
+      "name": "Recámara en planta baja",
+      "category": "General"
+    },
+    {
+      "name": "Seguridad 24 horas",
+      "category": "General"
+    }
+  ]
+}

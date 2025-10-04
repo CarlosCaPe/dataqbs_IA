@@ -1,0 +1,124 @@
+{
+  "public_id": "EB-LY5768",
+  "title": "COTO RESERVA NOGAL",
+  "description": "31 TERRENOS EN COTO RESERVA NOGAL , TALA JALISCO\nA 5 MINUTOS DEL INGENIO DE TALA.\nCONSTA DE CASETA DE VIGILANCIA CON ACCESO CONTROLADO, UN ENTORNO DE PAZ Y AREA ARBOLADA. AREA DE FOGATA, JUEGOS INFANTILES",
+  "bedrooms": null,
+  "bathrooms": null,
+  "half_bathrooms": null,
+  "parking_spaces": null,
+  "lot_size": 116.0,
+  "construction_size": null,
+  "lot_length": 16.0,
+  "lot_width": 7.0,
+  "floors": null,
+  "floor": null,
+  "age": "new_construction",
+  "internal_id": null,
+  "expenses": null,
+  "location": {
+    "name": "Tala Centro, Tala, Jalisco",
+    "latitude": 20.6653185,
+    "longitude": -103.7013421,
+    "street": null,
+    "postal_code": null,
+    "show_exact_location": true,
+    "hide_exact_location": false,
+    "exterior_number": null,
+    "interior_number": null
+  },
+  "property_type": "Terreno",
+  "created_at": "2022-11-10T18:03:01-06:00",
+  "updated_at": "2025-05-12T12:09:04-06:00",
+  "published_at": "2022-11-10T18:05:39-06:00",
+  "operations": [
+    {
+      "type": "sale",
+      "amount": 6500.0,
+      "currency": "MXN",
+      "formatted_amount": "$6,500",
+      "commission": {
+        "type": "percentage",
+        "value": "5.0"
+      },
+      "unit": "square_meter"
+    }
+  ],
+  "property_files": [],
+  "videos": [],
+  "virtual_tour": null,
+  "collaboration_notes": null,
+  "public_url": "https://www.easybroker.com/mx/listings/coto-reserva-nogal",
+  "shared_commission_percentage": null,
+  "exclusive": null,
+  "foreclosure": false,
+  "tags": [],
+  "private_description": null,
+  "show_prices": true,
+  "share_commission": true,
+  "property_images": [
+    {
+      "title": "CASETA DE INGRESO",
+      "url": "https://assets.easybroker.com/property_images/3375768/54540340/EB-LY5768.png?version=1668125139"
+    },
+    {
+      "title": "AREA RECREATIVA",
+      "url": "https://assets.easybroker.com/property_images/3375768/54540356/EB-LY5768.png?version=1668125139"
+    },
+    {
+      "title": "AREA DE FOGATAS",
+      "url": "https://assets.easybroker.com/property_images/3375768/54540368/EB-LY5768.png?version=1668125139"
+    },
+    {
+      "title": "ANDADORES ORGANICOS",
+      "url": "https://assets.easybroker.com/property_images/3375768/54540369/EB-LY5768.png?version=1668125139"
+    },
+    {
+      "title": "LOTES",
+      "url": "https://assets.easybroker.com/property_images/3375768/54540370/EB-LY5768.jpeg?version=1668125139"
+    }
+  ],
+  "images": [
+    {
+      "title": "CASETA DE INGRESO",
+      "url": "https://assets.easybroker.com/property_images/3375768/54540340/EB-LY5768.png?version=1668125139"
+    },
+    {
+      "title": "AREA RECREATIVA",
+      "url": "https://assets.easybroker.com/property_images/3375768/54540356/EB-LY5768.png?version=1668125139"
+    },
+    {
+      "title": "AREA DE FOGATAS",
+      "url": "https://assets.easybroker.com/property_images/3375768/54540368/EB-LY5768.png?version=1668125139"
+    },
+    {
+      "title": "ANDADORES ORGANICOS",
+      "url": "https://assets.easybroker.com/property_images/3375768/54540369/EB-LY5768.png?version=1668125139"
+    },
+    {
+      "title": "LOTES",
+      "url": "https://assets.easybroker.com/property_images/3375768/54540370/EB-LY5768.jpeg?version=1668125139"
+    }
+  ],
+  "agent": {
+    "id": 391012,
+    "name": "Lic.Gabriela Martínez",
+    "full_name": "Lic.Gabriela Martínez",
+    "mobile_phone": "+523338087984",
+    "profile_image_url": "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1757459148",
+    "email": "GABRIELAMTZ6@HOTMAIL.COM"
+  },
+  "features": [
+    {
+      "name": "Facilidad para estacionarse",
+      "category": "Exterior"
+    },
+    {
+      "name": "Riego por aspersión",
+      "category": "Exterior"
+    },
+    {
+      "name": "Terraza",
+      "category": "Exterior"
+    }
+  ]
+}

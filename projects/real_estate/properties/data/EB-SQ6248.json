@@ -1,0 +1,163 @@
+{
+  "public_id": "EB-SQ6248",
+  "title": "Oficina en Renta en Jardines Vallarta",
+  "description": "Espacios para Oficina o Consultorios que se adaptan a tus necesidades otorgándote un espacio ideal para trabajar  y brindar la mejor imagen y comodidad a tus clientes. Los espacios cuentan con servicios incluidos:\n\n•\tRecepción cubierta 12 hrs\n•\tManejo de agenda y confirmación de citas\n•\tServicios incluidos, luz, agua, internet de alta velocidad, limpieza y mas\n•\tCoffe Break ilimitado para, café, te y otras opciones\n•\tMobiliario opcional (silla ejecutiva, escritorio y dos sillas de visita)\n\nEl costo de renta cada espacio, depende de su medida y sus características, teniendo opciones disponibles desde 6m² hasta 20m²\n\n8m²   a $4,800\n9 m²  a $5,500\n22.5 m² a $8,500 (con baño propio)",
+  "bedrooms": null,
+  "bathrooms": 2,
+  "half_bathrooms": null,
+  "parking_spaces": null,
+  "lot_size": null,
+  "construction_size": 9.0,
+  "lot_length": null,
+  "lot_width": null,
+  "floors": null,
+  "floor": null,
+  "age": null,
+  "internal_id": "GABOOFICE4",
+  "expenses": null,
+  "location": {
+    "name": "Jardines Vallarta, Zapopan, Jalisco",
+    "latitude": 20.6815232,
+    "longitude": -103.4111097,
+    "street": "Sagitario",
+    "postal_code": "45120",
+    "show_exact_location": true,
+    "hide_exact_location": false,
+    "exterior_number": "445",
+    "interior_number": null
+  },
+  "property_type": "Oficina",
+  "created_at": "2025-03-21T20:04:50-06:00",
+  "updated_at": "2025-05-12T17:31:05-06:00",
+  "published_at": "2025-03-21T20:12:33-06:00",
+  "operations": [
+    {
+      "type": "rental",
+      "amount": 4800.0,
+      "currency": "MXN",
+      "formatted_amount": "$4,800",
+      "commission": {
+        "type": "percentage"
+      },
+      "unit": "total"
+    }
+  ],
+  "property_files": [],
+  "videos": [],
+  "virtual_tour": null,
+  "collaboration_notes": null,
+  "public_url": "https://www.easybroker.com/mx/listings/oficina-en-renta-en-jardines-vallarta-jardines-vallarta-zapopan",
+  "shared_commission_percentage": null,
+  "exclusive": null,
+  "foreclosure": false,
+  "tags": [],
+  "private_description": null,
+  "show_prices": true,
+  "share_commission": false,
+  "property_images": [
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5116248/87767338/EB-SQ6248.jpg?version=1742609543"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5116248/87767337/EB-SQ6248.jpg?version=1742609543"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5116248/87767331/EB-SQ6248.jpg?version=1742609543"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5116248/87767332/EB-SQ6248.jpg?version=1742609543"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5116248/87767339/EB-SQ6248.jpg?version=1742609543"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5116248/87767329/EB-SQ6248.jpg?version=1742609543"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5116248/87767330/EB-SQ6248.jpg?version=1742609543"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5116248/87767333/EB-SQ6248.jpg?version=1742609543"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5116248/87767334/EB-SQ6248.jpg?version=1742609543"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5116248/87767335/EB-SQ6248.jpg?version=1742609543"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5116248/87767341/EB-SQ6248.jpg?version=1742609543"
+    }
+  ],
+  "images": [
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5116248/87767338/EB-SQ6248.jpg?version=1742609543"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5116248/87767337/EB-SQ6248.jpg?version=1742609543"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5116248/87767331/EB-SQ6248.jpg?version=1742609543"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5116248/87767332/EB-SQ6248.jpg?version=1742609543"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5116248/87767339/EB-SQ6248.jpg?version=1742609543"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5116248/87767329/EB-SQ6248.jpg?version=1742609543"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5116248/87767330/EB-SQ6248.jpg?version=1742609543"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5116248/87767333/EB-SQ6248.jpg?version=1742609543"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5116248/87767334/EB-SQ6248.jpg?version=1742609543"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5116248/87767335/EB-SQ6248.jpg?version=1742609543"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5116248/87767341/EB-SQ6248.jpg?version=1742609543"
+    }
+  ],
+  "agent": {
+    "id": 391012,
+    "name": "Lic.Gabriela Martínez",
+    "full_name": "Lic.Gabriela Martínez",
+    "mobile_phone": "+523338087984",
+    "profile_image_url": "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1757459148",
+    "email": "GABRIELAMTZ6@HOTMAIL.COM"
+  },
+  "features": [
+    {
+      "name": "Conmutador",
+      "category": "General"
+    }
+  ]
+}

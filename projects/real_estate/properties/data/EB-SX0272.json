@@ -1,0 +1,192 @@
+{
+  "public_id": "EB-SX0272",
+  "title": "Local en renta en Planta Baja en Jardines del Bosque",
+  "description": "Local comercial (planta baja) ubicado en Av. Arcos y Niños Héroes.\n\nFrente 10.3 m\nFondo 35 m\n\nCuenta con 8 espacios de estacionamiento.\nActualmente está subdivididlo pero se puede adecuar según sus necesidades.\n\nIdeal para Farmacia, Consultorios, Laboratorios clínicos, academias, etc.\n\n*No se acepta CallCenter ni restaurante (no cuenta con instalación de Gas.\n*La renta incluye servicio de agua.\n*Se requiere forzoso aval\n\nNo dejes pasar la oportunidad de consolidar tu negocio en este excelente punto.",
+  "bedrooms": null,
+  "bathrooms": null,
+  "half_bathrooms": 4,
+  "parking_spaces": 8,
+  "lot_size": null,
+  "construction_size": 460.0,
+  "lot_length": null,
+  "lot_width": null,
+  "floors": null,
+  "floor": "ground_floor",
+  "age": null,
+  "internal_id": "AIDAARCOS",
+  "expenses": "Incluido",
+  "location": {
+    "name": "Jardines del Bosque Centro, Guadalajara, Jalisco",
+    "latitude": 20.6670462,
+    "longitude": -103.3843085,
+    "street": "Arcos",
+    "postal_code": "44520",
+    "show_exact_location": true,
+    "hide_exact_location": false,
+    "exterior_number": "687",
+    "interior_number": null
+  },
+  "property_type": "Local comercial",
+  "created_at": "2025-04-17T11:16:18-06:00",
+  "updated_at": "2025-07-10T19:55:50-06:00",
+  "published_at": "2025-04-17T11:17:35-06:00",
+  "operations": [
+    {
+      "type": "rental",
+      "amount": 85000.0,
+      "currency": "MXN",
+      "formatted_amount": "$85,000",
+      "commission": {
+        "type": "months",
+        "value": 1
+      },
+      "unit": "total"
+    }
+  ],
+  "property_files": [],
+  "videos": [],
+  "virtual_tour": null,
+  "collaboration_notes": "Comisión compartida a inmobiliarias afiliadas",
+  "public_url": "https://www.easybroker.com/mx/listings/local-en-renta-en-planta-baja-en-jardines-del-bosque",
+  "shared_commission_percentage": 50.0,
+  "exclusive": false,
+  "foreclosure": false,
+  "tags": [],
+  "private_description": null,
+  "show_prices": true,
+  "share_commission": true,
+  "property_images": [
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5180272/89033544/EB-SX0272.jpeg?version=1744910249"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5180272/89033564/EB-SX0272.jpeg?version=1744910249"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5180272/89033543/EB-SX0272.jpeg?version=1744910249"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5180272/89033545/EB-SX0272.jpeg?version=1744910249"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5180272/89033547/EB-SX0272.jpeg?version=1744910249"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5180272/89033546/EB-SX0272.jpeg?version=1744910249"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5180272/89033548/EB-SX0272.jpeg?version=1744910249"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5180272/89033556/EB-SX0272.jpeg?version=1744910249"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5180272/89033555/EB-SX0272.jpeg?version=1744910249"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5180272/89033557/EB-SX0272.jpeg?version=1744910249"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5180272/89033568/EB-SX0272.jpeg?version=1744910249"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5180272/89033569/EB-SX0272.jpeg?version=1744910249"
+    }
+  ],
+  "images": [
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5180272/89033544/EB-SX0272.jpeg?version=1744910249"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5180272/89033564/EB-SX0272.jpeg?version=1744910249"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5180272/89033543/EB-SX0272.jpeg?version=1744910249"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5180272/89033545/EB-SX0272.jpeg?version=1744910249"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5180272/89033547/EB-SX0272.jpeg?version=1744910249"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5180272/89033546/EB-SX0272.jpeg?version=1744910249"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5180272/89033548/EB-SX0272.jpeg?version=1744910249"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5180272/89033556/EB-SX0272.jpeg?version=1744910249"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5180272/89033555/EB-SX0272.jpeg?version=1744910249"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5180272/89033557/EB-SX0272.jpeg?version=1744910249"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5180272/89033568/EB-SX0272.jpeg?version=1744910249"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5180272/89033569/EB-SX0272.jpeg?version=1744910249"
+    }
+  ],
+  "agent": {
+    "id": 391012,
+    "name": "Lic.Gabriela Martínez",
+    "full_name": "Lic.Gabriela Martínez",
+    "mobile_phone": "+523338087984",
+    "profile_image_url": "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1757459148",
+    "email": "GABRIELAMTZ6@HOTMAIL.COM"
+  },
+  "features": [
+    {
+      "name": "Facilidad para estacionarse",
+      "category": "Exterior"
+    },
+    {
+      "name": "Accesibilidad para adultos mayores",
+      "category": "General"
+    },
+    {
+      "name": "Accesibilidad para personas con discapacidad",
+      "category": "General"
+    },
+    {
+      "name": "Aire acondicionado",
+      "category": "General"
+    },
+    {
+      "name": "Oficina",
+      "category": "General"
+    },
+    {
+      "name": "Rampas",
+      "category": "General"
+    }
+  ]
+}

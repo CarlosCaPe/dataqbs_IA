@@ -1,0 +1,394 @@
+﻿{
+    "public_id":  "EB-TR6517",
+    "title":  "CASA EN VENTA EN HACIENDA SAN MIGUEL AV. JESUS MICHEL GONZALEZ",
+    "description":  "Casa en venta en Fraccionamiento Hacienda San Miguel 1, casi esquina con Av. Jesús Michel Gonzáles.\n\nPRIMER NIVEL \nCochera para 2 autos techada\nSala comedor\nRecamara/Estudio con baño completo \nCocina con ampliación totalmente equipada y madera solida. Con ventilador y regulador de luz\n\nSEGUNDO NIVEL \nÁrea de Tv/ Estudio \nRecamara secundaria con baño completo\nRecamara principal con closet, baño completo, ventilador y terraza\nÁrea de lavado techada \n\nCasi esquina casa club\nSeguridad las 24 hrs \nSalón de eventos \nÁreas verdes\nÁrea de juegos infantiles\nCancha de futbol \n\nUbicado en Av. Estrella casi esquina con Av. Jesús M Gonzáles con todo tipo de comercios cercanos, plazas comerciales, hospitales, líneas del tren, líneas de autobús.",
+    "bedrooms":  3,
+    "bathrooms":  3,
+    "half_bathrooms":  null,
+    "parking_spaces":  2,
+    "lot_size":  80.0,
+    "construction_size":  132.5,
+    "lot_length":  null,
+    "lot_width":  null,
+    "floors":  null,
+    "floor":  null,
+    "age":  null,
+    "internal_id":  "YU7LSANMIGUEL",
+    "expenses":  null,
+    "location":  {
+                     "name":  "Hacienda San Miguel, Tlajomulco de Zúñiga, Jalisco",
+                     "latitude":  20.5304962,
+                     "longitude":  -103.4005935,
+                     "street":  "AV PROLONGACION MORELOS",
+                     "postal_code":  "45654",
+                     "show_exact_location":  true,
+                     "hide_exact_location":  false,
+                     "exterior_number":  "752",
+                     "interior_number":  null
+                 },
+    "property_type":  "Casa en condominio",
+    "created_at":  "2025-07-16T14:11:18-06:00",
+    "updated_at":  "2025-07-30T13:31:34-06:00",
+    "published_at":  "2025-07-16T15:23:52-06:00",
+    "operations":  [
+                       {
+                           "type":  "sale",
+                           "amount":  2680000.0,
+                           "currency":  "MXN",
+                           "formatted_amount":  "$2,680,000",
+                           "commission":  {
+                                              "type":  "percentage",
+                                              "value":  "4.0"
+                                          },
+                           "unit":  "total"
+                       }
+                   ],
+    "property_files":  [
+
+                       ],
+    "videos":  [
+
+               ],
+    "virtual_tour":  null,
+    "collaboration_notes":  null,
+    "public_url":  "https://www.easybroker.com/mx/listings/casa-en-venta-en-hacienda-san-miguel-av-jesus-michel-gonzalez",
+    "shared_commission_percentage":  50.0,
+    "exclusive":  true,
+    "foreclosure":  false,
+    "tags":  [
+
+             ],
+    "private_description":  null,
+    "show_prices":  true,
+    "share_commission":  true,
+    "property_images":  [
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5386517/93421995/EB-TR6517.jpeg?version=1753321562"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5386517/93421996/EB-TR6517.jpeg?version=1753321562"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5386517/93102165/EB-TR6517.jpeg?version=1753321562"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5386517/93102168/EB-TR6517.jpeg?version=1753321562"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5386517/93102167/EB-TR6517.jpeg?version=1753321562"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5386517/93102169/EB-TR6517.jpeg?version=1753321562"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5386517/93102170/EB-TR6517.jpeg?version=1753321562"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5386517/93102172/EB-TR6517.jpeg?version=1753321562"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5386517/93102173/EB-TR6517.jpeg?version=1753321562"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5386517/93102174/EB-TR6517.jpeg?version=1753321562"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5386517/93102175/EB-TR6517.jpeg?version=1753321562"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5386517/93102176/EB-TR6517.jpeg?version=1753321562"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5386517/93102179/EB-TR6517.jpeg?version=1753321562"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5386517/93102186/EB-TR6517.jpeg?version=1753321562"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5386517/93102190/EB-TR6517.jpeg?version=1753321562"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5386517/93102192/EB-TR6517.jpeg?version=1753321562"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5386517/93421998/EB-TR6517.jpeg?version=1753321562"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5386517/93102194/EB-TR6517.jpeg?version=1753321562"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5386517/93421997/EB-TR6517.jpeg?version=1753321562"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5386517/93102195/EB-TR6517.jpeg?version=1753321562"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5386517/93102196/EB-TR6517.jpeg?version=1753321562"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5386517/93102198/EB-TR6517.jpeg?version=1753321562"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5386517/93102199/EB-TR6517.jpeg?version=1753321562"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5386517/93102200/EB-TR6517.jpeg?version=1753321562"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5386517/93102201/EB-TR6517.jpeg?version=1753321562"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5386517/93102387/EB-TR6517.jpeg?version=1753321562"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5386517/93102388/EB-TR6517.jpeg?version=1753321562"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5386517/93102389/EB-TR6517.jpeg?version=1753321562"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5386517/93102390/EB-TR6517.jpeg?version=1753321562"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5386517/93102391/EB-TR6517.jpeg?version=1753321562"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5386517/93102393/EB-TR6517.jpeg?version=1753321562"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5386517/93102396/EB-TR6517.jpeg?version=1753321562"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5386517/93102397/EB-TR6517.jpeg?version=1753321562"
+                            }
+                        ],
+    "images":  [
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5386517/93421995/EB-TR6517.jpeg?version=1753321562"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5386517/93421996/EB-TR6517.jpeg?version=1753321562"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5386517/93102165/EB-TR6517.jpeg?version=1753321562"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5386517/93102168/EB-TR6517.jpeg?version=1753321562"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5386517/93102167/EB-TR6517.jpeg?version=1753321562"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5386517/93102169/EB-TR6517.jpeg?version=1753321562"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5386517/93102170/EB-TR6517.jpeg?version=1753321562"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5386517/93102172/EB-TR6517.jpeg?version=1753321562"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5386517/93102173/EB-TR6517.jpeg?version=1753321562"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5386517/93102174/EB-TR6517.jpeg?version=1753321562"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5386517/93102175/EB-TR6517.jpeg?version=1753321562"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5386517/93102176/EB-TR6517.jpeg?version=1753321562"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5386517/93102179/EB-TR6517.jpeg?version=1753321562"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5386517/93102186/EB-TR6517.jpeg?version=1753321562"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5386517/93102190/EB-TR6517.jpeg?version=1753321562"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5386517/93102192/EB-TR6517.jpeg?version=1753321562"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5386517/93421998/EB-TR6517.jpeg?version=1753321562"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5386517/93102194/EB-TR6517.jpeg?version=1753321562"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5386517/93421997/EB-TR6517.jpeg?version=1753321562"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5386517/93102195/EB-TR6517.jpeg?version=1753321562"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5386517/93102196/EB-TR6517.jpeg?version=1753321562"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5386517/93102198/EB-TR6517.jpeg?version=1753321562"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5386517/93102199/EB-TR6517.jpeg?version=1753321562"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5386517/93102200/EB-TR6517.jpeg?version=1753321562"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5386517/93102201/EB-TR6517.jpeg?version=1753321562"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5386517/93102387/EB-TR6517.jpeg?version=1753321562"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5386517/93102388/EB-TR6517.jpeg?version=1753321562"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5386517/93102389/EB-TR6517.jpeg?version=1753321562"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5386517/93102390/EB-TR6517.jpeg?version=1753321562"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5386517/93102391/EB-TR6517.jpeg?version=1753321562"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5386517/93102393/EB-TR6517.jpeg?version=1753321562"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5386517/93102396/EB-TR6517.jpeg?version=1753321562"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5386517/93102397/EB-TR6517.jpeg?version=1753321562"
+                   }
+               ],
+    "agent":  {
+                  "id":  391012,
+                  "name":  "Lic.Gabriela Martínez",
+                  "full_name":  "Lic.Gabriela Martínez",
+                  "mobile_phone":  "+523338087984",
+                  "profile_image_url":  "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1757459148",
+                  "email":  "GABRIELAMTZ6@HOTMAIL.COM"
+              },
+    "features":  [
+                     {
+                         "name":  "Facilidad para estacionarse",
+                         "category":  "Exterior"
+                     },
+                     {
+                         "name":  "Patio",
+                         "category":  "Exterior"
+                     },
+                     {
+                         "name":  "Terraza",
+                         "category":  "Exterior"
+                     },
+                     {
+                         "name":  "Accesibilidad para adultos mayores",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Accesibilidad para personas con discapacidad",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Cocina equipada",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Cocina integral",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Dos plantas",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Fraccionamiento privado",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Oficina",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Seguridad 24 horas",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Área de juegos infantiles",
+                         "category":  "Recreación"
+                     },
+                     {
+                         "name":  "Salón de usos múltiples",
+                         "category":  "Recreación"
+                     }
+                 ]
+}

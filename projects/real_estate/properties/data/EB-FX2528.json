@@ -1,0 +1,189 @@
+{
+  "public_id": "EB-FX2528",
+  "title": "DEPARTAMENTO RESID. VICTORIA RENTA 8,000",
+  "description": "BONITO DEPARTAMENTO EN EDIFICIO DE SOLO 8 DEPAS EN CALLE MUY TRANQUILA PRIVADA TOPACIO. ( cerca plaza del sol,a un lado expo gdl) EN PRIMER NIVEL\nCONSTA DE DOS CAJONES DE ESTACIONAMIENTO PEGADOS A LA ENTRADA, SALA COMEDOR,MEDIO BAÑO, COCINETA , AREA DE LAVADO TECHADA, DOS RECAMARAS UN STAR DE TV Y UN BAÑO PARA AMBAS RECAMARAS.",
+  "bedrooms": 2,
+  "bathrooms": 1,
+  "half_bathrooms": 1,
+  "parking_spaces": 2,
+  "lot_size": null,
+  "construction_size": null,
+  "lot_length": null,
+  "lot_width": null,
+  "floors": null,
+  "floor": "1",
+  "age": null,
+  "internal_id": null,
+  "expenses": "NO INCLUIDO",
+  "location": {
+    "name": "Residencial Victoria, Guadalajara, Jalisco",
+    "latitude": 20.6417502,
+    "longitude": -103.3953676,
+    "street": "privada topacio",
+    "postal_code": "44538",
+    "show_exact_location": true,
+    "hide_exact_location": false,
+    "exterior_number": null,
+    "interior_number": null
+  },
+  "property_type": "Departamento",
+  "created_at": "2020-10-12T15:09:09-05:00",
+  "updated_at": "2025-05-12T12:09:04-06:00",
+  "published_at": "2022-05-27T10:53:01-05:00",
+  "operations": [
+    {
+      "type": "rental",
+      "amount": 8000.0,
+      "currency": "MXN",
+      "formatted_amount": "$8,000",
+      "commission": {
+        "type": "amount",
+        "value": 1,
+        "currency": "MXN"
+      },
+      "unit": "total"
+    }
+  ],
+  "property_files": [],
+  "videos": [],
+  "virtual_tour": null,
+  "collaboration_notes": null,
+  "public_url": "https://www.easybroker.com/mx/listings/departamento-resid-victoria-renta-7-500",
+  "shared_commission_percentage": null,
+  "exclusive": null,
+  "foreclosure": false,
+  "tags": [],
+  "private_description": null,
+  "show_prices": true,
+  "share_commission": false,
+  "property_images": [
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/1802528/47772468/EB-FX2528.jpeg?version=1653667699"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/1802528/47775912/EB-FX2528.jpeg?version=1653671569"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/1802528/47775918/EB-FX2528.jpeg?version=1653671569"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/1802528/47775920/EB-FX2528.jpeg?version=1653671569"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/1802528/47775921/EB-FX2528.jpeg?version=1653671569"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/1802528/47775945/EB-FX2528.jpeg?version=1653671569"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/1802528/47775964/EB-FX2528.jpeg?version=1653671569"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/1802528/47775965/EB-FX2528.jpeg?version=1653671569"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/1802528/47775970/EB-FX2528.jpeg?version=1653671569"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/1802528/47775976/EB-FX2528.jpeg?version=1653671569"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/1802528/47775977/EB-FX2528.jpeg?version=1653671569"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/1802528/47775978/EB-FX2528.jpeg?version=1653671569"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/1802528/47775980/EB-FX2528.jpeg?version=1653671569"
+    }
+  ],
+  "images": [
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/1802528/47772468/EB-FX2528.jpeg?version=1653667699"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/1802528/47775912/EB-FX2528.jpeg?version=1653671569"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/1802528/47775918/EB-FX2528.jpeg?version=1653671569"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/1802528/47775920/EB-FX2528.jpeg?version=1653671569"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/1802528/47775921/EB-FX2528.jpeg?version=1653671569"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/1802528/47775945/EB-FX2528.jpeg?version=1653671569"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/1802528/47775964/EB-FX2528.jpeg?version=1653671569"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/1802528/47775965/EB-FX2528.jpeg?version=1653671569"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/1802528/47775970/EB-FX2528.jpeg?version=1653671569"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/1802528/47775976/EB-FX2528.jpeg?version=1653671569"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/1802528/47775977/EB-FX2528.jpeg?version=1653671569"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/1802528/47775978/EB-FX2528.jpeg?version=1653671569"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/1802528/47775980/EB-FX2528.jpeg?version=1653671569"
+    }
+  ],
+  "agent": {
+    "id": 391012,
+    "name": "Lic.Gabriela Martínez",
+    "full_name": "Lic.Gabriela Martínez",
+    "mobile_phone": "+523338087984",
+    "profile_image_url": "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1757459148",
+    "email": "GABRIELAMTZ6@HOTMAIL.COM"
+  },
+  "features": [
+    {
+      "name": "Cisterna",
+      "category": "Exterior"
+    },
+    {
+      "name": "Facilidad para estacionarse",
+      "category": "Exterior"
+    },
+    {
+      "name": "Garaje",
+      "category": "Exterior"
+    }
+  ]
+}

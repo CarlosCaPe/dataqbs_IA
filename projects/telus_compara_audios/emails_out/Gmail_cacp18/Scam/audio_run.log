@@ -1,0 +1,35 @@
+2025-09-29 16:18:10,939 INFO Panel de Audio encontrado. Iniciando iteraciones…
+2025-09-29 16:18:10,956 INFO Iteración 1/3
+2025-09-29 16:18:37,326 ERROR SMART no pudo comparar tras reintentos: Captura silenciosa/near-zero en R/A/B
+2025-09-29 16:18:37,328 INFO Iteraciones realizadas: 0
+2025-09-29 16:18:37,329 INFO Tiempo total: 34.7s  (~0.0s/iter)
+2025-09-29 16:19:03,361 INFO Panel de Audio encontrado. Iniciando iteraciones…
+2025-09-29 16:19:03,362 INFO Iteración 1/3
+2025-09-29 16:20:09,862 ERROR SMART no pudo comparar tras reintentos: Captura silenciosa/near-zero en R/A/B
+2025-09-29 16:20:09,862 INFO Iteraciones realizadas: 0
+2025-09-29 16:20:09,863 INFO Tiempo total: 72.8s  (~0.0s/iter)
+2025-09-29 16:21:17,424 INFO Panel de Audio encontrado. Iniciando iteraciones…
+2025-09-29 16:21:17,433 INFO Iteración 1/3
+2025-09-29 16:23:15,561 ERROR SMART no pudo comparar tras reintentos: Captura silenciosa/near-zero en R/A/B
+2025-09-29 16:23:15,561 INFO Iteraciones realizadas: 0
+2025-09-29 16:23:15,562 INFO Tiempo total: 125.1s  (~0.0s/iter)
+2025-09-29 16:25:18,368 INFO Panel de Audio encontrado. Iniciando iteraciones…
+2025-09-29 16:25:18,580 INFO Iteración 1/3
+2025-09-29 16:27:38,871 ERROR SMART no pudo comparar tras reintentos: Captura silenciosa/near-zero en R/A/B
+2025-09-29 16:27:38,873 INFO Iteraciones realizadas: 0
+2025-09-29 16:27:38,873 INFO Tiempo total: 150.3s  (~0.0s/iter)
+2025-09-29 16:28:40,854 INFO Panel de Audio encontrado. Iniciando iteraciones…
+2025-09-29 16:28:40,854 INFO Iteración 1/3
+2025-09-29 16:30:56,301 ERROR SMART no pudo comparar tras reintentos: Captura silenciosa/near-zero en R/A/B
+2025-09-29 16:30:56,302 INFO Iteraciones realizadas: 0
+2025-09-29 16:30:56,302 INFO Tiempo total: 143.3s  (~0.0s/iter)
+2025-09-29 16:33:31,544 INFO Panel de Audio encontrado. Iniciando iteraciones…
+2025-09-29 16:33:31,548 INFO Iteración 1/3
+2025-09-29 16:35:52,522 ERROR SMART no pudo comparar tras reintentos: Captura silenciosa/near-zero en R/A/B
+2025-09-29 16:35:52,523 INFO Iteraciones realizadas: 0
+2025-09-29 16:35:52,523 INFO Tiempo total: 147.3s  (~0.0s/iter)
+2025-09-29 16:36:26,739 INFO Panel de Audio encontrado. Iniciando iteraciones…
+2025-09-29 16:36:26,741 INFO Iteración 1/3
+2025-09-29 16:38:34,498 ERROR SMART no pudo comparar tras reintentos: Captura silenciosa/near-zero en R/A/B
+2025-09-29 16:38:34,498 INFO Iteraciones realizadas: 0
+2025-09-29 16:38:34,499 INFO Tiempo total: 132.8s  (~0.0s/iter)

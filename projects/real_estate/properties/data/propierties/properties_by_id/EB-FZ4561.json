@@ -1,0 +1,30 @@
+﻿{
+    "public_id":  "EB-FZ4561",
+    "title":  "RESIDENCIA EN VALLE REAL PASEO SAN ARTURO",
+    "title_image_full":  "https://assets.easybroker.com/property_images/1824561/27806167/EB-FZ4561.jpg?version=1603648924",
+    "title_image_thumb":  "https://assets.easybroker.com/property_images/1824561/27806167/EB-FZ4561.jpg?version=1603648924\u0026width=200",
+    "location":  "Valle Real, Zapopan, Jalisco",
+    "operations":  [
+                       {
+                           "type":  "sale",
+                           "amount":  15900000.0,
+                           "currency":  "MXN",
+                           "formatted_amount":  "$15,900,000",
+                           "commission":  {
+                                              "type":  "percentage",
+                                              "value":  "4.0"
+                                          },
+                           "unit":  "total"
+                       }
+                   ],
+    "bedrooms":  3,
+    "bathrooms":  4,
+    "parking_spaces":  6,
+    "property_type":  "Casa",
+    "lot_size":  512.0,
+    "construction_size":  454.0,
+    "updated_at":  "2025-05-12T12:09:04-06:00",
+    "agent":  "Lic.Gabriela Martínez",
+    "show_prices":  true,
+    "share_commission":  true
+}

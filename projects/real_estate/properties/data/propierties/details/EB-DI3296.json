@@ -1,0 +1,189 @@
+﻿{
+    "public_id":  "EB-DI3296",
+    "title":  "EL PALOMAR SECC JOCKEY (ABAJO)",
+    "description":  "EXCELENTE CASA EN RENTA EN EL PALOMAR SECCION JOCKEY .CASA DOS PLANTAS .\nP.BAJA; COCHERA DOS AUTOS SALA COMEDOR ,MEDIO BAÑO,COCINA INTEGRAL MUY AMPLIA CON AREA DE ANTECOMEDOR, RECAMARA PRINCIPAL ABAJO CON BAÑO GRANDE Y JACUZZI. \nENORME JARDIN CON TERRAZA TECHADA PARA EVENTOS, BAÑO Y BODEGA.\nPLANTA ALTA: ESTUDIO, 2 RECAMARAS COMPARTEN BAÑO Y AREA DE LAVANDERIA.\nINCLUYE MANTENIMIENTO Y AGUA",
+    "bedrooms":  3,
+    "bathrooms":  2,
+    "half_bathrooms":  2,
+    "parking_spaces":  2,
+    "lot_size":  300.0,
+    "construction_size":  373.0,
+    "lot_length":  10.0,
+    "lot_width":  30.0,
+    "floors":  null,
+    "floor":  null,
+    "age":  null,
+    "internal_id":  null,
+    "expenses":  "INCLUIDO",
+    "location":  {
+                     "name":  "El Palomar Secc Jockey Club, Tlajomulco de Zúñiga, Jalisco",
+                     "latitude":  20.5916864,
+                     "longitude":  -103.4464219,
+                     "street":  "VALLE DE VICTORIA ",
+                     "postal_code":  null,
+                     "show_exact_location":  true,
+                     "hide_exact_location":  false,
+                     "exterior_number":  "144",
+                     "interior_number":  null
+                 },
+    "property_type":  "Casa",
+    "created_at":  "2019-06-26T12:58:09-05:00",
+    "updated_at":  "2025-05-12T12:09:04-06:00",
+    "published_at":  "2021-02-03T19:25:37-06:00",
+    "operations":  [
+                       {
+                           "type":  "rental",
+                           "amount":  16500.0,
+                           "currency":  "MXN",
+                           "formatted_amount":  "$16,500",
+                           "commission":  {
+                                              "type":  "percentage"
+                                          },
+                           "unit":  "total"
+                       }
+                   ],
+    "property_files":  [
+
+                       ],
+    "videos":  [
+
+               ],
+    "virtual_tour":  null,
+    "collaboration_notes":  "MEDIO MES",
+    "public_url":  "https://www.easybroker.com/mx/listings/el-palomar-secc-jockey-abajo",
+    "shared_commission_percentage":  null,
+    "exclusive":  null,
+    "foreclosure":  false,
+    "tags":  [
+
+             ],
+    "private_description":  null,
+    "show_prices":  true,
+    "share_commission":  true,
+    "property_images":  [
+                            {
+                                "title":  "",
+                                "url":  "https://assets.easybroker.com/property_images/1133296/16866678/EB-DI3296.jpg?version=1561571978"
+                            },
+                            {
+                                "title":  "",
+                                "url":  "https://assets.easybroker.com/property_images/1133296/16866686/EB-DI3296.jpg?version=1561571978"
+                            },
+                            {
+                                "title":  "",
+                                "url":  "https://assets.easybroker.com/property_images/1133296/16866698/EB-DI3296.jpg?version=1561571978"
+                            },
+                            {
+                                "title":  "",
+                                "url":  "https://assets.easybroker.com/property_images/1133296/16866703/EB-DI3296.jpg?version=1561571978"
+                            },
+                            {
+                                "title":  "",
+                                "url":  "https://assets.easybroker.com/property_images/1133296/16866709/EB-DI3296.jpg?version=1561571978"
+                            },
+                            {
+                                "title":  "",
+                                "url":  "https://assets.easybroker.com/property_images/1133296/16866717/EB-DI3296.jpg?version=1561571978"
+                            },
+                            {
+                                "title":  "",
+                                "url":  "https://assets.easybroker.com/property_images/1133296/16866718/EB-DI3296.jpg?version=1561571978"
+                            },
+                            {
+                                "title":  "",
+                                "url":  "https://assets.easybroker.com/property_images/1133296/16866722/EB-DI3296.jpg?version=1561571978"
+                            },
+                            {
+                                "title":  "",
+                                "url":  "https://assets.easybroker.com/property_images/1133296/16866726/EB-DI3296.jpg?version=1561571978"
+                            },
+                            {
+                                "title":  "",
+                                "url":  "https://assets.easybroker.com/property_images/1133296/16866732/EB-DI3296.jpg?version=1561571978"
+                            }
+                        ],
+    "images":  [
+                   {
+                       "title":  "",
+                       "url":  "https://assets.easybroker.com/property_images/1133296/16866678/EB-DI3296.jpg?version=1561571978"
+                   },
+                   {
+                       "title":  "",
+                       "url":  "https://assets.easybroker.com/property_images/1133296/16866686/EB-DI3296.jpg?version=1561571978"
+                   },
+                   {
+                       "title":  "",
+                       "url":  "https://assets.easybroker.com/property_images/1133296/16866698/EB-DI3296.jpg?version=1561571978"
+                   },
+                   {
+                       "title":  "",
+                       "url":  "https://assets.easybroker.com/property_images/1133296/16866703/EB-DI3296.jpg?version=1561571978"
+                   },
+                   {
+                       "title":  "",
+                       "url":  "https://assets.easybroker.com/property_images/1133296/16866709/EB-DI3296.jpg?version=1561571978"
+                   },
+                   {
+                       "title":  "",
+                       "url":  "https://assets.easybroker.com/property_images/1133296/16866717/EB-DI3296.jpg?version=1561571978"
+                   },
+                   {
+                       "title":  "",
+                       "url":  "https://assets.easybroker.com/property_images/1133296/16866718/EB-DI3296.jpg?version=1561571978"
+                   },
+                   {
+                       "title":  "",
+                       "url":  "https://assets.easybroker.com/property_images/1133296/16866722/EB-DI3296.jpg?version=1561571978"
+                   },
+                   {
+                       "title":  "",
+                       "url":  "https://assets.easybroker.com/property_images/1133296/16866726/EB-DI3296.jpg?version=1561571978"
+                   },
+                   {
+                       "title":  "",
+                       "url":  "https://assets.easybroker.com/property_images/1133296/16866732/EB-DI3296.jpg?version=1561571978"
+                   }
+               ],
+    "agent":  {
+                  "id":  391012,
+                  "name":  "Lic.Gabriela Martínez",
+                  "full_name":  "Lic.Gabriela Martínez",
+                  "mobile_phone":  "+523338087984",
+                  "profile_image_url":  "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1757459148",
+                  "email":  "GABRIELAMTZ6@HOTMAIL.COM"
+              },
+    "features":  [
+                     {
+                         "name":  "Garaje",
+                         "category":  "Exterior"
+                     },
+                     {
+                         "name":  "Chimenea",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Balcón",
+                         "category":  "Exterior"
+                     },
+                     {
+                         "name":  "Jardín",
+                         "category":  "Exterior"
+                     },
+                     {
+                         "name":  "Cocina equipada",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Cocina integral",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Fraccionamiento privado",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Facilidad para estacionarse",
+                         "category":  "Exterior"
+                     }
+                 ]
+}

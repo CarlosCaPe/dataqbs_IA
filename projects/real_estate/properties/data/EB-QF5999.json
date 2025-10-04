@@ -1,0 +1,188 @@
+{
+  "public_id": "EB-QF5999",
+  "title": "Casa en renta en Chapalita",
+  "description": "Amplia casa en Chapalita a unos pasos de Av. Tepeyac.\n\nCochera para dos autos (adecuación para hasta 4)\n\nPLANTA BAJA/\n•Recibidor\n•Amplia zona de sala-comedor\n•Recámara\n• Medio baño \n•Patio \n•Jardín \n•Cocina (en la parte trasera de la casa)\n•Área de servicio \n\nPLANTA\n•Recámara con  ventilador \n•Habitación principal con ventilador,  closet y baño completo \n•Baño completo en recibidor \n•Recámara con closet vista al jardín y baño completo \n\nCon todos los beneficios que solo Chapalita puede ofrecer, tanto para negocio como cada habitación, esta propiedad está lista para ser personalizada de acuerdo a tus necesidades.\n\nNo pierdas la oportunidad y agenda tu cita lo antes posible.",
+  "bedrooms": 4,
+  "bathrooms": 2,
+  "half_bathrooms": 1,
+  "parking_spaces": 2,
+  "lot_size": 261.0,
+  "construction_size": 256.7,
+  "lot_length": null,
+  "lot_width": null,
+  "floors": 2,
+  "floor": null,
+  "age": null,
+  "internal_id": "APSTARITA",
+  "expenses": null,
+  "location": {
+    "name": "Chapalita Oriente, Zapopan, Jalisco",
+    "latitude": 20.6625722,
+    "longitude": -103.4050122,
+    "street": "Santa Rita",
+    "postal_code": "45040",
+    "show_exact_location": true,
+    "hide_exact_location": false,
+    "exterior_number": "928",
+    "interior_number": null
+  },
+  "property_type": "Casa",
+  "created_at": "2024-05-16T10:08:37-06:00",
+  "updated_at": "2025-05-12T12:09:04-06:00",
+  "published_at": "2024-05-16T10:11:09-06:00",
+  "operations": [
+    {
+      "type": "rental",
+      "amount": 25000.0,
+      "currency": "MXN",
+      "formatted_amount": "$25,000",
+      "commission": {
+        "type": "months",
+        "value": 1
+      },
+      "unit": "total"
+    }
+  ],
+  "property_files": [],
+  "videos": [],
+  "virtual_tour": null,
+  "collaboration_notes": "50% a inmobiliarias afiliadas",
+  "public_url": "https://www.easybroker.com/mx/listings/casa-en-renta-en-chapalita-chapalita-oriente-casa",
+  "shared_commission_percentage": null,
+  "exclusive": null,
+  "foreclosure": false,
+  "tags": [],
+  "private_description": null,
+  "show_prices": true,
+  "share_commission": true,
+  "property_images": [
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4485999/75109370/EB-QF5999.jpeg?version=1715875847"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4485999/75109371/EB-QF5999.jpeg?version=1715875847"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4485999/75109372/EB-QF5999.jpeg?version=1715875847"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4485999/75109373/EB-QF5999.jpeg?version=1715875848"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4485999/75109374/EB-QF5999.jpeg?version=1715875848"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4485999/75109375/EB-QF5999.jpeg?version=1715875848"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4485999/75109376/EB-QF5999.jpeg?version=1715875849"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4485999/75109377/EB-QF5999.jpeg?version=1715875849"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4485999/75109378/EB-QF5999.jpeg?version=1715875850"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4485999/75109380/EB-QF5999.jpeg?version=1715875850"
+    }
+  ],
+  "images": [
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4485999/75109370/EB-QF5999.jpeg?version=1715875847"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4485999/75109371/EB-QF5999.jpeg?version=1715875847"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4485999/75109372/EB-QF5999.jpeg?version=1715875847"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4485999/75109373/EB-QF5999.jpeg?version=1715875848"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4485999/75109374/EB-QF5999.jpeg?version=1715875848"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4485999/75109375/EB-QF5999.jpeg?version=1715875848"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4485999/75109376/EB-QF5999.jpeg?version=1715875849"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4485999/75109377/EB-QF5999.jpeg?version=1715875849"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4485999/75109378/EB-QF5999.jpeg?version=1715875850"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4485999/75109380/EB-QF5999.jpeg?version=1715875850"
+    }
+  ],
+  "agent": {
+    "id": 391012,
+    "name": "Lic.Gabriela Martínez",
+    "full_name": "Lic.Gabriela Martínez",
+    "mobile_phone": "+523338087984",
+    "profile_image_url": "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1757459148",
+    "email": "GABRIELAMTZ6@HOTMAIL.COM"
+  },
+  "features": [
+    {
+      "name": "Facilidad para estacionarse",
+      "category": "Exterior"
+    },
+    {
+      "name": "Jardín",
+      "category": "Exterior"
+    },
+    {
+      "name": "Patio",
+      "category": "Exterior"
+    },
+    {
+      "name": "Accesibilidad para adultos mayores",
+      "category": "General"
+    },
+    {
+      "name": "Accesibilidad para personas con discapacidad",
+      "category": "General"
+    },
+    {
+      "name": "Cocina",
+      "category": "General"
+    },
+    {
+      "name": "Cuarto de servicio",
+      "category": "General"
+    },
+    {
+      "name": "Dos plantas",
+      "category": "General"
+    },
+    {
+      "name": "Mascotas permitidas",
+      "category": "Políticas"
+    }
+  ]
+}

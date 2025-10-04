@@ -1,0 +1,356 @@
+{
+  "public_id": "EB-TA1498",
+  "title": "Casa en Venta en Punto Sur",
+  "description": "Excelente oportunidad de casa en venta en Punto Sur con la mayor plusvalia del sur de Guadalajara. \nA solo unos pasos del mejor centro comercial al sur de la ciudad y con gran conectividad entre López Mateos y Camino Real a Colima, no puedes dejar pasar la oportunidad de invertir en esta propiedad.\n\nPLANTA BAJA:\n• Estudio (dormitorio)\n• Baño Completo\n• Amplia sala-comedor con acceso a terraza\n• Cocina integral\n• Cuarto de lavado\n• Cochera para 2 autos.\n\nPLANTA ALTA:\n• 3 Recamaras con instalación para aire acondicionado\n• Recamara principal con baño completo y walk in closet \n• 2 Recamaras secundarias con closet\n• Estar de TV con closet de blancos\n\nRooftop en tercer nivel  con medio baño. \n\nLa casa cuenta con cisterna, tinaco, tanque estacionario y total iluminación LED\n\nContaras con casa club con acceso controlado, alberca climatizada, salón de usos múltiples, gimnasio, terraza, cancha de padel, juegos infantiles y un amplio jardín, seguridad 24/7",
+  "bedrooms": 4,
+  "bathrooms": 3,
+  "half_bathrooms": 1,
+  "parking_spaces": 2,
+  "lot_size": 139.0,
+  "construction_size": 192.0,
+  "lot_length": null,
+  "lot_width": null,
+  "floors": 3,
+  "floor": null,
+  "age": 2018,
+  "internal_id": "GABOPSUR",
+  "expenses": "1650",
+  "location": {
+    "name": "Punto Sur, Tlajomulco de Zúñiga, Jalisco",
+    "latitude": 20.5671141807,
+    "longitude": -103.4525858103,
+    "street": "Avenida Punto Sur",
+    "postal_code": "45640",
+    "show_exact_location": true,
+    "hide_exact_location": false,
+    "exterior_number": "6333",
+    "interior_number": null
+  },
+  "property_type": "Casa",
+  "created_at": "2025-05-01T12:49:33-06:00",
+  "updated_at": "2025-08-08T09:19:46-06:00",
+  "published_at": "2025-05-01T13:03:11-06:00",
+  "operations": [
+    {
+      "type": "sale",
+      "amount": 6900000.0,
+      "currency": "MXN",
+      "formatted_amount": "$6,900,000",
+      "commission": {
+        "type": "percentage",
+        "value": "4.0"
+      },
+      "unit": "total"
+    }
+  ],
+  "property_files": [],
+  "videos": [],
+  "virtual_tour": null,
+  "collaboration_notes": null,
+  "public_url": "https://www.easybroker.com/mx/listings/oportunidad-casa-en-venta-en-punto-sur",
+  "shared_commission_percentage": 50.0,
+  "exclusive": false,
+  "foreclosure": false,
+  "tags": [],
+  "private_description": null,
+  "show_prices": true,
+  "share_commission": true,
+  "property_images": [
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5211498/89621541/EB-TA1498.jpg?version=1746127652"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5211498/89618868/EB-TA1498.jpg?version=1746127652"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5211498/89619246/EB-TA1498.jpg?version=1746127652"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5211498/89618869/EB-TA1498.jpg?version=1746127652"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5211498/89618867/EB-TA1498.jpg?version=1746127652"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5211498/89618866/EB-TA1498.jpg?version=1746127652"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5211498/89618870/EB-TA1498.jpg?version=1746127652"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5211498/89618872/EB-TA1498.jpg?version=1746127652"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5211498/89618871/EB-TA1498.jpg?version=1746127652"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5211498/89619236/EB-TA1498.jpg?version=1746127652"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5211498/89618874/EB-TA1498.jpg?version=1746127652"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5211498/89619243/EB-TA1498.jpg?version=1746127652"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5211498/89618877/EB-TA1498.jpg?version=1746127652"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5211498/89619241/EB-TA1498.jpg?version=1746127652"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5211498/89619102/EB-TA1498.jpg?version=1746127652"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5211498/89618865/EB-TA1498.jpg?version=1746127652"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5211498/89618863/EB-TA1498.jpg?version=1746127652"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5211498/89618873/EB-TA1498.jpg?version=1746127652"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5211498/89618862/EB-TA1498.jpg?version=1746127652"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5211498/89618864/EB-TA1498.jpg?version=1746127652"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5211498/89618875/EB-TA1498.jpg?version=1746127652"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5211498/89619180/EB-TA1498.jpg?version=1746127652"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5211498/89619177/EB-TA1498.jpg?version=1746127652"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5211498/89618878/EB-TA1498.jpg?version=1746127652"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5211498/89619179/EB-TA1498.jpg?version=1746127652"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5211498/89619178/EB-TA1498.jpg?version=1746127652"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5211498/89619247/EB-TA1498.jpg?version=1746127652"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5211498/89619394/EB-TA1498.jpg?version=1746127652"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5211498/89619235/EB-TA1498.jpg?version=1746127652"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5211498/89619389/EB-TA1498.jpg?version=1746127652"
+    }
+  ],
+  "images": [
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5211498/89621541/EB-TA1498.jpg?version=1746127652"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5211498/89618868/EB-TA1498.jpg?version=1746127652"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5211498/89619246/EB-TA1498.jpg?version=1746127652"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5211498/89618869/EB-TA1498.jpg?version=1746127652"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5211498/89618867/EB-TA1498.jpg?version=1746127652"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5211498/89618866/EB-TA1498.jpg?version=1746127652"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5211498/89618870/EB-TA1498.jpg?version=1746127652"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5211498/89618872/EB-TA1498.jpg?version=1746127652"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5211498/89618871/EB-TA1498.jpg?version=1746127652"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5211498/89619236/EB-TA1498.jpg?version=1746127652"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5211498/89618874/EB-TA1498.jpg?version=1746127652"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5211498/89619243/EB-TA1498.jpg?version=1746127652"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5211498/89618877/EB-TA1498.jpg?version=1746127652"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5211498/89619241/EB-TA1498.jpg?version=1746127652"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5211498/89619102/EB-TA1498.jpg?version=1746127652"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5211498/89618865/EB-TA1498.jpg?version=1746127652"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5211498/89618863/EB-TA1498.jpg?version=1746127652"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5211498/89618873/EB-TA1498.jpg?version=1746127652"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5211498/89618862/EB-TA1498.jpg?version=1746127652"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5211498/89618864/EB-TA1498.jpg?version=1746127652"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5211498/89618875/EB-TA1498.jpg?version=1746127652"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5211498/89619180/EB-TA1498.jpg?version=1746127652"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5211498/89619177/EB-TA1498.jpg?version=1746127652"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5211498/89618878/EB-TA1498.jpg?version=1746127652"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5211498/89619179/EB-TA1498.jpg?version=1746127652"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5211498/89619178/EB-TA1498.jpg?version=1746127652"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5211498/89619247/EB-TA1498.jpg?version=1746127652"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5211498/89619394/EB-TA1498.jpg?version=1746127652"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5211498/89619235/EB-TA1498.jpg?version=1746127652"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5211498/89619389/EB-TA1498.jpg?version=1746127652"
+    }
+  ],
+  "agent": {
+    "id": 391012,
+    "name": "Lic.Gabriela Martínez",
+    "full_name": "Lic.Gabriela Martínez",
+    "mobile_phone": "+523338087984",
+    "profile_image_url": "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1757459148",
+    "email": "GABRIELAMTZ6@HOTMAIL.COM"
+  },
+  "features": [
+    {
+      "name": "Cisterna",
+      "category": "Exterior"
+    },
+    {
+      "name": "Roof garden",
+      "category": "Exterior"
+    },
+    {
+      "name": "Cocina integral",
+      "category": "General"
+    },
+    {
+      "name": "Cuarto de servicio",
+      "category": "General"
+    },
+    {
+      "name": "Estudio",
+      "category": "General"
+    },
+    {
+      "name": "Fraccionamiento privado",
+      "category": "General"
+    },
+    {
+      "name": "Seguridad 24 horas",
+      "category": "General"
+    },
+    {
+      "name": "Alberca",
+      "category": "Recreación"
+    },
+    {
+      "name": "Área de juegos infantiles",
+      "category": "Recreación"
+    },
+    {
+      "name": "Gimnasio",
+      "category": "Recreación"
+    },
+    {
+      "name": "Salón de usos múltiples",
+      "category": "Recreación"
+    }
+  ]
+}

@@ -1,0 +1,337 @@
+﻿{
+    "public_id":  "EB-QB4857",
+    "title":  "Casa en renta o venta zona Galerías Santa Anita",
+    "description":  "Amplia casa en fraccionamiento Pontevedra.\u2028\u2028\n•PRECIO POR DEBAJO DE AVALÚO•\n\nPLANTA BAJA:\u2028\n\n•Sala/comedor\u2028\n•Medio baño\u2028\n•Cocina integral\u2028\n•Alacena independiente\u2028\n•Área de lavado\u2028\n•Jardín con terraza \u2028\n•Pasillo lateral con acceso independiente a jardín \u2028\n•Bodega\n\n \u2028\u2028\u2028PLANTA ALTA:\u2028\n•Recámara principal con baño completo \u2028\n•Dos habitaciones (una de ellas con closet)\u2028\n•Estudio/Family room\u2028\n•Baño completo\u2028\n•Terraza\u2028\u2028\n\nTERCER NIVEL:\u2028\n•Bodega\u2028\u2028\n\nESPECIFICACIONES:\u2028\n-Doble tinaco 1100 litros cada uno\n\u2028-Aislamiento térmico en recámara principal \n\u2028-Doble vidrio en ventanas de sala y habitación principal\n \u2028-Persianas electivas\n \u2028-Calentador solar de tres servicios completos\n\u2028-Bodega adicional en azotea con grúa \n\u2028-Sistema de riego\u2028\n-Doble línea de luz (opción a 220)\u2028\u2028\n\nCochera para dos automóviles.\u2028\nOrientación Norte-Sur\u2028\u2028\n\nFraccionamiento Pontevedra está estratégicamente ubicado entre dos salidas hacia López Mateos, cerca de escuelas, centros comerciales, restaurantes y todos los servicios.\u2028Cuenta con seguridad 24/7\u2028\u2028\n\nLa casa se encuentra frente al área común que cuenta con juegos infantiles, área verde, alberca y canchas deportivas.\u2028\u2028\n\nNo dejes pasar la oportunidad de hacer de esta casa, tu nuevo hogar.\n\n*Mascotas bienvenidas\n*Precio de renta + mantenimiento",
+    "bedrooms":  3,
+    "bathrooms":  2,
+    "half_bathrooms":  1,
+    "parking_spaces":  2,
+    "lot_size":  167.51,
+    "construction_size":  240.0,
+    "lot_length":  20.0,
+    "lot_width":  9.7,
+    "floors":  3,
+    "floor":  null,
+    "age":  2011,
+    "internal_id":  "APPONTEVEDRA",
+    "expenses":  "800",
+    "location":  {
+                     "name":  "San Agustin, Tlajomulco de Zúñiga, Jalisco",
+                     "latitude":  20.5613978,
+                     "longitude":  -103.4884809,
+                     "street":  "Casa en Paseo Pontevedra",
+                     "postal_code":  "45645",
+                     "show_exact_location":  true,
+                     "hide_exact_location":  false,
+                     "exterior_number":  "127",
+                     "interior_number":  null
+                 },
+    "property_type":  "Casa en condominio",
+    "created_at":  "2024-04-25T05:21:05-06:00",
+    "updated_at":  "2025-05-12T12:09:04-06:00",
+    "published_at":  "2025-02-14T18:47:07-06:00",
+    "operations":  [
+                       {
+                           "type":  "sale",
+                           "amount":  3300000.0,
+                           "currency":  "MXN",
+                           "formatted_amount":  "$3,300,000",
+                           "commission":  {
+                                              "type":  "percentage",
+                                              "value":  "5.0"
+                                          },
+                           "unit":  "total"
+                       },
+                       {
+                           "type":  "rental",
+                           "amount":  12000.0,
+                           "currency":  "MXN",
+                           "formatted_amount":  "$12,000",
+                           "commission":  {
+                                              "type":  "months",
+                                              "value":  1
+                                          },
+                           "unit":  "total"
+                       }
+                   ],
+    "property_files":  [
+
+                       ],
+    "videos":  [
+
+               ],
+    "virtual_tour":  null,
+    "collaboration_notes":  "50% inmobiliarias afiliadas.",
+    "public_url":  "https://www.easybroker.com/mx/listings/casa-en-venta-zona-galerias-santa-anita-san-agustin",
+    "shared_commission_percentage":  null,
+    "exclusive":  true,
+    "foreclosure":  false,
+    "tags":  [
+
+             ],
+    "private_description":  null,
+    "show_prices":  true,
+    "share_commission":  true,
+    "property_images":  [
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4444857/86156977/EB-QB4857.jpg?version=1739733918"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4444857/74322526/EB-QB4857.jpeg?version=1739733918"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4444857/86156979/EB-QB4857.jpg?version=1739733918"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4444857/74322518/EB-QB4857.jpeg?version=1739733918"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4444857/74322514/EB-QB4857.jpeg?version=1739733918"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4444857/74322516/EB-QB4857.jpeg?version=1739733918"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4444857/74322517/EB-QB4857.jpeg?version=1739733918"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4444857/74646913/EB-QB4857.jpeg?version=1739733918"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4444857/74322524/EB-QB4857.jpeg?version=1739733918"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4444857/74646912/EB-QB4857.jpeg?version=1739733918"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4444857/74646917/EB-QB4857.jpeg?version=1739733918"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4444857/74646916/EB-QB4857.jpeg?version=1739733918"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4444857/74322519/EB-QB4857.jpeg?version=1739733918"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4444857/86156978/EB-QB4857.jpg?version=1739733918"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4444857/74322521/EB-QB4857.jpeg?version=1739733918"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4444857/74322522/EB-QB4857.jpeg?version=1739733918"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4444857/74646909/EB-QB4857.jpeg?version=1739733918"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4444857/74646908/EB-QB4857.jpeg?version=1739733918"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4444857/74646910/EB-QB4857.jpeg?version=1739733918"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4444857/74646911/EB-QB4857.jpeg?version=1739733918"
+                            }
+                        ],
+    "images":  [
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4444857/86156977/EB-QB4857.jpg?version=1739733918"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4444857/74322526/EB-QB4857.jpeg?version=1739733918"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4444857/86156979/EB-QB4857.jpg?version=1739733918"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4444857/74322518/EB-QB4857.jpeg?version=1739733918"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4444857/74322514/EB-QB4857.jpeg?version=1739733918"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4444857/74322516/EB-QB4857.jpeg?version=1739733918"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4444857/74322517/EB-QB4857.jpeg?version=1739733918"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4444857/74646913/EB-QB4857.jpeg?version=1739733918"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4444857/74322524/EB-QB4857.jpeg?version=1739733918"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4444857/74646912/EB-QB4857.jpeg?version=1739733918"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4444857/74646917/EB-QB4857.jpeg?version=1739733918"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4444857/74646916/EB-QB4857.jpeg?version=1739733918"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4444857/74322519/EB-QB4857.jpeg?version=1739733918"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4444857/86156978/EB-QB4857.jpg?version=1739733918"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4444857/74322521/EB-QB4857.jpeg?version=1739733918"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4444857/74322522/EB-QB4857.jpeg?version=1739733918"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4444857/74646909/EB-QB4857.jpeg?version=1739733918"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4444857/74646908/EB-QB4857.jpeg?version=1739733918"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4444857/74646910/EB-QB4857.jpeg?version=1739733918"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4444857/74646911/EB-QB4857.jpeg?version=1739733918"
+                   }
+               ],
+    "agent":  {
+                  "id":  391012,
+                  "name":  "Lic.Gabriela Martínez",
+                  "full_name":  "Lic.Gabriela Martínez",
+                  "mobile_phone":  "+523338087984",
+                  "profile_image_url":  "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1729887594",
+                  "email":  "GABRIELAMTZ6@HOTMAIL.COM"
+              },
+    "features":  [
+                     {
+                         "name":  "Balcón",
+                         "category":  "Exterior"
+                     },
+                     {
+                         "name":  "Cisterna",
+                         "category":  "Exterior"
+                     },
+                     {
+                         "name":  "Estacionamiento techado",
+                         "category":  "Exterior"
+                     },
+                     {
+                         "name":  "Facilidad para estacionarse",
+                         "category":  "Exterior"
+                     },
+                     {
+                         "name":  "Frente al agua",
+                         "category":  "Exterior"
+                     },
+                     {
+                         "name":  "Jardín",
+                         "category":  "Exterior"
+                     },
+                     {
+                         "name":  "Parrilla",
+                         "category":  "Exterior"
+                     },
+                     {
+                         "name":  "Patio",
+                         "category":  "Exterior"
+                     },
+                     {
+                         "name":  "Riego por aspersión",
+                         "category":  "Exterior"
+                     },
+                     {
+                         "name":  "Terraza",
+                         "category":  "Exterior"
+                     },
+                     {
+                         "name":  "Bodega",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Cocina integral",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Dos plantas",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Estudio",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Fraccionamiento privado",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Mascotas permitidas",
+                         "category":  "Políticas"
+                     },
+                     {
+                         "name":  "Portero",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Seguridad 24 horas",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Alberca",
+                         "category":  "Recreación"
+                     },
+                     {
+                         "name":  "Área de juegos infantiles",
+                         "category":  "Recreación"
+                     },
+                     {
+                         "name":  "Cancha de tenis",
+                         "category":  "Recreación"
+                     },
+                     {
+                         "name":  "Salón de usos múltiples",
+                         "category":  "Recreación"
+                     }
+                 ]
+}

@@ -1,0 +1,388 @@
+{
+  "public_id": "EB-PY3500",
+  "title": "RESIDENCIA EN VENTA AZALEAS (BUGAMBILIAS)",
+  "description": "Magnífica residencia con acabados de lujo en uno de los fraccionamientos con más plusvalía en la zona Zapopan Sur: Azaleas Bugambilias. \nPlanta Baja: Cochera 4 autos, amplio recibidor, sala comedor doble altura con duela, cocina integral, recámara con baño completo, amplia terraza con 1/2 baño y jardín, cuarto de servicio y área de lavado\nPlanta Alta: 5 recámaras con baño completo y closet vestidor, recámara secundaria con tapanco, estar de televisión\nLa casa está esta equipada con pisos de duela, muebles empotrados de caoba, escalera de mármol, paneles solares, chimenea.\nEl fraccionamiento cuenta con una ubicación privilegiada, seguridad 24 horas, casa club con alberca, gimnasio, salón de usos múltiples. \nNo dejes pasar esta oportunidad. ¡Agenda tu cita!",
+  "bedrooms": 5,
+  "bathrooms": 5,
+  "half_bathrooms": 2,
+  "parking_spaces": 4,
+  "lot_size": 1049.0,
+  "construction_size": 850.0,
+  "lot_length": null,
+  "lot_width": null,
+  "floors": 2,
+  "floor": null,
+  "age": 1993,
+  "internal_id": null,
+  "expenses": null,
+  "location": {
+    "name": "Azaleas Residencial, Zapopan, Jalisco",
+    "latitude": 20.6070191,
+    "longitude": -103.4478231,
+    "street": "JACARANDAS",
+    "postal_code": "45239",
+    "show_exact_location": true,
+    "hide_exact_location": false,
+    "exterior_number": "C7",
+    "interior_number": null
+  },
+  "property_type": "Casa en condominio",
+  "created_at": "2024-04-09T18:27:17-06:00",
+  "updated_at": "2025-09-23T17:39:33-06:00",
+  "published_at": "2024-04-09T18:50:14-06:00",
+  "operations": [
+    {
+      "type": "sale",
+      "amount": 33500000.0,
+      "currency": "MXN",
+      "formatted_amount": "$33,500,000",
+      "commission": {
+        "type": "percentage",
+        "value": "4.0"
+      },
+      "unit": "total"
+    }
+  ],
+  "property_files": [],
+  "videos": [],
+  "virtual_tour": null,
+  "collaboration_notes": "PERTENECER A UNA ASOCIACIÓN",
+  "public_url": "https://www.easybroker.com/mx/listings/residencia-en-venta-azaleas-bugambilias",
+  "shared_commission_percentage": null,
+  "exclusive": null,
+  "foreclosure": false,
+  "tags": [],
+  "private_description": null,
+  "show_prices": true,
+  "share_commission": true,
+  "property_images": [
+    {
+      "title": "Fachada",
+      "url": "https://assets.easybroker.com/property_images/4413500/73714324/EB-PY3500.jpeg?version=1712710145"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4413500/73714337/EB-PY3500.jpeg?version=1712709241"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4413500/73714701/EB-PY3500.jpeg?version=1712709568"
+    },
+    {
+      "title": "Sala doble altura",
+      "url": "https://assets.easybroker.com/property_images/4413500/73714697/EB-PY3500.jpeg?version=1712710145"
+    },
+    {
+      "title": "Cocina",
+      "url": "https://assets.easybroker.com/property_images/4413500/73714699/EB-PY3500.jpeg?version=1712710145"
+    },
+    {
+      "title": "Comedor",
+      "url": "https://assets.easybroker.com/property_images/4413500/73714700/EB-PY3500.jpeg?version=1712710145"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4413500/73714702/EB-PY3500.jpeg?version=1712709604"
+    },
+    {
+      "title": "Terraza",
+      "url": "https://assets.easybroker.com/property_images/4413500/73714704/EB-PY3500.jpeg?version=1712710145"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4413500/73714741/EB-PY3500.jpeg?version=1712709644"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4413500/73714844/EB-PY3500.jpeg?version=1712709719"
+    },
+    {
+      "title": "Recámara principal",
+      "url": "https://assets.easybroker.com/property_images/4413500/73714848/EB-PY3500.jpeg?version=1712710145"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4413500/73715044/EB-PY3500.jpeg?version=1712710057"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4413500/73714856/EB-PY3500.jpeg?version=1712709776"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4413500/73714859/EB-PY3500.jpeg?version=1712709783"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4413500/73714863/EB-PY3500.jpeg?version=1712709792"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4413500/73714910/EB-PY3500.jpeg?version=1712709808"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4413500/73714914/EB-PY3500.jpeg?version=1712709817"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4413500/73714931/EB-PY3500.jpeg?version=1712709835"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4413500/73714936/EB-PY3500.jpeg?version=1712709854"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4413500/73714937/EB-PY3500.jpeg?version=1712709864"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4413500/73714938/EB-PY3500.jpeg?version=1712709880"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4413500/73715043/EB-PY3500.jpeg?version=1712710051"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4413500/73715048/EB-PY3500.jpeg?version=1712710070"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4413500/73715050/EB-PY3500.jpeg?version=1712710079"
+    }
+  ],
+  "images": [
+    {
+      "title": "Fachada",
+      "url": "https://assets.easybroker.com/property_images/4413500/73714324/EB-PY3500.jpeg?version=1712710145"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4413500/73714337/EB-PY3500.jpeg?version=1712709241"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4413500/73714701/EB-PY3500.jpeg?version=1712709568"
+    },
+    {
+      "title": "Sala doble altura",
+      "url": "https://assets.easybroker.com/property_images/4413500/73714697/EB-PY3500.jpeg?version=1712710145"
+    },
+    {
+      "title": "Cocina",
+      "url": "https://assets.easybroker.com/property_images/4413500/73714699/EB-PY3500.jpeg?version=1712710145"
+    },
+    {
+      "title": "Comedor",
+      "url": "https://assets.easybroker.com/property_images/4413500/73714700/EB-PY3500.jpeg?version=1712710145"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4413500/73714702/EB-PY3500.jpeg?version=1712709604"
+    },
+    {
+      "title": "Terraza",
+      "url": "https://assets.easybroker.com/property_images/4413500/73714704/EB-PY3500.jpeg?version=1712710145"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4413500/73714741/EB-PY3500.jpeg?version=1712709644"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4413500/73714844/EB-PY3500.jpeg?version=1712709719"
+    },
+    {
+      "title": "Recámara principal",
+      "url": "https://assets.easybroker.com/property_images/4413500/73714848/EB-PY3500.jpeg?version=1712710145"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4413500/73715044/EB-PY3500.jpeg?version=1712710057"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4413500/73714856/EB-PY3500.jpeg?version=1712709776"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4413500/73714859/EB-PY3500.jpeg?version=1712709783"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4413500/73714863/EB-PY3500.jpeg?version=1712709792"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4413500/73714910/EB-PY3500.jpeg?version=1712709808"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4413500/73714914/EB-PY3500.jpeg?version=1712709817"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4413500/73714931/EB-PY3500.jpeg?version=1712709835"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4413500/73714936/EB-PY3500.jpeg?version=1712709854"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4413500/73714937/EB-PY3500.jpeg?version=1712709864"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4413500/73714938/EB-PY3500.jpeg?version=1712709880"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4413500/73715043/EB-PY3500.jpeg?version=1712710051"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4413500/73715048/EB-PY3500.jpeg?version=1712710070"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4413500/73715050/EB-PY3500.jpeg?version=1712710079"
+    }
+  ],
+  "agent": {
+    "id": 391012,
+    "name": "Lic.Gabriela Martínez",
+    "full_name": "Lic.Gabriela Martínez",
+    "mobile_phone": "+523338087984",
+    "profile_image_url": "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1757459148",
+    "email": "GABRIELAMTZ6@HOTMAIL.COM"
+  },
+  "features": [
+    {
+      "name": "Balcón",
+      "category": "Exterior"
+    },
+    {
+      "name": "Cisterna",
+      "category": "Exterior"
+    },
+    {
+      "name": "Estacionamiento techado",
+      "category": "Exterior"
+    },
+    {
+      "name": "Facilidad para estacionarse",
+      "category": "Exterior"
+    },
+    {
+      "name": "Garaje",
+      "category": "Exterior"
+    },
+    {
+      "name": "Jardín",
+      "category": "Exterior"
+    },
+    {
+      "name": "Parrilla",
+      "category": "Exterior"
+    },
+    {
+      "name": "Patio",
+      "category": "Exterior"
+    },
+    {
+      "name": "Riego por aspersión",
+      "category": "Exterior"
+    },
+    {
+      "name": "Terraza",
+      "category": "Exterior"
+    },
+    {
+      "name": "Alarma",
+      "category": "General"
+    },
+    {
+      "name": "Chimenea",
+      "category": "General"
+    },
+    {
+      "name": "Circuito cerrado",
+      "category": "General"
+    },
+    {
+      "name": "Cocina",
+      "category": "General"
+    },
+    {
+      "name": "Cocina equipada",
+      "category": "General"
+    },
+    {
+      "name": "Cocina integral",
+      "category": "General"
+    },
+    {
+      "name": "Cuarto de servicio",
+      "category": "General"
+    },
+    {
+      "name": "Dos plantas",
+      "category": "General"
+    },
+    {
+      "name": "Estudio",
+      "category": "General"
+    },
+    {
+      "name": "Fraccionamiento privado",
+      "category": "General"
+    },
+    {
+      "name": "Hidroneumático",
+      "category": "General"
+    },
+    {
+      "name": "Mascotas permitidas",
+      "category": "Políticas"
+    },
+    {
+      "name": "Oficina",
+      "category": "General"
+    },
+    {
+      "name": "Panel solar",
+      "category": "General"
+    },
+    {
+      "name": "Seguridad 24 horas",
+      "category": "General"
+    },
+    {
+      "name": "Alberca",
+      "category": "Recreación"
+    },
+    {
+      "name": "Área de juegos infantiles",
+      "category": "Recreación"
+    },
+    {
+      "name": "Cancha de tenis",
+      "category": "Recreación"
+    },
+    {
+      "name": "Fogatero",
+      "category": "Recreación"
+    },
+    {
+      "name": "Gimnasio",
+      "category": "Recreación"
+    },
+    {
+      "name": "Salón de usos múltiples",
+      "category": "Recreación"
+    }
+  ]
+}

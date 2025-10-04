@@ -1,0 +1,338 @@
+﻿{
+    "public_id":  "EB-PP0277",
+    "title":  "COTO EL PÓRTICO BUGAMBILIAS #120 DISPONIBLE 01 ABRIL",
+    "description":  "Excelente casa en renta en coto EL PÓRTICO  DE BUGAMBILIAS.\nPLANTA BAJA:\nCochera para dos autos , medio baño , sala comedor , cocina integral , estudio con closet ( o puede ser cuarto de servicio ) jardín .\nPLANTA ALTA:\nTres recamaras , la principal con closet vestidor y baño completo , ls otras dos , con closet y  comparten baño.\nCOTO DE SÓLO 40 CASAS , TIENE SE CASA CLUB CON ALBERCA .\nSe requiere Aval\nNOTA:\nDISPONIBLE 01 DE ABRIL",
+    "bedrooms":  3,
+    "bathrooms":  2,
+    "half_bathrooms":  1,
+    "parking_spaces":  2,
+    "lot_size":  122.0,
+    "construction_size":  142.0,
+    "lot_length":  null,
+    "lot_width":  null,
+    "floors":  2,
+    "floor":  null,
+    "age":  null,
+    "internal_id":  null,
+    "expenses":  "Incluido",
+    "location":  {
+                     "name":  "Fraccionamiento Bugambilias, Zapopan, Jalisco",
+                     "latitude":  20.6024902,
+                     "longitude":  -103.4469054,
+                     "street":  "Paseo del iris",
+                     "postal_code":  null,
+                     "show_exact_location":  true,
+                     "hide_exact_location":  false,
+                     "exterior_number":  "120",
+                     "interior_number":  "17"
+                 },
+    "property_type":  "Casa en condominio",
+    "created_at":  "2024-02-26T11:09:37-06:00",
+    "updated_at":  "2025-05-12T12:09:04-06:00",
+    "published_at":  "2025-03-03T12:18:01-06:00",
+    "operations":  [
+                       {
+                           "type":  "rental",
+                           "amount":  16500.0,
+                           "currency":  "MXN",
+                           "formatted_amount":  "$16,500",
+                           "commission":  {
+                                              "type":  "amount",
+                                              "currency":  "MXN"
+                                          },
+                           "unit":  "total"
+                       }
+                   ],
+    "property_files":  [
+
+                       ],
+    "videos":  [
+
+               ],
+    "virtual_tour":  null,
+    "collaboration_notes":  null,
+    "public_url":  "https://www.easybroker.com/mx/listings/coto-el-portico-bugambilias-15-500-incluye-mant-disponible-01-abril",
+    "shared_commission_percentage":  null,
+    "exclusive":  null,
+    "foreclosure":  false,
+    "tags":  [
+
+             ],
+    "private_description":  null,
+    "show_prices":  true,
+    "share_commission":  false,
+    "property_images":  [
+                            {
+                                "title":  "Fachada",
+                                "url":  "https://assets.easybroker.com/property_images/4320277/71975323/EB-PP0277.jpeg?version=1708967811"
+                            },
+                            {
+                                "title":  "Medio baño",
+                                "url":  "https://assets.easybroker.com/property_images/4320277/71975324/EB-PP0277.jpeg?version=1708967811"
+                            },
+                            {
+                                "title":  "Ingreso",
+                                "url":  "https://assets.easybroker.com/property_images/4320277/71975322/EB-PP0277.jpeg?version=1708967811"
+                            },
+                            {
+                                "title":  "Comedor",
+                                "url":  "https://assets.easybroker.com/property_images/4320277/71975325/EB-PP0277.jpeg?version=1708967811"
+                            },
+                            {
+                                "title":  "Sala",
+                                "url":  "https://assets.easybroker.com/property_images/4320277/71975326/EB-PP0277.jpeg?version=1708967811"
+                            },
+                            {
+                                "title":  "Comedor",
+                                "url":  "https://assets.easybroker.com/property_images/4320277/71975327/EB-PP0277.jpeg?version=1708967811"
+                            },
+                            {
+                                "title":  "Jardin",
+                                "url":  "https://assets.easybroker.com/property_images/4320277/71975328/EB-PP0277.jpeg?version=1708967811"
+                            },
+                            {
+                                "title":  "Cocina",
+                                "url":  "https://assets.easybroker.com/property_images/4320277/71975329/EB-PP0277.jpeg?version=1708967811"
+                            },
+                            {
+                                "title":  "Cocina integral",
+                                "url":  "https://assets.easybroker.com/property_images/4320277/71975330/EB-PP0277.jpeg?version=1708967811"
+                            },
+                            {
+                                "title":  "Estudio pb",
+                                "url":  "https://assets.easybroker.com/property_images/4320277/71975331/EB-PP0277.jpeg?version=1708967811"
+                            },
+                            {
+                                "title":  "Closet rec tres",
+                                "url":  "https://assets.easybroker.com/property_images/4320277/71975332/EB-PP0277.jpeg?version=1708967811"
+                            },
+                            {
+                                "title":  "Escaleras",
+                                "url":  "https://assets.easybroker.com/property_images/4320277/71975333/EB-PP0277.jpeg?version=1708967811"
+                            },
+                            {
+                                "title":  "Rec tres",
+                                "url":  "https://assets.easybroker.com/property_images/4320277/71975334/EB-PP0277.jpeg?version=1708967811"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4320277/71975335/EB-PP0277.jpeg?version=1708967474"
+                            },
+                            {
+                                "title":  "Medio bano",
+                                "url":  "https://assets.easybroker.com/property_images/4320277/71975336/EB-PP0277.jpeg?version=1708967811"
+                            },
+                            {
+                                "title":  "Estudio planta baja",
+                                "url":  "https://assets.easybroker.com/property_images/4320277/71975339/EB-PP0277.jpeg?version=1708967811"
+                            },
+                            {
+                                "title":  "Recámara tres",
+                                "url":  "https://assets.easybroker.com/property_images/4320277/71975338/EB-PP0277.jpeg?version=1708967811"
+                            },
+                            {
+                                "title":  "Closet",
+                                "url":  "https://assets.easybroker.com/property_images/4320277/71975340/EB-PP0277.jpeg?version=1708967811"
+                            },
+                            {
+                                "title":  "Rec ppal",
+                                "url":  "https://assets.easybroker.com/property_images/4320277/71975341/EB-PP0277.jpeg?version=1708967811"
+                            },
+                            {
+                                "title":  "Estar de TV",
+                                "url":  "https://assets.easybroker.com/property_images/4320277/71975342/EB-PP0277.jpeg?version=1708967811"
+                            },
+                            {
+                                "title":  "Closet vestidor rec ppal",
+                                "url":  "https://assets.easybroker.com/property_images/4320277/71975344/EB-PP0277.jpeg?version=1708967811"
+                            },
+                            {
+                                "title":  "Baño rec ppal",
+                                "url":  "https://assets.easybroker.com/property_images/4320277/71975345/EB-PP0277.jpeg?version=1708967811"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4320277/71975347/EB-PP0277.jpeg?version=1708967478"
+                            },
+                            {
+                                "title":  "Ingreso",
+                                "url":  "https://assets.easybroker.com/property_images/4320277/71975492/EB-PP0277.jpeg?version=1708967811"
+                            },
+                            {
+                                "title":  "Coto",
+                                "url":  "https://assets.easybroker.com/property_images/4320277/71975493/EB-PP0277.jpeg?version=1708967811"
+                            },
+                            {
+                                "title":  "Alberca casa. Cub",
+                                "url":  "https://assets.easybroker.com/property_images/4320277/71975494/EB-PP0277.jpeg?version=1708967811"
+                            },
+                            {
+                                "title":  "Terraza",
+                                "url":  "https://assets.easybroker.com/property_images/4320277/71975495/EB-PP0277.jpeg?version=1708967811"
+                            },
+                            {
+                                "title":  "Juegos infantiles",
+                                "url":  "https://assets.easybroker.com/property_images/4320277/71975496/EB-PP0277.jpeg?version=1708967811"
+                            },
+                            {
+                                "title":  "Recámara dos",
+                                "url":  "https://assets.easybroker.com/property_images/4320277/71975497/EB-PP0277.jpeg?version=1708967811"
+                            },
+                            {
+                                "title":  "Jardin",
+                                "url":  "https://assets.easybroker.com/property_images/4320277/71975504/EB-PP0277.jpeg?version=1708967811"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4320277/71975505/EB-PP0277.jpeg?version=1708967604"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4320277/71975506/EB-PP0277.jpeg?version=1708967604"
+                            }
+                        ],
+    "images":  [
+                   {
+                       "title":  "Fachada",
+                       "url":  "https://assets.easybroker.com/property_images/4320277/71975323/EB-PP0277.jpeg?version=1708967811"
+                   },
+                   {
+                       "title":  "Medio baño",
+                       "url":  "https://assets.easybroker.com/property_images/4320277/71975324/EB-PP0277.jpeg?version=1708967811"
+                   },
+                   {
+                       "title":  "Ingreso",
+                       "url":  "https://assets.easybroker.com/property_images/4320277/71975322/EB-PP0277.jpeg?version=1708967811"
+                   },
+                   {
+                       "title":  "Comedor",
+                       "url":  "https://assets.easybroker.com/property_images/4320277/71975325/EB-PP0277.jpeg?version=1708967811"
+                   },
+                   {
+                       "title":  "Sala",
+                       "url":  "https://assets.easybroker.com/property_images/4320277/71975326/EB-PP0277.jpeg?version=1708967811"
+                   },
+                   {
+                       "title":  "Comedor",
+                       "url":  "https://assets.easybroker.com/property_images/4320277/71975327/EB-PP0277.jpeg?version=1708967811"
+                   },
+                   {
+                       "title":  "Jardin",
+                       "url":  "https://assets.easybroker.com/property_images/4320277/71975328/EB-PP0277.jpeg?version=1708967811"
+                   },
+                   {
+                       "title":  "Cocina",
+                       "url":  "https://assets.easybroker.com/property_images/4320277/71975329/EB-PP0277.jpeg?version=1708967811"
+                   },
+                   {
+                       "title":  "Cocina integral",
+                       "url":  "https://assets.easybroker.com/property_images/4320277/71975330/EB-PP0277.jpeg?version=1708967811"
+                   },
+                   {
+                       "title":  "Estudio pb",
+                       "url":  "https://assets.easybroker.com/property_images/4320277/71975331/EB-PP0277.jpeg?version=1708967811"
+                   },
+                   {
+                       "title":  "Closet rec tres",
+                       "url":  "https://assets.easybroker.com/property_images/4320277/71975332/EB-PP0277.jpeg?version=1708967811"
+                   },
+                   {
+                       "title":  "Escaleras",
+                       "url":  "https://assets.easybroker.com/property_images/4320277/71975333/EB-PP0277.jpeg?version=1708967811"
+                   },
+                   {
+                       "title":  "Rec tres",
+                       "url":  "https://assets.easybroker.com/property_images/4320277/71975334/EB-PP0277.jpeg?version=1708967811"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4320277/71975335/EB-PP0277.jpeg?version=1708967474"
+                   },
+                   {
+                       "title":  "Medio bano",
+                       "url":  "https://assets.easybroker.com/property_images/4320277/71975336/EB-PP0277.jpeg?version=1708967811"
+                   },
+                   {
+                       "title":  "Estudio planta baja",
+                       "url":  "https://assets.easybroker.com/property_images/4320277/71975339/EB-PP0277.jpeg?version=1708967811"
+                   },
+                   {
+                       "title":  "Recámara tres",
+                       "url":  "https://assets.easybroker.com/property_images/4320277/71975338/EB-PP0277.jpeg?version=1708967811"
+                   },
+                   {
+                       "title":  "Closet",
+                       "url":  "https://assets.easybroker.com/property_images/4320277/71975340/EB-PP0277.jpeg?version=1708967811"
+                   },
+                   {
+                       "title":  "Rec ppal",
+                       "url":  "https://assets.easybroker.com/property_images/4320277/71975341/EB-PP0277.jpeg?version=1708967811"
+                   },
+                   {
+                       "title":  "Estar de TV",
+                       "url":  "https://assets.easybroker.com/property_images/4320277/71975342/EB-PP0277.jpeg?version=1708967811"
+                   },
+                   {
+                       "title":  "Closet vestidor rec ppal",
+                       "url":  "https://assets.easybroker.com/property_images/4320277/71975344/EB-PP0277.jpeg?version=1708967811"
+                   },
+                   {
+                       "title":  "Baño rec ppal",
+                       "url":  "https://assets.easybroker.com/property_images/4320277/71975345/EB-PP0277.jpeg?version=1708967811"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4320277/71975347/EB-PP0277.jpeg?version=1708967478"
+                   },
+                   {
+                       "title":  "Ingreso",
+                       "url":  "https://assets.easybroker.com/property_images/4320277/71975492/EB-PP0277.jpeg?version=1708967811"
+                   },
+                   {
+                       "title":  "Coto",
+                       "url":  "https://assets.easybroker.com/property_images/4320277/71975493/EB-PP0277.jpeg?version=1708967811"
+                   },
+                   {
+                       "title":  "Alberca casa. Cub",
+                       "url":  "https://assets.easybroker.com/property_images/4320277/71975494/EB-PP0277.jpeg?version=1708967811"
+                   },
+                   {
+                       "title":  "Terraza",
+                       "url":  "https://assets.easybroker.com/property_images/4320277/71975495/EB-PP0277.jpeg?version=1708967811"
+                   },
+                   {
+                       "title":  "Juegos infantiles",
+                       "url":  "https://assets.easybroker.com/property_images/4320277/71975496/EB-PP0277.jpeg?version=1708967811"
+                   },
+                   {
+                       "title":  "Recámara dos",
+                       "url":  "https://assets.easybroker.com/property_images/4320277/71975497/EB-PP0277.jpeg?version=1708967811"
+                   },
+                   {
+                       "title":  "Jardin",
+                       "url":  "https://assets.easybroker.com/property_images/4320277/71975504/EB-PP0277.jpeg?version=1708967811"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4320277/71975505/EB-PP0277.jpeg?version=1708967604"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4320277/71975506/EB-PP0277.jpeg?version=1708967604"
+                   }
+               ],
+    "agent":  {
+                  "id":  391012,
+                  "name":  "Lic.Gabriela Martínez",
+                  "full_name":  "Lic.Gabriela Martínez",
+                  "mobile_phone":  "+523338087984",
+                  "profile_image_url":  "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1757459148",
+                  "email":  "GABRIELAMTZ6@HOTMAIL.COM"
+              },
+    "features":  [
+                     {
+                         "name":  "Mascotas permitidas",
+                         "category":  "Políticas"
+                     }
+                 ]
+}

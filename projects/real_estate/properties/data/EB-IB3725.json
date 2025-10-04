@@ -1,0 +1,78 @@
+{
+  "public_id": "EB-IB3725",
+  "title": "CASA EN RENTA CENTRO CERCA DE AV ALCALDE",
+  "description": "CASA EN RENTA SALA COMEDOR,COCINA SEMIINTEGRAL,  BAÑO COMPLETO EN PLANTA BAJA, PATIO DE SERVICIO.\nPLANTA ALTA . DOS RECAMARAS CADA UNA CON BAÑO.",
+  "bedrooms": 2,
+  "bathrooms": 3,
+  "half_bathrooms": null,
+  "parking_spaces": null,
+  "lot_size": null,
+  "construction_size": 120.0,
+  "lot_length": null,
+  "lot_width": null,
+  "floors": null,
+  "floor": null,
+  "age": null,
+  "internal_id": null,
+  "expenses": null,
+  "location": {
+    "name": "Guadalajara Centro, Guadalajara, Jalisco",
+    "latitude": 20.6862948,
+    "longitude": -103.3470884,
+    "street": "GUILLERMO PRIETO ",
+    "postal_code": "44220",
+    "show_exact_location": true,
+    "hide_exact_location": false,
+    "exterior_number": "115",
+    "interior_number": null
+  },
+  "property_type": "Casa",
+  "created_at": "2021-07-24T16:03:23-05:00",
+  "updated_at": "2025-05-12T12:09:04-06:00",
+  "published_at": "2021-07-24T16:03:45-05:00",
+  "operations": [
+    {
+      "type": "rental",
+      "amount": 7500.0,
+      "currency": "MXN",
+      "formatted_amount": "$7,500",
+      "commission": {
+        "type": "percentage"
+      },
+      "unit": "total"
+    }
+  ],
+  "property_files": [],
+  "videos": [],
+  "virtual_tour": null,
+  "collaboration_notes": null,
+  "public_url": "https://www.easybroker.com/mx/listings/casa-en-renta-centro-erca-de-av-alcalde",
+  "shared_commission_percentage": null,
+  "exclusive": null,
+  "foreclosure": false,
+  "tags": [],
+  "private_description": null,
+  "show_prices": true,
+  "share_commission": false,
+  "property_images": [
+    {
+      "title": "FACHADA",
+      "url": "https://assets.easybroker.com/property_images/2363725/36701214/EB-IB3725.jpg?version=1627160625"
+    }
+  ],
+  "images": [
+    {
+      "title": "FACHADA",
+      "url": "https://assets.easybroker.com/property_images/2363725/36701214/EB-IB3725.jpg?version=1627160625"
+    }
+  ],
+  "agent": {
+    "id": 391012,
+    "name": "Lic.Gabriela Martínez",
+    "full_name": "Lic.Gabriela Martínez",
+    "mobile_phone": "+523338087984",
+    "profile_image_url": "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1757459148",
+    "email": "GABRIELAMTZ6@HOTMAIL.COM"
+  },
+  "features": []
+}

@@ -1,0 +1,136 @@
+{
+  "public_id": "EB-SZ7442",
+  "title": "Local comercial en renta en Chapalita",
+  "description": "Local comercial en excelente ubicación a sólo unos pasos de Av. Lázaro Cárdenas.\n\nDe frente tiene 2.60 mts y de fondo 8 mts.\nAdemás cuenta con medio baño.\n\nBienvenidas propuestas adecuación de acuerdo a sus necesidades.\n\nIdeal  para salón de belleza, barbería, oficinas, venta de mostrador!\n\n*No apto para giro alimenticio que requiera instalación de campana de extracción*",
+  "bedrooms": null,
+  "bathrooms": null,
+  "half_bathrooms": 1,
+  "parking_spaces": null,
+  "lot_size": null,
+  "construction_size": 20.8,
+  "lot_length": null,
+  "lot_width": null,
+  "floors": null,
+  "floor": "ground_floor",
+  "age": null,
+  "internal_id": "AIDAVIDEOCENTRO",
+  "expenses": "Incluido",
+  "location": {
+    "name": "Chapalita, Guadalajara, Jalisco",
+    "latitude": 20.6688224,
+    "longitude": -103.4001148,
+    "street": "San Uriel",
+    "postal_code": "44500",
+    "show_exact_location": true,
+    "hide_exact_location": false,
+    "exterior_number": "764",
+    "interior_number": null
+  },
+  "property_type": "Local comercial",
+  "created_at": "2025-04-29T17:05:27-06:00",
+  "updated_at": "2025-08-05T18:08:05-06:00",
+  "published_at": "2025-06-23T12:55:29-06:00",
+  "operations": [
+    {
+      "type": "rental",
+      "amount": 6850.0,
+      "currency": "MXN",
+      "formatted_amount": "$6,850",
+      "commission": {
+        "type": "months",
+        "value": 1
+      },
+      "unit": "total"
+    }
+  ],
+  "property_files": [],
+  "videos": [],
+  "virtual_tour": null,
+  "collaboration_notes": null,
+  "public_url": "https://www.easybroker.com/mx/listings/local-comercial-en-renta-en-chapalita-chapalita-guadalajara",
+  "shared_commission_percentage": null,
+  "exclusive": true,
+  "foreclosure": false,
+  "tags": [],
+  "private_description": null,
+  "show_prices": true,
+  "share_commission": false,
+  "property_images": [
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5207442/89998038/EB-SZ7442.jpeg?version=1746924666"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5207442/89998037/EB-SZ7442.jpeg?version=1746924666"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5207442/89998039/EB-SZ7442.jpeg?version=1746924666"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5207442/89998040/EB-SZ7442.jpeg?version=1746924666"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5207442/89998036/EB-SZ7442.jpeg?version=1746924666"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5207442/89539746/EB-SZ7442.jpeg?version=1746924666"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5207442/89539747/EB-SZ7442.jpeg?version=1746924666"
+    }
+  ],
+  "images": [
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5207442/89998038/EB-SZ7442.jpeg?version=1746924666"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5207442/89998037/EB-SZ7442.jpeg?version=1746924666"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5207442/89998039/EB-SZ7442.jpeg?version=1746924666"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5207442/89998040/EB-SZ7442.jpeg?version=1746924666"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5207442/89998036/EB-SZ7442.jpeg?version=1746924666"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5207442/89539746/EB-SZ7442.jpeg?version=1746924666"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5207442/89539747/EB-SZ7442.jpeg?version=1746924666"
+    }
+  ],
+  "agent": {
+    "id": 391012,
+    "name": "Lic.Gabriela Martínez",
+    "full_name": "Lic.Gabriela Martínez",
+    "mobile_phone": "+523338087984",
+    "profile_image_url": "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1757459148",
+    "email": "GABRIELAMTZ6@HOTMAIL.COM"
+  },
+  "features": [
+    {
+      "name": "Aire acondicionado",
+      "category": "General"
+    },
+    {
+      "name": "Planta Baja",
+      "category": "General"
+    }
+  ]
+}

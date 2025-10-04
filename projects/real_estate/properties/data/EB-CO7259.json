@@ -1,0 +1,165 @@
+{
+  "public_id": "EB-CO7259",
+  "title": "RENTA CASA EN VISTAS DEL TULE II /VIRREYES",
+  "description": "EXCELENTE CASA SEMINUEVA DE DOS PLANTAS.\nPLANTA BAJA: COCHERA PARA DOS AUTOS,ESTUDIO CON BAÑO COMPLETO,SALA COMEDOR,COCINA INTEGRAL, TERRAZA TECHADA MUY AMPLIA. CUARTO DE SERVICIO CON BAÑO COMPLETO ,AREA PARA TENDER.\nPLANTA ALTA: 3 HABITACIONES TODAS CON BAÑO COMPLETO ,LA PRINCIPAL CON CLOSET VESTIDOR. ESTAR DE T.V MUY AMPLIO.\nCUENTA CON CORTINAS,AIRE ACONDICIONADO EN SALA Y CIRCUITO CERRADO.\nINCLUYE MANTENIMIENTO.",
+  "bedrooms": 3,
+  "bathrooms": 5,
+  "half_bathrooms": 1,
+  "parking_spaces": 2,
+  "lot_size": 200.0,
+  "construction_size": 220.0,
+  "lot_length": 10.0,
+  "lot_width": 20.0,
+  "floors": null,
+  "floor": null,
+  "age": 2012,
+  "internal_id": "11",
+  "expenses": "INCLUIDO",
+  "location": {
+    "name": "Virreyes Residencial, Zapopan, Jalisco",
+    "latitude": 20.6955136,
+    "longitude": -103.4432608,
+    "street": "NACIONES UNIDAS",
+    "postal_code": "45050",
+    "show_exact_location": true,
+    "hide_exact_location": false,
+    "exterior_number": "6904",
+    "interior_number": null
+  },
+  "property_type": "Casa en condominio",
+  "created_at": "2019-01-31T12:54:15-06:00",
+  "updated_at": "2025-09-23T17:31:39-06:00",
+  "published_at": "2019-01-31T12:58:01-06:00",
+  "operations": [
+    {
+      "type": "rental",
+      "amount": 23000.0,
+      "currency": "MXN",
+      "formatted_amount": "$23,000",
+      "commission": {
+        "type": "amount",
+        "value": 23000,
+        "currency": "MXN"
+      },
+      "unit": "total"
+    }
+  ],
+  "property_files": [],
+  "videos": [],
+  "virtual_tour": null,
+  "collaboration_notes": "MEDIO MES DE RENTA",
+  "public_url": "https://www.easybroker.com/mx/listings/renta-casa-en-vistas-del-tule-ii-virreyes",
+  "shared_commission_percentage": null,
+  "exclusive": null,
+  "foreclosure": false,
+  "tags": [],
+  "private_description": null,
+  "show_prices": true,
+  "share_commission": true,
+  "property_images": [
+    {
+      "title": "FACHADA",
+      "url": "https://assets.easybroker.com/property_images/937259/14104483/EB-CO7259.jpg?version=1548961081"
+    },
+    {
+      "title": "INGRESO ",
+      "url": "https://assets.easybroker.com/property_images/937259/14104485/EB-CO7259.jpg?version=1548961081"
+    },
+    {
+      "title": "COCINA INTEGRAL",
+      "url": "https://assets.easybroker.com/property_images/937259/14104488/EB-CO7259.jpg?version=1548961081"
+    },
+    {
+      "title": "COMEDOR",
+      "url": "https://assets.easybroker.com/property_images/937259/14104489/EB-CO7259.jpg?version=1548961081"
+    },
+    {
+      "title": "ESTUDIO",
+      "url": "https://assets.easybroker.com/property_images/937259/14104493/EB-CO7259.jpg?version=1548961081"
+    },
+    {
+      "title": "BAÑO",
+      "url": "https://assets.easybroker.com/property_images/937259/14104497/EB-CO7259.jpg?version=1548961081"
+    },
+    {
+      "title": "HAB PRINCIPAL",
+      "url": "https://assets.easybroker.com/property_images/937259/14104540/EB-CO7259.jpg?version=1548961081"
+    }
+  ],
+  "images": [
+    {
+      "title": "FACHADA",
+      "url": "https://assets.easybroker.com/property_images/937259/14104483/EB-CO7259.jpg?version=1548961081"
+    },
+    {
+      "title": "INGRESO ",
+      "url": "https://assets.easybroker.com/property_images/937259/14104485/EB-CO7259.jpg?version=1548961081"
+    },
+    {
+      "title": "COCINA INTEGRAL",
+      "url": "https://assets.easybroker.com/property_images/937259/14104488/EB-CO7259.jpg?version=1548961081"
+    },
+    {
+      "title": "COMEDOR",
+      "url": "https://assets.easybroker.com/property_images/937259/14104489/EB-CO7259.jpg?version=1548961081"
+    },
+    {
+      "title": "ESTUDIO",
+      "url": "https://assets.easybroker.com/property_images/937259/14104493/EB-CO7259.jpg?version=1548961081"
+    },
+    {
+      "title": "BAÑO",
+      "url": "https://assets.easybroker.com/property_images/937259/14104497/EB-CO7259.jpg?version=1548961081"
+    },
+    {
+      "title": "HAB PRINCIPAL",
+      "url": "https://assets.easybroker.com/property_images/937259/14104540/EB-CO7259.jpg?version=1548961081"
+    }
+  ],
+  "agent": {
+    "id": 391012,
+    "name": "Lic.Gabriela Martínez",
+    "full_name": "Lic.Gabriela Martínez",
+    "mobile_phone": "+523338087984",
+    "profile_image_url": "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1757459148",
+    "email": "GABRIELAMTZ6@HOTMAIL.COM"
+  },
+  "features": [
+    {
+      "name": "Aire acondicionado",
+      "category": "General"
+    },
+    {
+      "name": "Balcón",
+      "category": "Exterior"
+    },
+    {
+      "name": "Terraza",
+      "category": "Exterior"
+    },
+    {
+      "name": "Seguridad 24 horas",
+      "category": "General"
+    },
+    {
+      "name": "Patio",
+      "category": "Exterior"
+    },
+    {
+      "name": "Cisterna",
+      "category": "Exterior"
+    },
+    {
+      "name": "Cocina integral",
+      "category": "General"
+    },
+    {
+      "name": "Cuarto de servicio",
+      "category": "General"
+    },
+    {
+      "name": "Fraccionamiento privado",
+      "category": "General"
+    }
+  ]
+}

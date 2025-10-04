@@ -1,0 +1,232 @@
+{
+  "public_id": "EB-BP1415",
+  "title": "CASA EN VENTA EN CIUDAD DE LOS NIÑOS SOBRE AV. TEPEYAC",
+  "description": "Cochera para 4 autos con portón eléctrico, doble ingreso. Recibidor circular, amplia sala, comedor 1/2 baño, cocina con desayunador, jardín con terraza, área de lavado y cuarto de servicio con baño completo. Distribuidor circular, 4 recamaras, 3 comparten baño y la principal con baño completo. Casa para remodelar con amplios espacios bien iluminada y ventilada en una zona inmejorable. Todos los servicios. Sobre avenida Tepeyac, con uso de suelo mixto, ideal para notaria, escuela, oficinas, consultorios, etc",
+  "bedrooms": 4,
+  "bathrooms": 2,
+  "half_bathrooms": 1,
+  "parking_spaces": 4,
+  "lot_size": 300.0,
+  "construction_size": 360.0,
+  "lot_length": null,
+  "lot_width": null,
+  "floors": 2,
+  "floor": null,
+  "age": null,
+  "internal_id": null,
+  "expenses": null,
+  "location": {
+    "name": "Ciudad de los Niños, Zapopan, Jalisco",
+    "latitude": 20.660234,
+    "longitude": -103.4104002,
+    "street": "AVENIDA TEPEYAC",
+    "postal_code": null,
+    "show_exact_location": true,
+    "hide_exact_location": false,
+    "exterior_number": null,
+    "interior_number": null
+  },
+  "property_type": "Casa",
+  "created_at": "2018-03-26T10:17:56-06:00",
+  "updated_at": "2025-05-12T12:09:04-06:00",
+  "published_at": "2018-03-26T10:21:25-06:00",
+  "operations": [
+    {
+      "type": "sale",
+      "amount": 5470000.0,
+      "currency": "MXN",
+      "formatted_amount": "$5,470,000",
+      "commission": {
+        "type": "percentage",
+        "value": "5.0"
+      },
+      "unit": "total"
+    }
+  ],
+  "property_files": [],
+  "videos": [],
+  "virtual_tour": null,
+  "collaboration_notes": "",
+  "public_url": "https://www.easybroker.com/mx/listings/casa-en-venta-en-ciudad-de-los-ninos-sobre-av-tepeyac",
+  "shared_commission_percentage": null,
+  "exclusive": null,
+  "foreclosure": false,
+  "tags": [],
+  "private_description": null,
+  "show_prices": true,
+  "share_commission": true,
+  "property_images": [
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/681415/10362426/EB-BP1415.JPG?version=1522081285"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/681415/10362407/EB-BP1415.png?version=1522081285"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/681415/10362408/EB-BP1415.png?version=1522081285"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/681415/10362409/EB-BP1415.png?version=1522081285"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/681415/10362410/EB-BP1415.png?version=1522081285"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/681415/10362413/EB-BP1415.png?version=1522081285"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/681415/10362415/EB-BP1415.png?version=1522081285"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/681415/10362417/EB-BP1415.png?version=1522081285"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/681415/10362418/EB-BP1415.png?version=1522081285"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/681415/10362419/EB-BP1415.png?version=1522081285"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/681415/10362420/EB-BP1415.png?version=1522081285"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/681415/10362421/EB-BP1415.png?version=1522081285"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/681415/10362422/EB-BP1415.png?version=1522081285"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/681415/10362423/EB-BP1415.png?version=1522081285"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/681415/10362424/EB-BP1415.png?version=1522081285"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/681415/10362427/EB-BP1415.png?version=1522081285"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/681415/10362425/EB-BP1415.png?version=1522081285"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/681415/10362411/EB-BP1415.png?version=1522081285"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/681415/10362412/EB-BP1415.png?version=1522081285"
+    }
+  ],
+  "images": [
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/681415/10362426/EB-BP1415.JPG?version=1522081285"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/681415/10362407/EB-BP1415.png?version=1522081285"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/681415/10362408/EB-BP1415.png?version=1522081285"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/681415/10362409/EB-BP1415.png?version=1522081285"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/681415/10362410/EB-BP1415.png?version=1522081285"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/681415/10362413/EB-BP1415.png?version=1522081285"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/681415/10362415/EB-BP1415.png?version=1522081285"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/681415/10362417/EB-BP1415.png?version=1522081285"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/681415/10362418/EB-BP1415.png?version=1522081285"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/681415/10362419/EB-BP1415.png?version=1522081285"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/681415/10362420/EB-BP1415.png?version=1522081285"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/681415/10362421/EB-BP1415.png?version=1522081285"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/681415/10362422/EB-BP1415.png?version=1522081285"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/681415/10362423/EB-BP1415.png?version=1522081285"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/681415/10362424/EB-BP1415.png?version=1522081285"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/681415/10362427/EB-BP1415.png?version=1522081285"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/681415/10362425/EB-BP1415.png?version=1522081285"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/681415/10362411/EB-BP1415.png?version=1522081285"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/681415/10362412/EB-BP1415.png?version=1522081285"
+    }
+  ],
+  "agent": {
+    "id": 391012,
+    "name": "Lic.Gabriela Martínez",
+    "full_name": "Lic.Gabriela Martínez",
+    "mobile_phone": "+523338087984",
+    "profile_image_url": "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1757459148",
+    "email": "GABRIELAMTZ6@HOTMAIL.COM"
+  },
+  "features": [
+    {
+      "name": "Jardín",
+      "category": "Exterior"
+    },
+    {
+      "name": "Facilidad para estacionarse",
+      "category": "Exterior"
+    }
+  ]
+}

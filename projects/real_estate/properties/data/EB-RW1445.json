@@ -1,0 +1,231 @@
+{
+  "public_id": "EB-RW1445",
+  "title": "Casa con Recámara en PB",
+  "description": "Casa en venta, rodeada de hermosas áreas verdes.\n\n*120 mts2 de terreno.\n*135 mts2 construcción.\n*Planta baja: recámara, baño completo, sala, comedor, cocina integral, estudio, jardín,area de lavado y cochera para dos autos\n*Planta alta: recámara ppal con baño y vestidor,  tercera recamara con baño completo y estar de tv.\n*Estar de tv.\n*Casa club con alberca y juegos infantiles.\n*Hermosas áreas verdes estilo campestre\n*Ubicada  por bosques de santa Anita junto a bosque real.",
+  "bedrooms": 3,
+  "bathrooms": 3,
+  "half_bathrooms": null,
+  "parking_spaces": 2,
+  "lot_size": 120.0,
+  "construction_size": 135.0,
+  "lot_length": null,
+  "lot_width": null,
+  "floors": null,
+  "floor": null,
+  "age": null,
+  "internal_id": null,
+  "expenses": null,
+  "location": {
+    "name": "La Loma, Tlajomulco de Zúñiga, Jalisco",
+    "latitude": 20.5694801,
+    "longitude": -103.494322,
+    "street": "Blvd. La Loma",
+    "postal_code": "45645",
+    "show_exact_location": true,
+    "hide_exact_location": false,
+    "exterior_number": "1000",
+    "interior_number": "54"
+  },
+  "property_type": "Casa en condominio",
+  "created_at": "2024-12-12T11:45:12-06:00",
+  "updated_at": "2025-09-23T17:41:18-06:00",
+  "published_at": null,
+  "operations": [
+    {
+      "type": "sale",
+      "amount": 2590000.0,
+      "currency": "MXN",
+      "formatted_amount": "$2,590,000",
+      "commission": {
+        "type": "percentage"
+      },
+      "unit": "total"
+    }
+  ],
+  "property_files": [],
+  "videos": [],
+  "virtual_tour": null,
+  "collaboration_notes": null,
+  "public_url": "https://www.easybroker.com/mx/listings/casa-con-recamara-en-pb-la-loma",
+  "shared_commission_percentage": null,
+  "exclusive": null,
+  "foreclosure": false,
+  "tags": [],
+  "private_description": null,
+  "show_prices": true,
+  "share_commission": true,
+  "property_images": [
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4911445/83581770/EB-RW1445.jpg?version=1734025698"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4911445/83581754/EB-RW1445.jpg?version=1734025698"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4911445/83581756/EB-RW1445.jpg?version=1734025698"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4911445/83581760/EB-RW1445.jpg?version=1734025698"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4911445/83581778/EB-RW1445.jpg?version=1734025698"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4911445/83581787/EB-RW1445.jpg?version=1734025698"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4911445/83581763/EB-RW1445.jpg?version=1734025698"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4911445/83581813/EB-RW1445.jpg?version=1734025698"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4911445/83581810/EB-RW1445.jpg?version=1734025698"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4911445/83581805/EB-RW1445.jpg?version=1734025698"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4911445/83581809/EB-RW1445.jpg?version=1734025698"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4911445/83581765/EB-RW1445.jpg?version=1734025698"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4911445/83581751/EB-RW1445.jpg?version=1734025698"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4911445/83581790/EB-RW1445.jpg?version=1734025698"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4911445/83581794/EB-RW1445.jpg?version=1734025698"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4911445/83581798/EB-RW1445.jpg?version=1734025698"
+    }
+  ],
+  "images": [
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4911445/83581770/EB-RW1445.jpg?version=1734025698"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4911445/83581754/EB-RW1445.jpg?version=1734025698"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4911445/83581756/EB-RW1445.jpg?version=1734025698"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4911445/83581760/EB-RW1445.jpg?version=1734025698"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4911445/83581778/EB-RW1445.jpg?version=1734025698"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4911445/83581787/EB-RW1445.jpg?version=1734025698"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4911445/83581763/EB-RW1445.jpg?version=1734025698"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4911445/83581813/EB-RW1445.jpg?version=1734025698"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4911445/83581810/EB-RW1445.jpg?version=1734025698"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4911445/83581805/EB-RW1445.jpg?version=1734025698"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4911445/83581809/EB-RW1445.jpg?version=1734025698"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4911445/83581765/EB-RW1445.jpg?version=1734025698"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4911445/83581751/EB-RW1445.jpg?version=1734025698"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4911445/83581790/EB-RW1445.jpg?version=1734025698"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4911445/83581794/EB-RW1445.jpg?version=1734025698"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4911445/83581798/EB-RW1445.jpg?version=1734025698"
+    }
+  ],
+  "agent": {
+    "id": 391012,
+    "name": "Lic.Gabriela Martínez",
+    "full_name": "Lic.Gabriela Martínez",
+    "mobile_phone": "+523338087984",
+    "profile_image_url": "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1757459148",
+    "email": "GABRIELAMTZ6@HOTMAIL.COM"
+  },
+  "features": [
+    {
+      "name": "Garaje",
+      "category": "Exterior"
+    },
+    {
+      "name": "Cocina",
+      "category": "General"
+    },
+    {
+      "name": "Dos plantas",
+      "category": "General"
+    },
+    {
+      "name": "Estudio",
+      "category": "General"
+    },
+    {
+      "name": "Recámara en planta baja",
+      "category": "General"
+    },
+    {
+      "name": "Seguridad 24 horas",
+      "category": "General"
+    },
+    {
+      "name": "Alberca",
+      "category": "Recreación"
+    },
+    {
+      "name": "Área de juegos infantiles",
+      "category": "Recreación"
+    }
+  ]
+}

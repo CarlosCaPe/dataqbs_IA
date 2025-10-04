@@ -1,0 +1,220 @@
+{
+  "public_id": "EB-OZ7585",
+  "title": "Casa en renta ideal para consultorios u oficinas",
+  "description": "La casa se encuentra en esquina  en zona de alto flujo:\n\nPLANTA BAJA:\n\n5 cajones de estacionamiento\n\nTerraza techada con servicios (tarja, barra)\nBodega con cortina independiente a la casa (podrían adaptarse a más habitaciones)\n1 recámara \n1  baño completo + Medio baño\nCocina integral \nBodega con 1/2 baño con acceso a área común \nSala-comedor de doble altura con baño completo\n\nPLANTA ALTA:\n4 recámaras\n•1 recámara con baño completo y vestidor\n•1 recámara con closet \n•1 recámara baño completo y closet\n•1 recámara con vestidor , baño completo y sauna \n•Amplio distribuidor\n\nFrente a la casa hay un parque con juegos infantiles y un templo.\n\nYa sea para habitarla o para negocio, no dejes pasar la oportunidad.\nAgenda tu cita.",
+  "bedrooms": 5,
+  "bathrooms": 5,
+  "half_bathrooms": 2,
+  "parking_spaces": 5,
+  "lot_size": 314.91,
+  "construction_size": 514.0,
+  "lot_length": null,
+  "lot_width": null,
+  "floors": 2,
+  "floor": null,
+  "age": null,
+  "internal_id": "AM",
+  "expenses": "0",
+  "location": {
+    "name": "Arcos de Zapopan 1a. Sección, Zapopan, Jalisco",
+    "latitude": 20.7412103,
+    "longitude": -103.4115465,
+    "street": "Arco Caracalla",
+    "postal_code": "45130",
+    "show_exact_location": true,
+    "hide_exact_location": false,
+    "exterior_number": "1287",
+    "interior_number": null
+  },
+  "property_type": "Casa",
+  "created_at": "2023-12-07T16:02:43-06:00",
+  "updated_at": "2025-05-12T12:09:04-06:00",
+  "published_at": "2024-01-09T18:25:02-06:00",
+  "operations": [
+    {
+      "type": "rental",
+      "amount": 38000.0,
+      "currency": "MXN",
+      "formatted_amount": "$38,000",
+      "commission": {
+        "type": "months",
+        "value": 1
+      },
+      "unit": "total"
+    }
+  ],
+  "property_files": [],
+  "videos": [],
+  "virtual_tour": null,
+  "collaboration_notes": "50% inmobiliarias afiliadas a AMPI",
+  "public_url": "https://www.easybroker.com/mx/listings/casa-en-renta-ideal-para-consultorios-u-oficinas",
+  "shared_commission_percentage": null,
+  "exclusive": null,
+  "foreclosure": false,
+  "tags": [],
+  "private_description": null,
+  "show_prices": true,
+  "share_commission": true,
+  "property_images": [
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4167585/69114429/EB-OZ7585.jpeg?version=1701986663"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4167585/69114427/EB-OZ7585.jpeg?version=1701986663"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4167585/69114428/EB-OZ7585.jpeg?version=1701986663"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4167585/69114430/EB-OZ7585.jpeg?version=1701986664"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4167585/69114431/EB-OZ7585.jpeg?version=1701986664"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4167585/69114432/EB-OZ7585.jpeg?version=1701986664"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4167585/69114433/EB-OZ7585.jpeg?version=1701986665"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4167585/69114434/EB-OZ7585.jpeg?version=1701986665"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4167585/69114435/EB-OZ7585.jpeg?version=1701986665"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4167585/69114436/EB-OZ7585.jpeg?version=1701986666"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4167585/69114437/EB-OZ7585.jpeg?version=1701986666"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4167585/69114438/EB-OZ7585.jpeg?version=1701986666"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4167585/69114439/EB-OZ7585.jpeg?version=1701986667"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4167585/69114440/EB-OZ7585.jpeg?version=1701986667"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4167585/69114441/EB-OZ7585.jpeg?version=1701986668"
+    }
+  ],
+  "images": [
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4167585/69114429/EB-OZ7585.jpeg?version=1701986663"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4167585/69114427/EB-OZ7585.jpeg?version=1701986663"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4167585/69114428/EB-OZ7585.jpeg?version=1701986663"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4167585/69114430/EB-OZ7585.jpeg?version=1701986664"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4167585/69114431/EB-OZ7585.jpeg?version=1701986664"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4167585/69114432/EB-OZ7585.jpeg?version=1701986664"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4167585/69114433/EB-OZ7585.jpeg?version=1701986665"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4167585/69114434/EB-OZ7585.jpeg?version=1701986665"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4167585/69114435/EB-OZ7585.jpeg?version=1701986665"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4167585/69114436/EB-OZ7585.jpeg?version=1701986666"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4167585/69114437/EB-OZ7585.jpeg?version=1701986666"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4167585/69114438/EB-OZ7585.jpeg?version=1701986666"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4167585/69114439/EB-OZ7585.jpeg?version=1701986667"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4167585/69114440/EB-OZ7585.jpeg?version=1701986667"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4167585/69114441/EB-OZ7585.jpeg?version=1701986668"
+    }
+  ],
+  "agent": {
+    "id": 391012,
+    "name": "Lic.Gabriela Martínez",
+    "full_name": "Lic.Gabriela Martínez",
+    "mobile_phone": "+523338087984",
+    "profile_image_url": "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1757459148",
+    "email": "GABRIELAMTZ6@HOTMAIL.COM"
+  },
+  "features": [
+    {
+      "name": "Cisterna",
+      "category": "Exterior"
+    },
+    {
+      "name": "Estacionamiento techado",
+      "category": "Exterior"
+    },
+    {
+      "name": "Facilidad para estacionarse",
+      "category": "Exterior"
+    },
+    {
+      "name": "Patio",
+      "category": "Exterior"
+    },
+    {
+      "name": "Bodega",
+      "category": "General"
+    },
+    {
+      "name": "Cocina integral",
+      "category": "General"
+    },
+    {
+      "name": "Dos plantas",
+      "category": "General"
+    }
+  ]
+}

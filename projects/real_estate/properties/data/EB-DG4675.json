@@ -1,0 +1,113 @@
+{
+  "public_id": "EB-DG4675",
+  "title": "TERRENO EN VENTA 18,089 m2\n\n$$$",
+  "description": "18,089 M2  A UNA CUADRA DE LA CIUDAD DE TALA JAL.  LISTO PARA  FRACCIONAR Y A 200  MTS. DE LA CARRETERA  A SAN ISIDRO MAZATEPEC. Y  AL PARQUE  INDUSTRIAL TALA \nUSO DE SUELO H-4  C0N \n PROYECTO PARA FRACCIONAR O INSTALAR UNA FABRICA.",
+  "bedrooms": null,
+  "bathrooms": null,
+  "half_bathrooms": null,
+  "parking_spaces": null,
+  "lot_size": null,
+  "construction_size": null,
+  "lot_length": 180.0,
+  "lot_width": 100.0,
+  "floors": null,
+  "floor": null,
+  "age": null,
+  "internal_id": null,
+  "expenses": null,
+  "location": {
+    "name": "El Álamo, Tala, Jalisco",
+    "latitude": 20.6435142081,
+    "longitude": -103.7059086934,
+    "street": null,
+    "postal_code": null,
+    "show_exact_location": true,
+    "hide_exact_location": false,
+    "exterior_number": null,
+    "interior_number": null
+  },
+  "property_type": "Terreno comercial",
+  "created_at": "2019-06-12T13:26:15-05:00",
+  "updated_at": "2025-05-12T12:09:04-06:00",
+  "published_at": "2019-10-29T17:56:25-06:00",
+  "operations": [
+    {
+      "type": "sale",
+      "amount": 11758000.0,
+      "currency": "MXN",
+      "formatted_amount": "$11,758,000",
+      "commission": {
+        "type": "percentage",
+        "value": "5.0"
+      },
+      "unit": "total"
+    }
+  ],
+  "property_files": [
+    "https://assets.easybroker.com/property_files/1114675/60028/terreno_VENTA_EN_CAMICHINES_TALA.xlsx"
+  ],
+  "videos": [],
+  "virtual_tour": null,
+  "collaboration_notes": null,
+  "public_url": "https://www.easybroker.com/mx/listings/terreno-en-venta-el-alamo",
+  "shared_commission_percentage": null,
+  "exclusive": null,
+  "foreclosure": false,
+  "tags": [],
+  "private_description": null,
+  "show_prices": true,
+  "share_commission": true,
+  "property_images": [
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/1114675/16581551/EB-DG4675.jpg?version=1560364883"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/1114675/16590810/EB-DG4675.jpeg?version=1560378767"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/1114675/16590851/EB-DG4675.jpeg?version=1560378786"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/1114675/16591043/EB-DG4675.jpeg?version=1560378869"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/1114675/16591253/EB-DG4675.jpeg?version=1560378964"
+    }
+  ],
+  "images": [
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/1114675/16581551/EB-DG4675.jpg?version=1560364883"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/1114675/16590810/EB-DG4675.jpeg?version=1560378767"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/1114675/16590851/EB-DG4675.jpeg?version=1560378786"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/1114675/16591043/EB-DG4675.jpeg?version=1560378869"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/1114675/16591253/EB-DG4675.jpeg?version=1560378964"
+    }
+  ],
+  "agent": {
+    "id": 391012,
+    "name": "Lic.Gabriela Martínez",
+    "full_name": "Lic.Gabriela Martínez",
+    "mobile_phone": "+523338087984",
+    "profile_image_url": "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1757459148",
+    "email": "GABRIELAMTZ6@HOTMAIL.COM"
+  },
+  "features": []
+}

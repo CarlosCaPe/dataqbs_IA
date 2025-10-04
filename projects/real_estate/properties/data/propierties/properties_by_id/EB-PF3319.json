@@ -1,0 +1,41 @@
+﻿{
+    "public_id":  "EB-PF3319",
+    "title":  "Casa en venta o renta en Madeiras, Fraccionamiento Valle Imperial",
+    "title_image_full":  "https://assets.easybroker.com/property_images/4223319/70169588/EB-PF3319.jpeg?version=1705204967",
+    "title_image_thumb":  "https://assets.easybroker.com/property_images/4223319/70169588/EB-PF3319.jpeg?version=1705204967\u0026width=200",
+    "location":  "Valle Imperial, Zapopan, Jalisco",
+    "operations":  [
+                       {
+                           "type":  "sale",
+                           "amount":  3750000.0,
+                           "currency":  "MXN",
+                           "formatted_amount":  "$3,750,000",
+                           "commission":  {
+                                              "type":  "percentage",
+                                              "value":  "5.0"
+                                          },
+                           "unit":  "total"
+                       },
+                       {
+                           "type":  "rental",
+                           "amount":  17000.0,
+                           "currency":  "MXN",
+                           "formatted_amount":  "$17,000",
+                           "commission":  {
+                                              "type":  "months",
+                                              "value":  1
+                                          },
+                           "unit":  "total"
+                       }
+                   ],
+    "bedrooms":  3,
+    "bathrooms":  2,
+    "parking_spaces":  2,
+    "property_type":  "Casa",
+    "lot_size":  103.32,
+    "construction_size":  129.54,
+    "updated_at":  "2025-08-04T14:03:23-06:00",
+    "agent":  "Lic.Gabriela Martínez",
+    "show_prices":  true,
+    "share_commission":  true
+}

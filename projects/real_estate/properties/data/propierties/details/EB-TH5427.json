@@ -1,0 +1,398 @@
+﻿{
+    "public_id":  "EB-TH5427",
+    "title":  "Casa en renta en Bugambilias",
+    "description":  "Esta casa ubicada en la segunda sección de Bugambilias con oficina y cuarto de servicio con baño completo, muy cerca del club cuenta espacios sumamente aprovechados, iluminados  y una distribución inmejorable (renta incluye mantenimiento y servicio de agua)\n\nPLANTA BAJA:\n•Recibidor\n•Estudio\n•Medio baño\n•Sala doble altura con vista al jardín \n•Comedor con acceso a terraza \n•Cocina equipada con alacena y desayunador\n•Patio de servicio\n•Cuarto de servicio con baño completo\n\nPLANTA ALTA:\n•Amplio distribuidor con área de trabajo \n•Terraza\n•Recámara principal con vestidor, baño y aire acondicionado.\n•Dos recamaras secundarias (una con closet y la otra con vestidor)\n•Baño completo\n•Closet de blancos\n\nEl jardín con diseño de paisajista con plantas endémicas y polinizadores es espectacular, además cuenta con  una tina exterior y tres terrazas distribuidas entre este hermoso espacio.\n\nEn la parte frontal de la casa podemos encontrar un huerto productivo con cherry, albhaca, romero, hinojo, ruda, arrayan entre otros\nAcceso lateral al jardín.\n\nNo dejes pasar la oportunidad de vivir en el fraccionamiento mejor ubicado del sur de Guadalajara.\nA solo metros de centros comerciales, hospitales, COSTCO, SAMS, escuelas de alto nivel y todos los servicios que podrías necesitar.\n\n*Mascotas bienvenidas.\n*Mantenimiento incluido\n\nAgenda tu cita y conoce tu nuevo hogar.",
+    "bedrooms":  3,
+    "bathrooms":  2,
+    "half_bathrooms":  1,
+    "parking_spaces":  2,
+    "lot_size":  600.0,
+    "construction_size":  300.0,
+    "lot_length":  null,
+    "lot_width":  null,
+    "floors":  null,
+    "floor":  null,
+    "age":  1990,
+    "internal_id":  "AIDAJIRAFASM",
+    "expenses":  "Incluido",
+    "location":  {
+                     "name":  "Fraccionamiento Bugambilias, Zapopan, Jalisco",
+                     "latitude":  20.6144012,
+                     "longitude":  -103.4679766,
+                     "street":  "Remanso de las Jirafas",
+                     "postal_code":  "42538",
+                     "show_exact_location":  true,
+                     "hide_exact_location":  false,
+                     "exterior_number":  "3150",
+                     "interior_number":  null
+                 },
+    "property_type":  "Casa",
+    "created_at":  "2025-06-03T12:56:50-06:00",
+    "updated_at":  "2025-08-12T19:06:30-06:00",
+    "published_at":  "2025-06-03T13:03:11-06:00",
+    "operations":  [
+                       {
+                           "type":  "rental",
+                           "amount":  34900.0,
+                           "currency":  "MXN",
+                           "formatted_amount":  "$34,900",
+                           "commission":  {
+                                              "type":  "months",
+                                              "value":  1
+                                          },
+                           "unit":  "total"
+                       }
+                   ],
+    "property_files":  [
+
+                       ],
+    "videos":  [
+
+               ],
+    "virtual_tour":  null,
+    "collaboration_notes":  "Comisión compartida a inmobiliarias afiliadas",
+    "public_url":  "https://www.easybroker.com/mx/listings/casa-en-renta-en-bugambilias-432a1224-ae7c-44a7-a7d1-bba8c7fdd862",
+    "shared_commission_percentage":  50.0,
+    "exclusive":  true,
+    "foreclosure":  false,
+    "tags":  [
+
+             ],
+    "private_description":  null,
+    "show_prices":  true,
+    "share_commission":  true,
+    "property_images":  [
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5285427/91099759/EB-TH5427.jpeg?version=1748978226"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5285427/91099758/EB-TH5427.jpeg?version=1748978226"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5285427/91099760/EB-TH5427.jpeg?version=1748978226"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5285427/91099766/EB-TH5427.jpeg?version=1748978226"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5285427/91099769/EB-TH5427.jpeg?version=1748978226"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5285427/91099767/EB-TH5427.jpeg?version=1748978226"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5285427/91099774/EB-TH5427.jpeg?version=1748978226"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5285427/91099786/EB-TH5427.jpeg?version=1748978226"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5285427/91099785/EB-TH5427.jpeg?version=1748978226"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5285427/91099790/EB-TH5427.jpeg?version=1748978226"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5285427/91099792/EB-TH5427.jpeg?version=1748978226"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5285427/91099793/EB-TH5427.jpeg?version=1748978226"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5285427/91099794/EB-TH5427.jpeg?version=1748978226"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5285427/91099795/EB-TH5427.jpeg?version=1748978226"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5285427/91099797/EB-TH5427.jpeg?version=1748978226"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5285427/91099799/EB-TH5427.jpeg?version=1748978226"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5285427/91099800/EB-TH5427.jpeg?version=1748978226"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5285427/91099802/EB-TH5427.jpeg?version=1748978226"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5285427/91099809/EB-TH5427.jpeg?version=1748978226"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5285427/91099810/EB-TH5427.jpeg?version=1748978226"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5285427/91099817/EB-TH5427.jpeg?version=1748978226"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5285427/91099819/EB-TH5427.jpeg?version=1748978226"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5285427/91099820/EB-TH5427.jpeg?version=1748978226"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5285427/91099822/EB-TH5427.jpeg?version=1748978226"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5285427/91100002/EB-TH5427.jpeg?version=1748978226"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5285427/91099826/EB-TH5427.jpeg?version=1748978226"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5285427/91099945/EB-TH5427.jpeg?version=1748978226"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5285427/91099946/EB-TH5427.jpeg?version=1748978226"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5285427/91099947/EB-TH5427.jpeg?version=1748978226"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5285427/91099949/EB-TH5427.jpeg?version=1748978226"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5285427/91099952/EB-TH5427.jpeg?version=1748978226"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5285427/91099953/EB-TH5427.jpeg?version=1748978226"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5285427/91099955/EB-TH5427.jpeg?version=1748978226"
+                            }
+                        ],
+    "images":  [
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5285427/91099759/EB-TH5427.jpeg?version=1748978226"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5285427/91099758/EB-TH5427.jpeg?version=1748978226"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5285427/91099760/EB-TH5427.jpeg?version=1748978226"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5285427/91099766/EB-TH5427.jpeg?version=1748978226"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5285427/91099769/EB-TH5427.jpeg?version=1748978226"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5285427/91099767/EB-TH5427.jpeg?version=1748978226"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5285427/91099774/EB-TH5427.jpeg?version=1748978226"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5285427/91099786/EB-TH5427.jpeg?version=1748978226"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5285427/91099785/EB-TH5427.jpeg?version=1748978226"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5285427/91099790/EB-TH5427.jpeg?version=1748978226"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5285427/91099792/EB-TH5427.jpeg?version=1748978226"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5285427/91099793/EB-TH5427.jpeg?version=1748978226"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5285427/91099794/EB-TH5427.jpeg?version=1748978226"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5285427/91099795/EB-TH5427.jpeg?version=1748978226"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5285427/91099797/EB-TH5427.jpeg?version=1748978226"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5285427/91099799/EB-TH5427.jpeg?version=1748978226"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5285427/91099800/EB-TH5427.jpeg?version=1748978226"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5285427/91099802/EB-TH5427.jpeg?version=1748978226"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5285427/91099809/EB-TH5427.jpeg?version=1748978226"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5285427/91099810/EB-TH5427.jpeg?version=1748978226"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5285427/91099817/EB-TH5427.jpeg?version=1748978226"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5285427/91099819/EB-TH5427.jpeg?version=1748978226"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5285427/91099820/EB-TH5427.jpeg?version=1748978226"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5285427/91099822/EB-TH5427.jpeg?version=1748978226"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5285427/91100002/EB-TH5427.jpeg?version=1748978226"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5285427/91099826/EB-TH5427.jpeg?version=1748978226"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5285427/91099945/EB-TH5427.jpeg?version=1748978226"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5285427/91099946/EB-TH5427.jpeg?version=1748978226"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5285427/91099947/EB-TH5427.jpeg?version=1748978226"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5285427/91099949/EB-TH5427.jpeg?version=1748978226"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5285427/91099952/EB-TH5427.jpeg?version=1748978226"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5285427/91099953/EB-TH5427.jpeg?version=1748978226"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5285427/91099955/EB-TH5427.jpeg?version=1748978226"
+                   }
+               ],
+    "agent":  {
+                  "id":  391012,
+                  "name":  "Lic.Gabriela Martínez",
+                  "full_name":  "Lic.Gabriela Martínez",
+                  "mobile_phone":  "+523338087984",
+                  "profile_image_url":  "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1757459148",
+                  "email":  "GABRIELAMTZ6@HOTMAIL.COM"
+              },
+    "features":  [
+                     {
+                         "name":  "Balcón",
+                         "category":  "Exterior"
+                     },
+                     {
+                         "name":  "Cisterna",
+                         "category":  "Exterior"
+                     },
+                     {
+                         "name":  "Facilidad para estacionarse",
+                         "category":  "Exterior"
+                     },
+                     {
+                         "name":  "Jardín",
+                         "category":  "Exterior"
+                     },
+                     {
+                         "name":  "Patio",
+                         "category":  "Exterior"
+                     },
+                     {
+                         "name":  "Riego por aspersión",
+                         "category":  "Exterior"
+                     },
+                     {
+                         "name":  "Terraza",
+                         "category":  "Exterior"
+                     },
+                     {
+                         "name":  "Aire acondicionado",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Circuito cerrado",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Cocina integral",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Cuarto de servicio",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Dos plantas",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Estudio",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Mascotas permitidas",
+                         "category":  "Políticas"
+                     }
+                 ]
+}

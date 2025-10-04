@@ -1,0 +1,228 @@
+{
+  "public_id": "EB-TJ7073",
+  "title": "Piso de oficinas en renta en Jardines del Bosque",
+  "description": "No dejes pasar la oportunidad de hacer crecer tu negocio en estas oficinas con una ubicación privilegiada en una de las mejores zonas de Guadalajara.\n\nEste piso está en el 1ro nivel del edificio Arcos687, cuenta con 300 mts donde actualmente cuentan con:\n\n•Bodega\n•Seis cubículos\n•Dos privados con aire acondicionado \n• Sala de juntas \n•Dos medios baños\n•Cocineta (sin gas)\n\nY un excedente de 50 metros de terraza multiusos, además de espacio para hasta 9 automóviles en estacionamiento techado y con porton eléctrico para mayor seguridad.\n\nAgenda tu cita.\n*Cualquier adaptación a la medida es posible previa negociación.\n*Precio más IVA",
+  "bedrooms": null,
+  "bathrooms": null,
+  "half_bathrooms": 2,
+  "parking_spaces": 9,
+  "lot_size": null,
+  "construction_size": 350.0,
+  "lot_length": null,
+  "lot_width": null,
+  "floors": null,
+  "floor": "1",
+  "age": null,
+  "internal_id": "AIDAARCOS1",
+  "expenses": "Incluido",
+  "location": {
+    "name": "Jardines del Bosque Centro, Guadalajara, Jalisco",
+    "latitude": 20.667261,
+    "longitude": -103.3843441,
+    "street": "Arcos",
+    "postal_code": "44520",
+    "show_exact_location": true,
+    "hide_exact_location": false,
+    "exterior_number": "687",
+    "interior_number": "1"
+  },
+  "property_type": "Oficina",
+  "created_at": "2025-06-11T19:02:17-06:00",
+  "updated_at": "2025-07-16T09:48:39-06:00",
+  "published_at": "2025-06-11T19:03:47-06:00",
+  "operations": [
+    {
+      "type": "rental",
+      "amount": 55500.0,
+      "currency": "MXN",
+      "formatted_amount": "$55,500",
+      "commission": {
+        "type": "months",
+        "value": 0.5
+      },
+      "unit": "total"
+    }
+  ],
+  "property_files": [],
+  "videos": [],
+  "virtual_tour": null,
+  "collaboration_notes": "Comisión compartida a inmobiliarias afiliadas",
+  "public_url": "https://www.easybroker.com/mx/listings/piso-de-oficinas-en-renta-en-jardines-del-bosque",
+  "shared_commission_percentage": 50.0,
+  "exclusive": false,
+  "foreclosure": false,
+  "tags": [],
+  "private_description": null,
+  "show_prices": true,
+  "share_commission": true,
+  "property_images": [
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5307073/91524095/EB-TJ7073.jpeg?version=1749690204"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5307073/91524096/EB-TJ7073.jpeg?version=1749690204"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5307073/91524097/EB-TJ7073.jpeg?version=1749690204"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5307073/91524098/EB-TJ7073.jpeg?version=1749690204"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5307073/91524099/EB-TJ7073.jpeg?version=1749690205"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5307073/91524100/EB-TJ7073.jpeg?version=1749690205"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5307073/91524101/EB-TJ7073.jpeg?version=1749690205"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5307073/91524102/EB-TJ7073.jpeg?version=1749690205"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5307073/91524103/EB-TJ7073.jpeg?version=1749690206"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5307073/91524104/EB-TJ7073.jpeg?version=1749690206"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5307073/91524105/EB-TJ7073.jpeg?version=1749690207"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5307073/91524106/EB-TJ7073.jpeg?version=1749690207"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5307073/91524184/EB-TJ7073.jpeg?version=1749690326"
+    }
+  ],
+  "images": [
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5307073/91524095/EB-TJ7073.jpeg?version=1749690204"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5307073/91524096/EB-TJ7073.jpeg?version=1749690204"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5307073/91524097/EB-TJ7073.jpeg?version=1749690204"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5307073/91524098/EB-TJ7073.jpeg?version=1749690204"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5307073/91524099/EB-TJ7073.jpeg?version=1749690205"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5307073/91524100/EB-TJ7073.jpeg?version=1749690205"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5307073/91524101/EB-TJ7073.jpeg?version=1749690205"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5307073/91524102/EB-TJ7073.jpeg?version=1749690205"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5307073/91524103/EB-TJ7073.jpeg?version=1749690206"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5307073/91524104/EB-TJ7073.jpeg?version=1749690206"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5307073/91524105/EB-TJ7073.jpeg?version=1749690207"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5307073/91524106/EB-TJ7073.jpeg?version=1749690207"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5307073/91524184/EB-TJ7073.jpeg?version=1749690326"
+    }
+  ],
+  "agent": {
+    "id": 391012,
+    "name": "Lic.Gabriela Martínez",
+    "full_name": "Lic.Gabriela Martínez",
+    "mobile_phone": "+523338087984",
+    "profile_image_url": "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1757459148",
+    "email": "GABRIELAMTZ6@HOTMAIL.COM"
+  },
+  "features": [
+    {
+      "name": "Estacionamiento techado",
+      "category": "Exterior"
+    },
+    {
+      "name": "Facilidad para estacionarse",
+      "category": "Exterior"
+    },
+    {
+      "name": "Terraza",
+      "category": "Exterior"
+    },
+    {
+      "name": "Accesibilidad para adultos mayores",
+      "category": "General"
+    },
+    {
+      "name": "Accesibilidad para personas con discapacidad",
+      "category": "General"
+    },
+    {
+      "name": "Aire acondicionado",
+      "category": "General"
+    },
+    {
+      "name": "Bodega",
+      "category": "General"
+    },
+    {
+      "name": "Cocina",
+      "category": "General"
+    },
+    {
+      "name": "Elevador",
+      "category": "General"
+    },
+    {
+      "name": "Oficina",
+      "category": "General"
+    },
+    {
+      "name": "Portero",
+      "category": "General"
+    },
+    {
+      "name": "Seguridad 12 horas",
+      "category": "General"
+    },
+    {
+      "name": "Una sola planta",
+      "category": "General"
+    }
+  ]
+}

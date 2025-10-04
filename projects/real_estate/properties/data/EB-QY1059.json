@@ -1,0 +1,363 @@
+{
+  "public_id": "EB-QY1059",
+  "title": "Casa en fraccionamiento en Ciudad Granja",
+  "description": "Casa en coto en Cd Granja a solo unas cuadras del parque Metropolitano y a pocos metros de la Universidad Panamericana \n\nPLANTA BAJA:\n•Estacionamiento para dos automóviles \n•Bodega \n•Patio de servicio techado \n•Cuarto de servicio con baño completo \n•Cocina equipada \n•Sala-comedor con barra cantina\n•Medio baño\n•Patio interior \n\nPLANTA ALTA:\n•Distribuidor\n•Dos recamaras gemelas con closet\n•Baño completo\n•Recámara principal con walking closet y aire acondicionado + baño completo \n\n●La casa cuenta con paneles solares\n\nFraccionamiento Novara cuenta con seguridad 24/7, áreas comunes y la privacidad de contar solo con 27 casas.\n\nNo pierdas la oportunidad de vivir en una de las zonas con mayor plusvalía y mejor ubicación de todo Guadalajara.\n\n*Precio más mantenimiento \n*Mascotas bienvenidas",
+  "bedrooms": 4,
+  "bathrooms": 3,
+  "half_bathrooms": 1,
+  "parking_spaces": 2,
+  "lot_size": 141.23,
+  "construction_size": 194.84,
+  "lot_length": 18.0,
+  "lot_width": 8.0,
+  "floors": 2,
+  "floor": null,
+  "age": 2009,
+  "internal_id": "AIDANOVARA",
+  "expenses": "1100",
+  "location": {
+    "name": "Ciudad Granja, Zapopan, Jalisco",
+    "latitude": 20.6755366,
+    "longitude": -103.4450018,
+    "street": "Calzada Circunvalación Oriente",
+    "postal_code": "45010",
+    "show_exact_location": true,
+    "hide_exact_location": false,
+    "exterior_number": "811",
+    "interior_number": "9"
+  },
+  "property_type": "Casa en condominio",
+  "created_at": "2024-08-13T12:11:42-06:00",
+  "updated_at": "2025-09-23T17:40:22-06:00",
+  "published_at": "2024-08-13T12:21:39-06:00",
+  "operations": [
+    {
+      "type": "rental",
+      "amount": 21000.0,
+      "currency": "MXN",
+      "formatted_amount": "$21,000",
+      "commission": {
+        "type": "percentage"
+      },
+      "unit": "total"
+    }
+  ],
+  "property_files": [],
+  "videos": [],
+  "virtual_tour": null,
+  "collaboration_notes": "50% a inmobiliarias afiliadas",
+  "public_url": "https://www.easybroker.com/mx/listings/casa-en-fraccionamiento-en-ciudad-granja",
+  "shared_commission_percentage": null,
+  "exclusive": null,
+  "foreclosure": false,
+  "tags": [],
+  "private_description": null,
+  "show_prices": true,
+  "share_commission": true,
+  "property_images": [
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4671059/78772744/EB-QY1059.jpeg?version=1723573217"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4671059/78772746/EB-QY1059.jpeg?version=1723573220"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4671059/78772747/EB-QY1059.jpeg?version=1723573220"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4671059/78772748/EB-QY1059.jpeg?version=1723573221"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4671059/78772750/EB-QY1059.jpeg?version=1723573222"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4671059/78772751/EB-QY1059.jpeg?version=1723573223"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4671059/78772752/EB-QY1059.jpeg?version=1723573224"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4671059/78772753/EB-QY1059.jpeg?version=1723573225"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4671059/78772754/EB-QY1059.jpeg?version=1723573226"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4671059/78772757/EB-QY1059.jpeg?version=1723573227"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4671059/78772755/EB-QY1059.jpeg?version=1723573226"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4671059/78772758/EB-QY1059.jpeg?version=1723573228"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4671059/78772761/EB-QY1059.jpeg?version=1723573229"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4671059/78772762/EB-QY1059.jpeg?version=1723573229"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4671059/78772763/EB-QY1059.jpeg?version=1723573230"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4671059/78772765/EB-QY1059.jpeg?version=1723573231"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4671059/78772766/EB-QY1059.jpeg?version=1723573231"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4671059/78772768/EB-QY1059.jpeg?version=1723573232"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4671059/78772770/EB-QY1059.jpeg?version=1723573233"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4671059/78772771/EB-QY1059.jpeg?version=1723573233"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4671059/78772773/EB-QY1059.jpeg?version=1723573234"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4671059/78772774/EB-QY1059.jpeg?version=1723573235"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4671059/78772775/EB-QY1059.jpeg?version=1723573236"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4671059/78772776/EB-QY1059.jpeg?version=1723573237"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4671059/78772777/EB-QY1059.jpeg?version=1723573237"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4671059/78772778/EB-QY1059.jpeg?version=1723573238"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4671059/78772780/EB-QY1059.jpeg?version=1723573240"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4671059/78772781/EB-QY1059.jpeg?version=1723573241"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4671059/78772782/EB-QY1059.jpeg?version=1723573241"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4671059/78772783/EB-QY1059.jpeg?version=1723573242"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4671059/78772791/EB-QY1059.png?version=1723573248"
+    }
+  ],
+  "images": [
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4671059/78772744/EB-QY1059.jpeg?version=1723573217"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4671059/78772746/EB-QY1059.jpeg?version=1723573220"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4671059/78772747/EB-QY1059.jpeg?version=1723573220"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4671059/78772748/EB-QY1059.jpeg?version=1723573221"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4671059/78772750/EB-QY1059.jpeg?version=1723573222"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4671059/78772751/EB-QY1059.jpeg?version=1723573223"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4671059/78772752/EB-QY1059.jpeg?version=1723573224"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4671059/78772753/EB-QY1059.jpeg?version=1723573225"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4671059/78772754/EB-QY1059.jpeg?version=1723573226"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4671059/78772757/EB-QY1059.jpeg?version=1723573227"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4671059/78772755/EB-QY1059.jpeg?version=1723573226"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4671059/78772758/EB-QY1059.jpeg?version=1723573228"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4671059/78772761/EB-QY1059.jpeg?version=1723573229"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4671059/78772762/EB-QY1059.jpeg?version=1723573229"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4671059/78772763/EB-QY1059.jpeg?version=1723573230"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4671059/78772765/EB-QY1059.jpeg?version=1723573231"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4671059/78772766/EB-QY1059.jpeg?version=1723573231"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4671059/78772768/EB-QY1059.jpeg?version=1723573232"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4671059/78772770/EB-QY1059.jpeg?version=1723573233"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4671059/78772771/EB-QY1059.jpeg?version=1723573233"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4671059/78772773/EB-QY1059.jpeg?version=1723573234"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4671059/78772774/EB-QY1059.jpeg?version=1723573235"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4671059/78772775/EB-QY1059.jpeg?version=1723573236"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4671059/78772776/EB-QY1059.jpeg?version=1723573237"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4671059/78772777/EB-QY1059.jpeg?version=1723573237"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4671059/78772778/EB-QY1059.jpeg?version=1723573238"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4671059/78772780/EB-QY1059.jpeg?version=1723573240"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4671059/78772781/EB-QY1059.jpeg?version=1723573241"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4671059/78772782/EB-QY1059.jpeg?version=1723573241"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4671059/78772783/EB-QY1059.jpeg?version=1723573242"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4671059/78772791/EB-QY1059.png?version=1723573248"
+    }
+  ],
+  "agent": {
+    "id": 391012,
+    "name": "Lic.Gabriela Martínez",
+    "full_name": "Lic.Gabriela Martínez",
+    "mobile_phone": "+523338087984",
+    "profile_image_url": "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1757459148",
+    "email": "GABRIELAMTZ6@HOTMAIL.COM"
+  },
+  "features": [
+    {
+      "name": "Estacionamiento techado",
+      "category": "Exterior"
+    },
+    {
+      "name": "Patio",
+      "category": "Exterior"
+    },
+    {
+      "name": "Aire acondicionado",
+      "category": "General"
+    },
+    {
+      "name": "Bodega",
+      "category": "General"
+    },
+    {
+      "name": "Cocina integral",
+      "category": "General"
+    },
+    {
+      "name": "Cuarto de servicio",
+      "category": "General"
+    },
+    {
+      "name": "Dos plantas",
+      "category": "General"
+    },
+    {
+      "name": "Fraccionamiento privado",
+      "category": "General"
+    },
+    {
+      "name": "Portero",
+      "category": "General"
+    },
+    {
+      "name": "Seguridad 24 horas",
+      "category": "General"
+    },
+    {
+      "name": "Salón de usos múltiples",
+      "category": "Recreación"
+    }
+  ]
+}

@@ -1,13 +1,26 @@
-# dataqbs_IA
+# dataqbs_IA Monorepo
 
-This repository contains two Python projects in a single workspace:
+Multi‑project Python workspace containing tooling for email ingestion/classification, evaluation engines, real estate data utilities and media comparison automation.
 
-- email_collector: IMAP email collection and classification with .eml export.
-- realstate: Utilities and scripts to handle real estate data.
+## Project Index
 
-See also: CHANGELOG.md for English release notes, visible to external collaborators/recruiters.
+| Project | Path | Package | Purpose | Main Command |
+|---------|------|---------|---------|--------------|
+| Email Collector | `projects/email_collector` | `email_collector` | IMAP collection, light validation & categorization | `poetry run email-collect` |
+| OAI Code Evaluator | `projects/oai_code_evaluator` | `oai_code_evaluator` | Configurable rule engine for model response auditing | `poetry run oai-eval` |
+| Real Estate Tools | `projects/real_estate` | `real_estate` | Scraping / export (EasyBroker, Wiggot) & image tasks | (scripts / CLI planned) |
+| Telus Audio Compare | `projects/telus_compara_audios` | `telus_compara_audios` | Automated A/B audio quality comparison via Playwright | `poetry run telus-compare-audio` |
+| Telus Image Compare | `projects/telus_compara_imagenes` | `telus_compara_imagenes` | Side‑by‑side image comparison automation | `poetry run telus-compare` |
 
-## Environment setup
+Shared assets:
+- `rules/email/` → domain rule definitions (email heuristics, summaries)
+- `tools/` → operational & maintenance scripts grouped by domain
+- `artifacts/` → generated outputs (ignored by git)
+- `docs/` → architecture and process documentation
+
+See `docs/monorepo.md` for structure rationale and conventions.
+
+## Environment Setup (Email Collector)
 
 1) Create a `.env` file at the repository root (not committed) with your credentials. Example placeholders below—replace with your own values; do not commit secrets:
 
@@ -30,7 +43,7 @@ GMAIL2_PASS=APP_PASSWORD_GMAIL2
 
 2) Adjust `config.yaml` to fine‑tune classification/validation rules. You can override IMAP host/port/folder via environment variables `IMAP_HOST`, `IMAP_PORT`, `IMAP_FOLDER`.
 
-## Usage (email_collector)
+## Usage: Email Collector
 
 From the repo root with Poetry:
 
@@ -64,7 +77,7 @@ Increase verbosity with `-v/--verbose` (Email Collector) or set `LOGLEVEL=DEBUG`
 
 ---
 
-## Usage (realstate)
+## Usage: Real Estate Tools
 
 Enter the `realstate` folder and use Poetry to install dependencies and run scripts:
 
@@ -89,7 +102,7 @@ You can also use VS Code tasks and debug configurations:
   - Realstate: test_download.py
   - Realstate: image_downloader.py
 
-Tip: Open `dataqbs_IA.code-workspace` to load both projects as folders in one workspace.
+Tip: Open `dataqbs_IA.code-workspace` to load all projects.
 
 ### OAuth for Hotmail/Outlook (XOAUTH2)
 
@@ -105,3 +118,30 @@ If basic IMAP login fails for Hotmail/Outlook, the project supports OAuth (devic
    - (With OAuth, `HOTMAIL_PASS` is optional.)
 
 On first run, you’ll get a verification URL and user code to authorize the app. A token is cached at `~/.email_collector/msal_hotmail_token.json`.
+
+---
+
+## Development Tooling
+
+Install root tooling (lint + tests + hooks):
+```powershell
+poetry install
+pre-commit install
+```
+
+Run evaluator tests:
+```powershell
+poetry run pytest
+```
+
+Lint & format:
+```powershell
+poetry run ruff check .
+poetry run ruff format .
+```
+
+## Adding a New Project
+See `docs/monorepo.md` – create under `projects/<name>/src/<package>` with its own `pyproject.toml`.
+
+## License
+MIT

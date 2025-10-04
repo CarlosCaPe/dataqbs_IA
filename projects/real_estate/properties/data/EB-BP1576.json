@@ -1,0 +1,104 @@
+{
+  "public_id": "EB-BP1576",
+  "title": "TERRENO EN VENTA EN CASA FUERTE",
+  "description": "Topografía Plano. Se encuentra dentro de condominio privado, junto a casa y terrenos al lado y atrás, frente a parque. Ubicado en condominio El Castillo, cuenta con vigilancia las 24 hrs, cableado luz y teléfono subterráneos. Luminarias, área de jardín a todo lo largo del coto y Terraza. \nEscriturado y sin gravamen.",
+  "bedrooms": null,
+  "bathrooms": null,
+  "half_bathrooms": null,
+  "parking_spaces": null,
+  "lot_size": 160.0,
+  "construction_size": null,
+  "lot_length": 20.0,
+  "lot_width": 8.0,
+  "floors": null,
+  "floor": null,
+  "age": null,
+  "internal_id": null,
+  "expenses": null,
+  "location": {
+    "name": "El Alcázar (Casa Fuerte), Tlajomulco de Zúñiga, Jalisco",
+    "latitude": 20.5326645,
+    "longitude": -103.4841059,
+    "street": "Coto El Castillo",
+    "postal_code": null,
+    "show_exact_location": true,
+    "hide_exact_location": false,
+    "exterior_number": null,
+    "interior_number": null
+  },
+  "property_type": "Terreno",
+  "created_at": "2018-03-26T12:59:10-06:00",
+  "updated_at": "2025-05-12T12:09:04-06:00",
+  "published_at": "2018-03-26T13:01:34-06:00",
+  "operations": [
+    {
+      "type": "sale",
+      "amount": 820000.0,
+      "currency": "MXN",
+      "formatted_amount": "$820,000",
+      "commission": {
+        "type": "percentage",
+        "value": "5.0"
+      },
+      "unit": "total"
+    }
+  ],
+  "property_files": [],
+  "videos": [],
+  "virtual_tour": null,
+  "collaboration_notes": "",
+  "public_url": "https://www.easybroker.com/mx/listings/terreno-en-venta-en-casa-fuerte-el-alcazar-casa-fuerte",
+  "shared_commission_percentage": null,
+  "exclusive": null,
+  "foreclosure": false,
+  "tags": [],
+  "private_description": null,
+  "show_prices": true,
+  "share_commission": true,
+  "property_images": [
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/681576/10364729/EB-BP1576.jpg?version=1522090894"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/681576/10364736/EB-BP1576.jpg?version=1522090894"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/681576/10364749/EB-BP1576.jpg?version=1522090894"
+    }
+  ],
+  "images": [
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/681576/10364729/EB-BP1576.jpg?version=1522090894"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/681576/10364736/EB-BP1576.jpg?version=1522090894"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/681576/10364749/EB-BP1576.jpg?version=1522090894"
+    }
+  ],
+  "agent": {
+    "id": 391012,
+    "name": "Lic.Gabriela Martínez",
+    "full_name": "Lic.Gabriela Martínez",
+    "mobile_phone": "+523338087984",
+    "profile_image_url": "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1757459148",
+    "email": "GABRIELAMTZ6@HOTMAIL.COM"
+  },
+  "features": [
+    {
+      "name": "Terraza",
+      "category": "Exterior"
+    },
+    {
+      "name": "Seguridad 24 horas",
+      "category": "General"
+    }
+  ]
+}

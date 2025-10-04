@@ -1,0 +1,151 @@
+{
+  "public_id": "EB-TD8259",
+  "title": "Terreno en Senderos de Monte Verde",
+  "description": "Oportunidad de Terreno en Venta en Senderos de Monte Verde\n\nEl mejor precio por m2 en uno de los mejores fraccionamientos al sur de la ciudad. El terreno se encuentra dentro del 1er coto del fraccionamiento muy cercano a comercios locales lo que te permite tener todo a la mano.\n\nSenderos de Monte Verde cuenta con retorno propio para mejor acceso a vialidad , accesos a escuelas, hospitales, plazas comerciales!",
+  "bedrooms": null,
+  "bathrooms": null,
+  "half_bathrooms": null,
+  "parking_spaces": null,
+  "lot_size": 200.0,
+  "construction_size": null,
+  "lot_length": 20.0,
+  "lot_width": 10.0,
+  "floors": null,
+  "floor": null,
+  "age": null,
+  "internal_id": "GABOSENDEROS1",
+  "expenses": null,
+  "location": {
+    "name": "Senderos de Monte Verde, Tlajomulco de Zúñiga, Jalisco",
+    "latitude": 20.5114770947,
+    "longitude": -103.4893197093,
+    "street": "Senderos de las flores",
+    "postal_code": "45645",
+    "show_exact_location": true,
+    "hide_exact_location": false,
+    "exterior_number": "3",
+    "interior_number": null
+  },
+  "property_type": "Terreno",
+  "created_at": "2025-05-17T11:31:56-06:00",
+  "updated_at": "2025-05-22T14:13:56-06:00",
+  "published_at": "2025-05-17T11:35:40-06:00",
+  "operations": [
+    {
+      "type": "sale",
+      "amount": 1350000.0,
+      "currency": "MXN",
+      "formatted_amount": "$1,350,000",
+      "commission": {
+        "type": "percentage",
+        "value": "4.0"
+      },
+      "unit": "total"
+    }
+  ],
+  "property_files": [],
+  "videos": [],
+  "virtual_tour": null,
+  "collaboration_notes": null,
+  "public_url": "https://www.easybroker.com/mx/listings/terreno-en-senderos-de-monte-verde-5423b1de-cdb9-429f-a2e2-73637a2c3549",
+  "shared_commission_percentage": null,
+  "exclusive": null,
+  "foreclosure": false,
+  "tags": [],
+  "private_description": null,
+  "show_prices": true,
+  "share_commission": true,
+  "property_images": [
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5248259/90344665/EB-TD8259.jpg?version=1747503216"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5248259/90344666/EB-TD8259.jpg?version=1747503217"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5248259/90344667/EB-TD8259.jpg?version=1747503217"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5248259/90344668/EB-TD8259.jpg?version=1747503220"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5248259/90344669/EB-TD8259.jpg?version=1747503220"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5248259/90344670/EB-TD8259.jpg?version=1747503301"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5248259/90577037/EB-TD8259.jpg?version=1747944804"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5248259/90577039/EB-TD8259.jpg?version=1747944804"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5248259/90577040/EB-TD8259.jpg?version=1747944805"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5248259/90577041/EB-TD8259.jpg?version=1747944805"
+    }
+  ],
+  "images": [
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5248259/90344665/EB-TD8259.jpg?version=1747503216"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5248259/90344666/EB-TD8259.jpg?version=1747503217"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5248259/90344667/EB-TD8259.jpg?version=1747503217"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5248259/90344668/EB-TD8259.jpg?version=1747503220"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5248259/90344669/EB-TD8259.jpg?version=1747503220"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5248259/90344670/EB-TD8259.jpg?version=1747503301"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5248259/90577037/EB-TD8259.jpg?version=1747944804"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5248259/90577039/EB-TD8259.jpg?version=1747944804"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5248259/90577040/EB-TD8259.jpg?version=1747944805"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5248259/90577041/EB-TD8259.jpg?version=1747944805"
+    }
+  ],
+  "agent": {
+    "id": 391012,
+    "name": "Lic.Gabriela Martínez",
+    "full_name": "Lic.Gabriela Martínez",
+    "mobile_phone": "+523338087984",
+    "profile_image_url": "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1757459148",
+    "email": "GABRIELAMTZ6@HOTMAIL.COM"
+  },
+  "features": []
+}

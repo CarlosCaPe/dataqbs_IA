@@ -1,0 +1,156 @@
+{
+  "public_id": "EB-QX2856",
+  "title": "Propiedad con uso de suelo comercial o habitacional para remodelar",
+  "description": "Ya sea para proyecto Comercial o Habitacional, esta propiedad es única en la zona.\n\n2,955 metros en total distribuidos actualmente de la siguiente manera:\n\n•1722 mts de construcción\n•984 mts de jardín\n•260 mts de estacionamiento (60 espacios aprox)\n\nDesarrollo habitacional horizontal (segun reglamento) o vertical, hospital, escuela, restaurante, mercado, estacionamiento, etc con una ubicación estratégica conectado con las principales vías de acceso a Fraccionamientos en Zona Real, JAPI, SAT, Hospital San José Valle Real y múltiples centros comerciales.\n\nAgenda tu cita, conoce esta propiedad y vuelve realidad tu proyecto.",
+  "bedrooms": null,
+  "bathrooms": null,
+  "half_bathrooms": null,
+  "parking_spaces": null,
+  "lot_size": 2966.0,
+  "construction_size": null,
+  "lot_length": null,
+  "lot_width": null,
+  "floors": null,
+  "floor": null,
+  "age": null,
+  "internal_id": "HLAMORA",
+  "expenses": null,
+  "location": {
+    "name": "Los Girasoles, Zapopan, Jalisco",
+    "latitude": 20.7303387,
+    "longitude": -103.4249696,
+    "street": "Mimosas",
+    "postal_code": "45130",
+    "show_exact_location": true,
+    "hide_exact_location": false,
+    "exterior_number": "606",
+    "interior_number": null
+  },
+  "property_type": "Terreno comercial",
+  "created_at": "2024-08-08T17:52:48-06:00",
+  "updated_at": "2025-05-12T12:09:04-06:00",
+  "published_at": "2024-09-12T09:52:06-06:00",
+  "operations": [
+    {
+      "type": "sale",
+      "amount": 38458000.0,
+      "currency": "MXN",
+      "formatted_amount": "$38,458,000",
+      "commission": {
+        "type": "percentage",
+        "value": "4.0"
+      },
+      "unit": "total"
+    }
+  ],
+  "property_files": [],
+  "videos": [],
+  "virtual_tour": null,
+  "collaboration_notes": "50% a inmobiliarias afiliadas",
+  "public_url": "https://www.easybroker.com/mx/listings/propiedad-con-uso-de-suelo-comercial-o-habitacional-para-remodelar",
+  "shared_commission_percentage": null,
+  "exclusive": null,
+  "foreclosure": false,
+  "tags": [],
+  "private_description": null,
+  "show_prices": true,
+  "share_commission": true,
+  "property_images": [
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4662856/78593175/EB-QX2856.jpeg?version=1723161218"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4662856/78593174/EB-QX2856.jpeg?version=1723161218"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4662856/78593176/EB-QX2856.jpeg?version=1723161218"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4662856/78593178/EB-QX2856.jpeg?version=1723161219"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4662856/78593177/EB-QX2856.jpeg?version=1723161218"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4662856/78593181/EB-QX2856.jpeg?version=1723161219"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4662856/78593179/EB-QX2856.jpeg?version=1723161219"
+    }
+  ],
+  "images": [
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4662856/78593175/EB-QX2856.jpeg?version=1723161218"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4662856/78593174/EB-QX2856.jpeg?version=1723161218"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4662856/78593176/EB-QX2856.jpeg?version=1723161218"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4662856/78593178/EB-QX2856.jpeg?version=1723161219"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4662856/78593177/EB-QX2856.jpeg?version=1723161218"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4662856/78593181/EB-QX2856.jpeg?version=1723161219"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4662856/78593179/EB-QX2856.jpeg?version=1723161219"
+    }
+  ],
+  "agent": {
+    "id": 391012,
+    "name": "Lic.Gabriela Martínez",
+    "full_name": "Lic.Gabriela Martínez",
+    "mobile_phone": "+523338087984",
+    "profile_image_url": "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1757459148",
+    "email": "GABRIELAMTZ6@HOTMAIL.COM"
+  },
+  "features": [
+    {
+      "name": "Facilidad para estacionarse",
+      "category": "Exterior"
+    },
+    {
+      "name": "Jardín",
+      "category": "Exterior"
+    },
+    {
+      "name": "Patio",
+      "category": "Exterior"
+    },
+    {
+      "name": "Terraza",
+      "category": "Exterior"
+    },
+    {
+      "name": "Accesibilidad para adultos mayores",
+      "category": "General"
+    },
+    {
+      "name": "Accesibilidad para personas con discapacidad",
+      "category": "General"
+    },
+    {
+      "name": "Una sola planta",
+      "category": "General"
+    }
+  ]
+}

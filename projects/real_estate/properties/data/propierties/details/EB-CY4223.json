@@ -1,0 +1,190 @@
+﻿{
+    "public_id":  "EB-CY4223",
+    "title":  "DEPARTAMENTO AMUEBLADO TORRE SANIA",
+    "description":  "EXCELENTE DEPARTAMENTO AMUEBLADO CON  LUJOSA DECORACIÓN.\n\nListo para ser habitado. \nLa mejor ubicación , cuenta  con todos los servicios y los mejores enseres domésticos  del mercado.\nFácil acceso:\n*Centro comercial Sania\n*Cinemex\n*Áreas comunes\n*Gimnasio\n*Biblioteca\n*Sala de juntas \n*Alberca al aire libre. \n\nIdeal para ejecutivos /parejas jóvenes.",
+    "bedrooms":  2,
+    "bathrooms":  3,
+    "half_bathrooms":  null,
+    "parking_spaces":  2,
+    "lot_size":  null,
+    "construction_size":  168.0,
+    "lot_length":  null,
+    "lot_width":  null,
+    "floors":  null,
+    "floor":  null,
+    "age":  null,
+    "internal_id":  null,
+    "expenses":  "INCLUIDO",
+    "location":  {
+                     "name":  "Vallarta Norte, Guadalajara, Jalisco",
+                     "latitude":  20.6748312,
+                     "longitude":  -103.3924442,
+                     "street":  "AV. VALLARTA",
+                     "postal_code":  "44690",
+                     "show_exact_location":  true,
+                     "hide_exact_location":  false,
+                     "exterior_number":  "3298",
+                     "interior_number":  "203"
+                 },
+    "property_type":  "Departamento",
+    "created_at":  "2019-04-23T12:04:27-05:00",
+    "updated_at":  "2025-05-12T12:09:04-06:00",
+    "published_at":  "2019-08-29T20:49:47-05:00",
+    "operations":  [
+                       {
+                           "type":  "rental",
+                           "amount":  30000.0,
+                           "currency":  "MXN",
+                           "formatted_amount":  "$30,000",
+                           "commission":  {
+                                              "type":  "months",
+                                              "value":  0.5
+                                          },
+                           "unit":  "total"
+                       }
+                   ],
+    "property_files":  [
+
+                       ],
+    "videos":  [
+
+               ],
+    "virtual_tour":  null,
+    "collaboration_notes":  "MEDIO MES",
+    "public_url":  "https://www.easybroker.com/mx/listings/departamento-zona-minerva",
+    "shared_commission_percentage":  null,
+    "exclusive":  null,
+    "foreclosure":  false,
+    "tags":  [
+
+             ],
+    "private_description":  null,
+    "show_prices":  true,
+    "share_commission":  true,
+    "property_images":  [
+                            {
+                                "title":  "",
+                                "url":  "https://assets.easybroker.com/property_images/1034223/15958227/EB-CY4223.jpg?version=1557846415"
+                            },
+                            {
+                                "title":  "",
+                                "url":  "https://assets.easybroker.com/property_images/1034223/15958255/EB-CY4223.jpg?version=1557846518"
+                            },
+                            {
+                                "title":  "",
+                                "url":  "https://assets.easybroker.com/property_images/1034223/15505308/EB-CY4223.jpg?version=1556039269"
+                            },
+                            {
+                                "title":  "",
+                                "url":  "https://assets.easybroker.com/property_images/1034223/15505315/EB-CY4223.jpg?version=1556039269"
+                            },
+                            {
+                                "title":  "",
+                                "url":  "https://assets.easybroker.com/property_images/1034223/15558386/EB-CY4223.jpg?version=1556208310"
+                            },
+                            {
+                                "title":  "",
+                                "url":  "https://assets.easybroker.com/property_images/1034223/15558387/EB-CY4223.jpg?version=1556208310"
+                            },
+                            {
+                                "title":  "",
+                                "url":  "https://assets.easybroker.com/property_images/1034223/15558388/EB-CY4223.jpg?version=1556208310"
+                            }
+                        ],
+    "images":  [
+                   {
+                       "title":  "",
+                       "url":  "https://assets.easybroker.com/property_images/1034223/15958227/EB-CY4223.jpg?version=1557846415"
+                   },
+                   {
+                       "title":  "",
+                       "url":  "https://assets.easybroker.com/property_images/1034223/15958255/EB-CY4223.jpg?version=1557846518"
+                   },
+                   {
+                       "title":  "",
+                       "url":  "https://assets.easybroker.com/property_images/1034223/15505308/EB-CY4223.jpg?version=1556039269"
+                   },
+                   {
+                       "title":  "",
+                       "url":  "https://assets.easybroker.com/property_images/1034223/15505315/EB-CY4223.jpg?version=1556039269"
+                   },
+                   {
+                       "title":  "",
+                       "url":  "https://assets.easybroker.com/property_images/1034223/15558386/EB-CY4223.jpg?version=1556208310"
+                   },
+                   {
+                       "title":  "",
+                       "url":  "https://assets.easybroker.com/property_images/1034223/15558387/EB-CY4223.jpg?version=1556208310"
+                   },
+                   {
+                       "title":  "",
+                       "url":  "https://assets.easybroker.com/property_images/1034223/15558388/EB-CY4223.jpg?version=1556208310"
+                   }
+               ],
+    "agent":  {
+                  "id":  391012,
+                  "name":  "Lic.Gabriela Martínez",
+                  "full_name":  "Lic.Gabriela Martínez",
+                  "mobile_phone":  "+523338087984",
+                  "profile_image_url":  "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1757459148",
+                  "email":  "GABRIELAMTZ6@HOTMAIL.COM"
+              },
+    "features":  [
+                     {
+                         "name":  "Aire acondicionado",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Elevador",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Alberca",
+                         "category":  "Recreación"
+                     },
+                     {
+                         "name":  "Amueblado",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Portero",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Estacionamiento techado",
+                         "category":  "Exterior"
+                     },
+                     {
+                         "name":  "No se aceptan mascotas",
+                         "category":  "Políticas"
+                     },
+                     {
+                         "name":  "Gimnasio",
+                         "category":  "Recreación"
+                     },
+                     {
+                         "name":  "Seguridad 24 horas",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Cocina equipada",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Cuarto de servicio",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Área de juegos infantiles",
+                         "category":  "Recreación"
+                     },
+                     {
+                         "name":  "Salón de usos múltiples",
+                         "category":  "Recreación"
+                     },
+                     {
+                         "name":  "Facilidad para estacionarse",
+                         "category":  "Exterior"
+                     }
+                 ]
+}

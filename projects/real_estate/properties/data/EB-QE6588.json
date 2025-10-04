@@ -1,0 +1,332 @@
+{
+  "public_id": "EB-QE6588",
+  "title": "EXCELENTE CASA EN VENTA EN SOLARES RESIDENCIAL",
+  "description": "EXCELENTE CASA EN SOLARES  RESIDENCIAL  (Antara coto 9) A UNOS MINUTOS DEL TEC DE MONTERREY.\n\nSOTANO:\nCUARTO DE LAVADO\nCOCHERA PARA CUATRO AUTOS.\n\nPLANTA BAJA:\nMEDIO BAÑO DE VISITAS.\nESTUDIO .\nSALA COMEDOR MUY AMPLIOS.\nTECHOS DOBLE ALTURA.\nCOCINA INTEGRAL..\nHERMOSA TERRAZA CON PERGOLA\n\nPLANTA ALTA:\nRECAMARA PRINCIPAL CON BAÑO COMPLETO CON JACUZZI Y CLOSET VESTIDOR.\nDOS RECAMARAS SECUNDARIAS CON CLOSET Y BAÑO COMPLETO COMPARTIDO. \nCASA CLUB, CON ALBERCA, JARDINES,JUEGOS INFANTILES, ASADORES, AREA DE TERRAZA Y GIMNASIO.",
+  "bedrooms": 3,
+  "bathrooms": 2,
+  "half_bathrooms": 1,
+  "parking_spaces": 4,
+  "lot_size": 198.71,
+  "construction_size": 234.0,
+  "lot_length": 19.65,
+  "lot_width": 10.0,
+  "floors": 3,
+  "floor": null,
+  "age": 2011,
+  "internal_id": "DESYANTARA",
+  "expenses": "1700",
+  "location": {
+    "name": "Solares, Zapopan, Jalisco",
+    "latitude": 20.7272767,
+    "longitude": -103.4672763,
+    "street": "PASEO SOLARES",
+    "postal_code": "45019",
+    "show_exact_location": true,
+    "hide_exact_location": false,
+    "exterior_number": "1333",
+    "interior_number": "121"
+  },
+  "property_type": "Casa",
+  "created_at": "2024-05-10T18:27:02-06:00",
+  "updated_at": "2025-05-12T12:09:04-06:00",
+  "published_at": "2024-05-10T18:30:14-06:00",
+  "operations": [
+    {
+      "type": "sale",
+      "amount": 7500000.0,
+      "currency": "MXN",
+      "formatted_amount": "$7,500,000",
+      "commission": {
+        "type": "percentage",
+        "value": "5.0"
+      },
+      "unit": "total"
+    }
+  ],
+  "property_files": [],
+  "videos": [],
+  "virtual_tour": null,
+  "collaboration_notes": "“Compartimos el 50% de la comisión a inmobiliarias asociadas a AMPI, MIO, CAMARA DE COMERCIO o PAIS”",
+  "public_url": "https://www.easybroker.com/mx/listings/excelente-casa-en-venta-en-solares-residencial",
+  "shared_commission_percentage": null,
+  "exclusive": null,
+  "foreclosure": false,
+  "tags": [],
+  "private_description": null,
+  "show_prices": true,
+  "share_commission": true,
+  "property_images": [
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4476588/74931116/EB-QE6588.jpeg?version=1715387331"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4476588/74931117/EB-QE6588.jpeg?version=1715387332"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4476588/74931118/EB-QE6588.jpeg?version=1715387332"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4476588/74931119/EB-QE6588.jpeg?version=1715387333"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4476588/74931120/EB-QE6588.jpeg?version=1715387334"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4476588/74931121/EB-QE6588.jpeg?version=1715387336"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4476588/74931122/EB-QE6588.jpeg?version=1715387338"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4476588/74931123/EB-QE6588.jpeg?version=1715387339"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4476588/74931124/EB-QE6588.jpeg?version=1715387340"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4476588/74931128/EB-QE6588.jpeg?version=1715387340"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4476588/74931132/EB-QE6588.jpeg?version=1715387342"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4476588/74931140/EB-QE6588.jpeg?version=1715387346"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4476588/74931142/EB-QE6588.jpeg?version=1715387349"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4476588/74931141/EB-QE6588.jpeg?version=1715387349"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4476588/74931143/EB-QE6588.jpeg?version=1715387349"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4476588/74931144/EB-QE6588.jpeg?version=1715387351"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4476588/74931145/EB-QE6588.jpeg?version=1715387352"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4476588/74931146/EB-QE6588.jpeg?version=1715387354"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4476588/74931147/EB-QE6588.jpeg?version=1715387354"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4476588/74931148/EB-QE6588.jpeg?version=1715387357"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4476588/74931149/EB-QE6588.jpeg?version=1715387358"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4476588/74931150/EB-QE6588.jpeg?version=1715387362"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4476588/74931151/EB-QE6588.jpeg?version=1715387363"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4476588/74931152/EB-QE6588.jpeg?version=1715387372"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4476588/74931153/EB-QE6588.jpeg?version=1715387378"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4476588/74931154/EB-QE6588.jpeg?version=1715387381"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4476588/74931155/EB-QE6588.jpeg?version=1715387386"
+    }
+  ],
+  "images": [
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4476588/74931116/EB-QE6588.jpeg?version=1715387331"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4476588/74931117/EB-QE6588.jpeg?version=1715387332"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4476588/74931118/EB-QE6588.jpeg?version=1715387332"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4476588/74931119/EB-QE6588.jpeg?version=1715387333"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4476588/74931120/EB-QE6588.jpeg?version=1715387334"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4476588/74931121/EB-QE6588.jpeg?version=1715387336"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4476588/74931122/EB-QE6588.jpeg?version=1715387338"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4476588/74931123/EB-QE6588.jpeg?version=1715387339"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4476588/74931124/EB-QE6588.jpeg?version=1715387340"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4476588/74931128/EB-QE6588.jpeg?version=1715387340"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4476588/74931132/EB-QE6588.jpeg?version=1715387342"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4476588/74931140/EB-QE6588.jpeg?version=1715387346"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4476588/74931142/EB-QE6588.jpeg?version=1715387349"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4476588/74931141/EB-QE6588.jpeg?version=1715387349"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4476588/74931143/EB-QE6588.jpeg?version=1715387349"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4476588/74931144/EB-QE6588.jpeg?version=1715387351"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4476588/74931145/EB-QE6588.jpeg?version=1715387352"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4476588/74931146/EB-QE6588.jpeg?version=1715387354"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4476588/74931147/EB-QE6588.jpeg?version=1715387354"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4476588/74931148/EB-QE6588.jpeg?version=1715387357"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4476588/74931149/EB-QE6588.jpeg?version=1715387358"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4476588/74931150/EB-QE6588.jpeg?version=1715387362"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4476588/74931151/EB-QE6588.jpeg?version=1715387363"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4476588/74931152/EB-QE6588.jpeg?version=1715387372"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4476588/74931153/EB-QE6588.jpeg?version=1715387378"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4476588/74931154/EB-QE6588.jpeg?version=1715387381"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4476588/74931155/EB-QE6588.jpeg?version=1715387386"
+    }
+  ],
+  "agent": {
+    "id": 391012,
+    "name": "Lic.Gabriela Martínez",
+    "full_name": "Lic.Gabriela Martínez",
+    "mobile_phone": "+523338087984",
+    "profile_image_url": "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1757459148",
+    "email": "GABRIELAMTZ6@HOTMAIL.COM"
+  },
+  "features": [
+    {
+      "name": "Estacionamiento techado",
+      "category": "Exterior"
+    },
+    {
+      "name": "Patio",
+      "category": "Exterior"
+    },
+    {
+      "name": "Terraza",
+      "category": "Exterior"
+    },
+    {
+      "name": "Cocina integral",
+      "category": "General"
+    },
+    {
+      "name": "Estudio",
+      "category": "General"
+    },
+    {
+      "name": "Fraccionamiento privado",
+      "category": "General"
+    },
+    {
+      "name": "Seguridad 24 horas",
+      "category": "General"
+    },
+    {
+      "name": "Alberca",
+      "category": "Recreación"
+    },
+    {
+      "name": "Área de juegos infantiles",
+      "category": "Recreación"
+    },
+    {
+      "name": "Gimnasio",
+      "category": "Recreación"
+    },
+    {
+      "name": "Salón de usos múltiples",
+      "category": "Recreación"
+    }
+  ]
+}

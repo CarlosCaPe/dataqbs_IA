@@ -1,0 +1,162 @@
+{
+  "public_id": "EB-RJ3975",
+  "title": "Terreno en Venta en Residencial del Bosque Tepatitlán Jalisco",
+  "description": "Excelente terreno en venta ubicado en Residencial del Bosque en Tepatitlán Jalisco, el fraccionamiento cuenta con casa club con alberca, chapoteadero, gimnasio, lago artificial, muelle, andador, áreas de descanso, áreas de bosque, cancha de tenis, cancha de squash, vapores, regaderas, terraza, salón de juegos y cocineta, así como barda perimetral, ingreso controlado, seguridad las 24 hrs, calles de concreto y piedra, cableado oculto y alumbrado led.",
+  "bedrooms": null,
+  "bathrooms": null,
+  "half_bathrooms": null,
+  "parking_spaces": null,
+  "lot_size": 600.0,
+  "construction_size": null,
+  "lot_length": 30.0,
+  "lot_width": 20.0,
+  "floors": null,
+  "floor": null,
+  "age": "new_construction",
+  "internal_id": "GABYTEPA",
+  "expenses": null,
+  "location": {
+    "name": "Bosques Del Lago, Tepatitlán de Morelos, Jalisco",
+    "latitude": 20.7917375,
+    "longitude": -102.7817591,
+    "street": "Circuito del Bosque",
+    "postal_code": null,
+    "show_exact_location": true,
+    "hide_exact_location": false,
+    "exterior_number": "9",
+    "interior_number": null
+  },
+  "property_type": "Terreno",
+  "created_at": "2024-10-08T15:48:36-06:00",
+  "updated_at": "2025-05-12T12:09:04-06:00",
+  "published_at": "2024-10-08T15:56:05-06:00",
+  "operations": [
+    {
+      "type": "sale",
+      "amount": 2700000.0,
+      "currency": "MXN",
+      "formatted_amount": "$2,700,000",
+      "commission": {
+        "type": "percentage",
+        "value": "6.0"
+      },
+      "unit": "total"
+    }
+  ],
+  "property_files": [],
+  "videos": [
+    "https://www.youtube.com/watch?v=Jg-NTLB7MKI"
+  ],
+  "virtual_tour": null,
+  "collaboration_notes": "Inmobiliarias pertenecientes a alguna asociación",
+  "public_url": "https://www.easybroker.com/mx/listings/terreno-en-venta-en-residencial-del-bosque-tepatitlan-jalisco",
+  "shared_commission_percentage": null,
+  "exclusive": null,
+  "foreclosure": false,
+  "tags": [],
+  "private_description": null,
+  "show_prices": true,
+  "share_commission": true,
+  "property_images": [
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4783975/81017780/EB-RJ3975.jpg?version=1728424149"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4783975/81017805/EB-RJ3975.jpg?version=1728424156"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4783975/81017813/EB-RJ3975.jpg?version=1728424164"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4783975/81017816/EB-RJ3975.jpg?version=1728424174"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4783975/81017819/EB-RJ3975.jpg?version=1728424188"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4783975/81017822/EB-RJ3975.jpg?version=1728424199"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4783975/81017839/EB-RJ3975.jpg?version=1728424213"
+    }
+  ],
+  "images": [
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4783975/81017780/EB-RJ3975.jpg?version=1728424149"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4783975/81017805/EB-RJ3975.jpg?version=1728424156"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4783975/81017813/EB-RJ3975.jpg?version=1728424164"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4783975/81017816/EB-RJ3975.jpg?version=1728424174"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4783975/81017819/EB-RJ3975.jpg?version=1728424188"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4783975/81017822/EB-RJ3975.jpg?version=1728424199"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4783975/81017839/EB-RJ3975.jpg?version=1728424213"
+    }
+  ],
+  "agent": {
+    "id": 391012,
+    "name": "Lic.Gabriela Martínez",
+    "full_name": "Lic.Gabriela Martínez",
+    "mobile_phone": "+523338087984",
+    "profile_image_url": "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1757459148",
+    "email": "GABRIELAMTZ6@HOTMAIL.COM"
+  },
+  "features": [
+    {
+      "name": "Seguridad 24 horas",
+      "category": "General"
+    },
+    {
+      "name": "Mascotas permitidas",
+      "category": "Políticas"
+    },
+    {
+      "name": "Alberca",
+      "category": "Recreación"
+    },
+    {
+      "name": "Área de juegos infantiles",
+      "category": "Recreación"
+    },
+    {
+      "name": "Cancha de tenis",
+      "category": "Recreación"
+    },
+    {
+      "name": "Gimnasio",
+      "category": "Recreación"
+    },
+    {
+      "name": "Salón de usos múltiples",
+      "category": "Recreación"
+    },
+    {
+      "name": "Fraccionamiento privado",
+      "category": "General"
+    }
+  ]
+}

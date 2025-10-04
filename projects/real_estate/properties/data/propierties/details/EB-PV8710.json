@@ -1,0 +1,162 @@
+﻿{
+    "public_id":  "EB-PV8710",
+    "title":  "Terreno en venta habitacional/comercial",
+    "description":  "Excelente terreno de 588 metros ubicado a solo una cuadra de Periférico.\n*Cuenta con instalación de luz bifásica y trifásica \n\nYa sea para fines comerciales o para uso habitacional, es una oportunidad que no debes dejar pasar.",
+    "bedrooms":  null,
+    "bathrooms":  null,
+    "half_bathrooms":  null,
+    "parking_spaces":  null,
+    "lot_size":  588.0,
+    "construction_size":  null,
+    "lot_length":  19.0,
+    "lot_width":  30.0,
+    "floors":  null,
+    "floor":  null,
+    "age":  null,
+    "internal_id":  "AIDA",
+    "expenses":  null,
+    "location":  {
+                     "name":  "Santa María Tequepexpan, Tlaquepaque, Jalisco",
+                     "latitude":  20.6000925,
+                     "longitude":  -103.4020555,
+                     "street":  "Miguel Silva Romero",
+                     "postal_code":  "45601",
+                     "show_exact_location":  true,
+                     "hide_exact_location":  false,
+                     "exterior_number":  "154",
+                     "interior_number":  null
+                 },
+    "property_type":  "Terreno",
+    "created_at":  "2024-03-28T11:15:24-06:00",
+    "updated_at":  "2025-05-12T12:09:04-06:00",
+    "published_at":  "2024-03-28T11:19:06-06:00",
+    "operations":  [
+                       {
+                           "type":  "sale",
+                           "amount":  3300000.0,
+                           "currency":  "MXN",
+                           "formatted_amount":  "$3,300,000",
+                           "commission":  {
+                                              "type":  "percentage",
+                                              "value":  "5.0"
+                                          },
+                           "unit":  "total"
+                       }
+                   ],
+    "property_files":  [
+
+                       ],
+    "videos":  [
+
+               ],
+    "virtual_tour":  null,
+    "collaboration_notes":  "Compartimos el 50% de la comisión a inmobiliarias asociadas a AMPI, MIO, CAMARA DE COMERCIO o PAIS",
+    "public_url":  "https://www.easybroker.com/mx/listings/terreno-en-venta-habitacional-comercial-santa-maria-tequepexpan",
+    "shared_commission_percentage":  null,
+    "exclusive":  null,
+    "foreclosure":  false,
+    "tags":  [
+
+             ],
+    "private_description":  null,
+    "show_prices":  true,
+    "share_commission":  true,
+    "property_images":  [
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4388710/73257955/EB-PV8710.jpeg?version=1711646337"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4388710/73257954/EB-PV8710.jpeg?version=1711646337"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4388710/73257957/EB-PV8710.jpeg?version=1711646338"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4388710/73257959/EB-PV8710.jpeg?version=1711646339"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4388710/73257960/EB-PV8710.jpeg?version=1711646339"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4388710/73257962/EB-PV8710.jpeg?version=1711646339"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4388710/73257971/EB-PV8710.jpeg?version=1711646341"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4388710/73257980/EB-PV8710.jpeg?version=1711646342"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4388710/73257986/EB-PV8710.jpeg?version=1711646343"
+                            }
+                        ],
+    "images":  [
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4388710/73257955/EB-PV8710.jpeg?version=1711646337"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4388710/73257954/EB-PV8710.jpeg?version=1711646337"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4388710/73257957/EB-PV8710.jpeg?version=1711646338"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4388710/73257959/EB-PV8710.jpeg?version=1711646339"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4388710/73257960/EB-PV8710.jpeg?version=1711646339"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4388710/73257962/EB-PV8710.jpeg?version=1711646339"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4388710/73257971/EB-PV8710.jpeg?version=1711646341"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4388710/73257980/EB-PV8710.jpeg?version=1711646342"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4388710/73257986/EB-PV8710.jpeg?version=1711646343"
+                   }
+               ],
+    "agent":  {
+                  "id":  391012,
+                  "name":  "Lic.Gabriela Martínez",
+                  "full_name":  "Lic.Gabriela Martínez",
+                  "mobile_phone":  "+523338087984",
+                  "profile_image_url":  "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1757459148",
+                  "email":  "GABRIELAMTZ6@HOTMAIL.COM"
+              },
+    "features":  [
+                     {
+                         "name":  "Facilidad para estacionarse",
+                         "category":  "Exterior"
+                     },
+                     {
+                         "name":  "Accesibilidad para adultos mayores",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Accesibilidad para personas con discapacidad",
+                         "category":  "General"
+                     }
+                 ]
+}

@@ -1,0 +1,144 @@
+{
+  "public_id": "EB-RK7864",
+  "title": "Terreno en venta en Pinar de La Venta",
+  "description": "Espectacular terreno con poca pendiente en fraccionamiento Pinar de La Venta en la 3ea Sección.\n\nIdeal para inversión o construir la casa de tus sueños.\n\nColindancias:\n26 mts de frente\n34.5 lateral 1\n42 lateral 2\n44.5 fondo\n\nMantenimiento: $1197.51  (incluye el agua)\n\n\nAgenda tu cita lo antes posible.",
+  "bedrooms": null,
+  "bathrooms": null,
+  "half_bathrooms": null,
+  "parking_spaces": null,
+  "lot_size": 1232.0,
+  "construction_size": null,
+  "lot_length": null,
+  "lot_width": null,
+  "floors": null,
+  "floor": null,
+  "age": null,
+  "internal_id": "AIDAPINAR",
+  "expenses": null,
+  "location": {
+    "name": "Pinar de La Venta, Zapopan, Jalisco",
+    "latitude": 20.7186449,
+    "longitude": -103.5192549,
+    "street": "Guayacan",
+    "postal_code": "45221",
+    "show_exact_location": true,
+    "hide_exact_location": false,
+    "exterior_number": "3",
+    "interior_number": null
+  },
+  "property_type": "Terreno",
+  "created_at": "2024-10-15T14:12:38-06:00",
+  "updated_at": "2025-05-12T12:09:04-06:00",
+  "published_at": "2024-10-15T14:17:48-06:00",
+  "operations": [
+    {
+      "type": "sale",
+      "amount": 4700000.0,
+      "currency": "MXN",
+      "formatted_amount": "$4,700,000",
+      "commission": {
+        "type": "percentage",
+        "value": "5.0"
+      },
+      "unit": "total"
+    }
+  ],
+  "property_files": [],
+  "videos": [],
+  "virtual_tour": null,
+  "collaboration_notes": "50% inmobiliarias afiliadas",
+  "public_url": "https://www.easybroker.com/mx/listings/terreno-en-venta-en-pinar-de-la-venta-ffccf634-de5c-4d42-90d4-d39cc4ffff5b",
+  "shared_commission_percentage": null,
+  "exclusive": true,
+  "foreclosure": false,
+  "tags": [],
+  "private_description": null,
+  "show_prices": true,
+  "share_commission": true,
+  "property_images": [
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4797864/81283607/EB-RK7864.jpg?version=1729023217"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4797864/81283616/EB-RK7864.jpg?version=1729023247"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4797864/81283745/EB-RK7864.jpg?version=1729023391"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4797864/81283746/EB-RK7864.jpg?version=1729023391"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4797864/81283749/EB-RK7864.jpg?version=1729023394"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4797864/81283752/EB-RK7864.jpg?version=1729023400"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4797864/81283753/EB-RK7864.jpg?version=1729023401"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4797864/81283778/EB-RK7864.jpg?version=1729023440"
+    }
+  ],
+  "images": [
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4797864/81283607/EB-RK7864.jpg?version=1729023217"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4797864/81283616/EB-RK7864.jpg?version=1729023247"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4797864/81283745/EB-RK7864.jpg?version=1729023391"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4797864/81283746/EB-RK7864.jpg?version=1729023391"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4797864/81283749/EB-RK7864.jpg?version=1729023394"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4797864/81283752/EB-RK7864.jpg?version=1729023400"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4797864/81283753/EB-RK7864.jpg?version=1729023401"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4797864/81283778/EB-RK7864.jpg?version=1729023440"
+    }
+  ],
+  "agent": {
+    "id": 391012,
+    "name": "Lic.Gabriela Martínez",
+    "full_name": "Lic.Gabriela Martínez",
+    "mobile_phone": "+523338087984",
+    "profile_image_url": "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1757459148",
+    "email": "GABRIELAMTZ6@HOTMAIL.COM"
+  },
+  "features": [
+    {
+      "name": "Fraccionamiento privado",
+      "category": "General"
+    },
+    {
+      "name": "Seguridad 24 horas",
+      "category": "General"
+    }
+  ]
+}

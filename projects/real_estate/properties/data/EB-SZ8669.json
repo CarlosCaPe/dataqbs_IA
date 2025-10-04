@@ -1,0 +1,172 @@
+{
+  "public_id": "EB-SZ8669",
+  "title": "Terreno en El Edén zona Bosques de Santa Anita",
+  "description": "El Eden es un exclusivo fraccionamiento junto al Bosque de la Primavera con la mejor plusvalía de la zona.\n\nEl terreno se encuentra ubicado frente al Bosque de la primavera dándole una espectacular vista con su orientación sur a norte. Ubicado a unos pasos de la casa club y amenidades principales tendrás la mayor de las comodidades para nuevo hogar. Lote 1 Manzana 10\n\n✅ Coto con las mejores Amenidades :\n\nCasa Club con alberca climatizada y gimnasio 🏊‍♂🏋 terraza con asadores 🧱 áreas verdes 🌲🌳 cancha de padel 🎾 cancha de fut bol 7 ⚽ zona de crossfit🏋 pet park 🐕 área de juegos infantiles 🪅 acceso controlado 24/7 👮‍♂",
+  "bedrooms": null,
+  "bathrooms": null,
+  "half_bathrooms": null,
+  "parking_spaces": null,
+  "lot_size": 180.0,
+  "construction_size": null,
+  "lot_length": 18.0,
+  "lot_width": 10.0,
+  "floors": null,
+  "floor": null,
+  "age": null,
+  "internal_id": "GABOEDEN",
+  "expenses": null,
+  "location": {
+    "name": "El Edén, Tlajomulco de Zúñiga, Jalisco",
+    "latitude": 20.5745979854,
+    "longitude": -103.4948715542,
+    "street": "Av. Paseo de El Edén",
+    "postal_code": "45645",
+    "show_exact_location": true,
+    "hide_exact_location": false,
+    "exterior_number": null,
+    "interior_number": null
+  },
+  "property_type": "Terreno",
+  "created_at": "2025-04-30T10:48:02-06:00",
+  "updated_at": "2025-06-27T14:09:53-06:00",
+  "published_at": "2025-05-03T15:53:52-06:00",
+  "operations": [
+    {
+      "type": "sale",
+      "amount": 2200000.0,
+      "currency": "MXN",
+      "formatted_amount": "$2,200,000",
+      "commission": {
+        "type": "percentage",
+        "value": "4.0"
+      },
+      "unit": "total"
+    }
+  ],
+  "property_files": [],
+  "videos": [],
+  "virtual_tour": null,
+  "collaboration_notes": "Afiliados a alguna asociacion inmobiliaria",
+  "public_url": "https://www.easybroker.com/mx/listings/terreno-en-el-eden-zona-bosques-de-santa-anita",
+  "shared_commission_percentage": 50.0,
+  "exclusive": null,
+  "foreclosure": false,
+  "tags": [],
+  "private_description": null,
+  "show_prices": true,
+  "share_commission": true,
+  "property_images": [
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5208669/89564111/EB-SZ8669.jpg?version=1747926174"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5208669/89564068/EB-SZ8669.jpg?version=1747926174"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5208669/89564226/EB-SZ8669.jpg?version=1747926174"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5208669/89565178/EB-SZ8669.jpg?version=1747926174"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5208669/89564222/EB-SZ8669.jpg?version=1747926174"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5208669/89564225/EB-SZ8669.jpg?version=1747926174"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5208669/89564224/EB-SZ8669.jpg?version=1747926174"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5208669/89564221/EB-SZ8669.jpg?version=1747926174"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5208669/89564227/EB-SZ8669.jpg?version=1747926174"
+    }
+  ],
+  "images": [
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5208669/89564111/EB-SZ8669.jpg?version=1747926174"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5208669/89564068/EB-SZ8669.jpg?version=1747926174"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5208669/89564226/EB-SZ8669.jpg?version=1747926174"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5208669/89565178/EB-SZ8669.jpg?version=1747926174"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5208669/89564222/EB-SZ8669.jpg?version=1747926174"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5208669/89564225/EB-SZ8669.jpg?version=1747926174"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5208669/89564224/EB-SZ8669.jpg?version=1747926174"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5208669/89564221/EB-SZ8669.jpg?version=1747926174"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5208669/89564227/EB-SZ8669.jpg?version=1747926174"
+    }
+  ],
+  "agent": {
+    "id": 391012,
+    "name": "Lic.Gabriela Martínez",
+    "full_name": "Lic.Gabriela Martínez",
+    "mobile_phone": "+523338087984",
+    "profile_image_url": "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1757459148",
+    "email": "GABRIELAMTZ6@HOTMAIL.COM"
+  },
+  "features": [
+    {
+      "name": "Fraccionamiento privado",
+      "category": "General"
+    },
+    {
+      "name": "Alberca",
+      "category": "Recreación"
+    },
+    {
+      "name": "Área de juegos infantiles",
+      "category": "Recreación"
+    },
+    {
+      "name": "Cancha de pádel",
+      "category": "Recreación"
+    },
+    {
+      "name": "Gimnasio",
+      "category": "Recreación"
+    },
+    {
+      "name": "Salón de usos múltiples",
+      "category": "Recreación"
+    },
+    {
+      "name": "Seguridad 24 horas",
+      "category": "General"
+    }
+  ]
+}

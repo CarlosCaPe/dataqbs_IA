@@ -1,0 +1,111 @@
+﻿{
+    "public_id":  "EB-TC4583",
+    "title":  "LOCAL COMERCIAL EN VENTA EN PLAZA LAPIZLAZULI, RESIDENCIAL VICOTRIA",
+    "description":  "Local en Venta YA RENTADO en Plaza Comercial Lapizlazuli, Colonia Residencial Victoria.\n\nCerca de CD del Sol, Jardines del Sol, Bosques de la Victoria, Rinconada de la Arboleda.\n\n50m2\nMarca: DEPIL SEDA\nRenta Mensual: $12,950.00\n\nExcelente oportunidad para inversionista\n¡Recibe retorno de inversión desde el primer mes!",
+    "bedrooms":  null,
+    "bathrooms":  null,
+    "half_bathrooms":  null,
+    "parking_spaces":  null,
+    "lot_size":  50.0,
+    "construction_size":  50.0,
+    "lot_length":  null,
+    "lot_width":  null,
+    "floors":  null,
+    "floor":  null,
+    "age":  null,
+    "internal_id":  "YULLAPIZLAZULI",
+    "expenses":  null,
+    "location":  {
+                     "name":  "Residencial Victoria, Zapopan, Jalisco",
+                     "latitude":  20.6473918,
+                     "longitude":  -103.400766,
+                     "street":  "AV LAPIZLAZULI",
+                     "postal_code":  "45088",
+                     "show_exact_location":  true,
+                     "hide_exact_location":  false,
+                     "exterior_number":  "3458",
+                     "interior_number":  null
+                 },
+    "property_type":  "Local comercial",
+    "created_at":  "2025-05-12T16:26:14-06:00",
+    "updated_at":  "2025-05-13T11:04:18-06:00",
+    "published_at":  "2025-05-13T10:53:28-06:00",
+    "operations":  [
+                       {
+                           "type":  "sale",
+                           "amount":  2555000.0,
+                           "currency":  "MXN",
+                           "formatted_amount":  "$2,555,000",
+                           "commission":  {
+                                              "type":  "percentage",
+                                              "value":  "4.0"
+                                          },
+                           "unit":  "total"
+                       }
+                   ],
+    "property_files":  [
+
+                       ],
+    "videos":  [
+
+               ],
+    "virtual_tour":  null,
+    "collaboration_notes":  null,
+    "public_url":  "https://www.easybroker.com/mx/listings/local-comercial-en-venta-en-plaza-lapizlazuli-residencial-vicotria",
+    "shared_commission_percentage":  null,
+    "exclusive":  null,
+    "foreclosure":  false,
+    "tags":  [
+
+             ],
+    "private_description":  null,
+    "show_prices":  true,
+    "share_commission":  true,
+    "property_images":  [
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5234583/90087128/EB-TC4583.jpeg?version=1747155205"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5234583/90087135/EB-TC4583.jpeg?version=1747155205"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5234583/90087137/EB-TC4583.jpeg?version=1747155205"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5234583/90087129/EB-TC4583.jpeg?version=1747155205"
+                            }
+                        ],
+    "images":  [
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5234583/90087128/EB-TC4583.jpeg?version=1747155205"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5234583/90087135/EB-TC4583.jpeg?version=1747155205"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5234583/90087137/EB-TC4583.jpeg?version=1747155205"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5234583/90087129/EB-TC4583.jpeg?version=1747155205"
+                   }
+               ],
+    "agent":  {
+                  "id":  391012,
+                  "name":  "Lic.Gabriela Martínez",
+                  "full_name":  "Lic.Gabriela Martínez",
+                  "mobile_phone":  "+523338087984",
+                  "profile_image_url":  "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1757459148",
+                  "email":  "GABRIELAMTZ6@HOTMAIL.COM"
+              },
+    "features":  [
+
+                 ]
+}

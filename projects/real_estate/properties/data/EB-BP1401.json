@@ -1,0 +1,220 @@
+{
+  "public_id": "EB-BP1401",
+  "title": "CASA EN VENTA EN VALLARTA UNIVERSIDAD ( NACIONES UNIDAS, JUAN PALOMAR)",
+  "description": "P.B. Cochera, entrada independiente para cuarto de servicio, patio y área de cocina integral; por entrada principal acceso a amplia sala comedor, estar de tv, closet para blancos, 1 baño completo. Recamara principal con baño completo y tina. Segunda recamara sin baño, 3era y 4ta recamara comparten baño. Agradable terraza con un pequeño jardín.\n\nP.A. El segundo nivel corresponde a otra casa, con acceso independiente  de la PB,se ingresa por cochera. Amplia sala comedor, cocina integral. Una recamara con baño completo, 2 recamaras comparten baño, cuarto de servicio con baño completo, ambos remodelados.\n\nCALENTADOR SOLAR, CASA REMODELADA DE PISOS HACE 6 AÑOS, TANQUE ESTACIONARIO, 2 TINACOS, TUBERÍAS E INSTALACIONES ELÉCTRICAS, PROTECCIONES EN PLANTA BAJA Y ALTA. BUENA VENTILACIÓN E ILUMINACIÓN. POR EL TIPO DE CONSTRUCCIÓN, ES EXCELENTE PARA INVERSIONISTAS QUE DESEEN RENTAR LA PROPIEDAD, AIRBNB, CASA DE ASISTENCIA.\n\nCERCANA A CENTROS COMERCIALES: PLAZA GALERÍAS, ANDARES .\n\nACCESO A VÍAS IMPORTANTES: AV. VALLARTA, NOVELISTAS, NACIONES UNIDAS, JUAN PALOMAR.",
+  "bedrooms": 8,
+  "bathrooms": 6,
+  "half_bathrooms": null,
+  "parking_spaces": 2,
+  "lot_size": 224.0,
+  "construction_size": 366.0,
+  "lot_length": null,
+  "lot_width": null,
+  "floors": 2,
+  "floor": null,
+  "age": null,
+  "internal_id": null,
+  "expenses": null,
+  "location": {
+    "name": "Vallarta Universidad, Zapopan, Jalisco",
+    "latitude": 20.6891325,
+    "longitude": -103.4293273,
+    "street": "DANTE ALLIGUIERI",
+    "postal_code": null,
+    "show_exact_location": true,
+    "hide_exact_location": false,
+    "exterior_number": null,
+    "interior_number": null
+  },
+  "property_type": "Casa",
+  "created_at": "2018-03-26T12:53:43-03:00",
+  "updated_at": "2025-05-12T15:09:04-03:00",
+  "published_at": "2018-03-26T12:56:48-03:00",
+  "operations": [
+    {
+      "type": "sale",
+      "amount": 4900000.0,
+      "currency": "MXN",
+      "formatted_amount": "$4,900,000",
+      "commission": {
+        "type": "percentage",
+        "value": "5.0"
+      },
+      "unit": "total"
+    }
+  ],
+  "property_files": [],
+  "videos": [],
+  "virtual_tour": null,
+  "collaboration_notes": "",
+  "public_url": "https://www.easybroker.com/mx/listings/casa-en-venta-en-vallarta-universidad-naciones-unidas-juan-palomar",
+  "shared_commission_percentage": null,
+  "exclusive": null,
+  "foreclosure": false,
+  "tags": [],
+  "private_description": null,
+  "show_prices": true,
+  "share_commission": true,
+  "property_images": [
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/681401/10362265/EB-BP1401.png?version=1522079808"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/681401/10362255/EB-BP1401.jpg?version=1522079808"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/681401/10362252/EB-BP1401.jpg?version=1522079808"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/681401/10362253/EB-BP1401.jpg?version=1522079808"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/681401/10362256/EB-BP1401.jpg?version=1522079808"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/681401/10362257/EB-BP1401.jpg?version=1522079808"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/681401/10362258/EB-BP1401.jpg?version=1522079808"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/681401/10362259/EB-BP1401.jpg?version=1522079808"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/681401/10362260/EB-BP1401.jpg?version=1522079808"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/681401/10362261/EB-BP1401.jpg?version=1522079808"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/681401/10362263/EB-BP1401.JPG?version=1522079808"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/681401/10362266/EB-BP1401.JPG?version=1522079808"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/681401/10362267/EB-BP1401.JPG?version=1522079808"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/681401/10362268/EB-BP1401.JPG?version=1522079808"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/681401/10362269/EB-BP1401.JPG?version=1522079808"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/681401/10362270/EB-BP1401.JPG?version=1522079808"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/681401/10362271/EB-BP1401.JPG?version=1522079808"
+    }
+  ],
+  "images": [
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/681401/10362265/EB-BP1401.png?version=1522079808"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/681401/10362255/EB-BP1401.jpg?version=1522079808"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/681401/10362252/EB-BP1401.jpg?version=1522079808"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/681401/10362253/EB-BP1401.jpg?version=1522079808"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/681401/10362256/EB-BP1401.jpg?version=1522079808"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/681401/10362257/EB-BP1401.jpg?version=1522079808"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/681401/10362258/EB-BP1401.jpg?version=1522079808"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/681401/10362259/EB-BP1401.jpg?version=1522079808"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/681401/10362260/EB-BP1401.jpg?version=1522079808"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/681401/10362261/EB-BP1401.jpg?version=1522079808"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/681401/10362263/EB-BP1401.JPG?version=1522079808"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/681401/10362266/EB-BP1401.JPG?version=1522079808"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/681401/10362267/EB-BP1401.JPG?version=1522079808"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/681401/10362268/EB-BP1401.JPG?version=1522079808"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/681401/10362269/EB-BP1401.JPG?version=1522079808"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/681401/10362270/EB-BP1401.JPG?version=1522079808"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/681401/10362271/EB-BP1401.JPG?version=1522079808"
+    }
+  ],
+  "agent": {
+    "id": 391012,
+    "name": "Lic.Gabriela Martínez",
+    "full_name": "Lic.Gabriela Martínez",
+    "mobile_phone": "+523338087984",
+    "profile_image_url": "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1757459148",
+    "email": "GABRIELAMTZ6@HOTMAIL.COM"
+  },
+  "features": [
+    {
+      "name": "Terraza",
+      "category": "Exterior"
+    },
+    {
+      "name": "Cisterna",
+      "category": "Exterior"
+    },
+    {
+      "name": "Cocina integral",
+      "category": "General"
+    }
+  ]
+}

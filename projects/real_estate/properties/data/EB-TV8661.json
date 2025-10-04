@@ -1,0 +1,252 @@
+{
+  "public_id": "EB-TV8661",
+  "title": "Departamento en renta amueblado en Fidepaz",
+  "description": "Acogedor departamento en renta amueblado y equipado en un complejo seguro, privado y tranquilo.\n\n•Cuenta con área de sala comedor y cocina con concepto abierto y ventilador.\n•Medio baño\n•Área de servicio\n•Recámara con closet, cama matrimonial, aire acondicionado y baño completo.\n\n•Un cajón de estacionamiento \n\nEl departamento tiene una ubicación privilegiada, a solo unos pasos de la Central de Especialidades Médicas Fidepaz. Cerca de allí, puedes encontrar diversas opciones de entretenimiento y servicios, como restaurantes, tiendas, y parques. \n\nAdemás, la zona cuenta con acceso a playas cercanas como Balandra y El Tecolote, así como a la Isla Espíritu Santo, lugares ideales para actividades acuáticas y disfrutar de la naturaleza\n\nNo dejes pasar la oportunidad y agenda tu cita lo antes posible.\n\n•Se incluye agua\n•No se aceptan niños ni mascotas.",
+  "bedrooms": 1,
+  "bathrooms": 1,
+  "half_bathrooms": 1,
+  "parking_spaces": 1,
+  "lot_size": null,
+  "construction_size": 45.0,
+  "lot_length": null,
+  "lot_width": null,
+  "floors": null,
+  "floor": null,
+  "age": null,
+  "internal_id": "AIDAFIDEPAZ",
+  "expenses": "$0",
+  "location": {
+    "name": "Ciudad del Recreo, La Paz, Baja California Sur",
+    "latitude": 24.1293406,
+    "longitude": -110.3417339,
+    "street": "Av, Delfines",
+    "postal_code": "23097",
+    "show_exact_location": true,
+    "hide_exact_location": false,
+    "exterior_number": "138",
+    "interior_number": null
+  },
+  "property_type": "Departamento",
+  "created_at": "2025-08-05T09:39:28-06:00",
+  "updated_at": "2025-08-08T12:24:40-06:00",
+  "published_at": "2025-08-08T12:17:09-06:00",
+  "operations": [
+    {
+      "type": "rental",
+      "amount": 10800.0,
+      "currency": "MXN",
+      "formatted_amount": "$10,800",
+      "commission": {
+        "type": "months",
+        "value": 1
+      },
+      "unit": "total"
+    }
+  ],
+  "property_files": [],
+  "videos": [],
+  "virtual_tour": null,
+  "collaboration_notes": "Comisión compartida del 50% a inmobiliarias afiliadas",
+  "public_url": "https://www.easybroker.com/mx/listings/departamento-en-renta-amueblado-en-fidepaz",
+  "shared_commission_percentage": 50.0,
+  "exclusive": true,
+  "foreclosure": false,
+  "tags": [],
+  "private_description": null,
+  "show_prices": true,
+  "share_commission": true,
+  "property_images": [
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5428661/93930312/EB-TV8661.jpg?version=1754501495"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5428661/93930290/EB-TV8661.jpg?version=1754501495"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5428661/93930292/EB-TV8661.jpg?version=1754501495"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5428661/93930301/EB-TV8661.jpg?version=1754501495"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5428661/93930306/EB-TV8661.jpg?version=1754501495"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5428661/93930291/EB-TV8661.jpg?version=1754501495"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5428661/93930294/EB-TV8661.jpg?version=1754501495"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5428661/93930309/EB-TV8661.jpg?version=1754501495"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5428661/93930295/EB-TV8661.jpg?version=1754501495"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5428661/93930296/EB-TV8661.jpg?version=1754501495"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5428661/93930298/EB-TV8661.jpg?version=1754501495"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5428661/93930299/EB-TV8661.jpg?version=1754501495"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5428661/93930300/EB-TV8661.jpg?version=1754501495"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5428661/93930303/EB-TV8661.jpg?version=1754501495"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5428661/93930304/EB-TV8661.jpg?version=1754501495"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5428661/93930307/EB-TV8661.jpg?version=1754501495"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5428661/93930308/EB-TV8661.jpg?version=1754501495"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5428661/93930311/EB-TV8661.jpg?version=1754501495"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5428661/93930313/EB-TV8661.jpg?version=1754501495"
+    }
+  ],
+  "images": [
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5428661/93930312/EB-TV8661.jpg?version=1754501495"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5428661/93930290/EB-TV8661.jpg?version=1754501495"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5428661/93930292/EB-TV8661.jpg?version=1754501495"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5428661/93930301/EB-TV8661.jpg?version=1754501495"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5428661/93930306/EB-TV8661.jpg?version=1754501495"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5428661/93930291/EB-TV8661.jpg?version=1754501495"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5428661/93930294/EB-TV8661.jpg?version=1754501495"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5428661/93930309/EB-TV8661.jpg?version=1754501495"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5428661/93930295/EB-TV8661.jpg?version=1754501495"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5428661/93930296/EB-TV8661.jpg?version=1754501495"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5428661/93930298/EB-TV8661.jpg?version=1754501495"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5428661/93930299/EB-TV8661.jpg?version=1754501495"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5428661/93930300/EB-TV8661.jpg?version=1754501495"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5428661/93930303/EB-TV8661.jpg?version=1754501495"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5428661/93930304/EB-TV8661.jpg?version=1754501495"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5428661/93930307/EB-TV8661.jpg?version=1754501495"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5428661/93930308/EB-TV8661.jpg?version=1754501495"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5428661/93930311/EB-TV8661.jpg?version=1754501495"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/5428661/93930313/EB-TV8661.jpg?version=1754501495"
+    }
+  ],
+  "agent": {
+    "id": 391012,
+    "name": "Lic.Gabriela Martínez",
+    "full_name": "Lic.Gabriela Martínez",
+    "mobile_phone": "+523338087984",
+    "profile_image_url": "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1757459148",
+    "email": "GABRIELAMTZ6@HOTMAIL.COM"
+  },
+  "features": [
+    {
+      "name": "Facilidad para estacionarse",
+      "category": "Exterior"
+    },
+    {
+      "name": "Aire acondicionado",
+      "category": "General"
+    },
+    {
+      "name": "Amueblado",
+      "category": "General"
+    },
+    {
+      "name": "Cocina equipada",
+      "category": "General"
+    },
+    {
+      "name": "Fraccionamiento privado",
+      "category": "General"
+    },
+    {
+      "name": "No se aceptan mascotas",
+      "category": "Políticas"
+    },
+    {
+      "name": "Prohibido fumar",
+      "category": "Políticas"
+    }
+  ]
+}

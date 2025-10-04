@@ -1,0 +1,86 @@
+﻿{
+    "public_id":  "EB-MW8113",
+    "title":  "RENTA CASA EL COLLI URBANO VOLCAN FUJIYAMA",
+    "description":  "BONITA CASA DE DOS PLANTAS.\nPLANTA BAJA:\nJARDIN,SALA COMEDOR,MEDIO BAÑO,COCINA,PATIO DE SERVICIO.\nPLANTA ALTA.\nDOS RECAMARAS Y UN BAÑO\nCOCHERA PARA UN AUTO CON PORTON ELECTRICO.",
+    "bedrooms":  2,
+    "bathrooms":  1,
+    "half_bathrooms":  1,
+    "parking_spaces":  1,
+    "lot_size":  null,
+    "construction_size":  null,
+    "lot_length":  null,
+    "lot_width":  null,
+    "floors":  null,
+    "floor":  null,
+    "age":  null,
+    "internal_id":  null,
+    "expenses":  "incluido",
+    "location":  {
+                     "name":  "El Colli 2a Secc, Zapopan, Jalisco",
+                     "latitude":  20.642841,
+                     "longitude":  -103.4391085,
+                     "street":  "VOLCAN FUJIYAMA",
+                     "postal_code":  null,
+                     "show_exact_location":  true,
+                     "hide_exact_location":  false,
+                     "exterior_number":  "1672",
+                     "interior_number":  "2"
+                 },
+    "property_type":  "Casa",
+    "created_at":  "2023-03-15T12:38:04-06:00",
+    "updated_at":  "2025-05-12T12:09:04-06:00",
+    "published_at":  "2023-03-15T12:38:35-06:00",
+    "operations":  [
+                       {
+                           "type":  "rental",
+                           "amount":  8600.0,
+                           "currency":  "MXN",
+                           "formatted_amount":  "$8,600",
+                           "commission":  {
+                                              "type":  "percentage"
+                                          },
+                           "unit":  "total"
+                       }
+                   ],
+    "property_files":  [
+
+                       ],
+    "videos":  [
+
+               ],
+    "virtual_tour":  null,
+    "collaboration_notes":  null,
+    "public_url":  "https://www.easybroker.com/mx/listings/renta-casa-el-colli-urbano-volcan-fujiyama",
+    "shared_commission_percentage":  null,
+    "exclusive":  null,
+    "foreclosure":  false,
+    "tags":  [
+
+             ],
+    "private_description":  null,
+    "show_prices":  true,
+    "share_commission":  true,
+    "property_images":  [
+                            {
+                                "title":  "",
+                                "url":  "https://assets.easybroker.com/property_images/3618113/58963467/EB-MW8113.jpg?version=1678905515"
+                            }
+                        ],
+    "images":  [
+                   {
+                       "title":  "",
+                       "url":  "https://assets.easybroker.com/property_images/3618113/58963467/EB-MW8113.jpg?version=1678905515"
+                   }
+               ],
+    "agent":  {
+                  "id":  391012,
+                  "name":  "Lic.Gabriela Martínez",
+                  "full_name":  "Lic.Gabriela Martínez",
+                  "mobile_phone":  "+523338087984",
+                  "profile_image_url":  "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1757459148",
+                  "email":  "GABRIELAMTZ6@HOTMAIL.COM"
+              },
+    "features":  [
+
+                 ]
+}

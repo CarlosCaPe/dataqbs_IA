@@ -1,0 +1,30 @@
+﻿{
+    "public_id":  "EB-TA4750",
+    "title":  "Casa en Venta en Valle Imperial, coto Imperio Maya",
+    "title_image_full":  "https://assets.easybroker.com/property_images/5214750/89683807/EB-TA4750.jpg?version=1746285614",
+    "title_image_thumb":  "https://assets.easybroker.com/property_images/5214750/89683807/EB-TA4750.jpg?version=1746285614\u0026width=200",
+    "location":  "Valle Imperial, Zapopan, Jalisco",
+    "operations":  [
+                       {
+                           "type":  "sale",
+                           "amount":  7900000.0,
+                           "currency":  "MXN",
+                           "formatted_amount":  "$7,900,000",
+                           "commission":  {
+                                              "type":  "percentage",
+                                              "value":  "4.0"
+                                          },
+                           "unit":  "total"
+                       }
+                   ],
+    "bedrooms":  3,
+    "bathrooms":  4,
+    "parking_spaces":  2,
+    "property_type":  "Casa",
+    "lot_size":  160.0,
+    "construction_size":  260.0,
+    "updated_at":  "2025-08-04T20:45:34-06:00",
+    "agent":  "Lic.Gabriela Martínez",
+    "show_prices":  true,
+    "share_commission":  true
+}

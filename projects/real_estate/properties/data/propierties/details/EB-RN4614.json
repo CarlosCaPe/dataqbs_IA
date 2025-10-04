@@ -1,0 +1,103 @@
+﻿{
+    "public_id":  "EB-RN4614",
+    "title":  "TORRE ELEVA 1860",
+    "description":  "DEPARTAMENTO NUEVO EN RENTA EN COL AMERICANA",
+    "bedrooms":  2,
+    "bathrooms":  2,
+    "half_bathrooms":  null,
+    "parking_spaces":  1,
+    "lot_size":  null,
+    "construction_size":  null,
+    "lot_length":  null,
+    "lot_width":  null,
+    "floors":  null,
+    "floor":  "4",
+    "age":  "new_construction",
+    "internal_id":  "HABDAAMER",
+    "expenses":  "INCLUIDO",
+    "location":  {
+                     "name":  "Americana, Guadalajara, Jalisco",
+                     "latitude":  20.6707346,
+                     "longitude":  -103.3657535,
+                     "street":  "jose guadalupe zuno",
+                     "postal_code":  "44160",
+                     "show_exact_location":  true,
+                     "hide_exact_location":  false,
+                     "exterior_number":  "1860",
+                     "interior_number":  "402"
+                 },
+    "property_type":  "Departamento",
+    "created_at":  "2024-10-29T10:26:10-06:00",
+    "updated_at":  "2025-05-12T12:09:04-06:00",
+    "published_at":  null,
+    "operations":  [
+                       {
+                           "type":  "rental",
+                           "amount":  17900.0,
+                           "currency":  "MXN",
+                           "formatted_amount":  "$17,900",
+                           "commission":  {
+                                              "type":  "percentage"
+                                          },
+                           "unit":  "total"
+                       }
+                   ],
+    "property_files":  [
+
+                       ],
+    "videos":  [
+
+               ],
+    "virtual_tour":  null,
+    "collaboration_notes":  null,
+    "public_url":  "https://www.easybroker.com/mx/listings/torre-eleva-1860",
+    "shared_commission_percentage":  null,
+    "exclusive":  null,
+    "foreclosure":  false,
+    "tags":  [
+
+             ],
+    "private_description":  null,
+    "show_prices":  true,
+    "share_commission":  false,
+    "property_images":  [
+
+                        ],
+    "images":  [
+
+               ],
+    "agent":  {
+                  "id":  391012,
+                  "name":  "Lic.Gabriela Martínez",
+                  "full_name":  "Lic.Gabriela Martínez",
+                  "mobile_phone":  "+523338087984",
+                  "profile_image_url":  "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1757459148",
+                  "email":  "GABRIELAMTZ6@HOTMAIL.COM"
+              },
+    "features":  [
+                     {
+                         "name":  "Estacionamiento techado",
+                         "category":  "Exterior"
+                     },
+                     {
+                         "name":  "Roof garden",
+                         "category":  "Exterior"
+                     },
+                     {
+                         "name":  "Terraza",
+                         "category":  "Exterior"
+                     },
+                     {
+                         "name":  "Aire acondicionado",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Elevador",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Mascotas permitidas",
+                         "category":  "Políticas"
+                     }
+                 ]
+}

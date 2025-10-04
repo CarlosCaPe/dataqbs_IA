@@ -1,0 +1,69 @@
+{
+  "public_id": "EB-QB5271",
+  "title": "LOCAL COMERCIAL EN SANTA TERE",
+  "description": "Amplio local en Santa Tere, Ignacio Ramírez esquina Manuel Acuña\n100 mts de superficie \nConsta de 2 oficinas, 2 baños y áreas de trabajo libres",
+  "bedrooms": null,
+  "bathrooms": 2,
+  "half_bathrooms": null,
+  "parking_spaces": 2,
+  "lot_size": 100.0,
+  "construction_size": 100.0,
+  "lot_length": null,
+  "lot_width": null,
+  "floors": null,
+  "floor": null,
+  "age": null,
+  "internal_id": null,
+  "expenses": null,
+  "location": {
+    "name": "Santa Teresita, Guadalajara, Jalisco",
+    "latitude": null,
+    "longitude": null,
+    "street": "Ignacio Ramírez",
+    "postal_code": "44600",
+    "show_exact_location": true,
+    "hide_exact_location": false,
+    "exterior_number": "508",
+    "interior_number": null
+  },
+  "property_type": "Local comercial",
+  "created_at": "2024-04-25T11:24:41-06:00",
+  "updated_at": "2025-05-12T12:09:04-06:00",
+  "published_at": null,
+  "operations": [
+    {
+      "type": "rental",
+      "amount": 16500.0,
+      "currency": "MXN",
+      "formatted_amount": "$16,500",
+      "commission": {
+        "type": "months",
+        "value": 0.5
+      },
+      "unit": "total"
+    }
+  ],
+  "property_files": [],
+  "videos": [],
+  "virtual_tour": null,
+  "collaboration_notes": null,
+  "public_url": "https://www.easybroker.com/mx/listings/local-comercial-en-santa-tere-005c3806-332a-4181-a947-3411e17d6597",
+  "shared_commission_percentage": null,
+  "exclusive": null,
+  "foreclosure": false,
+  "tags": [],
+  "private_description": null,
+  "show_prices": true,
+  "share_commission": true,
+  "property_images": [],
+  "images": [],
+  "agent": {
+    "id": 391012,
+    "name": "Lic.Gabriela Martínez",
+    "full_name": "Lic.Gabriela Martínez",
+    "mobile_phone": "+523338087984",
+    "profile_image_url": "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1757459148",
+    "email": "GABRIELAMTZ6@HOTMAIL.COM"
+  },
+  "features": []
+}

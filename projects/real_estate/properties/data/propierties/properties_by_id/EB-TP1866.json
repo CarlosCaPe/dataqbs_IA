@@ -1,0 +1,30 @@
+﻿{
+    "public_id":  "EB-TP1866",
+    "title":  "LUJOSO DEPARTAMENTO DE 2 NIVELES EN COLONIA AMERICANA",
+    "title_image_full":  "https://assets.easybroker.com/property_images/5361866/92604316/EB-TP1866.jpg?version=1751675515",
+    "title_image_thumb":  "https://assets.easybroker.com/property_images/5361866/92604316/EB-TP1866.jpg?version=1751675515\u0026width=200",
+    "location":  "Americana, Guadalajara, Jalisco",
+    "operations":  [
+                       {
+                           "type":  "sale",
+                           "amount":  13090000.0,
+                           "currency":  "MXN",
+                           "formatted_amount":  "$13,090,000",
+                           "commission":  {
+                                              "type":  "percentage",
+                                              "value":  "4.0"
+                                          },
+                           "unit":  "total"
+                       }
+                   ],
+    "bedrooms":  3,
+    "bathrooms":  3,
+    "parking_spaces":  2,
+    "property_type":  "Departamento",
+    "lot_size":  null,
+    "construction_size":  237.51,
+    "updated_at":  "2025-07-04T18:32:31-06:00",
+    "agent":  "Lic.Gabriela Martínez",
+    "show_prices":  true,
+    "share_commission":  true
+}

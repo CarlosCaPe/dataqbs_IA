@@ -1,0 +1,127 @@
+﻿{
+    "public_id":  "EB-UA2061",
+    "title":  "BODEGA EN VENTA EN COLONIA LAS GLORIAS DEL COLLI ZONA AV GUADALUPE Y PERIFERICO",
+    "description":  "Bodega en venta  en excelente ubicación, colonia Las Glorias del Colli, Cerca de Av. Guadalupe y Periférico.\nIMPORTANTE:\nLA BODEGA ESTA RENTADA Y TIENE CONTRATO HASTA SEPT 2026\nESTA EN TRAMITE EL TITULO DE PROPIEDAD . Se podría escriturar en 6 meses aproximadamente \n\nTechos de doble altura\n2 Niveles\nRecepción\nÁrea de producción \nÁrea libre para bodega\nÁrea de trabajo\nÁrea de oficinas\nSala de juntas\nBaño hombres / mujeres\n2 Ingresos: Ppal. Av. De Las Torres, 2do Acceso: Av. Guadalupe\n\n270m2 terreno\n360m2 construcción",
+    "bedrooms":  null,
+    "bathrooms":  null,
+    "half_bathrooms":  null,
+    "parking_spaces":  null,
+    "lot_size":  270.0,
+    "construction_size":  360.0,
+    "lot_length":  null,
+    "lot_width":  null,
+    "floors":  2,
+    "floor":  null,
+    "age":  null,
+    "internal_id":  "GABIBODEGA",
+    "expenses":  null,
+    "location":  {
+                     "name":  "Glorias Del Colli, Zapopan, Jalisco",
+                     "latitude":  20.6613119,
+                     "longitude":  -103.4542163,
+                     "street":  "ZINAPECUARO",
+                     "postal_code":  "45010",
+                     "show_exact_location":  true,
+                     "hide_exact_location":  false,
+                     "exterior_number":  "25",
+                     "interior_number":  null
+                 },
+    "property_type":  "Bodega comercial",
+    "created_at":  "2025-08-25T11:59:38-06:00",
+    "updated_at":  "2025-09-04T21:30:01-06:00",
+    "published_at":  "2025-08-25T12:00:12-06:00",
+    "operations":  [
+                       {
+                           "type":  "sale",
+                           "amount":  5700000.0,
+                           "currency":  "MXN",
+                           "formatted_amount":  "$5,700,000",
+                           "commission":  {
+                                              "type":  "percentage",
+                                              "value":  "4.0"
+                                          },
+                           "unit":  "total"
+                       }
+                   ],
+    "property_files":  [
+
+                       ],
+    "videos":  [
+
+               ],
+    "virtual_tour":  null,
+    "collaboration_notes":  "50% A inmobiliarias afiliadas",
+    "public_url":  "https://www.easybroker.com/mx/listings/bodega-en-venta-en-colonia-las-glorias-del-colli-zona-av-guadalupe-y-periferico",
+    "shared_commission_percentage":  50.0,
+    "exclusive":  true,
+    "foreclosure":  false,
+    "tags":  [
+
+             ],
+    "private_description":  null,
+    "show_prices":  true,
+    "share_commission":  true,
+    "property_images":  [
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5472061/94832915/EB-UA2061.jpg?version=1756144808"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5472061/94832911/EB-UA2061.jpg?version=1756144808"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5472061/94832912/EB-UA2061.jpg?version=1756144808"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5472061/94832913/EB-UA2061.jpg?version=1756144808"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5472061/94832909/EB-UA2061.jpg?version=1756144808"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5472061/94832910/EB-UA2061.jpg?version=1756144808"
+                            }
+                        ],
+    "images":  [
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5472061/94832915/EB-UA2061.jpg?version=1756144808"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5472061/94832911/EB-UA2061.jpg?version=1756144808"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5472061/94832912/EB-UA2061.jpg?version=1756144808"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5472061/94832913/EB-UA2061.jpg?version=1756144808"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5472061/94832909/EB-UA2061.jpg?version=1756144808"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5472061/94832910/EB-UA2061.jpg?version=1756144808"
+                   }
+               ],
+    "agent":  {
+                  "id":  391012,
+                  "name":  "Lic.Gabriela Martínez",
+                  "full_name":  "Lic.Gabriela Martínez",
+                  "mobile_phone":  "+523338087984",
+                  "profile_image_url":  "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1757459148",
+                  "email":  "GABRIELAMTZ6@HOTMAIL.COM"
+              },
+    "features":  [
+
+                 ]
+}

@@ -1,0 +1,250 @@
+﻿{
+    "public_id":  "EB-SE9112",
+    "title":  "Casa en renta Bugambilias 1era. Seccion",
+    "description":  "Casa en renta en Bugambilias primera sección \n\nPLANTA BAJA:\n•Cochera para dos automóviles\n•Área sala-comedor\n•Cocina integral con espacio para desayunador\n•Amplio espacio de almacenamiento con muebles empotrados\n•Área de lavado\n•Patio interior\nCuarto de servicio independiente con baño completo \n•Medio baño\n•Amplio jardín\n\n\nPLANTA ALTA:\n•Recámara principal  con balcón, closet y baño completo\n•Dos recamaras secundarias con closet y comparten baño\n\nBugambilias primera sección cuenta con una ubicación privilegiada al sur de la ciudad, con varias vías de acceso a muy pocas distancia de tiendas departamentales, SAMS, Costco, hospitales, centros comerciales ya que cuenta con un centro comercial dentro del fraccionamiento.\n\nA sólo una cuadra del Templo de Nuestra Sra. de Bugambilias.\nAgenda tu cita y conoce tu nuevo hogar.\n\n*Mantenimiento incluido\n*Mascota pequeña",
+    "bedrooms":  4,
+    "bathrooms":  3,
+    "half_bathrooms":  1,
+    "parking_spaces":  2,
+    "lot_size":  200.0,
+    "construction_size":  229.0,
+    "lot_length":  null,
+    "lot_width":  null,
+    "floors":  2,
+    "floor":  null,
+    "age":  null,
+    "internal_id":  "VANEBUGA",
+    "expenses":  "Incluido",
+    "location":  {
+                     "name":  "Fraccionamiento Bugambilias, Zapopan, Jalisco",
+                     "latitude":  20.5980921,
+                     "longitude":  -103.4504029,
+                     "street":  "Las hortensias",
+                     "postal_code":  "45238",
+                     "show_exact_location":  true,
+                     "hide_exact_location":  false,
+                     "exterior_number":  "310",
+                     "interior_number":  null
+                 },
+    "property_type":  "Casa",
+    "created_at":  "2025-01-30T13:46:39-06:00",
+    "updated_at":  "2025-05-12T12:09:04-06:00",
+    "published_at":  "2025-01-30T18:42:01-06:00",
+    "operations":  [
+                       {
+                           "type":  "rental",
+                           "amount":  24500.0,
+                           "currency":  "MXN",
+                           "formatted_amount":  "$24,500",
+                           "commission":  {
+                                              "type":  "months",
+                                              "value":  1
+                                          },
+                           "unit":  "total"
+                       }
+                   ],
+    "property_files":  [
+
+                       ],
+    "videos":  [
+
+               ],
+    "virtual_tour":  null,
+    "collaboration_notes":  "Se comparte comisión a inmobiliarias afiliadas",
+    "public_url":  "https://www.easybroker.com/mx/listings/casa-en-renta-bugambilias-1era-seccion",
+    "shared_commission_percentage":  null,
+    "exclusive":  false,
+    "foreclosure":  false,
+    "tags":  [
+
+             ],
+    "private_description":  null,
+    "show_prices":  true,
+    "share_commission":  true,
+    "property_images":  [
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4999112/87110026/EB-SE9112.jpeg?version=1741470572"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4999112/85450322/EB-SE9112.jpg?version=1741470572"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4999112/85450323/EB-SE9112.jpg?version=1741470572"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4999112/85450326/EB-SE9112.jpg?version=1741470572"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4999112/85450327/EB-SE9112.jpg?version=1741470572"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4999112/85450328/EB-SE9112.jpg?version=1741470572"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4999112/85450330/EB-SE9112.jpg?version=1741470572"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4999112/85450331/EB-SE9112.jpg?version=1741470572"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4999112/85450332/EB-SE9112.jpg?version=1741470572"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4999112/85450336/EB-SE9112.jpg?version=1741470572"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4999112/85450337/EB-SE9112.jpg?version=1741470572"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4999112/85450341/EB-SE9112.jpg?version=1741470572"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4999112/85450353/EB-SE9112.jpg?version=1741470572"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4999112/85450358/EB-SE9112.jpg?version=1741470572"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4999112/85450359/EB-SE9112.jpg?version=1741470572"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4999112/85450362/EB-SE9112.jpg?version=1741470572"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4999112/85450363/EB-SE9112.jpg?version=1741470572"
+                            }
+                        ],
+    "images":  [
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4999112/87110026/EB-SE9112.jpeg?version=1741470572"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4999112/85450322/EB-SE9112.jpg?version=1741470572"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4999112/85450323/EB-SE9112.jpg?version=1741470572"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4999112/85450326/EB-SE9112.jpg?version=1741470572"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4999112/85450327/EB-SE9112.jpg?version=1741470572"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4999112/85450328/EB-SE9112.jpg?version=1741470572"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4999112/85450330/EB-SE9112.jpg?version=1741470572"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4999112/85450331/EB-SE9112.jpg?version=1741470572"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4999112/85450332/EB-SE9112.jpg?version=1741470572"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4999112/85450336/EB-SE9112.jpg?version=1741470572"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4999112/85450337/EB-SE9112.jpg?version=1741470572"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4999112/85450341/EB-SE9112.jpg?version=1741470572"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4999112/85450353/EB-SE9112.jpg?version=1741470572"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4999112/85450358/EB-SE9112.jpg?version=1741470572"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4999112/85450359/EB-SE9112.jpg?version=1741470572"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4999112/85450362/EB-SE9112.jpg?version=1741470572"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4999112/85450363/EB-SE9112.jpg?version=1741470572"
+                   }
+               ],
+    "agent":  {
+                  "id":  391012,
+                  "name":  "Lic.Gabriela Martínez",
+                  "full_name":  "Lic.Gabriela Martínez",
+                  "mobile_phone":  "+523338087984",
+                  "profile_image_url":  "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1757459148",
+                  "email":  "GABRIELAMTZ6@HOTMAIL.COM"
+              },
+    "features":  [
+                     {
+                         "name":  "Balcón",
+                         "category":  "Exterior"
+                     },
+                     {
+                         "name":  "Cisterna",
+                         "category":  "Exterior"
+                     },
+                     {
+                         "name":  "Facilidad para estacionarse",
+                         "category":  "Exterior"
+                     },
+                     {
+                         "name":  "Jardín",
+                         "category":  "Exterior"
+                     },
+                     {
+                         "name":  "Patio",
+                         "category":  "Exterior"
+                     },
+                     {
+                         "name":  "Cocina integral",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Cuarto de servicio",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Dos plantas",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Mascotas permitidas",
+                         "category":  "Políticas"
+                     }
+                 ]
+}

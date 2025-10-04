@@ -1,0 +1,341 @@
+﻿{
+    "public_id":  "EB-TJ7353",
+    "title":  "Departamento en renta o venta en La Rioja",
+    "description":  "Tenemos para ti este departamento  en una de las zonas con mayor plusvalia del sur de Guadalajara: Condominio HISPANIA en La Rioja Residencial.\n\nEl departamento se encuentra en el 15vo nivel, brindándote una vusta panorámica al club de La Rioja y al campo de golf Santa Anita.\n\nSon 159.92 mts donde encontrarás:\n\n•Cocina equipada\n•Sala comedor\n•Balcón con vusta panorámica \n•Medio baño\n•Cuarto de lavado\n•Recámara principal con aire acondicionado, balcón, walking closet y baño completo.\nRecámara secundaria con balcón, closet y baño completo.\n\nAdemás de dos cajones de estacionamientos asignados en el S2 y una bodega.\n\nHispania cuenta con su propio acceso con seguridad 24/7, salón de usos multiples, coworking, gimnasio y terraza con alberca climatizada con vista panorámica. Y por si fuera poco, Hispania cuenta con tienda de conveniencia, tintorería y de más comercios a solo unos pasos del lobby.\n\nFraccionamiento La Rioja es uno de los más cotizados de la zona sur de Guadalajara.\nCuenta con seguridad 24/7, hermosas áreas verdes con andadores, varias zonas con juegos infantiles, casa club con alberca, gimnasio, salones de usos múltiples y canchas.\n\nAdemás estarás a metros de centros comerciales, restaurantes, cines, cines y tiendas como COSTCO, HomeDepot, SAMS Club, hospitales y más\n\nNo puedes dejar pasar la oportunidad de vivir o invertir en esta propiedad.\n\n*Mascotas bienvenidas.\n*La opción a renta incluye mantenimiento.",
+    "bedrooms":  2,
+    "bathrooms":  2,
+    "half_bathrooms":  1,
+    "parking_spaces":  2,
+    "lot_size":  null,
+    "construction_size":  159.92,
+    "lot_length":  null,
+    "lot_width":  null,
+    "floors":  null,
+    "floor":  "15",
+    "age":  null,
+    "internal_id":  "LUCEROHIDPANIA",
+    "expenses":  "$5000 / Opción a renta incluye mantenimiento",
+    "location":  {
+                     "name":  "Los Gavilanes, Tlajomulco de Zúñiga, Jalisco",
+                     "latitude":  20.5705586,
+                     "longitude":  -103.4675103,
+                     "street":  "Quintanar de la Rioja",
+                     "postal_code":  "45645",
+                     "show_exact_location":  true,
+                     "hide_exact_location":  false,
+                     "exterior_number":  "941",
+                     "interior_number":  "1504"
+                 },
+    "property_type":  "Departamento",
+    "created_at":  "2025-06-11T22:20:41-06:00",
+    "updated_at":  "2025-07-17T18:32:35-06:00",
+    "published_at":  "2025-06-12T08:01:20-06:00",
+    "operations":  [
+                       {
+                           "type":  "sale",
+                           "amount":  5700000.0,
+                           "currency":  "MXN",
+                           "formatted_amount":  "$5,700,000",
+                           "commission":  {
+                                              "type":  "percentage",
+                                              "value":  "5.0"
+                                          },
+                           "unit":  "total"
+                       },
+                       {
+                           "type":  "rental",
+                           "amount":  25000.0,
+                           "currency":  "MXN",
+                           "formatted_amount":  "$25,000",
+                           "commission":  {
+                                              "type":  "months",
+                                              "value":  1
+                                          },
+                           "unit":  "total"
+                       }
+                   ],
+    "property_files":  [
+
+                       ],
+    "videos":  [
+
+               ],
+    "virtual_tour":  null,
+    "collaboration_notes":  "Comisión compartida a inmobiliarias afiliadas",
+    "public_url":  "https://www.easybroker.com/mx/listings/departamento-en-renta-o-venta-en-la-rioja-los-gavilanes",
+    "shared_commission_percentage":  50.0,
+    "exclusive":  false,
+    "foreclosure":  false,
+    "tags":  [
+
+             ],
+    "private_description":  null,
+    "show_prices":  true,
+    "share_commission":  true,
+    "property_images":  [
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5307353/91534616/EB-TJ7353.jpeg?version=1749737027"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5307353/91530104/EB-TJ7353.jpeg?version=1749737027"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5307353/91530106/EB-TJ7353.jpeg?version=1749737027"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5307353/91530200/EB-TJ7353.jpeg?version=1749737027"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5307353/91534606/EB-TJ7353.jpeg?version=1749737027"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5307353/91530109/EB-TJ7353.jpeg?version=1749737027"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5307353/91534607/EB-TJ7353.jpeg?version=1749737027"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5307353/91534608/EB-TJ7353.jpeg?version=1749737027"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5307353/91534609/EB-TJ7353.jpeg?version=1749737027"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5307353/91534610/EB-TJ7353.jpeg?version=1749737027"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5307353/91534611/EB-TJ7353.jpeg?version=1749737027"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5307353/91534605/EB-TJ7353.jpeg?version=1749737027"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5307353/91534612/EB-TJ7353.jpeg?version=1749737027"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5307353/91534613/EB-TJ7353.jpeg?version=1749737027"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5307353/91534614/EB-TJ7353.jpeg?version=1749737027"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5307353/91534618/EB-TJ7353.jpeg?version=1749737027"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5307353/91534620/EB-TJ7353.jpeg?version=1749737027"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5307353/91534621/EB-TJ7353.jpeg?version=1749737027"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5307353/91534623/EB-TJ7353.jpeg?version=1749737027"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5307353/91534624/EB-TJ7353.jpeg?version=1749737027"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/5307353/91534625/EB-TJ7353.jpeg?version=1749737027"
+                            }
+                        ],
+    "images":  [
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5307353/91534616/EB-TJ7353.jpeg?version=1749737027"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5307353/91530104/EB-TJ7353.jpeg?version=1749737027"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5307353/91530106/EB-TJ7353.jpeg?version=1749737027"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5307353/91530200/EB-TJ7353.jpeg?version=1749737027"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5307353/91534606/EB-TJ7353.jpeg?version=1749737027"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5307353/91530109/EB-TJ7353.jpeg?version=1749737027"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5307353/91534607/EB-TJ7353.jpeg?version=1749737027"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5307353/91534608/EB-TJ7353.jpeg?version=1749737027"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5307353/91534609/EB-TJ7353.jpeg?version=1749737027"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5307353/91534610/EB-TJ7353.jpeg?version=1749737027"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5307353/91534611/EB-TJ7353.jpeg?version=1749737027"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5307353/91534605/EB-TJ7353.jpeg?version=1749737027"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5307353/91534612/EB-TJ7353.jpeg?version=1749737027"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5307353/91534613/EB-TJ7353.jpeg?version=1749737027"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5307353/91534614/EB-TJ7353.jpeg?version=1749737027"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5307353/91534618/EB-TJ7353.jpeg?version=1749737027"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5307353/91534620/EB-TJ7353.jpeg?version=1749737027"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5307353/91534621/EB-TJ7353.jpeg?version=1749737027"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5307353/91534623/EB-TJ7353.jpeg?version=1749737027"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5307353/91534624/EB-TJ7353.jpeg?version=1749737027"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/5307353/91534625/EB-TJ7353.jpeg?version=1749737027"
+                   }
+               ],
+    "agent":  {
+                  "id":  391012,
+                  "name":  "Lic.Gabriela Martínez",
+                  "full_name":  "Lic.Gabriela Martínez",
+                  "mobile_phone":  "+523338087984",
+                  "profile_image_url":  "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1757459148",
+                  "email":  "GABRIELAMTZ6@HOTMAIL.COM"
+              },
+    "features":  [
+                     {
+                         "name":  "Balcón",
+                         "category":  "Exterior"
+                     },
+                     {
+                         "name":  "Estacionamiento techado",
+                         "category":  "Exterior"
+                     },
+                     {
+                         "name":  "Facilidad para estacionarse",
+                         "category":  "Exterior"
+                     },
+                     {
+                         "name":  "Frente al agua",
+                         "category":  "Exterior"
+                     },
+                     {
+                         "name":  "Vista al agua",
+                         "category":  "Exterior"
+                     },
+                     {
+                         "name":  "Accesibilidad para adultos mayores",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Accesibilidad para personas con discapacidad",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Aire acondicionado",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Bodega",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Elevador",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Fraccionamiento privado",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Portero",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Rampas",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Seguridad 24 horas",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Una sola planta",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Mascotas permitidas",
+                         "category":  "Políticas"
+                     },
+                     {
+                         "name":  "Alberca",
+                         "category":  "Recreación"
+                     },
+                     {
+                         "name":  "Área de juegos infantiles",
+                         "category":  "Recreación"
+                     },
+                     {
+                         "name":  "Cancha de tenis",
+                         "category":  "Recreación"
+                     },
+                     {
+                         "name":  "Gimnasio",
+                         "category":  "Recreación"
+                     },
+                     {
+                         "name":  "Salón de usos múltiples",
+                         "category":  "Recreación"
+                     }
+                 ]
+}

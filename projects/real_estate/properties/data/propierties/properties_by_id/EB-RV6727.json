@@ -1,0 +1,29 @@
+﻿{
+    "public_id":  "EB-RV6727",
+    "title":  "Casa en venta en  La Loma Residencial.",
+    "title_image_full":  "https://assets.easybroker.com/property_images/4906727/83457034/EB-RV6727.jpg?version=1733849386",
+    "title_image_thumb":  "https://assets.easybroker.com/property_images/4906727/83457034/EB-RV6727.jpg?version=1733849386\u0026width=200",
+    "location":  "La Loma, Tlajomulco de Zúñiga, Jalisco",
+    "operations":  [
+                       {
+                           "type":  "sale",
+                           "amount":  2680000.0,
+                           "currency":  "MXN",
+                           "formatted_amount":  "$2,680,000",
+                           "commission":  {
+                                              "type":  "percentage"
+                                          },
+                           "unit":  "total"
+                       }
+                   ],
+    "bedrooms":  3,
+    "bathrooms":  2,
+    "parking_spaces":  2,
+    "property_type":  "Casa en condominio",
+    "lot_size":  120.0,
+    "construction_size":  140.0,
+    "updated_at":  "2025-05-12T12:09:04-06:00",
+    "agent":  "Lic.Gabriela Martínez",
+    "show_prices":  true,
+    "share_commission":  true
+}

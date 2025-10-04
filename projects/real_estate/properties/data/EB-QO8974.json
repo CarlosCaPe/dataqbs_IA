@@ -1,0 +1,316 @@
+{
+  "public_id": "EB-QO8974",
+  "title": "Casa en Venta en Fraccionamiento zona Bosques Santa Anita",
+  "description": "Casa en venta al sur de la ciudad en Fraccionamiento La Loma con excelente aprovechamiento de espacios.  \n\nPLANTA BAJA:\n•Cochera para dos autos (uno techado)\n•Estudio\n•Baño completo \n•Amplia área de sala-comedor\n•Amplia área sala-comedor\n•Terraza\n•Jardín\n•Área de servicio\n•Bodega o cuarto de servicio \n\n  PLANTA ALTA:\n•Recámara secundaria con balcón y closet\n•Closet de blancos\n•Baño completo\n•Recámara secundaria con closet y aire acondicionado\n•Habitación principal con aire acondicionado, walking closet y baño completo.   \n\nLa casa está estratégicamente ubicada ya que al frente tiene áreas verdes y el estacionamiento de visitas.\n\nLas áreas verdes rodean todo el fraccionamiento, el cual, cuenta con seguridad 24/7, calles empedradas que brindan frescura y paisajismo así como una de las áreas comunes más bonitas de la zona, con juegos infantiles, gran terraza, baños para los invitados y alberca.   \n\nLa Loma brinda la tranquilidad de vivir cerca del Bosque de la Primavera pero al mismo tiempo, se ubica a solo poco minutos de instituciones de alto nivel que van desde preescolar hasta preparatoria, como lo es la Prepa TEC, Instituto Tepeyac, entre otros.   Plazas, comercios y todos los atractivos que ofrece el sur, una de las zonas con mayor plusvalía de la ciudad.   \n\nAgenda tu cita y conoce ya tu nuevo hogar.   \n\n*Citas disponibles a partir del 15 de Agosto",
+  "bedrooms": 3,
+  "bathrooms": 3,
+  "half_bathrooms": null,
+  "parking_spaces": 2,
+  "lot_size": 120.0,
+  "construction_size": 150.0,
+  "lot_length": null,
+  "lot_width": null,
+  "floors": 2,
+  "floor": null,
+  "age": null,
+  "internal_id": "AIDALOMA8",
+  "expenses": "Incluido",
+  "location": {
+    "name": "La Loma, Tlajomulco de Zúñiga, Jalisco",
+    "latitude": 20.5694801,
+    "longitude": -103.494322,
+    "street": "Boulevard La Loma",
+    "postal_code": "45645",
+    "show_exact_location": true,
+    "hide_exact_location": false,
+    "exterior_number": "1000",
+    "interior_number": "8"
+  },
+  "property_type": "Casa",
+  "created_at": "2024-06-29T14:06:47-06:00",
+  "updated_at": "2025-07-28T17:49:03-06:00",
+  "published_at": "2025-07-28T17:43:21-06:00",
+  "operations": [
+    {
+      "type": "sale",
+      "amount": 3300000.0,
+      "currency": "MXN",
+      "formatted_amount": "$3,300,000",
+      "commission": {
+        "type": "percentage",
+        "value": "4.0"
+      },
+      "unit": "total"
+    }
+  ],
+  "property_files": [],
+  "videos": [],
+  "virtual_tour": null,
+  "collaboration_notes": null,
+  "public_url": "https://www.easybroker.com/mx/listings/casa-en-renta-en-fraccionamiento-zona-bosques-santa-anita",
+  "shared_commission_percentage": null,
+  "exclusive": null,
+  "foreclosure": false,
+  "tags": [],
+  "private_description": null,
+  "show_prices": true,
+  "share_commission": false,
+  "property_images": [
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4578974/76895409/EB-QO8974.jpeg?version=1719692564"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4578974/76895408/EB-QO8974.jpeg?version=1719692564"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4578974/76895410/EB-QO8974.jpeg?version=1719692564"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4578974/76895411/EB-QO8974.jpeg?version=1719692565"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4578974/76895412/EB-QO8974.jpeg?version=1719692565"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4578974/76895413/EB-QO8974.jpeg?version=1719692565"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4578974/76895414/EB-QO8974.jpeg?version=1719692566"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4578974/76895415/EB-QO8974.jpeg?version=1719692566"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4578974/76895416/EB-QO8974.jpeg?version=1719692566"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4578974/76895417/EB-QO8974.jpeg?version=1719692567"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4578974/76895418/EB-QO8974.jpeg?version=1719692567"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4578974/76895419/EB-QO8974.jpeg?version=1719692567"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4578974/76895420/EB-QO8974.jpeg?version=1719692567"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4578974/76895421/EB-QO8974.jpeg?version=1719692567"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4578974/76895422/EB-QO8974.jpeg?version=1719692568"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4578974/76895423/EB-QO8974.jpeg?version=1719692568"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4578974/76895426/EB-QO8974.jpeg?version=1719692569"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4578974/76895424/EB-QO8974.jpeg?version=1719692569"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4578974/76895425/EB-QO8974.jpeg?version=1719692569"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4578974/76895427/EB-QO8974.jpeg?version=1719692569"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4578974/76895428/EB-QO8974.jpeg?version=1719692570"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4578974/76895429/EB-QO8974.jpeg?version=1719692570"
+    }
+  ],
+  "images": [
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4578974/76895409/EB-QO8974.jpeg?version=1719692564"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4578974/76895408/EB-QO8974.jpeg?version=1719692564"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4578974/76895410/EB-QO8974.jpeg?version=1719692564"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4578974/76895411/EB-QO8974.jpeg?version=1719692565"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4578974/76895412/EB-QO8974.jpeg?version=1719692565"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4578974/76895413/EB-QO8974.jpeg?version=1719692565"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4578974/76895414/EB-QO8974.jpeg?version=1719692566"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4578974/76895415/EB-QO8974.jpeg?version=1719692566"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4578974/76895416/EB-QO8974.jpeg?version=1719692566"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4578974/76895417/EB-QO8974.jpeg?version=1719692567"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4578974/76895418/EB-QO8974.jpeg?version=1719692567"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4578974/76895419/EB-QO8974.jpeg?version=1719692567"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4578974/76895420/EB-QO8974.jpeg?version=1719692567"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4578974/76895421/EB-QO8974.jpeg?version=1719692567"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4578974/76895422/EB-QO8974.jpeg?version=1719692568"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4578974/76895423/EB-QO8974.jpeg?version=1719692568"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4578974/76895426/EB-QO8974.jpeg?version=1719692569"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4578974/76895424/EB-QO8974.jpeg?version=1719692569"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4578974/76895425/EB-QO8974.jpeg?version=1719692569"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4578974/76895427/EB-QO8974.jpeg?version=1719692569"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4578974/76895428/EB-QO8974.jpeg?version=1719692570"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4578974/76895429/EB-QO8974.jpeg?version=1719692570"
+    }
+  ],
+  "agent": {
+    "id": 391012,
+    "name": "Lic.Gabriela Martínez",
+    "full_name": "Lic.Gabriela Martínez",
+    "mobile_phone": "+523338087984",
+    "profile_image_url": "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1757459148",
+    "email": "GABRIELAMTZ6@HOTMAIL.COM"
+  },
+  "features": [
+    {
+      "name": "Balcón",
+      "category": "Exterior"
+    },
+    {
+      "name": "Facilidad para estacionarse",
+      "category": "Exterior"
+    },
+    {
+      "name": "Jardín",
+      "category": "Exterior"
+    },
+    {
+      "name": "Aire acondicionado",
+      "category": "General"
+    },
+    {
+      "name": "Bodega",
+      "category": "General"
+    },
+    {
+      "name": "Cocina integral",
+      "category": "General"
+    },
+    {
+      "name": "Cuarto de servicio",
+      "category": "General"
+    },
+    {
+      "name": "Dos plantas",
+      "category": "General"
+    },
+    {
+      "name": "Estudio",
+      "category": "General"
+    },
+    {
+      "name": "Fraccionamiento privado",
+      "category": "General"
+    },
+    {
+      "name": "Mascotas permitidas",
+      "category": "Políticas"
+    },
+    {
+      "name": "Oficina",
+      "category": "General"
+    },
+    {
+      "name": "Portero",
+      "category": "General"
+    },
+    {
+      "name": "Seguridad 24 horas",
+      "category": "General"
+    },
+    {
+      "name": "Alberca",
+      "category": "Recreación"
+    },
+    {
+      "name": "Área de juegos infantiles",
+      "category": "Recreación"
+    },
+    {
+      "name": "Salón de usos múltiples",
+      "category": "Recreación"
+    }
+  ]
+}

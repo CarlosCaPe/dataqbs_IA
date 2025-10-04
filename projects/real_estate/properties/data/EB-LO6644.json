@@ -1,0 +1,191 @@
+{
+  "public_id": "EB-LO6644",
+  "title": "TERRENO EN VENTA SAN MARTIN DE LAS FLORES ( MUY CERCA CENTRAL CAM. NUEVA)",
+  "description": "EXCELENTE TERRENO EN VENTA PARA HACER ALGUN DESARROLLO HASTA 4 PISOS O VIVIENDA HORIZONTAL, CUENTA CON TODOS LOS SERVICIOS . MUY CERCA DE CENTRAL CAMIONERA NUEVA. TODO TIPO DE SERVICIOS , BANCOS TIENDAS DEPARTAMENTALES ,SUPER ETC",
+  "bedrooms": null,
+  "bathrooms": null,
+  "half_bathrooms": null,
+  "parking_spaces": null,
+  "lot_size": 4000.0,
+  "construction_size": null,
+  "lot_length": null,
+  "lot_width": null,
+  "floors": null,
+  "floor": null,
+  "age": null,
+  "internal_id": null,
+  "expenses": null,
+  "location": {
+    "name": "San Martín de las Flores de Arriba, Tlaquepaque, Jalisco",
+    "latitude": 20.6048039,
+    "longitude": -103.2855075,
+    "street": "privada avila camacho",
+    "postal_code": null,
+    "show_exact_location": true,
+    "hide_exact_location": false,
+    "exterior_number": null,
+    "interior_number": null
+  },
+  "property_type": "Terreno",
+  "created_at": "2022-09-26T19:44:15-05:00",
+  "updated_at": "2025-05-12T12:09:04-06:00",
+  "published_at": "2022-12-01T12:07:58-06:00",
+  "operations": [
+    {
+      "type": "sale",
+      "amount": 3000.0,
+      "currency": "MXN",
+      "formatted_amount": "$3,000",
+      "commission": {
+        "type": "percentage",
+        "value": "5.0"
+      },
+      "unit": "square_meter"
+    }
+  ],
+  "property_files": [],
+  "videos": [],
+  "virtual_tour": null,
+  "collaboration_notes": null,
+  "public_url": "https://www.easybroker.com/mx/listings/terreno-en-venta-san-martin-de-las-flores-uy-cerca-central-cam-nueva",
+  "shared_commission_percentage": null,
+  "exclusive": null,
+  "foreclosure": false,
+  "tags": [],
+  "private_description": null,
+  "show_prices": true,
+  "share_commission": true,
+  "property_images": [
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/3276644/52589622/EB-LO6644.jpg?version=1664239618"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/3276644/52589629/EB-LO6644.jpg?version=1664239618"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/3276644/52589631/EB-LO6644.jpg?version=1664239618"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/3276644/52589633/EB-LO6644.jpg?version=1664239618"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/3276644/52589636/EB-LO6644.jpg?version=1664239618"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/3276644/52589639/EB-LO6644.jpg?version=1664239618"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/3276644/52589640/EB-LO6644.jpg?version=1664239618"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/3276644/52589641/EB-LO6644.jpg?version=1664239618"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/3276644/52589648/EB-LO6644.jpg?version=1664239618"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/3276644/52589682/EB-LO6644.jpg?version=1664239618"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/3276644/52589696/EB-LO6644.jpg?version=1664239618"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/3276644/52589715/EB-LO6644.jpg?version=1664239618"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/3276644/52589731/EB-LO6644.jpg?version=1664239618"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/3276644/52589732/EB-LO6644.jpg?version=1664239618"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/3276644/52589735/EB-LO6644.jpg?version=1664239618"
+    }
+  ],
+  "images": [
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/3276644/52589622/EB-LO6644.jpg?version=1664239618"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/3276644/52589629/EB-LO6644.jpg?version=1664239618"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/3276644/52589631/EB-LO6644.jpg?version=1664239618"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/3276644/52589633/EB-LO6644.jpg?version=1664239618"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/3276644/52589636/EB-LO6644.jpg?version=1664239618"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/3276644/52589639/EB-LO6644.jpg?version=1664239618"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/3276644/52589640/EB-LO6644.jpg?version=1664239618"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/3276644/52589641/EB-LO6644.jpg?version=1664239618"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/3276644/52589648/EB-LO6644.jpg?version=1664239618"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/3276644/52589682/EB-LO6644.jpg?version=1664239618"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/3276644/52589696/EB-LO6644.jpg?version=1664239618"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/3276644/52589715/EB-LO6644.jpg?version=1664239618"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/3276644/52589731/EB-LO6644.jpg?version=1664239618"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/3276644/52589732/EB-LO6644.jpg?version=1664239618"
+    },
+    {
+      "title": "",
+      "url": "https://assets.easybroker.com/property_images/3276644/52589735/EB-LO6644.jpg?version=1664239618"
+    }
+  ],
+  "agent": {
+    "id": 391012,
+    "name": "Lic.Gabriela Martínez",
+    "full_name": "Lic.Gabriela Martínez",
+    "mobile_phone": "+523338087984",
+    "profile_image_url": "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1757459148",
+    "email": "GABRIELAMTZ6@HOTMAIL.COM"
+  },
+  "features": []
+}

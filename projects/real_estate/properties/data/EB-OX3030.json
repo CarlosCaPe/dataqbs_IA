@@ -1,0 +1,134 @@
+{
+  "public_id": "EB-OX3030",
+  "title": "AMPLIA BODEGA FRENTE A CARRETERA IXTLAHUACAN DEL RIO",
+  "description": "BODEGA NUEVA FRENTE A CARRETERA IXTLAHUACAN ESQUINA CALLE DE LA CRUZ \n13 METROS DE FRENTE  POR 37 METROS DE FONDO.\nUN BAÑO, CORTINA DE 10 METROS DE ALTURA PARAQUE ENTREN TRAILERS ALTURA 18 METROS",
+  "bedrooms": null,
+  "bathrooms": null,
+  "half_bathrooms": null,
+  "parking_spaces": 9,
+  "lot_size": null,
+  "construction_size": 500.0,
+  "lot_length": 13.0,
+  "lot_width": 37.0,
+  "floors": null,
+  "floor": null,
+  "age": "new_construction",
+  "internal_id": null,
+  "expenses": null,
+  "location": {
+    "name": "Ixtlahuacan Del Rio, Ixtlahuacán del Río, Jalisco",
+    "latitude": 20.8639764,
+    "longitude": -103.2403779,
+    "street": "JUAN PABLO SEGUNDO",
+    "postal_code": null,
+    "show_exact_location": true,
+    "hide_exact_location": false,
+    "exterior_number": "222",
+    "interior_number": null
+  },
+  "property_type": "Bodega comercial",
+  "created_at": "2023-11-23T16:45:46-06:00",
+  "updated_at": "2025-05-12T12:09:04-06:00",
+  "published_at": "2024-01-09T18:23:58-06:00",
+  "operations": [
+    {
+      "type": "rental",
+      "amount": 33000.0,
+      "currency": "MXN",
+      "formatted_amount": "$33,000",
+      "commission": {
+        "type": "percentage"
+      },
+      "unit": "total"
+    }
+  ],
+  "property_files": [],
+  "videos": [],
+  "virtual_tour": null,
+  "collaboration_notes": null,
+  "public_url": "https://www.easybroker.com/mx/listings/amplia-bodega-frente-a-carretera-ixtlahuacan-del-rio",
+  "shared_commission_percentage": null,
+  "exclusive": null,
+  "foreclosure": false,
+  "tags": [],
+  "private_description": null,
+  "show_prices": true,
+  "share_commission": true,
+  "property_images": [
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4143030/68656617/EB-OX3030.jpg?version=1700785062"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4143030/68656626/EB-OX3030.jpg?version=1700785069"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4143030/68656627/EB-OX3030.jpg?version=1700785076"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4143030/68656656/EB-OX3030.jpg?version=1700785091"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4143030/68656657/EB-OX3030.jpg?version=1700785102"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4143030/68656658/EB-OX3030.jpg?version=1700785110"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4143030/68656660/EB-OX3030.jpg?version=1700785117"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4143030/68656661/EB-OX3030.jpg?version=1700785122"
+    }
+  ],
+  "images": [
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4143030/68656617/EB-OX3030.jpg?version=1700785062"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4143030/68656626/EB-OX3030.jpg?version=1700785069"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4143030/68656627/EB-OX3030.jpg?version=1700785076"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4143030/68656656/EB-OX3030.jpg?version=1700785091"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4143030/68656657/EB-OX3030.jpg?version=1700785102"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4143030/68656658/EB-OX3030.jpg?version=1700785110"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4143030/68656660/EB-OX3030.jpg?version=1700785117"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4143030/68656661/EB-OX3030.jpg?version=1700785122"
+    }
+  ],
+  "agent": {
+    "id": 391012,
+    "name": "Lic.Gabriela Martínez",
+    "full_name": "Lic.Gabriela Martínez",
+    "mobile_phone": "+523338087984",
+    "profile_image_url": "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1757459148",
+    "email": "GABRIELAMTZ6@HOTMAIL.COM"
+  },
+  "features": []
+}

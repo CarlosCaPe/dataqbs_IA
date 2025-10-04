@@ -1,0 +1,30 @@
+﻿{
+    "public_id":  "EB-SN4503",
+    "title":  "Casa en Venta en Cd Granja (a espaldas del parque Metropolitano)",
+    "title_image_full":  "https://assets.easybroker.com/property_images/5084503/87126294/EB-SN4503.jpeg?version=1742405125",
+    "title_image_thumb":  "https://assets.easybroker.com/property_images/5084503/87126294/EB-SN4503.jpeg?version=1742405125\u0026width=200",
+    "location":  "Ciudad Granja, Zapopan, Jalisco",
+    "operations":  [
+                       {
+                           "type":  "sale",
+                           "amount":  7200000.0,
+                           "currency":  "MXN",
+                           "formatted_amount":  "$7,200,000",
+                           "commission":  {
+                                              "type":  "percentage",
+                                              "value":  "4.0"
+                                          },
+                           "unit":  "total"
+                       }
+                   ],
+    "bedrooms":  4,
+    "bathrooms":  3,
+    "parking_spaces":  2,
+    "property_type":  "Casa en condominio",
+    "lot_size":  148.75,
+    "construction_size":  137.0,
+    "updated_at":  "2025-08-01T17:09:03-06:00",
+    "agent":  "Lic.Gabriela Martínez",
+    "show_prices":  true,
+    "share_commission":  true
+}

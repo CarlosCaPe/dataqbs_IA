@@ -1,0 +1,238 @@
+﻿{
+    "public_id":  "EB-BP1426",
+    "title":  "CASA EN VENTA EN CIUDAD GRANJA",
+    "description":  "Cochera para 3 autos, a un costado cuenta con local para 3 consultorios, actualmente rentados.\n\nEs una construcción larga dividida por un pasillo, amplias recamaras y 500mts de Jardín.\n\nCerca del mercado de Ciudad Granja, de escuelas y de tiendas de autoservicio.\n\nLe falta mantenimiento.\n\nIdeal para edificio de departamentos.",
+    "bedrooms":  4,
+    "bathrooms":  2,
+    "half_bathrooms":  null,
+    "parking_spaces":  2,
+    "lot_size":  805.0,
+    "construction_size":  232.0,
+    "lot_length":  80.5,
+    "lot_width":  10.0,
+    "floors":  null,
+    "floor":  null,
+    "age":  null,
+    "internal_id":  null,
+    "expenses":  null,
+    "location":  {
+                     "name":  "Ciudad Granja, Zapopan, Jalisco",
+                     "latitude":  20.7251923,
+                     "longitude":  -103.4835784,
+                     "street":  "AV PASEO NORTE",
+                     "postal_code":  null,
+                     "show_exact_location":  true,
+                     "hide_exact_location":  false,
+                     "exterior_number":  null,
+                     "interior_number":  null
+                 },
+    "property_type":  "Casa",
+    "created_at":  "2018-03-26T10:32:05-06:00",
+    "updated_at":  "2025-05-12T12:09:04-06:00",
+    "published_at":  "2018-03-26T10:33:33-06:00",
+    "operations":  [
+                       {
+                           "type":  "sale",
+                           "amount":  7300000.0,
+                           "currency":  "MXN",
+                           "formatted_amount":  "$7,300,000",
+                           "commission":  {
+                                              "type":  "percentage",
+                                              "value":  "5.0"
+                                          },
+                           "unit":  "total"
+                       }
+                   ],
+    "property_files":  [
+
+                       ],
+    "videos":  [
+
+               ],
+    "virtual_tour":  null,
+    "collaboration_notes":  "",
+    "public_url":  "https://www.easybroker.com/mx/listings/casa-en-venta-en-ciudad-granja-6b46750d-ca78-42ae-9651-dddc844965a4",
+    "shared_commission_percentage":  null,
+    "exclusive":  null,
+    "foreclosure":  false,
+    "tags":  [
+
+             ],
+    "private_description":  null,
+    "show_prices":  true,
+    "share_commission":  true,
+    "property_images":  [
+                            {
+                                "title":  "",
+                                "url":  "https://assets.easybroker.com/property_images/681426/10362584/EB-BP1426.png?version=1522082013"
+                            },
+                            {
+                                "title":  "",
+                                "url":  "https://assets.easybroker.com/property_images/681426/10362577/EB-BP1426.JPG?version=1522082014"
+                            },
+                            {
+                                "title":  "",
+                                "url":  "https://assets.easybroker.com/property_images/681426/10362565/EB-BP1426.JPG?version=1522082014"
+                            },
+                            {
+                                "title":  "",
+                                "url":  "https://assets.easybroker.com/property_images/681426/10362566/EB-BP1426.JPG?version=1522082014"
+                            },
+                            {
+                                "title":  "",
+                                "url":  "https://assets.easybroker.com/property_images/681426/10362567/EB-BP1426.JPG?version=1522082014"
+                            },
+                            {
+                                "title":  "",
+                                "url":  "https://assets.easybroker.com/property_images/681426/10362569/EB-BP1426.png?version=1522082014"
+                            },
+                            {
+                                "title":  "",
+                                "url":  "https://assets.easybroker.com/property_images/681426/10362568/EB-BP1426.JPG?version=1522082014"
+                            },
+                            {
+                                "title":  "",
+                                "url":  "https://assets.easybroker.com/property_images/681426/10362572/EB-BP1426.JPG?version=1522082014"
+                            },
+                            {
+                                "title":  "",
+                                "url":  "https://assets.easybroker.com/property_images/681426/10362574/EB-BP1426.JPG?version=1522082014"
+                            },
+                            {
+                                "title":  "",
+                                "url":  "https://assets.easybroker.com/property_images/681426/10362573/EB-BP1426.JPG?version=1522082014"
+                            },
+                            {
+                                "title":  "",
+                                "url":  "https://assets.easybroker.com/property_images/681426/10362575/EB-BP1426.JPG?version=1522082014"
+                            },
+                            {
+                                "title":  "",
+                                "url":  "https://assets.easybroker.com/property_images/681426/10362576/EB-BP1426.JPG?version=1522082014"
+                            },
+                            {
+                                "title":  "",
+                                "url":  "https://assets.easybroker.com/property_images/681426/10362578/EB-BP1426.JPG?version=1522082014"
+                            },
+                            {
+                                "title":  "",
+                                "url":  "https://assets.easybroker.com/property_images/681426/10362580/EB-BP1426.JPG?version=1522082014"
+                            },
+                            {
+                                "title":  "",
+                                "url":  "https://assets.easybroker.com/property_images/681426/10362579/EB-BP1426.JPG?version=1522082014"
+                            },
+                            {
+                                "title":  "",
+                                "url":  "https://assets.easybroker.com/property_images/681426/10362581/EB-BP1426.JPG?version=1522082014"
+                            },
+                            {
+                                "title":  "",
+                                "url":  "https://assets.easybroker.com/property_images/681426/10362582/EB-BP1426.JPG?version=1522082014"
+                            },
+                            {
+                                "title":  "",
+                                "url":  "https://assets.easybroker.com/property_images/681426/10362583/EB-BP1426.JPG?version=1522082014"
+                            }
+                        ],
+    "images":  [
+                   {
+                       "title":  "",
+                       "url":  "https://assets.easybroker.com/property_images/681426/10362584/EB-BP1426.png?version=1522082013"
+                   },
+                   {
+                       "title":  "",
+                       "url":  "https://assets.easybroker.com/property_images/681426/10362577/EB-BP1426.JPG?version=1522082014"
+                   },
+                   {
+                       "title":  "",
+                       "url":  "https://assets.easybroker.com/property_images/681426/10362565/EB-BP1426.JPG?version=1522082014"
+                   },
+                   {
+                       "title":  "",
+                       "url":  "https://assets.easybroker.com/property_images/681426/10362566/EB-BP1426.JPG?version=1522082014"
+                   },
+                   {
+                       "title":  "",
+                       "url":  "https://assets.easybroker.com/property_images/681426/10362567/EB-BP1426.JPG?version=1522082014"
+                   },
+                   {
+                       "title":  "",
+                       "url":  "https://assets.easybroker.com/property_images/681426/10362569/EB-BP1426.png?version=1522082014"
+                   },
+                   {
+                       "title":  "",
+                       "url":  "https://assets.easybroker.com/property_images/681426/10362568/EB-BP1426.JPG?version=1522082014"
+                   },
+                   {
+                       "title":  "",
+                       "url":  "https://assets.easybroker.com/property_images/681426/10362572/EB-BP1426.JPG?version=1522082014"
+                   },
+                   {
+                       "title":  "",
+                       "url":  "https://assets.easybroker.com/property_images/681426/10362574/EB-BP1426.JPG?version=1522082014"
+                   },
+                   {
+                       "title":  "",
+                       "url":  "https://assets.easybroker.com/property_images/681426/10362573/EB-BP1426.JPG?version=1522082014"
+                   },
+                   {
+                       "title":  "",
+                       "url":  "https://assets.easybroker.com/property_images/681426/10362575/EB-BP1426.JPG?version=1522082014"
+                   },
+                   {
+                       "title":  "",
+                       "url":  "https://assets.easybroker.com/property_images/681426/10362576/EB-BP1426.JPG?version=1522082014"
+                   },
+                   {
+                       "title":  "",
+                       "url":  "https://assets.easybroker.com/property_images/681426/10362578/EB-BP1426.JPG?version=1522082014"
+                   },
+                   {
+                       "title":  "",
+                       "url":  "https://assets.easybroker.com/property_images/681426/10362580/EB-BP1426.JPG?version=1522082014"
+                   },
+                   {
+                       "title":  "",
+                       "url":  "https://assets.easybroker.com/property_images/681426/10362579/EB-BP1426.JPG?version=1522082014"
+                   },
+                   {
+                       "title":  "",
+                       "url":  "https://assets.easybroker.com/property_images/681426/10362581/EB-BP1426.JPG?version=1522082014"
+                   },
+                   {
+                       "title":  "",
+                       "url":  "https://assets.easybroker.com/property_images/681426/10362582/EB-BP1426.JPG?version=1522082014"
+                   },
+                   {
+                       "title":  "",
+                       "url":  "https://assets.easybroker.com/property_images/681426/10362583/EB-BP1426.JPG?version=1522082014"
+                   }
+               ],
+    "agent":  {
+                  "id":  391012,
+                  "name":  "Lic.Gabriela Martínez",
+                  "full_name":  "Lic.Gabriela Martínez",
+                  "mobile_phone":  "+523338087984",
+                  "profile_image_url":  "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1729887594",
+                  "email":  "GABRIELAMTZ6@HOTMAIL.COM"
+              },
+    "features":  [
+                     {
+                         "name":  "Accesibilidad para personas con discapacidad",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Terraza",
+                         "category":  "Exterior"
+                     },
+                     {
+                         "name":  "Jardín",
+                         "category":  "Exterior"
+                     },
+                     {
+                         "name":  "Accesibilidad para adultos mayores",
+                         "category":  "General"
+                     }
+                 ]
+}

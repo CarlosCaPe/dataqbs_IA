@@ -1,0 +1,345 @@
+﻿{
+    "public_id":  "EB-SC7977",
+    "title":  "Casa en venta recién remodelada en Providencia",
+    "description":  "*Opción en renta solo con promesa de compra, Bienvenidos ofrecimientos!*\n\nEsta casa recientemente remodelada en el corazón de Providencia cuenta con amplios espacios y acabados de primera calidad.\n\nPLANTA BAJA:\n•Cochera para dos autos.\n•Medio baño\n•Espacio de almacenamiento\n•Amplia sala/comedor con acceso a patio interno abierto.\n•Cocina equipada con isla desayunadora de granito y varios espacios de almacenamiento (Todas las puertas de los estantes son anti-impacto)\n•Acceso a patio de lavado\n•Cuarto de servicio con baño completo\n•Acceso a azotea donde se encuentra una recámara/estudio independiente con área de almacenamiento adicional (con posible adecuación a baño completo)\n•Family room/sala de juegos al fondo de la casa con acceso por el patio interno, acondicionado con cantina de pino, chimenea artificial y medio baño.\n\nPLANTA ALTA:\n•Amplio distribudor/sala de TV.\n•Closet de blancos\n•Dos recamaras secundarias con closet de piso a techo.\n•Baño completo.\n•Recámara principal con A/C con un espectacular vestidor con una isla en el centro, estantes multiples y baño completo con doble lavamanos.\n\nLa casa cuenta con sistema de seguridad (sensores, cámaras de vigilancia, cercado de alta tensión)\nY su ubicación privilegiada a solo unos pasos de acueducto de nuestra ciudad y a unos metros de escuelas tales como Canadian, gimnasios, centros comerciales y toda la plusvalia que ofrece la zona, hacen de esta residencia la mejor opción.\n\nAgenda tu cita lo antes posible.",
+    "bedrooms":  4,
+    "bathrooms":  3,
+    "half_bathrooms":  2,
+    "parking_spaces":  2,
+    "lot_size":  245.0,
+    "construction_size":  326.0,
+    "lot_length":  null,
+    "lot_width":  null,
+    "floors":  2,
+    "floor":  null,
+    "age":  null,
+    "internal_id":  "AIDATURIN",
+    "expenses":  null,
+    "location":  {
+                     "name":  "Providencia 1a Secc, Guadalajara, Jalisco",
+                     "latitude":  20.6946467,
+                     "longitude":  -103.3917549,
+                     "street":  "Turin",
+                     "postal_code":  "44639",
+                     "show_exact_location":  true,
+                     "hide_exact_location":  false,
+                     "exterior_number":  "3204",
+                     "interior_number":  null
+                 },
+    "property_type":  "Casa",
+    "created_at":  "2025-01-21T18:54:33-06:00",
+    "updated_at":  "2025-07-04T10:02:08-06:00",
+    "published_at":  "2025-01-21T18:56:07-06:00",
+    "operations":  [
+                       {
+                           "type":  "sale",
+                           "amount":  14850000.0,
+                           "currency":  "MXN",
+                           "formatted_amount":  "$14,850,000",
+                           "commission":  {
+                                              "type":  "percentage",
+                                              "value":  "5.0"
+                                          },
+                           "unit":  "total"
+                       },
+                       {
+                           "type":  "rental",
+                           "amount":  45000.0,
+                           "currency":  "MXN",
+                           "formatted_amount":  "$45,000",
+                           "commission":  {
+                                              "type":  "months",
+                                              "value":  1
+                                          },
+                           "unit":  "total"
+                       }
+                   ],
+    "property_files":  [
+
+                       ],
+    "videos":  [
+
+               ],
+    "virtual_tour":  null,
+    "collaboration_notes":  "Inmobiliarias afiliadas",
+    "public_url":  "https://www.easybroker.com/mx/listings/casa-en-venta-recien-remodelada-en-providencia",
+    "shared_commission_percentage":  50.0,
+    "exclusive":  true,
+    "foreclosure":  false,
+    "tags":  [
+
+             ],
+    "private_description":  null,
+    "show_prices":  true,
+    "share_commission":  true,
+    "property_images":  [
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4977977/85005178/EB-SC7977.jpg?version=1737507363"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4977977/85005180/EB-SC7977.jpg?version=1737507363"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4977977/85005179/EB-SC7977.jpg?version=1737507363"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4977977/85005187/EB-SC7977.jpg?version=1737507363"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4977977/85005190/EB-SC7977.jpg?version=1737507363"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4977977/85005194/EB-SC7977.jpg?version=1737507363"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4977977/85005226/EB-SC7977.jpg?version=1737507363"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4977977/85005228/EB-SC7977.jpg?version=1737507363"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4977977/85005237/EB-SC7977.jpg?version=1737507363"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4977977/85005250/EB-SC7977.jpg?version=1737507363"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4977977/85005254/EB-SC7977.jpg?version=1737507363"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4977977/85005257/EB-SC7977.jpg?version=1737507363"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4977977/85005260/EB-SC7977.jpg?version=1737507363"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4977977/85005266/EB-SC7977.jpg?version=1737507363"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4977977/85005272/EB-SC7977.jpg?version=1737507363"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4977977/85005274/EB-SC7977.jpg?version=1737507363"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4977977/85005279/EB-SC7977.jpg?version=1737507363"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4977977/85005281/EB-SC7977.jpg?version=1737507363"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4977977/85005283/EB-SC7977.jpg?version=1737507363"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4977977/85005288/EB-SC7977.jpg?version=1737507363"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4977977/85005290/EB-SC7977.jpg?version=1737507363"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4977977/85005295/EB-SC7977.jpg?version=1737507363"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4977977/85005300/EB-SC7977.jpg?version=1737507363"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4977977/85005302/EB-SC7977.jpg?version=1737507363"
+                            },
+                            {
+                                "title":  null,
+                                "url":  "https://assets.easybroker.com/property_images/4977977/85005304/EB-SC7977.jpg?version=1737507363"
+                            }
+                        ],
+    "images":  [
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4977977/85005178/EB-SC7977.jpg?version=1737507363"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4977977/85005180/EB-SC7977.jpg?version=1737507363"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4977977/85005179/EB-SC7977.jpg?version=1737507363"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4977977/85005187/EB-SC7977.jpg?version=1737507363"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4977977/85005190/EB-SC7977.jpg?version=1737507363"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4977977/85005194/EB-SC7977.jpg?version=1737507363"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4977977/85005226/EB-SC7977.jpg?version=1737507363"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4977977/85005228/EB-SC7977.jpg?version=1737507363"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4977977/85005237/EB-SC7977.jpg?version=1737507363"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4977977/85005250/EB-SC7977.jpg?version=1737507363"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4977977/85005254/EB-SC7977.jpg?version=1737507363"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4977977/85005257/EB-SC7977.jpg?version=1737507363"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4977977/85005260/EB-SC7977.jpg?version=1737507363"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4977977/85005266/EB-SC7977.jpg?version=1737507363"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4977977/85005272/EB-SC7977.jpg?version=1737507363"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4977977/85005274/EB-SC7977.jpg?version=1737507363"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4977977/85005279/EB-SC7977.jpg?version=1737507363"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4977977/85005281/EB-SC7977.jpg?version=1737507363"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4977977/85005283/EB-SC7977.jpg?version=1737507363"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4977977/85005288/EB-SC7977.jpg?version=1737507363"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4977977/85005290/EB-SC7977.jpg?version=1737507363"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4977977/85005295/EB-SC7977.jpg?version=1737507363"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4977977/85005300/EB-SC7977.jpg?version=1737507363"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4977977/85005302/EB-SC7977.jpg?version=1737507363"
+                   },
+                   {
+                       "title":  null,
+                       "url":  "https://assets.easybroker.com/property_images/4977977/85005304/EB-SC7977.jpg?version=1737507363"
+                   }
+               ],
+    "agent":  {
+                  "id":  391012,
+                  "name":  "Lic.Gabriela Martínez",
+                  "full_name":  "Lic.Gabriela Martínez",
+                  "mobile_phone":  "+523338087984",
+                  "profile_image_url":  "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1757459148",
+                  "email":  "GABRIELAMTZ6@HOTMAIL.COM"
+              },
+    "features":  [
+                     {
+                         "name":  "Estacionamiento techado",
+                         "category":  "Exterior"
+                     },
+                     {
+                         "name":  "Facilidad para estacionarse",
+                         "category":  "Exterior"
+                     },
+                     {
+                         "name":  "Patio",
+                         "category":  "Exterior"
+                     },
+                     {
+                         "name":  "Terraza",
+                         "category":  "Exterior"
+                     },
+                     {
+                         "name":  "Aire acondicionado",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Alarma",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Bodega",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Chimenea",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Circuito cerrado",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Cocina equipada",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Cuarto de servicio",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Dos plantas",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Estudio",
+                         "category":  "General"
+                     },
+                     {
+                         "name":  "Oficina",
+                         "category":  "General"
+                     }
+                 ]
+}

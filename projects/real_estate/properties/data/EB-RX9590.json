@@ -1,0 +1,351 @@
+{
+  "public_id": "EB-RX9590",
+  "title": "Casa en Renta Residencial Roble, muy cercana a Bugambilias",
+  "description": "Hermosa y funcional casa en renta lista a estrenarse, en coto privado muy cerca de Bugambilias\n\nPLANTA BAJA\n•Recamara\n•Baño Completo\n•Cochera para dos carros\n•Amplia sala-comedor \n•Cocina\n•Jardin con acceso lateral\n•Área de lavado\n\nPLANTA ALTA\n•Recámara principal con baño completo y closet\n•Recamara secundaria con baño completo y walking closet\n•Dos recámaras con closet\n\n\nCOTO CON AMENIDADES\n•Amplia terraza con baños, disponible para eventos\n•Áreas Verdes\n•Vigilancia 24/7 con accesos controlados\n•Seguridad\n\nResidencial Roble cuenta es un fracccionamiento nuevo y cuenta con ubicación estratégica con acceso via lopez mateos, bugambilias y ruta hacia periferico a de mas de su cercania con escuelas, hospitales, plazas, Costco, SAMS Club y todas las comodidades que estás buscando en tu nuevo hogar.",
+  "bedrooms": 3,
+  "bathrooms": 3,
+  "half_bathrooms": null,
+  "parking_spaces": 2,
+  "lot_size": null,
+  "construction_size": null,
+  "lot_length": null,
+  "lot_width": null,
+  "floors": 2,
+  "floor": null,
+  "age": "new_construction",
+  "internal_id": null,
+  "expenses": "Incluido",
+  "location": {
+    "name": "Francisco Sarabia, Zapopan, Jalisco",
+    "latitude": 20.6119208,
+    "longitude": -103.4397205,
+    "street": "Anastacio Bustamante",
+    "postal_code": "45236",
+    "show_exact_location": true,
+    "hide_exact_location": false,
+    "exterior_number": "1234",
+    "interior_number": "49"
+  },
+  "property_type": "Casa",
+  "created_at": "2024-12-27T12:11:18-06:00",
+  "updated_at": "2025-05-12T12:09:04-06:00",
+  "published_at": "2024-12-27T12:57:11-06:00",
+  "operations": [
+    {
+      "type": "rental",
+      "amount": 17000.0,
+      "currency": "MXN",
+      "formatted_amount": "$17,000",
+      "commission": {
+        "type": "percentage"
+      },
+      "unit": "total"
+    }
+  ],
+  "property_files": [],
+  "videos": [],
+  "virtual_tour": null,
+  "collaboration_notes": null,
+  "public_url": "https://www.easybroker.com/mx/listings/casa-en-renta-residencial-roble-muy-cercana-a-bugambilias",
+  "shared_commission_percentage": null,
+  "exclusive": true,
+  "foreclosure": false,
+  "tags": [],
+  "private_description": null,
+  "show_prices": true,
+  "share_commission": false,
+  "property_images": [
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4929590/84028405/EB-RX9590.jpg?version=1735325768"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4929590/84028406/EB-RX9590.jpg?version=1735325768"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4929590/84028407/EB-RX9590.jpg?version=1735325768"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4929590/84028414/EB-RX9590.jpg?version=1735325770"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4929590/84028418/EB-RX9590.jpg?version=1735325772"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4929590/84028420/EB-RX9590.jpg?version=1735325772"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4929590/84028422/EB-RX9590.jpg?version=1735325773"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4929590/84028423/EB-RX9590.jpg?version=1735325775"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4929590/84028424/EB-RX9590.jpg?version=1735325776"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4929590/84028425/EB-RX9590.jpg?version=1735325776"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4929590/84028429/EB-RX9590.jpg?version=1735325778"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4929590/84028439/EB-RX9590.jpg?version=1735325779"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4929590/84028443/EB-RX9590.jpg?version=1735325780"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4929590/84028451/EB-RX9590.jpg?version=1735325781"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4929590/84028456/EB-RX9590.jpg?version=1735325781"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4929590/84028458/EB-RX9590.jpg?version=1735325782"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4929590/84028460/EB-RX9590.jpg?version=1735325782"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4929590/84028461/EB-RX9590.jpg?version=1735325783"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4929590/84028462/EB-RX9590.jpg?version=1735325784"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4929590/84028464/EB-RX9590.jpg?version=1735325785"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4929590/84028466/EB-RX9590.jpg?version=1735325786"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4929590/84028469/EB-RX9590.jpg?version=1735325788"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4929590/84028472/EB-RX9590.jpg?version=1735325788"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4929590/84028473/EB-RX9590.jpg?version=1735325789"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4929590/84028475/EB-RX9590.jpg?version=1735325790"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4929590/84028476/EB-RX9590.jpg?version=1735325790"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4929590/84028478/EB-RX9590.jpg?version=1735325791"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4929590/84028479/EB-RX9590.jpg?version=1735325792"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4929590/84028480/EB-RX9590.jpg?version=1735325793"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4929590/84028481/EB-RX9590.jpg?version=1735325793"
+    }
+  ],
+  "images": [
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4929590/84028405/EB-RX9590.jpg?version=1735325768"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4929590/84028406/EB-RX9590.jpg?version=1735325768"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4929590/84028407/EB-RX9590.jpg?version=1735325768"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4929590/84028414/EB-RX9590.jpg?version=1735325770"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4929590/84028418/EB-RX9590.jpg?version=1735325772"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4929590/84028420/EB-RX9590.jpg?version=1735325772"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4929590/84028422/EB-RX9590.jpg?version=1735325773"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4929590/84028423/EB-RX9590.jpg?version=1735325775"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4929590/84028424/EB-RX9590.jpg?version=1735325776"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4929590/84028425/EB-RX9590.jpg?version=1735325776"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4929590/84028429/EB-RX9590.jpg?version=1735325778"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4929590/84028439/EB-RX9590.jpg?version=1735325779"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4929590/84028443/EB-RX9590.jpg?version=1735325780"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4929590/84028451/EB-RX9590.jpg?version=1735325781"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4929590/84028456/EB-RX9590.jpg?version=1735325781"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4929590/84028458/EB-RX9590.jpg?version=1735325782"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4929590/84028460/EB-RX9590.jpg?version=1735325782"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4929590/84028461/EB-RX9590.jpg?version=1735325783"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4929590/84028462/EB-RX9590.jpg?version=1735325784"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4929590/84028464/EB-RX9590.jpg?version=1735325785"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4929590/84028466/EB-RX9590.jpg?version=1735325786"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4929590/84028469/EB-RX9590.jpg?version=1735325788"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4929590/84028472/EB-RX9590.jpg?version=1735325788"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4929590/84028473/EB-RX9590.jpg?version=1735325789"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4929590/84028475/EB-RX9590.jpg?version=1735325790"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4929590/84028476/EB-RX9590.jpg?version=1735325790"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4929590/84028478/EB-RX9590.jpg?version=1735325791"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4929590/84028479/EB-RX9590.jpg?version=1735325792"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4929590/84028480/EB-RX9590.jpg?version=1735325793"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4929590/84028481/EB-RX9590.jpg?version=1735325793"
+    }
+  ],
+  "agent": {
+    "id": 391012,
+    "name": "Lic.Gabriela Martínez",
+    "full_name": "Lic.Gabriela Martínez",
+    "mobile_phone": "+523338087984",
+    "profile_image_url": "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1757459148",
+    "email": "GABRIELAMTZ6@HOTMAIL.COM"
+  },
+  "features": [
+    {
+      "name": "Facilidad para estacionarse",
+      "category": "Exterior"
+    },
+    {
+      "name": "Jardín",
+      "category": "Exterior"
+    },
+    {
+      "name": "Terraza",
+      "category": "Exterior"
+    },
+    {
+      "name": "Cocina integral",
+      "category": "General"
+    },
+    {
+      "name": "Dos plantas",
+      "category": "General"
+    },
+    {
+      "name": "Fraccionamiento privado",
+      "category": "General"
+    },
+    {
+      "name": "Portero",
+      "category": "General"
+    },
+    {
+      "name": "Recámara en planta baja",
+      "category": "General"
+    },
+    {
+      "name": "Seguridad 24 horas",
+      "category": "General"
+    },
+    {
+      "name": "No se aceptan mascotas",
+      "category": "Políticas"
+    }
+  ]
+}

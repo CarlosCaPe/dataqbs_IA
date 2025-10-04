@@ -1,0 +1,30 @@
+﻿{
+    "public_id":  "EB-QV0454",
+    "title":  "Casa en venta en El Palomar con recámara en PB",
+    "title_image_full":  "https://assets.easybroker.com/property_images/4640454/78175791/EB-QV0454.jpeg?version=1722344083",
+    "title_image_thumb":  "https://assets.easybroker.com/property_images/4640454/78175791/EB-QV0454.jpeg?version=1722344083\u0026width=200",
+    "location":  "El Palomar, Tlajomulco de Zúñiga, Jalisco",
+    "operations":  [
+                       {
+                           "type":  "sale",
+                           "amount":  15220000.0,
+                           "currency":  "MXN",
+                           "formatted_amount":  "$15,220,000",
+                           "commission":  {
+                                              "type":  "percentage",
+                                              "value":  "4.0"
+                                          },
+                           "unit":  "total"
+                       }
+                   ],
+    "bedrooms":  4,
+    "bathrooms":  4,
+    "parking_spaces":  4,
+    "property_type":  "Casa",
+    "lot_size":  792.0,
+    "construction_size":  366.81,
+    "updated_at":  "2025-09-09T12:33:34-06:00",
+    "agent":  "Lic.Gabriela Martínez",
+    "show_prices":  true,
+    "share_commission":  true
+}

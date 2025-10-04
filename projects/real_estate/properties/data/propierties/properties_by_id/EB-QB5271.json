@@ -1,0 +1,30 @@
+﻿{
+    "public_id":  "EB-QB5271",
+    "title":  "LOCAL COMERCIAL EN SANTA TERE",
+    "title_image_full":  null,
+    "title_image_thumb":  null,
+    "location":  "Santa Teresita, Guadalajara, Jalisco",
+    "operations":  [
+                       {
+                           "type":  "rental",
+                           "amount":  16500.0,
+                           "currency":  "MXN",
+                           "formatted_amount":  "$16,500",
+                           "commission":  {
+                                              "type":  "months",
+                                              "value":  0.5
+                                          },
+                           "unit":  "total"
+                       }
+                   ],
+    "bedrooms":  null,
+    "bathrooms":  2,
+    "parking_spaces":  2,
+    "property_type":  "Local comercial",
+    "lot_size":  100.0,
+    "construction_size":  100.0,
+    "updated_at":  "2025-05-12T12:09:04-06:00",
+    "agent":  "Lic.Gabriela Martínez",
+    "show_prices":  true,
+    "share_commission":  true
+}

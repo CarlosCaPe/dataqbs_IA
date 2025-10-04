@@ -1,0 +1,175 @@
+{
+  "public_id": "EB-IA7174",
+  "title": "DEPARTAMENTO EN VENTA TORRE NEBOT CIUDAD GRANJA",
+  "description": "EXCELENTE DEPARTAMENTO EN \" TORRE NEBOT\" EDIFICIO DE SOLO 9 DEPARTAMENTOS.\nSE ENCUENTRA EN PRIMER NIVEL.\nDOS RECAMARAS, AIRE ACONDICIONADO,DOS BAÑOS COMPLETOS ,SALA COMEDOR ESTAR DE TV. COCINA INTEGRAL AMPLIA, AREA DE LAVADO.\nDOS ESTACIONAMIENTOS TECHADOS EN SOTANO. ROOF GARDEN, ELEVADOR.",
+  "bedrooms": 2,
+  "bathrooms": 2,
+  "half_bathrooms": null,
+  "parking_spaces": 2,
+  "lot_size": null,
+  "construction_size": 110.0,
+  "lot_length": null,
+  "lot_width": null,
+  "floors": null,
+  "floor": "1",
+  "age": 2010,
+  "internal_id": null,
+  "expenses": null,
+  "location": {
+    "name": "Ciudad Granja, Zapopan, Jalisco",
+    "latitude": 20.6773802,
+    "longitude": -103.4474549,
+    "street": "CALZADA CENTRAL ",
+    "postal_code": "45010",
+    "show_exact_location": true,
+    "hide_exact_location": false,
+    "exterior_number": "1047",
+    "interior_number": "1"
+  },
+  "property_type": "Departamento",
+  "created_at": "2021-07-21T13:18:17-05:00",
+  "updated_at": "2025-05-12T12:09:04-06:00",
+  "published_at": "2022-03-30T18:57:33-06:00",
+  "operations": [
+    {
+      "type": "sale",
+      "amount": 3740000.0,
+      "currency": "MXN",
+      "formatted_amount": "$3,740,000",
+      "commission": {
+        "type": "percentage"
+      },
+      "unit": "total"
+    }
+  ],
+  "property_files": [],
+  "videos": [],
+  "virtual_tour": null,
+  "collaboration_notes": null,
+  "public_url": "https://www.easybroker.com/mx/listings/departamento-en-renta-torre-nebot-ciudad-granja",
+  "shared_commission_percentage": null,
+  "exclusive": null,
+  "foreclosure": false,
+  "tags": [],
+  "private_description": null,
+  "show_prices": true,
+  "share_commission": true,
+  "property_images": [
+    {
+      "title": "EDIFICIO",
+      "url": "https://assets.easybroker.com/property_images/2357174/36698353/EB-IA7174.jpg?version=1627152407"
+    },
+    {
+      "title": "INGRESO A DEPARTAMENTO",
+      "url": "https://assets.easybroker.com/property_images/2357174/36914153/EB-IA7174.jpg?version=1627683643"
+    },
+    {
+      "title": "SALA COMEDOR",
+      "url": "https://assets.easybroker.com/property_images/2357174/36914203/EB-IA7174.jpg?version=1627683643"
+    },
+    {
+      "title": "COCINA",
+      "url": "https://assets.easybroker.com/property_images/2357174/36914209/EB-IA7174.jpg?version=1627683643"
+    },
+    {
+      "title": "ESTAR DE TELEVISION",
+      "url": "https://assets.easybroker.com/property_images/2357174/36914218/EB-IA7174.jpg?version=1627683643"
+    },
+    {
+      "title": "RECAMARA PRINCIPAL",
+      "url": "https://assets.easybroker.com/property_images/2357174/36914271/EB-IA7174.jpg?version=1627683643"
+    },
+    {
+      "title": "BAÑO REC PPAL",
+      "url": "https://assets.easybroker.com/property_images/2357174/36914291/EB-IA7174.jpg?version=1627683643"
+    },
+    {
+      "title": "RECAMARA SECUNDARIA",
+      "url": "https://assets.easybroker.com/property_images/2357174/36914293/EB-IA7174.jpg?version=1627683643"
+    },
+    {
+      "title": "COLSET VESTIDOR",
+      "url": "https://assets.easybroker.com/property_images/2357174/36914294/EB-IA7174.jpg?version=1627683643"
+    },
+    {
+      "title": "ROOF GARDEN",
+      "url": "https://assets.easybroker.com/property_images/2357174/36914295/EB-IA7174.jpg?version=1627683643"
+    }
+  ],
+  "images": [
+    {
+      "title": "EDIFICIO",
+      "url": "https://assets.easybroker.com/property_images/2357174/36698353/EB-IA7174.jpg?version=1627152407"
+    },
+    {
+      "title": "INGRESO A DEPARTAMENTO",
+      "url": "https://assets.easybroker.com/property_images/2357174/36914153/EB-IA7174.jpg?version=1627683643"
+    },
+    {
+      "title": "SALA COMEDOR",
+      "url": "https://assets.easybroker.com/property_images/2357174/36914203/EB-IA7174.jpg?version=1627683643"
+    },
+    {
+      "title": "COCINA",
+      "url": "https://assets.easybroker.com/property_images/2357174/36914209/EB-IA7174.jpg?version=1627683643"
+    },
+    {
+      "title": "ESTAR DE TELEVISION",
+      "url": "https://assets.easybroker.com/property_images/2357174/36914218/EB-IA7174.jpg?version=1627683643"
+    },
+    {
+      "title": "RECAMARA PRINCIPAL",
+      "url": "https://assets.easybroker.com/property_images/2357174/36914271/EB-IA7174.jpg?version=1627683643"
+    },
+    {
+      "title": "BAÑO REC PPAL",
+      "url": "https://assets.easybroker.com/property_images/2357174/36914291/EB-IA7174.jpg?version=1627683643"
+    },
+    {
+      "title": "RECAMARA SECUNDARIA",
+      "url": "https://assets.easybroker.com/property_images/2357174/36914293/EB-IA7174.jpg?version=1627683643"
+    },
+    {
+      "title": "COLSET VESTIDOR",
+      "url": "https://assets.easybroker.com/property_images/2357174/36914294/EB-IA7174.jpg?version=1627683643"
+    },
+    {
+      "title": "ROOF GARDEN",
+      "url": "https://assets.easybroker.com/property_images/2357174/36914295/EB-IA7174.jpg?version=1627683643"
+    }
+  ],
+  "agent": {
+    "id": 391012,
+    "name": "Lic.Gabriela Martínez",
+    "full_name": "Lic.Gabriela Martínez",
+    "mobile_phone": "+523338087984",
+    "profile_image_url": "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1757459148",
+    "email": "GABRIELAMTZ6@HOTMAIL.COM"
+  },
+  "features": [
+    {
+      "name": "Balcón",
+      "category": "Exterior"
+    },
+    {
+      "name": "Cisterna",
+      "category": "Exterior"
+    },
+    {
+      "name": "Estacionamiento techado",
+      "category": "Exterior"
+    },
+    {
+      "name": "Facilidad para estacionarse",
+      "category": "Exterior"
+    },
+    {
+      "name": "Roof garden",
+      "category": "Exterior"
+    },
+    {
+      "name": "Elevador",
+      "category": "General"
+    }
+  ]
+}

@@ -1,0 +1,464 @@
+{
+  "public_id": "EB-RB8798",
+  "title": "Amplia casa en Renta con Roof Garden en zona Bosques de Sta Anita",
+  "description": "Hermosa y amplia casa con acabados de lujo  en fraccionamiento privado \n\n PLANTA BAJA:\n •Estacionamiento techado para dos automóviles\n  •Amplia sala-comedor con ventiladores y aire acondicionado\n •Medio baño \n•Cocina integral  con barra desayunadora\n•Área de servicio  \n\nPLANTA ALTA: \n•Distribuidor con baño completo y closet de blancos.\n•Dos espaciosas recámaras con closet y aire acondicionado\n•Recámara principal con walking closet, baño completo y aire acondicionado  \n\nAZOTEA:\n•Roof garden con barra\n•Terraza\n•Bodega\n•Recámara con aire acondicionado, walking closet y amplio baño completo.\n\nLa propiedad se encuentra ubicada en calle cerrada,  lo que le da privacidad y tranquilidad en todo momento.\n\nEn Triventi son solo 140 casas y además cuenta con una de las áreas comunes  más amplias y completas de la zona:\n•Areas verdes\n•Tres terrazas de usos múltiples,\n•Juegos infantiles\n•Gimnasio \n•Alberca \n•Cancha de basquetbol \nAdemás de  seguridad 24/7\n\nA unos pasos fuera del fraccionamiento hay tienda de conveniencia, carnicería, negocios de clases particulares académicas y deportivas para niños y mucho más.\n\nAl estar en Zona Bosques de Santa Anita, estás a un par de minutos de escuelas de alto nivel, restaurantes, Plaza Galerias Santa Anita sin necesidad de salir a Lopez Mateos \n\nAgenda tu visita lo antes posible! \n\n•Paneles solares\n•Piso de mármol\n\n*Mascotas bienvenidas!\nOpción semiamueblada ( medio mes de depósito adicional)\n-Sala\n-Comedor \n-Recámara principal\n-Escritorio y juguetero\n-Cantina\n-Lavadora y secadora",
+  "bedrooms": 4,
+  "bathrooms": 3,
+  "half_bathrooms": 1,
+  "parking_spaces": 2,
+  "lot_size": 105.0,
+  "construction_size": 225.86,
+  "lot_length": 15.0,
+  "lot_width": 7.0,
+  "floors": 3,
+  "floor": null,
+  "age": null,
+  "internal_id": "AIDATRIVENTI2",
+  "expenses": "Incluído",
+  "location": {
+    "name": "Bosques Santa Anita, Tlajomulco de Zúñiga, Jalisco",
+    "latitude": 20.5623357,
+    "longitude": -103.4694608,
+    "street": "Garbino",
+    "postal_code": "45645",
+    "show_exact_location": true,
+    "hide_exact_location": false,
+    "exterior_number": "119",
+    "interior_number": null
+  },
+  "property_type": "Casa",
+  "created_at": "2024-08-30T22:35:37-06:00",
+  "updated_at": "2025-05-12T12:09:04-06:00",
+  "published_at": "2024-08-30T23:04:27-06:00",
+  "operations": [
+    {
+      "type": "rental",
+      "amount": 20500.0,
+      "currency": "MXN",
+      "formatted_amount": "$20,500",
+      "commission": {
+        "type": "months",
+        "value": 1
+      },
+      "unit": "total"
+    }
+  ],
+  "property_files": [],
+  "videos": [],
+  "virtual_tour": null,
+  "collaboration_notes": "50% inmobiliarias afiliadas",
+  "public_url": "https://www.easybroker.com/mx/listings/amplia-casa-en-renta-con-roof-garden-en-zona-bosques-de-sta-anita",
+  "shared_commission_percentage": null,
+  "exclusive": null,
+  "foreclosure": false,
+  "tags": [],
+  "private_description": null,
+  "show_prices": true,
+  "share_commission": true,
+  "property_images": [
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4708798/79537724/EB-RB8798.jpg?version=1725080514"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4708798/79537721/EB-RB8798.jpg?version=1725080513"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4708798/79537725/EB-RB8798.jpg?version=1725080516"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4708798/79537726/EB-RB8798.jpg?version=1725080516"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4708798/79537727/EB-RB8798.jpg?version=1725080517"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4708798/79537728/EB-RB8798.jpg?version=1725080518"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4708798/79537729/EB-RB8798.jpg?version=1725080519"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4708798/79537730/EB-RB8798.jpg?version=1725080520"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4708798/79537731/EB-RB8798.jpg?version=1725080521"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4708798/79537732/EB-RB8798.jpg?version=1725080522"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4708798/79537733/EB-RB8798.jpg?version=1725080523"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4708798/79537734/EB-RB8798.jpg?version=1725080524"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4708798/79537735/EB-RB8798.jpg?version=1725080524"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4708798/79537736/EB-RB8798.jpg?version=1725080525"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4708798/79537737/EB-RB8798.jpg?version=1725080527"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4708798/79537738/EB-RB8798.jpg?version=1725080527"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4708798/79537739/EB-RB8798.jpg?version=1725080528"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4708798/79537740/EB-RB8798.jpg?version=1725080530"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4708798/79537741/EB-RB8798.jpg?version=1725080530"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4708798/79537742/EB-RB8798.jpg?version=1725080531"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4708798/79537743/EB-RB8798.jpg?version=1725080532"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4708798/79537744/EB-RB8798.jpg?version=1725080532"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4708798/79537745/EB-RB8798.jpg?version=1725080533"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4708798/79537746/EB-RB8798.jpg?version=1725080535"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4708798/79537747/EB-RB8798.jpg?version=1725080536"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4708798/79537748/EB-RB8798.jpg?version=1725080537"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4708798/79537749/EB-RB8798.jpg?version=1725080538"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4708798/79537750/EB-RB8798.jpg?version=1725080539"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4708798/79537752/EB-RB8798.jpg?version=1725080540"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4708798/79537760/EB-RB8798.jpg?version=1725080656"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4708798/79537751/EB-RB8798.jpg?version=1725080539"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4708798/79537753/EB-RB8798.jpg?version=1725080540"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4708798/79537754/EB-RB8798.jpg?version=1725080540"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4708798/79537756/EB-RB8798.jpg?version=1725080541"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4708798/79537755/EB-RB8798.jpg?version=1725080540"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4708798/79537757/EB-RB8798.jpg?version=1725080541"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4708798/79537758/EB-RB8798.jpg?version=1725080541"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4708798/79537759/EB-RB8798.jpg?version=1725080541"
+    }
+  ],
+  "images": [
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4708798/79537724/EB-RB8798.jpg?version=1725080514"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4708798/79537721/EB-RB8798.jpg?version=1725080513"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4708798/79537725/EB-RB8798.jpg?version=1725080516"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4708798/79537726/EB-RB8798.jpg?version=1725080516"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4708798/79537727/EB-RB8798.jpg?version=1725080517"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4708798/79537728/EB-RB8798.jpg?version=1725080518"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4708798/79537729/EB-RB8798.jpg?version=1725080519"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4708798/79537730/EB-RB8798.jpg?version=1725080520"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4708798/79537731/EB-RB8798.jpg?version=1725080521"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4708798/79537732/EB-RB8798.jpg?version=1725080522"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4708798/79537733/EB-RB8798.jpg?version=1725080523"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4708798/79537734/EB-RB8798.jpg?version=1725080524"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4708798/79537735/EB-RB8798.jpg?version=1725080524"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4708798/79537736/EB-RB8798.jpg?version=1725080525"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4708798/79537737/EB-RB8798.jpg?version=1725080527"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4708798/79537738/EB-RB8798.jpg?version=1725080527"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4708798/79537739/EB-RB8798.jpg?version=1725080528"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4708798/79537740/EB-RB8798.jpg?version=1725080530"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4708798/79537741/EB-RB8798.jpg?version=1725080530"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4708798/79537742/EB-RB8798.jpg?version=1725080531"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4708798/79537743/EB-RB8798.jpg?version=1725080532"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4708798/79537744/EB-RB8798.jpg?version=1725080532"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4708798/79537745/EB-RB8798.jpg?version=1725080533"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4708798/79537746/EB-RB8798.jpg?version=1725080535"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4708798/79537747/EB-RB8798.jpg?version=1725080536"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4708798/79537748/EB-RB8798.jpg?version=1725080537"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4708798/79537749/EB-RB8798.jpg?version=1725080538"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4708798/79537750/EB-RB8798.jpg?version=1725080539"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4708798/79537752/EB-RB8798.jpg?version=1725080540"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4708798/79537760/EB-RB8798.jpg?version=1725080656"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4708798/79537751/EB-RB8798.jpg?version=1725080539"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4708798/79537753/EB-RB8798.jpg?version=1725080540"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4708798/79537754/EB-RB8798.jpg?version=1725080540"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4708798/79537756/EB-RB8798.jpg?version=1725080541"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4708798/79537755/EB-RB8798.jpg?version=1725080540"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4708798/79537757/EB-RB8798.jpg?version=1725080541"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4708798/79537758/EB-RB8798.jpg?version=1725080541"
+    },
+    {
+      "title": null,
+      "url": "https://assets.easybroker.com/property_images/4708798/79537759/EB-RB8798.jpg?version=1725080541"
+    }
+  ],
+  "agent": {
+    "id": 391012,
+    "name": "Lic.Gabriela Martínez",
+    "full_name": "Lic.Gabriela Martínez",
+    "mobile_phone": "+523338087984",
+    "profile_image_url": "https://assets.easybroker.com/profile_images/391012/IMG_0527__scaled_.jpeg?version=1757459148",
+    "email": "GABRIELAMTZ6@HOTMAIL.COM"
+  },
+  "features": [
+    {
+      "name": "Cisterna",
+      "category": "Exterior"
+    },
+    {
+      "name": "Estacionamiento techado",
+      "category": "Exterior"
+    },
+    {
+      "name": "Facilidad para estacionarse",
+      "category": "Exterior"
+    },
+    {
+      "name": "Roof garden",
+      "category": "Exterior"
+    },
+    {
+      "name": "Accesibilidad para adultos mayores",
+      "category": "General"
+    },
+    {
+      "name": "Accesibilidad para personas con discapacidad",
+      "category": "General"
+    },
+    {
+      "name": "Aire acondicionado",
+      "category": "General"
+    },
+    {
+      "name": "Alarma",
+      "category": "General"
+    },
+    {
+      "name": "Amueblado",
+      "category": "General"
+    },
+    {
+      "name": "Bodega",
+      "category": "General"
+    },
+    {
+      "name": "Circuito cerrado",
+      "category": "General"
+    },
+    {
+      "name": "Cocina integral",
+      "category": "General"
+    },
+    {
+      "name": "Cuarto de servicio",
+      "category": "General"
+    },
+    {
+      "name": "Fraccionamiento privado",
+      "category": "General"
+    },
+    {
+      "name": "Panel solar",
+      "category": "General"
+    },
+    {
+      "name": "Portero",
+      "category": "General"
+    },
+    {
+      "name": "Seguridad 24 horas",
+      "category": "General"
+    },
+    {
+      "name": "Mascotas permitidas",
+      "category": "Políticas"
+    },
+    {
+      "name": "Alberca",
+      "category": "Recreación"
+    },
+    {
+      "name": "Área de juegos infantiles",
+      "category": "Recreación"
+    },
+    {
+      "name": "Gimnasio",
+      "category": "Recreación"
+    },
+    {
+      "name": "Salón de usos múltiples",
+      "category": "Recreación"
+    }
+  ]
+}

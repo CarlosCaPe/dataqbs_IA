@@ -17,7 +17,11 @@ realstate/properties/data/**
 *.jpeg
 *.png
 
-# Logs
+# Logs & artifacts (new monorepo layout)
+artifacts/**
+!artifacts/.gitkeep
+
+# Legacy paths (pre-refactor) kept for safety; can remove later
 realstate/logs/**
 emails_out/**
 .env
@@ -37,7 +41,6 @@ __pycache__/
 .env.*
 
 # Outputs
-emails_out/
 collector_tmp/
 *.zip
 dist/
@@ -59,7 +62,7 @@ build/
 # Easybrokers images (explicit path)
 easybrokers/properties/images/
 
-# Telus compare local artifacts
+# Telus compare local artifacts (moved to artifacts/ now)
 telus_compara_imagenes/.user_data/**
 telus_compara_imagenes/audit/**
 telus_compara_audios/.user_data/**
