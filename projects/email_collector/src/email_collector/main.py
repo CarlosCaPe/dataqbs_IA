@@ -746,7 +746,9 @@ def main(argv: Optional[List[str]] = None):
 
     # Ensure logs go to file as well as console
     try:
-        out_root = Path(cfg.get("output_path", "emails_out"))
+        # Use centralized artifact path; allow config override of output_path
+        from . import paths as _paths  # local import to avoid startup cost if unused
+        out_root = Path(cfg.get("output_path")) if cfg.get("output_path") else _paths.OUTPUTS_DIR
         log_dir = out_root / "logs"
         log_dir.mkdir(parents=True, exist_ok=True)
         file_path = log_dir / "email_collector.log"
@@ -768,7 +770,7 @@ def main(argv: Optional[List[str]] = None):
     max_per_acc = int(cfg.get("max_emails_per_account", 0) or 0)
     fetch_cfg = cfg.get("fetch", {})
     chunk_size = int(fetch_cfg.get("chunk_size", 200) or 200)
-    out_root = Path(cfg.get("output_path", "emails_out"))
+    out_root = Path(cfg.get("output_path")) if cfg.get("output_path") else _paths.OUTPUTS_DIR
     naming_cfg = cfg.get("naming", {})
     name_pattern = naming_cfg.get("pattern", "{email}_{category}_{index}_{region}.eml")
     zero_pad = int(naming_cfg.get("zero_pad_width", 0) or 0)
@@ -829,7 +831,7 @@ def main(argv: Optional[List[str]] = None):
 
     if purge_days and purge_days > 0:
         cutoff_dt = datetime.now(timezone.utc) - timedelta(days=purge_days)
-        root = Path(cfg.get("output_path", "emails_out"))
+    root = Path(cfg.get("output_path")) if cfg.get("output_path") else _paths.OUTPUTS_DIR
         if root.exists():
             removed = 0
             scanned = 0
