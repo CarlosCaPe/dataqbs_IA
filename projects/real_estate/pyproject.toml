@@ -1,10 +1,14 @@
 [tool.poetry]
-name = "realstate-tools"
+name = "real-estate-tools"
 version = "0.1.0"
 description = "Utilities and scripts for real estate data handling"
 authors = ["Your Name <you@example.com>"]
 license = "MIT"
-package-mode = false
+
+# Adopt src/ layout
+packages = [
+	{ include = "real_estate", from = "src" }
+]
 
 [tool.poetry.dependencies]
 python = "^3.9"
@@ -15,7 +19,7 @@ playwright = "^1.55.0"
 python-dotenv = "^1.0.1"
 
 [tool.poetry.scripts]
-wiggot-export = "wiggot_export:main"
+wiggot-export = "real_estate.wiggot_export:main"
 
 [build-system]
 requires = ["poetry-core"]
