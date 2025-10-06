@@ -5,7 +5,7 @@ description = "CLI tool to assist reviewers: evaluates prompts, initial ratings 
 authors = ["Carlos <you@example.com>"]
 license = "MIT"
 readme = "README.md"
-packages = [{include = "oai_code_evaluator"}]
+packages = [{include = "oai_code_evaluator", from = "src"}]
 
 [tool.poetry.dependencies]
 python = ">=3.9,<3.14"
