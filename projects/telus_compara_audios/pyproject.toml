@@ -4,7 +4,10 @@ version = "0.1.0"
 description = "Automatiza comparaciones de calidad de audio en Multimango (A/B/Referencia) con Playwright"
 authors = ["Carlos <you@example.com>"]
 license = "MIT"
-package-mode = false
+
+packages = [
+	{ include = "telus_compara_audios", from = "src" }
+]
 
 [tool.poetry.dependencies]
 python = ">=3.9,<3.14"
