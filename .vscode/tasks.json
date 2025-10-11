@@ -52,30 +52,77 @@
 			"group": "build"
 		},
 		{
-			"label": "Telus Audios: Run 3x (headed, manual login)",
-			"type": "shell",
-			"command": "poetry run python -m telus_compara_audios.runner --max-iters 3 --log-file logs/run.log --headed --manual-login",
-			"options": {
-				"cwd": "${workspaceFolder}/telus_compara_audios"
-			},
-			"group": "build"
-		},
-		{
-			"label": "Telus Audios: Install deps",
+			"label": "TLS Audios: Install deps",
 			"type": "shell",
 			"command": "poetry install",
 			"options": {
-				"cwd": "${workspaceFolder}/telus_compara_audios"
+				"cwd": "${workspaceFolder}/projects/tls_compara_audios"
 			},
 			"args": [],
 			"group": "build"
 		},
 		{
-			"label": "Telus Audios: Run 3x (headed, devtools, network-first)",
+			"label": "TLS Audios: Run 1x (headed)",
 			"type": "shell",
-			"command": "poetry run python -m telus_compara_audios.runner --max-iters 3 --log-file logs/run.log --headed --devtools --network-first --manual-login --manual-login-timeout 240",
+			"command": "poetry run python -m tls_compara_audios.runner --max-iters 1 --log-file logs/run.log --headed",
 			"options": {
-				"cwd": "${workspaceFolder}/telus_compara_audios"
+				"cwd": "${workspaceFolder}/projects/tls_compara_audios"
+			},
+			"group": "build"
+		},
+		{
+			"label": "TLS Audios: Run 3x (headed, header-first)",
+			"type": "shell",
+			"command": "poetry run python -m tls_compara_audios.runner --max-iters 3 --log-file logs/run.log --headed --header-first",
+			"options": {
+				"cwd": "${workspaceFolder}/projects/tls_compara_audios"
+			},
+			"group": "build"
+		},
+		{
+			"label": "TLS Images: Install deps",
+			"type": "shell",
+			"command": "poetry install",
+			"options": {
+				"cwd": "${workspaceFolder}/projects/tls_compara_imagenes"
+			},
+			"args": [],
+			"group": "build"
+		},
+		{
+			"label": "TLS Images: Run (headed)",
+			"type": "shell",
+			"command": "poetry run python -m tls_compara_imagenes.runner --headed",
+			"options": {
+				"cwd": "${workspaceFolder}/projects/tls_compara_imagenes"
+			},
+			"group": "build"
+		},
+		{
+			"label": "Arbitraje: Install deps",
+			"type": "shell",
+			"command": "poetry install",
+			"options": {
+				"cwd": "${workspaceFolder}/projects/arbitraje"
+			},
+			"args": [],
+			"group": "build"
+		},
+		{
+			"label": "Arbitraje: Run (report)",
+			"type": "shell",
+			"command": "poetry run python -m arbitraje.coingecko_arbitrage_report",
+			"options": {
+				"cwd": "${workspaceFolder}/projects/arbitraje"
+			},
+			"group": "build"
+		},
+		{
+			"label": "Arbitraje: Run CCXT (screen)",
+			"type": "shell",
+			"command": "poetry run python -m arbitraje.arbitrage_report_ccxt --ex binance,kraken,kucoin,bybit,okx,bitfinex,gateio,mexc --quote USDT --max 300 --min_spread 0.3 --buy_fee 0.10 --sell_fee 0.10 --top 40",
+			"options": {
+				"cwd": "${workspaceFolder}/projects/arbitraje"
 			},
 			"group": "build"
 		}
