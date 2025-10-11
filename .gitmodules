@@ -1,4 +1,1 @@
-[submodule "projects/binance-connector-python"]
-	path = projects/binance-connector-python
-	url = https://github.com/binance/binance-connector-python.git
-	branch = master
+; removed binance-connector-python submodule
