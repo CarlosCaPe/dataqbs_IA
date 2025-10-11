@@ -13,6 +13,11 @@ from tabulate import tabulate
 from . import paths
 from . import binance_api
 try:
+    # Optional WS depth for Binance
+    from .ws_binance import BinanceL2PartialBook  # type: ignore
+except Exception:  # pragma: no cover
+    BinanceL2PartialBook = None  # type: ignore
+try:
     # Load .env from repo root and project root if present
     from dotenv import load_dotenv
     load_dotenv(dotenv_path=str(paths.MONOREPO_ROOT / ".env"), override=False)
@@ -224,6 +229,176 @@ def get_quote_volume(t: dict) -> float | None:
     return None
 
 
+# ----------------------
+# Depth-aware utilities
+# ----------------------
+def _consume_depth(ob: dict, side: str, qty: float) -> tuple[float | None, float]:
+    """Return (avg_px, slippage_bps) by consuming depth levels for a given quantity.
+
+    - side = 'buy' uses asks; 'sell' uses bids
+    - slippage estimated vs best level in bps
+    """
+    try:
+        qty = float(qty)
+    except Exception:
+        return None, 0.0
+    if qty <= 0:
+        return None, 0.0
+    levels = ob.get("asks") if side == "buy" else ob.get("bids")
+    if not levels:
+        return None, 0.0
+    remaining = qty
+    notional = 0.0
+    filled = 0.0
+    ref_px = float(levels[0][0]) if levels and levels[0] and levels[0][0] else None
+    for px, q in levels:
+        try:
+            px = float(px); q = float(q)
+        except Exception:
+            continue
+        take = min(remaining, q)
+        notional += take * px
+        filled += take
+        remaining -= take
+        if remaining <= 1e-15:
+            break
+    if filled <= 0:
+        return None, 0.0
+    avg_px = notional / filled
+    slip_bps = 0.0
+    try:
+        if ref_px and avg_px:
+            if side == "buy":
+                slip_bps = max(0.0, (avg_px / ref_px - 1.0) * 10000.0)
+            else:
+                slip_bps = max(0.0, (1.0 - avg_px / ref_px) * 10000.0)
+    except Exception:
+        pass
+    return avg_px, slip_bps
+
+
+def _fetch_order_book(ex: ccxt.Exchange, sym: str, limit: int = 20) -> dict | None:
+    try:
+        return ex.fetch_order_book(sym, limit=limit)
+    except Exception:
+        return None
+
+
+def _bf_revalidate_cycle_with_depth(
+    ex: ccxt.Exchange,
+    cycle_nodes: list[str],
+    inv_quote: float,
+    fee_bps_per_hop: float,
+    depth_levels: int = 20,
+    use_ws: bool = False,
+    latency_penalty_bps: float = 0.0,
+) -> tuple[float | None, float, float, bool]:
+    """Revalidate a BF cycle with order book depth. Returns (net_pct_adj, fee_bps_total, slippage_bps, used_ws).
+
+    - Only supports cycles that start and end in the same anchor (QUOTE) and go through 2+ nodes.
+    - For simplicity this treats each hop as A->B spot conversion using available direct or inverse symbol.
+    - If use_ws and exchange is binance and ws helper exists, attempt to use partial L2 snapshots; otherwise REST.
+    """
+    try:
+        fee_bps = float(fee_bps_per_hop)
+        Q = cycle_nodes[0]
+        if Q != cycle_nodes[-1]:
+            return None, 0.0, 0.0, False
+        # Build sequence of hops
+        hops_syms: list[tuple[str, str, str]] = []  # (sym, side, ref)
+        used_ws_books: dict[str, dict] = {}
+        managers = []
+        used_ws_flag = False
+        # Attempt WS only for binance
+        if use_ws and BinanceL2PartialBook is not None and (ex.id or "").lower() == "binance":
+            try:
+                # Identify all possible symbols we may need
+                syms_needed: set[str] = set()
+                for i in range(len(cycle_nodes)-1):
+                    a = cycle_nodes[i]; b = cycle_nodes[i+1]
+                    s1 = f"{a}/{b}"; s2 = f"{b}/{a}"
+                    if s1 in ex.markets:
+                        syms_needed.add(s1)
+                    elif s2 in ex.markets:
+                        syms_needed.add(s2)
+                # Start WS partial books
+                for s in syms_needed:
+                    sym = s.replace("/", "").lower()
+                    m = BinanceL2PartialBook(symbol=sym)
+                    m.start()
+                    managers.append(m)
+                time.sleep(0.2)
+                for s, m in zip(list(syms_needed), managers):
+                    book = m.last_book()
+                    if book:
+                        used_ws_books[s] = book
+                used_ws_flag = len(used_ws_books) >= 1
+            except Exception:
+                used_ws_flag = False
+        # Iterate hops with either WS books or REST fallbacks
+        amt = float(inv_quote)
+        total_slip_bps = 0.0
+        for i in range(len(cycle_nodes)-1):
+            a = cycle_nodes[i]; b = cycle_nodes[i+1]
+            s1 = f"{a}/{b}"; s2 = f"{b}/{a}"
+            book = used_ws_books.get(s1) or used_ws_books.get(s2)
+            if not book:
+                # Fallback REST
+                if s1 in ex.markets:
+                    book = _fetch_order_book(ex, s1, limit=depth_levels) or {}
+                elif s2 in ex.markets:
+                    book = _fetch_order_book(ex, s2, limit=depth_levels) or {}
+                else:
+                    book = {}
+            if not book:
+                amt = None  # type: ignore
+                break
+            # Determine side and quantity units
+            if s1 in ex.markets:
+                # Converting A to B; if starting from Q and A==Q, we're buying B with Q → buy side uses asks in Q/B terms; but s1 is A/B
+                # We keep consistent by computing quantity in base terms when needed.
+                # If side is A/B and we have amount in A units, selling A yields B at bids.
+                side = "sell"  # sell A to get B
+                qty = amt  # in units of A
+                avg_px, slip = _consume_depth(book, side=side, qty=qty)
+                if avg_px is None:
+                    amt = None  # type: ignore
+                    break
+                amt = qty * float(avg_px)  # now in B units
+                total_slip_bps += max(0.0, slip)
+            else:
+                # Using inverse B/A; to get B from A, we buy B with A at asks in B/A book.
+                side = "buy"
+                qty = amt  # units of A to spend
+                avg_px, slip = _consume_depth(book, side=side, qty=qty)
+                if avg_px is None or avg_px <= 0:
+                    amt = None  # type: ignore
+                    break
+                # avg_px ~ price in A per B (asks), buying B: B = A / px
+                amt = qty / float(avg_px)  # now in B units
+                total_slip_bps += max(0.0, slip)
+        # Close managers
+        for m in managers:
+            try:
+                m.stop()
+            except Exception:
+                pass
+        if amt is None:
+            return None, 0.0, 0.0, False
+        # amt now should be back in Q units after final hop
+        gross = (amt / float(inv_quote) - 1.0) * 100.0
+        # fees: per hop taker fee
+        fee_bps_total = float(fee_bps) * (len(cycle_nodes)-1)
+        net_pct = gross - (fee_bps_total / 100.0)
+        # slippage is in bps; convert to pct
+        net_pct -= (total_slip_bps / 100.0)
+        # latency penalty
+        net_pct -= (float(latency_penalty_bps) / 100.0)
+        return net_pct, fee_bps_total, total_slip_bps, used_ws_flag
+    except Exception:
+        return None, 0.0, 0.0, False
+
+
 def resolve_exchanges(arg: str, ex_limit: int | None = None) -> List[str]:
     arg = (arg or "").strip().lower()
     if not arg or arg == "trusted":
@@ -242,6 +417,210 @@ def resolve_exchanges(arg: str, ex_limit: int | None = None) -> List[str]:
 # ----------------------
 # Main
 # ----------------------
+def _bf_quantile(sorted_vals, q: float) -> float:
+    if not sorted_vals:
+        return 0.0
+    if q <= 0:
+        return float(sorted_vals[0])
+    if q >= 1:
+        return float(sorted_vals[-1])
+    idx = q * (len(sorted_vals) - 1)
+    lo = int(idx)
+    hi = min(lo + 1, len(sorted_vals) - 1)
+    frac = idx - lo
+    return float(sorted_vals[lo]) * (1 - frac) + float(sorted_vals[hi]) * frac
+
+
+def _bf_parse_history_for_sim(path: str):
+    import re
+    from datetime import datetime, timezone
+
+    # Capture the currency token (USDT/USDC/etc.) instead of hardcoding USDT
+    sim_rx = re.compile(
+        r"^\[SIM\] it#(?P<it>\d+) @(?P<ex>\w+)\s+(?P<ccy>[A-Z]{3,6}) pick .* net (?P<net>[\d\.]+)% \| (?P<ccy2>[A-Z]{3,6}) (?P<u0>[\d\.]+) -> (?P<u1>[\d\.]+) \(\+(?P<delta>[\d\.]+)\)"
+    )
+    iter_ts_rx = re.compile(
+        r"^\[BF\] Iteración \d+\/\d+ @ (?P<ts>\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d+\+\d{2}:\d{2})$"
+    )
+
+    trades = []
+    first_ts = None
+    last_ts = None
+
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            for line in f:
+                s = line.rstrip("\n")
+                m = sim_rx.match(s)
+                if m:
+                    ccy = m.group("ccy")
+                    trades.append(
+                        {
+                            "ex": m.group("ex"),
+                            "ccy": ccy,
+                            "net": float(m.group("net")),
+                            "u0": float(m.group("u0")),
+                            "u1": float(m.group("u1")),
+                            "delta": float(m.group("delta")),
+                        }
+                    )
+                    continue
+                tsm = iter_ts_rx.match(s)
+                if tsm:
+                    ts = tsm.group("ts")
+                    try:
+                        dt = datetime.fromisoformat(ts)
+                    except Exception:
+                        # Fallback: remove colon in offset
+                        if ts[-3] == ":":
+                            ts2 = ts[:-3] + ts[-2:]
+                            dt = datetime.strptime(ts2, "%Y-%m-%dT%H:%M:%S.%f%z")
+                        else:
+                            raise
+                    if first_ts is None:
+                        first_ts = dt
+                    last_ts = dt
+    except Exception:
+        return [], 0.0
+
+    hours = 0.0
+    if first_ts and last_ts:
+        if first_ts.tzinfo is None:
+            from datetime import timezone as _tz
+            first_ts = first_ts.replace(tzinfo=_tz.utc)
+        if last_ts.tzinfo is None:
+            from datetime import timezone as _tz
+            last_ts = last_ts.replace(tzinfo=_tz.utc)
+        hours = (last_ts - first_ts).total_seconds() / 3600.0
+
+    return trades, hours
+
+
+def _bf_summarize_trades(trades, hours: float):
+    from collections import defaultdict
+
+    agg = defaultdict(lambda: {
+        "nets": [],
+        "sum_delta": 0.0,
+        "sum_u0": 0.0,
+        "n": 0,
+        # Track first and last balances per currency; compute gains from end-start (not sum of deltas)
+        "start_usdt": None,
+        "end_usdt": None,
+        "start_usdc": None,
+        "end_usdc": None,
+    })
+    for t in trades:
+        ex = t.get("ex")
+        ccy = (t.get("ccy") or "").upper()
+        u0 = float(t.get("u0", 0.0))
+        u1 = float(t.get("u1", 0.0))
+        dlt = float(t.get("delta", 0.0))
+        agg[ex]["nets"].append(float(t.get("net", 0.0)))
+        agg[ex]["sum_delta"] += dlt
+        agg[ex]["sum_u0"] += u0
+        agg[ex]["n"] += 1
+        if ccy == "USDT":
+            # capture first starting balance and always update ending balance
+            if agg[ex]["start_usdt"] is None:
+                agg[ex]["start_usdt"] = u0
+            agg[ex]["end_usdt"] = u1
+        elif ccy == "USDC":
+            if agg[ex]["start_usdc"] is None:
+                agg[ex]["start_usdc"] = u0
+            agg[ex]["end_usdc"] = u1
+
+    rows = []
+    for ex, a in agg.items():
+        nets = sorted(a["nets"]) if a["nets"] else []
+        n = int(a["n"])
+        avg = (sum(nets) / n) if n else 0.0
+        med = _bf_quantile(nets, 0.5) if n else 0.0
+        p95 = _bf_quantile(nets, 0.95) if n else 0.0
+        per_hour = (n / hours) if hours > 0 else 0.0
+        weighted = (100.0 * (a["sum_delta"] / a["sum_u0"])) if a["sum_u0"] > 0 else 0.0
+        # Realized gains must be derived from balance deltas to avoid double counting
+        start_usdt = a["start_usdt"] if a["start_usdt"] is not None else 0.0
+        end_usdt = a["end_usdt"] if a["end_usdt"] is not None else 0.0
+        start_usdc = a["start_usdc"] if a["start_usdc"] is not None else 0.0
+        end_usdc = a["end_usdc"] if a["end_usdc"] is not None else 0.0
+        gain_usdt = (end_usdt - start_usdt) if (a["start_usdt"] is not None and a["end_usdt"] is not None) else 0.0
+        gain_usdc = (end_usdc - start_usdc) if (a["start_usdc"] is not None and a["end_usdc"] is not None) else 0.0
+
+        rows.append({
+            "exchange": ex,
+            "trades": n,
+            "per_hour": round(per_hour, 2),
+            "avg_net_pct": round(avg, 4),
+            "median_net_pct": round(med, 4),
+            "p95_net_pct": round(p95, 4),
+            "weighted_net_pct": round(weighted, 4),
+            "total_delta": round(a["sum_delta"], 4),
+            "sum_u0": round(a["sum_u0"], 4),
+            # currency-aware outputs derived from balance deltas
+            "gain_usdt": round(gain_usdt, 8),
+            "gain_usdc": round(gain_usdc, 8),
+            "start_usdt": round(start_usdt, 8),
+            "end_usdt": round(end_usdt, 8),
+            "start_usdc": round(start_usdc, 8),
+            "end_usdc": round(end_usdc, 8),
+        })
+    rows.sort(key=lambda r: r["trades"], reverse=True)
+    return rows
+
+
+def _bf_write_summary_csv(rows, out_csv: str) -> None:
+    import os
+    os.makedirs(os.path.dirname(out_csv), exist_ok=True)
+    headers = [
+        "exchange",
+        "trades",
+        "per_hour",
+        "avg_net_pct",
+        "median_net_pct",
+        "p95_net_pct",
+        "weighted_net_pct",
+        "total_delta",
+        "sum_u0",
+        "gain_usdt",
+        "gain_usdc",
+        "start_usdt",
+        "end_usdt",
+        "start_usdc",
+        "end_usdc",
+    ]
+    with open(out_csv, "w", encoding="utf-8") as f:
+        f.write(",".join(headers) + "\n")
+        for r in rows:
+            f.write(",".join(str(r[h]) for h in headers) + "\n")
+
+
+def _bf_write_summary_md(rows, hours: float, out_md: str) -> None:
+    import os
+    os.makedirs(os.path.dirname(out_md), exist_ok=True)
+    total_trades = sum(r.get("trades", 0) for r in rows)
+    with open(out_md, "w", encoding="utf-8") as f:
+        f.write("# BF summary\n\n")
+        f.write(f"Window: ~{hours:.2f} hours\n\n")
+        f.write(f"Total picks: {total_trades}\n\n")
+        f.write("## Per exchange\n\n")
+        f.write("exchange | trades | per_hour | avg_net% | median_net% | p95_net% | weighted_net% | gain_usdt | gain_usdc | start_usdt | end_usdt | start_usdc | end_usdc\n")
+        f.write("---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:\n")
+        for r in rows:
+            f.write(
+                f"{r['exchange']} | {r['trades']} | {r['per_hour']} | {r['avg_net_pct']} | {r['median_net_pct']} | {r['p95_net_pct']} | {r['weighted_net_pct']} | {r['gain_usdt']} | {r['gain_usdc']} | {r['start_usdt']} | {r['end_usdt']} | {r['start_usdc']} | {r['end_usdc']}\n"
+            )
+
+
+def _bf_write_history_summary_and_md(history_path: str, out_csv: str, out_md: str) -> None:
+    trades, hours = _bf_parse_history_for_sim(history_path)
+    if not trades:
+        return
+    rows = _bf_summarize_trades(trades, hours)
+    _bf_write_summary_csv(rows, out_csv)
+    _bf_write_summary_md(rows, hours, out_md)
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="Arbitraje (ccxt) - modes: tri | bf | balance | health")
     parser.add_argument("--mode", choices=["tri", "bf", "balance", "health"], default="bf")
@@ -295,6 +674,11 @@ def main() -> None:
     parser.add_argument("--bf_require_dual_quote", action="store_true", help="When multiple anchors (e.g. USDT,USDC) are allowed, include only bases that have markets against ALL anchors")
     parser.add_argument("--use_balance", action="store_true", help="Use authenticated QUOTE balance (if available) for est_after; min(inv, balance)")
     parser.add_argument("--balance_kind", choices=["free", "total"], default="free", help="Balance kind when --use_balance")
+    # Depth-aware revalidation (optional)
+    parser.add_argument("--bf_revalidate_depth", action="store_true", help="Revalidar los ciclos BF con profundidad L2 (consume niveles) antes de reportar")
+    parser.add_argument("--bf_use_ws", action="store_true", help="Intentar usar WebSocket L2 parcial (solo binance por ahora); fallback REST si no disponible")
+    parser.add_argument("--bf_depth_levels", type=int, default=20, help="Niveles de profundidad para REST fallback")
+    parser.add_argument("--bf_latency_penalty_bps", type=float, default=0.0, help="Penalización de latencia (bps) restada al net%% estimado tras revalidación de profundidad")
 
     # BF simulation (compounding) across iterations
     parser.add_argument("--simulate_compound", action="store_true", help="Simulate compounding: keep a running QUOTE balance and apply one selected BF opportunity per iteration (no real trades)")
@@ -393,6 +777,22 @@ def main() -> None:
     if args.mode == "health":
         paths.LOGS_DIR.mkdir(parents=True, exist_ok=True)
         paths.OUTPUTS_DIR.mkdir(parents=True, exist_ok=True)
+        # Clean previous logs to avoid mixing runs
+        try:
+            import shutil
+            if paths.LOGS_DIR.exists():
+                for p in paths.LOGS_DIR.iterdir():
+                    try:
+                        if p.is_file():
+                            p.unlink(missing_ok=True)  # type: ignore[arg-type]
+                        elif p.is_dir():
+                            shutil.rmtree(p, ignore_errors=True)
+                    except Exception:
+                        continue
+            paths.LOGS_DIR.mkdir(parents=True, exist_ok=True)
+        except Exception:
+            # Do not fail the run if cleanup fails
+            pass
         health_file = paths.LOGS_DIR / "health.txt"
         rows = []
         for ex_id in EX_IDS:
@@ -750,6 +1150,7 @@ def main() -> None:
         paths.OUTPUTS_DIR.mkdir(parents=True, exist_ok=True)
         tri_csv = paths.OUTPUTS_DIR / f"arbitrage_tri_{QUOTE.lower()}_ccxt.csv"
         current_file = paths.LOGS_DIR / "current_tri.txt"
+        tri_iter_csv = paths.OUTPUTS_DIR / f"arbitrage_tri_current_{QUOTE.lower()}_ccxt.csv"
         for it in range(1, int(max(1, args.repeat)) + 1):
             ts = pd.Timestamp.utcnow().isoformat()
             if do_console_clear:
@@ -760,7 +1161,25 @@ def main() -> None:
                         print("\033[2J\033[H", end="")
                 except Exception:
                     pass
+            # Clean per-iteration artifacts
+            try:
+                if current_file.exists():
+                    current_file.unlink()  # type: ignore[arg-type]
+            except Exception:
+                pass
+            try:
+                if tri_iter_csv.exists():
+                    tri_iter_csv.unlink()  # type: ignore[arg-type]
+            except Exception:
+                pass
+            try:
+                tri_hist = paths.LOGS_DIR / "tri_history.txt"
+                if tri_hist.exists():
+                    tri_hist.unlink()  # type: ignore[arg-type]
+            except Exception:
+                pass
             iter_lines: List[str] = []
+            iter_results: List[dict] = []
             for ex_id in EX_IDS:
                 try:
                     ex = load_exchange(ex_id, args.timeout)
@@ -829,10 +1248,19 @@ def main() -> None:
                         logger.info("Encontradas: %d", len(opps))
                         logger.info("\n" + "\n".join(lines))
                         results.extend(opps)
+                        iter_results.extend(opps)
                 except Exception as e:
                     logger.warning("%s: triangular scan falló: %s", ex_id, e)
             # write current-only file
             try:
+                # Overwrite current-iteration CSV
+                try:
+                    if iter_results:
+                        pd.DataFrame(iter_results).to_csv(tri_iter_csv, index=False)
+                    else:
+                        pd.DataFrame(columns=["exchange","path","r1","r2","r3","net_pct","inv","est_after","iteration","ts"]).to_csv(tri_iter_csv, index=False)
+                except Exception:
+                    pass
                 # Snapshot file (last iteration only)
                 with open(current_file, "w", encoding="utf-8") as fh:
                     fh.write(f"[TRI] Iteración {it}/{args.repeat} @ {ts}\n")
@@ -840,9 +1268,9 @@ def main() -> None:
                         fh.write("\n".join(iter_lines) + "\n")
                     else:
                         fh.write("(sin oportunidades en esta iteración)\n")
-                # History file (append all iterations)
+                # History file (overwrite per iteration)
                 tri_hist = paths.LOGS_DIR / "tri_history.txt"
-                with open(tri_hist, "a", encoding="utf-8") as fh:
+                with open(tri_hist, "w", encoding="utf-8") as fh:
                     fh.write(f"[TRI] Iteración {it}/{args.repeat} @ {ts}\n")
                     if iter_lines:
                         fh.write("\n".join(iter_lines) + "\n\n")
@@ -872,8 +1300,28 @@ def main() -> None:
         bf_persist_csv = paths.OUTPUTS_DIR / f"arbitrage_bf_{QUOTE.lower()}_persistence.csv"
         bf_sim_csv = paths.OUTPUTS_DIR / f"arbitrage_bf_simulation_{QUOTE.lower()}_ccxt.csv"
         current_file = paths.LOGS_DIR / "current_bf.txt"
-    # Optional per-iteration top-k persistence CSV
-    bf_top_hist_csv = paths.OUTPUTS_DIR / f"arbitrage_bf_top_{QUOTE.lower()}_history.csv"
+        # Optional per-iteration top-k persistence CSV
+        bf_top_hist_csv = paths.OUTPUTS_DIR / f"arbitrage_bf_top_{QUOTE.lower()}_history.csv"
+        # Per-iteration snapshot CSV (overwritten each iteration)
+        bf_iter_csv = paths.OUTPUTS_DIR / f"arbitrage_bf_current_{QUOTE.lower()}_ccxt.csv"
+
+        # Ensure BF logs are clean at the start of every run to avoid mixing sessions
+        try:
+            import shutil
+            paths.LOGS_DIR.mkdir(parents=True, exist_ok=True)
+            for fname in ("bf_history.txt", "current_bf.txt"):
+                fp = paths.LOGS_DIR / fname
+                if fp.exists():
+                    try:
+                        if fp.is_file():
+                            fp.unlink()  # type: ignore[arg-type]
+                        else:
+                            shutil.rmtree(fp, ignore_errors=True)
+                    except Exception:
+                        # Non-fatal if we can't delete; we will append later
+                        pass
+        except Exception:
+            pass
 
         # Initialize simulation state (per exchange)
         sim_rows: List[dict] = []
@@ -1070,22 +1518,66 @@ def main() -> None:
                             continue
                         inv_amt = float(inv_amt_effective)
                         est_after = round(inv_amt * prod, 4)
+                        # Optional depth-aware revalidation for more realistic net%
+                        used_ws_flag = False
+                        slip_bps = 0.0
+                        fee_bps_total = float(args.bf_fee) * hops
+                        net_pct_adj = net_pct
+                        if args.bf_revalidate_depth:
+                            try:
+                                net_pct2, fee_bps_total2, slip_bps2, used_ws_flag2 = _bf_revalidate_cycle_with_depth(
+                                    ex,
+                                    cycle_nodes=list(cycle_nodes),
+                                    inv_quote=inv_amt,
+                                    fee_bps_per_hop=float(args.bf_fee),
+                                    depth_levels=int(args.bf_depth_levels),
+                                    use_ws=bool(args.bf_use_ws),
+                                    latency_penalty_bps=float(args.bf_latency_penalty_bps),
+                                )
+                                if net_pct2 is not None:
+                                    net_pct_adj = float(net_pct2)
+                                    fee_bps_total = float(fee_bps_total2)
+                                    slip_bps = float(slip_bps2)
+                                    used_ws_flag = bool(used_ws_flag2)
+                                    est_after = round(inv_amt * (1.0 + net_pct_adj/100.0), 6)
+                                    # Enforce thresholds again using adjusted net
+                                    if net_pct_adj < float(args.bf_min_net):
+                                        continue
+                                    if args.bf_min_net_per_hop and (net_pct_adj / max(1, hops)) < float(args.bf_min_net_per_hop):
+                                        continue
+                                else:
+                                    # If revalidation requested but no adjusted value, skip to be conservative
+                                    continue
+                            except Exception:
+                                pass
                         path_str = "->".join(cycle_nodes)
                         bal_suffix = ""
                         if args.use_balance and inv_amt_effective != inv_amt_cfg:
                             bal_suffix = f" (saldo usado {QUOTE} {inv_amt_effective:.2f} de {inv_amt_cfg:.2f})"
-                        msg = f"BF@{ex_id} {path_str} ({hops}hops) => net {net_pct:.3f}% | {QUOTE} {inv_amt:.2f} -> {est_after:.4f}{bal_suffix}"
+                        if args.bf_revalidate_depth:
+                            msg = (
+                                f"BF@{ex_id} {path_str} ({hops}hops) => net {net_pct_adj:.3f}% (raw {net_pct:.3f}%, slip {slip_bps:.1f}bps, fee {fee_bps_total:.1f}bps"
+                                f"{' +ws' if used_ws_flag else ''}) | {QUOTE} {inv_amt:.2f} -> {est_after:.6f}{bal_suffix}"
+                            )
+                        else:
+                            msg = f"BF@{ex_id} {path_str} ({hops}hops) => net {net_pct:.3f}% | {QUOTE} {inv_amt:.2f} -> {est_after:.4f}{bal_suffix}"
                         logger.info(msg)
                         local_lines.append(msg)
                         local_results.append({
                             "exchange": ex_id,
                             "path": path_str,
-                            "net_pct": round(net_pct, 4),
+                            "net_pct": round(net_pct_adj if args.bf_revalidate_depth else net_pct, 4),
                             "inv": inv_amt,
                             "est_after": est_after,
                             "hops": hops,
                             "iteration": it,
                             "ts": ts,
+                            **({
+                                "net_pct_raw": round(net_pct, 4),
+                                "slippage_bps": round(slip_bps, 2),
+                                "fee_bps_total": round(fee_bps_total, 2),
+                                "used_ws": used_ws_flag,
+                            } if args.bf_revalidate_depth else {}),
                         })
                         cycles_found += 1
                         if cycles_found >= args.bf_top:
@@ -1107,6 +1599,29 @@ def main() -> None:
                         print("\033[2J\033[H", end="")
                 except Exception:
                     pass
+            # Clean per-iteration artifacts and any historical files to avoid mixing iterations
+            try:
+                if current_file.exists():
+                    current_file.unlink()  # type: ignore[arg-type]
+            except Exception:
+                pass
+            try:
+                if bf_iter_csv.exists():
+                    bf_iter_csv.unlink()  # type: ignore[arg-type]
+            except Exception:
+                pass
+            # Also remove historical files so no cross-iteration accumulation is kept
+            try:
+                bf_hist = paths.LOGS_DIR / "bf_history.txt"
+                if bf_hist.exists():
+                    bf_hist.unlink()  # type: ignore[arg-type]
+            except Exception:
+                pass
+            try:
+                if bf_top_hist_csv.exists():
+                    bf_top_hist_csv.unlink()  # type: ignore[arg-type]
+            except Exception:
+                pass
             iter_lines: List[str] = []
             iter_results: List[dict] = []
             # Run workers (threaded or sequential)
@@ -1267,10 +1782,18 @@ def main() -> None:
                         if iter_results:
                             df_top = pd.DataFrame(iter_results)
                             df_top = df_top.sort_values("net_pct", ascending=False).head(max(1, int(args.bf_top)))
-                            header = not os.path.exists(bf_top_hist_csv)
-                            df_top.to_csv(bf_top_hist_csv, mode="a", header=header, index=False)
+                            # Overwrite file every iteration (no historical accumulation)
+                            df_top.to_csv(bf_top_hist_csv, index=False)
                     except Exception:
                         pass
+                # Overwrite the current-iteration CSV with this iteration's results
+                try:
+                    if iter_results:
+                        pd.DataFrame(iter_results).to_csv(bf_iter_csv, index=False)
+                    else:
+                        pd.DataFrame(columns=["exchange","path","net_pct","inv","est_after","hops","iteration","ts"]).to_csv(bf_iter_csv, index=False)
+                except Exception:
+                    pass
                 # Snapshot file (last iteration only)
                 with open(current_file, "w", encoding="utf-8") as fh:
                     fh.write(f"[BF] Iteración {it}/{args.repeat} @ {ts}\n")
@@ -1280,7 +1803,8 @@ def main() -> None:
                         fh.write("(sin oportunidades en esta iteración)\n")
                 # History file (append all iterations)
                 bf_hist = paths.LOGS_DIR / "bf_history.txt"
-                with open(bf_hist, "a", encoding="utf-8") as fh:
+                # Overwrite history every iteration (no historical accumulation)
+                with open(bf_hist, "w", encoding="utf-8") as fh:
                     fh.write(f"[BF] Iteración {it}/{args.repeat} @ {ts}\n")
                     if iter_lines:
                         fh.write("\n".join(iter_lines) + "\n\n")
@@ -1364,6 +1888,16 @@ def main() -> None:
                 })
             pd.DataFrame(rows).to_csv(bf_persist_csv, index=False)
             logger.info("BF Persistence CSV: %s", bf_persist_csv)
+        # Auto-generate per-exchange summary from bf_history (CSV + Markdown)
+        try:
+            hist_path = str(paths.LOGS_DIR / "bf_history.txt")
+            sum_csv = str(paths.OUTPUTS_DIR / "bf_sim_summary.csv")
+            sum_md = str(paths.OUTPUTS_DIR / "bf_sim_summary.md")
+            _bf_write_history_summary_and_md(hist_path, sum_csv, sum_md)
+            logger.info("BF Summary CSV: %s", sum_csv)
+            logger.info("BF Summary MD: %s", sum_md)
+        except Exception as e:
+            logger.warning("No se pudo generar el resumen BF (CSV/MD): %s", e)
         return
 
     # ---------------------------
@@ -1406,6 +1940,18 @@ def main() -> None:
 
     current_file = paths.LOGS_DIR / "current_inter.txt"
     for it in range(1, int(max(1, args.repeat)) + 1):
+        # Clean per-iteration artifacts
+        try:
+            if current_file.exists():
+                current_file.unlink()  # type: ignore[arg-type]
+        except Exception:
+            pass
+        try:
+            inter_hist = paths.LOGS_DIR / "inter_history.txt"
+            if inter_hist.exists():
+                inter_hist.unlink()  # type: ignore[arg-type]
+        except Exception:
+            pass
         if args.console_clear:
             try:
                 if os.name == "nt":
@@ -1596,9 +2142,9 @@ def main() -> None:
                     fh.write("\n".join(lines) + "\n")
                 else:
                     fh.write("(sin oportunidades en esta iteración)\n")
-            # History file (append all iterations)
+            # History file (overwrite per iteration)
             inter_hist = paths.LOGS_DIR / "inter_history.txt"
-            with open(inter_hist, "a", encoding="utf-8") as fh:
+            with open(inter_hist, "w", encoding="utf-8") as fh:
                 fh.write(f"[INTER] Iteración {it}/{args.repeat} @ {now_ts}\n")
                 if lines:
                     fh.write("\n".join(lines) + "\n\n")
