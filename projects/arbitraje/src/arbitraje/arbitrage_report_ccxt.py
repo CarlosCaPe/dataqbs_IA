@@ -282,7 +282,9 @@ def main() -> None:
     parser.add_argument("--bf_currencies_limit", type=int, default=35)
     parser.add_argument("--bf_rank_by_qvol", action="store_true", help="Rank and select currencies by aggregate quote volume to build a higher-quality universe")
     parser.add_argument("--bf_min_net", type=float, default=0.5)
+    parser.add_argument("--bf_min_net_per_hop", type=float, default=0.0, help="Descarta ciclos BF cuyo net/hop sea inferior a este umbral (%)")
     parser.add_argument("--bf_top", type=int, default=5)
+    parser.add_argument("--bf_persist_top_csv", action="store_true", help="Persistir las top oportunidades por iteración en un CSV acumulado")
     parser.add_argument("--bf_require_quote", action="store_true")
     parser.add_argument("--bf_min_hops", type=int, default=0)
     parser.add_argument("--bf_max_hops", type=int, default=0)
@@ -291,18 +293,6 @@ def main() -> None:
     parser.add_argument("--bf_threads", type=int, default=1, help="Threads for per-exchange BF scanning (1 = no threading, 0 or negative = one thread per exchange)")
     parser.add_argument("--bf_debug", action="store_true", help="Print BF debug details: currencies, edges, and cycles counts per exchange")
     parser.add_argument("--bf_require_dual_quote", action="store_true", help="When multiple anchors (e.g. USDT,USDC) are allowed, include only bases that have markets against ALL anchors")
-    parser.add_argument(
-        "--bf_iter_timeout_sec",
-        type=float,
-        default=60.0,
-        help="Max seconds to wait for all exchanges in a BF iteration when threaded; remaining exchanges are skipped for that iteration",
-    )
-    # Optional Convert integration (Binance only)
-    parser.add_argument("--bf_use_convert", action="store_true", help="Use Binance Convert quotes to override ccxt rates on Binance when credentials are present")
-    parser.add_argument("--bf_convert_test_amount", type=float, default=100.0, help="Amount of base to request for Convert quote rate inference (fromAmount)")
-    parser.add_argument("--bf_convert_max_overrides", type=int, default=30, help="Maximum number of Convert edges to override per iteration (to avoid rate limits/timeouts)")
-    parser.add_argument("--bf_convert_timeout", type=int, default=5000, help="Timeout (ms) for each Binance Convert request")
-    parser.add_argument("--bf_convert_all_edges", action="store_true", help="If set, try Convert overrides for all candidate edges (default: only edges touching anchors like USDT/USDC)")
     parser.add_argument("--use_balance", action="store_true", help="Use authenticated QUOTE balance (if available) for est_after; min(inv, balance)")
     parser.add_argument("--balance_kind", choices=["free", "total"], default="free", help="Balance kind when --use_balance")
 
@@ -875,13 +865,15 @@ def main() -> None:
     # -----------
     if args.mode == "bf":
         results_bf: List[dict] = []
-        # Persistence map: (exchange, path) -> stats
+    # Persistence map: (exchange, path) -> stats
         persistence: Dict[Tuple[str, str], Dict[str, object]] = {}
         paths.OUTPUTS_DIR.mkdir(parents=True, exist_ok=True)
         bf_csv = paths.OUTPUTS_DIR / f"arbitrage_bf_{QUOTE.lower()}_ccxt.csv"
         bf_persist_csv = paths.OUTPUTS_DIR / f"arbitrage_bf_{QUOTE.lower()}_persistence.csv"
         bf_sim_csv = paths.OUTPUTS_DIR / f"arbitrage_bf_simulation_{QUOTE.lower()}_ccxt.csv"
         current_file = paths.LOGS_DIR / "current_bf.txt"
+    # Optional per-iteration top-k persistence CSV
+    bf_top_hist_csv = paths.OUTPUTS_DIR / f"arbitrage_bf_top_{QUOTE.lower()}_history.csv"
 
         # Initialize simulation state (per exchange)
         sim_rows: List[dict] = []
@@ -915,7 +907,13 @@ def main() -> None:
                         logger.warning("No se pudo leer wallet @%s (%s); se usará simulate_start/--inv", ex_id, e)
                 if bal_val is None:
                     bal_val = float(args.simulate_start) if args.simulate_start is not None else float(args.inv)
-                sim_state[ex_id] = {"ccy": ccy, "balance": float(bal_val)}
+                # Track starting state to summarize PnL at the end
+                sim_state[ex_id] = {
+                    "ccy": ccy,
+                    "balance": float(bal_val),
+                    "start_balance": float(bal_val),
+                    "start_ccy": ccy,
+                }
 
         def bf_worker(ex_id: str, it: int, ts: str) -> Tuple[str, List[str], List[dict]]:
             local_lines: List[str] = []
@@ -933,32 +931,10 @@ def main() -> None:
                 # Determine investment amount possibly constrained by balance
                 inv_amt_cfg = float(args.inv)
                 inv_amt_effective = inv_amt_cfg
-                inv_anchor_label = QUOTE
                 if args.use_balance:
-                    # If multiple anchors are allowed (e.g., USDT and USDC), choose the one with higher balance
-                    chosen_bal = None
-                    chosen_anchor = QUOTE
-                    anchors_for_balance = list({q for q in (allowed_quotes or [QUOTE])})
-                    if anchors_for_balance and len(anchors_for_balance) >= 2:
-                        best_bal = -1.0
-                        best_anchor = QUOTE
-                        for anc in anchors_for_balance:
-                            b = fetch_quote_balance(ex, anc, kind=args.balance_kind)
-                            try:
-                                if b is not None and float(b) > best_bal:
-                                    best_bal = float(b)
-                                    best_anchor = anc
-                            except Exception:
-                                continue
-                        if best_bal >= 0.0:
-                            chosen_bal = best_bal
-                            chosen_anchor = best_anchor
-                    else:
-                        chosen_bal = fetch_quote_balance(ex, QUOTE, kind=args.balance_kind)
-                        chosen_anchor = QUOTE
-                    if chosen_bal is not None:
-                        inv_amt_effective = max(0.0, min(inv_amt_cfg, float(chosen_bal)))
-                        inv_anchor_label = chosen_anchor
+                    bal = fetch_quote_balance(ex, QUOTE, kind=args.balance_kind)
+                    if bal is not None:
+                        inv_amt_effective = max(0.0, min(inv_amt_cfg, float(bal)))
                 # Build currency universe around allowed anchors (e.g., USDT and USDC)
                 anchors = set([q for q in allowed_quotes])
                 tokens = set([q for q in anchors])
@@ -1015,66 +991,6 @@ def main() -> None:
                     require_topofbook=args.bf_require_topofbook,
                     min_quote_vol=args.bf_min_quote_vol,
                 )
-                # Optional: Override Binance rates with Convert quotes for direct pairs when available
-                convert_overrides = 0
-                convert_sample = None
-                if ex_id == "binance" and args.bf_use_convert and creds_from_env("binance"):
-                    try:
-                        api_key = os.environ.get("BINANCE_API_KEY"); api_secret = os.environ.get("BINANCE_API_SECRET")
-                        test_amt = max(0.0, float(args.bf_convert_test_amount)) or 100.0
-                        max_conv = int(getattr(args, "bf_convert_max_overrides", 30) or 30)
-                        per_call_timeout = int(getattr(args, "bf_convert_timeout", args.timeout))
-                        # Traverse currencies and attempt direct A/B + B/A where edge exists
-                        cur_index = {c: i for i, c in enumerate(currencies)}
-                        # Default behavior: only try convert when one side is an anchor to reduce API load
-                        def should_try(a: str, b: str) -> bool:
-                            if getattr(args, "bf_convert_all_edges", False):
-                                return True
-                            return (a in allowed_quotes) or (b in allowed_quotes)
-
-                        failures = 0
-                        failure_cap = 6  # avoid hammering convert when it starts failing
-                        for a in currencies[: max(4, len(allowed_quotes) + 3)]:
-                            for b in currencies:
-                                if a == b:
-                                    continue
-                                u_i = cur_index[a]; v_i = cur_index[b]
-                                if (u_i, v_i) not in rate_map:
-                                    continue
-                                if convert_overrides >= max_conv:
-                                    break
-                                if not should_try(a, b):
-                                    continue
-                                try:
-                                    # Convert quote needs fromAmount in a; try to fetch toAmount for b
-                                    resp = binance_api.get_convert_quote(api_key, api_secret, a, b, test_amt, timeout=per_call_timeout)
-                                    # Common fields: quotedPrice, toAmount
-                                    q_price = resp.get("quotedPrice") if isinstance(resp, dict) else None
-                                    to_amt = resp.get("toAmount") if isinstance(resp, dict) else None
-                                    if q_price:
-                                        # From a to b; price is b per a. Effective rate (after fees) assumed already in quote.
-                                        r = float(q_price)
-                                    elif to_amt:
-                                        r = float(to_amt) / float(test_amt) if float(test_amt) > 0 else None
-                                    else:
-                                        r = None
-                                    if r and r > 0:
-                                        # Apply same per-hop fee as final safety if desired; assume Convert already net → skip extra fee
-                                        rate_map[(u_i, v_i)] = r
-                                        convert_overrides += 1
-                                        if not convert_sample:
-                                            convert_sample = f"{a}->{b} ~{r:.8f}"
-                                except Exception:
-                                    failures += 1
-                                    if failures >= failure_cap:
-                                        break
-                                    continue
-                            if convert_overrides >= max_conv:
-                                break
-                            if failures >= failure_cap:
-                                break
-                    except Exception:
-                        pass
                 if args.bf_debug:
                     logger.info("[BF-DBG] %s edges=%d", ex_id, len(edges))
                 n = len(currencies)
@@ -1147,15 +1063,18 @@ def main() -> None:
                         if (args.bf_min_hops and hops < args.bf_min_hops) or (args.bf_max_hops and hops > args.bf_max_hops):
                             continue
                         net_pct = (prod - 1.0) * 100.0
+                        # Enforce overall and per-hop quality thresholds
                         if net_pct < args.bf_min_net:
+                            continue
+                        if args.bf_min_net_per_hop and (net_pct / max(1, hops)) < float(args.bf_min_net_per_hop):
                             continue
                         inv_amt = float(inv_amt_effective)
                         est_after = round(inv_amt * prod, 4)
                         path_str = "->".join(cycle_nodes)
                         bal_suffix = ""
                         if args.use_balance and inv_amt_effective != inv_amt_cfg:
-                            bal_suffix = f" (saldo usado {inv_anchor_label} {inv_amt_effective:.2f} de {inv_amt_cfg:.2f})"
-                        msg = f"BF@{ex_id} {path_str} ({hops}hops) => net {net_pct:.3f}% | {inv_anchor_label} {inv_amt:.2f} -> {est_after:.4f}{bal_suffix}"
+                            bal_suffix = f" (saldo usado {QUOTE} {inv_amt_effective:.2f} de {inv_amt_cfg:.2f})"
+                        msg = f"BF@{ex_id} {path_str} ({hops}hops) => net {net_pct:.3f}% | {QUOTE} {inv_amt:.2f} -> {est_after:.4f}{bal_suffix}"
                         logger.info(msg)
                         local_lines.append(msg)
                         local_results.append({
@@ -1173,8 +1092,6 @@ def main() -> None:
                             break
                 if args.bf_debug:
                     logger.info("[BF-DBG] %s cycles_found=%d (min_net=%.3f%%)", ex_id, cycles_found, args.bf_min_net)
-                if convert_overrides:
-                    logger.info("[BF-CONVERT] %s overrides=%d sample=%s", ex_id, convert_overrides, convert_sample or "-")
                 time.sleep(args.sleep)
             except Exception as e:
                 logger.warning("%s: BF scan falló: %s", ex_id, e)
@@ -1195,63 +1112,38 @@ def main() -> None:
             # Run workers (threaded or sequential)
             # If --bf_threads <= 0, use one thread per exchange. Otherwise, limit to the number of exchanges.
             configured_threads = int(args.bf_threads)
-            # On Windows, some environments hang with many worker threads; prefer sequential if auto (<=0)
-            if os.name == "nt" and configured_threads <= 0:
-                num_workers = 1
-            else:
-                num_workers = len(EX_IDS) if configured_threads <= 0 else min(configured_threads, len(EX_IDS))
+            num_workers = len(EX_IDS) if configured_threads <= 0 else min(configured_threads, len(EX_IDS))
             if max(1, num_workers) > 1:
                 with concurrent.futures.ThreadPoolExecutor(max_workers=max(1, num_workers)) as pool:
-                    futures = {pool.submit(bf_worker, ex_id, it, ts): ex_id for ex_id in EX_IDS}
-                    deadline = time.time() + float(getattr(args, "bf_iter_timeout_sec", 60.0) or 60.0)
-                    done: set = set()
-                    try:
-                        while futures:
-                            timeout = max(0.0, deadline - time.time())
-                            if timeout == 0.0:
-                                break
-                            for fut in concurrent.futures.as_completed(list(futures.keys()), timeout=timeout):
-                                ex_id = futures.pop(fut, None)
-                                if ex_id is None:
-                                    continue
-                                try:
-                                    _ex_id, lines, rows = fut.result()
-                                except Exception as e:
-                                    logger.warning("%s: BF worker error: %s", ex_id, e)
-                                    continue
-                                iter_lines.extend(lines)
-                                for row in rows:
-                                    iter_results.append(row)
-                                    key = (row["exchange"], row["path"])
-                                    st = persistence.get(key)
-                                    if not st:
-                                        persistence[key] = {
-                                            "first_seen": ts,
-                                            "last_seen": ts,
-                                            "occurrences": 1,
-                                            "current_streak": 1,
-                                            "max_streak": 1,
-                                            "last_it": it,
-                                        }
-                                    else:
-                                        st["last_seen"] = ts
-                                        st["occurrences"] = int(st.get("occurrences", 0)) + 1
-                                        prev_it = int(st.get("last_it", 0))
-                                        if prev_it + 1 == it:
-                                            st["current_streak"] = int(st.get("current_streak", 0)) + 1
-                                        else:
-                                            st["current_streak"] = 1
-                                        st["max_streak"] = max(int(st.get("max_streak", 0)), int(st.get("current_streak", 0)))
-                                        st["last_it"] = it
-                                    results_bf.append(row)
-                    except concurrent.futures.TimeoutError:
-                        # Iteration timed out; cancel remaining futures
-                        pass
-                    finally:
-                        if futures:
-                            for fut in futures:
-                                fut.cancel()
-                            logger.warning("BF iteration %d: timeout after %.1fs; %d exchanges skipped this round", it, float(getattr(args, "bf_iter_timeout_sec", 60.0) or 60.0), len(futures))
+                    futures = [pool.submit(bf_worker, ex_id, it, ts) for ex_id in EX_IDS]
+                    for fut in concurrent.futures.as_completed(futures):
+                        ex_id, lines, rows = fut.result()
+                        iter_lines.extend(lines)
+                        # persistence update must be synchronized; here it's single-threaded in main
+                        for row in rows:
+                            iter_results.append(row)
+                            key = (row["exchange"], row["path"])
+                            st = persistence.get(key)
+                            if not st:
+                                persistence[key] = {
+                                    "first_seen": ts,
+                                    "last_seen": ts,
+                                    "occurrences": 1,
+                                    "current_streak": 1,
+                                    "max_streak": 1,
+                                    "last_it": it,
+                                }
+                            else:
+                                st["last_seen"] = ts
+                                st["occurrences"] = int(st.get("occurrences", 0)) + 1
+                                prev_it = int(st.get("last_it", 0))
+                                if prev_it + 1 == it:
+                                    st["current_streak"] = int(st.get("current_streak", 0)) + 1
+                                else:
+                                    st["current_streak"] = 1
+                                st["max_streak"] = max(int(st.get("max_streak", 0)), int(st.get("current_streak", 0)))
+                                st["last_it"] = it
+                            results_bf.append(row)
             else:
                 for ex_id in EX_IDS:
                     _ex_id, lines, rows = bf_worker(ex_id, it, ts)
@@ -1368,6 +1260,17 @@ def main() -> None:
                         iter_lines.append(line)
 
             try:
+                # Persist per-iteration top-k (optional)
+                if args.bf_persist_top_csv:
+                    try:
+                        # pick top by net_pct across all lines parsed in this iteration (iter_results)
+                        if iter_results:
+                            df_top = pd.DataFrame(iter_results)
+                            df_top = df_top.sort_values("net_pct", ascending=False).head(max(1, int(args.bf_top)))
+                            header = not os.path.exists(bf_top_hist_csv)
+                            df_top.to_csv(bf_top_hist_csv, mode="a", header=header, index=False)
+                    except Exception:
+                        pass
                 # Snapshot file (last iteration only)
                 with open(current_file, "w", encoding="utf-8") as fh:
                     fh.write(f"[BF] Iteración {it}/{args.repeat} @ {ts}\n")
@@ -1400,6 +1303,46 @@ def main() -> None:
         if args.simulate_compound and sim_rows:
             pd.DataFrame(sim_rows).to_csv(bf_sim_csv, index=False)
             logger.info("BF Simulation CSV: %s", bf_sim_csv)
+        # Write simulation summary per exchange (start/end/ROI) if enabled
+        if args.simulate_compound and sim_state:
+            try:
+                summary_rows = []
+                for ex_id, st in sim_state.items():
+                    try:
+                        start_bal = float(st.get("start_balance", st.get("balance", 0.0)) or 0.0)
+                    except Exception:
+                        start_bal = 0.0
+                    try:
+                        end_bal = float(st.get("balance", 0.0) or 0.0)
+                    except Exception:
+                        end_bal = 0.0
+                    ccy = str(st.get("ccy") or QUOTE)
+                    start_ccy = str(st.get("start_ccy") or ccy)
+                    roi_pct = ( (end_bal - start_bal) / start_bal * 100.0 ) if start_bal > 0 else None
+                    summary_rows.append({
+                        "exchange": ex_id,
+                        "start_currency": start_ccy,
+                        "start_balance": round(start_bal, 8),
+                        "end_currency": ccy,
+                        "end_balance": round(end_bal, 8),
+                        "roi_pct": None if roi_pct is None else round(roi_pct, 6),
+                        "iterations": int(max(1, args.repeat)),
+                    })
+                bf_sim_summary_csv = paths.OUTPUTS_DIR / f"arbitrage_bf_simulation_summary_{QUOTE.lower()}_ccxt.csv"
+                pd.DataFrame(summary_rows).to_csv(bf_sim_summary_csv, index=False)
+                # Log a short summary line per exchange (sorted by ROI desc)
+                try:
+                    rows_sorted = sorted(summary_rows, key=lambda r: (r["roi_pct"] if r["roi_pct"] is not None else float("-inf")), reverse=True)
+                except Exception:
+                    rows_sorted = summary_rows
+                for r in rows_sorted:
+                    roi_txt = "N/A" if r["roi_pct"] is None else f"{r['roi_pct']:.4f}%"
+                    logger.info("BF SIM SUM @%s: %s %.4f -> %s %.4f (ROI %s, it=%d)",
+                                r["exchange"], r["start_currency"], r["start_balance"],
+                                r["end_currency"], r["end_balance"], roi_txt, r["iterations"])
+                logger.info("BF Simulation Summary CSV: %s", bf_sim_summary_csv)
+            except Exception as e:
+                logger.warning("No se pudo escribir el resumen de simulación BF: %s", e)
         # Write persistence summary (if any)
         if persistence:
             rows = []
