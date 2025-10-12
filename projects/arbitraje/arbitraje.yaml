@@ -19,18 +19,18 @@ bf:                      # Parámetros específicos del modo Bellman-Ford
   # Presets sugeridos:
   # currencies_limit: 500         # Más amplio (cuidado con tiempo/ratelimits)
   # currencies_limit: 1000        # Máxima cobertura (pesado)
-  min_net: 0.8                    # % neto mínimo del ciclo para reportar
+  min_net: 0.5                    # % neto mínimo del ciclo para reportar
   min_net_per_hop: 0.0            # % neto mínimo por hop (filtro de calidad adicional)
   top: 3                          # Top de oportunidades a mostrar por iteración
   require_quote: true             # Requiere que el ciclo empiece/termine en las anclas permitidas
-  require_topofbook: true         # Usa solo bid/ask (sin fallback a last)
-  min_quote_vol: 10000            # Volumen mínimo (en QUOTE) por hop; filtra ilíquidos
+  require_topofbook: false        # Permite fallback a 'last' si falta bid/ask (más oportunidades)
+  min_quote_vol: 8000             # Volumen mínimo (en QUOTE) por hop; balancea liquidez y cobertura
   min_hops: 3                     # Mínimo de saltos en el ciclo
   max_hops: 6                     # Máximo de saltos en el ciclo
   threads: 0                      # Paralelismo por exchange. 1=secuencial; 0 o negativo=1 hilo por exchange; n=min(n, #ex)
   require_dual_quote: false       # Si hay 2+ anclas, exigir que las bases tengan mercados contra todas
   persist_top_csv: false          # Persistir el top-k por iteración (se sobrescribe cada iteración)
-  revalidate_depth: true          # Revalidación con profundidad L2 (consume niveles y aplica slippage)
+  revalidate_depth: false         # Desactivar revalidación L2 para barrido rápido (activar en runs de precisión)
   use_ws: true                    # Intenta WS L2 (solo binance soportado); fallback REST si no hay WS
   depth_levels: 20                # Niveles de profundidad para REST (cuando no hay WS)
   latency_penalty_bps: 2          # Penalización por latencia en bps (resta al neto revalidado)
