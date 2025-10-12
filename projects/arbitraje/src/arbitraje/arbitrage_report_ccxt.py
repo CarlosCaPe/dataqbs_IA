@@ -731,6 +731,9 @@ def main() -> None:
     parser.add_argument("--sleep", type=float, default=0.12, help="sleep between requests (s)")
     parser.add_argument("--inv", type=float, default=1000.0)
     parser.add_argument("--top", type=int, default=25)
+    parser.add_argument("--bf_reset_history", action="store_true", help="Borrar historial BF al inicio de la ejecución (bf_history.txt / history_bf.txt / HISTORY_BF.txt)")
+
+
 
     # Inter-exchange filters and fees
     parser.add_argument("--min_spread", type=float, default=0.5)
@@ -1271,6 +1274,13 @@ def main() -> None:
                     current_file.unlink()  # type: ignore[arg-type]
             except Exception:
                 pass
+            # Also clean snapshot alias file
+            try:
+                current_alias = paths.LOGS_DIR / "CURRENT_BF.txt"
+                if current_alias.exists():
+                    current_alias.unlink()  # type: ignore[arg-type]
+            except Exception:
+                pass
             try:
                 if tri_iter_csv.exists():
                     tri_iter_csv.unlink()  # type: ignore[arg-type]
@@ -1403,17 +1413,18 @@ def main() -> None:
         bf_csv = paths.OUTPUTS_DIR / f"arbitrage_bf_{QUOTE.lower()}_ccxt.csv"
         bf_persist_csv = paths.OUTPUTS_DIR / f"arbitrage_bf_{QUOTE.lower()}_persistence.csv"
         bf_sim_csv = paths.OUTPUTS_DIR / f"arbitrage_bf_simulation_{QUOTE.lower()}_ccxt.csv"
-        current_file = paths.LOGS_DIR / "current_bf.txt"
+        current_file = paths.LOGS_DIR / "CURRENT_BF.txt"
         # Optional per-iteration top-k persistence CSV
         bf_top_hist_csv = paths.OUTPUTS_DIR / f"arbitrage_bf_top_{QUOTE.lower()}_history.csv"
         # Per-iteration snapshot CSV (overwritten each iteration)
         bf_iter_csv = paths.OUTPUTS_DIR / f"arbitrage_bf_current_{QUOTE.lower()}_ccxt.csv"
 
-        # Ensure BF logs are clean at the start of every run to avoid mixing sessions
+        # Ensure BF snapshot log is clean at the start of every run to avoid mixing sessions
         try:
             import shutil
             paths.LOGS_DIR.mkdir(parents=True, exist_ok=True)
-            for fname in ("bf_history.txt", "current_bf.txt"):
+            # Keep bf_history.txt for accumulation; only reset current snapshot (clean legacy and canonical)
+            for fname in ("current_bf.txt", "CURRENT_BF.txt"):
                 fp = paths.LOGS_DIR / fname
                 if fp.exists():
                     try:
@@ -1423,6 +1434,18 @@ def main() -> None:
                             shutil.rmtree(fp, ignore_errors=True)
                     except Exception:
                         # Non-fatal if we can't delete; we will append later
+                        pass
+            # Optionally reset accumulated history files at start
+            if args.bf_reset_history:
+                for fname in ("bf_history.txt", "history_bf.txt", "HISTORY_BF.txt"):
+                    fp = paths.LOGS_DIR / fname
+                    try:
+                        if fp.exists():
+                            if fp.is_file():
+                                fp.unlink()  # type: ignore[arg-type]
+                            else:
+                                shutil.rmtree(fp, ignore_errors=True)
+                    except Exception:
                         pass
         except Exception:
             pass
@@ -1732,13 +1755,7 @@ def main() -> None:
                     bf_iter_csv.unlink()  # type: ignore[arg-type]
             except Exception:
                 pass
-            # Also remove historical files so no cross-iteration accumulation is kept
-            try:
-                bf_hist = paths.LOGS_DIR / "bf_history.txt"
-                if bf_hist.exists():
-                    bf_hist.unlink()  # type: ignore[arg-type]
-            except Exception:
-                pass
+            # Do not remove bf_history.txt: we now keep accumulation across iterations
             try:
                 if bf_top_hist_csv.exists():
                     bf_top_hist_csv.unlink()  # type: ignore[arg-type]
@@ -1916,22 +1933,100 @@ def main() -> None:
                         pd.DataFrame(columns=["exchange","path","net_pct","inv","est_after","hops","iteration","ts"]).to_csv(bf_iter_csv, index=False)
                 except Exception:
                     pass
-                # Snapshot file (last iteration only)
+                # Snapshot file (last iteration only) with aggregation tables
                 with open(current_file, "w", encoding="utf-8") as fh:
-                    fh.write(f"[BF] Iteración {it}/{args.repeat} @ {ts}\n")
+                    fh.write(f"[BF] Iteración {it}/{args.repeat} @ {ts}\n\n")
+                    # 1) Top oportunidades de la iteración
+                    try:
+                        if iter_results:
+                            df_iter = pd.DataFrame(iter_results)
+                            df_top = df_iter.sort_values("net_pct", ascending=False).head(max(1, int(args.bf_top)))
+                            cols_top = [c for c in ["exchange","path","hops","net_pct","inv","est_after","ts"] if c in df_top.columns]
+                            fh.write("TOP oportunidades (iteración)\n")
+                            fh.write(tabulate(df_top[cols_top], headers="keys", tablefmt="github", showindex=False))
+                            fh.write("\n\n")
+                        else:
+                            fh.write("TOP oportunidades (iteración): (sin resultados)\n\n")
+                    except Exception:
+                        fh.write("TOP oportunidades (iteración): (error al generar tabla)\n\n")
+                    # 2) Resumen por exchange de la iteración
+                    try:
+                        if iter_results:
+                            df_iter = pd.DataFrame(iter_results)
+                            grp = df_iter.groupby("exchange", as_index=False).agg(
+                                count=("net_pct","count"),
+                                best_net=("net_pct","max")
+                            )
+                            grp = grp.sort_values(["best_net","count"], ascending=[False, False])
+                            fh.write("Resumen por exchange (iteración)\n")
+                            fh.write(tabulate(grp, headers="keys", tablefmt="github", showindex=False))
+                            fh.write("\n\n")
+                    except Exception:
+                        pass
+                    # 3) Resumen de simulación (estado actual)
+                    try:
+                        if args.simulate_compound and sim_state:
+                            rows_sim = []
+                            for ex_id, st in sim_state.items():
+                                try:
+                                    start_bal = float(st.get("start_balance", st.get("balance", 0.0)) or 0.0)
+                                except Exception:
+                                    start_bal = 0.0
+                                bal = float(st.get("balance", 0.0) or 0.0)
+                                ccy = str(st.get("ccy", ""))
+                                roi = ((bal - start_bal) / start_bal * 100.0) if start_bal > 0 else None
+                                rows_sim.append({
+                                    "exchange": ex_id,
+                                    "currency": ccy,
+                                    "start_balance": round(start_bal, 8),
+                                    "balance": round(bal, 8),
+                                    "roi_pct": None if roi is None else round(roi, 6),
+                                })
+                            if rows_sim:
+                                df_sim = pd.DataFrame(rows_sim)
+                                fh.write("Simulación (estado actual)\n")
+                                fh.write(tabulate(df_sim, headers="keys", tablefmt="github", showindex=False))
+                                fh.write("\n\n")
+                    except Exception:
+                        pass
+                    # 4) Persistencia (top por racha)
+                    try:
+                        if persistence:
+                            prow = []
+                            for (ex_id, path_str), st in persistence.items():
+                                prow.append({
+                                    "exchange": ex_id,
+                                    "path": path_str,
+                                    "occurrences": int(st.get("occurrences", 0)),
+                                    "current_streak": int(st.get("current_streak", 0)),
+                                    "max_streak": int(st.get("max_streak", 0)),
+                                    "last_seen": st.get("last_seen"),
+                                })
+                            if prow:
+                                dfp = pd.DataFrame(prow)
+                                dfp = dfp.sort_values(["max_streak","occurrences"], ascending=[False, False]).head(10)
+                                cols_p = [c for c in ["exchange","path","occurrences","current_streak","max_streak","last_seen"] if c in dfp.columns]
+                                fh.write("Persistencia (top)\n")
+                                fh.write(tabulate(dfp[cols_p], headers="keys", tablefmt="github", showindex=False))
+                                fh.write("\n\n")
+                    except Exception:
+                        pass
+                    # 5) Detalle texto (incluye [SIM] picks por iteración)
                     if iter_lines:
+                        fh.write("Detalle (iteración)\n")
                         fh.write("\n".join(iter_lines) + "\n")
                     else:
                         fh.write("(sin oportunidades en esta iteración)\n")
-                # History file (append all iterations)
+                # No alias snapshot write (CURRENT_BF.txt is the canonical snapshot)
+                # History file: append all iterations to keep a running log
                 bf_hist = paths.LOGS_DIR / "bf_history.txt"
-                # Overwrite history every iteration (no historical accumulation)
-                with open(bf_hist, "w", encoding="utf-8") as fh:
+                with open(bf_hist, "a", encoding="utf-8") as fh:
                     fh.write(f"[BF] Iteración {it}/{args.repeat} @ {ts}\n")
                     if iter_lines:
                         fh.write("\n".join(iter_lines) + "\n\n")
                     else:
                         fh.write("(sin oportunidades en esta iteración)\n\n")
+                # No alias writes for history to avoid duplicates and mixed-case filenames
             except Exception:
                 pass
             if it < args.repeat:

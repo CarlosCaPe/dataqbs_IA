@@ -31,6 +31,7 @@ bf:                      # Parámetros específicos del modo Bellman-Ford
   use_ws: true                    # Intenta WS L2 (solo binance soportado); fallback REST si no hay WS
   depth_levels: 20                # Niveles de profundidad para REST (cuando no hay WS)
   latency_penalty_bps: 2          # Penalización por latencia en bps (resta al neto revalidado)
+  reset_history: true             # Limpia el historial BF al inicio (bf_history.txt/history_bf.txt)
 
 # General runtime
 max: 200          # Tamaño del universo de símbolos/monedas (límite superior)
