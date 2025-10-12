@@ -690,6 +690,8 @@ def _load_yaml_config_defaults(parser: argparse.ArgumentParser) -> None:
             "simulate_compound","simulate_start","simulate_select","simulate_from_wallet","simulate_prefer",
             "simulate_auto_switch","simulate_switch_threshold","balance_provider","ex_auth_only",
             "bf_allowed_quotes",
+            # UI options (flat)
+            "ui_progress_bar","ui_progress_len","ui_spinner_frames","ui_draw_tables_first",
         }
         for k in flat_keys:
             if k in raw:
@@ -710,6 +712,10 @@ def _load_yaml_config_defaults(parser: argparse.ArgumentParser) -> None:
         tri = raw.get("tri", {}) or {}
         for k, v in tri.items():
             key = f"tri_{k}"
+            conf[key] = v
+        ui = raw.get("ui", {}) or {}
+        for k, v in ui.items():
+            key = f"ui_{k}"
             conf[key] = v
 
         if conf:
@@ -781,6 +787,7 @@ def main() -> None:
     parser.add_argument("--bf_use_ws", action="store_true", help="Intentar usar WebSocket L2 parcial (solo binance por ahora); fallback REST si no disponible")
     parser.add_argument("--bf_depth_levels", type=int, default=20, help="Niveles de profundidad para REST fallback")
     parser.add_argument("--bf_latency_penalty_bps", type=float, default=0.0, help="Penalización de latencia (bps) restada al net%% estimado tras revalidación de profundidad")
+    parser.add_argument("--bf_iter_timeout_sec", type=float, default=0.0, help="Tiempo máximo (segundos) para esperar resultados por iteración en BF; 0 = sin límite")
 
     # BF simulation (compounding) across iterations
     parser.add_argument("--simulate_compound", action="store_true", help="Simulate compounding: keep a running QUOTE balance and apply one selected BF opportunity per iteration (no real trades)")
@@ -801,6 +808,11 @@ def main() -> None:
     parser.add_argument("--repeat_sleep", type=float, default=3.0)
     parser.add_argument("--console_clear", action="store_true")
     parser.add_argument("--no_console_clear", action="store_true", help="Don't clear console even if --console_clear is set (or set ARBITRAJE_NO_CLEAR=1)")
+    # UI / UX options for snapshot
+    parser.add_argument("--ui_progress_bar", action="store_true", default=True, help="Mostrar barra de progreso en current_bf.txt")
+    parser.add_argument("--ui_progress_len", type=int, default=20, help="Longitud de la barra de progreso")
+    parser.add_argument("--ui_spinner_frames", type=str, default="|/-\\", help="Frames del spinner para progreso en vivo")
+    parser.add_argument("--ui_draw_tables_first", action="store_true", default=True, help="Dibujar tablas vacías desde el inicio de la iteración")
     # Balance provider selection
     parser.add_argument("--balance_provider", choices=["ccxt", "native", "connector", "bitget_sdk"], default="ccxt", help="Provider for --mode balance: ccxt (default), native (direct REST for binance), connector (official Binance SDK Spot), or bitget_sdk (official Bitget SDK)")
     # Filter exchanges to only those with credentials
@@ -1407,14 +1419,14 @@ def main() -> None:
     # -----------
     if args.mode == "bf":
         results_bf: List[dict] = []
-    # Persistence map: (exchange, path) -> stats
+        # Persistence map: (exchange, path) -> stats
         persistence: Dict[Tuple[str, str], Dict[str, object]] = {}
         paths.OUTPUTS_DIR.mkdir(parents=True, exist_ok=True)
         bf_csv = paths.OUTPUTS_DIR / f"arbitrage_bf_{QUOTE.lower()}_ccxt.csv"
         bf_persist_csv = paths.OUTPUTS_DIR / f"arbitrage_bf_{QUOTE.lower()}_persistence.csv"
         bf_sim_csv = paths.OUTPUTS_DIR / f"arbitrage_bf_simulation_{QUOTE.lower()}_ccxt.csv"
-    # Use lowercase snapshot filename consistently with repo conventions
-    current_file = paths.LOGS_DIR / "current_bf.txt"
+        # Use lowercase snapshot filename consistently with repo conventions
+        current_file = paths.LOGS_DIR / "current_bf.txt"
         # Optional per-iteration top-k persistence CSV
         bf_top_hist_csv = paths.OUTPUTS_DIR / f"arbitrage_bf_top_{QUOTE.lower()}_history.csv"
         # Per-iteration snapshot CSV (overwritten each iteration)
@@ -1766,64 +1778,72 @@ def main() -> None:
             try:
                 with open(current_file, "w", encoding="utf-8") as fh:
                     fh.write(f"[BF] Iteración {it}/{args.repeat} @ {ts}\n\n")
-                    # Progress header + initial bar
-                    total_ex = max(1, len(EX_IDS))
-                    completed = 0
-                    frames = "|/-\\"
-                    bar_len = 20
-                    filled = int(bar_len * completed / total_ex)
-                    bar = "[" + ("#" * filled) + ("-" * (bar_len - filled)) + "]"
-                    spinner = frames[completed % len(frames)]
-                    fh.write("Progreso\n")
-                    fh.write(f"{bar} {completed}/{total_ex} {spinner}\n\n")
-                    # Draw placeholder tables so structure is visible from the start
+                    # Progress header + initial bar (optional)
+                    if getattr(args, "ui_progress_bar", True):
+                        total_ex = max(1, len(EX_IDS))
+                        completed = 0
+                        frames = str(getattr(args, "ui_spinner_frames", "|/-\\"))
+                        bar_len = int(getattr(args, "ui_progress_len", 20))
+                        filled = int(bar_len * completed / total_ex)
+                        bar = "[" + ("#" * filled) + ("-" * (bar_len - filled)) + "]"
+                        try:
+                            spinner = frames[completed % len(frames)] if frames else ""
+                        except Exception:
+                            spinner = ""
+                        fh.write("Progreso\n")
+                        fh.write(f"{bar} {completed}/{total_ex} {spinner}\n\n")
+                    # Draw placeholder tables so structure is visible from the start (optional)
                     try:
-                        # TOP oportunidades (vacío)
-                        df_top = pd.DataFrame(columns=["exchange","path","hops","net_pct","inv","est_after","ts"])
-                        fh.write("TOP oportunidades (iteración)\n")
-                        fh.write(tabulate(df_top, headers="keys", tablefmt="github", showindex=False))
-                        fh.write("\n\n")
-                    except Exception:
-                        pass
-                    try:
-                        # Resumen por exchange (vacío)
-                        df_ex = pd.DataFrame(columns=["exchange","count","best_net"])
-                        fh.write("Resumen por exchange (iteración)\n")
-                        fh.write(tabulate(df_ex, headers="keys", tablefmt="github", showindex=False))
-                        fh.write("\n\n")
-                    except Exception:
-                        pass
-                    try:
-                        # Simulación (estado actual) si aplica, con balances iniciales
-                        if args.simulate_compound and sim_state:
-                            rows_sim = []
-                            for ex_id, st in sim_state.items():
-                                try:
-                                    start_bal = float(st.get("start_balance", st.get("balance", 0.0)) or 0.0)
-                                except Exception:
-                                    start_bal = 0.0
-                                bal = float(st.get("balance", 0.0) or 0.0)
-                                ccy = str(st.get("ccy", ""))
-                                roi = ((bal - start_bal) / start_bal * 100.0) if start_bal > 0 else None
-                                rows_sim.append({
-                                    "exchange": ex_id,
-                                    "currency": ccy,
-                                    "start_balance": round(start_bal, 8),
-                                    "balance": round(bal, 8),
-                                    "roi_pct": None if roi is None else round(roi, 6),
-                                })
-                            df_sim = pd.DataFrame(rows_sim)
-                            fh.write("Simulación (estado actual)\n")
-                            fh.write(tabulate(df_sim, headers="keys", tablefmt="github", showindex=False))
+                        if getattr(args, "ui_draw_tables_first", True):
+                            # TOP oportunidades (vacío)
+                            df_top = pd.DataFrame(columns=["exchange","path","hops","net_pct","inv","est_after","ts"])
+                            fh.write("TOP oportunidades (iteración)\n")
+                            fh.write(tabulate(df_top, headers="keys", tablefmt="github", showindex=False))
                             fh.write("\n\n")
                     except Exception:
                         pass
                     try:
-                        # Persistencia (vacío)
-                        dfp = pd.DataFrame(columns=["exchange","path","occurrences","current_streak","max_streak","last_seen"])
-                        fh.write("Persistencia (top)\n")
-                        fh.write(tabulate(dfp, headers="keys", tablefmt="github", showindex=False))
-                        fh.write("\n\n")
+                        if getattr(args, "ui_draw_tables_first", True):
+                            # Resumen por exchange (vacío)
+                            df_ex = pd.DataFrame(columns=["exchange","count","best_net"])
+                            fh.write("Resumen por exchange (iteración)\n")
+                            fh.write(tabulate(df_ex, headers="keys", tablefmt="github", showindex=False))
+                            fh.write("\n\n")
+                    except Exception:
+                        pass
+                    try:
+                        if getattr(args, "ui_draw_tables_first", True):
+                            # Simulación (estado actual) si aplica, con balances iniciales
+                            if args.simulate_compound and sim_state:
+                                rows_sim = []
+                                for ex_id, st in sim_state.items():
+                                    try:
+                                        start_bal = float(st.get("start_balance", st.get("balance", 0.0)) or 0.0)
+                                    except Exception:
+                                        start_bal = 0.0
+                                    bal = float(st.get("balance", 0.0) or 0.0)
+                                    ccy = str(st.get("ccy", ""))
+                                    roi = ((bal - start_bal) / start_bal * 100.0) if start_bal > 0 else None
+                                    rows_sim.append({
+                                        "exchange": ex_id,
+                                        "currency": ccy,
+                                        "start_balance": round(start_bal, 8),
+                                        "balance": round(bal, 8),
+                                        "roi_pct": None if roi is None else round(roi, 6),
+                                    })
+                                df_sim = pd.DataFrame(rows_sim)
+                                fh.write("Simulación (estado actual)\n")
+                                fh.write(tabulate(df_sim, headers="keys", tablefmt="github", showindex=False))
+                                fh.write("\n\n")
+                    except Exception:
+                        pass
+                    try:
+                        if getattr(args, "ui_draw_tables_first", True):
+                            # Persistencia (vacío)
+                            dfp = pd.DataFrame(columns=["exchange","path","occurrences","current_streak","max_streak","last_seen"])
+                            fh.write("Persistencia (top)\n")
+                            fh.write(tabulate(dfp, headers="keys", tablefmt="github", showindex=False))
+                            fh.write("\n\n")
                     except Exception:
                         pass
                     fh.write("Detalle (progreso)\n")
@@ -1841,51 +1861,83 @@ def main() -> None:
             if max(1, num_workers) > 1:
                 with concurrent.futures.ThreadPoolExecutor(max_workers=max(1, num_workers)) as pool:
                     futures = [pool.submit(bf_worker, ex_id, it, ts) for ex_id in EX_IDS]
-                    for fut in concurrent.futures.as_completed(futures):
-                        ex_id, lines, rows = fut.result()
-                        iter_lines.extend(lines)
-                        # Append progress lines and update progress bar as each worker completes
+                    # Optional per-iteration timeout
+                    deadline = None
+                    try:
+                        tsec = float(getattr(args, "bf_iter_timeout_sec", 0.0) or 0.0)
+                        if tsec > 0:
+                            deadline = time.time() + tsec
+                    except Exception:
+                        deadline = None
+                    pending = set(futures)
+                    while pending:
+                        timeout_next = None
+                        if deadline is not None:
+                            timeout_next = max(0.0, deadline - time.time())
+                            if timeout_next == 0:
+                                break
+                        done, pending = concurrent.futures.wait(pending, timeout=timeout_next, return_when=concurrent.futures.FIRST_COMPLETED)
+                        if not done:
+                            continue
+                        for fut in done:
+                            try:
+                                ex_id, lines, rows = fut.result()
+                            except Exception as e:
+                                ex_id, lines, rows = ("?", [f"worker error: {e}"], [])
+                            iter_lines.extend(lines)
+                            # Append progress lines and update progress bar as each worker completes
+                            try:
+                                if lines:
+                                    with open(current_file, "a", encoding="utf-8") as fh:
+                                        if getattr(args, "ui_progress_bar", True):
+                                            completed_count += 1
+                                            total_ex = max(1, len(EX_IDS))
+                                            frames = str(getattr(args, "ui_spinner_frames", "|/-\\"))
+                                            bar_len = int(getattr(args, "ui_progress_len", 20))
+                                            filled = int(bar_len * completed_count / total_ex)
+                                            bar = "[" + ("#" * filled) + ("-" * (bar_len - filled)) + "]"
+                                            try:
+                                                spinner = frames[completed_count % len(frames)] if frames else ""
+                                            except Exception:
+                                                spinner = ""
+                                            fh.write(f"{bar} {completed_count}/{total_ex} {spinner}\n")
+                                        fh.write("\n".join(lines) + "\n")
+                                        fh.flush()
+                            except Exception:
+                                pass
+                            # persistence update must be synchronized; here it's single-threaded in main
+                            for row in rows:
+                                iter_results.append(row)
+                                key = (row["exchange"], row["path"])
+                                st = persistence.get(key)
+                                if not st:
+                                    persistence[key] = {
+                                        "first_seen": ts,
+                                        "last_seen": ts,
+                                        "occurrences": 1,
+                                        "current_streak": 1,
+                                        "max_streak": 1,
+                                        "last_it": it,
+                                    }
+                                else:
+                                    st["last_seen"] = ts
+                                    st["occurrences"] = int(st.get("occurrences", 0)) + 1
+                                    prev_it = int(st.get("last_it", 0))
+                                    if prev_it + 1 == it:
+                                        st["current_streak"] = int(st.get("current_streak", 0)) + 1
+                                    else:
+                                        st["current_streak"] = 1
+                                    st["max_streak"] = max(int(st.get("max_streak", 0)), int(st.get("current_streak", 0)))
+                                    st["last_it"] = it
+                                results_bf.append(row)
+                    # If timed out, notify remaining
+                    if pending:
                         try:
-                            if lines:
-                                with open(current_file, "a", encoding="utf-8") as fh:
-                                    # Progress bar update
-                                    completed_count += 1
-                                    total_ex = max(1, len(EX_IDS))
-                                    frames = "|/-\\"
-                                    bar_len = 20
-                                    filled = int(bar_len * completed_count / total_ex)
-                                    bar = "[" + ("#" * filled) + ("-" * (bar_len - filled)) + "]"
-                                    spinner = frames[completed_count % len(frames)]
-                                    fh.write(f"{bar} {completed_count}/{total_ex} {spinner}\n")
-                                    fh.write("\n".join(lines) + "\n")
-                                    fh.flush()
+                            with open(current_file, "a", encoding="utf-8") as fh:
+                                fh.write(f"\n[WARN] Iteración BF superó timeout de {getattr(args, 'bf_iter_timeout_sec', 0.0)}s; {len(pending)} exchanges sin completar.\n")
+                                fh.flush()
                         except Exception:
                             pass
-                        # persistence update must be synchronized; here it's single-threaded in main
-                        for row in rows:
-                            iter_results.append(row)
-                            key = (row["exchange"], row["path"])
-                            st = persistence.get(key)
-                            if not st:
-                                persistence[key] = {
-                                    "first_seen": ts,
-                                    "last_seen": ts,
-                                    "occurrences": 1,
-                                    "current_streak": 1,
-                                    "max_streak": 1,
-                                    "last_it": it,
-                                }
-                            else:
-                                st["last_seen"] = ts
-                                st["occurrences"] = int(st.get("occurrences", 0)) + 1
-                                prev_it = int(st.get("last_it", 0))
-                                if prev_it + 1 == it:
-                                    st["current_streak"] = int(st.get("current_streak", 0)) + 1
-                                else:
-                                    st["current_streak"] = 1
-                                st["max_streak"] = max(int(st.get("max_streak", 0)), int(st.get("current_streak", 0)))
-                                st["last_it"] = it
-                            results_bf.append(row)
             else:
                 for ex_id in EX_IDS:
                     _ex_id, lines, rows = bf_worker(ex_id, it, ts)
@@ -1894,14 +1946,18 @@ def main() -> None:
                     try:
                         if lines:
                             with open(current_file, "a", encoding="utf-8") as fh:
-                                completed_count += 1
-                                total_ex = max(1, len(EX_IDS))
-                                frames = "|/-\\"
-                                bar_len = 20
-                                filled = int(bar_len * completed_count / total_ex)
-                                bar = "[" + ("#" * filled) + ("-" * (bar_len - filled)) + "]"
-                                spinner = frames[completed_count % len(frames)]
-                                fh.write(f"{bar} {completed_count}/{total_ex} {spinner}\n")
+                                if getattr(args, "ui_progress_bar", True):
+                                    completed_count += 1
+                                    total_ex = max(1, len(EX_IDS))
+                                    frames = str(getattr(args, "ui_spinner_frames", "|/-\\"))
+                                    bar_len = int(getattr(args, "ui_progress_len", 20))
+                                    filled = int(bar_len * completed_count / total_ex)
+                                    bar = "[" + ("#" * filled) + ("-" * (bar_len - filled)) + "]"
+                                    try:
+                                        spinner = frames[completed_count % len(frames)] if frames else ""
+                                    except Exception:
+                                        spinner = ""
+                                    fh.write(f"{bar} {completed_count}/{total_ex} {spinner}\n")
                                 fh.write("\n".join(lines) + "\n")
                                 fh.flush()
                     except Exception:

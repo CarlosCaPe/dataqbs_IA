@@ -32,12 +32,13 @@ bf:                      # Parámetros específicos del modo Bellman-Ford
   depth_levels: 20                # Niveles de profundidad para REST (cuando no hay WS)
   latency_penalty_bps: 2          # Penalización por latencia en bps (resta al neto revalidado)
   reset_history: true             # Limpia el historial BF al inicio (bf_history.txt/history_bf.txt)
+  iter_timeout_sec: 0.0           # Tiempo máx. para esperar resultados de la iteración BF; 0 = sin límite
 
 # General runtime
 max: 200          # Tamaño del universo de símbolos/monedas (límite superior)
 timeout: 15000    # Timeout de ccxt en ms
 sleep: 0.10       # Pausa entre llamadas (s); ayuda a evitar rate limits
-repeat: 2         # Iteraciones del loop; subir para runs largos
+repeat: 10000     # Iteraciones del loop; subir para runs largos
 repeat_sleep: 0   # Pausa entre iteraciones (s)
 
 # Balance usage and simulation
@@ -53,6 +54,13 @@ simulate_auto_switch: true        # Cambia ancla automáticamente si hay una mej
 
 # Console behavior
 no_console_clear: true            # No limpiar consola entre iteraciones (ARBITRAJE_NO_CLEAR=1 hace lo mismo)
+
+# UI/UX de snapshot y progreso
+ui:
+  progress_bar: true              # Mostrar barra de progreso en current_bf.txt
+  progress_len: 20                # Longitud de la barra de progreso
+  spinner_frames: "|/-\\"        # Frames del spinner
+  draw_tables_first: true         # Dibujar tablas vacías al inicio de cada iteración
 
 # Triangular (TRI) settings (placeholders; activa con mode: tri o CLI --mode tri)
 tri:
