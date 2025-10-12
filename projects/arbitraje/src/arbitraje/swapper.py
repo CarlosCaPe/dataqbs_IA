@@ -12,6 +12,14 @@ import yaml
 
 from . import paths
 
+# Load .env from repo root and project root if python-dotenv is available
+try:  # pragma: no cover
+    from dotenv import load_dotenv  # type: ignore
+    load_dotenv(dotenv_path=str(paths.MONOREPO_ROOT / ".env"), override=False)
+    load_dotenv(dotenv_path=str(paths.PROJECT_ROOT / ".env"), override=False)
+except Exception:  # pragma: no cover
+    pass
+
 logger = logging.getLogger("swapper")
 if not logger.handlers:
     logger.setLevel(logging.INFO)
@@ -118,6 +126,11 @@ def _load_exchange(ex_id: str, auth: bool, timeout_ms: int = 15000) -> ccxt.Exch
             opts = dict(cfg.get("options") or {})
             opts["defaultType"] = str(dt).strip().lower()
             cfg["options"] = opts
+    # Bitget: allow market buy without price by treating amount as cost
+    if ex_id == "bitget":
+        opts = dict(cfg.get("options") or {})
+        opts["createMarketBuyOrderRequiresPrice"] = False
+        cfg["options"] = opts
     ex = cls(cfg)
     try:
         ex.timeout = int(timeout_ms)
@@ -162,6 +175,14 @@ class Swapper:
         self.max_slippage_bps = float(self.config.get("max_slippage_bps", 25.0))
         self.min_notional = float(self.config.get("min_notional", 1.0))
         self.dry_run = bool(self.config.get("dry_run", False))
+        # Per-exchange minimums for test mode
+        try:
+            self.test_min_amounts: Dict[str, float] = {
+                str(k).lower(): float(v)
+                for k, v in (dict(self.config.get("test_min_amounts") or {}).items())
+            }
+        except Exception:
+            self.test_min_amounts = {}
 
     def plan_from_bf_line(self, line: str, amount: Optional[float] = None) -> Optional[SwapPlan]:
         parsed = _parse_bf_line(line)
@@ -169,7 +190,11 @@ class Swapper:
             return None
         ex, nodes, _hops, anchor = parsed
         hops = [SwapHop(base=nodes[i], quote=nodes[i+1]) for i in range(len(nodes)-1)]
-        amt = 1.0 if self.mode == "test" else float(amount or 0.0)
+        if self.mode == "test":
+            # Use per-exchange test minimum if available; fallback to 1.0
+            amt = float(amount) if amount else float(self.test_min_amounts.get(_normalize_ccxt_id(ex), 1.0))
+        else:
+            amt = float(amount or 0.0)
         return SwapPlan(exchange=ex, hops=hops, anchor=anchor, amount=amt, raw_line=line)
 
     def run(self, plan: SwapPlan) -> SwapResult:
@@ -180,7 +205,8 @@ class Swapper:
     def _run_test(self, plan: SwapPlan) -> SwapResult:
         ex_id = plan.exchange
         anchor = plan.anchor.upper()
-        amt_in = 1.0
+        # In test mode, respect configured per-exchange minimum when present
+        amt_in = float(self.test_min_amounts.get(_normalize_ccxt_id(ex_id), 1.0))
         try:
             ex = _load_exchange(ex_id, auth=False, timeout_ms=self.timeout_ms)
             ex.load_markets()
@@ -265,38 +291,61 @@ class Swapper:
                     sym = sym2
                     invert = True
 
+                # Determine trade side based on the actual market symbol orientation
+                # sym_base/sym_quote refer to the ccxt market we will send the order to
+                sym_base, sym_quote = (base, quote) if not invert else (quote, base)
+                if cur_ccy == sym_base:
+                    side = "sell"  # selling base to get quote
+                elif cur_ccy == sym_quote:
+                    side = "buy"   # buying base using quote we currently hold
+                else:
+                    return SwapResult(
+                        False,
+                        "failed",
+                        amt,
+                        amount_cur,
+                        amount_cur - amt,
+                        {"reason": "currency_mismatch", "cur": cur_ccy, "hop": f"{base}->{quote}", "sym": sym},
+                    )
+
+                # Fetch ticker and choose appropriate side price (bid for sell, ask for buy)
                 try:
                     t = ex.fetch_ticker(sym)
-                    price = t.get("ask") if not invert else t.get("bid")
-                    if not price:
-                        price = t.get("last")
+                    if side == "sell":
+                        price = t.get("bid") or t.get("last")
+                    else:
+                        price = t.get("ask") or t.get("last")
                 except Exception:
                     price = None
 
-                side = "sell" if (not invert and base == cur_ccy) or (invert and quote == cur_ccy) else "buy"
                 params = {}
-                if self.order_type == "market":
-                    if self.time_in_force:
-                        params["timeInForce"] = self.time_in_force
-                    order_type = "market"
-                else:
-                    order_type = "market"
+                # For market orders, many exchanges ignore or reject timeInForce; don't set it
+                order_type = "market"
 
                 try:
-                    if side == "buy" and price:
-                        base_amt = amount_cur / float(price)
-                        amount_param = base_amt
+                    buy_uses_cost = getattr(ex, "id", "").lower() == "bitget"
+                except Exception:
+                    buy_uses_cost = False
+                try:
+                    if side == "buy":
+                        if buy_uses_cost:
+                            # Pass quote cost directly; exchange option allows this
+                            amount_param = amount_cur
+                        elif price:
+                            amount_param = amount_cur / float(price)  # base amount to buy
+                        else:
+                            amount_param = amount_cur
                     else:
-                        amount_param = amount_cur
+                        amount_param = amount_cur  # selling current base amount
                 except Exception:
                     amount_param = amount_cur
 
                 if self.dry_run:
                     fill_price = float(price or 0.0) if price else 0.0
                     if side == "sell":
-                        amount_next = amount_param * float(price or 1.0)
+                        amount_next = amount_param * float(price or 1.0)  # base -> quote
                     else:
-                        amount_next = amount_param
+                        amount_next = amount_param  # quote -> base
                     fills.append(
                         {
                             "symbol": sym,
@@ -308,7 +357,8 @@ class Swapper:
                         }
                     )
                     amount_cur = float(amount_next)
-                    cur_ccy = quote if not invert else base
+                    # Advance along the hop path currency regardless of symbol inversion
+                    cur_ccy = quote
                     continue
 
                 order = ex.create_order(
@@ -339,9 +389,13 @@ class Swapper:
 
                 if filled_out is None:
                     if side == "sell":
-                        filled_out = amount_param * float(price or 1.0)
+                        filled_out = amount_param * float(price or 1.0)  # base -> quote
                     else:
-                        filled_out = amount_param
+                        # If amount_param was passed as quote cost (bitget), convert to base using price
+                        if buy_uses_cost and price:
+                            filled_out = float(amount_param) / float(price)
+                        else:
+                            filled_out = amount_param  # already a base amount
 
                 fills.append(
                     {
@@ -353,7 +407,8 @@ class Swapper:
                     }
                 )
                 amount_cur = float(filled_out)
-                cur_ccy = quote if not invert else base
+                # Advance along the hop path to the target currency of this hop
+                cur_ccy = quote
 
             delta = amount_cur - amt
             status = "positive" if delta > 0 else ("negative" if delta < 0 else "ok")
@@ -398,12 +453,13 @@ def _main_cli():
             )
             sys.exit(2)
         hops = [SwapHop(base=p, quote=q) for p, q in zip(args.path.split("->"), args.path.split("->")[1:])]
-        plan = SwapPlan(
-            exchange=ex_id,
-            hops=hops,
-            anchor=args.anchor,
-            amount=args.amount or (1.0 if sw.mode == "test" else 0.0),
-        )
+        # In test mode, choose the configured min amount per exchange if not explicitly provided
+        if sw.mode == "test":
+            default_amt = float(sw.test_min_amounts.get(_normalize_ccxt_id(ex_id), 1.0))
+            amt = float(args.amount) if args.amount else default_amt
+        else:
+            amt = float(args.amount or 0.0)
+        plan = SwapPlan(exchange=ex_id, hops=hops, anchor=args.anchor, amount=amt)
 
     res = sw.run(plan)
     print(
@@ -413,6 +469,7 @@ def _main_cli():
             "amount_in": res.amount_in,
             "amount_out": res.amount_out,
             "delta": res.delta,
+            "details": res.details,
         }
     )
 

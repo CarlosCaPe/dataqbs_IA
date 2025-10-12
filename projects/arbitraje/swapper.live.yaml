@@ -1,0 +1,27 @@
+mode: real
+# Live trading config for Swapper real orders
+# IMPORTANT: Use tiny amounts only; this file sets dry_run=false.
+# Test default exchange (if needed when mode=test):
+test_exchange: binance
+
+# Runtime
+timeout_ms: 12000
+order_type: market
+time_in_force: IOC   # May be ignored by some exchanges for market orders
+max_slippage_bps: 25
+min_notional: 1
+
+# Live mode
+# Set to false to actually place orders
+# WARNING: This will execute real orders using your API keys
+# Ensure API keys are configured and permissions are correct (spot trading only)
+dry_run: false
+
+# Per-exchange minimum test amount (in quote currency, typically USDT)
+# Used only when mode=test and no explicit --amount is provided.
+# If an exchange is not listed, a default of 1.0 will be used.
+test_min_amounts:
+	binance: 5.0
+	okx: 1.0
+	bitget: 1.0
+	mexc: 1.0
