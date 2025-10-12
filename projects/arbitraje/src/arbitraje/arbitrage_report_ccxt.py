@@ -104,7 +104,9 @@ def creds_from_env(ex_id: str) -> dict:
             if k and s and p:
                 return {"apiKey": k, "secret": s, "password": p}
         elif ex_id == "okx":
-            k = env_get_stripped("OKX_API_KEY"); s = env_get_stripped("OKX_API_SECRET"); p = env_get_stripped("OKX_API_PASSWORD")
+            k = env_get_stripped("OKX_API_KEY"); s = env_get_stripped("OKX_API_SECRET")
+            # Support both names for passphrase to avoid config mismatches
+            p = env_get_stripped("OKX_API_PASSWORD") or env_get_stripped("OKX_PASSWORD")
             if k and s and p:
                 return {"apiKey": k, "secret": s, "password": p}
         elif ex_id == "kucoin":
@@ -137,6 +139,17 @@ def load_exchange_auth_if_available(ex_id: str, timeout_ms: int, use_auth: bool 
     cfg = {"enableRateLimit": True}
     if use_auth:
         cfg.update(creds_from_env(ex_id))
+    # Allow per-exchange options via env vars when useful
+    if ex_id == "okx":
+        try:
+            # Prefer ARBITRAJE_OKX_DEFAULT_TYPE, fallback to OKX_DEFAULT_TYPE
+            dt = os.environ.get("ARBITRAJE_OKX_DEFAULT_TYPE") or os.environ.get("OKX_DEFAULT_TYPE")
+            if dt:
+                opts = dict(cfg.get("options") or {})
+                opts["defaultType"] = str(dt).strip().lower()
+                cfg["options"] = opts
+        except Exception:
+            pass
     ex = cls(cfg)
     try:
         ex.timeout = int(timeout_ms)
@@ -2045,120 +2058,7 @@ def main() -> None:
                 for ex_id in EX_IDS:
                     _ex_id, lines, rows = bf_worker(ex_id, it, ts)
                     iter_lines.extend(lines)
-                    # Append progress lines in sequential mode as well, updating progress bar
-                            try:
-                                with open(current_file, "a", encoding="utf-8") as fh:
-                                if getattr(args, "ui_progress_bar", True):
-                                    completed_count += 1
-                                    total_ex = max(1, len(EX_IDS))
-                                    frames = str(getattr(args, "ui_spinner_frames", "|/-\\"))
-                                    bar_len = int(getattr(args, "ui_progress_len", 20))
-                                    filled = int(bar_len * completed_count / total_ex)
-                                    bar = "[" + ("#" * filled) + ("-" * (bar_len - filled)) + "]"
-                                    try:
-                                        spinner = frames[completed_count % len(frames)] if frames else ""
-                                    except Exception:
-                                        spinner = ""
-                                    fh.write(f"{bar} {completed_count}/{total_ex} {spinner}\n")
-                                if lines:
-                                    fh.write("\n".join(lines) + "\n")
-                                # Append refreshed tables (partial view)
-                                try:
-                                    # TOP oportunidades (parcial)
-                                    try:
-                                        top_k = []
-                                        if iter_results:
-                                            top_k = sorted(iter_results, key=lambda r: float(r.get("net_pct", 0.0)), reverse=True)[:int(getattr(args, "bf_top", 3) or 3)]
-                                        rows_top = []
-                                        for r in top_k:
-                                            rows_top.append({
-                                                "exchange": r.get("exchange"),
-                                                "path": r.get("path"),
-                                                "hops": r.get("hops"),
-                                                "net_pct": round(float(r.get("net_pct", 0.0)), 3),
-                                                "inv": r.get("inv"),
-                                                "est_after": r.get("est_after"),
-                                                "ts": r.get("ts"),
-                                            })
-                                        df_top = pd.DataFrame(rows_top if rows_top else [], columns=["exchange","path","hops","net_pct","inv","est_after","ts"])
-                                        fh.write("\nTOP oportunidades (iteración)\n")
-                                        fh.write(tabulate(df_top, headers="keys", tablefmt="github", showindex=False))
-                                        fh.write("\n\n")
-                                    except Exception:
-                                        pass
-                                    # Resumen por exchange (parcial)
-                                    try:
-                                        if iter_results:
-                                            agg = {}
-                                            for r in iter_results:
-                                                exr = r.get("exchange")
-                                                if not exr:
-                                                    continue
-                                                net = float(r.get("net_pct", 0.0))
-                                                a = agg.setdefault(exr, {"count": 0, "best_net": -1e9})
-                                                a["count"] += 1
-                                                if net > a["best_net"]:
-                                                    a["best_net"] = net
-                                            rows_ex = [{"exchange": ex, "count": v["count"], "best_net": round(v["best_net"], 3) if v["best_net"] > -1e9 else None} for ex, v in agg.items()]
-                                        else:
-                                            rows_ex = []
-                                        df_ex = pd.DataFrame(rows_ex if rows_ex else [], columns=["exchange","count","best_net"])
-                                        fh.write("Resumen por exchange (iteración)\n")
-                                        fh.write(tabulate(df_ex, headers="keys", tablefmt="github", showindex=False))
-                                        fh.write("\n\n")
-                                    except Exception:
-                                        pass
-                                    # Simulación (estado actual) (parcial)
-                                    try:
-                                        if args.simulate_compound and sim_state:
-                                            rows_sim = []
-                                            for ex_id2, st2 in sim_state.items():
-                                                try:
-                                                    sb = float(st2.get("start_balance", 0.0) or 0.0)
-                                                except Exception:
-                                                    sb = 0.0
-                                                bal2 = float(st2.get("balance", 0.0) or 0.0)
-                                                ccy2 = str(st2.get("ccy", ""))
-                                                roi2 = ((bal2 - sb) / sb * 100.0) if sb > 0 else 0.0
-                                                rows_sim.append({
-                                                    "exchange": ex_id2,
-                                                    "currency": ccy2,
-                                                    "start_balance": round(sb, 8),
-                                                    "balance": round(bal2, 8),
-                                                    "profit": round(bal2 - sb, 8),
-                                                    "roi_pct": round(roi2, 6),
-                                                })
-                                            df_sim2 = pd.DataFrame(rows_sim)
-                                            fh.write("Simulación (estado actual)\n")
-                                            fh.write(tabulate(df_sim2, headers="keys", tablefmt="github", showindex=False))
-                                            fh.write("\n\n")
-                                    except Exception:
-                                        pass
-                                    # Persistencia (top) (parcial)
-                                    try:
-                                        if persistence:
-                                            prow = []
-                                            for (pex, ppath), pst in persistence.items():
-                                                prow.append({
-                                                    "exchange": pex,
-                                                    "path": ppath,
-                                                    "occurrences": int(pst.get("occurrences", 0) or 0),
-                                                    "current_streak": int(pst.get("current_streak", 0) or 0),
-                                                    "max_streak": int(pst.get("max_streak", 0) or 0),
-                                                    "last_seen": pst.get("last_seen"),
-                                                })
-                                            prow = sorted(prow, key=lambda r: (r["max_streak"], r["occurrences"]), reverse=True)[:10]
-                                            dfp2 = pd.DataFrame(prow, columns=["exchange","path","occurrences","current_streak","max_streak","last_seen"]) if prow else pd.DataFrame(columns=["exchange","path","occurrences","current_streak","max_streak","last_seen"])
-                                            fh.write("Persistencia (top)\n")
-                                            fh.write(tabulate(dfp2, headers="keys", tablefmt="github", showindex=False))
-                                            fh.write("\n\n")
-                                    except Exception:
-                                        pass
-                                except Exception:
-                                    pass
-                                fh.flush()
-                    except Exception:
-                        pass
+                    # Update iteration results and persistence BEFORE rendering partial tables (avoid lagging display)
                     for row in rows:
                         iter_results.append(row)
                         key = (row["exchange"], row["path"])
@@ -2183,6 +2083,125 @@ def main() -> None:
                             st["max_streak"] = max(int(st.get("max_streak", 0)), int(st.get("current_streak", 0)))
                             st["last_it"] = it
                         results_bf.append(row)
+                    # Append progress lines in sequential mode as well, updating progress bar
+                    try:
+                        with open(current_file, "a", encoding="utf-8") as fh:
+                            if getattr(args, "ui_progress_bar", True):
+                                completed_count += 1
+                                total_ex = max(1, len(EX_IDS))
+                                frames = str(getattr(args, "ui_spinner_frames", "|/-\\"))
+                                bar_len = int(getattr(args, "ui_progress_len", 20))
+                                filled = int(bar_len * completed_count / total_ex)
+                                bar = "[" + ("#" * filled) + ("-" * (bar_len - filled)) + "]"
+                                try:
+                                    spinner = frames[completed_count % len(frames)] if frames else ""
+                                except Exception:
+                                    spinner = ""
+                                fh.write(f"{bar} {completed_count}/{total_ex} {spinner}\n")
+                            if lines:
+                                fh.write("\n".join(lines) + "\n")
+                            # Append refreshed tables (partial view)
+                            try:
+                                # TOP oportunidades (parcial)
+                                try:
+                                    top_k = []
+                                    if iter_results:
+                                        top_k = sorted(iter_results, key=lambda r: float(r.get("net_pct", 0.0)), reverse=True)[:int(getattr(args, "bf_top", 3) or 3)]
+                                    rows_top = []
+                                    for r in top_k:
+                                        rows_top.append({
+                                            "exchange": r.get("exchange"),
+                                            "path": r.get("path"),
+                                            "hops": r.get("hops"),
+                                            "net_pct": round(float(r.get("net_pct", 0.0)), 3),
+                                            "inv": r.get("inv"),
+                                            "est_after": r.get("est_after"),
+                                            "ts": r.get("ts"),
+                                        })
+                                    df_top = pd.DataFrame(rows_top if rows_top else [], columns=["exchange","path","hops","net_pct","inv","est_after","ts"])
+                                    fh.write("\nTOP oportunidades (iteración)\n")
+                                    fh.write(tabulate(df_top, headers="keys", tablefmt="github", showindex=False))
+                                    fh.write("\n\n")
+                                except Exception:
+                                    pass
+                                # Resumen por exchange (parcial)
+                                try:
+                                    if iter_results:
+                                        agg = {}
+                                        for r in iter_results:
+                                            exr = r.get("exchange")
+                                            if not exr:
+                                                continue
+                                            net = float(r.get("net_pct", 0.0))
+                                            a = agg.setdefault(exr, {"count": 0, "best_net": -1e9})
+                                            a["count"] += 1
+                                            if net > a["best_net"]:
+                                                a["best_net"] = net
+                                        rows_ex = [{"exchange": ex, "count": v["count"], "best_net": round(v["best_net"], 3) if v["best_net"] > -1e9 else None} for ex, v in agg.items()]
+                                    else:
+                                        rows_ex = []
+                                    df_ex = pd.DataFrame(rows_ex if rows_ex else [], columns=["exchange","count","best_net"])
+                                    fh.write("Resumen por exchange (iteración)\n")
+                                    fh.write(tabulate(df_ex, headers="keys", tablefmt="github", showindex=False))
+                                    fh.write("\n\n")
+                                except Exception:
+                                    pass
+                                # Simulación (estado actual) (parcial)
+                                try:
+                                    if args.simulate_compound and sim_state:
+                                        rows_sim = []
+                                        for ex_id2, st2 in sim_state.items():
+                                            try:
+                                                sb = float(st2.get("start_balance", 0.0) or 0.0)
+                                            except Exception:
+                                                sb = 0.0
+                                            bal2 = float(st2.get("balance", 0.0) or 0.0)
+                                            ccy2 = str(st2.get("ccy", ""))
+                                            # Display fallback when using wallet-based start and start is zero
+                                            sb_disp = sb
+                                            if getattr(args, "simulate_from_wallet", False) and sb_disp == 0.0 and bal2 > 0.0:
+                                                sb_disp = bal2
+                                            roi2 = ((bal2 - sb_disp) / sb_disp * 100.0) if sb_disp > 0 else 0.0
+                                            rows_sim.append({
+                                                "exchange": ex_id2,
+                                                "currency": ccy2,
+                                                "start_balance": round(sb_disp, 8),
+                                                "balance": round(bal2, 8),
+                                                "profit": round(bal2 - sb_disp, 8),
+                                                "roi_pct": round(roi2, 6),
+                                            })
+                                        df_sim2 = pd.DataFrame(rows_sim)
+                                        fh.write("Simulación (estado actual)\n")
+                                        fh.write(tabulate(df_sim2, headers="keys", tablefmt="github", showindex=False))
+                                        fh.write("\n\n")
+                                except Exception:
+                                    pass
+                                # Persistencia (top) (parcial)
+                                try:
+                                    if persistence:
+                                        prow = []
+                                        for (pex, ppath), pst in persistence.items():
+                                            prow.append({
+                                                "exchange": pex,
+                                                "path": ppath,
+                                                "occurrences": int(pst.get("occurrences", 0) or 0),
+                                                "current_streak": int(pst.get("current_streak", 0) or 0),
+                                                "max_streak": int(pst.get("max_streak", 0) or 0),
+                                                "last_seen": pst.get("last_seen"),
+                                            })
+                                        prow = sorted(prow, key=lambda r: (r["max_streak"], r["occurrences"]), reverse=True)[:10]
+                                        dfp2 = pd.DataFrame(prow, columns=["exchange","path","occurrences","current_streak","max_streak","last_seen"]) if prow else pd.DataFrame(columns=["exchange","path","occurrences","current_streak","max_streak","last_seen"])
+                                        fh.write("Persistencia (top)\n")
+                                        fh.write(tabulate(dfp2, headers="keys", tablefmt="github", showindex=False))
+                                        fh.write("\n\n")
+                                except Exception:
+                                    pass
+                            except Exception:
+                                pass
+                            fh.flush()
+                    except Exception:
+                        pass
+
 
             # Simulation: per-exchange selection and compounding
             if args.simulate_compound and sim_state:
@@ -2258,8 +2277,14 @@ def main() -> None:
                             "gain_pct": gain_pct,
                             "currency": ccy,
                         })
-                        # Update state
-                        sim_state[ex_id] = {"ccy": ccy, "balance": after}
+                        # Update state (preserve start_balance/start_ccy)
+                        prev = sim_state.get(ex_id, {})
+                        sim_state[ex_id] = {
+                            "ccy": ccy,
+                            "balance": after,
+                            "start_balance": float(prev.get("start_balance", 0.0) or 0.0),
+                            "start_ccy": prev.get("start_ccy", ccy),
+                        }
                         line = (
                             f"[SIM] it#{it} @{ex_id} {ccy} pick {selected.get('path')} net {gain_pct:.4f}% "
                             f"| {ccy} {before:.4f} -> {after:.4f} (+{gain_amt:.4f})"

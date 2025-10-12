@@ -37,6 +37,8 @@ testpaths = ["src/arbitraje"]
 [tool.poetry.scripts]
 arbitraje-ccxt = "arbitraje.arbitrage_report_ccxt:main"
 arbitraje-tri = "arbitraje.tri_bot:main"
+swapper = "arbitraje.swapper:_main_cli"
+swaper = "arbitraje.swapper:_main_cli"  # backward-compat command name
 
 [build-system]
 requires = ["poetry-core"]

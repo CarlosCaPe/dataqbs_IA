@@ -136,6 +136,15 @@
 			"group": "build"
 		},
 		{
+			"label": "Arbitraje: Swapper (test USDT<->USDC)",
+			"type": "shell",
+			"command": "poetry run swapper --config .\\swapper.yaml --exchange binance --path USDT->USDC->USDT --anchor USDT",
+			"options": {
+				"cwd": "${workspaceFolder}/projects/arbitraje"
+			},
+			"group": "build"
+		},
+		{
 			"label": "Arbitraje: Validate build & tests",
 			"type": "shell",
 			"command": "pwsh -NoProfile -Command \"Set-Location 'projects/arbitraje'; poetry install --no-interaction --no-ansi; poetry run ruff check src || $true; poetry run pytest -q\"",

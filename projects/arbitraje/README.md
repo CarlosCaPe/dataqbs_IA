@@ -103,3 +103,4 @@ SDK references (cloned into `sdk/*` when using bootstrap):
 - Binance: https://github.com/binance/binance-connector-python
 - MEXC: https://github.com/mexcdevelop/mexc-api-sdk (docs: https://www.mexc.com/api-docs/spot-v3/introduction#api-library)
 - Bitget: https://github.com/BitgetLimited/v3-bitget-api-sdk
+- OKX: https://github.com/okxapi/python-okx
