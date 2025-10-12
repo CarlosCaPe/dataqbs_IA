@@ -743,15 +743,15 @@ def main() -> None:
     parser.add_argument("--min_quote_vol", type=float, default=0.0)
     parser.add_argument("--vol_strict", action="store_true")
     parser.add_argument("--max_spread_cap", type=float, default=10.0)
-    parser.add_argument("--buy_fee", type=float, default=0.10, help="%")
-    parser.add_argument("--sell_fee", type=float, default=0.10, help="%")
-    parser.add_argument("--xfer_fee_pct", type=float, default=0.0, help="% additional xfer cost")
+    parser.add_argument("--buy_fee", type=float, default=0.10, help="%%")
+    parser.add_argument("--sell_fee", type=float, default=0.10, help="%%")
+    parser.add_argument("--xfer_fee_pct", type=float, default=0.0, help="%% additional xfer cost")
     parser.add_argument("--per_ex_timeout", type=float, default=6.0, help="seconds per-exchange budget when iterating symbols")
     parser.add_argument("--per_ex_limit", type=int, default=0, help="max symbols per exchange iteration (0 = no cap)")
     parser.add_argument("--ex_limit", type=int, default=0, help="cap number of exchanges when ex=all")
 
     # Triangular
-    parser.add_argument("--tri_fee", type=float, default=0.10, help="per-hop fee %")
+    parser.add_argument("--tri_fee", type=float, default=0.10, help="per-hop fee %%")
     parser.add_argument("--tri_currencies_limit", type=int, default=35)
     parser.add_argument("--tri_min_net", type=float, default=0.5)
     parser.add_argument("--tri_top", type=int, default=5)
@@ -759,11 +759,11 @@ def main() -> None:
     parser.add_argument("--tri_min_quote_vol", type=float, default=0.0, help="Filter hops by min quote volume")
 
     # Bellman-Ford
-    parser.add_argument("--bf_fee", type=float, default=0.10, help="per-hop fee %")
+    parser.add_argument("--bf_fee", type=float, default=0.10, help="per-hop fee %%")
     parser.add_argument("--bf_currencies_limit", type=int, default=35)
     parser.add_argument("--bf_rank_by_qvol", action="store_true", help="Rank and select currencies by aggregate quote volume to build a higher-quality universe")
     parser.add_argument("--bf_min_net", type=float, default=0.5)
-    parser.add_argument("--bf_min_net_per_hop", type=float, default=0.0, help="Descarta ciclos BF cuyo net/hop sea inferior a este umbral (%)")
+    parser.add_argument("--bf_min_net_per_hop", type=float, default=0.0, help="Descarta ciclos BF cuyo net/hop sea inferior a este umbral (%%)")
     parser.add_argument("--bf_top", type=int, default=5)
     parser.add_argument("--bf_persist_top_csv", action="store_true", help="Persistir las top oportunidades por iteración en un CSV acumulado")
     parser.add_argument("--bf_require_quote", action="store_true")
@@ -789,7 +789,7 @@ def main() -> None:
         "--simulate_select",
         choices=["best", "first"],
         default="best",
-        help="How to choose the opportunity each iteration: best = highest net %; first = first found",
+    help="How to choose the opportunity each iteration: best = highest net %% ; first = first found",
     )
     parser.add_argument("--simulate_from_wallet", action="store_true", help="Initialize simulation from wallet balance (USDT/USDC); requires exchange credentials")
     parser.add_argument("--simulate_prefer", choices=["USDT", "USDC", "auto"], default="auto", help="Preferred anchor when using --simulate_from_wallet; auto = choose with higher balance")
