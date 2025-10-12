@@ -775,7 +775,9 @@ def main() -> None:
     parser.add_argument("--bf_require_quote", action="store_true")
     parser.add_argument("--bf_min_hops", type=int, default=0)
     parser.add_argument("--bf_max_hops", type=int, default=0)
-    parser.add_argument("--bf_require_topofbook", action="store_true", help="Use only bid/ask; no 'last' fallback")
+    parser.add_argument("--bf_require_topofbook", dest="bf_require_topofbook", action="store_true", help="Use only bid/ask; no 'last' fallback")
+    # Allow overriding YAML 'true' from CLI by providing an explicit negative flag
+    parser.add_argument("--no-bf_require_topofbook", dest="bf_require_topofbook", action="store_false", help="Allow 'last' fallback when bid/ask missing (overrides YAML)")
     parser.add_argument("--bf_min_quote_vol", type=float, default=0.0, help="Filter edges by min quote volume")
     parser.add_argument("--bf_threads", type=int, default=1, help="Threads for per-exchange BF scanning (1 = no threading, 0 or negative = one thread per exchange)")
     parser.add_argument("--bf_debug", action="store_true", help="Print BF debug details: currencies, edges, and cycles counts per exchange")
@@ -783,7 +785,9 @@ def main() -> None:
     parser.add_argument("--use_balance", action="store_true", help="Use authenticated QUOTE balance (if available) for est_after; min(inv, balance)")
     parser.add_argument("--balance_kind", choices=["free", "total"], default="free", help="Balance kind when --use_balance")
     # Depth-aware revalidation (optional)
-    parser.add_argument("--bf_revalidate_depth", action="store_true", help="Revalidar los ciclos BF con profundidad L2 (consume niveles) antes de reportar")
+    parser.add_argument("--bf_revalidate_depth", dest="bf_revalidate_depth", action="store_true", help="Revalidar los ciclos BF con profundidad L2 (consume niveles) antes de reportar")
+    # Negative flag to disable depth revalidation even if YAML enables it
+    parser.add_argument("--no-bf_revalidate_depth", dest="bf_revalidate_depth", action="store_false", help="Desactivar revalidación con profundidad L2 (override YAML)")
     parser.add_argument("--bf_use_ws", action="store_true", help="Intentar usar WebSocket L2 parcial (solo binance por ahora); fallback REST si no disponible")
     parser.add_argument("--bf_depth_levels", type=int, default=20, help="Niveles de profundidad para REST fallback")
     parser.add_argument("--bf_latency_penalty_bps", type=float, default=0.0, help="Penalización de latencia (bps) restada al net%% estimado tras revalidación de profundidad")
