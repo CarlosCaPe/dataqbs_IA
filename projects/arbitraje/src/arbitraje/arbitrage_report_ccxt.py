@@ -1827,13 +1827,17 @@ def main() -> None:
                                         start_bal = 0.0
                                     bal = float(st.get("balance", 0.0) or 0.0)
                                     ccy = str(st.get("ccy", ""))
-                                    roi = ((bal - start_bal) / start_bal * 100.0) if start_bal > 0 else 0.0
+                                    # Display fallback: if using wallet and start_balance is 0 but balance>0, assume start equals current for reporting
+                                    sb_disp = start_bal
+                                    if getattr(args, "simulate_from_wallet", False) and sb_disp == 0.0 and bal > 0.0:
+                                        sb_disp = bal
+                                    roi = ((bal - sb_disp) / sb_disp * 100.0) if sb_disp > 0 else 0.0
                                     rows_sim.append({
                                         "exchange": ex_id,
                                         "currency": ccy,
-                                        "start_balance": round(start_bal, 8),
+                                        "start_balance": round(sb_disp, 8),
                                         "balance": round(bal, 8),
-                                        "profit": round(bal - start_bal, 8),
+                                        "profit": round(bal - sb_disp, 8),
                                         "roi_pct": round(roi, 6),
                                     })
                                 df_sim = pd.DataFrame(rows_sim)
@@ -1892,8 +1896,7 @@ def main() -> None:
                             iter_lines.extend(lines)
                             # Append progress lines and update progress bar as each worker completes
                             try:
-                                if lines:
-                                    with open(current_file, "a", encoding="utf-8") as fh:
+                                with open(current_file, "a", encoding="utf-8") as fh:
                                         if getattr(args, "ui_progress_bar", True):
                                             completed_count += 1
                                             total_ex = max(1, len(EX_IDS))
@@ -1906,7 +1909,8 @@ def main() -> None:
                                             except Exception:
                                                 spinner = ""
                                             fh.write(f"{bar} {completed_count}/{total_ex} {spinner}\n")
-                                        fh.write("\n".join(lines) + "\n")
+                                        if lines:
+                                            fh.write("\n".join(lines) + "\n")
                                         # Append refreshed tables (partial view)
                                         try:
                                             # TOP oportunidades (parcial)
@@ -2042,9 +2046,8 @@ def main() -> None:
                     _ex_id, lines, rows = bf_worker(ex_id, it, ts)
                     iter_lines.extend(lines)
                     # Append progress lines in sequential mode as well, updating progress bar
-                    try:
-                        if lines:
-                            with open(current_file, "a", encoding="utf-8") as fh:
+                            try:
+                                with open(current_file, "a", encoding="utf-8") as fh:
                                 if getattr(args, "ui_progress_bar", True):
                                     completed_count += 1
                                     total_ex = max(1, len(EX_IDS))
@@ -2057,7 +2060,8 @@ def main() -> None:
                                     except Exception:
                                         spinner = ""
                                     fh.write(f"{bar} {completed_count}/{total_ex} {spinner}\n")
-                                fh.write("\n".join(lines) + "\n")
+                                if lines:
+                                    fh.write("\n".join(lines) + "\n")
                                 # Append refreshed tables (partial view)
                                 try:
                                     # TOP oportunidades (parcial)
