@@ -135,5 +135,15 @@
 			],
 			"group": "build"
 		}
+		,
+		{
+			"label": "Repo: Init/Update submodules",
+			"type": "shell",
+			"command": "pwsh -NoProfile -Command \"git submodule update --init --recursive; git submodule update --remote --merge\"",
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"group": "build"
+		}
 	]
 }

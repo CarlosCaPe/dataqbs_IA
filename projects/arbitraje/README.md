@@ -83,7 +83,16 @@ Notes:
 
 ## SDK bootstrap (optional)
 
-We keep SDK metadata in `arbitraje.yaml` under `sdk:`. You can clone/update SDKs into `./sdk/*` with:
+We keep SDK metadata in `arbitraje.yaml` under `sdk:`. You can either use Git submodules (preferred, already configured) or clone/update SDKs into `./sdk/*` with the helper.
+
+Submodules (preferred):
+
+```
+git submodule update --init --recursive
+git submodule update --remote --merge   # to update later
+```
+
+Helper script (optional alternative):
 
 ```
 poetry run python bootstrap_sdks.py
