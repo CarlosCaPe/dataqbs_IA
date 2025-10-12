@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "arbitraje"
-version = "0.2.0"
+version = "0.3.0"
 description = "Crypto price arbitrage scanner using ccxt (BF/tri modes)"
 authors = ["Your Name <you@example.com>"]
 license = "MIT"
