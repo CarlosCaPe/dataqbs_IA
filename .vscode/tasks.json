@@ -125,6 +125,15 @@
 				"cwd": "${workspaceFolder}/projects/arbitraje"
 			},
 			"group": "build"
+		},
+		{
+			"label": "Arbitraje: Validate build & tests",
+			"type": "shell",
+			"command": "pwsh -NoProfile -Command \"Set-Location 'projects/arbitraje'; poetry install --no-interaction --no-ansi; poetry run ruff check src || $true; poetry run pytest -q\"",
+			"problemMatcher": [
+				"$tsc"
+			],
+			"group": "build"
 		}
 	]
 }
