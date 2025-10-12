@@ -5,7 +5,7 @@
 mode: bf  # Modo principal: bf (Bellman-Ford), tri (triangular), balance, health
 
 # Exchanges a incluir. Puede ser lista o CSV. Equivale a --ex
-ex: [binance, bitget, coinbase, mexc, bybit, kraken, gateio, okx, kucoin]
+ex: [binance, bitget, mexc]
 
 quote: USDT   # Moneda ancla por defecto cuando no se usan múltiples (USDT/USDC)
 inv: 0.0      # Monto base de inversión/simulación si no se usa saldo de wallet. Si no hay saldo, debe ser 0
@@ -15,19 +15,19 @@ bf:                      # Parámetros específicos del modo Bellman-Ford
   allowed_quotes: [USDT, USDC]    # Anclas permitidas para cerrar ciclos (p.ej. USDT y USDC)
   fee: 0.10                       # Comisión por hop en % (se aplica en cada salto)
   rank_by_qvol: true              # Prioriza monedas por volumen de cotización (mejor liquidez)
-  currencies_limit: 50            # Límite de monedas en el universo por exchange (perfil previo estable)
+  currencies_limit: 120            # Límite de monedas en el universo por exchange (perfil previo estable)
   # Presets sugeridos:
   # currencies_limit: 500         # Más amplio (cuidado con tiempo/ratelimits)
   # currencies_limit: 1000        # Máxima cobertura (pesado)
-  min_net: 1.0                    # % neto mínimo del ciclo para reportar (1%)
+  min_net: .5                    # % neto mínimo del ciclo para reportar (1%)
   min_net_per_hop: 0.0            # % neto mínimo por hop (filtro de calidad adicional)
   top: 6                          # Top de oportunidades a mostrar por iteración
   require_quote: true             # Requiere que el ciclo empiece/termine en las anclas permitidas
   require_topofbook: true         # Usa solo bid/ask (sin fallback a 'last')
-  min_quote_vol: 30000            # Volumen mínimo (en QUOTE) por hop (más realista)
+  min_quote_vol: 10000            # Volumen mínimo (en QUOTE) por hop (más realista)
   min_hops: 3                     # Mínimo de saltos en el ciclo
   max_hops: 6                     # Máximo de saltos en el ciclo
-  threads: 10                     # Paralelismo por exchange. 1=secuencial; 0 o negativo=1 hilo por exchange; n=min(n, #ex)
+  threads: 0                     # Paralelismo por exchange. 1=secuencial; 0 o negativo=1 hilo por exchange; n=min(n, #ex)
   require_dual_quote: false       # Si hay 2+ anclas, exigir que las bases tengan mercados contra todas
   persist_top_csv: true           # Persistir el top-k por iteración (se sobrescribe cada iteración)
   revalidate_depth: true          # Revalidación con profundidad L2 (consume niveles y aplica slippage)
