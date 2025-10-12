@@ -1829,6 +1829,7 @@ def main() -> None:
                                         "currency": ccy,
                                         "start_balance": round(start_bal, 8),
                                         "balance": round(bal, 8),
+                                        "profit": round(bal - start_bal, 8),
                                         "roi_pct": None if roi is None else round(roi, 6),
                                     })
                                 df_sim = pd.DataFrame(rows_sim)
@@ -2140,6 +2141,7 @@ def main() -> None:
                                     "currency": ccy,
                                     "start_balance": round(start_bal, 8),
                                     "balance": round(bal, 8),
+                                    "profit": round(bal - start_bal, 8),
                                     "roi_pct": None if roi is None else round(roi, 6),
                                 })
                             if rows_sim:
