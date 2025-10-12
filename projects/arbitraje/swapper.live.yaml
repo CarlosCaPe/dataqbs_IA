@@ -21,7 +21,7 @@ dry_run: false
 # Used only when mode=test and no explicit --amount is provided.
 # If an exchange is not listed, a default of 1.0 will be used.
 test_min_amounts:
-	binance: 5.0
-	okx: 1.0
-	bitget: 1.0
-	mexc: 1.0
+  binance: 10.0
+  okx: 1.0
+  bitget: 1.0
+  mexc: 1.0

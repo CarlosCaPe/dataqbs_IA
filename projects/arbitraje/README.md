@@ -6,6 +6,7 @@ Crypto price arbitrage scanner using ccxt (market data) with intra-exchange tria
 - Artifacts: `artifacts/arbitraje/{logs,outputs}`
 - CLIs:
 	- `arbitraje-ccxt` (main)
+	- `swapper` (módulo de swaps aislado)
 
 ## Configuration (.env)
 
@@ -50,6 +51,27 @@ poetry run arbitraje-ccxt --mode bf \
 ```
 
 Outputs are written to `artifacts/arbitraje/outputs` (CSVs) and logs to `artifacts/arbitraje/logs`.
+
+### Swapper (isolated executor)
+
+Pruebas rápidas con round-trip entre estables (por ejemplo USDT↔USDC):
+
+Test (no órdenes reales):
+
+```
+poetry run swapper --config .\swapper.yaml --exchange binance --path USDT->USDC->USDT --anchor USDT
+```
+
+Real (órdenes reales; usa .env con tus llaves):
+
+```
+poetry run swapper --config .\swapper.live.yaml --exchange binance --path USDT->USDC->USDT --anchor USDT --amount 10.0
+```
+
+Notas:
+- En `swapper.live.yaml` `dry_run=false` ejecuta órdenes reales; úsalo con cantidades muy pequeñas.
+- Binance requiere ~10 USDT mínimo para USDT/USDC por filtros de NOTIONAL.
+- Bitget/MEXC suelen aceptar ~1.01 USDT; OKX ~1.0.
 
 ## Balance providers & API keys
 

@@ -131,6 +131,11 @@ def _load_exchange(ex_id: str, auth: bool, timeout_ms: int = 15000) -> ccxt.Exch
         opts = dict(cfg.get("options") or {})
         opts["createMarketBuyOrderRequiresPrice"] = False
         cfg["options"] = opts
+    # Binance: similarly allow cost-based market buy
+    if ex_id == "binance":
+        opts = dict(cfg.get("options") or {})
+        opts["createMarketBuyOrderRequiresPrice"] = False
+        cfg["options"] = opts
     ex = cls(cfg)
     try:
         ex.timeout = int(timeout_ms)
@@ -175,6 +180,9 @@ class Swapper:
         self.max_slippage_bps = float(self.config.get("max_slippage_bps", 25.0))
         self.min_notional = float(self.config.get("min_notional", 1.0))
         self.dry_run = bool(self.config.get("dry_run", False))
+        # Execution tuning (optional; defaults are fastest)
+        self.settle_sleep_ms = int(self.config.get("settle_sleep_ms", 0))
+        self.confirm_fill = bool(self.config.get("confirm_fill", False))
         # Per-exchange minimums for test mode
         try:
             self.test_min_amounts: Dict[str, float] = {
@@ -209,13 +217,30 @@ class Swapper:
         amt_in = float(self.test_min_amounts.get(_normalize_ccxt_id(ex_id), 1.0))
         try:
             ex = _load_exchange(ex_id, auth=False, timeout_ms=self.timeout_ms)
-            ex.load_markets()
             a1, a2 = ("USDT", "USDC") if anchor == "USDT" else ("USDC", "USDT")
-            t = ex.fetch_tickers()
-            amt_mid = self._convert_amount_through_tickers(a1, a2, t, amt_in)
+            # Convert using only the two relevant tickers, no full fetch
+            def _convert(frm: str, to: str, amount: float) -> Optional[float]:
+                sym1 = f"{frm}/{to}"
+                sym2 = f"{to}/{frm}"
+                try:
+                    t1 = ex.fetch_ticker(sym1)
+                    bid = t1.get("bid") or t1.get("last")
+                    if bid and bid > 0:
+                        return float(amount) * float(bid)
+                except Exception:
+                    pass
+                try:
+                    t2 = ex.fetch_ticker(sym2)
+                    ask = t2.get("ask") or t2.get("last")
+                    if ask and ask > 0:
+                        return float(amount) / float(ask)
+                except Exception:
+                    pass
+                return None
+            amt_mid = _convert(a1, a2, amt_in)
             if amt_mid is None:
                 return SwapResult(False, "failed", amt_in, 0.0, -amt_in, {"reason": "no_ticker_a1_a2"})
-            amt_out = self._convert_amount_through_tickers(a2, a1, t, amt_mid)
+            amt_out = _convert(a2, a1, amt_mid)
             if amt_out is None:
                 return SwapResult(False, "failed", amt_in, 0.0, -amt_in, {"reason": "no_ticker_a2_a1"})
             delta = amt_out - amt_in
@@ -228,36 +253,9 @@ class Swapper:
         except Exception as e:
             return SwapResult(False, "failed", amt_in, 0.0, -amt_in, {"error": str(e)})
 
-    def _convert_amount_through_tickers(
-        self,
-        from_ccy: str,
-        to_ccy: str,
-        tickers: dict,
-        amount: float,
-    ) -> Optional[float]:
-        from_ccy = from_ccy.upper()
-        to_ccy = to_ccy.upper()
-        sym1 = f"{from_ccy}/{to_ccy}"
-        sym2 = f"{to_ccy}/{from_ccy}"
-        t1 = tickers.get(sym1)
-        if t1:
-            bid = t1.get("bid") or t1.get("last")
-            if bid and bid > 0:
-                return float(amount) * float(bid)
-        t2 = tickers.get(sym2)
-        if t2:
-            ask = t2.get("ask") or t2.get("last")
-            if ask and ask > 0:
-                return float(amount) / float(ask)
-        return None
-
     def _run_real(self, plan: SwapPlan) -> SwapResult:
         ex_id = plan.exchange
         ex = _load_exchange(ex_id, auth=True, timeout_ms=self.timeout_ms)
-        try:
-            markets = ex.load_markets()
-        except Exception:
-            markets = {}
         amt = float(plan.amount or 0.0)
         if amt <= 0:
             try:
@@ -275,11 +273,20 @@ class Swapper:
         try:
             for hop in plan.hops:
                 base, quote = hop.base.upper(), hop.quote.upper()
-                sym = f"{base}/{quote}"
+                sym1 = f"{base}/{quote}"
+                sym2 = f"{quote}/{base}"
                 invert = False
-                if sym not in markets:
-                    sym2 = f"{quote}/{base}"
-                    if sym2 not in markets:
+                # Determine available orientation by trying fetch_ticker quickly
+                try:
+                    t = ex.fetch_ticker(sym1)
+                    sym = sym1
+                except Exception:
+                    t = None
+                    try:
+                        t = ex.fetch_ticker(sym2)
+                        sym = sym2
+                        invert = True
+                    except Exception:
                         return SwapResult(
                             False,
                             "failed",
@@ -288,8 +295,6 @@ class Swapper:
                             amount_cur - amt,
                             {"reason": "symbol_missing", "hop": f"{base}->{quote}"},
                         )
-                    sym = sym2
-                    invert = True
 
                 # Determine trade side based on the actual market symbol orientation
                 # sym_base/sym_quote refer to the ccxt market we will send the order to
@@ -309,8 +314,10 @@ class Swapper:
                     )
 
                 # Fetch ticker and choose appropriate side price (bid for sell, ask for buy)
+                price = None
                 try:
-                    t = ex.fetch_ticker(sym)
+                    if t is None:
+                        t = ex.fetch_ticker(sym)
                     if side == "sell":
                         price = t.get("bid") or t.get("last")
                     else:
@@ -323,7 +330,7 @@ class Swapper:
                 order_type = "market"
 
                 try:
-                    buy_uses_cost = getattr(ex, "id", "").lower() == "bitget"
+                    buy_uses_cost = getattr(ex, "id", "").lower() in ("bitget", "binance")
                 except Exception:
                     buy_uses_cost = False
                 try:
@@ -369,13 +376,14 @@ class Swapper:
                     price=None,
                     params=params,
                 )
-                time.sleep(0.2)
+                if self.settle_sleep_ms > 0:
+                    time.sleep(self.settle_sleep_ms / 1000.0)
                 try:
                     oid = order.get("id") if isinstance(order, dict) else None
                 except Exception:
                     oid = None
                 filled_out = None
-                if oid:
+                if self.confirm_fill and oid:
                     try:
                         o2 = ex.fetch_order(oid, sym)
                         filled = float(o2.get("filled") or 0.0)
@@ -386,6 +394,17 @@ class Swapper:
                             filled_out = filled
                     except Exception:
                         filled_out = None
+                if filled_out is None and isinstance(order, dict):
+                    try:
+                        filled = float(order.get("filled") or 0.0)
+                        avg = float(order.get("average") or order.get("price") or (price or 0.0))
+                        if filled and avg:
+                            if side == "sell":
+                                filled_out = filled * avg
+                            else:
+                                filled_out = filled
+                    except Exception:
+                        pass
 
                 if filled_out is None:
                     if side == "sell":

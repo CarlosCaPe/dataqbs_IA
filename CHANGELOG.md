@@ -2,6 +2,28 @@
 
 All notable changes to this repository are documented here. Dates are in YYYY-MM-DD.
 
+## arbitraje v0.4.0 — 2025-10-12 (swapper)
+
+Minor release for the arbitraje project introducing the new Swapper module and performance-focused refinements for fast, isolated execution of spot round-trips.
+
+Highlights
+- New: Swapper OOP module (`src/arbitraje/swapper.py`) with its own YAML config, CLI, and VS Code tasks. Supports both test and real modes.
+- Config: `projects/arbitraje/swapper.yaml` (defaults, dry-run on) and `projects/arbitraje/swapper.live.yaml` (live, dry-run off).
+- Per-exchange minimums: YAML-driven `test_min_amounts` used in test mode; Binance minimum set to 10.0 USDT for USDT/USDC (practical NOTIONAL filter).
+- Speed: Avoid heavy `load_markets`/`fetch_tickers`, use targeted `fetch_ticker`; optional fill confirmation; no sleeps by default.
+- Cost-based market buys: Enabled for Bitget and Binance via ccxt options.
+- Env: Auto-load `.env` from repo and project roots for API keys.
+
+Docs & Tasks
+- CLI entrypoints: `poetry run swapper` (alias `swaper`).
+- VS Code tasks: "Arbitraje: Swapper (test USDT<->USDC)" and live config ready.
+- Updated README with Swapper usage basics.
+
+Quality gates
+- Build: PASS (Poetry install).
+- Lint/Typecheck: non-blocking ruff issues remain in legacy modules, no new errors in Swapper.
+- Tests: PASS (existing tests run; Swapper manually validated with tiny real orders on OKX/Bitget/MEXC; Binance at 10 USDT).
+
 ## arbitraje v0.2.0 — 2025-10-11
 
 Minor release for the arbitraje project focusing on YAML-driven configuration, safer balance handling, and cleanup.
