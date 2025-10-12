@@ -1761,8 +1761,17 @@ def main() -> None:
                     bf_top_hist_csv.unlink()  # type: ignore[arg-type]
             except Exception:
                 pass
+            # Create snapshot file immediately so users can follow progress from the beginning
+            try:
+                with open(current_file, "w", encoding="utf-8") as fh:
+                    fh.write(f"[BF] Iteración {it}/{args.repeat} @ {ts}\n")
+                    fh.write("(progreso en tiempo real; al final se agregan tablas de resumen)\n\n")
+                    fh.flush()
+            except Exception:
+                pass
             iter_lines: List[str] = []
             iter_results: List[dict] = []
+            progress_started = False  # ensure we print a single header for the progress section
             # Run workers (threaded or sequential)
             # If --bf_threads <= 0, use one thread per exchange. Otherwise, limit to the number of exchanges.
             configured_threads = int(args.bf_threads)
@@ -1773,6 +1782,17 @@ def main() -> None:
                     for fut in concurrent.futures.as_completed(futures):
                         ex_id, lines, rows = fut.result()
                         iter_lines.extend(lines)
+                        # Append progress lines to CURRENT_BF as each worker completes
+                        try:
+                            if lines:
+                                with open(current_file, "a", encoding="utf-8") as fh:
+                                    if not progress_started:
+                                        fh.write("Detalle (progreso)\n")
+                                        progress_started = True
+                                    fh.write("\n".join(lines) + "\n")
+                                    fh.flush()
+                        except Exception:
+                            pass
                         # persistence update must be synchronized; here it's single-threaded in main
                         for row in rows:
                             iter_results.append(row)
@@ -1802,6 +1822,17 @@ def main() -> None:
                 for ex_id in EX_IDS:
                     _ex_id, lines, rows = bf_worker(ex_id, it, ts)
                     iter_lines.extend(lines)
+                    # Append progress lines in sequential mode as well
+                    try:
+                        if lines:
+                            with open(current_file, "a", encoding="utf-8") as fh:
+                                if not progress_started:
+                                    fh.write("Detalle (progreso)\n")
+                                    progress_started = True
+                                fh.write("\n".join(lines) + "\n")
+                                fh.flush()
+                    except Exception:
+                        pass
                     for row in rows:
                         iter_results.append(row)
                         key = (row["exchange"], row["path"])
@@ -1933,9 +1964,9 @@ def main() -> None:
                         pd.DataFrame(columns=["exchange","path","net_pct","inv","est_after","hops","iteration","ts"]).to_csv(bf_iter_csv, index=False)
                 except Exception:
                     pass
-                # Snapshot file (last iteration only) with aggregation tables
-                with open(current_file, "w", encoding="utf-8") as fh:
-                    fh.write(f"[BF] Iteración {it}/{args.repeat} @ {ts}\n\n")
+                # Snapshot file: append final aggregated sections (keep earlier progress)
+                with open(current_file, "a", encoding="utf-8") as fh:
+                    fh.write("\n---\nResumen final (iteración)\n\n")
                     # 1) Top oportunidades de la iteración
                     try:
                         if iter_results:
@@ -2011,9 +2042,10 @@ def main() -> None:
                                 fh.write("\n\n")
                     except Exception:
                         pass
-                    # 5) Detalle texto (incluye [SIM] picks por iteración)
+                    # 5) Detalle texto final (incluye [SIM] picks por iteración)
+                    # Ya se fueron agregando líneas de progreso; añadimos el detalle completo al final por conveniencia
                     if iter_lines:
-                        fh.write("Detalle (iteración)\n")
+                        fh.write("Detalle (iteración, completo)\n")
                         fh.write("\n".join(iter_lines) + "\n")
                     else:
                         fh.write("(sin oportunidades en esta iteración)\n")
