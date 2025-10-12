@@ -134,8 +134,7 @@
 				"$tsc"
 			],
 			"group": "build"
-		}
-		,
+		},
 		{
 			"label": "Repo: Init/Update submodules",
 			"type": "shell",
