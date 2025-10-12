@@ -186,7 +186,7 @@ def main() -> None:
     parser.add_argument("--ex", default=os.environ.get("EX", os.environ.get("EXCHANGE", "binance")))
     parser.add_argument("--quote", default=os.environ.get("QUOTE", "USDT"))
     parser.add_argument("--mode", choices=["paper","live"], default=os.environ.get("MODE", "paper"))
-    parser.add_argument("--config", default=str(paths.MONOREPO_ROOT/"config.yaml"))
+    parser.add_argument("--config", default=str(paths.PROJECT_ROOT/"arbitraje.yaml"))
     parser.add_argument("--fee_bps", type=float, default=float(os.environ.get("TAKER_FEE_BPS", "10")))
     parser.add_argument("--min_profit_bps", type=float, default=float(os.environ.get("MIN_PROFIT_BPS", "12")))
     parser.add_argument("--max_slippage_bps", type=float, default=float(os.environ.get("MAX_SLIPPAGE_BPS", "8")))

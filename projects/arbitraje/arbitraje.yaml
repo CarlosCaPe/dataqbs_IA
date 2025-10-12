@@ -1,0 +1,78 @@
+# Default configuration for arbitraje-ccxt
+# Buenas prácticas: mantener parámetros aquí. La CLI siempre puede sobrescribir.
+# Precedencia: CLI > YAML > valores por defecto del código.
+
+mode: bf  # Modo principal: bf (Bellman-Ford), tri (triangular), balance, health
+
+# Exchanges a incluir. Puede ser lista o CSV. Equivale a --ex
+ex: [binance, mexc, bitget]
+
+quote: USDT   # Moneda ancla por defecto cuando no se usan múltiples (USDT/USDC)
+inv: 0.0      # Monto base de inversión/simulación si no se usa saldo de wallet. Si no hay saldo, debe ser 0
+
+# Bellman-Ford (BF) settings
+bf:                      # Parámetros específicos del modo Bellman-Ford
+  allowed_quotes: [USDT, USDC]    # Anclas permitidas para cerrar ciclos (p.ej. USDT y USDC)
+  fee: 0.10                       # Comisión por hop en % (se aplica en cada salto)
+  rank_by_qvol: true              # Prioriza monedas por volumen de cotización (mejor liquidez)
+  currencies_limit: 10            # Límite de monedas en el universo por exchange
+  min_net: 0.8                    # % neto mínimo del ciclo para reportar
+  min_net_per_hop: 0.0            # % neto mínimo por hop (filtro de calidad adicional)
+  top: 3                          # Top de oportunidades a mostrar por iteración
+  require_quote: true             # Requiere que el ciclo empiece/termine en las anclas permitidas
+  require_topofbook: true         # Usa solo bid/ask (sin fallback a last)
+  min_quote_vol: 10000            # Volumen mínimo (en QUOTE) por hop; filtra ilíquidos
+  min_hops: 3                     # Mínimo de saltos en el ciclo
+  max_hops: 6                     # Máximo de saltos en el ciclo
+  threads: 0                      # Paralelismo por exchange. 1=secuencial; 0 o negativo=1 hilo por exchange; n=min(n, #ex)
+  require_dual_quote: false       # Si hay 2+ anclas, exigir que las bases tengan mercados contra todas
+  persist_top_csv: false          # Persistir el top-k por iteración (se sobrescribe cada iteración)
+  revalidate_depth: true          # Revalidación con profundidad L2 (consume niveles y aplica slippage)
+  use_ws: true                    # Intenta WS L2 (solo binance soportado); fallback REST si no hay WS
+  depth_levels: 20                # Niveles de profundidad para REST (cuando no hay WS)
+  latency_penalty_bps: 2          # Penalización por latencia en bps (resta al neto revalidado)
+
+# General runtime
+max: 200          # Tamaño del universo de símbolos/monedas (límite superior)
+timeout: 15000    # Timeout de ccxt en ms
+sleep: 0.10       # Pausa entre llamadas (s); ayuda a evitar rate limits
+repeat: 2         # Iteraciones del loop; subir para runs largos
+repeat_sleep: 0   # Pausa entre iteraciones (s)
+
+# Balance usage and simulation
+use_balance: true                 # Usa saldo autenticado de QUOTE (min(inv, saldo)); si no hay saldo => 0
+balance_kind: free                # Tipo de saldo: free | total
+balance_provider: ccxt            # ccxt | native (binance) | connector (binance sdk) | bitget_sdk
+ex_auth_only: false               # Incluir solo exchanges con credenciales presentes
+simulate_compound: true           # Simula composición: aplica una oportunidad por iteración sobre un saldo en QUOTE
+simulate_from_wallet: true        # Inicializa simulación desde wallet (USDT/USDC); si no hay acceso, saldo inicial 0
+simulate_prefer: auto             # Preferencia de ancla con wallet: USDT | USDC | auto
+simulate_select: best             # Selección por iteración: best (mejor %) | first (primera encontrada)
+simulate_auto_switch: true        # Cambia ancla automáticamente si hay una mejor oportunidad neta
+
+# Console behavior
+no_console_clear: true            # No limpiar consola entre iteraciones (ARBITRAJE_NO_CLEAR=1 hace lo mismo)
+
+# Triangular (TRI) settings (placeholders; activa con mode: tri o CLI --mode tri)
+tri:
+  fee: 0.10                       # Comisión por hop en %
+  currencies_limit: 35            # Límite de monedas
+  min_net: 0.5                    # % neto mínimo del triángulo
+  top: 5                          # Top de oportunidades por iteración
+  require_topofbook: false        # Solo bid/ask; si true, no usa 'last' como fallback
+  min_quote_vol: 0                # Volumen mínimo (QUOTE) por hop
+
+# SDKs oficiales / referencias (URLs y rutas locales sugeridas)
+# Estas rutas NO descargan automáticamente el SDK; sirven como metadata para documentar o automatizar.
+# Si quieres vendorizar como submódulo, usa las rutas bajo projects/arbitraje/sdk/... (creadas en este repo).
+sdk:
+  binance:
+    repo: https://github.com/binance/binance-connector-python
+    path: ./sdk/binance  # destino local sugerido para vendorizar o documentar
+  mexc:
+    repo: https://github.com/mexcdevelop/mexc-api-sdk
+    docs: https://www.mexc.com/api-docs/spot-v3/introduction#api-library
+    path: ./sdk/mexc
+  bitget:
+    repo: https://github.com/BitgetLimited/v3-bitget-api-sdk
+    path: ./sdk/bitget

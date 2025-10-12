@@ -111,7 +111,7 @@
 		{
 			"label": "Arbitraje: Run (report)",
 			"type": "shell",
-			"command": "poetry run python -m arbitraje.coingecko_arbitrage_report",
+			"command": "echo 'arbitraje.coingecko_arbitrage_report is deprecated; use arbitraje-ccxt'",
 			"options": {
 				"cwd": "${workspaceFolder}/projects/arbitraje"
 			},

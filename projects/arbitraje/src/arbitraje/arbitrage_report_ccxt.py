@@ -9,6 +9,7 @@ import logging
 import ccxt
 import pandas as pd
 from tabulate import tabulate
+import yaml
 
 from . import paths
 from . import binance_api
@@ -70,6 +71,7 @@ def safe_has(ex: ccxt.Exchange, feature: str) -> bool:
 
 
 def load_exchange(ex_id: str, timeout_ms: int) -> ccxt.Exchange:
+    ex_id = normalize_ccxt_id(ex_id)
     cls = getattr(ccxt, ex_id)
     ex = cls({"enableRateLimit": True})
     try:
@@ -82,7 +84,7 @@ def load_exchange(ex_id: str, timeout_ms: int) -> ccxt.Exchange:
 def creds_from_env(ex_id: str) -> dict:
     """Return ccxt credential dict if env vars for the exchange exist; else {}."""
     env = os.environ
-    ex_id = (ex_id or "").lower()
+    ex_id = normalize_ccxt_id(ex_id)
     try:
         if ex_id == "binance":
             k = env_get_stripped("BINANCE_API_KEY"); s = env_get_stripped("BINANCE_API_SECRET")
@@ -101,6 +103,28 @@ def creds_from_env(ex_id: str) -> dict:
             k = env_get_stripped("COINBASE_API_KEY"); s = env_get_stripped("COINBASE_API_SECRET"); p = env_get_stripped("COINBASE_API_PASSWORD")
             if k and s and p:
                 return {"apiKey": k, "secret": s, "password": p}
+        elif ex_id == "okx":
+            k = env_get_stripped("OKX_API_KEY"); s = env_get_stripped("OKX_API_SECRET"); p = env_get_stripped("OKX_API_PASSWORD")
+            if k and s and p:
+                return {"apiKey": k, "secret": s, "password": p}
+        elif ex_id == "kucoin":
+            k = env_get_stripped("KUCOIN_API_KEY"); s = env_get_stripped("KUCOIN_API_SECRET"); p = env_get_stripped("KUCOIN_API_PASSWORD")
+            if k and s and p:
+                return {"apiKey": k, "secret": s, "password": p}
+        elif ex_id == "kraken":
+            k = env_get_stripped("KRAKEN_API_KEY"); s = env_get_stripped("KRAKEN_API_SECRET")
+            if k and s:
+                return {"apiKey": k, "secret": s}
+        elif ex_id in ("gate", "gateio"):
+            # Support both GATEIO_* and GATE_* env var names
+            k = env_get_stripped("GATEIO_API_KEY") or env_get_stripped("GATE_API_KEY")
+            s = env_get_stripped("GATEIO_API_SECRET") or env_get_stripped("GATE_API_SECRET")
+            if k and s:
+                return {"apiKey": k, "secret": s}
+        elif ex_id == "mexc":
+            k = env_get_stripped("MEXC_API_KEY"); s = env_get_stripped("MEXC_API_SECRET")
+            if k and s:
+                return {"apiKey": k, "secret": s}
     except Exception:
         pass
     return {}
@@ -108,6 +132,7 @@ def creds_from_env(ex_id: str) -> dict:
 
 def load_exchange_auth_if_available(ex_id: str, timeout_ms: int, use_auth: bool = False) -> ccxt.Exchange:
     """Load an exchange; if use_auth, pass credentials from env when available."""
+    ex_id = normalize_ccxt_id(ex_id)
     cls = getattr(ccxt, ex_id)
     cfg = {"enableRateLimit": True}
     if use_auth:
@@ -399,19 +424,31 @@ def _bf_revalidate_cycle_with_depth(
         return None, 0.0, 0.0, False
 
 
+def normalize_ccxt_id(ex_id: str) -> str:
+    """Map common aliases to ccxt canonical IDs (e.g., gateio->gate, okex->okx)."""
+    x = (ex_id or "").lower().strip()
+    aliases = {
+        "gateio": "gate",
+        "okex": "okx",
+        "coinbasepro": "coinbase",
+        "huobipro": "htx",
+    }
+    return aliases.get(x, x)
+
+
 def resolve_exchanges(arg: str, ex_limit: int | None = None) -> List[str]:
     arg = (arg or "").strip().lower()
     if not arg or arg == "trusted":
-        return ["binance", "bitget", "bybit","coinbase"]
+        return ["binance", "bitget", "bybit", "coinbase"]
     if arg in ("trusted-plus", "trusted_plus", "trustedplus"):
-        return ["binance", "bitget", "bybit","coinbase"]
+        return ["binance", "bitget", "bybit", "coinbase"]
     if arg == "all":
         xs = list(ccxt.exchanges)
         if ex_limit and ex_limit > 0:
             xs = xs[: ex_limit]
-        return xs
+        return [normalize_ccxt_id(x) for x in xs]
     # explicit comma-separated list
-    return [s.strip().lower() for s in arg.split(",") if s.strip()]
+    return [normalize_ccxt_id(s.strip().lower()) for s in arg.split(",") if s.strip()]
 
 
 # ----------------------
@@ -621,8 +658,70 @@ def _bf_write_history_summary_and_md(history_path: str, out_csv: str, out_md: st
     _bf_write_summary_md(rows, hours, out_md)
 
 
+def _load_yaml_config_defaults(parser: argparse.ArgumentParser) -> None:
+    """Load arbitraje.yaml (or --config/ARBITRAJE_CONFIG) and set parser defaults.
+
+    Precedence: CLI > YAML > code defaults. YAML can use flat keys (matching
+    arg names) and/or sections 'bf' and 'tri' which map to bf_* / tri_*.
+    Lists for fields like 'ex' or 'bf.allowed_quotes' are converted to CSV.
+    """
+    try:
+        prelim, _ = parser.parse_known_args()
+        cfg_path = getattr(prelim, "config", None) or os.environ.get("ARBITRAJE_CONFIG")
+        if not cfg_path:
+            cfg_path = str(paths.PROJECT_ROOT / "arbitraje.yaml")
+        if not os.path.exists(cfg_path):
+            return
+        with open(cfg_path, "r", encoding="utf-8") as fh:
+            raw = yaml.safe_load(fh) or {}
+        conf: dict = {}
+
+        def list_to_csv(v):
+            if isinstance(v, list):
+                return ",".join(str(x) for x in v)
+            return v
+
+        # Flat keys
+        flat_keys = {
+            "mode","ex","exclude_ex","quote","max","timeout","sleep","inv","top",
+            "min_spread","min_price","include_stables","min_sources","min_quote_vol","vol_strict",
+            "max_spread_cap","buy_fee","sell_fee","xfer_fee_pct","per_ex_timeout","per_ex_limit","ex_limit",
+            "repeat","repeat_sleep","console_clear","no_console_clear","use_balance","balance_kind",
+            "simulate_compound","simulate_start","simulate_select","simulate_from_wallet","simulate_prefer",
+            "simulate_auto_switch","simulate_switch_threshold","balance_provider","ex_auth_only",
+            "bf_allowed_quotes",
+        }
+        for k in flat_keys:
+            if k in raw:
+                v = raw[k]
+                if k in ("ex", "bf_allowed_quotes"):
+                    v = list_to_csv(v)
+                conf[k] = v
+
+        # Sections
+        for section, prefix in ((raw.get("bf") or {}, "bf_"), (raw.get("tri") or {}, "tri_")):
+            pass
+        bf = raw.get("bf", {}) or {}
+        for k, v in bf.items():
+            key = f"bf_{k}"
+            if k in ("allowed_quotes",):
+                v = list_to_csv(v)
+            conf[key] = v
+        tri = raw.get("tri", {}) or {}
+        for k, v in tri.items():
+            key = f"tri_{k}"
+            conf[key] = v
+
+        if conf:
+            parser.set_defaults(**conf)
+    except Exception:
+        # Ignore config errors, keep code defaults
+        return
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="Arbitraje (ccxt) - modes: tri | bf | balance | health")
+    parser.add_argument("--config", type=str, default=None, help="Path to YAML config file (CLI overrides YAML)")
     parser.add_argument("--mode", choices=["tri", "bf", "balance", "health"], default="bf")
     parser.add_argument("--ex", type=str, default="trusted", help="trusted | trusted-plus | all | comma list")
     parser.add_argument("--exclude_ex", type=str, default="", help="Comma-separated exchanges to exclude after resolution (e.g., 'bitso,bitstamp')")
@@ -706,6 +805,8 @@ def main() -> None:
     # Allow multiple anchor quotes (e.g., USDT and USDC)
     parser.add_argument("--bf_allowed_quotes", type=str, default=None, help="Comma-separated list of allowed anchor quotes for BF cycles, e.g. 'USDT,USDC' (defaults to QUOTE only)")
 
+    # Apply YAML defaults before parsing final args so CLI wins over YAML
+    _load_yaml_config_defaults(parser)
     args = parser.parse_args()
 
     QUOTE = args.quote.upper()
@@ -1111,8 +1212,11 @@ def main() -> None:
                         continue
                     creds = {"apiKey": env.get("COINBASE_API_KEY"), "secret": env.get("COINBASE_API_SECRET"), "password": env.get("COINBASE_API_PASSWORD")}
                 else:
-                    logger.info("%s: modo balance no soportado aún", ex_id)
-                    continue
+                    # Generic path for any other exchange supported by ccxt, if env creds exist
+                    creds = creds_from_env(ex_id)
+                    if not creds:
+                        logger.info("%s: sin credenciales en env (omitido)", ex_id)
+                        continue
                 cls = getattr(ccxt, ex_id)
                 ex = cls({"enableRateLimit": True, **creds})
                 bal = ex.fetch_balance()
@@ -1328,31 +1432,46 @@ def main() -> None:
         sim_state: Dict[str, Dict[str, object]] = {}
         if args.simulate_compound:
             for ex_id in EX_IDS:
-                ccy = (allowed_quotes[0] if allowed_quotes else QUOTE)
+                # Default anchor choice
+                default_ccy = (allowed_quotes[0] if allowed_quotes else QUOTE)
+                ccy = default_ccy
                 bal_val: float | None = None
-                if args.simulate_from_wallet and creds_from_env(ex_id):
-                    try:
-                        ex_auth = load_exchange_auth_if_available(ex_id, args.timeout, use_auth=True)
-                        bal = ex_auth.fetch_balance()
-                        bucket = bal.get(args.balance_kind) or bal.get("free") or {}
-                        usdt = float((bucket or {}).get("USDT") or 0.0)
-                        usdc = float((bucket or {}).get("USDC") or 0.0)
-                        prefer = args.simulate_prefer
-                        if prefer == "auto":
-                            if usdt >= usdc and usdt > 0:
-                                ccy, bal_val = "USDT", usdt
-                            elif usdc > 0:
-                                ccy, bal_val = "USDC", usdc
+                if args.simulate_from_wallet:
+                    # Honor simulate_prefer for currency selection even if balance is 0
+                    prefer = args.simulate_prefer
+                    if prefer == "USDT":
+                        ccy = "USDT"
+                    elif prefer == "USDC":
+                        ccy = "USDC"
+                    # Attempt to read wallet only if we have creds
+                    if creds_from_env(ex_id):
+                        try:
+                            ex_auth = load_exchange_auth_if_available(ex_id, args.timeout, use_auth=True)
+                            bal = ex_auth.fetch_balance()
+                            bucket = bal.get(args.balance_kind) or bal.get("free") or {}
+                            usdt = float((bucket or {}).get("USDT") or 0.0)
+                            usdc = float((bucket or {}).get("USDC") or 0.0)
+                            if prefer == "auto":
+                                if usdt >= usdc and usdt > 0:
+                                    ccy, bal_val = "USDT", usdt
+                                elif usdc > 0:
+                                    ccy, bal_val = "USDC", usdc
+                                else:
+                                    # No balance in anchors; keep current ccy but start from 0
+                                    bal_val = 0.0
+                            elif prefer == "USDT":
+                                ccy, bal_val = ("USDT", usdt if usdt > 0 else 0.0)
                             else:
-                                ccy, bal_val = ccy, 0.0
-                        elif prefer == "USDT":
-                            ccy, bal_val = ("USDT", usdt if usdt > 0 else usdc)
-                        else:
-                            ccy, bal_val = ("USDC", usdc if usdc > 0 else usdt)
-                        logger.debug("Inicio desde wallet @%s: %s %.8f (prefer=%s)", ex_id, ccy, bal_val or 0.0, prefer)
-                    except Exception as e:
-                        # Keep warning, but remove [SIM] tag from the log line
-                        logger.warning("No se pudo leer wallet @%s (%s); se usará simulate_start/--inv", ex_id, e)
+                                ccy, bal_val = ("USDC", usdc if usdc > 0 else 0.0)
+                            logger.debug("Inicio desde wallet @%s: %s %.8f (prefer=%s)", ex_id, ccy, bal_val or 0.0, prefer)
+                        except Exception as e:
+                            # Balance requested but unavailable: initialize with 0
+                            logger.warning("No se pudo leer wallet @%s (%s); saldo inicial 0.0", ex_id, e)
+                            bal_val = 0.0
+                    else:
+                        # No credentials: treat as unavailable wallet
+                        bal_val = 0.0
+                # Fallback only when not using wallet-based start
                 if bal_val is None:
                     bal_val = float(args.simulate_start) if args.simulate_start is not None else float(args.inv)
                 # Track starting state to summarize PnL at the end
@@ -1383,6 +1502,9 @@ def main() -> None:
                     bal = fetch_quote_balance(ex, QUOTE, kind=args.balance_kind)
                     if bal is not None:
                         inv_amt_effective = max(0.0, min(inv_amt_cfg, float(bal)))
+                    else:
+                        # Balance unavailable: use 0 to ensure no profit is assumed
+                        inv_amt_effective = 0.0
                 # Build currency universe around allowed anchors (e.g., USDT and USDC)
                 anchors = set([q for q in allowed_quotes])
                 tokens = set([q for q in anchors])
