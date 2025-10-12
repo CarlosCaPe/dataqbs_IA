@@ -15,7 +15,10 @@ bf:                      # Parámetros específicos del modo Bellman-Ford
   allowed_quotes: [USDT, USDC]    # Anclas permitidas para cerrar ciclos (p.ej. USDT y USDC)
   fee: 0.10                       # Comisión por hop en % (se aplica en cada salto)
   rank_by_qvol: true              # Prioriza monedas por volumen de cotización (mejor liquidez)
-  currencies_limit: 10            # Límite de monedas en el universo por exchange
+  currencies_limit: 200           # Límite de monedas en el universo por exchange (200 recomendado)
+  # Presets sugeridos:
+  # currencies_limit: 500         # Más amplio (cuidado con tiempo/ratelimits)
+  # currencies_limit: 1000        # Máxima cobertura (pesado)
   min_net: 0.8                    # % neto mínimo del ciclo para reportar
   min_net_per_hop: 0.0            # % neto mínimo por hop (filtro de calidad adicional)
   top: 3                          # Top de oportunidades a mostrar por iteración
