@@ -1,3 +1,11 @@
+## 0.4.1 (2025-10-12)
+
+Swapper Alpha
+- Swapper sigue el path en orden (base->quote), sin depender de anchor.
+- Primer hop cap por `--amount`; demás hops usan balance real neto de fees.
+- Menos REST y pausas: markets para orientación, ticker solo si hace falta, `settle_sleep_ms: 0` por defecto.
+- Config real en `projects/arbitraje/swapper.live.yaml` (`dry_run: false`).
+
 # Changelog
 
 All notable changes to this repository are documented here. Dates are in YYYY-MM-DD.

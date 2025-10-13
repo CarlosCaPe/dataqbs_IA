@@ -50,7 +50,6 @@ class SwapHop:
 class SwapPlan:
     exchange: str
     hops: List[SwapHop]
-    anchor: str
     amount: float
     raw_line: Optional[str] = None
 
@@ -196,14 +195,14 @@ class Swapper:
         parsed = _parse_bf_line(line)
         if not parsed:
             return None
-        ex, nodes, _hops, anchor = parsed
+        ex, nodes, _hops, _anchor = parsed
         hops = [SwapHop(base=nodes[i], quote=nodes[i+1]) for i in range(len(nodes)-1)]
         if self.mode == "test":
             # Use per-exchange test minimum if available; fallback to 1.0
             amt = float(amount) if amount else float(self.test_min_amounts.get(_normalize_ccxt_id(ex), 1.0))
         else:
             amt = float(amount or 0.0)
-        return SwapPlan(exchange=ex, hops=hops, anchor=anchor, amount=amt, raw_line=line)
+        return SwapPlan(exchange=ex, hops=hops, amount=amt, raw_line=line)
 
     def run(self, plan: SwapPlan) -> SwapResult:
         if self.mode == "test":
@@ -211,77 +210,30 @@ class Swapper:
         return self._run_real(plan)
 
     def _run_test(self, plan: SwapPlan) -> SwapResult:
+        # Test mode: simulate the provided path using tickers, no orders, ignoring anchor entirely
         ex_id = plan.exchange
-        anchor = plan.anchor.upper()
-        # In test mode, respect configured per-exchange minimum when present
-        amt_in = float(self.test_min_amounts.get(_normalize_ccxt_id(ex_id), 1.0))
+        amt_first = (
+            plan.amount if plan.amount and plan.amount > 0
+            else float(self.test_min_amounts.get(_normalize_ccxt_id(ex_id), 1.0))
+        )
         try:
             ex = _load_exchange(ex_id, auth=False, timeout_ms=self.timeout_ms)
-            a1, a2 = ("USDT", "USDC") if anchor == "USDT" else ("USDC", "USDT")
-            # Convert using only the two relevant tickers, no full fetch
-            def _convert(frm: str, to: str, amount: float) -> Optional[float]:
-                sym1 = f"{frm}/{to}"
-                sym2 = f"{to}/{frm}"
-                try:
-                    t1 = ex.fetch_ticker(sym1)
-                    bid = t1.get("bid") or t1.get("last")
-                    if bid and bid > 0:
-                        return float(amount) * float(bid)
-                except Exception:
-                    pass
-                try:
-                    t2 = ex.fetch_ticker(sym2)
-                    ask = t2.get("ask") or t2.get("last")
-                    if ask and ask > 0:
-                        return float(amount) / float(ask)
-                except Exception:
-                    pass
-                return None
-            amt_mid = _convert(a1, a2, amt_in)
-            if amt_mid is None:
-                return SwapResult(False, "failed", amt_in, 0.0, -amt_in, {"reason": "no_ticker_a1_a2"})
-            amt_out = _convert(a2, a1, amt_mid)
-            if amt_out is None:
-                return SwapResult(False, "failed", amt_in, 0.0, -amt_in, {"reason": "no_ticker_a2_a1"})
-            delta = amt_out - amt_in
-            status = "positive" if delta > 0 else ("negative" if delta < 0 else "ok")
-            return SwapResult(True, status, amt_in, amt_out, delta, {
-                "exchange": ex_id,
-                "anchor": anchor,
-                "round_trip": f"{a1}->{a2}->{a1}",
-            })
-        except Exception as e:
-            return SwapResult(False, "failed", amt_in, 0.0, -amt_in, {"error": str(e)})
-
-    def _run_real(self, plan: SwapPlan) -> SwapResult:
-        ex_id = plan.exchange
-        ex = _load_exchange(ex_id, auth=True, timeout_ms=self.timeout_ms)
-        amt = float(plan.amount or 0.0)
-        if amt <= 0:
-            try:
-                bal = ex.fetch_balance()
-                bucket = bal.get("free") or bal.get("total") or {}
-                amt = float(bucket.get(plan.anchor, 0.0) or 0.0)
-            except Exception:
-                amt = 0.0
-        if amt <= 0:
-            return SwapResult(False, "failed", 0.0, 0.0, 0.0, {"reason": "no_funds"})
-
-        amount_cur = amt
-        cur_ccy = plan.anchor.upper()
-        fills: List[Dict[str, object]] = []
-        try:
+            if not plan.hops:
+                return SwapResult(False, "failed", 0.0, 0.0, 0.0, {"reason": "no_hops"})
+            # Start with base of first hop
+            cur_ccy = plan.hops[0].base.upper()
+            amount_cur = float(amt_first)
+            fills: List[Dict[str, object]] = []
+            amount_in_used = float(amount_cur)
             for hop in plan.hops:
                 base, quote = hop.base.upper(), hop.quote.upper()
-                sym1 = f"{base}/{quote}"
-                sym2 = f"{quote}/{base}"
+                sym1, sym2 = f"{base}/{quote}", f"{quote}/{base}"
                 invert = False
-                # Determine available orientation by trying fetch_ticker quickly
+                t = None
                 try:
                     t = ex.fetch_ticker(sym1)
                     sym = sym1
                 except Exception:
-                    t = None
                     try:
                         t = ex.fetch_ticker(sym2)
                         sym = sym2
@@ -290,40 +242,184 @@ class Swapper:
                         return SwapResult(
                             False,
                             "failed",
-                            amt,
+                            amount_in_used,
                             amount_cur,
-                            amount_cur - amt,
+                            amount_cur - amount_in_used,
                             {"reason": "symbol_missing", "hop": f"{base}->{quote}"},
                         )
-
-                # Determine trade side based on the actual market symbol orientation
-                # sym_base/sym_quote refer to the ccxt market we will send the order to
-                sym_base, sym_quote = (base, quote) if not invert else (quote, base)
-                if cur_ccy == sym_base:
-                    side = "sell"  # selling base to get quote
-                elif cur_ccy == sym_quote:
-                    side = "buy"   # buying base using quote we currently hold
-                else:
-                    return SwapResult(
-                        False,
-                        "failed",
-                        amt,
-                        amount_cur,
-                        amount_cur - amt,
-                        {"reason": "currency_mismatch", "cur": cur_ccy, "hop": f"{base}->{quote}", "sym": sym},
-                    )
-
-                # Fetch ticker and choose appropriate side price (bid for sell, ask for buy)
                 price = None
                 try:
                     if t is None:
                         t = ex.fetch_ticker(sym)
-                    if side == "sell":
-                        price = t.get("bid") or t.get("last")
-                    else:
-                        price = t.get("ask") or t.get("last")
+                    price = (t.get("bid") or t.get("ask") or t.get("last"))
                 except Exception:
                     price = None
+                if price is None or price == 0:
+                    return SwapResult(
+                        False,
+                        "failed",
+                        amount_in_used,
+                        amount_cur,
+                        amount_cur - amount_in_used,
+                        {"reason": "no_price", "symbol": sym},
+                    )
+                if not invert:
+                    # base/quote: sell base
+                    amount_next = float(amount_cur) * float(price)
+                else:
+                    # quote/base: buy quote using base
+                    amount_next = float(amount_cur) / float(price)
+                fills.append({
+                    "symbol": sym,
+                    "side": ("sell" if not invert else "buy"),
+                    "amount_in": amount_cur,
+                    "amount_out": amount_next,
+                    "price": float(price),
+                    "simulated": True,
+                })
+                amount_cur = float(amount_next)
+                cur_ccy = quote
+            # If start and end currencies coincide, compute delta; else delta=0
+            start_ccy = plan.hops[0].base.upper()
+            end_ccy = plan.hops[-1].quote.upper()
+            delta = (amount_cur - amount_in_used) if (start_ccy == end_ccy) else 0.0
+            return SwapResult(
+                True,
+                "ok",
+                amount_in_used,
+                amount_cur,
+                delta,
+                {"exchange": ex_id, "fills": fills, "start_ccy": start_ccy, "final_ccy": cur_ccy},
+            )
+        except Exception as e:
+            return SwapResult(False, "failed", amt_first, 0.0, -amt_first, {"error": str(e)})
+
+    def _run_real(self, plan: SwapPlan) -> SwapResult:
+        ex_id = plan.exchange
+        ex = _load_exchange(ex_id, auth=True, timeout_ms=self.timeout_ms)
+        # Warm markets to enable precision helpers and limits
+        try:
+            ex.load_markets()
+        except Exception:
+            pass
+        # We will follow the path strictly: for each hop base->quote, use the actual free balance
+        # of the source currency (base) as the amount to convert, ignoring the anchor for execution.
+        # If plan.amount > 0, it caps only the first hop source amount.
+        first_cap = float(plan.amount or 0.0)
+        amount_cur = 0.0  # will be set after first order
+        # Current currency is advanced per hop; initialize to first hop base for clarity
+        cur_ccy = plan.hops[0].base.upper() if plan.hops else ""
+        fills: List[Dict[str, object]] = []
+        # Track how much was consumed on the first hop (for reporting and cap logic)
+        amount_in_used: Optional[float] = None
+
+        def _free_balance(currency: str) -> float:
+            # In dry-run: prefer in-flight amount for current currency when non-zero.
+            # For the very first hop, if an --amount cap was provided, use it as source when no in-flight amount yet.
+            if self.dry_run and currency == cur_ccy:
+                if float(amount_cur) > 0:
+                    return float(amount_cur)
+                # If first hop and cap provided, use it as source amount estimate
+                try:
+                    if (
+                        amount_in_used is None
+                        and currency == (plan.hops[0].base.upper() if plan.hops else currency)
+                        and first_cap > 0
+                    ):
+                        return float(first_cap)
+                except Exception:
+                    pass
+            try:
+                b = ex.fetch_balance()
+                bucket = b.get("free") or b.get("total") or {}
+                return float((bucket or {}).get(currency, 0.0) or 0.0)
+            except Exception:
+                return 0.0
+
+        def _amount_to_precision(sym: str, amount: float) -> float:
+            try:
+                return float(ex.amount_to_precision(sym, amount))
+            except Exception:
+                return float(amount)
+
+        def _currency_to_precision(currency: str, amount: float) -> float:
+            # Used for cost-based buys (quote currency precision)
+            try:
+                return float(ex.currency_to_precision(currency, amount))
+            except Exception:
+                return float(amount)
+        def _sum_fees(order_obj: dict) -> Dict[str, float]:
+            fees_sum: Dict[str, float] = {}
+            try:
+                # Prefer unified 'fees'
+                fees = order_obj.get("fees") or []
+                if isinstance(fees, list):
+                    for f in fees:
+                        try:
+                            cur = str(f.get("currency") or "").upper()
+                            cost = float(f.get("cost") or 0.0)
+                            if cur:
+                                fees_sum[cur] = fees_sum.get(cur, 0.0) + cost
+                        except Exception:
+                            continue
+                # Fallback to single 'fee'
+                fee = order_obj.get("fee") or {}
+                if isinstance(fee, dict):
+                    cur = str(fee.get("currency") or "").upper()
+                    cost = float(fee.get("cost") or 0.0)
+                    if cur:
+                        fees_sum[cur] = fees_sum.get(cur, 0.0) + cost
+            except Exception:
+                pass
+            return fees_sum
+
+        try:
+            start_ccy = plan.hops[0].base.upper() if plan.hops else cur_ccy
+            end_ccy = plan.hops[-1].quote.upper() if plan.hops else cur_ccy
+            for hop in plan.hops:
+                base, quote = hop.base.upper(), hop.quote.upper()
+                sym1 = f"{base}/{quote}"
+                sym2 = f"{quote}/{base}"
+                invert = False
+                # Determine symbol orientation using loaded markets (fast)
+                try:
+                    mkts = ex.markets or {}
+                except Exception:
+                    mkts = {}
+                if sym1 in mkts:
+                    sym = sym1
+                elif sym2 in mkts:
+                    sym = sym2
+                    invert = True
+                else:
+                    return SwapResult(
+                        False,
+                        "failed",
+                        float(amount_in_used or 0.0),
+                        amount_cur,
+                        amount_cur - float(amount_in_used or 0.0),
+                        {"reason": "symbol_missing", "hop": f"{base}->{quote}", "cur_ccy": cur_ccy},
+                    )
+
+                # Trade strictly in the hop direction (base -> quote)
+                sym_base, sym_quote = (base, quote) if not invert else (quote, base)
+                # If symbol is base/quote, we sell base; if symbol is quote/base, we buy quote using base
+                side = "sell" if not invert else "buy"
+
+                # Determine source funds from real wallet balance of the hop's base currency
+                src_free = _free_balance(base)
+                src_to_use = float(src_free)
+                if amount_in_used is None and first_cap > 0:
+                    src_to_use = min(src_to_use, float(first_cap))
+                if src_to_use <= 0:
+                    return SwapResult(
+                        False,
+                        "failed",
+                        float(amount_in_used or 0.0),
+                        amount_cur,
+                        amount_cur - float(amount_in_used or 0.0),
+                        {"reason": "no_funds_source", "source": base},
+                    )
 
                 params = {}
                 # For market orders, many exchanges ignore or reject timeInForce; don't set it
@@ -333,39 +429,123 @@ class Swapper:
                     buy_uses_cost = getattr(ex, "id", "").lower() in ("bitget", "binance")
                 except Exception:
                     buy_uses_cost = False
+
+                # Only fetch ticker when a price is actually needed
+                price = None
+                if self.dry_run or (side == "buy" and not buy_uses_cost):
+                    try:
+                        t = ex.fetch_ticker(sym)
+                        if side == "sell":
+                            price = t.get("bid") or t.get("last")
+                        else:
+                            price = t.get("ask") or t.get("last")
+                    except Exception:
+                        price = None
+
+                # Determine safe amount to send, constrained by actual free balance and precision
                 try:
+                    # Market metadata for limits and precision checks
+                    try:
+                        market = (ex.markets or {}).get(sym) or {}
+                        limits = market.get("limits") or {}
+                        amt_limits = limits.get("amount") or {}
+                        cost_limits = limits.get("cost") or {}
+                        min_amt = float(amt_limits.get("min") or 0.0)
+                        min_cost = float(cost_limits.get("min") or 0.0)
+                    except Exception:
+                        market, limits, min_amt, min_cost = {}, {}, 0.0, 0.0
                     if side == "buy":
                         if buy_uses_cost:
-                            # Pass quote cost directly; exchange option allows this
-                            amount_param = amount_cur
-                        elif price:
-                            amount_param = amount_cur / float(price)  # base amount to buy
+                            # Buying quote with base as cost; cost equals available base funds
+                            cost = float(src_to_use)
+                            # Enforce minimum cost if available
+                            if min_cost and cost < min_cost:
+                                return SwapResult(
+                                    False,
+                                    "failed",
+                                    float(amount_in_used or 0.0),
+                                    amount_cur,
+                                    amount_cur - float(amount_in_used or 0.0),
+                                    {
+                                        "reason": "min_cost_unmet",
+                                        "symbol": sym,
+                                        "min_cost": min_cost,
+                                        "have_cost": cost,
+                                        "cur": cur_ccy,
+                                    },
+                                )
+                            amount_param = _currency_to_precision(sym_quote, cost)
                         else:
-                            amount_param = amount_cur
+                            # Amount in base units = src_to_use / price
+                            if price:
+                                base_amt = float(src_to_use) / float(price)
+                                # Enforce minimum base amount if available
+                                if min_amt and base_amt < min_amt:
+                                    return SwapResult(
+                                        False,
+                                        "failed",
+                                        float(amount_in_used or 0.0),
+                                        amount_cur,
+                                        amount_cur - float(amount_in_used or 0.0),
+                                        {
+                                            "reason": "min_amount_unmet",
+                                            "symbol": sym,
+                                            "min_amount": min_amt,
+                                            "have_amount": base_amt,
+                                            "cur": cur_ccy,
+                                        },
+                                    )
+                                amount_param = _amount_to_precision(sym, base_amt)
+                            else:
+                                # Without price we can't assess min base properly; proceed with precision only
+                                amount_param = _amount_to_precision(sym, src_to_use)
                     else:
-                        amount_param = amount_cur  # selling current base amount
+                        # Sell available base units from wallet
+                        sell_amt = float(src_to_use)
+                        if min_amt and sell_amt < min_amt:
+                            return SwapResult(
+                                False,
+                                "failed",
+                                float(amount_in_used or 0.0),
+                                amount_cur,
+                                amount_cur - float(amount_in_used or 0.0),
+                                {
+                                    "reason": "min_amount_unmet",
+                                    "symbol": sym,
+                                    "min_amount": min_amt,
+                                    "have_amount": sell_amt,
+                                    "cur": cur_ccy,
+                                },
+                            )
+                        amount_param = _amount_to_precision(sym, sell_amt)
                 except Exception:
-                    amount_param = amount_cur
+                    amount_param = float(src_to_use)
 
                 if self.dry_run:
                     fill_price = float(price or 0.0) if price else 0.0
                     if side == "sell":
-                        amount_next = amount_param * float(price or 1.0)  # base -> quote
+                        # base -> quote
+                        amount_next = float(amount_param) * float(price or 1.0)
                     else:
-                        amount_next = amount_param  # quote -> base
+                        # quote -> base
+                        if buy_uses_cost and price:
+                            amount_next = float(amount_param) / float(price)
+                        else:
+                            amount_next = float(amount_param)
                     fills.append(
                         {
                             "symbol": sym,
                             "side": side,
-                            "amount_in": amount_cur,
+                            "amount_in": src_to_use,
                             "amount_out": amount_next,
                             "price": fill_price,
                             "simulated": True,
                         }
                     )
                     amount_cur = float(amount_next)
-                    # Advance along the hop path currency regardless of symbol inversion
                     cur_ccy = quote
+                    if amount_in_used is None:
+                        amount_in_used = float(src_to_use)
                     continue
 
                 order = ex.create_order(
@@ -376,22 +556,33 @@ class Swapper:
                     price=None,
                     params=params,
                 )
+                # Optional settling delay to allow balances to update (only if configured)
                 if self.settle_sleep_ms > 0:
-                    time.sleep(self.settle_sleep_ms / 1000.0)
+                    try:
+                        time.sleep(self.settle_sleep_ms / 1000.0)
+                    except Exception:
+                        pass
                 try:
                     oid = order.get("id") if isinstance(order, dict) else None
                 except Exception:
                     oid = None
                 filled_out = None
+                order_fees: Dict[str, float] = _sum_fees(order if isinstance(order, dict) else {})
                 if self.confirm_fill and oid:
                     try:
                         o2 = ex.fetch_order(oid, sym)
                         filled = float(o2.get("filled") or 0.0)
                         avg = float(o2.get("average") or o2.get("price") or (price or 0.0))
+                        order_fees = _sum_fees(o2) or order_fees
                         if side == "sell":
-                            filled_out = filled * avg
+                            gross = filled * avg
+                            # Subtract fees charged in quote currency
+                            fee_q = float(order_fees.get(sym_quote, 0.0) or 0.0)
+                            filled_out = max(0.0, gross - fee_q)
                         else:
-                            filled_out = filled
+                            # Net base after fees charged in base currency
+                            fee_b = float(order_fees.get(sym_base, 0.0) or 0.0)
+                            filled_out = max(0.0, filled - fee_b)
                     except Exception:
                         filled_out = None
                 if filled_out is None and isinstance(order, dict):
@@ -400,40 +591,76 @@ class Swapper:
                         avg = float(order.get("average") or order.get("price") or (price or 0.0))
                         if filled and avg:
                             if side == "sell":
-                                filled_out = filled * avg
+                                gross = filled * avg
+                                fee_q = float(order_fees.get(sym_quote, 0.0) or 0.0)
+                                filled_out = max(0.0, gross - fee_q)
                             else:
-                                filled_out = filled
+                                fee_b = float(order_fees.get(sym_base, 0.0) or 0.0)
+                                filled_out = max(0.0, filled - fee_b)
                     except Exception:
                         pass
 
                 if filled_out is None:
                     if side == "sell":
-                        filled_out = amount_param * float(price or 1.0)  # base -> quote
+                        # base -> quote (no fee info; last resort)
+                        filled_out = float(amount_param) * float(price or 1.0)
                     else:
                         # If amount_param was passed as quote cost (bitget), convert to base using price
                         if buy_uses_cost and price:
                             filled_out = float(amount_param) / float(price)
                         else:
-                            filled_out = amount_param  # already a base amount
+                            filled_out = float(amount_param)  # already a base amount
 
                 fills.append(
                     {
                         "symbol": sym,
                         "side": side,
-                        "amount_in": amount_cur,
+                        "amount_in": src_to_use,
                         "amount_out": filled_out,
                         "order_id": oid,
+                        "fees": order_fees,
                     }
                 )
-                amount_cur = float(filled_out)
-                # Advance along the hop path to the target currency of this hop
+                # Advance along the hop path to the target currency and set amount from real wallet balance if live
                 cur_ccy = quote
+                amount_cur = float(filled_out)
+                if amount_in_used is None:
+                    amount_in_used = float(src_to_use)
+                if not self.dry_run:
+                    # Read actual free balance for the next hop (optional extra small wait only if configured)
+                    if self.settle_sleep_ms > 0:
+                        try:
+                            time.sleep(self.settle_sleep_ms / 1000.0)
+                        except Exception:
+                            pass
+                    try:
+                        real_free = _free_balance(cur_ccy)
+                        amount_cur = float(real_free)
+                    except Exception:
+                        pass
 
-            delta = amount_cur - amt
-            status = "positive" if delta > 0 else ("negative" if delta < 0 else "ok")
-            return SwapResult(True, status, amt, amount_cur, delta, {"fills": fills, "exchange": ex_id})
+            # Result summary: if start and end currencies coincide, delta is meaningful; otherwise report 0 delta
+            amount_in_final = float(amount_in_used or 0.0)
+            delta = (amount_cur - amount_in_final) if (start_ccy == end_ccy) else 0.0
+            status = "ok"
+            return SwapResult(
+                True,
+                status,
+                amount_in_final,
+                amount_cur,
+                delta,
+                {"fills": fills, "exchange": ex_id, "start_ccy": start_ccy, "final_ccy": cur_ccy},
+            )
         except Exception as e:
-            return SwapResult(False, "failed", amt, amount_cur, amount_cur - amt, {"error": str(e), "fills": fills})
+            amount_in_final = float(amount_in_used or 0.0) if 'amount_in_used' in locals() else 0.0
+            return SwapResult(
+                False,
+                "failed",
+                amount_in_final,
+                amount_cur,
+                amount_cur - amount_in_final,
+                {"error": str(e), "fills": fills, "cur_ccy": cur_ccy},
+            )
 
 
 def _main_cli():
@@ -444,7 +671,8 @@ def _main_cli():
     parser.add_argument("--bf_line", type=str, default=None, help="BF line from radar to parse into a plan")
     parser.add_argument("--exchange", type=str, default=None, help="Exchange id if not using --bf_line")
     parser.add_argument("--path", type=str, default=None, help="Hop path like A->B->C->A if not using --bf_line")
-    parser.add_argument("--anchor", type=str, default="USDT")
+    # --anchor is deprecated here; kept for backward-compat but ignored in execution
+    parser.add_argument("--anchor", type=str, default=None)
     parser.add_argument("--amount", type=float, default=0.0)
     args = parser.parse_args()
 
@@ -478,7 +706,7 @@ def _main_cli():
             amt = float(args.amount) if args.amount else default_amt
         else:
             amt = float(args.amount or 0.0)
-        plan = SwapPlan(exchange=ex_id, hops=hops, anchor=args.anchor, amount=amt)
+    plan = SwapPlan(exchange=ex_id, hops=hops, amount=amt)
 
     res = sw.run(plan)
     print(

@@ -6,6 +6,8 @@ time_in_force: IOC   # IOC | FOK (exchange-dependent)
 max_slippage_bps: 25
 min_notional: 1
 dry_run: true  # when true, do not place orders even in real mode; only compute fast estimates
+settle_sleep_ms: 0  # 0 = no automatic waits between hops/orders (fastest)
+confirm_fill: false # avoid extra fetch_order to confirm fills/fees (faster)
 
 # Per-exchange minimum test amount (in quote currency, typically USDT)
 # Used only when mode=test and no explicit --amount is provided.
