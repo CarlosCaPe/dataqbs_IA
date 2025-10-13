@@ -5,7 +5,7 @@
 mode: bf
 
 # Exchanges target (ajusta según tus credenciales/venues preferidos)
-ex: [binance, bitget, coinbase, mexc, bybit, kraken, gateio, okx, kucoin]
+ex: [binance, bitget, mexc, okx]
 
 quote: USDT
 inv: 0.0  # usar saldo de wallet

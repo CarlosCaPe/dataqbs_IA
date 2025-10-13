@@ -12,8 +12,9 @@ MONOREPO_ROOT = PROJECT_ROOT.parent.parent
 ARTIFACTS_ROOT = MONOREPO_ROOT / "artifacts" / "arbitraje"
 OUTPUTS_DIR = ARTIFACTS_ROOT / "outputs"
 LOGS_DIR = ARTIFACTS_ROOT / "logs"
+SWAPS_LOG_DIR = LOGS_DIR / "swaps"
 
-for _p in (OUTPUTS_DIR, LOGS_DIR):
+for _p in (OUTPUTS_DIR, LOGS_DIR, SWAPS_LOG_DIR):
     _p.mkdir(parents=True, exist_ok=True)
 
 __all__ = [
@@ -23,4 +24,5 @@ __all__ = [
     "ARTIFACTS_ROOT",
     "OUTPUTS_DIR",
     "LOGS_DIR",
+    "SWAPS_LOG_DIR",
 ]

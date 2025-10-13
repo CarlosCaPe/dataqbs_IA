@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-import argparse, time, math, os
+import argparse, time, math, os, json
 import concurrent.futures
 from typing import List, Dict, Tuple
 import sys
@@ -10,6 +10,8 @@ import ccxt
 import pandas as pd
 from tabulate import tabulate
 import yaml
+from datetime import datetime
+from pathlib import Path
 
 from . import paths
 from . import binance_api
@@ -229,6 +231,7 @@ def build_rates_for_exchange(
     fee_pct: float,
     require_topofbook: bool = False,
     min_quote_vol: float = 0.0,
+    blacklisted_symbols: set[str] | None = None,
 ) -> Tuple[List[Tuple[int, int, float]], Dict[Tuple[int, int], float]]:
     cur_index = {c: i for i, c in enumerate(currencies)}
     edges: List[Tuple[int, int, float]] = []
@@ -236,6 +239,8 @@ def build_rates_for_exchange(
     for u in currencies:
         for v in currencies:
             if u == v:
+                continue
+            if _pair_is_blacklisted(blacklisted_symbols, u, v):
                 continue
             r, qv = get_rate_and_qvol(u, v, tickers, fee_pct, require_topofbook)
             if r and r > 0:
@@ -447,6 +452,175 @@ def normalize_ccxt_id(ex_id: str) -> str:
         "huobipro": "htx",
     }
     return aliases.get(x, x)
+
+
+def _normalize_pair(symbol: str) -> str | None:
+    try:
+        s = str(symbol or "").strip()
+    except Exception:
+        return None
+    if not s:
+        return None
+    s = s.replace("-", "/").replace("_", "/").upper()
+    if "/" not in s:
+        return None
+    base, quote = [p.strip() for p in s.split("/", 1)]
+    if not base or not quote:
+        return None
+    return f"{base}/{quote}"
+
+
+def _expand_path_to_pairs(path: str) -> List[str]:
+    try:
+        nodes = [n.strip().upper() for n in path.split("->") if n.strip()]
+    except Exception:
+        return []
+    pairs: List[str] = []
+    for a, b in zip(nodes, nodes[1:]):
+        norm = _normalize_pair(f"{a}/{b}")
+        if norm:
+            pairs.append(norm)
+    return pairs
+
+
+def _pair_is_blacklisted(symbols: set[str] | None, a: str, b: str) -> bool:
+    if not symbols:
+        return False
+    pair = _normalize_pair(f"{a}/{b}")
+    if pair and pair in symbols:
+        return True
+    inverse = _normalize_pair(f"{b}/{a}")
+    if inverse and inverse in symbols:
+        return True
+    return False
+
+
+def _add_blacklist_entry(dst: Dict[str, set[str]], exchange: str, symbol: str) -> None:
+    if not exchange or not symbol:
+        return
+    sym = _normalize_pair(symbol)
+    if not sym:
+        return
+
+    ex_norm = normalize_ccxt_id(exchange)
+    bucket = dst.setdefault(ex_norm, set())
+    bucket.add(sym)
+
+
+def _collect_blacklist_values(dst: Dict[str, set[str]], value, source: str, exchange_hint: str | None = None) -> None:
+    if value is None:
+        return
+    if isinstance(value, str):
+        val = value.strip()
+        if not val:
+            return
+        if "->" in val and "/" not in val:
+            for pair in _expand_path_to_pairs(val):
+                if exchange_hint:
+                    _add_blacklist_entry(dst, exchange_hint, pair)
+            return
+        if ":" in val and exchange_hint is None:
+            ex_part, sym_part = val.split(":", 1)
+            _collect_blacklist_values(dst, sym_part, source, ex_part)
+            return
+        if exchange_hint is None:
+            return
+        _add_blacklist_entry(dst, exchange_hint, val)
+        return
+    if isinstance(value, (list, tuple, set)):
+        for item in value:
+            _collect_blacklist_values(dst, item, source, exchange_hint)
+        return
+    if isinstance(value, dict):
+        for ex_key, sub in value.items():
+            _collect_blacklist_values(dst, sub, source, str(ex_key))
+
+
+def _ensure_blacklist_json_contains(json_path: Path, required: Dict[str, set[str]]) -> None:
+    if not required:
+        return
+    try:
+        data = {}
+        if json_path.exists():
+            with open(json_path, "r", encoding="utf-8") as fh:
+                data = json.load(fh) or {}
+    except Exception:
+        data = {}
+    pairs = {}
+    if isinstance(data, dict):
+        pairs = data.get("pairs") if isinstance(data.get("pairs"), dict) else data
+        if not isinstance(pairs, dict):
+            pairs = {}
+    else:
+        pairs = {}
+    changed = False
+    now = datetime.utcnow().isoformat(timespec="seconds") + "Z"
+    for ex, symbols in required.items():
+        for sym in symbols:
+            key = f"{normalize_ccxt_id(ex)}:{sym.lower()}"
+            if key not in pairs:
+                pairs[key] = {"reason": "config_import", "added_at": now}
+                changed = True
+    if changed:
+        payload = {"pairs": pairs}
+        try:
+            json_path.parent.mkdir(parents=True, exist_ok=True)
+        except Exception:
+            pass
+        with open(json_path, "w", encoding="utf-8") as fh:
+            json.dump(payload, fh, indent=2, sort_keys=True)
+
+
+def load_swaps_blacklist() -> Dict[str, set[str]]:
+    json_path = paths.LOGS_DIR / "swapper_blacklist.json"
+    manual_entries: Dict[str, set[str]] = {}
+    for cfg_name in ("swapper.yaml", "swapper.live.yaml"):
+        cfg_path = paths.PROJECT_ROOT / cfg_name
+        if not cfg_path.exists():
+            continue
+        try:
+            with open(cfg_path, "r", encoding="utf-8") as fh:
+                cfg_raw = yaml.safe_load(fh) or {}
+        except Exception:
+            continue
+        if not isinstance(cfg_raw, dict):
+            continue
+        for key in (
+            "blacklist_pairs",
+            "blacklisted_pairs",
+            "banned_pairs",
+            "static_blacklist",
+            "manual_blacklist",
+        ):
+            if key in cfg_raw:
+                _collect_blacklist_values(manual_entries, cfg_raw.get(key), key)
+    _ensure_blacklist_json_contains(json_path, manual_entries)
+
+    combined: Dict[str, set[str]] = {}
+    try:
+        if json_path.exists():
+            with open(json_path, "r", encoding="utf-8") as fh:
+                data = json.load(fh) or {}
+        else:
+            data = {}
+    except Exception:
+        data = {}
+    pairs_section = {}
+    if isinstance(data, dict):
+        pairs_section = data.get("pairs") if isinstance(data.get("pairs"), dict) else data
+    if not isinstance(pairs_section, dict):
+        pairs_section = {}
+    for key, meta in pairs_section.items():
+        if not isinstance(key, str):
+            continue
+        if ":" not in key:
+            continue
+        ex_part, sym_part = key.split(":", 1)
+        _add_blacklist_entry(combined, ex_part, sym_part)
+    for ex, symbols in manual_entries.items():
+        for sym in symbols:
+            _add_blacklist_entry(combined, ex, sym)
+    return combined
 
 
 def resolve_exchanges(arg: str, ex_limit: int | None = None) -> List[str]:
@@ -885,6 +1059,8 @@ def main() -> None:
 
     logger.info("Mode=%s | quote=%s | ex=%s", args.mode, QUOTE, ",".join(EX_IDS))
 
+    swaps_blacklist_map: Dict[str, set[str]] = load_swaps_blacklist()
+
     # Pre-create and cache ccxt exchange instances (and markets) to speed up repeated iterations
     ex_instances: Dict[str, ccxt.Exchange] = {}
     try:
@@ -1289,6 +1465,7 @@ def main() -> None:
         tri_iter_csv = paths.OUTPUTS_DIR / f"arbitrage_tri_current_{QUOTE.lower()}_ccxt.csv"
         for it in range(1, int(max(1, args.repeat)) + 1):
             ts = pd.Timestamp.utcnow().isoformat()
+            swaps_blacklist_map = load_swaps_blacklist()
             if do_console_clear:
                 try:
                     if os.name == "nt":
@@ -1332,24 +1509,33 @@ def main() -> None:
                         continue
                     markets = ex.load_markets()
                     tickers = ex.fetch_tickers()
+                    ex_norm = normalize_ccxt_id(ex_id)
+                    exchange_blacklist = swaps_blacklist_map.get(ex_norm, set())
                     tokens = set()
                     for s, m in markets.items():
                         if not m.get("active", True):
                             continue
-                        base = m.get("base"); quote = m.get("quote")
+                        base = str(m.get("base") or "").upper(); quote = str(m.get("quote") or "").upper()
                         if base and quote and (base == QUOTE or quote == QUOTE):
                             other = quote if base == QUOTE else base
                             if other:
-                                tokens.add(other)
-                    tokens = list(tokens)[: args.tri_currencies_limit]
+                                tokens.add(str(other).upper())
+                    tokens = [t for t in list(tokens) if isinstance(t, str)]
+                    if exchange_blacklist:
+                        tokens = [t for t in tokens if not _pair_is_blacklisted(exchange_blacklist, QUOTE, t)]
+                    tokens = tokens[: args.tri_currencies_limit]
                     fee = float(args.tri_fee)
                     opps: List[dict] = []
                     for i in range(len(tokens)):
                         X = tokens[i]
+                        if _pair_is_blacklisted(exchange_blacklist, QUOTE, X):
+                            continue
                         for j in range(len(tokens)):
                             if j == i:
                                 continue
                             Y = tokens[j]
+                            if _pair_is_blacklisted(exchange_blacklist, X, Y):
+                                continue
                             r1, qv1 = get_rate_and_qvol(QUOTE, X, tickers, fee, args.tri_require_topofbook)
                             if not r1:
                                 continue
@@ -1359,6 +1545,8 @@ def main() -> None:
                             if not r2:
                                 continue
                             if args.tri_min_quote_vol > 0 and (qv2 is None or qv2 < args.tri_min_quote_vol):
+                                continue
+                            if _pair_is_blacklisted(exchange_blacklist, Y, QUOTE):
                                 continue
                             r3, qv3 = get_rate_and_qvol(Y, QUOTE, tickers, fee, args.tri_require_topofbook)
                             if not r3:
@@ -1548,6 +1736,10 @@ def main() -> None:
                 # Markets are already loaded for cached instances; calling again keeps ccxt cache warm
                 markets = ex.load_markets()
                 tickers = ex.fetch_tickers()
+                ex_norm = normalize_ccxt_id(ex_id)
+                exchange_blacklist = swaps_blacklist_map.get(ex_norm, set())
+                if args.bf_debug and exchange_blacklist:
+                    logger.info("[BF-DBG] %s blacklist_pairs=%d", ex_id, len(exchange_blacklist))
                 # Determine investment amount possibly constrained by balance
                 inv_amt_cfg = float(args.inv)
                 inv_amt_effective = inv_amt_cfg
@@ -1613,6 +1805,7 @@ def main() -> None:
                     currencies, tickers, args.bf_fee,
                     require_topofbook=args.bf_require_topofbook,
                     min_quote_vol=args.bf_min_quote_vol,
+                    blacklisted_symbols=exchange_blacklist,
                 )
                 if args.bf_debug:
                     logger.info("[BF-DBG] %s edges=%d", ex_id, len(edges))
@@ -1726,6 +1919,12 @@ def main() -> None:
                             except Exception:
                                 pass
                         path_str = "->".join(cycle_nodes)
+                        if exchange_blacklist:
+                            path_pairs = _expand_path_to_pairs(path_str)
+                            if any(p in exchange_blacklist for p in path_pairs):
+                                if args.bf_debug:
+                                    logger.info("[BF-DBG] %s omitiendo ciclo en blacklist: %s", ex_id, path_str)
+                                continue
                         bal_suffix = ""
                         if args.use_balance and inv_amt_effective != inv_amt_cfg:
                             bal_suffix = f" (saldo usado {QUOTE} {inv_amt_effective:.2f} de {inv_amt_cfg:.2f})"
@@ -1766,6 +1965,7 @@ def main() -> None:
 
         for it in range(1, int(max(1, args.repeat)) + 1):
             ts = pd.Timestamp.utcnow().isoformat()
+            swaps_blacklist_map = load_swaps_blacklist()
             if do_console_clear:
                 try:
                     if os.name == "nt":

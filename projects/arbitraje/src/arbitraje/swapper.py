@@ -7,10 +7,12 @@ import time
 from dataclasses import dataclass
 from typing import Dict, List, Optional, Tuple
 
-import ccxt  # type: ignore
 import yaml
 
 from . import paths
+from .balance_fetcher import SpotBalanceFetcher
+from .exchange_utils import load_exchange as _load_exchange
+from .exchange_utils import normalize_ccxt_id as _normalize_ccxt_id
 
 # Load .env from repo root and project root if python-dotenv is available
 try:  # pragma: no cover
@@ -62,87 +64,6 @@ class SwapResult:
     amount_out: float
     delta: float
     details: Dict[str, object]
-
-
-def _normalize_ccxt_id(ex_id: str) -> str:
-    x = (ex_id or "").strip().lower()
-    aliases = {"gateio": "gate", "okex": "okx", "coinbasepro": "coinbase", "huobipro": "htx"}
-    return aliases.get(x, x)
-
-
-def _creds_from_env(ex_id: str) -> dict:
-    env = os.environ
-    ex_id = _normalize_ccxt_id(ex_id)
-    try:
-        if ex_id == "binance":
-            k, s = env.get("BINANCE_API_KEY"), env.get("BINANCE_API_SECRET")
-            if k and s:
-                return {"apiKey": k, "secret": s}
-        elif ex_id == "bybit":
-            k, s = env.get("BYBIT_API_KEY"), env.get("BYBIT_API_SECRET")
-            if k and s:
-                return {"apiKey": k, "secret": s}
-        elif ex_id == "bitget":
-            k, s, p = env.get("BITGET_API_KEY"), env.get("BITGET_API_SECRET"), env.get("BITGET_PASSWORD")
-            if k and s and p:
-                return {"apiKey": k, "secret": s, "password": p}
-        elif ex_id == "coinbase":
-            k, s, p = env.get("COINBASE_API_KEY"), env.get("COINBASE_API_SECRET"), env.get("COINBASE_API_PASSWORD")
-            if k and s and p:
-                return {"apiKey": k, "secret": s, "password": p}
-        elif ex_id == "okx":
-            k, s = env.get("OKX_API_KEY"), env.get("OKX_API_SECRET")
-            p = env.get("OKX_API_PASSWORD") or env.get("OKX_PASSWORD")
-            if k and s and p:
-                return {"apiKey": k, "secret": s, "password": p}
-        elif ex_id == "kucoin":
-            k, s, p = env.get("KUCOIN_API_KEY"), env.get("KUCOIN_API_SECRET"), env.get("KUCOIN_API_PASSWORD")
-            if k and s and p:
-                return {"apiKey": k, "secret": s, "password": p}
-        elif ex_id in ("gate", "gateio"):
-            k = os.environ.get("GATEIO_API_KEY") or os.environ.get("GATE_API_KEY")
-            s = os.environ.get("GATEIO_API_SECRET") or os.environ.get("GATE_API_SECRET")
-            if k and s:
-                return {"apiKey": k, "secret": s}
-        elif ex_id == "mexc":
-            k, s = env.get("MEXC_API_KEY"), env.get("MEXC_API_SECRET")
-            if k and s:
-                return {"apiKey": k, "secret": s}
-    except Exception:
-        pass
-    return {}
-
-
-def _load_exchange(ex_id: str, auth: bool, timeout_ms: int = 15000) -> ccxt.Exchange:
-    ex_id = _normalize_ccxt_id(ex_id)
-    cls = getattr(ccxt, ex_id)
-    cfg = {"enableRateLimit": True}
-    if auth:
-        cfg.update(_creds_from_env(ex_id))
-    if ex_id == "okx":
-        dt = os.environ.get("ARBITRAJE_OKX_DEFAULT_TYPE") or os.environ.get("OKX_DEFAULT_TYPE")
-        if dt:
-            opts = dict(cfg.get("options") or {})
-            opts["defaultType"] = str(dt).strip().lower()
-            cfg["options"] = opts
-    # Bitget: allow market buy without price by treating amount as cost
-    if ex_id == "bitget":
-        opts = dict(cfg.get("options") or {})
-        opts["createMarketBuyOrderRequiresPrice"] = False
-        cfg["options"] = opts
-    # Binance: similarly allow cost-based market buy
-    if ex_id == "binance":
-        opts = dict(cfg.get("options") or {})
-        opts["createMarketBuyOrderRequiresPrice"] = False
-        cfg["options"] = opts
-    ex = cls(cfg)
-    try:
-        ex.timeout = int(timeout_ms)
-    except Exception:
-        pass
-    return ex
-
-
 def _parse_bf_line(line: str) -> Optional[Tuple[str, List[str], int, str]]:
     try:
         m1 = re.search(r"BF@([a-zA-Z0-9_]+)\s+([A-Z0-9_\-]+(?:->[A-Z0-9_\-]+)+)\s+\((\d+)hops\)", line)
@@ -182,6 +103,8 @@ class Swapper:
         # Execution tuning (optional; defaults are fastest)
         self.settle_sleep_ms = int(self.config.get("settle_sleep_ms", 0))
         self.confirm_fill = bool(self.config.get("confirm_fill", False))
+        # Cached balance fetcher for live mode
+        self._balance_fetcher = SpotBalanceFetcher(timeout_ms=self.timeout_ms)
         # Per-exchange minimums for test mode
         try:
             self.test_min_amounts: Dict[str, float] = {
@@ -314,27 +237,29 @@ class Swapper:
         amount_in_used: Optional[float] = None
 
         def _free_balance(currency: str) -> float:
-            # In dry-run: prefer in-flight amount for current currency when non-zero.
-            # For the very first hop, if an --amount cap was provided, use it as source when no in-flight amount yet.
-            if self.dry_run and currency == cur_ccy:
+            cur = currency.upper()
+            # In dry-run prefer in-flight estimates to avoid unnecessary reads
+            if self.dry_run and cur == cur_ccy:
                 if float(amount_cur) > 0:
                     return float(amount_cur)
-                # If first hop and cap provided, use it as source amount estimate
                 try:
                     if (
                         amount_in_used is None
-                        and currency == (plan.hops[0].base.upper() if plan.hops else currency)
+                        and cur == (plan.hops[0].base.upper() if plan.hops else cur)
                         and first_cap > 0
                     ):
                         return float(first_cap)
                 except Exception:
                     pass
             try:
-                b = ex.fetch_balance()
-                bucket = b.get("free") or b.get("total") or {}
-                return float((bucket or {}).get(currency, 0.0) or 0.0)
+                return float(self._balance_fetcher.get_balance(ex_id, cur))
             except Exception:
-                return 0.0
+                try:
+                    b = ex.fetch_balance()
+                    bucket = b.get("free") or b.get("total") or {}
+                    return float((bucket or {}).get(cur, 0.0) or 0.0)
+                except Exception:
+                    return 0.0
 
         def _amount_to_precision(sym: str, amount: float) -> float:
             try:
@@ -430,9 +355,9 @@ class Swapper:
                 except Exception:
                     buy_uses_cost = False
 
-                # Only fetch ticker when a price is actually needed
+                # Only fetch ticker for dry-run simulations
                 price = None
-                if self.dry_run or (side == "buy" and not buy_uses_cost):
+                if self.dry_run:
                     try:
                         t = ex.fetch_ticker(sym)
                         if side == "sell":
@@ -442,84 +367,32 @@ class Swapper:
                     except Exception:
                         price = None
 
-                # Determine safe amount to send, constrained by actual free balance and precision
+                # Determine safe amount to send using only wallet balance and precision (no local min checks)
                 try:
-                    # Market metadata for limits and precision checks
+                    # Market metadata (kept if needed for precision helpers)
                     try:
                         market = (ex.markets or {}).get(sym) or {}
-                        limits = market.get("limits") or {}
-                        amt_limits = limits.get("amount") or {}
-                        cost_limits = limits.get("cost") or {}
-                        min_amt = float(amt_limits.get("min") or 0.0)
-                        min_cost = float(cost_limits.get("min") or 0.0)
                     except Exception:
-                        market, limits, min_amt, min_cost = {}, {}, 0.0, 0.0
+                        market = {}
                     if side == "buy":
-                        if buy_uses_cost:
-                            # Buying quote with base as cost; cost equals available base funds
+                        if buy_uses_cost and not self.dry_run:
+                            # Use quoteOrderQty equal to available base funds; let exchange enforce limits
                             cost = float(src_to_use)
-                            # Enforce minimum cost if available
-                            if min_cost and cost < min_cost:
-                                return SwapResult(
-                                    False,
-                                    "failed",
-                                    float(amount_in_used or 0.0),
-                                    amount_cur,
-                                    amount_cur - float(amount_in_used or 0.0),
-                                    {
-                                        "reason": "min_cost_unmet",
-                                        "symbol": sym,
-                                        "min_cost": min_cost,
-                                        "have_cost": cost,
-                                        "cur": cur_ccy,
-                                    },
-                                )
-                            amount_param = _currency_to_precision(sym_quote, cost)
+                            params["quoteOrderQty"] = _currency_to_precision(sym_quote, cost)
+                            amount_param = None  # do not derive base amount
                         else:
-                            # Amount in base units = src_to_use / price
+                            # Dry-run or exchanges without quoteOrderQty support: approximate using price
                             if price:
                                 base_amt = float(src_to_use) / float(price)
-                                # Enforce minimum base amount if available
-                                if min_amt and base_amt < min_amt:
-                                    return SwapResult(
-                                        False,
-                                        "failed",
-                                        float(amount_in_used or 0.0),
-                                        amount_cur,
-                                        amount_cur - float(amount_in_used or 0.0),
-                                        {
-                                            "reason": "min_amount_unmet",
-                                            "symbol": sym,
-                                            "min_amount": min_amt,
-                                            "have_amount": base_amt,
-                                            "cur": cur_ccy,
-                                        },
-                                    )
                                 amount_param = _amount_to_precision(sym, base_amt)
                             else:
-                                # Without price we can't assess min base properly; proceed with precision only
                                 amount_param = _amount_to_precision(sym, src_to_use)
                     else:
                         # Sell available base units from wallet
                         sell_amt = float(src_to_use)
-                        if min_amt and sell_amt < min_amt:
-                            return SwapResult(
-                                False,
-                                "failed",
-                                float(amount_in_used or 0.0),
-                                amount_cur,
-                                amount_cur - float(amount_in_used or 0.0),
-                                {
-                                    "reason": "min_amount_unmet",
-                                    "symbol": sym,
-                                    "min_amount": min_amt,
-                                    "have_amount": sell_amt,
-                                    "cur": cur_ccy,
-                                },
-                            )
                         amount_param = _amount_to_precision(sym, sell_amt)
                 except Exception:
-                    amount_param = float(src_to_use)
+                    amount_param = float(src_to_use) if side == "sell" else None
 
                 if self.dry_run:
                     fill_price = float(price or 0.0) if price else 0.0
@@ -528,10 +401,7 @@ class Swapper:
                         amount_next = float(amount_param) * float(price or 1.0)
                     else:
                         # quote -> base
-                        if buy_uses_cost and price:
-                            amount_next = float(amount_param) / float(price)
-                        else:
-                            amount_next = float(amount_param)
+                        amount_next = float(amount_param or 0.0)
                     fills.append(
                         {
                             "symbol": sym,
@@ -548,11 +418,18 @@ class Swapper:
                         amount_in_used = float(src_to_use)
                     continue
 
+                # Capture first-hop input now for accurate reporting
+                if amount_in_used is None:
+                    amount_in_used = float(src_to_use)
+
+                order_amount = amount_param
+                if side == "buy" and buy_uses_cost and "quoteOrderQty" in params:
+                    order_amount = None  # let exchange compute base from quote cost
                 order = ex.create_order(
                     symbol=sym,
                     type=order_type,
                     side=side,
-                    amount=amount_param,
+                    amount=order_amount,
                     price=None,
                     params=params,
                 )
@@ -600,32 +477,9 @@ class Swapper:
                     except Exception:
                         pass
 
-                if filled_out is None:
-                    if side == "sell":
-                        # base -> quote (no fee info; last resort)
-                        filled_out = float(amount_param) * float(price or 1.0)
-                    else:
-                        # If amount_param was passed as quote cost (bitget), convert to base using price
-                        if buy_uses_cost and price:
-                            filled_out = float(amount_param) / float(price)
-                        else:
-                            filled_out = float(amount_param)  # already a base amount
-
-                fills.append(
-                    {
-                        "symbol": sym,
-                        "side": side,
-                        "amount_in": src_to_use,
-                        "amount_out": filled_out,
-                        "order_id": oid,
-                        "fees": order_fees,
-                    }
-                )
-                # Advance along the hop path to the target currency and set amount from real wallet balance if live
+                # Advance along the hop path to the target currency
                 cur_ccy = quote
-                amount_cur = float(filled_out)
-                if amount_in_used is None:
-                    amount_in_used = float(src_to_use)
+                amount_cur = float(filled_out or 0.0)
                 if not self.dry_run:
                     # Read actual free balance for the next hop (optional extra small wait only if configured)
                     if self.settle_sleep_ms > 0:
@@ -638,6 +492,19 @@ class Swapper:
                         amount_cur = float(real_free)
                     except Exception:
                         pass
+
+                # Record fill using the best available realized amount
+                out_val = float(amount_cur)
+                fills.append(
+                    {
+                        "symbol": sym,
+                        "side": side,
+                        "amount_in": src_to_use,
+                        "amount_out": out_val,
+                        "order_id": oid,
+                        "fees": order_fees,
+                    }
+                )
 
             # Result summary: if start and end currencies coincide, delta is meaningful; otherwise report 0 delta
             amount_in_final = float(amount_in_used or 0.0)
