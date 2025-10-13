@@ -7,6 +7,11 @@ max_slippage_bps: 25
 min_notional: 1
 dry_run: true  # when true, do not place orders even in real mode; only compute fast estimates
 
+# Anchor constraints (for documentation and future enforcement if needed)
+anchors:
+  allowed: [USDT, USDC]
+  enforce_roundtrip: true  # prefer paths that end in an allowed anchor
+
 # Per-exchange minimum test amount (in quote currency, typically USDT)
 # Used only when mode=test and no explicit --amount is provided.
 # If an exchange is not listed, a default of 1.0 will be used.

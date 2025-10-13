@@ -17,6 +17,11 @@ min_notional: 1
 # Ensure API keys are configured and permissions are correct (spot trading only)
 dry_run: false
 
+# Anchor constraints (for documentation and future enforcement if needed)
+anchors:
+  allowed: [USDT, USDC]
+  enforce_roundtrip: true
+
 # Per-exchange minimum test amount (in quote currency, typically USDT)
 # Used only when mode=test and no explicit --amount is provided.
 # If an exchange is not listed, a default of 1.0 will be used.

@@ -739,6 +739,9 @@ def _load_yaml_config_defaults(parser: argparse.ArgumentParser) -> None:
             conf["dispatcher_max_workers"] = int(disp.get("max_workers", 8) or 8)
             conf["dispatcher_per_exchange_concurrency"] = int(disp.get("per_exchange_concurrency", 1) or 1)
             conf["dispatcher_emergency_on_negative"] = bool(disp.get("emergency_on_negative", True))
+            conf["dispatcher_emergency_use_wallet"] = bool(disp.get("emergency_use_wallet", True))
+            conf["dispatcher_emergency_profit_epsilon"] = float(disp.get("emergency_profit_epsilon", 0.0) or 0.0)
+            conf["dispatcher_synchronous"] = bool(disp.get("synchronous", False))
             conf["dispatcher_min_amounts"] = disp.get("min_amounts", {})
 
         if conf:
@@ -1759,8 +1762,11 @@ def main() -> None:
                                         per_exchange_concurrency=int(getattr(args, "dispatcher_per_exchange_concurrency", 1) or 1),
                                         min_amounts=dict(getattr(args, "dispatcher_min_amounts", {}) or {}),
                                         emergency_on_negative=bool(getattr(args, "dispatcher_emergency_on_negative", True)),
+                                        emergency_use_wallet=bool(getattr(args, "dispatcher_emergency_use_wallet", True)),
+                                        emergency_profit_epsilon=float(getattr(args, "dispatcher_emergency_profit_epsilon", 0.0) or 0.0),
                                         balance_kind=str(getattr(args, "balance_kind", "free")),
                                         timeout_ms=int(getattr(args, "timeout", 20000) or 20000),
+                                        synchronous=bool(getattr(args, "dispatcher_synchronous", False)),
                                     )
                                     setattr(args, "_dispatcher", disp)
                                 disp = getattr(args, "_dispatcher")

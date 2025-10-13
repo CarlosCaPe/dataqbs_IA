@@ -29,20 +29,28 @@ class RadarDispatcher:
         per_exchange_concurrency: int = 1,
         min_amounts: Optional[Dict[str, float]] = None,
         emergency_on_negative: bool = True,
+        emergency_use_wallet: bool = True,
+        emergency_profit_epsilon: float = 0.0,
         emergency_cooldown_sec: float = 0.0,
         balance_kind: str = "free",
         timeout_ms: int = 15000,
+        synchronous: bool = False,
     ) -> None:
-        self._tp = ThreadPoolExecutor(max_workers=max(1, int(max_workers)))
+        self._synchronous = bool(synchronous)
+        self._tp = None if self._synchronous else ThreadPoolExecutor(max_workers=max(1, int(max_workers)))
         self._semaphores: Dict[str, threading.Semaphore] = {}
         self._per_exchange_concurrency = max(1, int(per_exchange_concurrency))
         self._min_amounts = {str(k).lower(): float(v) for k, v in (min_amounts or {}).items()}
         self._emergency_on_negative = bool(emergency_on_negative)
+        self._emergency_use_wallet = bool(emergency_use_wallet)
+        self._emergency_profit_epsilon = float(emergency_profit_epsilon or 0.0)
         self._emergency_cooldown_sec = float(emergency_cooldown_sec or 0.0)
         self._paused: Dict[str, float] = {}  # ex_id -> ts when paused (epoch seconds) [placeholder]
         self._balance_kind = balance_kind if balance_kind in ("free", "total") else "free"
         self._timeout_ms = int(timeout_ms)
         self._swapper = Swapper(config_path=swapper_config_path)
+        # Baseline balances per exchange for profit tracking
+        self._baseline_bal: Dict[str, float] = {}
 
     def submit_bf_line(self, bf_line: str) -> None:
         parsed = _parse_bf_line(bf_line)
@@ -50,6 +58,15 @@ class RadarDispatcher:
             return
         ex_id, nodes, _hops, anchor = parsed
         ex_id = _normalize_ccxt_id(ex_id)
+        # Anchor gating from swapper config (optional)
+        try:
+            anchors_cfg = (self._swapper.config.get("anchors") or {}) if isinstance(self._swapper.config, dict) else {}
+            allowed = set([str(x).upper() for x in (anchors_cfg.get("allowed") or [])])
+            if allowed and anchor.upper() not in allowed:
+                logger.debug("dispatcher: skip ex=%s anchor=%s not in allowed %s", ex_id, anchor, sorted(allowed))
+                return
+        except Exception:
+            pass
         if self._is_paused(ex_id):
             logger.debug("dispatcher: exchange %s paused; skipping", ex_id)
             return
@@ -57,19 +74,26 @@ class RadarDispatcher:
         if sem is None:
             sem = threading.Semaphore(self._per_exchange_concurrency)
             self._semaphores[ex_id] = sem
-        try:
-            sem.acquire(blocking=False)
-        except Exception:
-            # Shouldn't happen; fallback to non-blocking check
-            if not sem.acquire(blocking=False):
-                return
+        if self._synchronous:
+            # Block until available for strict sequential execution
+            sem.acquire()
+        else:
+            try:
+                sem.acquire(blocking=False)
+            except Exception:
+                if not sem.acquire(blocking=False):
+                    return
         # Build plan with amount=0. Swapper will use provided amount in run() call after we set it.
         plan = self._swapper.plan_from_bf_line(bf_line, amount=0.0)
         if not plan:
             sem.release()
             return
-        # Submit worker
-        self._tp.submit(self._worker, sem, ex_id, anchor, plan)
+        # Execute worker
+        if self._synchronous:
+            self._worker(sem, ex_id, anchor, plan)
+        else:
+            assert self._tp is not None
+            self._tp.submit(self._worker, sem, ex_id, anchor, plan)
 
     def _worker(self, sem: threading.Semaphore, ex_id: str, anchor: str, plan: SwapPlan) -> None:
         try:
@@ -85,12 +109,27 @@ class RadarDispatcher:
                 )
                 return
             plan.amount = float(amt)
+            # Track baseline before swap if not present
+            if ex_id not in self._baseline_bal:
+                self._baseline_bal[ex_id] = float(amt)
             res = self._swapper.run(plan)
             logger.info("dispatcher: swap ex=%s status=%s delta=%.8f", ex_id, res.status, res.delta)
-            if self._emergency_on_negative and res.ok and res.delta < 0:
-                # Pause this exchange; basic lever (no timed resume in v1)
-                logger.warning("dispatcher: emergency pause ex=%s due to negative delta=%.8f", ex_id, res.delta)
-                self._paused[ex_id] = 1.0  # mark as paused (value not used in v1)
+            if self._emergency_on_negative:
+                if self._emergency_use_wallet:
+                    # Compare current wallet balance vs baseline; pause if profit < epsilon
+                    cur_bal = self._read_anchor_balance(ex_id, anchor)
+                    profit = float(cur_bal - self._baseline_bal.get(ex_id, cur_bal))
+                    logger.info("dispatcher: wallet-profit ex=%s anchor=%s profit=%.8f baseline=%.8f cur=%.8f",
+                                ex_id, anchor, profit, self._baseline_bal.get(ex_id, 0.0), cur_bal)
+                    if profit < self._emergency_profit_epsilon - 1e-12:
+                        logger.warning("dispatcher: emergency pause ex=%s due to wallet profit %.8f < %.8f",
+                                       ex_id, profit, self._emergency_profit_epsilon)
+                        self._paused[ex_id] = 1.0
+                else:
+                    # Fallback legacy lever by per-swap delta
+                    if res.ok and res.delta < 0:
+                        logger.warning("dispatcher: emergency pause ex=%s due to negative delta=%.8f", ex_id, res.delta)
+                        self._paused[ex_id] = 1.0
         except Exception as e:
             logger.exception("dispatcher: worker error ex=%s: %s", ex_id, e)
         finally:

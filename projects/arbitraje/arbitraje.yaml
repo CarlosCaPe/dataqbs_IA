@@ -98,7 +98,10 @@ dispatcher:
   swapper_config: ./swapper.live.yaml  # Config del Swapper (usar live para órdenes reales)
   max_workers: 8              # Máximo de workers simultáneos globales
   per_exchange_concurrency: 1 # Límite de workers concurrentes por exchange
+  synchronous: true           # Ejecutar estrictamente un swap a la vez (bloqueante)
   emergency_on_negative: true # Palanca: pausar un exchange si delta realizado < 0
+  emergency_use_wallet: true  # Usar profit de wallet (balance actual - baseline) en lugar de delta de swap
+  emergency_profit_epsilon: 0.0  # Pausar si profit < epsilon (p.ej. 0.0 para no permitir pérdidas netas)
   min_amounts:                # Mínimos por exchange (QUOTE), reutiliza valores si ya existen en swapper.yaml
     binance: 10.0
     okx: 1.0
