@@ -16,7 +16,7 @@ bf:
   rank_by_qvol: true
 
   # Cobertura y calidad
-  currencies_limit: 350     # ligera ampliación de cobertura
+  currencies_limit: 200     # bajar cobertura para acelerar (ajusta si hace falta)
   min_net: 0.5              # relajar umbral total
   min_net_per_hop: 0.0     # relajar umbral por hop
   top: 6
@@ -35,12 +35,12 @@ bf:
   depth_levels: 20
   latency_penalty_bps: 2    # colchón ligeramente más laxo
   reset_history: true
-  iter_timeout_sec: 0.0
+  iter_timeout_sec: 6.0     # límite por iteración para avanzar rápido (0 = sin límite)
 
 # Runtime
 max: 200
-timeout: 20000
-sleep: 0.10
+timeout: 12000              # bajar timeout de ccxt para fallar más rápido
+sleep: 0.02                 # pausa mínima entre requests (0.00 si no hay rate limit)
 repeat: 100000              # ciclo largo (ajusta para runs de calibración)
 repeat_sleep: 0
 
@@ -48,7 +48,7 @@ repeat_sleep: 0
 use_balance: true
 balance_kind: free
 balance_provider: ccxt
-ex_auth_only: false
+ex_auth_only: true          # incluir solo exchanges con credenciales
 simulate_compound: true
 simulate_from_wallet: true
 simulate_prefer: auto
