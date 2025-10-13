@@ -13,6 +13,7 @@ import yaml
 
 from . import paths
 from . import binance_api
+from .swapper import Swapper, SwapHop, SwapPlan  # live swap execution (optional)
 try:
     # Optional WS depth for Binance
     from .ws_binance import BinanceL2PartialBook  # type: ignore
@@ -819,6 +820,14 @@ def main() -> None:
     parser.add_argument("--simulate_prefer", choices=["USDT", "USDC", "auto"], default="auto", help="Preferred anchor when using --simulate_from_wallet; auto = choose with higher balance")
     parser.add_argument("--simulate_auto_switch", action="store_true", help="Auto-switch simulation anchor (USDT/USDC) to the currency with the best available cycle each iteration")
     parser.add_argument("--simulate_switch_threshold", type=float, default=0.0, help="Minimum additional net %% required to switch anchor vs current anchor's best (default 0.0)")
+    # Optional: execute selected cycle live via Swapper (use with caution)
+    parser.add_argument("--sim_execute", action="store_true", help="Execute the selected BF cycle live using swapper (uses --sim_execute_config)")
+    parser.add_argument(
+        "--sim_execute_config",
+        type=str,
+        default=str(paths.PROJECT_ROOT / "swapper.live.yaml"),
+        help="Path to swapper config for --sim_execute (defaults to projects/arbitraje/swapper.live.yaml)",
+    )
 
     # Repeat / UX
     parser.add_argument("--repeat", type=int, default=1)
@@ -1534,7 +1543,8 @@ def main() -> None:
                     "start_balance": float(bal_val),
                     "start_ccy": ccy,
                 }
-
+    # Swapper live execution support is integrated below in the simulation update block when --sim_execute is enabled.
+        
         def bf_worker(ex_id: str, it: int, ts: str) -> Tuple[str, List[str], List[dict]]:
             local_lines: List[str] = []
             local_results: List[dict] = []
@@ -2258,11 +2268,33 @@ def main() -> None:
                                 ccy = chosen_anchor
                             selected = chosen_row
                     if selected is not None:
-                        product = 1.0 + (float(selected.get("net_pct", 0.0)) / 100.0)
                         before = balance
+                        product = 1.0 + (float(selected.get("net_pct", 0.0)) / 100.0)
                         after = round(before * product, 8)
                         gain_amt = round(after - before, 8)
                         gain_pct = round((product - 1.0) * 100.0, 6)
+                        # Optionally execute the selected cycle live using swapper and override simulated results
+                        if getattr(args, "sim_execute", False):
+                            try:
+                                path_exec = str(selected.get("path") or "")
+                                parts = [p for p in path_exec.split("->") if p]
+                                # Build swap plan: consume the current balance as cap on first hop
+                                hops = [SwapHop(base=p, quote=q) for p, q in zip(parts, parts[1:])]
+                                sw = Swapper(config_path=args.sim_execute_config)
+                                plan = SwapPlan(exchange=ex_id, hops=hops, amount=float(before))
+                                res = sw.run(plan)
+                                if res and getattr(res, "ok", False):
+                                    # Use live outcome for compounding
+                                    after = float(res.amount_out)
+                                    gain_amt = round(after - before, 8)
+                                    gain_pct = round(((after / before) - 1.0) * 100.0, 6) if before > 0 else 0.0
+                                    iter_lines.append(
+                                        f"[LIVE] it#{it} @{ex_id} {ccy} exec {path_exec} status={res.status} | {ccy} {before:.4f} -> {after:.4f} ({'+' if gain_amt >= 0 else ''}{gain_amt:.4f})"
+                                    )
+                                else:
+                                    iter_lines.append(f"[LIVE] it#{it} @{ex_id} {ccy} exec {path_exec} FAILED")
+                            except Exception as e:
+                                iter_lines.append(f"[LIVE] error executing swapper: {e}")
                         sim_rows.append({
                             "iteration": it,
                             "ts": ts,
