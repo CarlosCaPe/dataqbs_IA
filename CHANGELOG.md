@@ -6,6 +6,14 @@ Swapper Alpha
 - Menos REST y pausas: markets para orientación, ticker solo si hace falta, `settle_sleep_ms: 0` por defecto.
 - Config real en `projects/arbitraje/swapper.live.yaml` (`dry_run: false`).
 
+## 0.4.2 (2025-10-12)
+
+Swapper Alpha — balance settle pause
+- Reintroducida una pequeña pausa entre hops para permitir que el saldo se asiente en el exchange y evitar cortes entre legs.
+- `swapper.live.yaml`: `settle_sleep_ms` ajustado a 300 ms; `confirm_fill: false` se mantiene para velocidad.
+- `swapper.yaml` (dry-run): `settle_sleep_ms` ajustado a 100 ms para simular más real, configurable.
+- Sin cambios funcionales en la lógica de ejecución: path-first, fees neteados, balance real por hop.
+
 # Changelog
 
 All notable changes to this repository are documented here. Dates are in YYYY-MM-DD.
