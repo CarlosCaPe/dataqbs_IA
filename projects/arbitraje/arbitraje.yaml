@@ -91,3 +91,16 @@ sdk:
   okx:
     repo: https://github.com/okxapi/python-okx
     path: ./sdk/okx
+
+# Integración radar -> swapper (dispatcher)
+dispatcher:
+  enabled: false              # Activar para lanzar swaps automáticamente al detectar ventanas BF
+  swapper_config: ./swapper.live.yaml  # Config del Swapper (usar live para órdenes reales)
+  max_workers: 8              # Máximo de workers simultáneos globales
+  per_exchange_concurrency: 1 # Límite de workers concurrentes por exchange
+  emergency_on_negative: true # Palanca: pausar un exchange si delta realizado < 0
+  min_amounts:                # Mínimos por exchange (QUOTE), reutiliza valores si ya existen en swapper.yaml
+    binance: 10.0
+    okx: 1.0
+    bitget: 1.01
+    mexc: 1.01

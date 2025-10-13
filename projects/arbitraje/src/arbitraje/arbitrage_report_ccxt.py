@@ -731,6 +731,16 @@ def _load_yaml_config_defaults(parser: argparse.ArgumentParser) -> None:
             key = f"ui_{k}"
             conf[key] = v
 
+        # Dispatcher
+        disp = raw.get("dispatcher", {}) or {}
+        if disp:
+            conf["dispatcher_enabled"] = bool(disp.get("enabled", False))
+            conf["dispatcher_swapper_config"] = disp.get("swapper_config", "./swapper.live.yaml")
+            conf["dispatcher_max_workers"] = int(disp.get("max_workers", 8) or 8)
+            conf["dispatcher_per_exchange_concurrency"] = int(disp.get("per_exchange_concurrency", 1) or 1)
+            conf["dispatcher_emergency_on_negative"] = bool(disp.get("emergency_on_negative", True))
+            conf["dispatcher_min_amounts"] = disp.get("min_amounts", {})
+
         if conf:
             parser.set_defaults(**conf)
     except Exception:
@@ -1737,6 +1747,26 @@ def main() -> None:
                         else:
                             msg = f"BF@{ex_id} {path_str} ({hops}hops) => net {net_pct:.3f}% | {QUOTE} {inv_amt:.2f} -> {est_after:.4f}{bal_suffix}"
                         logger.info(msg)
+                        # Dispatcher integration: submit swap if enabled
+                        try:
+                            if getattr(args, "dispatcher_enabled", False):
+                                from .dispatcher import RadarDispatcher  # local import
+                                if not getattr(args, "_dispatcher", None):
+                                    # Initialize once per run
+                                    disp = RadarDispatcher(
+                                        swapper_config_path=str(getattr(args, "dispatcher_swapper_config", "./swapper.live.yaml")),
+                                        max_workers=int(getattr(args, "dispatcher_max_workers", 8) or 8),
+                                        per_exchange_concurrency=int(getattr(args, "dispatcher_per_exchange_concurrency", 1) or 1),
+                                        min_amounts=dict(getattr(args, "dispatcher_min_amounts", {}) or {}),
+                                        emergency_on_negative=bool(getattr(args, "dispatcher_emergency_on_negative", True)),
+                                        balance_kind=str(getattr(args, "balance_kind", "free")),
+                                        timeout_ms=int(getattr(args, "timeout", 20000) or 20000),
+                                    )
+                                    setattr(args, "_dispatcher", disp)
+                                disp = getattr(args, "_dispatcher")
+                                disp.submit_bf_line(msg)
+                        except Exception:
+                            pass
                         local_lines.append(msg)
                         local_results.append({
                             "exchange": ex_id,
