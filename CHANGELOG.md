@@ -18,6 +18,25 @@ Swapper Alpha — balance settle pause
 
 All notable changes to this repository are documented here. Dates are in YYYY-MM-DD.
 
+## arbitraje v0.5.1 — 2025-10-14 (KILLER ALPHA)
+
+BF logging and iteration reliability, plus simulation UX
+
+- Snapshot logs restored and enriched: current_bf.txt now shows Simulation (estado actual) at the top and in the final summary; alias CURRENT_BF.txt mirrors it.
+- History fixes: removed duplicate appends causing repeated "[BF] Iteración" headers; bf_history.txt now appends once per iteration and includes [SIM] picks.
+- Multi-iteration loop fixed: removed a duplicated iteration path that could short-circuit or confuse iteration flow; now repeat N works cleanly with a simple sleep between iterations.
+- Simulation summary correctness: iteration count reflects the actual last iteration reached (not the configured repeat).
+- Small performance/robustness: currency micro-cache when rank-by-qvol is off; safer table rendering with fallbacks; headers/tables pre-drawn optionally for immediate structure.
+
+Quality gates
+- Build: PASS (Poetry install)
+- Lint/Typecheck: PASS (ruff non-blocking legacy warnings allowed)
+- Tests: PASS (project tests run; manual BF runs verified)
+
+Artifacts
+- Logs: artifacts/arbitraje/logs/current_bf.txt, CURRENT_BF.txt, bf_history.txt
+- Outputs: arbitrage_bf_usdt_ccxt.csv, arbitrage_bf_simulation_summary_usdt_ccxt.csv, bf_sim_summary.{csv,md}, arbitrage_bf_usdt_persistence.csv
+
 ## arbitraje v0.4.0 — 2025-10-12 (swapper)
 
 Minor release for the arbitraje project introducing the new Swapper module and performance-focused refinements for fast, isolated execution of spot round-trips.

@@ -1,52 +1,41 @@
-# Producción (calibrado realista)
-# Enfoque: minimizar falsos positivos y aproximar net% quoted a net% realized
-# usando profundidad L2 y colchón por latencia/slippage.
-
 mode: bf
 
-# Exchanges target (ajusta según tus credenciales/venues preferidos)
-ex: [binance, bitget, mexc, okx]
+# Exchanges to include (leaner prod set; can expand as needed)
+ex: [binance, bitget, okx, mexc]
 
 quote: USDT
-inv: 0.0  # usar saldo de wallet
+inv: 0.0  # Always use wallet; do not assume extra investment
 
 bf:
   allowed_quotes: [USDT, USDC]
-  fee: 0.10                 # % por hop
+  fee: 0.10
   rank_by_qvol: true
-
-  # Cobertura y calidad
-  currencies_limit: 350     # ligera ampliación de cobertura
-  min_net: 0.5              # relajar umbral total
-  min_net_per_hop: 0.0     # relajar umbral por hop
+  currencies_limit: 150
+  min_net: 0.05
+  min_net_per_hop: 0.0
   top: 6
   require_quote: true
-  require_topofbook: true
-  min_quote_vol: 10000      # relajar filtro de liquidez por hop (en QUOTE)
+  require_topofbook: false
+  min_quote_vol: 0
   min_hops: 3
-  max_hops: 5               # limitar ruta para reducir drift/latencia acumulada
-  threads: 0                # 1 hilo por exchange
-  require_dual_quote: false  # bases con USDT y USDC
+  max_hops: 4
+  threads: 0
+  require_dual_quote: false
   persist_top_csv: true
-
-  # Revalidación con profundidad y colchón de latencia
-  revalidate_depth: false  # desactivado para producción (consume profundidad)
+  revalidate_depth: false
   use_ws: true
-  depth_levels: 20
-  latency_penalty_bps: 2    # colchón ligeramente más laxo
+  depth_levels: 15
+  latency_penalty_bps: 1
   reset_history: true
   iter_timeout_sec: 0.0
 
-# Runtime
 max: 200
 timeout: 20000
-sleep: 0.10
-repeat: 100000              # ciclo largo (ajusta para runs de calibración)
+sleep: 0.05
+repeat: 100000
 repeat_sleep: 0
 
-# Balance y simulación
-use_balance: true
-balance_kind: free
+# Note: use_balance/balance_kind removed; tool now always reads wallet balances when available
 balance_provider: ccxt
 ex_auth_only: false
 simulate_compound: true
@@ -54,16 +43,17 @@ simulate_from_wallet: true
 simulate_prefer: auto
 simulate_select: best
 simulate_auto_switch: true
+simulate_fallback_to_inv: true
 
-# Consola/UI
 no_console_clear: true
+
 ui:
   progress_bar: true
   progress_len: 20
   spinner_frames: "|/-\\"
   draw_tables_first: true
+  show_simulation_header_always: true
 
-# TRI (placeholders; se usa solo si activas mode: tri)
 tri:
   fee: 0.10
   currencies_limit: 35
@@ -71,19 +61,3 @@ tri:
   top: 5
   require_topofbook: false
   min_quote_vol: 0
-
-# SDK refs (sin cambios funcionales)
-sdk:
-  binance:
-    repo: https://github.com/binance/binance-connector-python
-    path: ./sdk/binance
-  mexc:
-    repo: https://github.com/mexcdevelop/mexc-api-sdk
-    docs: https://www.mexc.com/api-docs/spot-v3/introduction#api-library
-    path: ./sdk/mexc
-  bitget:
-    repo: https://github.com/BitgetLimited/v3-bitget-api-sdk
-    path: ./sdk/bitget
-  okx:
-    repo: https://github.com/okxapi/python-okx
-    path: ./sdk/okx

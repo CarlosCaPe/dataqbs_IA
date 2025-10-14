@@ -45,8 +45,7 @@ repeat: 100000    # Iteraciones del loop; subir para runs largos
 repeat_sleep: 0   # Pausa entre iteraciones (s)
 
 # Balance usage and simulation
-use_balance: true                 # Usa saldo autenticado de QUOTE (min(inv, saldo)); si no hay saldo => 0
-balance_kind: free                # Tipo de saldo: free | total
+# Balance usage is now always enabled internally; these options are deprecated and ignored.
 balance_provider: ccxt            # ccxt | native (binance) | connector (binance sdk) | bitget_sdk
 ex_auth_only: false               # Incluir solo exchanges con credenciales presentes
 simulate_compound: true           # Simula composición: aplica una oportunidad por iteración sobre un saldo en QUOTE

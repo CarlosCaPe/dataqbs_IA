@@ -16,17 +16,10 @@ ruff = "^0.6.9"
 pre-commit = "^3.8.0"
 
 [tool.pytest.ini_options]
-minversion = "8.0"
+minversion = "6.0"
 addopts = "-q"
 testpaths = [
 	"projects/oai_code_evaluator/tests"
-]
-pythonpath = [
-	"projects/email_collector/src",
-	"projects/oai_code_evaluator/src",
-	"projects/real_estate/src",
-	"projects/telus_compara_audios/src",
-	"projects/telus_compara_imagenes/src"
 ]
 
 [tool.ruff]

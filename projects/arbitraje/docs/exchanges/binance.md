@@ -46,7 +46,7 @@ SIGNED endpoints require:
 
 ## How our tool uses Binance
 - For scanning (tri/BF), we use public market endpoints via ccxt: `load_markets`, `fetch_tickers`.
-- For balance-aware logging (`--use_balance`), we call `fetch_balance()` with API keys.
+- For balance-aware logging we call `fetch_balance()` with API keys automatically when present.
 - We do NOT place orders in this tool.
 
 ## Environment Variables
@@ -76,7 +76,7 @@ poetry run arbitraje-ccxt --mode bf \
   --repeat 10 \
   --repeat_sleep 2 \
   --bf_threads 1 \
-  --use_balance --balance_kind free
+  # Wallet balance is always used automatically when credentials are present
 ```
 
 After verifying, you can add other exchanges by filling their keys in `.env` and listing them in `--ex`.

@@ -147,7 +147,7 @@
 		{
 			"label": "Arbitraje: Validate build & tests",
 			"type": "shell",
-			"command": "pwsh -NoProfile -Command \"Set-Location 'projects/arbitraje'; poetry install --no-interaction --no-ansi; poetry run ruff check src || $true; poetry run pytest -q\"",
+			"command": "pwsh -NoProfile -Command \"Set-Location 'projects/arbitraje'; poetry install --no-interaction --no-ansi; poetry run ruff check src || $true; poetry run pytest -q --rootdir . tests\"",
 			"problemMatcher": [
 				"$tsc"
 			],
@@ -160,6 +160,48 @@
 			"options": {
 				"cwd": "${workspaceFolder}"
 			},
+			"group": "build"
+		},
+		{
+			"label": "Arbitraje: Validate build & tests",
+			"type": "shell",
+			"command": "pwsh -NoProfile -Command \"Set-Location 'projects/arbitraje'; poetry install --no-interaction --no-ansi; poetry run ruff check src || $true; poetry run pytest -q --rootdir . tests\"",
+			"group": "build"
+		},
+		{
+			"label": "Arbitraje: Validate build & tests",
+			"type": "shell",
+			"command": "pwsh -NoProfile -Command \"Set-Location 'projects/arbitraje'; poetry install --no-interaction --no-ansi; poetry run ruff check src || $true; poetry run pytest -q --rootdir . tests\"",
+			"group": "build"
+		},
+		{
+			"label": "Arbitraje: Validate build & tests",
+			"type": "shell",
+			"command": "pwsh -NoProfile -Command \"Set-Location 'projects/arbitraje'; poetry install --no-interaction --no-ansi; poetry run ruff check src || $true; poetry run pytest -q --rootdir . tests\"",
+			"group": "build"
+		},
+		{
+			"label": "Arbitraje: Validate build & tests",
+			"type": "shell",
+			"command": "pwsh -NoProfile -Command \"Set-Location 'projects/arbitraje'; poetry install --no-interaction --no-ansi; poetry run ruff check src || $true; poetry run pytest -q --rootdir . tests\"",
+			"group": "build"
+		},
+		{
+			"label": "Arbitraje: Validate build & tests",
+			"type": "shell",
+			"command": "pwsh -NoProfile -Command \"Set-Location 'projects/arbitraje'; poetry install --no-interaction --no-ansi; poetry run ruff check src || $true; poetry run pytest -q --rootdir . tests\"",
+			"group": "build"
+		},
+		{
+			"label": "Arbitraje: Validate build & tests",
+			"type": "shell",
+			"command": "pwsh -NoProfile -Command \"Set-Location 'projects/arbitraje'; poetry install --no-interaction --no-ansi; poetry run pytest -q --rootdir . tests\"",
+			"group": "build"
+		},
+		{
+			"label": "Run BF (1 iter quick)",
+			"type": "shell",
+			"command": "pwsh -NoProfile -Command \"Set-Location 'projects/arbitraje'; poetry run python -m arbitraje.arbitrage_report_ccxt --mode bf --config .\\arbitraje.prod.yaml --repeat 1 --repeat_sleep 0 --no_console_clear\"",
 			"group": "build"
 		}
 	]

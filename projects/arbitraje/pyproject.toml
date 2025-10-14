@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "arbitraje"
-version = "0.5.0"
+version = "0.5.1"
 description = "Crypto price arbitrage scanner using ccxt (BF/tri modes)"
 authors = ["Your Name <you@example.com>"]
 license = "MIT"
@@ -32,7 +32,7 @@ ignore = []
 
 [tool.pytest.ini_options]
 addopts = "-q"
-testpaths = ["src/arbitraje"]
+testpaths = ["tests"]
 
 [tool.poetry.scripts]
 arbitraje-ccxt = "arbitraje.arbitrage_report_ccxt:main"

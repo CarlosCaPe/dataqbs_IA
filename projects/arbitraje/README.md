@@ -47,7 +47,7 @@ poetry run arbitraje-ccxt --mode bf \
 	--repeat 10 \
 	--repeat_sleep 2 \
 	--bf_threads 1 \
-	--use_balance --balance_kind free
+	# Wallet balance is always used automatically when credentials are present
 ```
 
 Outputs are written to `artifacts/arbitraje/outputs` (CSVs) and logs to `artifacts/arbitraje/logs`.
@@ -100,7 +100,7 @@ Environment variables per exchange (set in `.env`):
 - MEXC: `MEXC_API_KEY`, `MEXC_API_SECRET`
 
 Notes:
-- If `--use_balance` is enabled and balance is unavailable, the tool assumes 0 to avoid overstating profits.
+- Balance usage is always on; if balance is unavailable, the tool assumes 0 to avoid overstating profits.
 - For `--simulate_from_wallet`, when wallet cannot be read, simulation starts at 0 (currency per `--simulate_prefer`).
 
 ## SDK bootstrap (optional)
