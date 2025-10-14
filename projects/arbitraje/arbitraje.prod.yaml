@@ -12,7 +12,7 @@ bf:
   fee: 0.10                  # Mantiene modelado conservador de taker≈0.1% por hop
   rank_by_qvol: true         # Prioriza liquidez (reduce ciclos basura)
   currencies_limit: 500      # Menor universo = menor ruido, más rápido (era 600)
-  min_net: 0.05               # Sube el umbral bruto para absorber slippage potencial (~0.4% observado)
+  min_net: 0.15               # Sube el umbral bruto para absorber slippage potencial (~0.4% observado)
   min_net_per_hop: 0.00      # Evita cadenas largas con hops marginales
   top: 40                    # Suficiente para inspección; menos ruido que 60
   require_quote: true        # Obliga cerrar en ancla estable
