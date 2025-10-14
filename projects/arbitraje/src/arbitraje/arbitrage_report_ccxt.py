@@ -2863,9 +2863,11 @@ def main() -> None:
                     else:
                         msg = f"BF@{ex_id} {path_str} ({hops}hops) => net {net_pct:.3f}% | {QUOTE} {inv_amt:.2f} -> {est_after:.4f}"
                     logger.info(msg)
-                    __import__("subprocess").Popen(
+                    (
+                        paths.LOGS_DIR.mkdir(parents=True, exist_ok=True) or True
+                    ) and __import__("subprocess").Popen(
                         [
-                            sys.executable,
+                            __import__("sys").executable,
                             "-m",
                             "arbitraje.swapper",
                             "--config",
@@ -2876,7 +2878,9 @@ def main() -> None:
                             path_str,
                             "--anchor",
                             QUOTE,
-                        ]
+                        ],
+                        stdout=open(str(paths.LOGS_DIR / "swapper.log"), "ab"),
+                        stderr=__import__("subprocess").STDOUT,
                     )
                     local_lines.append(msg)
                     local_results.append(

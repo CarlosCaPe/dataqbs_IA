@@ -18,6 +18,36 @@ Swapper Alpha — balance settle pause
 
 All notable changes to this repository are documented here. Dates are in YYYY-MM-DD.
 
+## v1.1.0 — 2025-10-14
+
+Minor release focusing on safety hardening for automated swap path generation and version alignment across the monorepo.
+
+Highlights
+- Blacklist support usage expanded: added manual `blacklist_pairs` entries in `swapper.yaml`, `swapper.live.yaml`, `arbitraje.yaml` y `arbitraje.prod.yaml` para excluir `okx: USDC/USDT` tras errores persistentes `sCode 51155` (compliance restriction) observados en `swapper.log`.
+- Prevents constructing BF / swap cycles that would fail due to regulatory/compliance constraints on OKX USDC/USDT.
+- Version bump root monorepo y paquete `arbitraje` a 1.1.0.
+
+Why this matters
+- Evita intentos repetitivos fallidos que generan ruido en logs y pérdidas de tiempo en ejecución automática.
+- Centraliza la política de exclusión para futuras extensiones del cargador de blacklist.
+
+Quality gates
+- Build: PASS (Poetry metadata updated; no dependency changes).
+- Lint/Typecheck: PASS (solo cambios en YAML/metadata, sin código Python nuevo).
+- Tests: PASS (suite existente sin modificaciones; no paths funcionales afectados fuera del filtro de par restringido).
+
+Upgrade notes
+- No action required; rutas previas que usaban USDC/USDT en OKX simplemente dejarán de aparecer.
+- Para revertir, eliminar la entrada en los YAML y borrar/editar `artifacts/arbitraje/logs/swapper_blacklist.json` si ya fue materializado.
+
+Files changed
+- `swapper.yaml`, `swapper.live.yaml`, `arbitraje.yaml`, `arbitraje.prod.yaml` (blacklist).
+- `pyproject.toml` (root & arbitraje) version -> 1.1.0.
+- `CHANGELOG.md` (esta sección) y nuevo `RELEASE_NOTES_v1.1.0.md`.
+
+Tag sugerido: v1.1.0
+
+
 ## v1.0.0 — 2025-10-14 (GUILLERMO)
 
 Major release consolidating the arbitraje scanner, live swapper, and quality gates, plus a one-line non-blocking autoswap trigger from the radar.

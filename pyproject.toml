@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "dataqbs-monorepo"
-version = "1.0.0"
+version = "1.1.0"
 description = "Monorepo tooling (lint, tests, hooks) for dataqbs Python projects"
 authors = ["Carlos <you@example.com>"]
 license = "MIT"

@@ -10,14 +10,14 @@ bf:
   allowed_quotes: [USDT, USDC]
   fee: 0.10
   rank_by_qvol: true
-  currencies_limit: 350
-  min_net: .1
+  currencies_limit: 600
+  min_net: .4
   min_net_per_hop: 0.0
-  top: 20
+  top: 30
   require_quote: true
   require_topofbook: false
   min_quote_vol: 0
-  min_hops: 3
+  min_hops: 2
   max_hops: 6
   threads: 0
   require_dual_quote: false
@@ -37,7 +37,7 @@ repeat_sleep: 0
 
 # Note: use_balance/balance_kind removed; tool now always reads wallet balances when available
 balance_provider: ccxt
-ex_auth_only: false
+ex_auth_only: true
 simulate_compound: true
 simulate_from_wallet: true
 simulate_prefer: auto
@@ -61,3 +61,9 @@ tri:
   top: 5
   require_topofbook: false
   min_quote_vol: 0
+
+# Manual blacklist (prod) – evita rutas con pares restringidos
+# OKX: USDC/USDT con errores sCode 51155 (compliance) en swaps recientes
+blacklist_pairs:
+  okx:
+    - USDC/USDT  # sCode 51155 compliance restriction

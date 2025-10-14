@@ -90,3 +90,9 @@ sdk:
   okx:
     repo: https://github.com/okxapi/python-okx
     path: ./sdk/okx
+
+# Blacklist manual de pares (evita construir ciclos/hops con estos símbolos)
+# Motivo: OKX devolvió sCode 51155 (restricción de cumplimiento) para USDC/USDT en intentos recientes.
+blacklist_pairs:
+  okx:
+    - USDC/USDT  # sCode 51155 compliance restriction

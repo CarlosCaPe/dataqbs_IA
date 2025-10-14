@@ -18,3 +18,11 @@ test_min_amounts:
   okx: 1.0
   bitget: 1.0
   mexc: 1.0
+
+# Manual blacklist for radar / path building.
+# Detected compliance restriction (OKX sCode 51155) during swap attempts involving USDC/USDT.
+# By blacklisting the pair we prevent constructing paths that require crossing USDC<->USDT on OKX for now.
+# If later confirmed that only one direction is affected or issue was transient, remove this entry.
+blacklist_pairs:
+  okx:
+    - USDC/USDT  # sCode 51155 compliance restriction (log captured)

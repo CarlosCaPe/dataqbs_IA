@@ -30,3 +30,9 @@ test_min_amounts:
   okx: 1.0
   bitget: 1.0
   mexc: 1.0
+
+# Manual blacklist for radar / path building (live).
+# OKX returned sCode 51155 (compliance restriction) on USDC/USDT cycle leg; exclude until resolved.
+blacklist_pairs:
+  okx:
+    - USDC/USDT  # sCode 51155 compliance restriction
