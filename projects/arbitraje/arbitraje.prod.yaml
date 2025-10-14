@@ -12,13 +12,13 @@ bf:
   fee: 0.10                  # Mantiene modelado conservador de taker≈0.1% por hop
   rank_by_qvol: true         # Prioriza liquidez (reduce ciclos basura)
   currencies_limit: 500      # Menor universo = menor ruido, más rápido (era 600)
-  min_net: 0.00               # Sube el umbral bruto para absorber slippage potencial (~0.4% observado)
+  min_net: 0.05               # Sube el umbral bruto para absorber slippage potencial (~0.4% observado)
   min_net_per_hop: 0.00      # Evita cadenas largas con hops marginales
   top: 40                    # Suficiente para inspección; menos ruido que 60
   require_quote: true        # Obliga cerrar en ancla estable
-  require_topofbook: false    # Usa solo bid/ask; no fallback a 'last'
+  require_topofbook: true    # Usa solo bid/ask; no fallback a 'last'
   min_quote_vol: 0        # Filtra hops de bajo volumen (mitiga libros delgados ALICE/TRY style)
-  min_hops: 3                # Minimiza ciclos demasiado cortos (ajusta según preferencia)
+  min_hops: 2                # Minimiza ciclos demasiado cortos (ajusta según preferencia)
   max_hops: 6                # Reduce complejidad y acumulación de fees/slippage (antes 7)
   threads: 0                 # Paralelismo por exchange
   require_dual_quote: false  # Mantener flexible entre USDT/USDC
