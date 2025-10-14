@@ -1,14 +1,14 @@
 mode: bf
 
 # Exchanges to include (leaner prod set; can expand as needed)
-ex: [binance, bitget, mexc, okx]
+ex: [binance, bitget, mexc]
 
 quote: USDT
 inv: 0.0  # Always use wallet; do not assume extra investment
 
 bf:
   # Anchors restringidas a stables líquidas para evitar exposure a fiat con gaps grandes.
-  allowed_quotes: [USDT, USDC]
+  allowed_quotes: [USDT, USDC, TUSD, USDP, EURS, PAXG]
   fee: 0.10                  # Mantiene modelado conservador de taker≈0.1% por hop
   rank_by_qvol: true         # Prioriza liquidez (reduce ciclos basura)
   currencies_limit: 500      # Menor universo = menor ruido, más rápido (era 600)
