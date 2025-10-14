@@ -38,7 +38,7 @@ repeat_sleep: 0
 # Note: use_balance/balance_kind removed; tool now always reads wallet balances when available
 balance_provider: ccxt
 ex_auth_only: false
-simulate_compound: false
+simulate_compound: true
 simulate_from_wallet: true
 simulate_prefer: auto
 simulate_select: best
