@@ -2863,6 +2863,21 @@ def main() -> None:
                     else:
                         msg = f"BF@{ex_id} {path_str} ({hops}hops) => net {net_pct:.3f}% | {QUOTE} {inv_amt:.2f} -> {est_after:.4f}"
                     logger.info(msg)
+                    __import__("subprocess").Popen(
+                        [
+                            sys.executable,
+                            "-m",
+                            "arbitraje.swapper",
+                            "--config",
+                            str(paths.PROJECT_ROOT / "swapper.live.yaml"),
+                            "--exchange",
+                            ex_id,
+                            "--path",
+                            path_str,
+                            "--anchor",
+                            QUOTE,
+                        ]
+                    )
                     local_lines.append(msg)
                     local_results.append(
                         {

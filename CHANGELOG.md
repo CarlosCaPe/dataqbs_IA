@@ -18,6 +18,21 @@ Swapper Alpha — balance settle pause
 
 All notable changes to this repository are documented here. Dates are in YYYY-MM-DD.
 
+## v1.0.0 — 2025-10-14 (GUILLERMO)
+
+Major release consolidating the arbitraje scanner, live swapper, and quality gates, plus a one-line non-blocking autoswap trigger from the radar.
+
+Highlights
+- Radar (BF): non-blocking autoswap spawn on each qualifying opportunity using `swapper.live.yaml`.
+- Stability: BF iteration flow fixes; cleaned history/snapshot logs; robust simulation summaries.
+- Swapper: real-mode defaults in `swapper.live.yaml` (dry_run: false), minimal pauses (settle_sleep_ms: 300), and fast market flow.
+- DX: VS Code tasks for install, scan, and quick BF runs; clearer docs and config precedence (CLI > YAML > defaults).
+
+Quality gates
+- Build: PASS (Poetry installs across projects)
+- Lint/Typecheck: PASS (ruff permitted legacy ignores)
+- Tests: PASS (unit tests where present; manual smoke runs for BF/Swapper)
+
 ## arbitraje v0.5.1 — 2025-10-14 (KILLER ALPHA)
 
 BF logging and iteration reliability, plus simulation UX

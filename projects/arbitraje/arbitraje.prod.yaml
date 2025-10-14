@@ -1,7 +1,7 @@
 mode: bf
 
 # Exchanges to include (leaner prod set; can expand as needed)
-ex: [binance, bitget, okx, mexc]
+ex: [binance, bitget, mexc, okx]
 
 quote: USDT
 inv: 0.0  # Always use wallet; do not assume extra investment
@@ -10,35 +10,35 @@ bf:
   allowed_quotes: [USDT, USDC]
   fee: 0.10
   rank_by_qvol: true
-  currencies_limit: 150
-  min_net: 0.05
+  currencies_limit: 350
+  min_net: .1
   min_net_per_hop: 0.0
-  top: 6
+  top: 20
   require_quote: true
   require_topofbook: false
   min_quote_vol: 0
   min_hops: 3
-  max_hops: 4
+  max_hops: 6
   threads: 0
   require_dual_quote: false
   persist_top_csv: true
   revalidate_depth: false
   use_ws: true
-  depth_levels: 15
-  latency_penalty_bps: 1
+  depth_levels: 20
+  latency_penalty_bps: 0
   reset_history: true
   iter_timeout_sec: 0.0
 
 max: 200
 timeout: 20000
-sleep: 0.05
-repeat: 100000
+sleep: 0
+repeat: 10000
 repeat_sleep: 0
 
 # Note: use_balance/balance_kind removed; tool now always reads wallet balances when available
 balance_provider: ccxt
 ex_auth_only: false
-simulate_compound: true
+simulate_compound: false
 simulate_from_wallet: true
 simulate_prefer: auto
 simulate_select: best

@@ -19,7 +19,7 @@ dry_run: false
 
 # Fast execution flags
 # Small wait between hops to allow wallet balances to settle on the exchange
-settle_sleep_ms: 300  # ms; helps avoid balance race conditions between legs
+settle_sleep_ms: 200  # ms; helps avoid balance race conditions between legs
 confirm_fill: false   # avoid extra fetch_order (faster; set true for fee/filled precision)
 
 # Per-exchange minimum test amount (in quote currency, typically USDT)
