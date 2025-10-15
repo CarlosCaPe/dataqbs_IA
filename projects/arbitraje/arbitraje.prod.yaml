@@ -65,6 +65,12 @@ tri:
   require_topofbook: true
   min_quote_vol: 2000
 
+# Engine techniques orchestration (process-pool based)
+techniques:
+  enabled: [bellman_ford, stat_tri]
+  max_workers: 2
+  enable_rerank_onnx: false
+
 # Per-exchange overrides (optional) — these can tune aggressiveness per-exchange.
 exchange_overrides:
   mexc:

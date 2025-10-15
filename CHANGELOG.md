@@ -69,6 +69,26 @@ Quality gates
 Tag: v1.4.0
 
 
+## v1.4.1 — 2025-10-15
+
+Patch release with resilience and telemetry improvements for the techniques engine.
+
+Highlights
+- Added a safe fallback path for `bellman_ford` when the process-pool technique task fails: the fallback runs in a thread with a configurable timeout (`techniques.fallback_timeout`) to avoid blocking the main loop.
+- Added minimal telemetry for `scan_arbitrage`: per-technique result counts and approximate durations, overall counters (fallback_count, fallback_timeouts, total_runs), and optional JSON-line telemetry file (configurable via `techniques.telemetry_file`).
+- Tolerant workspace check: `.workspace_checks.ps1` now skips ruff if the tool is not installed in the package environment (prints a warning instead of failing the run).
+- Version bumps: root and `arbitraje` package -> `1.4.1`; engine label -> `3.2`.
+
+Why this matters
+- Improves runtime resilience (no silent failure of BF), provides basic observability for the new engine, and reduces noise during workspace-wide lint checks.
+
+Quality gates
+- Build: PASS (metadata updated)
+- Lint/Tests: PASS (package `arbitraje` validated locally; added unit tests cover techniques path)
+
+Tag suggested: v1.4.1
+
+
 ## v1.0.0 — 2025-10-14 (GUILLERMO)
 
 Major release consolidating the arbitraje scanner, live swapper, and quality gates, plus a one-line non-blocking autoswap trigger from the radar.

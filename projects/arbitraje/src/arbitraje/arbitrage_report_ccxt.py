@@ -1488,6 +1488,11 @@ def main() -> None:
         default=None,
         help="Path to a JSON file containing pre-captured tickers keyed by exchange id (optional)",
     )
+    parser.add_argument(
+        "--no-techniques-bf",
+        action="store_true",
+        help="Disable running BF via engine_techniques and use legacy in-process BF (for debugging)",
+    )
 
     # Apply YAML defaults before parsing final args so CLI wins over YAML
     _load_yaml_config_defaults(parser)
@@ -1515,7 +1520,9 @@ def main() -> None:
                     pkg_version = data.get("tool", {}).get("poetry", {}).get("version")
             except Exception:
                 pkg_version = None
-            print(f"arbitraje version: {pkg_version or 'unknown'}; engine: {engine_label or 'unknown'}")
+            print(
+                f"arbitraje version: {pkg_version or 'unknown'}; engine: {engine_label or 'unknown'}"
+            )
             return
         except Exception:
             print("version: unknown")
@@ -2796,7 +2803,12 @@ def main() -> None:
             else:
                 tickers = {}
             batch_supported = safe_has(ex, "fetchTickers")
-            if not getattr(args, "offline", False) and args.bf_rank_by_qvol and markets and batch_supported:
+            if (
+                not getattr(args, "offline", False)
+                and args.bf_rank_by_qvol
+                and markets
+                and batch_supported
+            ):
                 tickers = ex.fetch_tickers()
                 qvol_by_ccy: Dict[str, float] = {}
                 for sym, t in tickers.items():
@@ -2833,371 +2845,91 @@ def main() -> None:
                     logger.info("[BF-DBG] %s currencies=%d", ex_id, len(currencies))
             # Try delegating BF scan to engine_techniques if enabled. If delegation returns
             # results, we use them and skip the heavy in-process BF inner loop.
-            try:
-                from .engine_techniques import scan_arbitrage as _scan_arbitrage
+            # Prefer running BF in the techniques process pool unless explicitly disabled
+            if not getattr(args, "no_techniques_bf", False):
+                try:
+                    from .engine_techniques import scan_arbitrage as _scan_arbitrage
 
-                # Build minimal serializable payload: tokens and tickers available so the
-                # technique runs without any network IO. We prefer batch tickers if already fetched.
-                payload = {
-                    "ex_id": ex_id,
-                    "ts": pd.Timestamp.utcnow().isoformat(),
-                    "tokens": currencies,
-                    "tickers": tickers,
-                    "fee": bf_fee,
-                    "min_net": bf_min_net,
-                    "top": bf_top,
-                    "min_hops": getattr(args, "bf_min_hops", 0),
-                    "max_hops": getattr(args, "bf_max_hops", 0),
-                    "min_net_per_hop": getattr(args, "bf_min_net_per_hop", 0.0),
-                    "min_quote_vol": bf_min_quote_vol,
-                    "latency_penalty": bf_latency_penalty_bps,
-                    "blacklist": list(exchange_blacklist),
-                }
-                cfg_for_worker = {
-                    "techniques": {
-                        "enabled": getattr(args, "techniques_enabled", ["bellman_ford"]),
-                        "max_workers": getattr(args, "tech_max_workers", 2),
-                        "enable_rerank_onnx": getattr(args, "tech_enable_rerank_onnx", False),
+                    payload = {
+                        "ex_id": ex_id,
+                        "ts": pd.Timestamp.utcnow().isoformat(),
+                        "tokens": currencies,
+                        "tickers": tickers,
+                        "fee": bf_fee,
+                        "min_net": bf_min_net,
+                        "top": bf_top,
+                        "min_hops": getattr(args, "bf_min_hops", 0),
+                        "max_hops": getattr(args, "bf_max_hops", 0),
+                        "min_net_per_hop": getattr(args, "bf_min_net_per_hop", 0.0),
+                        "min_quote_vol": bf_min_quote_vol,
+                        "latency_penalty": bf_latency_penalty_bps,
+                        "blacklist": list(exchange_blacklist),
                     }
-                }
-                tech_res = _scan_arbitrage(ts, payload, cfg_for_worker)
-                if tech_res:
-                    for rec in tech_res:
-                        local_results.append(rec)
-                    return ex_id, local_lines, local_results
-            except Exception:
-                logger.debug("bf_worker: delegation to engine_techniques failed; falling back")
-            # Note: anchor-first ordering already ensured above
-            # Build candidate directed pairs only where a market exists in either direction
-            candidate_pairs: List[Tuple[str, str]] = []
-            cur_set = set(currencies)
-            for u in currencies:
-                nbrs = adjacency.get(u, set())
-                for v in nbrs & cur_set:
-                    if u == v:
-                        continue
-                    candidate_pairs.append((u, v))
-
-            # Ensure we have tickers required for candidate pairs.
-            # Adaptive: prefer fetching only needed symbols via fetch_tickers(symbols) when supported;
-            # fallback to full-batch or per-symbol.
-            if not tickers:
-                # Build the set of unique symbols we may need
-                t0_syms = time.time()
-                unique_syms = set()
-                for u, v in candidate_pairs:
-                    s1 = f"{u}/{v}"
-                    s2 = f"{v}/{u}"
-                    if s1 in markets:
-                        unique_syms.add(s1)
-                    if s2 in markets:
-                        unique_syms.add(s2)
-                t1_syms = time.time()
-                tickers = {}
-                t0_fetch = time.time()
-                if not getattr(args, "offline", False) and batch_supported:
-                    # Try subset-batch first (if the exchange supports symbols parameter)
-                    fetched = False
-                    try:
-                        # Some exchanges accept a symbols argument; try and filter payload
-                        tick_subset = ex.fetch_tickers(list(unique_syms))  # type: ignore[arg-type]
-                        if isinstance(tick_subset, dict) and tick_subset:
-                            for sym in unique_syms:
-                                t = tick_subset.get(sym)
-                                if isinstance(t, dict):
-                                    tickers[sym] = t
-                            fetched = len(tickers) > 0
-                    except Exception:
-                        fetched = False
-                    if not fetched:
-                        # Fallback to full-batch and then filter
-                        try:
-                            tick_all = ex.fetch_tickers()
-                            for sym in unique_syms:
-                                t = tick_all.get(sym)
-                                if isinstance(t, dict):
-                                    tickers[sym] = t
-                            fetched = len(tickers) > 0
-                        except Exception:
-                            fetched = False
-                t1_fetch_batch = time.time()
-                if not tickers:
-                    # Per-symbol fallback
-                    seen_syms = set()
-                    for sym in unique_syms:
-                        if sym in seen_syms:
-                            continue
-                        try:
-                            t = ex.fetch_ticker(sym)
-                            if isinstance(t, dict):
-                                tickers[sym] = t
-                            seen_syms.add(sym)
-                        except Exception:
-                            continue
-                t2_fetch = time.time()
-                if args.bf_debug:
-                    try:
-                        logger.info(
-                            "[BF-DBG] %s tickers: need=%d batch_sup=%s subset_used=%s times(ms): syms=%.1f fetch=%.1f",
-                            ex_id,
-                            len(unique_syms),
-                            str(batch_supported),
-                            str(
-                                "yes"
-                                if batch_supported
-                                and (t1_fetch_batch - t0_fetch) > 0
-                                and len(tickers) > 0
-                                else "no"
+                    cfg_for_worker = {
+                        "techniques": {
+                            "enabled": getattr(
+                                args, "techniques_enabled", ["bellman_ford"]
                             ),
-                            (t1_syms - t0_syms) * 1000.0,
-                            (t2_fetch - t0_fetch) * 1000.0,
-                        )
-                    except Exception:
-                        pass
-
-            edges, rate_map = build_rates_for_exchange_from_pairs(
-                currencies,
-                tickers,
-                bf_fee,
-                candidate_pairs,
-                require_topofbook=bf_require_topofbook,
-                min_quote_vol=bf_min_quote_vol,
-                blacklisted_symbols=exchange_blacklist,
-            )
-            if args.bf_debug:
-                logger.info("[BF-DBG] %s edges=%d", ex_id, len(edges))
-            n = len(currencies)
-            if n < 3 or not edges:
-                return ex_id, local_lines, local_results
-            t0_bf = time.time()
-            dist = [0.0] * n
-            pred = [-1] * n
-            for _ in range(n - 1):
-                updated = False
-                for u, v, w in edges:
-                    if dist[u] + w < dist[v] - 1e-12:
-                        dist[v] = dist[u] + w
-                        pred[v] = u
-                        updated = True
-                if not updated:
-                    break
-            cycles_found = 0
-            seen_cycles: set[tuple[str, ...]] = set()
-            # Precompute index lookups to avoid repeated currencies.index calls
-            idx_map = {c: i for i, c in enumerate(currencies)}
-            for u, v, w in edges:
-                if dist[u] + w < dist[v] - 1e-12:
-                    y = v
-                    for _ in range(n):
-                        y = pred[y] if pred[y] != -1 else y
-                    cycle_nodes_idx = []
-                    cur = y
-                    while True:
-                        cycle_nodes_idx.append(cur)
-                        cur = pred[cur]
-                        if cur == -1 or cur == y or len(cycle_nodes_idx) > n + 2:
-                            break
-                    cycle_nodes = [currencies[i] for i in cycle_nodes_idx]
-                    # Require cycle to include at least one allowed anchor when requested
-                    if len(cycle_nodes) < 2 or (
-                        args.bf_require_quote
-                        and not any(q in cycle_nodes for q in allowed_quotes)
-                    ):
-                        continue
-                    cycle_nodes = list(reversed(cycle_nodes))
-                    # Rotate to start at an allowed anchor if present
-                    chosen_anchor_idx = None
-                    for q in allowed_quotes:
-                        if q in cycle_nodes:
-                            chosen_anchor_idx = cycle_nodes.index(q)
-                            break
-                    if chosen_anchor_idx is not None:
-                        cycle_nodes = (
-                            cycle_nodes[chosen_anchor_idx:]
-                            + cycle_nodes[:chosen_anchor_idx]
-                        )
-                    key = tuple(cycle_nodes)
-                    if key in seen_cycles:
-                        continue
-                    seen_cycles.add(key)
-                    prod = 1.0
-                    valid = True
-                    for i in range(len(cycle_nodes) - 1):
-                        a = cycle_nodes[i]
-                        b = cycle_nodes[i + 1]
-                        u_i = idx_map.get(a, None)
-                        v_i = idx_map.get(b, None)
-                        if u_i is None or v_i is None:
-                            valid = False
-                            break
-                        rate = rate_map.get((u_i, v_i))
-                        if rate is None or rate <= 0:
-                            valid = False
-                            break
-                        prod *= rate
-                    if valid and cycle_nodes[0] != cycle_nodes[-1]:
-                        a = cycle_nodes[-1]
-                        b = cycle_nodes[0]
-                        u_i = idx_map.get(a, None)
-                        v_i = idx_map.get(b, None)
-                        if u_i is None or v_i is None:
-                            valid = False
-                        else:
-                            rate = rate_map.get((u_i, v_i))
-                            if rate is None or rate <= 0:
-                                valid = False
-                            else:
-                                prod *= rate
-                                cycle_nodes.append(cycle_nodes[0])
-                    if not valid:
-                        continue
-                    hops = len(cycle_nodes) - 1
-                    if (args.bf_min_hops and hops < args.bf_min_hops) or (
-                        args.bf_max_hops and hops > args.bf_max_hops
-                    ):
-                        continue
-                    net_pct = (prod - 1.0) * 100.0
-                    # Enforce overall and per-hop quality thresholds
-                    if net_pct < bf_min_net:
-                        continue
-                    if args.bf_min_net_per_hop and (net_pct / max(1, hops)) < float(
-                        args.bf_min_net_per_hop
-                    ):
-                        continue
-                    inv_amt = float(inv_amt_effective)
-                    est_after = round(inv_amt * prod, 4)
-                    # Optional depth-aware revalidation for more realistic net%
-                    used_ws_flag = False
-                    slip_bps = 0.0
-                    fee_bps_total = float(bf_fee) * hops
-                    net_pct_adj = net_pct
-                    if bf_revalidate_depth:
-                        try:
-                            net_pct2, fee_bps_total2, slip_bps2, used_ws_flag2 = (
-                                _bf_revalidate_cycle_with_depth(
-                                    ex,
-                                    cycle_nodes=list(cycle_nodes),
-                                    inv_quote=inv_amt,
-                                    fee_bps_per_hop=float(bf_fee),
-                                    depth_levels=int(bf_depth_levels),
-                                    use_ws=bool(bf_use_ws),
-                                    latency_penalty_bps=float(bf_latency_penalty_bps),
-                                )
-                            )
-                            if net_pct2 is not None:
-                                net_pct_adj = float(net_pct2)
-                                fee_bps_total = float(fee_bps_total2)
-                                slip_bps = float(slip_bps2)
-                                used_ws_flag = bool(used_ws_flag2)
-                                est_after = round(
-                                    inv_amt * (1.0 + net_pct_adj / 100.0), 6
-                                )
-                                # Enforce thresholds again using adjusted net
-                                if net_pct_adj < float(bf_min_net):
-                                    continue
-                                if args.bf_min_net_per_hop and (
-                                    net_pct_adj / max(1, hops)
-                                ) < float(args.bf_min_net_per_hop):
-                                    continue
-                            else:
-                                # If revalidation requested but no adjusted value, skip to be conservative
-                                continue
-                        except Exception:
-                            pass
-                    path_str = "->".join(cycle_nodes)
-                    if exchange_blacklist:
-                        path_pairs = _expand_path_to_pairs(path_str)
-                        if any(p in exchange_blacklist for p in path_pairs):
-                            if args.bf_debug:
-                                logger.info(
-                                    "[BF-DBG] %s omitiendo ciclo en blacklist: %s",
-                                    ex_id,
-                                    path_str,
-                                )
-                            continue
-                    # Construct readable message; keep it within line limits.
-                    if args.bf_revalidate_depth:
-                        ws_flag = " +ws" if used_ws_flag else ""
-                        msg = (
-                            f"BF@{ex_id} {path_str} ({hops}hops) => net "
-                            f"{net_pct_adj:.3f}% (raw {net_pct:.3f}%, slip {slip_bps:.1f}bps, "
-                            f"fee {fee_bps_total:.1f}bps{ws_flag}) | {QUOTE} "
-                            f"{inv_amt:.2f} -> {est_after:.6f}"
-                        )
-                    else:
-                        msg = (
-                            f"BF@{ex_id} {path_str} ({hops}hops) => net "
-                            f"{net_pct:.3f}% | {QUOTE} {inv_amt:.2f} -> {est_after:.4f}"
-                        )
-                    logger.info(msg)
-                    (
-                        paths.LOGS_DIR.mkdir(parents=True, exist_ok=True) or True
-                    ) and __import__("subprocess").Popen(
-                        [
-                            __import__("sys").executable,
-                            "-m",
-                            "arbitraje.swapper",
-                            "--config",
-                            str(paths.PROJECT_ROOT / "swapper.live.yaml"),
-                            "--exchange",
-                            ex_id,
-                            "--path",
-                            path_str,
-                            "--anchor",
-                            QUOTE,
-                        ],
-                        stdout=open(str(paths.LOGS_DIR / "swapper.log"), "ab"),
-                        stderr=__import__("subprocess").STDOUT,
-                    )
-                    local_lines.append(msg)
-                    local_results.append(
-                        {
-                            "exchange": ex_id,
-                            "path": path_str,
-                            "net_pct": round(
-                                net_pct_adj if bf_revalidate_depth else net_pct, 4
-                            ),
-                            "inv": inv_amt,
-                            "est_after": est_after,
-                            "hops": hops,
-                            "iteration": it,
-                            "ts": ts,
-                            **(
-                                {
-                                    "net_pct_raw": round(net_pct, 4),
-                                    "slippage_bps": round(slip_bps, 2),
-                                    "fee_bps_total": round(fee_bps_total, 2),
-                                    "used_ws": used_ws_flag,
-                                }
-                                if bf_revalidate_depth
-                                else {}
+                            "max_workers": getattr(args, "tech_max_workers", 2),
+                            "enable_rerank_onnx": getattr(
+                                args, "tech_enable_rerank_onnx", False
                             ),
                         }
+                    }
+                    tech_res = _scan_arbitrage(ts, payload, cfg_for_worker)
+                    if tech_res:
+                        # Map technique ArbResult to legacy BF result schema expected by caller
+                        for rec in tech_res:
+                            try:
+                                net_bps = float(rec.get("net_bps_est", 0.0))
+                                net_pct = float(net_bps) / 100.0
+                                path = rec.get("cycle") or rec.get("path") or ""
+                                # compute hops if possible
+                                hops = max(0, (str(path).count("->")))
+                                inv_amt = float(
+                                    inv_amt_effective
+                                    if "inv_amt_effective" in locals()
+                                    else float(args.inv)
+                                )
+                                est_after = (
+                                    round(inv_amt * (1.0 + net_pct / 100.0), 6)
+                                    if inv_amt is not None
+                                    else None
+                                )
+                                local_results.append(
+                                    {
+                                        "exchange": ex_id,
+                                        "path": path,
+                                        "net_pct": round(net_pct, 4),
+                                        "inv": inv_amt,
+                                        "est_after": est_after,
+                                        "hops": hops,
+                                        "iteration": it,
+                                        "ts": ts,
+                                        **(
+                                            {"fee_bps_total": rec.get("fee_bps_total")}
+                                            if rec.get("fee_bps_total") is not None
+                                            else {}
+                                        ),
+                                    }
+                                )
+                            except Exception:
+                                # best-effort mapping per record
+                                local_results.append(
+                                    {
+                                        "exchange": ex_id,
+                                        "path": rec.get("cycle") or rec.get("path"),
+                                        "ts": ts,
+                                    }
+                                )
+                        return ex_id, local_lines, local_results
+                except Exception:
+                    logger.debug(
+                        "bf_worker: delegation to engine_techniques failed; no legacy BF available"
                     )
-                    cycles_found += 1
-                    if cycles_found >= bf_top:
-                        break
-                if args.bf_debug:
-                    t1_bf = time.time()
-                    logger.info(
-                        "[BF-DBG] %s cycles_found=%d (min_net=%.3f%%)",
-                        ex_id,
-                        cycles_found,
-                        bf_min_net,
-                    )
-                    # Per-exchange timing summary
-                    try:
-                        logger.info(
-                            "[BF-TIME] %s total=%.1fms markets=%.1fms adj=%.1fms bf=%.1fms",
-                            ex_id,
-                            (time.time() - t0_total) * 1000.0,
-                            (t1_markets - t0_markets) * 1000.0,
-                            (t1_adj - t0_adj) * 1000.0,
-                            (t1_bf - t0_bf) * 1000.0,
-                        )
-                    except Exception:
-                        pass
-            time.sleep(args.sleep)
+                    # We intentionally removed the legacy BF implementation.
+                    # If delegation to engine_techniques fails or is disabled, return no results.
+                    return ex_id, local_lines, local_results
         except Exception as e:
             logger.warning("%s: BF scan falló: %s", ex_id, e)
         return ex_id, local_lines, local_results
@@ -3331,7 +3063,9 @@ def main() -> None:
                     "techniques": {
                         "enabled": getattr(args, "techniques_enabled", ["stat_tri"]),
                         "max_workers": getattr(args, "tech_max_workers", 2),
-                        "enable_rerank_onnx": getattr(args, "tech_enable_rerank_onnx", False),
+                        "enable_rerank_onnx": getattr(
+                            args, "tech_enable_rerank_onnx", False
+                        ),
                     }
                 }
                 # Build a compact, serializable payload for stat_tri
@@ -3355,7 +3089,9 @@ def main() -> None:
                     return ex_id, local_lines, local_results
             except Exception:
                 # Fall back to in-process triangular loop if delegation fails
-                logger.debug("tri_worker: delegation to engine_techniques failed; falling back")
+                logger.debug(
+                    "tri_worker: delegation to engine_techniques failed; falling back"
+                )
 
             # Iterate pairs using permutations (X, Y)
             for X, Y in permutations(tokens, 2):

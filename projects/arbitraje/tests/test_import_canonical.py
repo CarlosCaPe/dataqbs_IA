@@ -40,9 +40,13 @@ def test_canonical_import_resolves_to_canonical_file():
             expected = cand.resolve()
             break
 
-    assert expected is not None, "Could not locate canonical 'arbitrage_report_ccxt.py' in parent candidates"
+    assert (
+        expected is not None
+    ), "Could not locate canonical 'arbitrage_report_ccxt.py' in parent candidates"
     assert expected.exists(), f"Canonical file missing: {expected}"
-    assert mod_file == expected, f"imported module points to {mod_file}, expected {expected}"
+    assert (
+        mod_file == expected
+    ), f"imported module points to {mod_file}, expected {expected}"
 
 
 def test_legacy_shim_absent_and_not_importable():
