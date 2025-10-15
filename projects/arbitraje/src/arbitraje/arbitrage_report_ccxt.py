@@ -28,9 +28,11 @@ from . import binance_api  # type: ignore
 # Shared simulation state used by TRI/BF simulation helpers (hydrated at runtime)
 sim_state: Dict[str, dict] = {}
 
+
 # Forward-stub: real implementation appears later in the file. Stub satisfies linters
 def _sync_snapshot_alias() -> None:  # real def overrides this later
     return
+
 
 try:
     from dotenv import load_dotenv
@@ -974,19 +976,19 @@ def _bf_write_summary_md(rows, hours: float, out_md: str) -> None:
         f.write("---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:\n")
         for r in rows:
             row_fields = [
-                str(r.get('exchange')),
-                str(r.get('trades')),
-                str(r.get('per_hour')),
-                str(r.get('avg_net_pct')),
-                str(r.get('median_net_pct')),
-                str(r.get('p95_net_pct')),
-                str(r.get('weighted_net_pct')),
-                str(r.get('gain_usdt')),
-                str(r.get('gain_usdc')),
-                str(r.get('start_usdt')),
-                str(r.get('end_usdt')),
-                str(r.get('start_usdc')),
-                str(r.get('end_usdc')),
+                str(r.get("exchange")),
+                str(r.get("trades")),
+                str(r.get("per_hour")),
+                str(r.get("avg_net_pct")),
+                str(r.get("median_net_pct")),
+                str(r.get("p95_net_pct")),
+                str(r.get("weighted_net_pct")),
+                str(r.get("gain_usdt")),
+                str(r.get("gain_usdc")),
+                str(r.get("start_usdt")),
+                str(r.get("end_usdt")),
+                str(r.get("start_usdc")),
+                str(r.get("end_usdc")),
             ]
             f.write(" | ".join(row_fields) + "\n")
 
@@ -1472,6 +1474,69 @@ def main() -> None:
     # Apply YAML defaults before parsing final args so CLI wins over YAML
     _load_yaml_config_defaults(parser)
     args = parser.parse_args()
+
+    # Load raw YAML config for runtime overrides (best-effort). We keep a map
+    # exchange_overrides_map that maps exchange id -> overrides dict.
+    cfg_raw: dict = {}
+    try:
+        cfg_path = (
+            getattr(args, "config", None)
+            or os.environ.get("ARBITRAJE_CONFIG")
+            or str(paths.PROJECT_ROOT / "arbitraje.yaml")
+        )
+        try:
+            with open(cfg_path, "r", encoding="utf-8") as fh:
+                cfg_raw = yaml.safe_load(fh) or {}
+        except Exception:
+            cfg_raw = {}
+    except Exception:
+        cfg_raw = {}
+
+    exchange_overrides_map: dict = {}
+    try:
+        if isinstance(cfg_raw, dict):
+            eov = cfg_raw.get("exchange_overrides") or {}
+            if isinstance(eov, dict):
+                exchange_overrides_map = eov
+    except Exception:
+        exchange_overrides_map = {}
+
+    def _apply_exchange_override(
+        prefix: str, ex_id_local: str, arg_name: str, default_val
+    ):
+        """Return override value for a prefixed arg (e.g. prefix='tri_', arg_name='min_quote_vol').
+        Supports two override styles:
+        - exchange_overrides:
+            <ex>:
+              tri:
+                min_quote_vol: 10
+        - exchange_overrides with flat keys:
+            <ex>:
+              tri_min_quote_vol: 10
+        """
+        try:
+            if not exchange_overrides_map:
+                return default_val
+            norm = normalize_ccxt_id(ex_id_local)
+            ex_cfg = (
+                exchange_overrides_map.get(norm)
+                or exchange_overrides_map.get(ex_id_local)
+                or {}
+            )
+            if not isinstance(ex_cfg, dict):
+                return default_val
+            # nested section
+            section = ex_cfg.get(prefix.rstrip("_"))
+            if isinstance(section, dict) and arg_name in section:
+                return section.get(arg_name)
+            # flat key: e.g. tri_min_quote_vol
+            flat = f"{prefix}{arg_name}"
+            if flat in ex_cfg:
+                return ex_cfg.get(flat)
+        except Exception:
+            pass
+        return default_val
+
     # Balance usage is unconditional now; we'll always try to use authenticated instances when creds exist.
 
     QUOTE = args.quote.upper()
@@ -2544,6 +2609,48 @@ def main() -> None:
                 logger.info(
                     "[BF-DBG] %s blacklist_pairs=%d", ex_id, len(exchange_blacklist)
                 )
+            # Apply per-exchange overrides (best-effort)
+            bf_min_net = float(
+                _apply_exchange_override("bf_", ex_id, "min_net", args.bf_min_net)
+            )
+            bf_fee = float(_apply_exchange_override("bf_", ex_id, "fee", args.bf_fee))
+            bf_depth_levels = int(
+                _apply_exchange_override(
+                    "bf_", ex_id, "depth_levels", getattr(args, "bf_depth_levels", 0)
+                )
+            )
+            bf_latency_penalty_bps = float(
+                _apply_exchange_override(
+                    "bf_",
+                    ex_id,
+                    "latency_penalty_bps",
+                    getattr(args, "bf_latency_penalty_bps", 0.0),
+                )
+            )
+            bf_min_quote_vol = float(
+                _apply_exchange_override(
+                    "bf_", ex_id, "min_quote_vol", args.bf_min_quote_vol
+                )
+            )
+            bf_require_topofbook = bool(
+                _apply_exchange_override(
+                    "bf_", ex_id, "require_topofbook", args.bf_require_topofbook
+                )
+            )
+            bf_top = int(_apply_exchange_override("bf_", ex_id, "top", args.bf_top))
+            bf_currencies_limit = int(
+                _apply_exchange_override(
+                    "bf_", ex_id, "currencies_limit", args.bf_currencies_limit
+                )
+            )
+            bf_revalidate_depth = bool(
+                _apply_exchange_override(
+                    "bf_", ex_id, "revalidate_depth", args.bf_revalidate_depth
+                )
+            )
+            bf_use_ws = bool(
+                _apply_exchange_override("bf_", ex_id, "use_ws", args.bf_use_ws)
+            )
             # Determine investment amount possibly constrained by balance
             inv_amt_cfg = float(args.inv)
             inv_amt_effective = inv_amt_cfg
@@ -2565,7 +2672,7 @@ def main() -> None:
             if not args.bf_rank_by_qvol:
                 cache_key = (
                     ex_id,
-                    int(args.bf_currencies_limit),
+                    int(bf_currencies_limit),
                     bool(args.bf_require_dual_quote),
                     tuple(sorted(list(anchors))),
                 )
@@ -2602,7 +2709,7 @@ def main() -> None:
                 currencies = [c for c in tokens if isinstance(c, str)]
                 # If ranking is OFF, finalize list (limit + anchor-first) and cache it
                 if not args.bf_rank_by_qvol:
-                    currencies = currencies[: max(1, args.bf_currencies_limit)]
+                    currencies = currencies[: max(1, bf_currencies_limit)]
                     for q in allowed_quotes:
                         if q in currencies:
                             currencies = [q] + [c for c in currencies if c != q]
@@ -2638,7 +2745,7 @@ def main() -> None:
                 )
             # If ranking path was taken, apply limit and ensure anchor-first
             if args.bf_rank_by_qvol:
-                currencies = currencies[: max(1, args.bf_currencies_limit)]
+                currencies = currencies[: max(1, bf_currencies_limit)]
                 for q in allowed_quotes:
                     if q in currencies:
                         currencies = [q] + [c for c in currencies if c != q]
@@ -2744,10 +2851,10 @@ def main() -> None:
             edges, rate_map = build_rates_for_exchange_from_pairs(
                 currencies,
                 tickers,
-                args.bf_fee,
+                bf_fee,
                 candidate_pairs,
-                require_topofbook=args.bf_require_topofbook,
-                min_quote_vol=args.bf_min_quote_vol,
+                require_topofbook=bf_require_topofbook,
+                min_quote_vol=bf_min_quote_vol,
                 blacklisted_symbols=exchange_blacklist,
             )
             if args.bf_debug:
@@ -2844,7 +2951,7 @@ def main() -> None:
                         continue
                     net_pct = (prod - 1.0) * 100.0
                     # Enforce overall and per-hop quality thresholds
-                    if net_pct < args.bf_min_net:
+                    if net_pct < bf_min_net:
                         continue
                     if args.bf_min_net_per_hop and (net_pct / max(1, hops)) < float(
                         args.bf_min_net_per_hop
@@ -2855,21 +2962,19 @@ def main() -> None:
                     # Optional depth-aware revalidation for more realistic net%
                     used_ws_flag = False
                     slip_bps = 0.0
-                    fee_bps_total = float(args.bf_fee) * hops
+                    fee_bps_total = float(bf_fee) * hops
                     net_pct_adj = net_pct
-                    if args.bf_revalidate_depth:
+                    if bf_revalidate_depth:
                         try:
                             net_pct2, fee_bps_total2, slip_bps2, used_ws_flag2 = (
                                 _bf_revalidate_cycle_with_depth(
                                     ex,
                                     cycle_nodes=list(cycle_nodes),
                                     inv_quote=inv_amt,
-                                    fee_bps_per_hop=float(args.bf_fee),
-                                    depth_levels=int(args.bf_depth_levels),
-                                    use_ws=bool(args.bf_use_ws),
-                                    latency_penalty_bps=float(
-                                        args.bf_latency_penalty_bps
-                                    ),
+                                    fee_bps_per_hop=float(bf_fee),
+                                    depth_levels=int(bf_depth_levels),
+                                    use_ws=bool(bf_use_ws),
+                                    latency_penalty_bps=float(bf_latency_penalty_bps),
                                 )
                             )
                             if net_pct2 is not None:
@@ -2881,7 +2986,7 @@ def main() -> None:
                                     inv_amt * (1.0 + net_pct_adj / 100.0), 6
                                 )
                                 # Enforce thresholds again using adjusted net
-                                if net_pct_adj < float(args.bf_min_net):
+                                if net_pct_adj < float(bf_min_net):
                                     continue
                                 if args.bf_min_net_per_hop and (
                                     net_pct_adj / max(1, hops)
@@ -2905,7 +3010,7 @@ def main() -> None:
                             continue
                     # Construct readable message; keep it within line limits.
                     if args.bf_revalidate_depth:
-                        ws_flag = ' +ws' if used_ws_flag else ''
+                        ws_flag = " +ws" if used_ws_flag else ""
                         msg = (
                             f"BF@{ex_id} {path_str} ({hops}hops) => net "
                             f"{net_pct_adj:.3f}% (raw {net_pct:.3f}%, slip {slip_bps:.1f}bps, "
@@ -2943,7 +3048,7 @@ def main() -> None:
                             "exchange": ex_id,
                             "path": path_str,
                             "net_pct": round(
-                                net_pct_adj if args.bf_revalidate_depth else net_pct, 4
+                                net_pct_adj if bf_revalidate_depth else net_pct, 4
                             ),
                             "inv": inv_amt,
                             "est_after": est_after,
@@ -2957,34 +3062,34 @@ def main() -> None:
                                     "fee_bps_total": round(fee_bps_total, 2),
                                     "used_ws": used_ws_flag,
                                 }
-                                if args.bf_revalidate_depth
+                                if bf_revalidate_depth
                                 else {}
                             ),
                         }
                     )
                     cycles_found += 1
-                    if cycles_found >= args.bf_top:
+                    if cycles_found >= bf_top:
                         break
-            if args.bf_debug:
-                t1_bf = time.time()
-                logger.info(
-                    "[BF-DBG] %s cycles_found=%d (min_net=%.3f%%)",
-                    ex_id,
-                    cycles_found,
-                    args.bf_min_net,
-                )
-                # Per-exchange timing summary
-                try:
+                if args.bf_debug:
+                    t1_bf = time.time()
                     logger.info(
-                        "[BF-TIME] %s total=%.1fms markets=%.1fms adj=%.1fms bf=%.1fms",
+                        "[BF-DBG] %s cycles_found=%d (min_net=%.3f%%)",
                         ex_id,
-                        (time.time() - t0_total) * 1000.0,
-                        (t1_markets - t0_markets) * 1000.0,
-                        (t1_adj - t0_adj) * 1000.0,
-                        (t1_bf - t0_bf) * 1000.0,
+                        cycles_found,
+                        bf_min_net,
                     )
-                except Exception:
-                    pass
+                    # Per-exchange timing summary
+                    try:
+                        logger.info(
+                            "[BF-TIME] %s total=%.1fms markets=%.1fms adj=%.1fms bf=%.1fms",
+                            ex_id,
+                            (time.time() - t0_total) * 1000.0,
+                            (t1_markets - t0_markets) * 1000.0,
+                            (t1_adj - t0_adj) * 1000.0,
+                            (t1_bf - t0_bf) * 1000.0,
+                        )
+                    except Exception:
+                        pass
             time.sleep(args.sleep)
         except Exception as e:
             logger.warning("%s: BF scan falló: %s", ex_id, e)
@@ -3015,13 +3120,37 @@ def main() -> None:
             ex_norm = normalize_ccxt_id(ex_id)
             exchange_blacklist = swaps_blacklist_map.get(ex_norm, set())
 
-            # Bind frequently used attrs to locals for speed
-            tri_min_quote_vol = float(args.tri_min_quote_vol)
-            tri_require_top = bool(args.tri_require_topofbook)
-            tri_fee = float(args.tri_fee)
-            tri_min_net = float(args.tri_min_net)
-            tri_limit = int(args.tri_currencies_limit)
-            tri_latency_penalty = float(getattr(args, "tri_latency_penalty_bps", 0.0))
+            # Bind frequently used attrs to locals for speed. Allow per-exchange
+            # overrides via exchange_overrides_map loaded from YAML.
+            tri_min_quote_vol = float(
+                _apply_exchange_override(
+                    "tri_", ex_id, "min_quote_vol", args.tri_min_quote_vol
+                )
+            )
+            tri_require_top = bool(
+                _apply_exchange_override(
+                    "tri_", ex_id, "require_topofbook", args.tri_require_topofbook
+                )
+            )
+            tri_fee = float(
+                _apply_exchange_override("tri_", ex_id, "fee", args.tri_fee)
+            )
+            tri_min_net = float(
+                _apply_exchange_override("tri_", ex_id, "min_net", args.tri_min_net)
+            )
+            tri_limit = int(
+                _apply_exchange_override(
+                    "tri_", ex_id, "currencies_limit", args.tri_currencies_limit
+                )
+            )
+            tri_latency_penalty = float(
+                _apply_exchange_override(
+                    "tri_",
+                    ex_id,
+                    "latency_penalty_bps",
+                    getattr(args, "tri_latency_penalty_bps", 0.0),
+                )
+            )
             _pair_is_blacklisted_local = _pair_is_blacklisted
             get_rate_and_qvol_local = get_rate_and_qvol
             # removed unused `json_dumps` assignment
@@ -3044,7 +3173,9 @@ def main() -> None:
                     if other_up in seen_tokens:
                         continue
                     # apply blacklist early (anchor-quote pair)
-                    if exchange_blacklist and _pair_is_blacklisted_local(exchange_blacklist, QUOTE, other_up):
+                    if exchange_blacklist and _pair_is_blacklisted_local(
+                        exchange_blacklist, QUOTE, other_up
+                    ):
                         continue
                     seen_tokens.add(other_up)
                     tokens_list.append(other_up)
@@ -3058,8 +3189,12 @@ def main() -> None:
             r3_map: Dict[str, tuple] = {}
             fee = tri_fee
             for tkn in tokens:
-                r1_map[tkn] = get_rate_and_qvol_local(QUOTE, tkn, tickers, fee, tri_require_top)
-                r3_map[tkn] = get_rate_and_qvol_local(tkn, QUOTE, tickers, fee, tri_require_top)
+                r1_map[tkn] = get_rate_and_qvol_local(
+                    QUOTE, tkn, tickers, fee, tri_require_top
+                )
+                r3_map[tkn] = get_rate_and_qvol_local(
+                    tkn, QUOTE, tickers, fee, tri_require_top
+                )
 
             # Local helpers
             from datetime import datetime
@@ -3071,7 +3206,9 @@ def main() -> None:
             # Iterate pairs using permutations (X, Y)
             for X, Y in permutations(tokens, 2):
                 # skip blacklisted pair X->Y
-                if exchange_blacklist and _pair_is_blacklisted_local(exchange_blacklist, X, Y):
+                if exchange_blacklist and _pair_is_blacklisted_local(
+                    exchange_blacklist, X, Y
+                ):
                     continue
 
                 r1, qv1 = r1_map.get(X, (None, None))
