@@ -126,3 +126,55 @@ SDK references (cloned into `sdk/*` when using bootstrap):
 - MEXC: https://github.com/mexcdevelop/mexc-api-sdk (docs: https://www.mexc.com/api-docs/spot-v3/introduction#api-library)
 - Bitget: https://github.com/BitgetLimited/v3-bitget-api-sdk
 - OKX: https://github.com/okxapi/python-okx
+
+---
+## Calibración recomendada para GUILLERMO (memo)
+
+Esta configuración está optimizada para maximizar el volumen de ventanas pequeñas y positivas, minimizando el riesgo de negativos en ejecución real. Es el punto de partida recomendado para calibrar el sistema de arbitraje GUILLERMO (memo).
+
+```yaml
+mode: bf
+ex: [binance, bitget, mexc, okx]
+quote: USDT
+inv: 0.0  # Siempre usa wallet; no asume inversión extra
+bf:
+  allowed_quotes: [USDT, USDC]
+  fee: 0.10
+  rank_by_qvol: true
+  currencies_limit: 500
+  min_net: 0.05
+  min_net_per_hop: 0.00
+  top: 40
+  require_quote: true
+  require_topofbook: true
+  min_quote_vol: 5000
+  min_hops: 3
+  max_hops: 6
+  threads: 0
+  require_dual_quote: false
+  persist_top_csv: true
+  revalidate_depth: true
+  use_ws: true
+  depth_levels: 20
+  latency_penalty_bps: 0
+  reset_history: true
+  iter_timeout_sec: 0.0
+max: 280
+# ...otros parámetros generales...
+```
+
+**Ventajas:**
+- Solo ventanas ejecutables en real (bid/ask y profundidad suficiente).
+- Filtra hops de bajo volumen y rutas con slippage oculto.
+- Permite muchas ventanas pequeñas y positivas.
+- Evita rutas con pares problemáticos (blacklist).
+
+**Riesgos:**
+- Muy bajo riesgo de negativos; solo podrían aparecer por cambios abruptos en el libro entre escaneo y ejecución.
+
+**Recomendación:**
+- Usar como base y ajustar solo si se detectan negativos en la práctica.
+- Para mayor seguridad, subir `min_quote_vol` o `min_net`.
+
+Esta calibración es clave para el funcionamiento óptimo de GUILLERMO (memo).
+---

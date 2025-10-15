@@ -15,7 +15,7 @@ min_notional: 1
 # Set to false to actually place orders
 # WARNING: This will execute real orders using your API keys
 # Ensure API keys are configured and permissions are correct (spot trading only)
-dry_run: false
+dry_run: true
 
 # Fast execution flags
 # Small wait between hops to allow wallet balances to settle on the exchange

@@ -1,1034 +1,62 @@
-from __future__ import annotations
 
-import argparse, time, math, os, json
-import concurrent.futures
-from typing import List, Dict, Tuple
+# Shim wrapper to delegate to canonical implementation to avoid duplicated source.
+# The real implementation lives at:
+#   projects/arbitraje/src/arbitraje/arbitrage_report_ccxt.py
+# This shim dynamically loads that file and re-exports its symbols so either
+# path (the nested one or the canonical one) behaves the same. This keeps the
+# repository consistent and avoids drift between copies.
+import importlib.util
 import sys
-import logging
+from pathlib import Path
 
-            try:
-                if args.simulate_compound and getattr(args, "simulate_from_wallet", False) and it == 1:
-                    for ex_id in EX_IDS:
-                        st = sim_state.get(ex_id)
-                        if not st:
-                            continue
-                        wb = wallet_buckets_cache.get(ex_id) or {}
-                        usdt = float(wb.get("USDT", 0.0) or 0.0)
-                        usdc = float(wb.get("USDC", 0.0) or 0.0)
-                        prefer = str(getattr(args, "simulate_prefer", "auto") or "auto").upper()
-                        chosen_ccy = st.get("ccy") or "USDT"
-                        chosen_bal = 0.0
-                        if prefer == "USDT":
-                            chosen_ccy, chosen_bal = "USDT", usdt
-                        elif prefer == "USDC":
-                            chosen_ccy, chosen_bal = "USDC", usdc
-                        else:
-                            if usdt >= usdc and usdt > 0:
-                                chosen_ccy, chosen_bal = "USDT", usdt
-                            elif usdc > 0:
-                                chosen_ccy, chosen_bal = "USDC", usdc
-                            else:
-                                chosen_ccy, chosen_bal = chosen_ccy, 0.0
-                        # No fallback to inv; leave zero if wallet is empty
-                        sim_state[ex_id] = {
-                            "ccy": chosen_ccy,
-                            "balance": float(chosen_bal),
-                            "start_balance": float(chosen_bal),
-                            "start_ccy": chosen_ccy,
-                        }
-            except Exception:
-                pass
-    logger.addHandler(sh)
+# Robust relative resolution: walk parents and try likely candidate locations for the
+# canonical implementation. This avoids absolute paths so the shim works across
+# checkouts regardless of the filesystem root.
+_CANONICAL_FILE = None
+_self = Path(__file__).resolve()
+for p in ([_self] + list(_self.parents)):
+    # Candidate 1: repository-root/projects/arbitraje/src/arbitraje/...
+    cand = p / "projects" / "arbitraje" / "src" / "arbitraje" / "arbitrage_report_ccxt.py"
+    if cand.exists():
+        _CANONICAL_FILE = cand.resolve()
+        break
+    # Candidate 2: repository-root/src/arbitraje/...
+    cand2 = p / "src" / "arbitraje" / "arbitrage_report_ccxt.py"
+    if cand2.exists():
+        _CANONICAL_FILE = cand2.resolve()
+        break
+
+if _CANONICAL_FILE is None:
+    raise FileNotFoundError(
+        "Could not locate canonical 'arbitrage_report_ccxt.py' from shim;"
+        " expected under projects/arbitraje/src/arbitraje or src/arbitraje"
+    )
+
+spec = importlib.util.spec_from_file_location("arbitrage_report_ccxt_canonical", str(_CANONICAL_FILE))
+module = importlib.util.module_from_spec(spec)
+sys.modules["arbitrage_report_ccxt_canonical"] = module
+try:
+    spec.loader.exec_module(module)  # type: ignore[attr-defined]
+except Exception:
+    # Re-raise to keep traceback for easier debugging
+    raise
+
+# Re-export public names so imports like `from arbitrage.arbitrage_report_ccxt import main`
+# continue to work when referencing the nested path.
+for _name in dir(module):
+    if _name.startswith("__"):
+        continue
     try:
-        paths.LOGS_DIR.mkdir(parents=True, exist_ok=True)
-        fh = logging.FileHandler(paths.LOGS_DIR / "arbitraje_ccxt.log", encoding="utf-8")
-        fh.setFormatter(fmt)
-        logger.addHandler(fh)
+        globals()[_name] = getattr(module, _name)
     except Exception:
+        # Non-critical: skip attributes that can't be copied
         pass
 
-
-# ----------------------
-# Helpers
-# ----------------------
-STABLE_BASES = {"USDT", "USDC", "BUSD", "TUSD", "FDUSD", "DAI", "USTC"}
-
-
-def env_get_stripped(name: str) -> str | None:
-    try:
-        v = os.environ.get(name)
-        if v is None:
-            return None
-        return v.strip()
-    except Exception:
-        return os.environ.get(name)
-
-
-def safe_has(ex: ccxt.Exchange, feature: str) -> bool:
-    try:
-        val = ex.has.get(feature)
-        return bool(val)
-    except Exception:
-        return False
-
-
-def load_exchange(ex_id: str, timeout_ms: int) -> ccxt.Exchange:
-    ex_id = normalize_ccxt_id(ex_id)
-    cls = getattr(ccxt, ex_id)
-    ex = cls({"enableRateLimit": True})
-    try:
-        ex.timeout = int(timeout_ms)
-    except Exception:
-        pass
-    return ex
-
-
-def creds_from_env(ex_id: str) -> dict:
-    """Return ccxt credential dict if env vars for the exchange exist; else {}."""
-    env = os.environ
-    ex_id = normalize_ccxt_id(ex_id)
-    try:
-        if ex_id == "binance":
-            k = env_get_stripped("BINANCE_API_KEY"); s = env_get_stripped("BINANCE_API_SECRET")
-            if k and s:
-                return {"apiKey": k, "secret": s}
-        elif ex_id == "bybit":
-            k = env_get_stripped("BYBIT_API_KEY"); s = env_get_stripped("BYBIT_API_SECRET")
-            if k and s:
-                return {"apiKey": k, "secret": s}
-        elif ex_id == "bitget":
-            k = env_get_stripped("BITGET_API_KEY"); s = env_get_stripped("BITGET_API_SECRET"); p = env_get_stripped("BITGET_PASSWORD")
-            if k and s and p:
-                return {"apiKey": k, "secret": s, "password": p}
-        elif ex_id == "coinbase":
-            # Coinbase Advanced
-            k = env_get_stripped("COINBASE_API_KEY"); s = env_get_stripped("COINBASE_API_SECRET"); p = env_get_stripped("COINBASE_API_PASSWORD")
-            if k and s and p:
-                return {"apiKey": k, "secret": s, "password": p}
-        elif ex_id == "okx":
-            k = env_get_stripped("OKX_API_KEY"); s = env_get_stripped("OKX_API_SECRET")
-            # Support both names for passphrase to avoid config mismatches
-            p = env_get_stripped("OKX_API_PASSWORD") or env_get_stripped("OKX_PASSWORD")
-            if k and s and p:
-                return {"apiKey": k, "secret": s, "password": p}
-        elif ex_id == "kucoin":
-            k = env_get_stripped("KUCOIN_API_KEY"); s = env_get_stripped("KUCOIN_API_SECRET"); p = env_get_stripped("KUCOIN_API_PASSWORD")
-            if k and s and p:
-                return {"apiKey": k, "secret": s, "password": p}
-        elif ex_id == "kraken":
-            k = env_get_stripped("KRAKEN_API_KEY"); s = env_get_stripped("KRAKEN_API_SECRET")
-            if k and s:
-                return {"apiKey": k, "secret": s}
-        elif ex_id in ("gate", "gateio"):
-            # Support both GATEIO_* and GATE_* env var names
-            k = env_get_stripped("GATEIO_API_KEY") or env_get_stripped("GATE_API_KEY")
-            s = env_get_stripped("GATEIO_API_SECRET") or env_get_stripped("GATE_API_SECRET")
-            if k and s:
-                return {"apiKey": k, "secret": s}
-        elif ex_id == "mexc":
-            k = env_get_stripped("MEXC_API_KEY"); s = env_get_stripped("MEXC_API_SECRET")
-            if k and s:
-                return {"apiKey": k, "secret": s}
-    except Exception:
-        pass
-    return {}
-
-
-def load_exchange_auth_if_available(ex_id: str, timeout_ms: int, use_auth: bool = False) -> ccxt.Exchange:
-    """Load an exchange; if use_auth, pass credentials from env when available."""
-    ex_id = normalize_ccxt_id(ex_id)
-    cls = getattr(ccxt, ex_id)
-    cfg = {"enableRateLimit": True}
-    if use_auth:
-        cfg.update(creds_from_env(ex_id))
-    # Allow per-exchange options via env vars when useful
-    if ex_id == "okx":
-        try:
-            # Prefer ARBITRAJE_OKX_DEFAULT_TYPE, fallback to OKX_DEFAULT_TYPE
-            dt = os.environ.get("ARBITRAJE_OKX_DEFAULT_TYPE") or os.environ.get("OKX_DEFAULT_TYPE")
-            if dt:
-                opts = dict(cfg.get("options") or {})
-                opts["defaultType"] = str(dt).strip().lower()
-                cfg["options"] = opts
-        except Exception:
-            pass
-    ex = cls(cfg)
-    try:
-        ex.timeout = int(timeout_ms)
-    except Exception:
-        pass
-    return ex
-
-
-def fetch_quote_balance(ex: ccxt.Exchange, quote: str, kind: str = "free") -> float | None:
-    """Fetch QUOTE balance from an authenticated ccxt exchange instance. Returns None on error/missing."""
-    try:
-        bal = ex.fetch_balance()
-        bucket = bal.get("free") if (kind or "free").lower() == "free" else bal.get("total")
-        if not isinstance(bucket, dict):
-            return None
-        for ccy, amt in bucket.items():
-            try:
-                if str(ccy).upper() == str(quote).upper():
-                    return float(amt)
-            except Exception:
-                continue
-    except Exception:
-        return None
-    return None
-
-
-def normalize_symbol(m: dict) -> Tuple[str, str]:
-    base = str(m.get("base") or "").upper()
-    quote = str(m.get("quote") or "").upper()
-    return f"{base}/{quote}", base
-
-
-def pct(sell: float, buy: float) -> float:
-    try:
-        return (float(sell) - float(buy)) / float(buy) * 100.0
-    except Exception:
-        return float("nan")
-
-
-def fmt_price(x: float) -> str:
-    s = f"{float(x):.8f}"
-    if "." in s:
-        s = s.rstrip("0").rstrip(".")
-    return s
-
-
-def get_rate_and_qvol(a: str, b: str, tickers: Dict[str, dict], fee_pct: float, require_topofbook: bool = False) -> Tuple[float | None, float | None]:
-    """Return (rate, quote_volume) for converting a->b using top-of-book where possible.
-
-    - If require_topofbook=True, do not fallback to 'last' when bid/ask missing.
-    - quote_volume is taken from the market used (direct a/b or inverse b/a).
-    """
-    a = a.upper(); b = b.upper()
-    fee = float(fee_pct) / 100.0
-    # direct A/B: selling A for B uses bid; qvol from that ticker
-    sym1 = f"{a}/{b}"
-    t1 = tickers.get(sym1)
-    if t1:
-        bid = t1.get("bid") if require_topofbook else (t1.get("bid") or t1.get("last"))
-        if bid and bid > 0:
-            qv = get_quote_volume(t1)
-            return float(bid) * (1.0 - fee), qv
-    # inverse B/A: buying B with A uses 1/ask
-    sym2 = f"{b}/{a}"
-    t2 = tickers.get(sym2)
-    if t2:
-        ask = t2.get("ask") if require_topofbook else (t2.get("ask") or t2.get("last"))
-        if ask and ask > 0:
-            qv = get_quote_volume(t2)
-            return (1.0 / float(ask)) * (1.0 - fee), qv
-    return None, None
-
-
-def build_rates_for_exchange(
-    currencies: List[str],
-    tickers: Dict[str, dict],
-    fee_pct: float,
-    require_topofbook: bool = False,
-    min_quote_vol: float = 0.0,
-    blacklisted_symbols: set[str] | None = None,
-) -> Tuple[List[Tuple[int, int, float]], Dict[Tuple[int, int], float]]:
-    cur_index = {c: i for i, c in enumerate(currencies)}
-    edges: List[Tuple[int, int, float]] = []
-    rate_map: Dict[Tuple[int, int], float] = {}
-    for u in currencies:
-        for v in currencies:
-            if u == v:
-                continue
-            if _pair_is_blacklisted(blacklisted_symbols, u, v):
-                continue
-            r, qv = get_rate_and_qvol(u, v, tickers, fee_pct, require_topofbook)
-            if r and r > 0:
-                if min_quote_vol > 0.0:
-                    if qv is None or qv < min_quote_vol:
-                        continue
-                u_i = cur_index[u]; v_i = cur_index[v]
-                edges.append((u_i, v_i, -math.log(r)))
-                rate_map[(u_i, v_i)] = r
-    return edges, rate_map
-
-
-def get_quote_volume(t: dict) -> float | None:
-    for k in ("quoteVolume", "qvol", "volumeQuote"):
-        v = t.get(k)
-        if v is not None:
-            try:
-                return float(v)
-            except Exception:
-                pass
-    info = t.get("info") or {}
-    for k in ("quoteVolume", "Q", "quote_volume", "quoteTurnover", "volumeQuote"):
-        v = info.get(k)
-        if v is not None:
-            try:
-                return float(v)
-            except Exception:
-                pass
-    return None
-
-
-# ----------------------
-# Depth-aware utilities
-# ----------------------
-def _consume_depth(ob: dict, side: str, qty: float) -> tuple[float | None, float]:
-    """Return (avg_px, slippage_bps) by consuming depth levels for a given quantity.
-
-    - side = 'buy' uses asks; 'sell' uses bids
-    - slippage estimated vs best level in bps
-    """
-    try:
-        qty = float(qty)
-    except Exception:
-        return None, 0.0
-    if qty <= 0:
-        return None, 0.0
-    levels = ob.get("asks") if side == "buy" else ob.get("bids")
-    if not levels:
-        return None, 0.0
-    remaining = qty
-    notional = 0.0
-    filled = 0.0
-    ref_px = float(levels[0][0]) if levels and levels[0] and levels[0][0] else None
-    for px, q in levels:
-        try:
-            px = float(px); q = float(q)
-        except Exception:
-            continue
-        take = min(remaining, q)
-        notional += take * px
-        filled += take
-        remaining -= take
-        if remaining <= 1e-15:
-            break
-    if filled <= 0:
-        return None, 0.0
-    avg_px = notional / filled
-    slip_bps = 0.0
-    try:
-        if ref_px and avg_px:
-            if side == "buy":
-                slip_bps = max(0.0, (avg_px / ref_px - 1.0) * 10000.0)
-            else:
-                slip_bps = max(0.0, (1.0 - avg_px / ref_px) * 10000.0)
-    except Exception:
-        pass
-    return avg_px, slip_bps
-
-
-def _fetch_order_book(ex: ccxt.Exchange, sym: str, limit: int = 20) -> dict | None:
-    try:
-        return ex.fetch_order_book(sym, limit=limit)
-    except Exception:
-        return None
-
-
-def _bf_revalidate_cycle_with_depth(
-    ex: ccxt.Exchange,
-    cycle_nodes: list[str],
-    inv_quote: float,
-    fee_bps_per_hop: float,
-    depth_levels: int = 20,
-    use_ws: bool = False,
-    latency_penalty_bps: float = 0.0,
-) -> tuple[float | None, float, float, bool]:
-    """Revalidate a BF cycle with order book depth. Returns (net_pct_adj, fee_bps_total, slippage_bps, used_ws).
-
-    - Only supports cycles that start and end in the same anchor (QUOTE) and go through 2+ nodes.
-    - For simplicity this treats each hop as A->B spot conversion using available direct or inverse symbol.
-    - If use_ws and exchange is binance and ws helper exists, attempt to use partial L2 snapshots; otherwise REST.
-    """
-    try:
-        fee_bps = float(fee_bps_per_hop)
-        Q = cycle_nodes[0]
-        if Q != cycle_nodes[-1]:
-            return None, 0.0, 0.0, False
-        # Build sequence of hops
-        hops_syms: list[tuple[str, str, str]] = []  # (sym, side, ref)
-        used_ws_books: dict[str, dict] = {}
-        managers = []
-        used_ws_flag = False
-        # Attempt WS only for binance
-        if use_ws and BinanceL2PartialBook is not None and (ex.id or "").lower() == "binance":
-            try:
-                # Identify all possible symbols we may need
-                syms_needed: set[str] = set()
-                for i in range(len(cycle_nodes)-1):
-                    a = cycle_nodes[i]; b = cycle_nodes[i+1]
-                    s1 = f"{a}/{b}"; s2 = f"{b}/{a}"
-                    if s1 in ex.markets:
-                        syms_needed.add(s1)
-                    elif s2 in ex.markets:
-                        syms_needed.add(s2)
-                # Start WS partial books
-                for s in syms_needed:
-                    sym = s.replace("/", "").lower()
-                    m = BinanceL2PartialBook(symbol=sym)
-                    m.start()
-                    managers.append(m)
-                time.sleep(0.2)
-                for s, m in zip(list(syms_needed), managers):
-                    book = m.last_book()
-                    if book:
-                        used_ws_books[s] = book
-                used_ws_flag = len(used_ws_books) >= 1
-            except Exception:
-                used_ws_flag = False
-        # Iterate hops with either WS books or REST fallbacks
-        amt = float(inv_quote)
-        total_slip_bps = 0.0
-        for i in range(len(cycle_nodes)-1):
-            a = cycle_nodes[i]; b = cycle_nodes[i+1]
-            s1 = f"{a}/{b}"; s2 = f"{b}/{a}"
-            book = used_ws_books.get(s1) or used_ws_books.get(s2)
-            if not book:
-                # Fallback REST
-                if s1 in ex.markets:
-                    book = _fetch_order_book(ex, s1, limit=depth_levels) or {}
-                elif s2 in ex.markets:
-                    book = _fetch_order_book(ex, s2, limit=depth_levels) or {}
-                else:
-                    book = {}
-            if not book:
-                amt = None  # type: ignore
-                break
-            # Determine side and quantity units
-            if s1 in ex.markets:
-                # Converting A to B; if starting from Q and A==Q, we're buying B with Q ΓåÆ buy side uses asks in Q/B terms; but s1 is A/B
-                # We keep consistent by computing quantity in base terms when needed.
-                # If side is A/B and we have amount in A units, selling A yields B at bids.
-                side = "sell"  # sell A to get B
-                qty = amt  # in units of A
-                avg_px, slip = _consume_depth(book, side=side, qty=qty)
-                if avg_px is None:
-                    amt = None  # type: ignore
-                    break
-                amt = qty * float(avg_px)  # now in B units
-                total_slip_bps += max(0.0, slip)
-            else:
-                # Using inverse B/A; to get B from A, we buy B with A at asks in B/A book.
-                side = "buy"
-                qty = amt  # units of A to spend
-                avg_px, slip = _consume_depth(book, side=side, qty=qty)
-                if avg_px is None or avg_px <= 0:
-                    amt = None  # type: ignore
-                    break
-                # avg_px ~ price in A per B (asks), buying B: B = A / px
-                amt = qty / float(avg_px)  # now in B units
-                total_slip_bps += max(0.0, slip)
-        # Close managers
-        for m in managers:
-            try:
-                m.stop()
-            except Exception:
-                pass
-        if amt is None:
-            return None, 0.0, 0.0, False
-        # amt now should be back in Q units after final hop
-        gross = (amt / float(inv_quote) - 1.0) * 100.0
-        # fees: per hop taker fee
-        fee_bps_total = float(fee_bps) * (len(cycle_nodes)-1)
-        net_pct = gross - (fee_bps_total / 100.0)
-        # slippage is in bps; convert to pct
-        net_pct -= (total_slip_bps / 100.0)
-        # latency penalty
-        net_pct -= (float(latency_penalty_bps) / 100.0)
-        return net_pct, fee_bps_total, total_slip_bps, used_ws_flag
-    except Exception:
-        return None, 0.0, 0.0, False
-
-
-def normalize_ccxt_id(ex_id: str) -> str:
-    """Map common aliases to ccxt canonical IDs (e.g., gateio->gate, okex->okx)."""
-    x = (ex_id or "").lower().strip()
-    aliases = {
-        "gateio": "gate",
-        "okex": "okx",
-        "coinbasepro": "coinbase",
-        "huobipro": "htx",
-    }
-    return aliases.get(x, x)
-
-
-def _normalize_pair(symbol: str) -> str | None:
-    try:
-        s = str(symbol or "").strip()
-    except Exception:
-        return None
-    if not s:
-        return None
-    s = s.replace("-", "/").replace("_", "/").upper()
-    if "/" not in s:
-        return None
-    base, quote = [p.strip() for p in s.split("/", 1)]
-    if not base or not quote:
-        return None
-    return f"{base}/{quote}"
-
-
-def _expand_path_to_pairs(path: str) -> List[str]:
-    try:
-        nodes = [n.strip().upper() for n in path.split("->") if n.strip()]
-    except Exception:
-        return []
-    pairs: List[str] = []
-    for a, b in zip(nodes, nodes[1:]):
-        norm = _normalize_pair(f"{a}/{b}")
-        if norm:
-            pairs.append(norm)
-    return pairs
-
-
-def _pair_is_blacklisted(symbols: set[str] | None, a: str, b: str) -> bool:
-    if not symbols:
-        return False
-    pair = _normalize_pair(f"{a}/{b}")
-    if pair and pair in symbols:
-        return True
-    inverse = _normalize_pair(f"{b}/{a}")
-    if inverse and inverse in symbols:
-        return True
-    return False
-
-
-def _add_blacklist_entry(dst: Dict[str, set[str]], exchange: str, symbol: str) -> None:
-    if not exchange or not symbol:
-        return
-    sym = _normalize_pair(symbol)
-    if not sym:
-        return
-
-    ex_norm = normalize_ccxt_id(exchange)
-    bucket = dst.setdefault(ex_norm, set())
-    bucket.add(sym)
-
-
-def _collect_blacklist_values(dst: Dict[str, set[str]], value, source: str, exchange_hint: str | None = None) -> None:
-    if value is None:
-        return
-    if isinstance(value, str):
-        val = value.strip()
-        if not val:
-            return
-        if "->" in val and "/" not in val:
-            for pair in _expand_path_to_pairs(val):
-                if exchange_hint:
-                    _add_blacklist_entry(dst, exchange_hint, pair)
-            return
-        if ":" in val and exchange_hint is None:
-            ex_part, sym_part = val.split(":", 1)
-            _collect_blacklist_values(dst, sym_part, source, ex_part)
-            return
-        if exchange_hint is None:
-            return
-        _add_blacklist_entry(dst, exchange_hint, val)
-        return
-    if isinstance(value, (list, tuple, set)):
-        for item in value:
-            _collect_blacklist_values(dst, item, source, exchange_hint)
-        return
-    if isinstance(value, dict):
-        for ex_key, sub in value.items():
-            _collect_blacklist_values(dst, sub, source, str(ex_key))
-
-
-def _ensure_blacklist_json_contains(json_path: Path, required: Dict[str, set[str]]) -> None:
-    if not required:
-        return
-    try:
-        data = {}
-        if json_path.exists():
-            with open(json_path, "r", encoding="utf-8") as fh:
-                data = json.load(fh) or {}
-    except Exception:
-        data = {}
-    pairs = {}
-    if isinstance(data, dict):
-        pairs = data.get("pairs") if isinstance(data.get("pairs"), dict) else data
-        if not isinstance(pairs, dict):
-            pairs = {}
+if __name__ == "__main__":
+    if hasattr(module, "main"):
+        module.main()
     else:
-        pairs = {}
-    changed = False
-    now = datetime.utcnow().isoformat(timespec="seconds") + "Z"
-    for ex, symbols in required.items():
-        for sym in symbols:
-            key = f"{normalize_ccxt_id(ex)}:{sym.lower()}"
-            if key not in pairs:
-                pairs[key] = {"reason": "config_import", "added_at": now}
-                changed = True
-    if changed:
-        payload = {"pairs": pairs}
-        try:
-            json_path.parent.mkdir(parents=True, exist_ok=True)
-        except Exception:
-            pass
-        with open(json_path, "w", encoding="utf-8") as fh:
-            json.dump(payload, fh, indent=2, sort_keys=True)
-
-
-def load_swaps_blacklist() -> Dict[str, set[str]]:
-    json_path = paths.LOGS_DIR / "swapper_blacklist.json"
-    manual_entries: Dict[str, set[str]] = {}
-    for cfg_name in ("swapper.yaml", "swapper.live.yaml"):
-        cfg_path = paths.PROJECT_ROOT / cfg_name
-        if not cfg_path.exists():
-            continue
-        try:
-            with open(cfg_path, "r", encoding="utf-8") as fh:
-                cfg_raw = yaml.safe_load(fh) or {}
-        except Exception:
-            continue
-        if not isinstance(cfg_raw, dict):
-            continue
-        for key in (
-            "blacklist_pairs",
-            "blacklisted_pairs",
-            "banned_pairs",
-            "static_blacklist",
-            "manual_blacklist",
-        ):
-            if key in cfg_raw:
-                _collect_blacklist_values(manual_entries, cfg_raw.get(key), key)
-    _ensure_blacklist_json_contains(json_path, manual_entries)
-
-    combined: Dict[str, set[str]] = {}
-    try:
-        if json_path.exists():
-            with open(json_path, "r", encoding="utf-8") as fh:
-                data = json.load(fh) or {}
-        else:
-            data = {}
-    except Exception:
-        data = {}
-    pairs_section = {}
-    if isinstance(data, dict):
-        pairs_section = data.get("pairs") if isinstance(data.get("pairs"), dict) else data
-    if not isinstance(pairs_section, dict):
-        pairs_section = {}
-    for key, meta in pairs_section.items():
-        if not isinstance(key, str):
-            continue
-        if ":" not in key:
-            continue
-        ex_part, sym_part = key.split(":", 1)
-        _add_blacklist_entry(combined, ex_part, sym_part)
-    for ex, symbols in manual_entries.items():
-        for sym in symbols:
-            _add_blacklist_entry(combined, ex, sym)
-    return combined
-
-
-def resolve_exchanges(arg: str, ex_limit: int | None = None) -> List[str]:
-    arg = (arg or "").strip().lower()
-    if not arg or arg == "trusted":
-        return ["binance", "bitget", "bybit", "coinbase"]
-    if arg in ("trusted-plus", "trusted_plus", "trustedplus"):
-        return ["binance", "bitget", "bybit", "coinbase"]
-    if arg == "all":
-        xs = list(ccxt.exchanges)
-        if ex_limit and ex_limit > 0:
-            xs = xs[: ex_limit]
-        return [normalize_ccxt_id(x) for x in xs]
-    # explicit comma-separated list
-    return [normalize_ccxt_id(s.strip().lower()) for s in arg.split(",") if s.strip()]
-
-
-# ----------------------
-# Main
-# ----------------------
-def _bf_quantile(sorted_vals, q: float) -> float:
-    if not sorted_vals:
-        return 0.0
-    if q <= 0:
-        return float(sorted_vals[0])
-    if q >= 1:
-        return float(sorted_vals[-1])
-    idx = q * (len(sorted_vals) - 1)
-    lo = int(idx)
-    hi = min(lo + 1, len(sorted_vals) - 1)
-    frac = idx - lo
-    return float(sorted_vals[lo]) * (1 - frac) + float(sorted_vals[hi]) * frac
-
-
-def _bf_parse_history_for_sim(path: str):
-    import re
-    from datetime import datetime, timezone
-
-    # Capture the currency token (USDT/USDC/etc.) instead of hardcoding USDT
-    sim_rx = re.compile(
-        r"^\[SIM\] it#(?P<it>\d+) @(?P<ex>\w+)\s+(?P<ccy>[A-Z]{3,6}) pick .* net (?P<net>[\d\.]+)% \| (?P<ccy2>[A-Z]{3,6}) (?P<u0>[\d\.]+) -> (?P<u1>[\d\.]+) \(\+(?P<delta>[\d\.]+)\)"
-    )
-    iter_ts_rx = re.compile(
-        r"^\[BF\] Iteraci├│n \d+\/\d+ @ (?P<ts>\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d+\+\d{2}:\d{2})$"
-    )
-
-    trades = []
-    first_ts = None
-    last_ts = None
-
-    try:
-        with open(path, "r", encoding="utf-8") as f:
-            for line in f:
-                s = line.rstrip("\n")
-                m = sim_rx.match(s)
-                if m:
-                    ccy = m.group("ccy")
-                    trades.append(
-                        {
-                            "ex": m.group("ex"),
-                            "ccy": ccy,
-                            "net": float(m.group("net")),
-                            "u0": float(m.group("u0")),
-                            "u1": float(m.group("u1")),
-                            "delta": float(m.group("delta")),
-                        }
-                    )
-                    continue
-                tsm = iter_ts_rx.match(s)
-                if tsm:
-                    ts = tsm.group("ts")
-                    try:
-                        dt = datetime.fromisoformat(ts)
-                    except Exception:
-                        # Fallback: remove colon in offset
-                        if ts[-3] == ":":
-                            ts2 = ts[:-3] + ts[-2:]
-                            dt = datetime.strptime(ts2, "%Y-%m-%dT%H:%M:%S.%f%z")
-                        else:
-                            raise
-                    if first_ts is None:
-                        first_ts = dt
-                    last_ts = dt
-    except Exception:
-        return [], 0.0
-
-    hours = 0.0
-    if first_ts and last_ts:
-        if first_ts.tzinfo is None:
-            from datetime import timezone as _tz
-            first_ts = first_ts.replace(tzinfo=_tz.utc)
-        if last_ts.tzinfo is None:
-            from datetime import timezone as _tz
-            last_ts = last_ts.replace(tzinfo=_tz.utc)
-        hours = (last_ts - first_ts).total_seconds() / 3600.0
-
-    return trades, hours
-
-
-def _bf_summarize_trades(trades, hours: float):
-    from collections import defaultdict
-
-    agg = defaultdict(lambda: {
-        "nets": [],
-        "sum_delta": 0.0,
-        "sum_u0": 0.0,
-        "n": 0,
-        # Track first and last balances per currency; compute gains from end-start (not sum of deltas)
-        "start_usdt": None,
-        "end_usdt": None,
-        "start_usdc": None,
-        "end_usdc": None,
-    })
-    for t in trades:
-        ex = t.get("ex")
-        ccy = (t.get("ccy") or "").upper()
-        u0 = float(t.get("u0", 0.0))
-        u1 = float(t.get("u1", 0.0))
-        dlt = float(t.get("delta", 0.0))
-        agg[ex]["nets"].append(float(t.get("net", 0.0)))
-        agg[ex]["sum_delta"] += dlt
-        agg[ex]["sum_u0"] += u0
-        agg[ex]["n"] += 1
-        if ccy == "USDT":
-            # capture first starting balance and always update ending balance
-            if agg[ex]["start_usdt"] is None:
-                agg[ex]["start_usdt"] = u0
-            agg[ex]["end_usdt"] = u1
-        elif ccy == "USDC":
-            if agg[ex]["start_usdc"] is None:
-                agg[ex]["start_usdc"] = u0
-            agg[ex]["end_usdc"] = u1
-
-    rows = []
-    for ex, a in agg.items():
-        nets = sorted(a["nets"]) if a["nets"] else []
-        n = int(a["n"])
-        avg = (sum(nets) / n) if n else 0.0
-        med = _bf_quantile(nets, 0.5) if n else 0.0
-        p95 = _bf_quantile(nets, 0.95) if n else 0.0
-        per_hour = (n / hours) if hours > 0 else 0.0
-        weighted = (100.0 * (a["sum_delta"] / a["sum_u0"])) if a["sum_u0"] > 0 else 0.0
-        # Realized gains must be derived from balance deltas to avoid double counting
-        start_usdt = a["start_usdt"] if a["start_usdt"] is not None else 0.0
-        end_usdt = a["end_usdt"] if a["end_usdt"] is not None else 0.0
-        start_usdc = a["start_usdc"] if a["start_usdc"] is not None else 0.0
-        end_usdc = a["end_usdc"] if a["end_usdc"] is not None else 0.0
-        gain_usdt = (end_usdt - start_usdt) if (a["start_usdt"] is not None and a["end_usdt"] is not None) else 0.0
-        gain_usdc = (end_usdc - start_usdc) if (a["start_usdc"] is not None and a["end_usdc"] is not None) else 0.0
-
-        rows.append({
-            "exchange": ex,
-            "trades": n,
-            "per_hour": round(per_hour, 2),
-            "avg_net_pct": round(avg, 4),
-            "median_net_pct": round(med, 4),
-            "p95_net_pct": round(p95, 4),
-            "weighted_net_pct": round(weighted, 4),
-            "total_delta": round(a["sum_delta"], 4),
-            "sum_u0": round(a["sum_u0"], 4),
-            # currency-aware outputs derived from balance deltas
-            "gain_usdt": round(gain_usdt, 8),
-            "gain_usdc": round(gain_usdc, 8),
-            "start_usdt": round(start_usdt, 8),
-            "end_usdt": round(end_usdt, 8),
-            "start_usdc": round(start_usdc, 8),
-            "end_usdc": round(end_usdc, 8),
-        })
-    rows.sort(key=lambda r: r["trades"], reverse=True)
-    return rows
-
-
-def _bf_write_summary_csv(rows, out_csv: str) -> None:
-    import os
-    os.makedirs(os.path.dirname(out_csv), exist_ok=True)
-    headers = [
-        "exchange",
-        "trades",
-        "per_hour",
-        "avg_net_pct",
-        "median_net_pct",
-        "p95_net_pct",
-        "weighted_net_pct",
-        "total_delta",
-        "sum_u0",
-        "gain_usdt",
-        "gain_usdc",
-        "start_usdt",
-        "end_usdt",
-        "start_usdc",
-        "end_usdc",
-    ]
-    with open(out_csv, "w", encoding="utf-8") as f:
-        f.write(",".join(headers) + "\n")
-        for r in rows:
-            f.write(",".join(str(r[h]) for h in headers) + "\n")
-
-
-def _bf_write_summary_md(rows, hours: float, out_md: str) -> None:
-    import os
-    os.makedirs(os.path.dirname(out_md), exist_ok=True)
-    total_trades = sum(r.get("trades", 0) for r in rows)
-    with open(out_md, "w", encoding="utf-8") as f:
-        f.write("# BF summary\n\n")
-        f.write(f"Window: ~{hours:.2f} hours\n\n")
-        f.write(f"Total picks: {total_trades}\n\n")
-        f.write("## Per exchange\n\n")
-        f.write("exchange | trades | per_hour | avg_net% | median_net% | p95_net% | weighted_net% | gain_usdt | gain_usdc | start_usdt | end_usdt | start_usdc | end_usdc\n")
-        f.write("---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:\n")
-        for r in rows:
-            f.write(
-                f"{r['exchange']} | {r['trades']} | {r['per_hour']} | {r['avg_net_pct']} | {r['median_net_pct']} | {r['p95_net_pct']} | {r['weighted_net_pct']} | {r['gain_usdt']} | {r['gain_usdc']} | {r['start_usdt']} | {r['end_usdt']} | {r['start_usdc']} | {r['end_usdc']}\n"
-            )
-
-
-def _bf_write_history_summary_and_md(history_path: str, out_csv: str, out_md: str) -> None:
-    trades, hours = _bf_parse_history_for_sim(history_path)
-    if not trades:
-        return
-    rows = _bf_summarize_trades(trades, hours)
-    _bf_write_summary_csv(rows, out_csv)
-    _bf_write_summary_md(rows, hours, out_md)
-
-
-def _load_yaml_config_defaults(parser: argparse.ArgumentParser) -> None:
-    """Load arbitraje.yaml (or --config/ARBITRAJE_CONFIG) and set parser defaults.
-
-    Precedence: CLI > YAML > code defaults. YAML can use flat keys (matching
-    arg names) and/or sections 'bf' and 'tri' which map to bf_* / tri_*.
-    Lists for fields like 'ex' or 'bf.allowed_quotes' are converted to CSV.
-    """
-    try:
-        prelim, _ = parser.parse_known_args()
-        cfg_path = getattr(prelim, "config", None) or os.environ.get("ARBITRAJE_CONFIG")
-        if not cfg_path:
-            cfg_path = str(paths.PROJECT_ROOT / "arbitraje.yaml")
-        if not os.path.exists(cfg_path):
-            return
-        with open(cfg_path, "r", encoding="utf-8") as fh:
-            raw = yaml.safe_load(fh) or {}
-        conf: dict = {}
-
-        def list_to_csv(v):
-            if isinstance(v, list):
-                return ",".join(str(x) for x in v)
-            return v
-
-        # Flat keys
-        flat_keys = {
-            "mode","ex","exclude_ex","quote","max","timeout","sleep","inv","top",
-            "min_spread","min_price","include_stables","min_sources","min_quote_vol","vol_strict",
-            "max_spread_cap","buy_fee","sell_fee","xfer_fee_pct","per_ex_timeout","per_ex_limit","ex_limit",
-            "repeat","repeat_sleep","console_clear","no_console_clear",
-            "simulate_compound","simulate_start","simulate_select","simulate_from_wallet","simulate_prefer",
-            "simulate_auto_switch","simulate_switch_threshold","balance_provider","ex_auth_only",
-            "bf_allowed_quotes",
-            # UI options (flat)
-            "ui_progress_bar","ui_progress_len","ui_spinner_frames","ui_draw_tables_first",
-        }
-        for k in flat_keys:
-            if k in raw:
-                v = raw[k]
-                if k in ("ex", "bf_allowed_quotes"):
-                    v = list_to_csv(v)
-                conf[k] = v
-
-        # Sections
-        for section, prefix in ((raw.get("bf") or {}, "bf_"), (raw.get("tri") or {}, "tri_")):
-            pass
-        bf = raw.get("bf", {}) or {}
-        for k, v in bf.items():
-            key = f"bf_{k}"
-            if k in ("allowed_quotes",):
-                v = list_to_csv(v)
-            conf[key] = v
-        tri = raw.get("tri", {}) or {}
-        for k, v in tri.items():
-            key = f"tri_{k}"
-            conf[key] = v
-        ui = raw.get("ui", {}) or {}
-        for k, v in ui.items():
-            key = f"ui_{k}"
-            conf[key] = v
-
-        if conf:
-            parser.set_defaults(**conf)
-    except Exception:
-        # Ignore config errors, keep code defaults
-        return
-
-
-def main() -> None:
-    parser = argparse.ArgumentParser(description="Arbitraje (ccxt) - modes: tri | bf | balance | health")
-    parser.add_argument("--config", type=str, default=None, help="Path to YAML config file (CLI overrides YAML)")
-    parser.add_argument("--mode", choices=["tri", "bf", "balance", "health"], default="bf")
-    parser.add_argument("--ex", type=str, default="trusted", help="trusted | trusted-plus | all | comma list")
-    parser.add_argument("--exclude_ex", type=str, default="", help="Comma-separated exchanges to exclude after resolution (e.g., 'bitso,bitstamp')")
-    parser.add_argument("--quote", type=str, default="USDT")
-    parser.add_argument("--max", type=int, default=200, dest="max")
-    parser.add_argument("--timeout", type=int, default=20000, help="ccxt timeout (ms)")
-    parser.add_argument("--sleep", type=float, default=0.12, help="sleep between requests (s)")
-    parser.add_argument("--inv", type=float, default=1000.0)
-    parser.add_argument("--top", type=int, default=25)
-    parser.add_argument("--bf_reset_history", action="store_true", help="Borrar historial BF al inicio de la ejecuci├│n (bf_history.txt / history_bf.txt / HISTORY_BF.txt)")
-
-
-
-    # Inter-exchange filters and fees
-    parser.add_argument("--min_spread", type=float, default=0.5)
-    parser.add_argument("--min_price", type=float, default=0.0)
-    parser.add_argument("--include_stables", action="store_true")
-    parser.add_argument("--min_sources", type=int, default=2)
-    parser.add_argument("--min_quote_vol", type=float, default=0.0)
-    parser.add_argument("--vol_strict", action="store_true")
-    parser.add_argument("--max_spread_cap", type=float, default=10.0)
-    parser.add_argument("--buy_fee", type=float, default=0.10, help="%%")
-    parser.add_argument("--sell_fee", type=float, default=0.10, help="%%")
-    parser.add_argument("--xfer_fee_pct", type=float, default=0.0, help="%% additional xfer cost")
-    parser.add_argument("--per_ex_timeout", type=float, default=6.0, help="seconds per-exchange budget when iterating symbols")
-    parser.add_argument("--per_ex_limit", type=int, default=0, help="max symbols per exchange iteration (0 = no cap)")
-    parser.add_argument("--ex_limit", type=int, default=0, help="cap number of exchanges when ex=all")
-
-    # Triangular
-    parser.add_argument("--tri_fee", type=float, default=0.10, help="per-hop fee %%")
-    parser.add_argument("--tri_currencies_limit", type=int, default=35)
-    parser.add_argument("--tri_min_net", type=float, default=0.5)
-    parser.add_argument("--tri_top", type=int, default=5)
-    parser.add_argument("--tri_require_topofbook", action="store_true", help="Use only bid/ask; no 'last' fallback")
-    parser.add_argument("--tri_min_quote_vol", type=float, default=0.0, help="Filter hops by min quote volume")
-
-    # Bellman-Ford
-    parser.add_argument("--bf_fee", type=float, default=0.10, help="per-hop fee %%")
-    parser.add_argument("--bf_currencies_limit", type=int, default=35)
-    parser.add_argument("--bf_rank_by_qvol", action="store_true", help="Rank and select currencies by aggregate quote volume to build a higher-quality universe")
-    parser.add_argument("--bf_min_net", type=float, default=0.5)
-    parser.add_argument("--bf_min_net_per_hop", type=float, default=0.0, help="Descarta ciclos BF cuyo net/hop sea inferior a este umbral (%%)")
-    parser.add_argument("--bf_top", type=int, default=5)
-    parser.add_argument("--bf_persist_top_csv", action="store_true", help="Persistir las top oportunidades por iteraci├│n en un CSV acumulado")
-    parser.add_argument("--bf_require_quote", action="store_true")
-    parser.add_argument("--bf_min_hops", type=int, default=0)
-    parser.add_argument("--bf_max_hops", type=int, default=0)
-    parser.add_argument("--bf_require_topofbook", dest="bf_require_topofbook", action="store_true", help="Use only bid/ask; no 'last' fallback")
-    # Allow overriding YAML 'true' from CLI by providing an explicit negative flag
-    parser.add_argument("--no-bf_require_topofbook", dest="bf_require_topofbook", action="store_false", help="Allow 'last' fallback when bid/ask missing (overrides YAML)")
-    parser.add_argument("--bf_min_quote_vol", type=float, default=0.0, help="Filter edges by min quote volume")
-    parser.add_argument("--bf_threads", type=int, default=1, help="Threads for per-exchange BF scanning (1 = no threading, 0 or negative = one thread per exchange)")
-    parser.add_argument("--bf_debug", action="store_true", help="Print BF debug details: currencies, edges, and cycles counts per exchange")
-    parser.add_argument("--bf_require_dual_quote", action="store_true", help="When multiple anchors (e.g. USDT,USDC) are allowed, include only bases that have markets against ALL anchors")
-    # Depth-aware revalidation (optional)
-    parser.add_argument("--bf_revalidate_depth", dest="bf_revalidate_depth", action="store_true", help="Revalidar los ciclos BF con profundidad L2 (consume niveles) antes de reportar")
-    # Negative flag to disable depth revalidation even if YAML enables it
-    parser.add_argument("--no-bf_revalidate_depth", dest="bf_revalidate_depth", action="store_false", help="Desactivar revalidaci├│n con profundidad L2 (override YAML)")
-    parser.add_argument("--bf_use_ws", action="store_true", help="Intentar usar WebSocket L2 parcial (solo binance por ahora); fallback REST si no disponible")
-    parser.add_argument("--bf_depth_levels", type=int, default=20, help="Niveles de profundidad para REST fallback")
-    parser.add_argument("--bf_latency_penalty_bps", type=float, default=0.0, help="Penalizaci├│n de latencia (bps) restada al net%% estimado tras revalidaci├│n de profundidad")
-    parser.add_argument("--bf_iter_timeout_sec", type=float, default=0.0, help="Tiempo m├íximo (segundos) para esperar resultados por iteraci├│n en BF; 0 = sin l├¡mite")
-
-    # BF simulation (compounding) across iterations
-    parser.add_argument("--simulate_compound", action="store_true", help="Simulate compounding: keep a running QUOTE balance and apply one selected BF opportunity per iteration (no real trades)")
-    parser.add_argument("--simulate_start", type=float, default=None, help="Starting QUOTE balance for simulation (defaults to --inv if omitted)")
-    parser.add_argument(
-        "--simulate_select",
-        choices=["best", "first"],
-        default="best",
-    help="How to choose the opportunity each iteration: best = highest net %% ; first = first found",
-    )
-    parser.add_argument("--simulate_from_wallet", action="store_true", help="Initialize simulation from wallet balance (USDT/USDC); requires exchange credentials")
-    parser.add_argument("--simulate_prefer", choices=["USDT", "USDC", "auto"], default="auto", help="Preferred anchor when using --simulate_from_wallet; auto = choose with higher balance")
-    parser.add_argument("--simulate_auto_switch", action="store_true", help="Auto-switch simulation anchor (USDT/USDC) to the currency with the best available cycle each iteration")
-    parser.add_argument("--simulate_switch_threshold", type=float, default=0.0, help="Minimum additional net %% required to switch anchor vs current anchor's best (default 0.0)")
-
-    # Repeat / UX
-    parser.add_argument("--repeat", type=int, default=1)
-    parser.add_argument("--repeat_sleep", type=float, default=3.0)
-    parser.add_argument("--console_clear", action="store_true")
-    parser.add_argument("--no_console_clear", action="store_true", help="Don't clear console even if --console_clear is set (or set ARBITRAJE_NO_CLEAR=1)")
-    # UI / UX options for snapshot
-    parser.add_argument("--ui_progress_bar", action="store_true", default=True, help="Mostrar barra de progreso en current_bf.txt")
-    parser.add_argument("--ui_progress_len", type=int, default=20, help="Longitud de la barra de progreso")
-    parser.add_argument("--ui_spinner_frames", type=str, default="|/-\\", help="Frames del spinner para progreso en vivo")
-    parser.add_argument("--ui_draw_tables_first", action="store_true", default=True, help="Dibujar tablas vac├¡as desde el inicio de la iteraci├│n")
-    # Balance provider selection
-    parser.add_argument("--balance_provider", choices=["ccxt", "native", "connector", "bitget_sdk"], default="ccxt", help="Provider for --mode balance: ccxt (default), native (direct REST for binance), connector (official Binance SDK Spot), or bitget_sdk (official Bitget SDK)")
-    # Filter exchanges to only those with credentials
-    parser.add_argument("--ex_auth_only", action="store_true", help="Only include exchanges that have API credentials present in environment")
-    # Allow multiple anchor quotes (e.g., USDT and USDC)
-    parser.add_argument("--bf_allowed_quotes", type=str, default=None, help="Comma-separated list of allowed anchor quotes for BF cycles, e.g. 'USDT,USDC' (defaults to QUOTE only)")
-
-    # Apply YAML defaults before parsing final args so CLI wins over YAML
-    _load_yaml_config_defaults(parser)
-    args = parser.parse_args()
-    # Balance usage is unconditional now; we'll always try to use authenticated instances when creds exist.
-
-    QUOTE = args.quote.upper()
-    UNIVERSE_LIMIT = max(1, int(args.max))
-    EX_IDS = resolve_exchanges(args.ex, args.ex_limit)
-    # Exclude exchanges explicitly if requested
-    if args.exclude_ex:
-        try:
-            excludes = {e.strip().lower() for e in args.exclude_ex.split(',') if e.strip()}
-            EX_IDS = [e for e in EX_IDS if e not in excludes]
-        except Exception:
-            pass
-    if args.ex_auth_only:
-        ex_ids_auth = []
-        for ex_id in EX_IDS:
-            try:
-                if creds_from_env(ex_id):
+        raise RuntimeError("Canonical module does not expose main()")
                     ex_ids_auth.append(ex_id)
             except Exception:
                 pass
@@ -2030,6 +1058,110 @@ def main() -> None:
                 logger.warning("%s: BF scan fall├│: %s", ex_id, e)
             return ex_id, local_lines, local_results
 
+        def tri_worker(ex_id: str, it: int, ts: str) -> Tuple[str, List[str], List[dict]]:
+            """Per-exchange triangular worker (optimized).
+            Collects results in-memory and returns them; caller performs IO/aggregation.
+            """
+            local_lines: List[str] = []
+            local_results: List[dict] = []
+            try:
+                ex = load_exchange(ex_id, args.timeout)
+                if not safe_has(ex, "fetchTickers"):
+                    return ex_id, local_lines, local_results
+
+                markets = ex.load_markets()
+                tickers = ex.fetch_tickers()
+
+                ex_norm = normalize_ccxt_id(ex_id)
+                exchange_blacklist = swaps_blacklist_map.get(ex_norm, set())
+
+                # Bind frequently used attrs to locals for speed
+                tri_min_quote_vol = float(args.tri_min_quote_vol)
+                tri_require_top = bool(args.tri_require_topofbook)
+                tri_fee = float(args.tri_fee)
+                tri_min_net = float(args.tri_min_net)
+                tri_limit = int(args.tri_currencies_limit)
+                tri_latency_penalty = float(getattr(args, "tri_latency_penalty_bps", 0.0))
+                _pair_is_blacklisted_local = _pair_is_blacklisted
+                get_rate_and_qvol_local = get_rate_and_qvol
+
+                # Build tokens list with early filtering
+                tokens_list: List[str] = []
+                seen_tokens: set = set()
+                for s, m in markets.items():
+                    if not m.get("active", True):
+                        continue
+                    base = str(m.get("base") or "").upper()
+                    quote = str(m.get("quote") or "").upper()
+                    if not base or not quote:
+                        continue
+                    if base == QUOTE or quote == QUOTE:
+                        other = quote if base == QUOTE else base
+                        if not other:
+                            continue
+                        other_up = str(other).upper()
+                        if other_up in seen_tokens:
+                            continue
+                        if exchange_blacklist and _pair_is_blacklisted_local(exchange_blacklist, QUOTE, other_up):
+                            continue
+                        seen_tokens.add(other_up)
+                        tokens_list.append(other_up)
+                tokens = tokens_list[:tri_limit]
+                if not tokens:
+                    return ex_id, local_lines, local_results
+
+                # Precompute r1_map and r3_map
+                r1_map: Dict[str, tuple] = {}
+                r3_map: Dict[str, tuple] = {}
+                fee = tri_fee
+                for tkn in tokens:
+                    r1_map[tkn] = get_rate_and_qvol_local(QUOTE, tkn, tickers, fee, tri_require_top)
+                    r3_map[tkn] = get_rate_and_qvol_local(tkn, QUOTE, tickers, fee, tri_require_top)
+
+                from itertools import permutations
+                from datetime import datetime
+
+                ts_now = datetime.utcnow().isoformat()
+                fee_bps_total = 3.0 * fee
+
+                for X, Y in permutations(tokens, 2):
+                    if exchange_blacklist and _pair_is_blacklisted_local(exchange_blacklist, X, Y):
+                        continue
+
+                    r1, qv1 = r1_map.get(X, (None, None))
+                    if not r1:
+                        continue
+                    if tri_min_quote_vol > 0 and (qv1 is None or qv1 < tri_min_quote_vol):
+                        continue
+
+                    r2, qv2 = get_rate_and_qvol_local(X, Y, tickers, fee, tri_require_top)
+                    if not r2:
+                        continue
+                    if tri_min_quote_vol > 0 and (qv2 is None or qv2 < tri_min_quote_vol):
+                        continue
+
+                    r3, qv3 = r3_map.get(Y, (None, None))
+                    if not r3:
+                        continue
+                    if tri_min_quote_vol > 0 and (qv3 is None or qv3 < tri_min_quote_vol):
+                        continue
+
+                    gross_bps = (r1 * r2 * r3 - 1.0) * 10000.0
+                    net_bps = gross_bps - fee_bps_total
+                    if net_bps >= tri_min_net:
+                        rec = {
+                            "ts": ts_now,
+                            "venue": ex.id,
+                            "cycle": f"{QUOTE}->{X}->{Y}->{QUOTE}",
+                            "net_bps_est": round(net_bps - tri_latency_penalty, 4),
+                            "fee_bps_total": fee_bps_total,
+                            "status": "actionable",
+                        }
+                        local_results.append(rec)
+            except Exception as e:
+                logger.debug("tri_worker fallo %s: %s", ex_id, e)
+            return ex_id, local_lines, local_results
+
         for it in range(1, int(max(1, args.repeat)) + 1):
             ts = pd.Timestamp.utcnow().isoformat()
             swaps_blacklist_map = load_swaps_blacklist()
@@ -2163,6 +1295,8 @@ def main() -> None:
             if max(1, num_workers) > 1:
                 with concurrent.futures.ThreadPoolExecutor(max_workers=max(1, num_workers)) as pool:
                     futures = [pool.submit(bf_worker, ex_id, it, ts) for ex_id in EX_IDS]
+                    # also schedule tri workers so per-exchange triangular checks run in parallel with BF
+                    tri_futures = [pool.submit(tri_worker, ex_id, it, ts) for ex_id in EX_IDS]
                     # Optional per-iteration timeout
                     deadline = None
                     try:
@@ -2171,7 +1305,7 @@ def main() -> None:
                             deadline = time.time() + tsec
                     except Exception:
                         deadline = None
-                    pending = set(futures)
+                    pending = set(futures) | set(tri_futures)
                     while pending:
                         timeout_next = None
                         if deadline is not None:

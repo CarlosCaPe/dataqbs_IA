@@ -1166,7 +1166,7 @@ def main() -> None:
     parser.add_argument("--max", type=int, default=200, dest="max")
     parser.add_argument("--timeout", type=int, default=20000, help="ccxt timeout (ms)")
     parser.add_argument(
-        "--sleep", type=float, default=0.12, help="sleep between requests (s)"
+        "--sleep", type=float, default=0, help="sleep between requests (s)"
     )
     parser.add_argument("--inv", type=float, default=1000.0)
     parser.add_argument("--top", type=int, default=25)
@@ -1362,7 +1362,7 @@ def main() -> None:
 
     # Repeat / UX
     parser.add_argument("--repeat", type=int, default=1)
-    parser.add_argument("--repeat_sleep", type=float, default=3.0)
+    parser.add_argument("--repeat_sleep", type=float, default=0.0)
     parser.add_argument("--console_clear", action="store_true")
     parser.add_argument(
         "--no_console_clear",
@@ -2933,6 +2933,124 @@ def main() -> None:
             time.sleep(args.sleep)
         except Exception as e:
             logger.warning("%s: BF scan falló: %s", ex_id, e)
+        return ex_id, local_lines, local_results
+
+    def tri_worker(ex_id: str, it: int, ts: str) -> Tuple[str, List[str], List[dict]]:
+        """Per-exchange triangular worker (optimized).
+        Collects results in-memory and returns them; caller performs IO/aggregation.
+        Optimizations implemented:
+        - Bind frequently used attributes to locals
+        - Pre-filter tokens and apply blacklist early
+        - Precompute QUOTE->X and Y->QUOTE rates (r1_map, r3_map)
+        - Iterate pairs using itertools.permutations
+        - Use datetime.utcnow() once per worker for timestamps
+        - Compute fee_bps_total once
+        - Avoid file I/O inside the inner loop
+        """
+        local_lines: List[str] = []
+        local_results: List[dict] = []
+        try:
+            ex = load_exchange(ex_id, args.timeout)
+            if not safe_has(ex, "fetchTickers"):
+                return ex_id, local_lines, local_results
+
+            markets = ex.load_markets()
+            tickers = ex.fetch_tickers()
+
+            ex_norm = normalize_ccxt_id(ex_id)
+            exchange_blacklist = swaps_blacklist_map.get(ex_norm, set())
+
+            # Bind frequently used attrs to locals for speed
+            tri_min_quote_vol = float(args.tri_min_quote_vol)
+            tri_require_top = bool(args.tri_require_topofbook)
+            tri_fee = float(args.tri_fee)
+            tri_min_net = float(args.tri_min_net)
+            tri_limit = int(args.tri_currencies_limit)
+            tri_latency_penalty = float(getattr(args, "tri_latency_penalty_bps", 0.0))
+            _pair_is_blacklisted_local = _pair_is_blacklisted
+            get_rate_and_qvol_local = get_rate_and_qvol
+            json_dumps = (_json or json).dumps
+
+            # Build tokens list with early filtering
+            tokens_list: List[str] = []
+            seen_tokens: set = set()
+            for s, m in markets.items():
+                if not m.get("active", True):
+                    continue
+                base = str(m.get("base") or "").upper()
+                quote = str(m.get("quote") or "").upper()
+                if not base or not quote:
+                    continue
+                if base == QUOTE or quote == QUOTE:
+                    other = quote if base == QUOTE else base
+                    if not other:
+                        continue
+                    other_up = str(other).upper()
+                    if other_up in seen_tokens:
+                        continue
+                    # apply blacklist early (anchor-quote pair)
+                    if exchange_blacklist and _pair_is_blacklisted_local(exchange_blacklist, QUOTE, other_up):
+                        continue
+                    seen_tokens.add(other_up)
+                    tokens_list.append(other_up)
+            # cap tokens
+            tokens = tokens_list[:tri_limit]
+            if not tokens:
+                return ex_id, local_lines, local_results
+
+            # Precompute r1_map and r3_map
+            r1_map: Dict[str, tuple] = {}
+            r3_map: Dict[str, tuple] = {}
+            fee = tri_fee
+            for tkn in tokens:
+                r1_map[tkn] = get_rate_and_qvol_local(QUOTE, tkn, tickers, fee, tri_require_top)
+                r3_map[tkn] = get_rate_and_qvol_local(tkn, QUOTE, tickers, fee, tri_require_top)
+
+            # Local helpers
+            from itertools import permutations
+            from datetime import datetime
+
+            ts_now = datetime.utcnow().isoformat()
+            fee_bps_total = 3.0 * fee
+
+            # Iterate pairs using permutations (X, Y)
+            for X, Y in permutations(tokens, 2):
+                # skip blacklisted pair X->Y
+                if exchange_blacklist and _pair_is_blacklisted_local(exchange_blacklist, X, Y):
+                    continue
+
+                r1, qv1 = r1_map.get(X, (None, None))
+                if not r1:
+                    continue
+                if tri_min_quote_vol > 0 and (qv1 is None or qv1 < tri_min_quote_vol):
+                    continue
+
+                r2, qv2 = get_rate_and_qvol_local(X, Y, tickers, fee, tri_require_top)
+                if not r2:
+                    continue
+                if tri_min_quote_vol > 0 and (qv2 is None or qv2 < tri_min_quote_vol):
+                    continue
+
+                r3, qv3 = r3_map.get(Y, (None, None))
+                if not r3:
+                    continue
+                if tri_min_quote_vol > 0 and (qv3 is None or qv3 < tri_min_quote_vol):
+                    continue
+
+                gross_bps = (r1 * r2 * r3 - 1.0) * 10000.0
+                net_bps = gross_bps - fee_bps_total
+                if net_bps >= tri_min_net:
+                    rec = {
+                        "ts": ts_now,
+                        "venue": ex.id,
+                        "cycle": f"{QUOTE}->{X}->{Y}->{QUOTE}",
+                        "net_bps_est": round(net_bps - tri_latency_penalty, 4),
+                        "fee_bps_total": fee_bps_total,
+                        "status": "actionable",
+                    }
+                    local_results.append(rec)
+        except Exception as e:
+            logger.debug("tri_worker fallo %s: %s", ex_id, e)
         return ex_id, local_lines, local_results
 
     # (removed fallback minimal BF loop that prematurely returned and bypassed the full BF rendering path)
