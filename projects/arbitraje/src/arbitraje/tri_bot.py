@@ -19,12 +19,15 @@ except Exception:
     _json = None
 
 from . import paths
-from .ws_binance import BinanceL2PartialBook  # works when --ex binance; other venues can get similar wrappers
+from .ws_binance import (
+    BinanceL2PartialBook,
+)  # works when --ex binance; other venues can get similar wrappers
 
 try:
     from dotenv import load_dotenv
-    load_dotenv(dotenv_path=str(paths.MONOREPO_ROOT/".env"), override=False)
-    load_dotenv(dotenv_path=str(paths.PROJECT_ROOT/".env"), override=False)
+
+    load_dotenv(dotenv_path=str(paths.MONOREPO_ROOT / ".env"), override=False)
+    load_dotenv(dotenv_path=str(paths.PROJECT_ROOT / ".env"), override=False)
 except Exception:
     pass
 
@@ -38,7 +41,7 @@ if not logger.handlers:
     logger.addHandler(sh)
     try:
         paths.LOGS_DIR.mkdir(parents=True, exist_ok=True)
-        fh = logging.FileHandler(paths.LOGS_DIR/"tri_bot.log", encoding="utf-8")
+        fh = logging.FileHandler(paths.LOGS_DIR / "tri_bot.log", encoding="utf-8")
         fh.setFormatter(fmt)
         logger.addHandler(fh)
     except Exception:
@@ -122,7 +125,9 @@ def consume_depth(ob: dict, side: str, qty: float) -> Tuple[Optional[float], flo
     return avg_px, slippage_bps
 
 
-def find_triangles(ex: ccxt.Exchange, quote: str, whitelist: List[str]) -> List[Tuple[str, str, str, str]]:
+def find_triangles(
+    ex: ccxt.Exchange, quote: str, whitelist: List[str]
+) -> List[Tuple[str, str, str, str]]:
     """Derive triangles A/B, B/C, C/A for bases in whitelist with common quote."""
     markets = ex.load_markets()
     syms = [s for s in markets.keys() if s.endswith(f"/{quote}")]
@@ -132,7 +137,7 @@ def find_triangles(ex: ccxt.Exchange, quote: str, whitelist: List[str]) -> List[
     tris = []
     # triangles like: A/USDT, A/B, B/USDT → A->B->USDT->A simplified as quote-based cycles
     for i in range(len(bases)):
-        for j in range(i+1, len(bases)):
+        for j in range(i + 1, len(bases)):
             a = bases[i]
             b = bases[j]
             # Cycle A -> B -> quote -> A
@@ -162,11 +167,7 @@ def evaluate_cycle(
     # Order books
     ob_aq = ex.fetch_order_book(sym_aq, limit=20)
     ob_bq = ex.fetch_order_book(sym_bq, limit=20)
-    ob_ab = (
-        ex.fetch_order_book(sym_ab, limit=20)
-        if sym_ab in ex.markets
-        else None
-    )
+    ob_ab = ex.fetch_order_book(sym_ab, limit=20) if sym_ab in ex.markets else None
     ob_ba = (
         ex.fetch_order_book(sym_ba, limit=20)
         if (ob_ab is None and sym_ba in ex.markets)
@@ -174,9 +175,11 @@ def evaluate_cycle(
     )
 
     # Step1: buy A with Q at ask using depth
-    px_aq, slip1 = consume_depth(ob_aq, side="buy", qty=size_q/ max(1e-12, (ob_aq.get('asks', [[1,1]])[0][0])))
+    px_aq, slip1 = consume_depth(
+        ob_aq, side="buy", qty=size_q / max(1e-12, (ob_aq.get("asks", [[1, 1]])[0][0]))
+    )
     # We need consistent sizing; approximate by first converting Q→A size using best ask
-    best_ask_aq = ob_aq.get('asks', [[None, None]])[0][0] or None
+    best_ask_aq = ob_aq.get("asks", [[None, None]])[0][0] or None
     if best_ask_aq is None or px_aq is None:
         return None
     qty_a = size_q / float(best_ask_aq)
@@ -216,7 +219,9 @@ def evaluate_cycle(
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Triangular arbitrage (paper) depth-aware within one exchange")
+    parser = argparse.ArgumentParser(
+        description="Triangular arbitrage (paper) depth-aware within one exchange"
+    )
     parser.add_argument(
         "--ex",
         default=os.environ.get("EX", os.environ.get("EXCHANGE", "binance")),
@@ -285,7 +290,9 @@ def main() -> None:
     ex.load_markets()
 
     triangles = find_triangles(ex, args.quote, whitelist)
-    logger.info("%s: %d triángulos derivados (quote=%s)", ex.id, len(triangles), args.quote)
+    logger.info(
+        "%s: %d triángulos derivados (quote=%s)", ex.id, len(triangles), args.quote
+    )
 
     paths.OUTPUTS_DIR.mkdir(parents=True, exist_ok=True)
     csv_path = paths.OUTPUTS_DIR / f"tri_bot_{ex.id}_{args.quote.lower()}.csv"
@@ -302,12 +309,12 @@ def main() -> None:
     for it in range(1, int(max(1, args.repeat)) + 1):
         seen = 0
         actionable = 0
-        for (a,b,q,a2) in triangles:
+        for a, b, q, a2 in triangles:
             if q != args.quote or a2 != a:
                 continue
             try:
                 # Prefer WS book if requested and available (binance only in this helper)
-                use_ws = bool(args.use_ws and ex.id == 'binance')
+                use_ws = bool(args.use_ws and ex.id == "binance")
                 op = None
                 if use_ws:
                     # Start/consult WS partial books per needed symbols; minimal cache per iteration
@@ -316,7 +323,7 @@ def main() -> None:
                     managers: List[BinanceL2PartialBook] = []
                     try:
                         for s in syms:
-                            sym = s.replace('/','').lower()
+                            sym = s.replace("/", "").lower()
                             m = BinanceL2PartialBook(symbol=sym)
                             m.start()
                             managers.append(m)
@@ -346,9 +353,9 @@ def main() -> None:
                                 if not book:
                                     return None, 0.0
                                 # reuse same slippage calc
-                                bids = book.get('bids') or []
-                                asks = book.get('asks') or []
-                                ob = {'bids': bids, 'asks': asks}
+                                bids = book.get("bids") or []
+                                asks = book.get("asks") or []
+                                ob = {"bids": bids, "asks": asks}
                                 return consume_depth(ob, side=side, qty=qty)
 
                             # step sizing mirroring evaluate_cycle
@@ -363,19 +370,23 @@ def main() -> None:
                                 op = None
                             else:
                                 qty_a = float(args.max_notional) / float(best_ask_aq)
-                                px_aq, slip1 = consume_local(sym_aq, 'buy', qty_a)
+                                px_aq, slip1 = consume_local(sym_aq, "buy", qty_a)
                                 if px_aq is None:
                                     op = None
                                 else:
                                     # A->B
                                     if ws_books.get(sym_ab):
-                                        px_ab, slip2 = consume_local(sym_ab, 'sell', qty_a)
+                                        px_ab, slip2 = consume_local(
+                                            sym_ab, "sell", qty_a
+                                        )
                                         if px_ab is None:
                                             op = None
                                         else:
                                             qty_b = qty_a * px_ab
                                     elif ws_books.get(sym_ba):
-                                        px_ba, slip2 = consume_local(sym_ba, 'buy', qty_a)
+                                        px_ba, slip2 = consume_local(
+                                            sym_ba, "buy", qty_a
+                                        )
                                         if px_ba is None:
                                             op = None
                                         else:
@@ -385,7 +396,9 @@ def main() -> None:
                                     if op is None:
                                         pass
                                     else:
-                                        px_bq, slip3 = consume_local(sym_bq, 'sell', qty_b)
+                                        px_bq, slip3 = consume_local(
+                                            sym_bq, "sell", qty_b
+                                        )
                                         if px_bq is None:
                                             op = None
                                         else:
@@ -396,7 +409,8 @@ def main() -> None:
                                                 (slip1 + slip2 + slip3),
                                             )
                                             gross = (
-                                                size_q_out / float(args.max_notional) - 1.0
+                                                size_q_out / float(args.max_notional)
+                                                - 1.0
                                             ) * 10000.0
                                             net_bps_est = (
                                                 gross
@@ -429,12 +443,12 @@ def main() -> None:
                         max_slippage_bps=args.max_slippage_bps,
                     )
             except Exception as e:
-                logger.debug("eval fallo %s-%s-%s: %s", a,b,q,e)
+                logger.debug("eval fallo %s-%s-%s: %s", a, b, q, e)
                 continue
             seen += 1
             if op and op.net_bps_est >= float(args.min_profit_bps):
                 # Session risk: circuit breaker and MAX_OPEN_CHAINS
-                if args.mode == 'live':
+                if args.mode == "live":
                     if max_dd_bps >= float(args.max_drawdown_session_bps):
                         continue
                     if open_chains >= int(args.max_open_chains):
@@ -450,7 +464,9 @@ def main() -> None:
                     "mode": args.mode,
                     "cycle": f"{a}->{b}->{q}->{a}",
                     "notional_quote_req": float(args.max_notional),
-                    "net_bps_est": round(op.net_bps_est - float(args.latency_penalty_bps), 4),
+                    "net_bps_est": round(
+                        op.net_bps_est - float(args.latency_penalty_bps), 4
+                    ),
                     "fee_bps_total": op.fee_bps_total,
                     "slippage_bps_est": op.slippage_bps_est,
                     "status": "actionable",
@@ -459,7 +475,7 @@ def main() -> None:
                 line = (_json or json).dumps(rec)
                 try:
                     with open(jsonl_path, "a", encoding="utf-8") as jfh:
-                        jfh.write(line+"\n")
+                        jfh.write(line + "\n")
                 except Exception:
                     pass
                 # Update session PnL (approx by net_bps_est)
@@ -497,6 +513,7 @@ def main() -> None:
             "SESSION: %s",
             (_json or json).dumps(sess),
         )
+
 
 if __name__ == "__main__":
     main()

@@ -91,7 +91,9 @@ def binance_request(
         url = f"{base}{path}"
         try:
             if method.upper() == "GET":
-                r = requests.get(url, headers=headers, params=query, timeout=timeout_tuple)
+                r = requests.get(
+                    url, headers=headers, params=query, timeout=timeout_tuple
+                )
             elif method.upper() == "POST":
                 # application/x-www-form-urlencoded body
                 r = requests.post(
@@ -146,7 +148,9 @@ def get_convert_pairs(
     )
 
 
-def get_convert_asset_info(api_key: str, api_secret: str, recv_window_ms: int = 5000, timeout: int = 20_000) -> Any:
+def get_convert_asset_info(
+    api_key: str, api_secret: str, recv_window_ms: int = 5000, timeout: int = 20_000
+) -> Any:
     # USER_DATA -> signed
     return binance_request(
         "GET",
@@ -160,7 +164,9 @@ def get_convert_asset_info(api_key: str, api_secret: str, recv_window_ms: int = 
     )
 
 
-def get_account_balances(api_key: str, api_secret: str, recv_window_ms: int = 5000, timeout: int = 20_000) -> Any:
+def get_account_balances(
+    api_key: str, api_secret: str, recv_window_ms: int = 5000, timeout: int = 20_000
+) -> Any:
     # Signed account info
     return binance_request(
         "GET",

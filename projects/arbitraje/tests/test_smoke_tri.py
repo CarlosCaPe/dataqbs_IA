@@ -26,7 +26,7 @@ class FakeExchange:
         }
 
 
-@pytest.mark.parametrize("quote", ["USDT"]) 
+@pytest.mark.parametrize("quote", ["USDT"])
 def test_smoke_tri_monkeypatched(monkeypatch, quote):
     # Import the module under test
     mod = importlib.import_module("arbitraje.arbitrage_report_ccxt")
@@ -47,6 +47,7 @@ def test_smoke_tri_monkeypatched(monkeypatch, quote):
 
     # Run main via subprocess-like invocation by setting sys.argv
     import sys
+
     old_argv = sys.argv
     try:
         sys.argv = ["arbitraje.arbitrage_report_ccxt"] + test_args
