@@ -1,5 +1,7 @@
 # Arbitraje
 
+Version: 1.3.0 (engine 3.0)
+
 Nota rápida sobre la estructura del código:
 
 - La implementación canónica del CLI y la lógica principal se encuentra en:

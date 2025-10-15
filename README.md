@@ -1,5 +1,7 @@
 # dataqbs_IA Monorepo
 
+Version: 1.3.0 (engine 3.0)
+
 Multi‑project Python workspace containing tooling for email ingestion/classification, evaluation engines, real estate data utilities and media comparison automation.
 
 ## Project Index
