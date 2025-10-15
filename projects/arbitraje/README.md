@@ -1,3 +1,23 @@
+# Arbitraje
+
+Nota rápida sobre la estructura del código:
+
+- La implementación canónica del CLI y la lógica principal se encuentra en:
+
+  `projects/arbitraje/src/arbitraje/arbitrage_report_ccxt.py`
+
+- No crear copias del fichero `arbitrage_report_ccxt.py` en otras rutas. Si necesitas reorganizar
+  el código o mover la implementación, edita el archivo canónico y actualiza los consumidores.
+
+- Históricamente existía un "shim" en una ruta nidificada que re-exportaba el módulo canónico
+  para mantener compatibilidad. Ese shim se ha eliminado para evitar confusión y duplicación.
+
+Buenas prácticas:
+- Si es necesario mantener compatibilidad por un periodo de transición, crea un shim muy
+  pequeño que documente claramente su propósito (pero evita mantener lógica duplicada).
+- Añade tests que importen el módulo desde la ruta esperada para detectar roturas de compatibilidad.
+
+Gracias por mantener el repositorio limpio.
 # arbitraje
 
 Crypto price arbitrage scanner using ccxt (market data) with intra-exchange triangular and Bellman–Ford modes.
