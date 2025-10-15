@@ -1,12 +1,18 @@
 from __future__ import annotations
 
-import os, time, math, argparse, logging, sys, json
+import argparse
+import json
+import logging
+import os
+import sys
+import time
 from dataclasses import dataclass
-from typing import Dict, List, Tuple, Optional
+from typing import Dict, List, Optional, Tuple
 
 import ccxt
 import pandas as pd
 import yaml
+
 try:
     import ujson as _json
 except Exception:
@@ -14,6 +20,7 @@ except Exception:
 
 from . import paths
 from .ws_binance import BinanceL2PartialBook  # works when --ex binance; other venues can get similar wrappers
+
 try:
     from dotenv import load_dotenv
     load_dotenv(dotenv_path=str(paths.MONOREPO_ROOT/".env"), override=False)
@@ -91,7 +98,8 @@ def consume_depth(ob: dict, side: str, qty: float) -> Tuple[Optional[float], flo
     qty_filled = 0.0
     ref_px = levels[0][0]
     for px, q in levels:
-        px = float(px); q = float(q)
+        px = float(px)
+        q = float(q)
         take = min(remaining, q)
         notional += take * px
         qty_filled += take
@@ -125,25 +133,45 @@ def find_triangles(ex: ccxt.Exchange, quote: str, whitelist: List[str]) -> List[
     # triangles like: A/USDT, A/B, B/USDT → A->B->USDT->A simplified as quote-based cycles
     for i in range(len(bases)):
         for j in range(i+1, len(bases)):
-            a = bases[i]; b = bases[j]
+            a = bases[i]
+            b = bases[j]
             # Cycle A -> B -> quote -> A
             # require symbols existence: A/B or B/A, A/quote, B/quote
-            s_ab = f"{a}/{b}"; s_ba = f"{b}/{a}"
+            s_ab = f"{a}/{b}"
+            s_ba = f"{b}/{a}"
             if s_ab in markets or s_ba in markets:
                 if f"{a}/{quote}" in markets and f"{b}/{quote}" in markets:
                     tris.append((a, b, quote, a))
     return tris
 
 
-def evaluate_cycle(ex: ccxt.Exchange, a: str, b: str, q: str, size_q: float, fee_bps: float, max_slip_bps: float) -> Optional[Opportunity]:
+def evaluate_cycle(
+    ex: ccxt.Exchange,
+    a: str,
+    b: str,
+    q: str,
+    size_q: float,
+    fee_bps: float,
+    max_slip_bps: float,
+) -> Optional[Opportunity]:
     # Symbols
-    sym_aq = f"{a}/{q}"; sym_bq = f"{b}/{q}"
-    sym_ab = f"{a}/{b}"; sym_ba = f"{b}/{a}"
+    sym_aq = f"{a}/{q}"
+    sym_bq = f"{b}/{q}"
+    sym_ab = f"{a}/{b}"
+    sym_ba = f"{b}/{a}"
     # Order books
     ob_aq = ex.fetch_order_book(sym_aq, limit=20)
     ob_bq = ex.fetch_order_book(sym_bq, limit=20)
-    ob_ab = ex.fetch_order_book(sym_ab, limit=20) if sym_ab in ex.markets else None
-    ob_ba = ex.fetch_order_book(sym_ba, limit=20) if (ob_ab is None and sym_ba in ex.markets) else None
+    ob_ab = (
+        ex.fetch_order_book(sym_ab, limit=20)
+        if sym_ab in ex.markets
+        else None
+    )
+    ob_ba = (
+        ex.fetch_order_book(sym_ba, limit=20)
+        if (ob_ab is None and sym_ba in ex.markets)
+        else None
+    )
 
     # Step1: buy A with Q at ask using depth
     px_aq, slip1 = consume_depth(ob_aq, side="buy", qty=size_q/ max(1e-12, (ob_aq.get('asks', [[1,1]])[0][0])))
@@ -178,23 +206,74 @@ def evaluate_cycle(ex: ccxt.Exchange, a: str, b: str, q: str, size_q: float, fee
     slippage_bps_est = min(max_slip_bps, (slip1 + slip2 + slip3))
     gross = (size_q_out / size_q - 1.0) * 10000.0
     net_bps_est = gross - fee_bps_total - slippage_bps_est
-    return Opportunity(exchange=ex.id, cycle=(a,b,q,a), net_bps_est=net_bps_est, fee_bps_total=fee_bps_total, slippage_bps_est=slippage_bps_est)
+    return Opportunity(
+        exchange=ex.id,
+        cycle=(a, b, q, a),
+        net_bps_est=net_bps_est,
+        fee_bps_total=fee_bps_total,
+        slippage_bps_est=slippage_bps_est,
+    )
 
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Triangular arbitrage (paper) depth-aware within one exchange")
-    parser.add_argument("--ex", default=os.environ.get("EX", os.environ.get("EXCHANGE", "binance")))
+    parser.add_argument(
+        "--ex",
+        default=os.environ.get("EX", os.environ.get("EXCHANGE", "binance")),
+    )
     parser.add_argument("--quote", default=os.environ.get("QUOTE", "USDT"))
-    parser.add_argument("--mode", choices=["paper","live"], default=os.environ.get("MODE", "paper"))
-    parser.add_argument("--config", default=str(paths.PROJECT_ROOT/"arbitraje.yaml"))
-    parser.add_argument("--fee_bps", type=float, default=float(os.environ.get("TAKER_FEE_BPS", "10")))
-    parser.add_argument("--min_profit_bps", type=float, default=float(os.environ.get("MIN_PROFIT_BPS", "12")))
-    parser.add_argument("--max_slippage_bps", type=float, default=float(os.environ.get("MAX_SLIPPAGE_BPS", "8")))
-    parser.add_argument("--max_notional", type=float, default=float(os.environ.get("MAX_NOTIONAL_PER_TRADE", "100")))
-    parser.add_argument("--latency_penalty_bps", type=float, default=float(os.environ.get("LATENCY_PENALTY_BPS", "2")))
-    parser.add_argument("--use_ws", action="store_true", help="Usar WebSocket L2 parcial si está disponible; fallback REST si no hay libro")
-    parser.add_argument("--max_open_chains", type=int, default=int(os.environ.get("MAX_OPEN_CHAINS", "1")))
-    parser.add_argument("--max_drawdown_session_bps", type=float, default=float(os.environ.get("MAX_DRAWDOWN_SESSION_BPS", "200")))
+    parser.add_argument(
+        "--mode",
+        choices=["paper", "live"],
+        default=os.environ.get("MODE", "paper"),
+    )
+    parser.add_argument(
+        "--config",
+        default=str(paths.PROJECT_ROOT / "arbitraje.yaml"),
+    )
+    parser.add_argument(
+        "--fee_bps",
+        type=float,
+        default=float(os.environ.get("TAKER_FEE_BPS", "10")),
+    )
+    parser.add_argument(
+        "--min_profit_bps",
+        type=float,
+        default=float(os.environ.get("MIN_PROFIT_BPS", "12")),
+    )
+    parser.add_argument(
+        "--max_slippage_bps",
+        type=float,
+        default=float(os.environ.get("MAX_SLIPPAGE_BPS", "8")),
+    )
+    parser.add_argument(
+        "--max_notional",
+        type=float,
+        default=float(os.environ.get("MAX_NOTIONAL_PER_TRADE", "100")),
+    )
+    parser.add_argument(
+        "--latency_penalty_bps",
+        type=float,
+        default=float(os.environ.get("LATENCY_PENALTY_BPS", "2")),
+    )
+    parser.add_argument(
+        "--use_ws",
+        action="store_true",
+        help=(
+            "Usar WebSocket L2 parcial si está disponible; "
+            "fallback REST si no hay libro"
+        ),
+    )
+    parser.add_argument(
+        "--max_open_chains",
+        type=int,
+        default=int(os.environ.get("MAX_OPEN_CHAINS", "1")),
+    )
+    parser.add_argument(
+        "--max_drawdown_session_bps",
+        type=float,
+        default=float(os.environ.get("MAX_DRAWDOWN_SESSION_BPS", "200")),
+    )
     parser.add_argument("--sleep", type=float, default=1.0)
     parser.add_argument("--repeat", type=int, default=1)
     args = parser.parse_args()
@@ -250,7 +329,15 @@ def main() -> None:
                         # fallback REST if any missing
                         if len([k for k in ws_books.values() if k]) < 2:
                             # Not enough data; defer to REST evaluate
-                            op = evaluate_cycle(ex, a, b, q, size_q=float(args.max_notional), fee_bps=args.fee_bps, max_slippage_bps=args.max_slippage_bps)
+                            op = evaluate_cycle(
+                                ex,
+                                a,
+                                b,
+                                q,
+                                size_q=float(args.max_notional),
+                                fee_bps=args.fee_bps,
+                                max_slippage_bps=args.max_slippage_bps,
+                            )
                         else:
                             # Use depth-aware with WS books
                             # Re-implement minimal evaluation against provided books
@@ -259,16 +346,19 @@ def main() -> None:
                                 if not book:
                                     return None, 0.0
                                 # reuse same slippage calc
-                                from math import isfinite
                                 bids = book.get('bids') or []
                                 asks = book.get('asks') or []
                                 ob = {'bids': bids, 'asks': asks}
                                 return consume_depth(ob, side=side, qty=qty)
 
                             # step sizing mirroring evaluate_cycle
-                            sym_aq = f"{a}/{q}"; sym_bq = f"{b}/{q}"
-                            sym_ab = f"{a}/{b}"; sym_ba = f"{b}/{a}"
-                            best_ask_aq = (ws_books.get(sym_aq, {}).get('asks') or [[None,None]])[0][0]
+                            sym_aq = f"{a}/{q}"
+                            sym_bq = f"{b}/{q}"
+                            sym_ab = f"{a}/{b}"
+                            sym_ba = f"{b}/{a}"
+                            best_ask_aq = (
+                                ws_books.get(sym_aq, {}).get("asks") or [[None, None]]
+                            )[0][0]
                             if not best_ask_aq:
                                 op = None
                             else:
@@ -301,10 +391,26 @@ def main() -> None:
                                         else:
                                             size_q_out = qty_b * px_bq
                                             fee_bps_total = 3.0 * float(args.fee_bps)
-                                            slippage_bps_est = min(float(args.max_slippage_bps), (slip1+slip2+slip3))
-                                            gross = (size_q_out / float(args.max_notional) - 1.0) * 10000.0
-                                            net_bps_est = gross - fee_bps_total - slippage_bps_est - float(args.latency_penalty_bps)
-                                            op = Opportunity(exchange=ex.id, cycle=(a,b,q,a), net_bps_est=net_bps_est, fee_bps_total=fee_bps_total, slippage_bps_est=slippage_bps_est)
+                                            slippage_bps_est = min(
+                                                float(args.max_slippage_bps),
+                                                (slip1 + slip2 + slip3),
+                                            )
+                                            gross = (
+                                                size_q_out / float(args.max_notional) - 1.0
+                                            ) * 10000.0
+                                            net_bps_est = (
+                                                gross
+                                                - fee_bps_total
+                                                - slippage_bps_est
+                                                - float(args.latency_penalty_bps)
+                                            )
+                                            op = Opportunity(
+                                                exchange=ex.id,
+                                                cycle=(a, b, q, a),
+                                                net_bps_est=net_bps_est,
+                                                fee_bps_total=fee_bps_total,
+                                                slippage_bps_est=slippage_bps_est,
+                                            )
                     finally:
                         for m in managers:
                             try:
@@ -313,7 +419,15 @@ def main() -> None:
                                 pass
                 if op is None:
                     # REST path
-                    op = evaluate_cycle(ex, a, b, q, size_q=float(args.max_notional), fee_bps=args.fee_bps, max_slippage_bps=args.max_slippage_bps)
+                    op = evaluate_cycle(
+                        ex,
+                        a,
+                        b,
+                        q,
+                        size_q=float(args.max_notional),
+                        fee_bps=args.fee_bps,
+                        max_slippage_bps=args.max_slippage_bps,
+                    )
             except Exception as e:
                 logger.debug("eval fallo %s-%s-%s: %s", a,b,q,e)
                 continue
@@ -355,13 +469,22 @@ def main() -> None:
                 max_dd_bps = max(max_dd_bps, pnl_bps_peak - pnl_bps_cum)
                 if rec["net_bps_est"] > 0:
                     wins += 1
-        logger.info("it#%d: opportunities_seen=%d actionable=%d (min_profit_bps=%.2f)", it, seen, actionable, args.min_profit_bps)
+        logger.info(
+            "it#%d: opportunities_seen=%d actionable=%d (min_profit_bps=%.2f)",
+            it,
+            seen,
+            actionable,
+            args.min_profit_bps,
+        )
         if it < args.repeat:
             time.sleep(max(0.0, args.sleep))
 
     if rows:
         pd.DataFrame(rows).to_csv(csv_path, index=False)
-        logger.info("CSV: %s", csv_path)
+        logger.info(
+            "CSV: %s",
+            csv_path,
+        )
     # Session metrics
     if n_trades > 0:
         win_rate = wins / n_trades
@@ -370,7 +493,10 @@ def main() -> None:
             "win_rate": round(win_rate, 4),
             "max_dd_bps": round(max_dd_bps, 4),
         }
-        logger.info("SESSION: %s", (_json or json).dumps(sess))
+        logger.info(
+            "SESSION: %s",
+            (_json or json).dumps(sess),
+        )
 
 if __name__ == "__main__":
     main()

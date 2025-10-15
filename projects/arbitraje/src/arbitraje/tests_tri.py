@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import types
 from arbitraje.tri_bot import consume_depth, evaluate_cycle
 
 

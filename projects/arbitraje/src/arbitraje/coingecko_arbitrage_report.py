@@ -1,14 +1,14 @@
 from __future__ import annotations
 
-import os
-import sys
 import json
 import logging
+import os
+import sys
 from datetime import datetime
-from typing import List, Dict
+from typing import Dict, List
 
-import requests
 import pandas as pd
+import requests
 from dotenv import load_dotenv
 
 from . import paths

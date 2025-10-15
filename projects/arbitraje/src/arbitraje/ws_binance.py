@@ -1,7 +1,9 @@
 from __future__ import annotations
 
-import threading, time, json
-from typing import Optional, Dict, Any
+import json
+import threading
+import time
+from typing import Any, Dict, Optional
 
 try:
     import websocket  # websocket-client

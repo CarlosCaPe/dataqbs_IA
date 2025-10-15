@@ -3,6 +3,7 @@
 Creates artifacts/arbitraje/{outputs,logs} and supports future legacy migrations if needed.
 """
 from __future__ import annotations
+
 from pathlib import Path
 
 PACKAGE_ROOT = Path(__file__).resolve().parent
