@@ -48,6 +48,27 @@ Files changed
 Tag sugerido: v1.1.0
 
 
+## v1.4.0 — 2025-10-15
+
+Small release consolidating the techniques migration, CLI ergonomics and test coverage.
+
+Highlights
+- Moved CPU-bound arbitrage techniques into a process-pool registry (`engine_techniques`) and added a payload-aware Bellman-Ford implementation to run in worker processes.
+- Added `--offline` snapshot mode to run scans from pre-captured tickers/markets (network-less testing).
+- Added `--version` to the CLI to print package version + engine label.
+- Added unit tests to validate BF equivalence (payload-based) and a test for the CLI `--version` output.
+
+Versions
+- Root monorepo: 1.4.0
+- Package `arbitraje`: 1.4.0
+
+Quality gates
+- Build: PASS (no dependency changes)
+- Tests: PASS (added network-less tests for techniques and a CLI version smoke test)
+
+Tag: v1.4.0
+
+
 ## v1.0.0 — 2025-10-14 (GUILLERMO)
 
 Major release consolidating the arbitraje scanner, live swapper, and quality gates, plus a one-line non-blocking autoswap trigger from the radar.
