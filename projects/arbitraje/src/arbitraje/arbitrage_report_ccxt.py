@@ -1188,6 +1188,11 @@ def main() -> None:
         description="Arbitraje (ccxt) - modes: tri | bf | balance | health"
     )
     parser.add_argument(
+        "--version",
+        action="store_true",
+        help="Print package and engine version and exit",
+    )
+    parser.add_argument(
         "--config",
         type=str,
         default=None,
@@ -1471,9 +1476,61 @@ def main() -> None:
         help="Comma-separated list of allowed anchor quotes for BF cycles, e.g. 'USDT,USDC' (defaults to QUOTE only)",
     )
 
+    # Offline / snapshot mode to avoid contacting live exchanges
+    parser.add_argument(
+        "--offline",
+        action="store_true",
+        help="Run without contacting live exchanges; load tickers from --offline-snapshot if provided",
+    )
+    parser.add_argument(
+        "--offline-snapshot",
+        type=str,
+        default=None,
+        help="Path to a JSON file containing pre-captured tickers keyed by exchange id (optional)",
+    )
+
     # Apply YAML defaults before parsing final args so CLI wins over YAML
     _load_yaml_config_defaults(parser)
     args = parser.parse_args()
+
+    # If --version requested, print semver and engine label and exit early.
+    if getattr(args, "version", False):
+        try:
+            # Read monorepo-wide pyproject for engine label, and project pyproject for package version
+            root_pp = paths.MONOREPO_ROOT / "pyproject.toml"
+            proj_pp = paths.PROJECT_ROOT / "pyproject.toml"
+            engine_label = None
+            pkg_version = None
+            import tomllib
+
+            try:
+                with open(root_pp, "rb") as fh:
+                    data = tomllib.load(fh)
+                    engine_label = data.get("tool", {}).get("dataqbs", {}).get("engine")
+            except Exception:
+                engine_label = None
+            try:
+                with open(proj_pp, "rb") as fh:
+                    data = tomllib.load(fh)
+                    pkg_version = data.get("tool", {}).get("poetry", {}).get("version")
+            except Exception:
+                pkg_version = None
+            print(f"arbitraje version: {pkg_version or 'unknown'}; engine: {engine_label or 'unknown'}")
+            return
+        except Exception:
+            print("version: unknown")
+            return
+
+    # If offline snapshot provided, load it once
+    offline_snapshot_map: Dict[str, dict] | None = None
+    if getattr(args, "offline", False) and getattr(args, "offline_snapshot", None):
+        try:
+            spath = Path(getattr(args, "offline_snapshot"))
+            if spath.exists():
+                with open(spath, "r", encoding="utf-8") as fh:
+                    offline_snapshot_map = json.load(fh)
+        except Exception:
+            offline_snapshot_map = None
 
     # Load raw YAML config for runtime overrides (best-effort). We keep a map
     # exchange_overrides_map that maps exchange id -> overrides dict.
@@ -2574,9 +2631,13 @@ def main() -> None:
         local_results: List[dict] = []
         try:
             t0_total = time.time()
-            ex = ex_instances.get(ex_id) or load_exchange_auth_if_available(
-                ex_id, args.timeout, use_auth=bool(creds_from_env(ex_id))
-            )
+            # In offline mode avoid creating exchange instances and network calls
+            if getattr(args, "offline", False):
+                ex = ex_instances.get(ex_id) or None
+            else:
+                ex = ex_instances.get(ex_id) or load_exchange_auth_if_available(
+                    ex_id, args.timeout, use_auth=bool(creds_from_env(ex_id))
+                )
             # Force authenticated instance regardless of CLI/YAML
             if not getattr(ex, "apiKey", None):
                 ex = load_exchange_auth_if_available(ex_id, args.timeout, use_auth=True)
@@ -2589,9 +2650,15 @@ def main() -> None:
                 return ex_id, local_lines, local_results
             # Use cached markets if present, else load once
             t0_markets = time.time()
-            markets = getattr(ex, "markets", None)
-            if not markets:
-                markets = ex.load_markets()
+            markets = None
+            if getattr(args, "offline", False):
+                # Try load markets from offline snapshot if available; else skip network
+                if offline_snapshot_map and isinstance(offline_snapshot_map, dict):
+                    markets = offline_snapshot_map.get(ex_id, {}).get("markets")
+            else:
+                markets = getattr(ex, "markets", None)
+                if not markets:
+                    markets = ex.load_markets()
             t1_markets = time.time()
             # Build adjacency once to constrain candidate pairs
             t0_adj = time.time()
@@ -2724,8 +2791,12 @@ def main() -> None:
             # Optionally rank currencies by aggregate quote volume (desc) to prioritize liquid markets
             # Only fetch all tickers if qvol ranking is enabled and batch fetch supported
             tickers = {}
+            if getattr(args, "offline", False) and offline_snapshot_map:
+                tickers = offline_snapshot_map.get(ex_id, {}).get("tickers", {})
+            else:
+                tickers = {}
             batch_supported = safe_has(ex, "fetchTickers")
-            if args.bf_rank_by_qvol and markets and batch_supported:
+            if not getattr(args, "offline", False) and args.bf_rank_by_qvol and markets and batch_supported:
                 tickers = ex.fetch_tickers()
                 qvol_by_ccy: Dict[str, float] = {}
                 for sym, t in tickers.items():
@@ -2760,6 +2831,42 @@ def main() -> None:
                     )
                 except Exception:
                     logger.info("[BF-DBG] %s currencies=%d", ex_id, len(currencies))
+            # Try delegating BF scan to engine_techniques if enabled. If delegation returns
+            # results, we use them and skip the heavy in-process BF inner loop.
+            try:
+                from .engine_techniques import scan_arbitrage as _scan_arbitrage
+
+                # Build minimal serializable payload: tokens and tickers available so the
+                # technique runs without any network IO. We prefer batch tickers if already fetched.
+                payload = {
+                    "ex_id": ex_id,
+                    "ts": pd.Timestamp.utcnow().isoformat(),
+                    "tokens": currencies,
+                    "tickers": tickers,
+                    "fee": bf_fee,
+                    "min_net": bf_min_net,
+                    "top": bf_top,
+                    "min_hops": getattr(args, "bf_min_hops", 0),
+                    "max_hops": getattr(args, "bf_max_hops", 0),
+                    "min_net_per_hop": getattr(args, "bf_min_net_per_hop", 0.0),
+                    "min_quote_vol": bf_min_quote_vol,
+                    "latency_penalty": bf_latency_penalty_bps,
+                    "blacklist": list(exchange_blacklist),
+                }
+                cfg_for_worker = {
+                    "techniques": {
+                        "enabled": getattr(args, "techniques_enabled", ["bellman_ford"]),
+                        "max_workers": getattr(args, "tech_max_workers", 2),
+                        "enable_rerank_onnx": getattr(args, "tech_enable_rerank_onnx", False),
+                    }
+                }
+                tech_res = _scan_arbitrage(ts, payload, cfg_for_worker)
+                if tech_res:
+                    for rec in tech_res:
+                        local_results.append(rec)
+                    return ex_id, local_lines, local_results
+            except Exception:
+                logger.debug("bf_worker: delegation to engine_techniques failed; falling back")
             # Note: anchor-first ordering already ensured above
             # Build candidate directed pairs only where a market exists in either direction
             candidate_pairs: List[Tuple[str, str]] = []
@@ -2788,7 +2895,7 @@ def main() -> None:
                 t1_syms = time.time()
                 tickers = {}
                 t0_fetch = time.time()
-                if batch_supported:
+                if not getattr(args, "offline", False) and batch_supported:
                     # Try subset-batch first (if the exchange supports symbols parameter)
                     fetched = False
                     try:
@@ -3110,12 +3217,25 @@ def main() -> None:
         local_lines: List[str] = []
         local_results: List[dict] = []
         try:
-            ex = load_exchange(ex_id, args.timeout)
-            if not safe_has(ex, "fetchTickers"):
-                return ex_id, local_lines, local_results
+            # In offline mode avoid creating exchange instances and network calls
+            if getattr(args, "offline", False):
+                ex = None
+                markets = None
+                tickers = {}
+                if offline_snapshot_map and isinstance(offline_snapshot_map, dict):
+                    m = offline_snapshot_map.get(ex_id, {})
+                    markets = m.get("markets")
+                    tickers = m.get("tickers", {})
+                if not markets:
+                    # nothing to scan in offline mode for this exchange
+                    return ex_id, local_lines, local_results
+            else:
+                ex = load_exchange(ex_id, args.timeout)
+                if not safe_has(ex, "fetchTickers"):
+                    return ex_id, local_lines, local_results
 
-            markets = ex.load_markets()
-            tickers = ex.fetch_tickers()
+                markets = ex.load_markets()
+                tickers = ex.fetch_tickers()
 
             ex_norm = normalize_ccxt_id(ex_id)
             exchange_blacklist = swaps_blacklist_map.get(ex_norm, set())
@@ -3202,6 +3322,40 @@ def main() -> None:
 
             ts_now = datetime.utcnow().isoformat()
             fee_bps_total = 3.0 * fee
+
+            # Try delegating triangular scan to engine_techniques if enabled.
+            try:
+                from .engine_techniques import scan_arbitrage as _scan_arbitrage
+
+                cfg_for_worker = {
+                    "techniques": {
+                        "enabled": getattr(args, "techniques_enabled", ["stat_tri"]),
+                        "max_workers": getattr(args, "tech_max_workers", 2),
+                        "enable_rerank_onnx": getattr(args, "tech_enable_rerank_onnx", False),
+                    }
+                }
+                # Build a compact, serializable payload for stat_tri
+                payload = {
+                    "ex_id": ex.id,
+                    "quote": QUOTE,
+                    "tokens": tokens,
+                    "tickers": tickers,
+                    "fee": fee,
+                    "require_top": tri_require_top,
+                    "min_quote_vol": tri_min_quote_vol,
+                    "min_net": tri_min_net,
+                    "latency_penalty": tri_latency_penalty,
+                    "ts": ts_now,
+                }
+                tech_res = _scan_arbitrage(ts_now, payload, cfg_for_worker)
+                if tech_res:
+                    # engine_techniques returns ArbResult-like dicts; extend local_results and return
+                    for rec in tech_res:
+                        local_results.append(rec)
+                    return ex_id, local_lines, local_results
+            except Exception:
+                # Fall back to in-process triangular loop if delegation fails
+                logger.debug("tri_worker: delegation to engine_techniques failed; falling back")
 
             # Iterate pairs using permutations (X, Y)
             for X, Y in permutations(tokens, 2):
