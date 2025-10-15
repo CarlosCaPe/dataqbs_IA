@@ -94,9 +94,21 @@ def binance_request(
                 r = requests.get(url, headers=headers, params=query, timeout=timeout_tuple)
             elif method.upper() == "POST":
                 # application/x-www-form-urlencoded body
-                r = requests.post(url, headers=headers, data=data, params=None if signed else params, timeout=timeout_tuple)
+                r = requests.post(
+                    url,
+                    headers=headers,
+                    data=data,
+                    params=None if signed else params,
+                    timeout=timeout_tuple,
+                )
             elif method.upper() == "DELETE":
-                r = requests.delete(url, headers=headers, data=data, params=None if signed else params, timeout=timeout_tuple)
+                r = requests.delete(
+                    url,
+                    headers=headers,
+                    data=data,
+                    params=None if signed else params,
+                    timeout=timeout_tuple,
+                )
             else:
                 raise ValueError(f"Unsupported method: {method}")
             if r.status_code == 200:
@@ -110,24 +122,56 @@ def binance_request(
     raise last_exc if last_exc else RuntimeError("Binance request failed")
 
 
-def get_convert_pairs(api_key: str, api_secret: str, from_asset: Optional[str] = None, to_asset: Optional[str] = None, timeout: int = 20_000) -> Any:
+def get_convert_pairs(
+    api_key: str,
+    api_secret: str,
+    from_asset: Optional[str] = None,
+    to_asset: Optional[str] = None,
+    timeout: int = 20_000,
+) -> Any:
     params: Dict[str, Any] = {}
     if from_asset:
         params["fromAsset"] = from_asset
     if to_asset:
         params["toAsset"] = to_asset
     # Convert exchangeInfo appears to be MARKET_DATA; API key recommended; signature not required
-    return binance_request("GET", "/sapi/v1/convert/exchangeInfo", params=params, api_key=api_key, api_secret=api_secret, signed=False, timeout=timeout)
+    return binance_request(
+        "GET",
+        "/sapi/v1/convert/exchangeInfo",
+        params=params,
+        api_key=api_key,
+        api_secret=api_secret,
+        signed=False,
+        timeout=timeout,
+    )
 
 
 def get_convert_asset_info(api_key: str, api_secret: str, recv_window_ms: int = 5000, timeout: int = 20_000) -> Any:
     # USER_DATA -> signed
-    return binance_request("GET", "/sapi/v1/convert/assetInfo", params={}, api_key=api_key, api_secret=api_secret, signed=True, recv_window_ms=recv_window_ms, timeout=timeout)
+    return binance_request(
+        "GET",
+        "/sapi/v1/convert/assetInfo",
+        params={},
+        api_key=api_key,
+        api_secret=api_secret,
+        signed=True,
+        recv_window_ms=recv_window_ms,
+        timeout=timeout,
+    )
 
 
 def get_account_balances(api_key: str, api_secret: str, recv_window_ms: int = 5000, timeout: int = 20_000) -> Any:
     # Signed account info
-    return binance_request("GET", "/api/v3/account", params={}, api_key=api_key, api_secret=api_secret, signed=True, recv_window_ms=recv_window_ms, timeout=timeout)
+    return binance_request(
+        "GET",
+        "/api/v3/account",
+        params={},
+        api_key=api_key,
+        api_secret=api_secret,
+        signed=True,
+        recv_window_ms=recv_window_ms,
+        timeout=timeout,
+    )
 
 
 def get_convert_quote(

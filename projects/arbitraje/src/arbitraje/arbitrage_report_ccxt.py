@@ -382,7 +382,9 @@ def _build_simulation_rows(
                 except Exception:
                     val_f = 0.0
                 if val_f and abs(val_f) > 0.0:
-                    # If we don't know start per currency, show current as start when unknown (keeps ROI at 0 unless sim start applies)
+                    # If we don't know start per currency, show current as start
+                    # when unknown. This keeps ROI at 0 unless a simulate start
+                    # balance applies.
                     sb_disp = (
                         start_bal
                         if str(ccy2).upper() == str(ccy).upper() and start_bal > 0.0
@@ -774,7 +776,12 @@ def _bf_parse_history_for_sim(path: str):
 
     # Capture the currency token (USDT/USDC/etc.) instead of hardcoding USDT
     sim_rx = re.compile(
-        r"^\[SIM\] it#(?P<it>\d+) @(?P<ex>\w+)\s+(?P<ccy>[A-Z]{3,6}) pick .* net (?P<net>[\d\.]+)% \| (?P<ccy2>[A-Z]{3,6}) (?P<u0>[\d\.]+) -> (?P<u1>[\d\.]+) \(\+(?P<delta>[\d\.]+)\)"
+        (
+            r"^\[SIM\] it#(?P<it>\d+) @(?P<ex>\w+)\s+"
+            r"(?P<ccy>[A-Z]{3,6}) pick .* net (?P<net>[\d\.]+)% \| "
+            r"(?P<ccy2>[A-Z]{3,6}) (?P<u0>[\d\.]+) -> (?P<u1>[\d\.]+) "
+            r"\(\+(?P<delta>[\d\.]+)\)"
+        )
     )
     iter_ts_rx = re.compile(
         r"^\[BF\] Iteración \d+\/\d+ @ (?P<ts>\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d+\+\d{2}:\d{2})$"
@@ -958,13 +965,30 @@ def _bf_write_summary_md(rows, hours: float, out_md: str) -> None:
         f.write(f"Total picks: {total_trades}\n\n")
         f.write("## Per exchange\n\n")
         f.write(
-            "exchange | trades | per_hour | avg_net% | median_net% | p95_net% | weighted_net% | gain_usdt | gain_usdc | start_usdt | end_usdt | start_usdc | end_usdc\n"
+            (
+                "exchange | trades | per_hour | avg_net% | median_net% | p95_net% | "
+                "weighted_net% | gain_usdt | gain_usdc | start_usdt | end_usdt | "
+                "start_usdc | end_usdc\n"
+            )
         )
         f.write("---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:\n")
         for r in rows:
-            f.write(
-                f"{r['exchange']} | {r['trades']} | {r['per_hour']} | {r['avg_net_pct']} | {r['median_net_pct']} | {r['p95_net_pct']} | {r['weighted_net_pct']} | {r['gain_usdt']} | {r['gain_usdc']} | {r['start_usdt']} | {r['end_usdt']} | {r['start_usdc']} | {r['end_usdc']}\n"
-            )
+            row_fields = [
+                str(r.get('exchange')),
+                str(r.get('trades')),
+                str(r.get('per_hour')),
+                str(r.get('avg_net_pct')),
+                str(r.get('median_net_pct')),
+                str(r.get('p95_net_pct')),
+                str(r.get('weighted_net_pct')),
+                str(r.get('gain_usdt')),
+                str(r.get('gain_usdc')),
+                str(r.get('start_usdt')),
+                str(r.get('end_usdt')),
+                str(r.get('start_usdc')),
+                str(r.get('end_usdc')),
+            ]
+            f.write(" | ".join(row_fields) + "\n")
 
 
 def _bf_write_history_summary_and_md(
@@ -1299,7 +1323,10 @@ def main() -> None:
     parser.add_argument(
         "--bf_require_dual_quote",
         action="store_true",
-        help="When multiple anchors (e.g. USDT,USDC) are allowed, include only bases that have markets against ALL anchors",
+        help=(
+            "When multiple anchors (e.g. USDT,USDC) are allowed, include only "
+            "bases that have markets against ALL anchors"
+        ),
     )
     # Depth-aware revalidation (optional)
     parser.add_argument(
@@ -1343,7 +1370,10 @@ def main() -> None:
     parser.add_argument(
         "--simulate_compound",
         action="store_true",
-        help="Simulate compounding: keep a running QUOTE balance and apply one selected BF opportunity per iteration (no real trades)",
+        help=(
+            "Simulate compounding: keep a running QUOTE balance and apply one "
+            "selected BF opportunity per iteration (no real trades)"
+        ),
     )
     parser.add_argument(
         "--simulate_start",
@@ -1419,7 +1449,11 @@ def main() -> None:
         "--balance_provider",
         choices=["ccxt", "native", "connector", "bitget_sdk"],
         default="ccxt",
-        help="Provider for --mode balance: ccxt (default), native (direct REST for binance), connector (official Binance SDK Spot), or bitget_sdk (official Bitget SDK)",
+        help=(
+            "Provider for --mode balance: ccxt (default), native (direct REST for "
+            "binance), connector (official Binance SDK Spot), or bitget_sdk "
+            "(official Bitget SDK)"
+        ),
     )
     # Filter exchanges to only those with credentials
     parser.add_argument(
@@ -2277,7 +2311,10 @@ def main() -> None:
                         opps.sort(key=lambda o: o["net_pct"], reverse=True)
                         lines = []
                         for o in opps[: args.tri_top]:
-                            line = f"TRI@{o['exchange']} {o['path']} => net {o['net_pct']:.3f}% | {QUOTE} {o['inv']} -> {o['est_after']}"
+                            line = (
+                                f"TRI@{o['exchange']} {o['path']} => net {o['net_pct']:.3f}% | "
+                                f"{QUOTE} {o['inv']} -> {o['est_after']}"
+                            )
                             lines.append(line)
                             iter_lines.append(line)
                         logger.info("== TRIANGULAR @ %s ==", ex_id)
@@ -2866,15 +2903,20 @@ def main() -> None:
                                     path_str,
                                 )
                             continue
-                    # Balance suffix removed per user request (reduce noise)
-                    bal_suffix = ""
+                    # Construct readable message; keep it within line limits.
                     if args.bf_revalidate_depth:
+                        ws_flag = ' +ws' if used_ws_flag else ''
                         msg = (
-                            f"BF@{ex_id} {path_str} ({hops}hops) => net {net_pct_adj:.3f}% (raw {net_pct:.3f}%, slip {slip_bps:.1f}bps, fee {fee_bps_total:.1f}bps"
-                            f"{' +ws' if used_ws_flag else ''}) | {QUOTE} {inv_amt:.2f} -> {est_after:.6f}"
+                            f"BF@{ex_id} {path_str} ({hops}hops) => net "
+                            f"{net_pct_adj:.3f}% (raw {net_pct:.3f}%, slip {slip_bps:.1f}bps, "
+                            f"fee {fee_bps_total:.1f}bps{ws_flag}) | {QUOTE} "
+                            f"{inv_amt:.2f} -> {est_after:.6f}"
                         )
                     else:
-                        msg = f"BF@{ex_id} {path_str} ({hops}hops) => net {net_pct:.3f}% | {QUOTE} {inv_amt:.2f} -> {est_after:.4f}"
+                        msg = (
+                            f"BF@{ex_id} {path_str} ({hops}hops) => net "
+                            f"{net_pct:.3f}% | {QUOTE} {inv_amt:.2f} -> {est_after:.4f}"
+                        )
                     logger.info(msg)
                     (
                         paths.LOGS_DIR.mkdir(parents=True, exist_ok=True) or True
@@ -2982,7 +3024,7 @@ def main() -> None:
             tri_latency_penalty = float(getattr(args, "tri_latency_penalty_bps", 0.0))
             _pair_is_blacklisted_local = _pair_is_blacklisted
             get_rate_and_qvol_local = get_rate_and_qvol
-            json_dumps = (_json or json).dumps
+            # removed unused `json_dumps` assignment
 
             # Build tokens list with early filtering
             tokens_list: List[str] = []
@@ -3732,7 +3774,12 @@ def main() -> None:
                 ]
             ).to_csv(bf_csv, index=False)
             logger.info(
-                "BF: sin oportunidades con los filtros actuales (min_net=%s%%, require_topofbook=%s, min_quote_vol=%s). Prueba relajar filtros (p.ej. bajar --bf_min_quote_vol, quitar --bf_require_topofbook, o bajar --bf_min_net) o aumentar --bf_currencies_limit.",
+                (
+                    "BF: sin oportunidades con los filtros actuales (min_net=%s%%, "
+                    "require_topofbook=%s, min_quote_vol=%s). Prueba relajar filtros "
+                    "(p.ej. bajar --bf_min_quote_vol, quitar --bf_require_topofbook, "
+                    "o bajar --bf_min_net) o aumentar --bf_currencies_limit."
+                ),
                 args.bf_min_net,
                 bool(args.bf_require_topofbook),
                 args.bf_min_quote_vol,
