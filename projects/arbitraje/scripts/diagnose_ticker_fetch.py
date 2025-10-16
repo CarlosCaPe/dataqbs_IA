@@ -275,12 +275,32 @@ def main():
     with open(diag_path, "w", encoding="utf-8") as f:
         json.dump(diag_all, f, indent=2)
 
-    # Simulate slow fetch (optional)
-    print("Simulating slow fetch...")
-    t0 = time.time()
-    time.sleep(10)  # Simulate 10s delay
-    t1 = time.time()
-    print(f"Simulated fetch time: {t1-t0:.2f}s")
+    return diag_all
+
+
+def cli():
+    import argparse
+
+    parser = argparse.ArgumentParser(description="Connector fetch diagnostics for arbitraje")
+    parser.add_argument("--no-sim", action="store_true", help="Skip the simulated 10s delay at the end (useful for CI)")
+    args = parser.parse_args()
+
+    # Environment check: fail-fast with guidance
+    check_environment()
+
+    diag_all = main()
+
+    if not args.no_sim:
+        # Simulate slow fetch (optional)
+        print("Simulating slow fetch...")
+        t0 = time.time()
+        time.sleep(10)  # Simulate 10s delay
+        t1 = time.time()
+        print(f"Simulated fetch time: {t1-t0:.2f}s")
+
+
+if __name__ == "__main__":
+    cli()
 
 if __name__ == "__main__":
     main()

@@ -12,6 +12,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          submodules: true
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -23,15 +24,33 @@ jobs:
           python -m pip install --upgrade pip
           pip install poetry
 
-      - name: Run connector diagnostics
+      - name: Initialize submodules
+        run: |
+          git submodule update --init --recursive
+
+      - name: Run connector diagnostics (use canonical copies)
         working-directory: projects/arbitraje
         run: |
+          set -e
           poetry install --no-interaction --no-ansi
-          poetry run python tests/scripts/test_connector_fetch.py
+          # Create canonical copies (tests + any existing artifacts) so CI and docs
+          # have stable, non-destructive locations to reference.
+          poetry run python scripts/create_canonical_copies.py
+          # Require the canonical connector test be present; fail the job if missing.
+          if [ -f canonical/tests/test_connector_fetch.py ]; then
+            poetry run python canonical/tests/test_connector_fetch.py
+          else
+            echo "ERROR: Canonical test not found at canonical/tests/test_connector_fetch.py"
+            echo "CI requires canonical tests to be present; see projects/arbitraje/scripts/create_canonical_copies.py"
+            exit 1
+          fi
+          # Run diagnostics (diagnose_ticker_fetch still writes artifacts/artifacts/arbitraje)
           poetry run python scripts/diagnose_ticker_fetch.py --no-sim
 
-      - name: Upload diagnostics
+      - name: Upload diagnostics and canonical artifacts
         uses: actions/upload-artifact@v4
         with:
           name: arbitraje-diagnostics
-          path: projects/arbitraje/artifacts/arbitraje/fetch_diagnostics.json
+          path: |
+            projects/arbitraje/artifacts/arbitraje/fetch_diagnostics.json
+            projects/arbitraje/canonical/**
