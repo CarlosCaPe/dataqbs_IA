@@ -36,7 +36,9 @@ def make_small_snapshot_triangle():
 def test_numba_vs_python_equivalence():
     payload = make_small_snapshot_triangle()
     # run engine python technique
-    res_py = _tech_bellman_ford("snap", payload, {"techniques": {"enabled": ["bellman_ford"]}})
+    res_py = _tech_bellman_ford(
+        "snap", payload, {"techniques": {"enabled": ["bellman_ford"]}}
+    )
     # build arrays and run numba wrapper directly
     nodes, u_arr, v_arr, w_arr = build_arrays_from_payload(payload)
     res_idx = bellman_ford_numba(len(nodes), u_arr, v_arr, w_arr)
@@ -46,7 +48,11 @@ def test_numba_vs_python_equivalence():
         if not item:
             continue
         # item may be a list of indices or a tuple (indices,sum_w,hops)
-        if isinstance(item, (list, tuple)) and len(item) >= 3 and isinstance(item[0], (list, tuple)):
+        if (
+            isinstance(item, (list, tuple))
+            and len(item) >= 3
+            and isinstance(item[0], (list, tuple))
+        ):
             c = list(item[0])
         else:
             c = list(item)

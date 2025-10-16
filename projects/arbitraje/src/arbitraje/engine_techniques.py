@@ -26,6 +26,22 @@ class ArbResult(dict):
 
 # --- Technique stubs (users will later map these to real implementations) ---
 def _tech_bellman_ford(
+    import datetime
+    diag_log_path = None
+    try:
+        diag_log_path = str(Path(__file__).resolve().parents[1] / "artifacts" / "arbitraje" / "diagnostics.log")
+    except Exception:
+        diag_log_path = None
+
+    def diag_log(msg):
+        if diag_log_path:
+            try:
+                with open(diag_log_path, "a", encoding="utf-8") as dfh:
+                    dfh.write(f"[{datetime.datetime.utcnow().isoformat()}] {msg}\n")
+            except Exception:
+                pass
+
+    t0 = time.time()
     snapshot_id: str, edges: List[Edge], cfg: Dict
 ) -> List[ArbResult]:
     logger.debug("_tech_bellman_ford running snapshot=%s", snapshot_id)
@@ -64,17 +80,52 @@ def _tech_bellman_ford(
                 "_tech_bellman_ford tickers missing or invalid; treating as empty"
             )
             tickers = {}
-        fee = float(payload.get("fee") or 0.0)
-        min_net = float(payload.get("min_net") or 0.0)
+
+        # Diagnostic: log number of tickers and valid rates
+        n_tickers = len(tickers)
+        n_valid_rates = 0
+        for t in tickers.values():
+            try:
+                if (t.get("bid") and float(t.get("bid")) > 0) or (t.get("ask") and float(t.get("ask")) > 0) or (t.get("last") and float(t.get("last")) > 0):
+                    n_valid_rates += 1
+            except Exception:
+                pass
+        diag_log(f"Tickers: {n_tickers}, Valid rates: {n_valid_rates}")
+
+        t1 = time.time()
+        diag_log(f"Tickers fetch/preprocess time: {t1-t0:.3f}s")
+
+        # Allow BF tuning from the provided global config (cfg['bf']) with
+        # fallback to any values carried inside the payload. This ensures CLI/YAML
+        # overrides are respected (previously the engine only read from payload).
+        bf_cfg = cfg.get("bf") or {}
+
+        def _pick(key, cast, default=None):
+            # prefer bf_cfg, then payload, then default
+            if key in bf_cfg:
+                try:
+                    return cast(bf_cfg.get(key))
+                except Exception:
+                    return default
+            try:
+                if key in payload:
+                    return cast(payload.get(key))
+            except Exception:
+                pass
+            return default
+
+        fee = float(_pick("fee", float, payload.get("fee") or 0.0))
+        # min_net is expressed in percent (e.g. 0.15 -> 0.15%)
+        min_net = float(_pick("min_net", float, 0.0))
         ts_now = payload.get("ts") or snapshot_id
         ex_id = payload.get("ex_id")
-        tokens = list(payload.get("tokens") or [])
-        top_n = int(payload.get("top") or 20)
-        min_hops = int(payload.get("min_hops") or 0)
-        max_hops = int(payload.get("max_hops") or 0)
-        min_net_per_hop = float(payload.get("min_net_per_hop") or 0.0)
-        latency_penalty = float(payload.get("latency_penalty") or 0.0)
-        blacklist = set(payload.get("blacklist") or [])
+        tokens = list(_pick("tokens", list, payload.get("tokens") or []))
+        top_n = int(_pick("top", int, payload.get("top") or 20))
+        min_hops = int(_pick("min_hops", int, payload.get("min_hops") or 0))
+        max_hops = int(_pick("max_hops", int, payload.get("max_hops") or 0))
+        min_net_per_hop = float(_pick("min_net_per_hop", float, 0.0))
+        latency_penalty = float(_pick("latency_penalty", float, 0.0))
+        blacklist = set(_pick("blacklist", list, payload.get("blacklist") or []))
 
         # Build quick adjacency/graph from the supplied tickers
         graph: Dict[str, Dict[str, float]] = {}
@@ -105,6 +156,11 @@ def _tech_bellman_ford(
                         graph.setdefault(b, {})[a] = rev
             except Exception:
                 pass
+
+        # Diagnostic: log graph size before pruning
+        n_graph_nodes = len(graph)
+        n_graph_edges = sum(len(nbrs) for nbrs in graph.values())
+        diag_log(f"Graph before pruning: nodes={n_graph_nodes}, edges={n_graph_edges}")
 
         # Minimal node set
         nodes = list(nodes_set)
@@ -147,6 +203,12 @@ def _tech_bellman_ford(
 
         results: List[ArbResult] = []
         seen_cycles: set = set()
+        # Candidate cycle logging setup
+        candidate_log_path = None
+        try:
+            candidate_log_path = str(Path(__file__).resolve().parents[1] / "artifacts" / "arbitraje" / "candidate_cycles.log")
+        except Exception:
+            candidate_log_path = None
 
         # Attempt to use Numba-accelerated BF if available (faster numeric core)
         use_numba = bool(cfg.get("techniques", {}).get("use_numba", True))
@@ -167,17 +229,24 @@ def _tech_bellman_ford(
         v_arr = [v for (u, v, w) in edge_list]
         w_arr = [w for (u, v, w) in edge_list]
 
+    # Diagnostic: log edge list size before pruning
+    diag_log(f"Edge list before pruning: nodes={n}, edges={len(edge_list)}")
+
         if bellman_ford_numba is not None and use_numba:
             try:
                 # Optional warm-up (compile) to amortize JIT overhead at startup
                 try:
-                    if warmup_numba is not None and cfg.get("techniques", {}).get("warmup_numba", False):
+                    if warmup_numba is not None and cfg.get("techniques", {}).get(
+                        "warmup_numba", False
+                    ):
                         warmup_numba()
                 except Exception:
                     logger.debug("numba warmup failed or skipped")
 
                 # pruning: select a subset of sources based on node degree if configured
-                pruning_threshold = int(cfg.get("techniques", {}).get("pruning_degree_threshold", 0))
+                pruning_threshold = int(
+                    cfg.get("techniques", {}).get("pruning_degree_threshold", 0)
+                )
                 sources = None
                 if pruning_threshold and edge_list:
                     deg = [0] * n
@@ -186,9 +255,17 @@ def _tech_bellman_ford(
                         deg[v_i] += 1
                     sources = [i for i, d in enumerate(deg) if d > pruning_threshold]
 
+                # Diagnostic: log after degree pruning
+                if pruning_threshold:
+                    diag_log(f"After degree pruning: sources={len(sources) if sources else 0}")
+
                 # Improved pruning heuristic: combine quoteVolume with a simple volatility metric
-                qvol_threshold_frac = float(cfg.get("techniques", {}).get("pruning_qvol_frac", 0.0))
-                pruning_volatility_window = int(cfg.get("techniques", {}).get("pruning_volatility_window", 5))
+                qvol_threshold_frac = float(
+                    cfg.get("techniques", {}).get("pruning_qvol_frac", 0.0)
+                )
+                pruning_volatility_window = int(
+                    cfg.get("techniques", {}).get("pruning_volatility_window", 5)
+                )
                 if qvol_threshold_frac and tokens:
                     # compute per-token quoteVolume and volatility from tickers/history
                     qvol_map = {}
@@ -229,14 +306,20 @@ def _tech_bellman_ford(
                                 if bid is not None and ask is not None:
                                     mids.append((float(bid) + float(ask)) / 2.0)
                                 else:
-                                    mids.append(float(tick.get("price") or tick.get("px") or 0.0))
+                                    mids.append(
+                                        float(
+                                            tick.get("price") or tick.get("px") or 0.0
+                                        )
+                                    )
                         except Exception:
                             mids = []
                         if len(mids) >= 2:
                             mean = sum(mids) / len(mids)
-                            var = sum((x - mean) ** 2 for x in mids) / max(1, (len(mids) - 1))
-                            vol_map[a] = max(vol_map.get(a, 0.0), float(var ** 0.5))
-                            vol_map[b] = max(vol_map.get(b, 0.0), float(var ** 0.5))
+                            var = sum((x - mean) ** 2 for x in mids) / max(
+                                1, (len(mids) - 1)
+                            )
+                            vol_map[a] = max(vol_map.get(a, 0.0), float(var**0.5))
+                            vol_map[b] = max(vol_map.get(b, 0.0), float(var**0.5))
                         else:
                             vol_map[a] = max(vol_map.get(a, 0.0), 0.0)
                             vol_map[b] = max(vol_map.get(b, 0.0), 0.0)
@@ -249,12 +332,21 @@ def _tech_bellman_ford(
                             for tok in qvol_map
                         }
                         k = max(1, int(len(nodes) * qvol_threshold_frac))
-                        sorted_tokens = sorted(nodes, key=lambda x: score_map.get(x, 0.0), reverse=True)
-                        q_sources = [idx.get(tok) for tok in sorted_tokens[:k] if idx.get(tok) is not None]
+                        sorted_tokens = sorted(
+                            nodes, key=lambda x: score_map.get(x, 0.0), reverse=True
+                        )
+                        q_sources = [
+                            idx.get(tok)
+                            for tok in sorted_tokens[:k]
+                            if idx.get(tok) is not None
+                        ]
                         if sources is None:
                             sources = q_sources
                         else:
                             sources = [s for s in sources if s in q_sources]
+
+                        # Diagnostic: log after qvol pruning
+                        diag_log(f"After qvol pruning: sources={len(sources) if sources else 0}, k={k}, qvol_threshold_frac={qvol_threshold_frac}")
 
                 # Call numba wrapper; if it supports a sources arg, pass it (it may ignore extra args)
                 # time the numba call separately from Python postprocessing
@@ -314,7 +406,11 @@ def _tech_bellman_ford(
                         continue
                     sum_w = None
                     hops = None
-                    if isinstance(entry, (list, tuple)) and len(entry) >= 3 and isinstance(entry[1], (float, int)):
+                    if (
+                        isinstance(entry, (list, tuple))
+                        and len(entry) >= 3
+                        and isinstance(entry[1], (float, int))
+                    ):
                         cycle_idx = entry[0]
                         sum_w = float(entry[1])
                         hops = int(entry[2])
@@ -338,29 +434,45 @@ def _tech_bellman_ford(
                         continue
                     seen_cycles.add(key)
 
-                    # If sum_w was provided, compute prod via exp(-sum_w), otherwise fallback to rate_map
-                    prod = None
-                    if sum_w is not None and sum_w > 0:
-                        try:
+                    # Attempt to compute product for both forward and reversed orientations
+                    # and pick the best one. This guards against the numeric core
+                    # returning a cycle in the opposite traversal direction.
+                    try:
+                        if sum_w is not None and sum_w > 0:
                             import math as _math
 
-                            prod = _math.exp(-sum_w)
-                        except Exception:
-                            prod = None
+                            prod_sumw = _math.exp(-sum_w)
+                        else:
+                            prod_sumw = None
+                    except Exception:
+                        prod_sumw = None
 
-                    if prod is None:
-                        prod = 1.0
-                        valid = True
-                        for i in range(len(closed_idx) - 1):
-                            u_i = closed_idx[i]
-                            v_i = closed_idx[i + 1]
+                    def _prod_for_idx(idx_path):
+                        p = 1.0
+                        for ii in range(len(idx_path) - 1):
+                            u_i = idx_path[ii]
+                            v_i = idx_path[ii + 1]
                             rate = rate_map.get((u_i, v_i))
                             if rate is None or rate <= 0:
-                                valid = False
-                                break
-                            prod *= rate
-                        if not valid:
-                            continue
+                                return None
+                            p *= rate
+                        return p
+
+                    prod_fw = _prod_for_idx(closed_idx)
+                    rev_idx = list(reversed(closed_idx))
+                    prod_rev = _prod_for_idx(rev_idx)
+
+                    # choose the best available product among sum_w (if provided), forward, and reverse
+                    candidates = [
+                        x for x in (prod_sumw, prod_fw, prod_rev) if x is not None
+                    ]
+                    if not candidates:
+                        continue
+                    prod = max(candidates)
+                    # prefer the reversed orientation if it produced the best product
+                    if prod == prod_rev and prod_rev is not None:
+                        closed_idx = rev_idx
+                        cycle_nodes = [nodes[i] for i in closed_idx]
                         if hops is None:
                             hops = len(closed_idx) - 1
 
@@ -409,11 +521,19 @@ def _tech_bellman_ford(
                     pass
                 # slow-iteration logging
                 try:
-                    slow_thresh = float(cfg.get("techniques", {}).get("slow_iteration_threshold_s", 0.8))
-                    total_iter_s = (numba_call_elapsed or 0.0) + (postproc_elapsed or 0.0)
+                    slow_thresh = float(
+                        cfg.get("techniques", {}).get("slow_iteration_threshold_s", 0.8)
+                    )
+                    total_iter_s = (numba_call_elapsed or 0.0) + (
+                        postproc_elapsed or 0.0
+                    )
                     if slow_thresh and total_iter_s >= slow_thresh:
                         try:
-                            art_dir = Path(__file__).resolve().parents[1] / "artifacts" / "arbitraje"
+                            art_dir = (
+                                Path(__file__).resolve().parents[1]
+                                / "artifacts"
+                                / "arbitraje"
+                            )
                             art_dir.mkdir(parents=True, exist_ok=True)
                             slow_log = art_dir / "slow_iterations.log"
                             with open(slow_log, "a", encoding="utf-8") as sfh:
@@ -440,6 +560,28 @@ def _tech_bellman_ford(
                 logger.exception(
                     "Numba BF path failed; falling back to Python implementation"
                 )
+
+        # Diagnostic helper: if no results were found and a diagnostic flag is set,
+        # run the simpler array-based BF (bellman_ford_array) from bf_numba_impl to
+        # surface any cycles we might be filtering out later in postprocessing.
+        try:
+            diag_enabled = bool(cfg.get("bf", {}).get("diagnose_force_array_bf", False))
+            if diag_enabled:
+                try:
+                    from bf_numba_impl import bellman_ford_array
+
+                    nodes2, ua, va, wa = build_arrays_from_payload(payload)
+                    arr_cycles = bellman_ford_array(len(nodes2), ua, va, wa)
+                    if arr_cycles:
+                        logger.warning(
+                            "Diagnostic BF-array found %d cycles (sample): %s",
+                            len(arr_cycles),
+                            arr_cycles[:3],
+                        )
+                except Exception:
+                    pass
+        except Exception:
+            pass
 
         # fallback: original pure-Python BF loop
         for s in range(n):
@@ -486,35 +628,52 @@ def _tech_bellman_ford(
                         continue
                     seen_cycles.add(key)
 
-                    # compute product along cycle using rate_map where available (indices)
-                    prod = 1.0
-                    valid = True
-                    for i in range(len(closed_idx) - 1):
-                        u_i = closed_idx[i]
-                        v_i = closed_idx[i + 1]
-                        rate = rate_map.get((u_i, v_i))
-                        if rate is None or rate <= 0:
-                            valid = False
-                            break
-                        prod *= rate
-                    if not valid:
-                        continue
+                    # compute product for both orientations
+                    def _prod_for_idx_fb(idx_path):
+                        p = 1.0
+                        for ii in range(len(idx_path) - 1):
+                            u_i = idx_path[ii]
+                            v_i = idx_path[ii + 1]
+                            rate = rate_map.get((u_i, v_i))
+                            if rate is None or rate <= 0:
+                                return None
+                            p *= rate
+                        return p
+
+                    prod_fw = _prod_for_idx_fb(closed_idx)
+                    rev_idx = list(reversed(closed_idx))
+                    prod_rev = _prod_for_idx_fb(rev_idx)
+                    # pick best available
+                    prod = None
+                    orientation = "forward"
+                    if prod_fw is None and prod_rev is None:
+                        prod = None
+                    elif prod_rev is not None and (prod_fw is None or prod_rev > prod_fw):
+                        prod = prod_rev
+                        closed_idx = rev_idx
+                        orientation = "reverse"
+                    else:
+                        prod = prod_fw
+                        orientation = "forward"
 
                     hops = len(closed_idx) - 1
+                    net_pct = (prod - 1.0) * 100.0 if prod is not None else None
+                    net_bps = (prod - 1.0) * 10000.0 if prod is not None else None
+                    filter_reasons = []
                     # hops filters
-                    if (min_hops and hops < min_hops) or (max_hops and hops > max_hops):
-                        continue
-
-                    net_pct = (prod - 1.0) * 100.0
-                    if net_pct < min_net:
-                        continue
-                    if min_net_per_hop and (net_pct / max(1, hops)) < min_net_per_hop:
-                        continue
-
-                    # blacklist check on pair-level. Precompute blacklist index pairs to avoid
-                    # repeated string allocations in the hot loop.
+                    if min_hops and hops < min_hops:
+                        filter_reasons.append("min_hops")
+                    if max_hops and hops > max_hops:
+                        filter_reasons.append("max_hops")
+                    if prod is None:
+                        filter_reasons.append("invalid_product")
+                    elif net_pct is not None and net_pct < min_net:
+                        filter_reasons.append("min_net")
+                    if min_net_per_hop and net_pct is not None and (net_pct / max(1, hops)) < min_net_per_hop:
+                        filter_reasons.append("min_net_per_hop")
+                    # blacklist check
+                    blocked = False
                     if blacklist:
-                        # convert blacklist strings like 'A->B' to index pairs once
                         try:
                             bl_idx = set()
                             for p in blacklist:
@@ -526,27 +685,39 @@ def _tech_bellman_ford(
                                         bl_idx.add((a_i, b_i))
                         except Exception:
                             bl_idx = set()
-                        blocked = False
                         for i in range(len(closed_idx) - 1):
                             if (closed_idx[i], closed_idx[i + 1]) in bl_idx:
                                 blocked = True
+                                filter_reasons.append("blacklist")
                                 break
-                        if blocked:
-                            continue
 
-                    net_bps = (prod - 1.0) * 10000.0
-                    cycle_nodes = [nodes[i] for i in closed_idx]
-                    rec = {
+                    # Log every candidate cycle before filtering
+                    candidate_entry = {
                         "ts": ts_now,
                         "venue": ex_id,
-                        "cycle": "->".join(cycle_nodes),
-                        "net_bps_est": round(net_bps - latency_penalty, 4),
+                        "cycle": "->".join([nodes[i] for i in closed_idx]),
+                        "orientation": orientation,
+                        "net_bps_est": round(net_bps - latency_penalty, 4) if net_bps is not None else None,
                         "fee_bps_total": round(hops * fee * 1.0, 6),
-                        "status": "actionable",
+                        "hops": hops,
+                        "status": "filtered" if filter_reasons else "actionable",
+                        "filter_reasons": filter_reasons,
                     }
-                    results.append(rec)
-                    if len(results) >= top_n:
-                        return results
+                    if candidate_log_path:
+                        try:
+                            with open(candidate_log_path, "a", encoding="utf-8") as cfh:
+                                import json
+                                cfh.write(json.dumps(candidate_entry) + "\n")
+                        except Exception:
+                            pass
+
+
+                    # Configurable: return all cycles if bf.log_all_cycles is set
+                    log_all_cycles = bool(cfg.get("bf", {}).get("log_all_cycles", False))
+                    if log_all_cycles or not filter_reasons:
+                        results.append(candidate_entry)
+                        if len(results) >= top_n:
+                            return results
 
         return results
     except Exception:
@@ -740,21 +911,21 @@ def scan_arbitrage(snapshot_id: str, edges: List[Edge], cfg: Dict) -> List[ArbRe
                         telemetry_file = cfg.get("techniques", {}).get("telemetry_file")
                         if telemetry_file:
                             with open(telemetry_file, "a", encoding="utf-8") as tfh:
-                                    payload = {
-                                        "snapshot_id": snapshot_id,
-                                        "technique": name,
-                                        "timestamp": int(time.time()),
-                                        "duration_s": dur,
-                                        "results_count": len(res) if res else 0,
-                                    }
-                                    # include technique-specific telemetry if present
-                                    try:
-                                        tech_tel = getattr(func, "_last_telemetry", None)
-                                        if tech_tel:
-                                            payload.update(tech_tel)
-                                    except Exception:
-                                        pass
-                                    tfh.write(json.dumps(payload) + "\n")
+                                payload = {
+                                    "snapshot_id": snapshot_id,
+                                    "technique": name,
+                                    "timestamp": int(time.time()),
+                                    "duration_s": dur,
+                                    "results_count": len(res) if res else 0,
+                                }
+                                # include technique-specific telemetry if present
+                                try:
+                                    tech_tel = getattr(func, "_last_telemetry", None)
+                                    if tech_tel:
+                                        payload.update(tech_tel)
+                                except Exception:
+                                    pass
+                                tfh.write(json.dumps(payload) + "\n")
                     except Exception:
                         logger.debug("failed to write per-scan telemetry for %s", name)
                     stats.setdefault(name, {"count": 0.0, "total_time": 0.0})

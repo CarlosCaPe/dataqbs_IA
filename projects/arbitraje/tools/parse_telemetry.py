@@ -6,6 +6,7 @@ Usage:
 Outputs p50/p90/p99 for `duration_s` fields and reports `fallback_count` from scan summaries.
 Exit code 1 when thresholds exceeded (args --p99-threshold-ms, --fallback-threshold).
 """
+
 from __future__ import annotations
 
 import argparse
@@ -76,14 +77,18 @@ def main():
     p99 = percentile(durations, 99)
     total_fallbacks = sum(fallback_counts)
 
-    print(f"samples={len(durations)} p50_ms={p50:.3f} p90_ms={p90:.3f} p99_ms={p99:.3f} fallbacks={total_fallbacks}")
+    print(
+        f"samples={len(durations)} p50_ms={p50:.3f} p90_ms={p90:.3f} p99_ms={p99:.3f} fallbacks={total_fallbacks}"
+    )
 
     bad = False
     if p99 >= args.p99_threshold_ms:
         print(f"ALERT: p99 {p99:.1f}ms >= threshold {args.p99_threshold_ms}ms")
         bad = True
     if total_fallbacks >= args.fallback_threshold:
-        print(f"ALERT: fallback_count {total_fallbacks} >= threshold {args.fallback_threshold}")
+        print(
+            f"ALERT: fallback_count {total_fallbacks} >= threshold {args.fallback_threshold}"
+        )
         bad = True
 
     if bad:

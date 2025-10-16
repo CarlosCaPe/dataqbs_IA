@@ -1184,6 +1184,73 @@ def _load_yaml_config_defaults(parser: argparse.ArgumentParser) -> None:
 
 
 def main() -> None:
+    # --- Connector Health Check (block on error) ---
+    import logging
+    logger = logging.getLogger("arbitraje_ccxt")
+    try:
+        from binance.client import Client as BinanceClient
+        binance = BinanceClient()
+    except Exception as e:
+        binance = None
+        logger.error(f"Binance import error: {e}")
+    try:
+        from bitget import BitgetSync
+        bitget = BitgetSync()
+    except Exception as e:
+        bitget = None
+        logger.error(f"Bitget import error: {e}")
+    try:
+        import okx.MarketData as OKXMarket
+        okx = OKXMarket.MarketAPI()
+    except Exception as e:
+        okx = None
+        logger.error(f"OKX import error: {e}")
+    try:
+        from mexc_api.spot import Spot
+        mexc = Spot("", "")
+    except Exception as e:
+        mexc = None
+        logger.error(f"MEXC import error: {e}")
+    health_results = {}
+    # Binance
+    if binance:
+        try:
+            tickers = binance.get_ticker()
+            health_results['binance'] = len(tickers)
+        except Exception as e:
+            logger.error(f"Binance fetch error: {e}")
+            health_results['binance'] = 0
+    # Bitget
+    if bitget:
+        try:
+            tickers = bitget.public_spot_get_spot_v1_market_tickers()
+            health_results['bitget'] = len(tickers.get('data', []))
+        except Exception as e:
+            logger.error(f"Bitget fetch error: {e}")
+            health_results['bitget'] = 0
+    # OKX
+    if okx:
+        try:
+            tickers = okx.get_tickers(instType="SPOT")
+            health_results['okx'] = len(tickers.get('data', []))
+        except Exception as e:
+            logger.error(f"OKX fetch error: {e}")
+            health_results['okx'] = 0
+    # MEXC
+    if mexc:
+        try:
+            tickers = mexc.market.ticker_price()
+            health_results['mexc'] = len(tickers)
+        except Exception as e:
+            logger.error(f"MEXC fetch error: {e}")
+            health_results['mexc'] = 0
+    logger.info(f"Connector ticker counts: {health_results}")
+    fatal_connectors = [name for name, count in health_results.items() if count == 0]
+    if fatal_connectors:
+        logger.critical(f"FATAL: The following connectors returned 0 tickers: {fatal_connectors}. Aborting execution.")
+        print(f"FATAL: The following connectors returned 0 tickers: {fatal_connectors}. Aborting execution.", file=sys.stderr)
+        sys.exit(1)
+    # --- End Health Check ---
     parser = argparse.ArgumentParser(
         description="Arbitraje (ccxt) - modes: tri | bf | balance | health"
     )

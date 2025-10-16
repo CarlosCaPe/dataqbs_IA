@@ -141,7 +141,20 @@ if _numba_available:
     from numba import njit
 
     @njit
-    def _bf_source_numba(n, u_arr, v_arr, w_arr, s, min_net_pct, min_hops, max_hops, min_net_per_hop, bl_u, bl_v, bl_len):
+    def _bf_source_numba(
+        n,
+        u_arr,
+        v_arr,
+        w_arr,
+        s,
+        min_net_pct,
+        min_hops,
+        max_hops,
+        min_net_per_hop,
+        bl_u,
+        bl_v,
+        bl_len,
+    ):
         # Bellman-Ford for a single source s.
         # Returns parent array, cycle_end index or -1, sum_w along cycle, and hops.
         m = u_arr.shape[0]
@@ -245,7 +258,18 @@ if _numba_available:
             # ignore compilation/runtime exceptions during warmup
             pass
 
-    def bellman_ford_numba(n, u_arr, v_arr, w_arr, sources=None, min_net_pct=0.0, min_hops=0, max_hops=0, min_net_per_hop=0.0, blacklist_pairs=None):
+    def bellman_ford_numba(
+        n,
+        u_arr,
+        v_arr,
+        w_arr,
+        sources=None,
+        min_net_pct=0.0,
+        min_hops=0,
+        max_hops=0,
+        min_net_per_hop=0.0,
+        blacklist_pairs=None,
+    ):
         # wrapper: call per-source jitted function and reconstruct cycles in Python
         import numpy as np
 
@@ -269,7 +293,20 @@ if _numba_available:
             bl_len = 0
         for s in source_iter:
             # parent, cycle_end, sum_w, hops
-            res = _bf_source_numba(n, ua, va, wa, int(s), float(min_net_pct), int(min_hops), int(max_hops), float(min_net_per_hop), bl_u, bl_v, bl_len)
+            res = _bf_source_numba(
+                n,
+                ua,
+                va,
+                wa,
+                int(s),
+                float(min_net_pct),
+                int(min_hops),
+                int(max_hops),
+                float(min_net_per_hop),
+                bl_u,
+                bl_v,
+                bl_len,
+            )
             parent = res[0]
             cycle_end = res[1]
             sum_w = res[2]

@@ -2,6 +2,7 @@
 
 Outputs counts and sample cycles with net_pct >= target_min_net.
 """
+
 from __future__ import annotations
 import json
 from pathlib import Path
@@ -9,7 +10,12 @@ from pprint import pprint
 
 from arbitraje.engine_techniques import _tech_bellman_ford
 
-SNAP = Path(__file__).resolve().parents[1] / "artifacts" / "arbitraje" / "offline_snapshot_profitable_precomputed.json"
+SNAP = (
+    Path(__file__).resolve().parents[1]
+    / "artifacts"
+    / "arbitraje"
+    / "offline_snapshot_profitable_precomputed.json"
+)
 if not SNAP.exists():
     print("snapshot missing", SNAP)
     raise SystemExit(2)
@@ -22,15 +28,28 @@ k = next(iter(data.keys()))
 payload = data[k]
 
 # baseline: pruning OFF
-cfg_off = {"techniques": {"pruning_qvol_frac": 0.0, "pruning_degree_threshold": 0, "use_numba": False}}
+cfg_off = {
+    "techniques": {
+        "pruning_qvol_frac": 0.0,
+        "pruning_degree_threshold": 0,
+        "use_numba": False,
+    }
+}
 res_off = _tech_bellman_ford(k, payload, cfg_off)
 
 # pruning ON (conservative defaults)
-cfg_on = {"techniques": {"pruning_qvol_frac": 0.05, "pruning_degree_threshold": 3, "use_numba": False}}
+cfg_on = {
+    "techniques": {
+        "pruning_qvol_frac": 0.05,
+        "pruning_degree_threshold": 3,
+        "use_numba": False,
+    }
+}
 res_on = _tech_bellman_ford(k, payload, cfg_on)
 
 # target threshold in percent (0.05% = 0.05)
 TARGET = 0.05
+
 
 def filter_target(res):
     out = []
@@ -43,6 +62,7 @@ def filter_target(res):
         except Exception:
             continue
     return out
+
 
 f_off = filter_target(res_off)
 f_on = filter_target(res_on)

@@ -1,0 +1,83 @@
+# Relaxed variant of arbitraje.prod.yaml for dry-run detection experiments
+# Created from arbitraje.prod.yaml with filters maximally loosened.
+
+mode: bf
+
+# Include more exchanges to expand universe (be careful in live runs; dry-run only)
+ex: [binance, bitget, mexc, okx, coinbase]
+
+quote: USDT
+inv: 0.0
+
+bf:
+  # Allow many quotes to increase coverage
+  allowed_quotes: [USDT, USDC, TUSD, USDP, EURS, PAXG, DAI]
+
+  fee: 0.10
+  rank_by_qvol: false        # don't prune by liquidity ranking
+  currencies_limit: 2000     # include as many markets as available
+  min_net: 0.00              # accept any positive net (no threshold)
+  min_net_per_hop: 0
+  top: 200                   # inspect more candidate cycles
+  require_quote: false       # allow cycles not necessarily closing in anchor
+  require_topofbook: false
+  min_quote_vol: 0           # do not filter thin books
+  min_hops: 1                # allow trivial short cycles (including 1->1 style for visibility)
+  max_hops: 8                # allow longer chains to surface multi-hop opportunities
+  threads: 0
+  require_dual_quote: false
+  persist_top_csv: true
+  revalidate_depth: false
+  use_ws: false              # use REST to make dry-run deterministic
+  depth_levels: 5
+  latency_penalty_bps: 0     # do not penalize revalidated nets (we're exploring)
+  reset_history: true
+  iter_timeout_sec: 30
+
+max: 1000
+timeout: 60000
+sleep: 0
+repeat: 100
+repeat_sleep: 0
+
+balance_provider: ccxt
+ex_auth_only: false         # allow non-auth data to increase exchange set for dry-run
+simulate_compound: true
+simulate_from_wallet: false
+simulate_prefer: auto
+simulate_select: best
+simulate_auto_switch: true
+simulate_fallback_to_inv: true
+
+no_console_clear: true
+
+ui:
+  progress_bar: true
+  progress_len: 40
+  spinner_frames: "|/-\\"
+  draw_tables_first: false
+  show_simulation_header_always: false
+
+tri:
+  fee: 0.10
+  currencies_limit: 2000
+  min_net: 0.00
+  top: 200
+  require_topofbook: false
+  min_quote_vol: 0
+
+techniques:
+  enabled: [bellman_ford, stat_tri]
+  max_workers: 8
+  enable_rerank_onnx: false
+  fallback_timeout: 30.0
+  telemetry_file: ./artifacts/arbitraje/techniques_telemetry_relax.log
+  inline: []
+  iteration_watchdog_sec: 60.0
+
+exchange_overrides: {}
+
+blacklist_pairs: {}
+
+# Relaxed: minimal hardening so we can detect candidate cycles.
+# After collecting results, progressively re-enable filters one-by-one.

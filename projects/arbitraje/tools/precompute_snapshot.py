@@ -3,6 +3,7 @@
 Usage:
   python tools/precompute_snapshot.py --in artifacts/arbitraje/offline_snapshot_profitable.json --out artifacts/arbitraje/offline_snapshot_profitable_precomputed.json --window 5
 """
+
 from __future__ import annotations
 import argparse
 import json
@@ -34,7 +35,7 @@ for key, payload in data.items():
         hist = t.get("history") or t.get("ticks") or []
         mids = []
         try:
-            for tick in hist[-args.window:]:
+            for tick in hist[-args.window :]:
                 bid = tick.get("bid")
                 ask = tick.get("ask")
                 if bid is not None and ask is not None:
@@ -46,7 +47,7 @@ for key, payload in data.items():
         if len(mids) >= 2:
             mean = sum(mids) / len(mids)
             var = sum((x - mean) ** 2 for x in mids) / max(1, (len(mids) - 1))
-            v = float(var ** 0.5)
+            v = float(var**0.5)
         else:
             v = 0.0
         vol_map[a] = max(vol_map.get(a, 0.0), v)

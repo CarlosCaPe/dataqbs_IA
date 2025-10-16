@@ -2,35 +2,35 @@ mode: bf
 
 # Based on arbitraje.prod.yaml with dry-run, telemetry and no simulate_from_wallet
 
-ex: [binance, bitget, mexc]
+ex: [binance, bitget, mexc, kraken, coinbase, okx, huobi, gateio]
 quote: USDT
 
 bf:
   fee: 0.10
   rank_by_qvol: true
-  currencies_limit: 400
-  min_net: 0.30
-  min_net_per_hop: 0.05
+  currencies_limit: 10000
+  min_net: 0.00
+  min_net_per_hop: 0.00
   top: 40
   require_quote: true
-  require_topofbook: true
-  min_quote_vol: 1000
-  min_hops: 2
-  max_hops: 5
+  require_topofbook: false
+  min_quote_vol: 0
+  min_hops: 1
+  max_hops: 10
   threads: 0
   require_dual_quote: false
   persist_top_csv: true
-  revalidate_depth: true
+  revalidate_depth: false
   use_ws: false
   depth_levels: 20
   latency_penalty_bps: 25
   reset_history: true
-  iter_timeout_sec: 2.0
+  iter_timeout_sec: 1
 
 max: 280
 timeout: 20000
 sleep: 0
-repeat: 1000
+repeat: 2500
 repeat_sleep: 0
 
 balance_provider: ccxt

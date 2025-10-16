@@ -14,28 +14,28 @@ bf:
   fee: 0.10                  # modela taker≈0.1% por hop
   rank_by_qvol: true         # prioriza liquidez (reduce ciclos basura)
   currencies_limit: 400      # reduce universo a mercados más líquidos
-  min_net: 0.30              # sube umbral bruto para absorber slippage potencial (~30 bps)
-  min_net_per_hop: 0.05      # evita cadenas largas con hops marginales
+  min_net: 0.00              # sube umbral bruto para absorber slippage potencial (~30 bps)
+  min_net_per_hop: 0      # evita cadenas largas con hops marginales
   top: 40                    # inspección limitada
   require_quote: true        # obliga cerrar en ancla estable
-  require_topofbook: true    # usa bid/ask (más seguro para ejecución)
-  min_quote_vol: 1000       # filtra books extremadamente delgados (quote units)
+  require_topofbook: false    # usa bid/ask (más seguro para ejecución)
+  min_quote_vol: 0       # filtra books extremadamente delgados (quote units)
   min_hops: 2                # evita ciclos de 1 hop / trivial
   max_hops: 5                # menor acumulación de fees y riesgo
   threads: 0                 # use default pool / per-exchange parallelism
   require_dual_quote: false
   persist_top_csv: true
-  revalidate_depth: true     # re-chequea profundidad antes de aceptar ciclo
+  revalidate_depth: false     # re-chequea profundidad antes de aceptar ciclo
   use_ws: true               # WS para menor latencia si disponible
   depth_levels: 20           # niveles más profundos en revalidación
   latency_penalty_bps: 25    # penaliza net revalidado ~25 bps para cubrir ejecución
   reset_history: true
-  iter_timeout_sec: 2.0
+  iter_timeout_sec: 0
 
 max: 280                    # Alinear con reducción de currencies_limit para calidad
 timeout: 20000
 sleep: 0
-repeat: 10000
+repeat: 100
 repeat_sleep: 0
 
 # Note: use_balance/balance_kind removed; tool now always reads wallet balances when available
