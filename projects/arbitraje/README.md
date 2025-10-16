@@ -74,6 +74,19 @@ poetry run arbitraje-ccxt --mode bf \
 
 Outputs are written to `artifacts/arbitraje/outputs` (CSVs) and logs to `artifacts/arbitraje/logs`.
 
+## Connector diagnostics (recommended)
+
+Before running the radar or production scans, validate connector health. From the `projects/arbitraje` directory run:
+
+```
+cd projects/arbitraje
+poetry install
+poetry run python tests/scripts/test_connector_fetch.py
+poetry run python scripts/diagnose_ticker_fetch.py
+```
+
+The diagnostic script includes environment checks and will show a clear error if SDKs are missing or if you run it from the repo root. Always run these commands inside the `projects/arbitraje` Poetry environment to avoid false negatives.
+
 ### Swapper (isolated executor)
 
 Pruebas rápidas con round-trip entre estables (por ejemplo USDT↔USDC):

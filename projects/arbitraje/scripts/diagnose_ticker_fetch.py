@@ -1,22 +1,40 @@
 import time
 import json
+import sys
+import os
 from pathlib import Path
 from collections import deque
 
 
 def fetch_binance_tickers():
     try:
-        from binance_sdk_spot.spot import Spot
-        spot = Spot()
-        # This returns a dict with 'symbols' key
-        data = spot.rest_api.ticker_price()
-        # Convert to {symbol: {last: price}} format
+        from binance.client import Client as BinanceClient
+        client = BinanceClient()
+        data = client.get_ticker()
+        # Debug: show type and a sample element to determine structure
+        try:
+            print(f"BINANCE RAW TYPE: {type(data)}; length={len(data) if hasattr(data, '__len__') else 'n/a'}")
+            if isinstance(data, (list, tuple)) and data:
+                print("BINANCE SAMPLE KEYS:", list(data[0].keys()))
+            elif isinstance(data, dict):
+                # print first key and value type
+                first_k = next(iter(data.keys())) if data else None
+                print("BINANCE DICT FIRST_KEY:", first_k, "-> type", type(data.get(first_k)))
+        except Exception:
+            pass
         tickers = {}
         for entry in data:
             sym = entry.get('symbol')
-            price = entry.get('price')
-            if sym and price:
-                tickers[sym] = {'last': float(price)}
+            # Binance uses 'lastPrice', and provides bidPrice/askPrice
+            last = entry.get('lastPrice') or entry.get('price') or entry.get('close')
+            bid = entry.get('bidPrice') or entry.get('bid')
+            ask = entry.get('askPrice') or entry.get('ask')
+            if sym:
+                tickers[sym] = {
+                    'last': float(last) if last else None,
+                    'bid': float(bid) if bid else None,
+                    'ask': float(ask) if ask else None,
+                }
         return tickers
     except Exception as e:
         print(f"Binance fetch error: {e}")
@@ -24,10 +42,9 @@ def fetch_binance_tickers():
 
 def fetch_okx_tickers():
     try:
-        from okx.MarketData import MarketAPI
-        api = MarketAPI()
-        # Get all spot tickers
-        data = api.get_tickers('SPOT')
+        import okx.MarketData as OKXMarket
+        api = OKXMarket.MarketAPI()
+        data = api.get_tickers(instType="SPOT")
         tickers = {}
         for entry in data.get('data', []):
             sym = entry.get('instId')
@@ -43,38 +60,119 @@ def fetch_okx_tickers():
 
 def fetch_bitget_tickers():
     try:
-        from bitget.bitget_api import Bitget
-        api = Bitget()
-        data = api.get_tickers('spot')
+        from bitget import BitgetSync
+        api = BitgetSync()
+        data = api.public_spot_get_spot_v1_market_tickers()
+        # Debug: show structure and sample
+        try:
+            print(f"BITGET RAW TYPE: {type(data)}")
+            if isinstance(data, dict):
+                print("BITGET KEYS:", list(data.keys()))
+                sample = (data.get('data') or [])[:1]
+                print("BITGET SAMPLE:", sample)
+        except Exception:
+            pass
         tickers = {}
         for entry in data.get('data', []):
             sym = entry.get('symbol')
-            last = entry.get('last')
-            bid = entry.get('bestBid')
-            ask = entry.get('bestAsk')
+            # Bitget returns 'close' as last, and 'buyOne'/'sellOne' for top bid/ask
+            last = entry.get('close') or entry.get('last') or entry.get('price')
+            bid = entry.get('buyOne') or entry.get('bestBid') or entry.get('bid')
+            ask = entry.get('sellOne') or entry.get('bestAsk') or entry.get('ask')
             if sym:
-                tickers[sym] = {'last': float(last) if last else None, 'bid': float(bid) if bid else None, 'ask': float(ask) if ask else None}
+                try:
+                    tickers[sym] = {
+                        'last': float(last) if last else None,
+                        'bid': float(bid) if bid else None,
+                        'ask': float(ask) if ask else None,
+                    }
+                except Exception:
+                    # fallback: store raw strings if float conversion fails
+                    tickers[sym] = {'last': last, 'bid': bid, 'ask': ask}
         return tickers
     except Exception as e:
         print(f"Bitget fetch error: {e}")
         return {}
 
-# MEXC is a Node.js/TypeScript SDK, so Python cannot import it directly. Skipping MEXC for now.
+
+def fetch_mexc_tickers():
+    try:
+        from mexc_api.spot import Spot
+        client = Spot("", "")
+        data = client.market.ticker_price()
+        tickers = {}
+        for entry in data:
+            sym = entry.get('symbol')
+            price = entry.get('price')
+            if sym and price:
+                tickers[sym] = {'last': float(price)}
+        return tickers
+    except Exception as e:
+        print(f"MEXC fetch error: {e}")
+        return {}
 
 def fetch_tickers_for_all():
     exchanges = {
         'binance': fetch_binance_tickers,
         'okx': fetch_okx_tickers,
         'bitget': fetch_bitget_tickers,
-        # 'mexc': fetch_mexc_tickers, # Not implemented in Python
+        'mexc': fetch_mexc_tickers,
     }
     results = {}
     for ex, func in exchanges.items():
         t0 = time.time()
         tickers = func()
         t1 = time.time()
+        print(f"DEBUG: {ex} fetched {len(tickers)} tickers.")
+        if len(tickers) == 0:
+            print(f"DEBUG: {ex} returned 0 tickers! Possible SDK/env issue.")
         results[ex] = (tickers, t1-t0)
     return results
+
+
+def check_environment():
+    """Quick environment sanity checks.
+
+    - Ensure we are running from the arbitraje project (pyproject.toml present).
+    - Ensure required SDKs are importable and give actionable guidance if not.
+    """
+    repo_project_dir = Path(__file__).resolve().parents[1]
+    if not (repo_project_dir / "pyproject.toml").exists():
+        print("ERROR: It looks like you're not running inside the 'projects/arbitraje' project.")
+        print("Recommendation: cd into 'projects/arbitraje' and run the script using Poetry:")
+        print("  cd projects/arbitraje")
+        print("  poetry install")
+        print("  poetry run python scripts/diagnose_ticker_fetch.py")
+        sys.exit(2)
+
+    # Try importing the SDKs we use; collect missing ones to show a helpful message
+    missing = []
+    try:
+        import binance  # type: ignore
+    except Exception:
+        missing.append("python-binance (binance)")
+    try:
+        import bitget  # type: ignore
+    except Exception:
+        missing.append("bitget SDK (bitget)")
+    try:
+        import okx  # type: ignore
+    except Exception:
+        missing.append("okx SDK (okx)")
+    try:
+        import mexc_api  # type: ignore
+    except Exception:
+        missing.append("mexc-api (mexc_api)")
+
+    if missing:
+        print("ERROR: The following SDKs are not importable in the current Python environment:")
+        for m in missing:
+            print(" - ", m)
+        print("")
+        print("If you are using Poetry for the project, fix by running:")
+        print("  cd projects/arbitraje && poetry install && poetry run python scripts/diagnose_ticker_fetch.py")
+        print("")
+        sys.exit(3)
 
 def count_valid_rates(tickers):
     n_valid = 0
@@ -89,9 +187,24 @@ def count_valid_rates(tickers):
 def build_graph(tickers):
     graph = {}
     for sym, t in tickers.items():
-        if "/" not in sym:
+        # Support both 'BTC/USDT' and 'BTCUSDT' formats
+        if "/" in sym:
+            a, b = sym.split("/")
+        elif len(sym) >= 6:
+            # Try to split at the most likely base/quote boundary (common for Binance, MEXC)
+            # Use a list of common quote assets
+            QUOTES = ["USDT", "USDC", "BUSD", "TUSD", "FDUSD", "DAI", "BTC", "ETH"]
+            found = False
+            for q in QUOTES:
+                if sym.endswith(q) and len(sym) > len(q):
+                    a = sym[:-len(q)]
+                    b = q
+                    found = True
+                    break
+            if not found:
+                continue
+        else:
             continue
-        a, b = sym.split("/")
         rate = None
         try:
             if t.get("bid") is not None:
