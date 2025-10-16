@@ -1,0 +1,164 @@
+{
+    "binance": {
+        "markets": {
+            "USDT/A": {
+                "base": "USDT",
+                "quote": "A",
+                "active": true
+            },
+            "USDT/B": {
+                "base": "USDT",
+                "quote": "B",
+                "active": true
+            },
+            "USDT/C": {
+                "base": "USDT",
+                "quote": "C",
+                "active": true
+            },
+            "A/B": {
+                "base": "A",
+                "quote": "B",
+                "active": true
+            },
+            "B/C": {
+                "base": "B",
+                "quote": "C",
+                "active": true
+            },
+            "C/A": {
+                "base": "C",
+                "quote": "A",
+                "active": true
+            }
+        },
+        "tickers": {
+            "A/B": {
+                "bid": 1.02,
+                "ask": 1.02,
+                "last": 1.02,
+                "quoteVolume": 1000
+            },
+            "B/C": {
+                "bid": 1.02,
+                "ask": 1.02,
+                "last": 1.02,
+                "quoteVolume": 1000
+            },
+            "C/A": {
+                "bid": 1.02,
+                "ask": 1.02,
+                "last": 1.02,
+                "quoteVolume": 1000
+            }
+        }
+    },
+    "bitget": {
+        "markets": {
+            "USDT/A": {
+                "base": "USDT",
+                "quote": "A",
+                "active": true
+            },
+            "USDT/B": {
+                "base": "USDT",
+                "quote": "B",
+                "active": true
+            },
+            "USDT/C": {
+                "base": "USDT",
+                "quote": "C",
+                "active": true
+            },
+            "A/B": {
+                "base": "A",
+                "quote": "B",
+                "active": true
+            },
+            "B/C": {
+                "base": "B",
+                "quote": "C",
+                "active": true
+            },
+            "C/A": {
+                "base": "C",
+                "quote": "A",
+                "active": true
+            }
+        },
+        "tickers": {
+            "A/B": {
+                "bid": 1.02,
+                "ask": 1.02,
+                "last": 1.02,
+                "quoteVolume": 900
+            },
+            "B/C": {
+                "bid": 1.02,
+                "ask": 1.02,
+                "last": 1.02,
+                "quoteVolume": 900
+            },
+            "C/A": {
+                "bid": 1.02,
+                "ask": 1.02,
+                "last": 1.02,
+                "quoteVolume": 900
+            }
+        }
+    },
+    "mexc": {
+        "markets": {
+            "USDT/A": {
+                "base": "USDT",
+                "quote": "A",
+                "active": true
+            },
+            "USDT/B": {
+                "base": "USDT",
+                "quote": "B",
+                "active": true
+            },
+            "USDT/C": {
+                "base": "USDT",
+                "quote": "C",
+                "active": true
+            },
+            "A/B": {
+                "base": "A",
+                "quote": "B",
+                "active": true
+            },
+            "B/C": {
+                "base": "B",
+                "quote": "C",
+                "active": true
+            },
+            "C/A": {
+                "base": "C",
+                "quote": "A",
+                "active": true
+            }
+        },
+        "tickers": {
+            "A/B": {
+                "bid": 1.02,
+                "ask": 1.02,
+                "last": 1.02,
+                "quoteVolume": 800
+            },
+            "B/C": {
+                "bid": 1.02,
+                "ask": 1.02,
+                "last": 1.02,
+                "quoteVolume": 800
+            },
+            "C/A": {
+                "bid": 1.02,
+                "ask": 1.02,
+                "last": 1.02,
+                "quoteVolume": 800
+            }
+        }
+    }
+}

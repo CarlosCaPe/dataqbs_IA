@@ -1,0 +1,138 @@
+{
+  "generated_at": 1760649931.731076,
+  "files": [
+    {
+      "src": "artifacts\\arbitraje\\bench_techniques.csv",
+      "dest": "canonical\\logs\\bench_techniques.csv",
+      "size": 516,
+      "mtime": 1760549585.2087448,
+      "sha256": "617d4e3e712250ac92659ac05b2eefe52b30a53c105ffa12f0ef10eda8c2e63b"
+    },
+    {
+      "src": "artifacts\\arbitraje\\fetch_diagnostics.json",
+      "dest": "canonical\\logs\\fetch_diagnostics.json",
+      "size": 918,
+      "mtime": 1760648290.1772325,
+      "sha256": "72db2e1eb052a5b53e8d5b2cecd544562f407639dc6a5e68cd3ebbf4ee9b276b"
+    },
+    {
+      "src": "artifacts\\arbitraje\\offline_snapshot_profitable.json",
+      "dest": "canonical\\logs\\offline_snapshot_profitable.json",
+      "size": 2921,
+      "mtime": 1760564582.695504,
+      "sha256": "154b0b1bc55a02be9cdeb95f99f7744a1bfdad9fec8caed09c3b64ec73fb55ba"
+    },
+    {
+      "src": "artifacts\\arbitraje\\offline_snapshot_profitable_precomputed.json",
+      "dest": "canonical\\logs\\offline_snapshot_profitable_precomputed.json",
+      "size": 1364,
+      "mtime": 1760584227.0698793,
+      "sha256": "b2b6898f6c65ba370fe4d92ee243d5c49d2ecd114190afc5c4de743c2e15e321"
+    },
+    {
+      "src": "artifacts\\arbitraje\\offline_snapshot_synth_large.json",
+      "dest": "canonical\\logs\\offline_snapshot_synth_large.json",
+      "size": 186507,
+      "mtime": 1760574374.434066,
+      "sha256": "f0a02549de6fe9e0ea5b5d3f50f5260ae3399171cd21280ee3422930db63a550"
+    },
+    {
+      "src": "artifacts\\arbitraje\\offline_snapshot_test.json",
+      "dest": "canonical\\logs\\offline_snapshot_test.json",
+      "size": 4172,
+      "mtime": 1760558564.9957066,
+      "sha256": "f97735945fc9626431a8650e437c7d16e5d0ea03bab3039140472d8a769acfa4"
+    },
+    {
+      "src": "artifacts\\arbitraje\\radar_dryrun_1000.log",
+      "dest": "canonical\\logs\\radar_dryrun_1000.log",
+      "size": 1637381,
+      "mtime": 1760585386.6301532,
+      "sha256": "17b1d46f6d0aa3117ef3c74b672872536904b7e6612726c55f3185d7cc052496"
+    },
+    {
+      "src": "artifacts\\arbitraje\\radar_dryrun_2500.log",
+      "dest": "canonical\\logs\\radar_dryrun_2500.log",
+      "size": 175955,
+      "mtime": 1760585613.161843,
+      "sha256": "51d168eb94e414a5601d770242899e47a11cf268bae20f27589b0164c8b7e6e1"
+    },
+    {
+      "src": "artifacts\\arbitraje\\techniques_telemetry.log",
+      "dest": "canonical\\logs\\techniques_telemetry.log",
+      "size": 2710748,
+      "mtime": 1760626161.0897493,
+      "sha256": "a4b0d23d2024d3d30994625e3ac6033330dc907503abaff1dba1f49467630a0b"
+    },
+    {
+      "src": "artifacts\\arbitraje\\techniques_telemetry_after.log",
+      "dest": "canonical\\logs\\techniques_telemetry_after.log",
+      "size": 25985,
+      "mtime": 1760574339.2421598,
+      "sha256": "0b98ddef1b4f9e4f2d688bc4acbb849c2c6351d2fb7f52a60c1be9501a212e72"
+    },
+    {
+      "src": "artifacts\\arbitraje\\techniques_telemetry_before.log",
+      "dest": "canonical\\logs\\techniques_telemetry_before.log",
+      "size": 26068,
+      "mtime": 1760574143.5550768,
+      "sha256": "f8c4e1de1fe4b29430523f78f9094c94856508f8c48fcc90a00eb29a7b551df5"
+    },
+    {
+      "src": "artifacts\\arbitraje\\techniques_telemetry_numba.log",
+      "dest": "canonical\\logs\\techniques_telemetry_numba.log",
+      "size": 4621,
+      "mtime": 1760576887.9268594,
+      "sha256": "7bfa2b6660df59b2ab412a1470cc100465342ae0a51356a982d81f4ae965dbfd"
+    },
+    {
+      "src": "artifacts\\arbitraje\\techniques_telemetry_numba_integrated.log",
+      "dest": "canonical\\logs\\techniques_telemetry_numba_integrated.log",
+      "size": 30388,
+      "mtime": 1760580084.943636,
+      "sha256": "bd50405001d85a78a6d1dda95af80935c78acdc8716111330477afbf9584d1dd"
+    },
+    {
+      "src": "artifacts\\arbitraje\\techniques_telemetry_relax.log",
+      "dest": "canonical\\logs\\techniques_telemetry_relax.log",
+      "size": 0,
+      "mtime": 1760645343.2144415,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "src": "artifacts\\arbitraje\\techniques_telemetry_synth_after.log",
+      "dest": "canonical\\logs\\techniques_telemetry_synth_after.log",
+      "size": 28293,
+      "mtime": 1760575594.4657936,
+      "sha256": "4e931d356a1bf4327cc8bf26e635225f54c791f3813cd9d7f06d77677b0feac6"
+    },
+    {
+      "src": "artifacts\\arbitraje\\telemetry_after.log",
+      "dest": "canonical\\logs\\telemetry_after.log",
+      "size": 30038,
+      "mtime": 1760583309.3438675,
+      "sha256": "27dcbce1c12a2f7c4b4e0a1f31419716dfa08d49cbe68b9ee4bd29fe525d4c13"
+    },
+    {
+      "src": "artifacts\\arbitraje\\telemetry_before.log",
+      "dest": "canonical\\logs\\telemetry_before.log",
+      "size": 30033,
+      "mtime": 1760583212.6099167,
+      "sha256": "dade22a78e6fac3cdb549c17f74e071f3684846b1e2ee310e0be549647235a88"
+    },
+    {
+      "src": "tests\\scripts\\test_connector_fetch.py",
+      "dest": "canonical\\tests\\test_connector_fetch.py",
+      "size": 2553,
+      "mtime": 1760644347.922786,
+      "sha256": "8205eb387ea72399da4a9a73c9a9bbb1f51d1f5320f31c628814c3ae4e73b374"
+    },
+    {
+      "src": "artifacts\\arbitraje\\fetch_diagnostics.json",
+      "dest": "canonical\\logs\\fetch_diagnostics.json",
+      "size": 918,
+      "mtime": 1760648290.1772325,
+      "sha256": "72db2e1eb052a5b53e8d5b2cecd544562f407639dc6a5e68cd3ebbf4ee9b276b"
+    }
+  ]
+}

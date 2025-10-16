@@ -2,7 +2,7 @@
   "binance": {
     "tickers": 3353,
     "valid_rates": 2750,
-    "fetch_time_sec": 0.9415283203125,
+    "fetch_time_sec": 0.9540886878967285,
     "graph_nodes": 431,
     "graph_edges": 2142,
     "connected_components": 1,
@@ -11,7 +11,7 @@
   "okx": {
     "tickers": 460,
     "valid_rates": 397,
-    "fetch_time_sec": 0.3480098247528076,
+    "fetch_time_sec": 0.48800230026245117,
     "graph_nodes": 238,
     "graph_edges": 540,
     "connected_components": 38,
@@ -20,7 +20,7 @@
   "bitget": {
     "tickers": 815,
     "valid_rates": 810,
-    "fetch_time_sec": 0.39499950408935547,
+    "fetch_time_sec": 0.3300018310546875,
     "graph_nodes": 681,
     "graph_edges": 1494,
     "connected_components": 1,
@@ -29,7 +29,7 @@
   "mexc": {
     "tickers": 2289,
     "valid_rates": 2283,
-    "fetch_time_sec": 0.12799477577209473,
+    "fetch_time_sec": 0.3499948978424072,
     "graph_nodes": 1979,
     "graph_edges": 2197,
     "connected_components": 1975,
