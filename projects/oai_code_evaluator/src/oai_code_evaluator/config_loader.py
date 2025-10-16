@@ -1,8 +1,11 @@
 from __future__ import annotations
+
 from pathlib import Path
 from typing import Any, Dict
+
 import yaml
-from jsonschema import validate, ValidationError
+from jsonschema import ValidationError, validate
+
 from .schemas import SCHEMAS
 
 CONFIG_FILENAMES = [

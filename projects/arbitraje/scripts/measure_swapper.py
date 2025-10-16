@@ -2,7 +2,8 @@ from __future__ import annotations
 
 import argparse
 import time
-from arbitraje.swapper import Swapper, SwapHop, SwapPlan
+
+from arbitraje.swapper import SwapHop, Swapper, SwapPlan
 
 
 def main():

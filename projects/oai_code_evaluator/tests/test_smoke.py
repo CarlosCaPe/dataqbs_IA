@@ -1,8 +1,8 @@
 from pathlib import Path
-import json
+
 from oai_code_evaluator.cli import load_input
-from oai_code_evaluator.evaluator import Evaluator
 from oai_code_evaluator.config_loader import load_config_dir, validate_bundle
+from oai_code_evaluator.evaluator import Evaluator
 
 
 def test_smoke_eval_default():

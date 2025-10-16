@@ -1,0 +1,65 @@
+name: CI - Python 3.11 (Numba)
+
+on:
+  push:
+    branches: [ main, radar-manual ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test-and-benchmark:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.11]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install Poetry
+        run: |
+          python -m pip install --upgrade pip
+          pip install poetry
+
+      - name: Install project dependencies (with dev)
+        working-directory: projects/arbitraje
+        run: |
+          poetry config virtualenvs.create false || true
+          poetry install --no-interaction --no-ansi --with dev
+
+      - name: Run tests
+        working-directory: projects/arbitraje
+        run: |
+          poetry run pytest -q --disable-warnings
+
+      - name: Run smoke benchmark (numba)
+        working-directory: projects/arbitraje
+        env:
+          GITHUB_ACTIONS: true
+        run: |
+          # run a short benchmark and write telemetry
+          poetry run python tools/run_numba_benchmark.py --iters 10 --snapshot artifacts/arbitraje/offline_snapshot_synth_large.json --telemetry artifacts/arbitraje/telemetry_ci_smoke.log
+
+      - name: Check telemetry thresholds
+        working-directory: projects/arbitraje
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # parse telemetry and fail job if alerts; if alert, open GH issue for ops
+          set -e
+          poetry run python tools/parse_telemetry.py --file artifacts/arbitraje/telemetry_ci_smoke.log --p99-threshold-ms 2000 --fallback-threshold 2 || {
+            echo "Telemetry alert detected. Creating issue..."
+            if command -v gh >/dev/null 2>&1; then
+              TITLE="CI alert: high p99 or fallbacks on ${GITHUB_REPOSITORY}"
+              # prepare body file
+              cp artifacts/arbitraje/telemetry_ci_smoke.log /tmp/telemetry_ci_smoke.log || true
+              gh issue create --title "$TITLE" --body-file /tmp/telemetry_ci_smoke.log || true
+            else
+              echo "gh CLI not available; skipping issue creation"
+            fi
+            exit 1
+          }

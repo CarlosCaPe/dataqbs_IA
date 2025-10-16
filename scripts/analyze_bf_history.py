@@ -4,8 +4,7 @@ import re
 import sys
 from collections import defaultdict
 from datetime import datetime, timezone
-from typing import List, Dict, Any, Tuple
-
+from typing import Any, Dict, List, Tuple
 
 SIM_RX = re.compile(
     r"^\[SIM\] it#(?P<it>\d+) @(?P<ex>\w+)\s+USDT pick .* net (?P<net>[\d\.]+)% \| USDT (?P<u0>[\d\.]+) -> (?P<u1>[\d\.]+) \(\+(?P<delta>[\d\.]+)\)"

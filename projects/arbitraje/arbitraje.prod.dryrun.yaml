@@ -1,0 +1,60 @@
+mode: bf
+
+# Based on arbitraje.prod.yaml with dry-run, telemetry and no simulate_from_wallet
+
+ex: [binance, bitget, mexc]
+quote: USDT
+
+bf:
+  fee: 0.10
+  rank_by_qvol: true
+  currencies_limit: 400
+  min_net: 0.30
+  min_net_per_hop: 0.05
+  top: 40
+  require_quote: true
+  require_topofbook: true
+  min_quote_vol: 1000
+  min_hops: 2
+  max_hops: 5
+  threads: 0
+  require_dual_quote: false
+  persist_top_csv: true
+  revalidate_depth: true
+  use_ws: false
+  depth_levels: 20
+  latency_penalty_bps: 25
+  reset_history: true
+  iter_timeout_sec: 2.0
+
+max: 280
+timeout: 20000
+sleep: 0
+repeat: 1000
+repeat_sleep: 0
+
+balance_provider: ccxt
+ex_auth_only: false
+simulate_compound: false
+simulate_from_wallet: false
+simulate_prefer: auto
+simulate_select: best
+simulate_auto_switch: false
+
+no_console_clear: true
+
+ui:
+  progress_bar: true
+  progress_len: 20
+  spinner_frames: "|/-\\"
+  draw_tables_first: true
+  show_simulation_header_always: true
+
+techniques:
+  enabled: [bellman_ford, stat_tri]
+  max_workers: 2
+  enable_rerank_onnx: false
+  fallback_timeout: 8.0
+  telemetry_file: ./artifacts/arbitraje/radar_dryrun_1000.log
+  inline: [bellman_ford]
+  iteration_watchdog_sec: 10.0

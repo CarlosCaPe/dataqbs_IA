@@ -2267,7 +2267,28 @@ def main() -> None:
         tri_iter_csv = (
             paths.OUTPUTS_DIR / f"arbitrage_tri_current_{QUOTE.lower()}_ccxt.csv"
         )
+        # iteration watchdog for TRI mode (configured via YAML)
+        iteration_watchdog_sec = float(
+            getattr(args, "iteration_watchdog_sec", 0.0) or 0.0
+        )
+        _prev_iter_ts = None
         for it in range(1, int(max(1, args.repeat)) + 1):
+            _now = time.time()
+            if _prev_iter_ts is not None and iteration_watchdog_sec > 0:
+                _delta = _now - _prev_iter_ts
+                if _delta > iteration_watchdog_sec:
+                    logger.error(
+                        "Iteration watchdog triggered (tri): previous iteration "
+                        "start delta=%.2fs > configured %.2fs; exiting",
+                        _delta,
+                        iteration_watchdog_sec,
+                    )
+                    print(
+                        f"Iteration watchdog (tri): delayed by {_delta:.2f}s "
+                        f"(limit {iteration_watchdog_sec}s). Exiting."
+                    )
+                    break
+            _prev_iter_ts = _now
             ts = pd.Timestamp.utcnow().isoformat()
             swaps_blacklist_map = load_swaps_blacklist()
             # Prefetch wallet balances once per iteration for simulation rendering
@@ -2662,6 +2683,9 @@ def main() -> None:
                 # Try load markets from offline snapshot if available; else skip network
                 if offline_snapshot_map and isinstance(offline_snapshot_map, dict):
                     markets = offline_snapshot_map.get(ex_id, {}).get("markets")
+            # Defensive: ensure markets is a dict to avoid .items() on None
+            if markets is None or not isinstance(markets, dict):
+                markets = {}
             else:
                 markets = getattr(ex, "markets", None)
                 if not markets:
@@ -2802,6 +2826,9 @@ def main() -> None:
                 tickers = offline_snapshot_map.get(ex_id, {}).get("tickers", {})
             else:
                 tickers = {}
+            # Defensive: ensure tickers is a mapping
+            if tickers is None or not isinstance(tickers, dict):
+                tickers = {}
             batch_supported = safe_has(ex, "fetchTickers")
             if (
                 not getattr(args, "offline", False)
@@ -2865,17 +2892,24 @@ def main() -> None:
                         "latency_penalty": bf_latency_penalty_bps,
                         "blacklist": list(exchange_blacklist),
                     }
-                    cfg_for_worker = {
-                        "techniques": {
-                            "enabled": getattr(
-                                args, "techniques_enabled", ["bellman_ford"]
-                            ),
-                            "max_workers": getattr(args, "tech_max_workers", 2),
-                            "enable_rerank_onnx": getattr(
-                                args, "tech_enable_rerank_onnx", False
-                            ),
-                        }
-                    }
+                    # Pass through techniques config from YAML (if present) so
+                    # engine_techniques can pick up telemetry_file, inline settings, etc.
+                    techniques_cfg = {}
+                    try:
+                        techniques_cfg = cfg_raw.get("techniques", {}) if cfg_raw else {}
+                    except Exception:
+                        techniques_cfg = {}
+                    # allow CLI overrides for enabled/max_workers/rerank
+                    techniques_cfg.setdefault(
+                        "enabled", getattr(args, "techniques_enabled", ["bellman_ford"])
+                    )
+                    techniques_cfg.setdefault(
+                        "max_workers", getattr(args, "tech_max_workers", 2)
+                    )
+                    techniques_cfg.setdefault(
+                        "enable_rerank_onnx", getattr(args, "tech_enable_rerank_onnx", False)
+                    )
+                    cfg_for_worker = {"techniques": techniques_cfg}
                     tech_res = _scan_arbitrage(ts, payload, cfg_for_worker)
                     if tech_res:
                         # Map technique ArbResult to legacy BF result schema expected by caller
@@ -3138,7 +3172,25 @@ def main() -> None:
     # (removed fallback minimal BF loop that prematurely returned and bypassed the full BF rendering path)
 
     # Correct BF main loop (logs + history). This sits at the BF-block level, not inside bf_worker.
+    iteration_watchdog_sec = float(getattr(args, "iteration_watchdog_sec", 0.0) or 0.0)
+    _prev_iter_ts = None
     for it in range(1, int(max(1, args.repeat)) + 1):
+        _now = time.time()
+        if _prev_iter_ts is not None and iteration_watchdog_sec > 0:
+            _delta = _now - _prev_iter_ts
+            if _delta > iteration_watchdog_sec:
+                logger.error(
+                    "Iteration watchdog triggered (bf): previous iteration "
+                    "start delta=%.2fs > configured %.2fs; exiting",
+                    _delta,
+                    iteration_watchdog_sec,
+                )
+                print(
+                    f"Iteration watchdog (bf): delayed by {_delta:.2f}s "
+                    f"(limit {iteration_watchdog_sec}s). Exiting."
+                )
+                break
+        _prev_iter_ts = _now
         ts = pd.Timestamp.utcnow().isoformat()
         swaps_blacklist_map = load_swaps_blacklist()
         # Prefetch wallet balances once per iteration for simulation/header if requested
@@ -3314,8 +3366,29 @@ def main() -> None:
         iter_results: List[dict] = []
         completed_count = 0
         # Sequential scan per exchange for stability
+        per_exchange_watchdog_sec = float(
+            getattr(args, "per_exchange_watchdog_sec", 0.0) or 0.0
+        )
+        if per_exchange_watchdog_sec <= 0:
+            per_exchange_watchdog_sec = float(
+                getattr(args, "iteration_watchdog_sec", 0.0) or 0.0
+            )
         for ex_id in EX_IDS:
+            _ex_start = time.time()
             _ex_id, lines, rows = bf_worker(ex_id, it, ts)
+            _ex_dur = time.time() - _ex_start
+            if per_exchange_watchdog_sec > 0 and _ex_dur > per_exchange_watchdog_sec:
+                logger.error(
+                    "Exchange watchdog: %s took %.2fs > configured %.2fs; aborting iteration",
+                    ex_id,
+                    _ex_dur,
+                    per_exchange_watchdog_sec,
+                )
+                print(
+                    f"Exchange watchdog: {ex_id} took {_ex_dur:.2f}s "
+                    f"(limit {per_exchange_watchdog_sec}s). Aborting iteration."
+                )
+                break
             iter_lines.extend(lines)
             for row in rows:
                 iter_results.append(row)

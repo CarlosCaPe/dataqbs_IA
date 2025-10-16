@@ -1,5 +1,5 @@
-import time
 import pickle
+import time
 
 from arbitraje import arbitrage_report_ccxt as arc
 from arbitraje.engine_techniques import scan_arbitrage
@@ -27,7 +27,6 @@ def local_bf_snapshot_search(tickers, fee_pct=0.10, min_net=0.0):
         currencies, tickers, fee_pct, candidate_pairs, require_topofbook=False
     )
     # run same BF algorithm (log-space)
-    import math
 
     n = len(currencies)
     if n < 3 or not edges:

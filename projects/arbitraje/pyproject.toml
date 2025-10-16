@@ -10,7 +10,7 @@ packages = [
 ]
 
 [tool.poetry.dependencies]
-python = ">=3.9,<3.14"
+python = ">=3.11,<3.14"
 requests = "^2.32.0"
 pandas = "^2.2.2"
 python-dotenv = "^1.0.1"
@@ -19,6 +19,8 @@ ccxt = "^4.4.23"
 binance-sdk-spot = "^3.0.0"
 PyYAML = "^6.0.2"
 ujson = "^5.10.0"
+numpy = "^2.3.4"
+numba = "^0.62.1"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.3.3"
@@ -27,6 +29,19 @@ ruff = "^0.12.2"
 
 [tool.ruff]
 line-length = 120
+# Exclude generated or vendor SDKs and large test data directories from ruff in this subproject
+exclude = [
+  "sdk/**",
+  "sdk/okx/**",
+  "artifacts/**",
+  "tests/**/data/**",
+  "**/*.ipynb",
+  "vendor/**",
+  "third_party/**",
+]
+
+[tool.ruff.lint]
+# moved select/ignore settings into the lint subsection to avoid deprecation warnings
 select = ["E", "F", "I"]
 ignore = []
 

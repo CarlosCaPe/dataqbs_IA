@@ -1,6 +1,6 @@
-from pathlib import Path
-import json
 from copy import deepcopy
+from pathlib import Path
+
 from oai_code_evaluator.cli import load_input
 from oai_code_evaluator.config_loader import load_config_dir, validate_bundle
 from oai_code_evaluator.evaluator import Evaluator

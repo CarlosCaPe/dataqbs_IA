@@ -1,17 +1,16 @@
 from __future__ import annotations
 
 import argparse
-import time
-import logging
-from pathlib import Path
 import csv
-from typing import Optional
-
-import numpy as np
-from playwright.sync_api import sync_playwright
 import json
+import logging
+import time
+from pathlib import Path
+from typing import Optional
 from urllib.parse import urlparse
+
 import requests
+from playwright.sync_api import sync_playwright
 
 from . import paths  # artifact-aware paths (with migration shim)
 
@@ -74,9 +73,18 @@ def setup_logger(log_file: Path | None):
 def wait_for_audio_panel(page, timeout_s: int = 30) -> bool:
     end = time.time() + timeout_s
     labels = [
-        "Reference Audio", "Reference", "Referencia", "Original",
-        "Audio A", "Audio B", "A", "B",
-        "Version A", "Version B", "Tie", "Empate"
+        "Reference Audio",
+        "Reference",
+        "Referencia",
+        "Original",
+        "Audio A",
+        "Audio B",
+        "A",
+        "B",
+        "Version A",
+        "Version B",
+        "Tie",
+        "Empate",
     ]
     while time.time() < end:
         try:
@@ -207,12 +215,12 @@ def _get_audio_srcs(page) -> dict:
             data = {}
     except Exception:
         data = {}
-    A = data.get('A') if isinstance(data, dict) else None
-    B = data.get('B') if isinstance(data, dict) else None
-    R = data.get('R') if isinstance(data, dict) else None
+    A = data.get("A") if isinstance(data, dict) else None
+    B = data.get("B") if isinstance(data, dict) else None
+    R = data.get("R") if isinstance(data, dict) else None
     all_urls = []
     try:
-        all_urls = data.get('all') or []
+        all_urls = data.get("all") or []
     except Exception:
         all_urls = []
     if not (A and B and R) and len(all_urls) >= 3:
@@ -228,7 +236,7 @@ def _cookies_for_url(page, url: str) -> dict:
     jar = {}
     for c in cookies or []:
         try:
-            jar[c.get('name')] = c.get('value')
+            jar[c.get("name")] = c.get("value")
         except Exception:
             continue
     return jar
@@ -249,7 +257,9 @@ def _measure_sizes_via_http(page, urls: dict, ua: str | None = None) -> dict:
             _ = urlparse(url)
             cookies = _cookies_for_url(page, url)
             s = requests.Session()
-            cookie_header = "; ".join([f"{k}={v}" for k, v in cookies.items()]) if cookies else None
+            cookie_header = (
+                "; ".join([f"{k}={v}" for k, v in cookies.items()]) if cookies else None
+            )
             headers = dict(headers_base)
             if cookie_header:
                 headers["Cookie"] = cookie_header
@@ -257,8 +267,12 @@ def _measure_sizes_via_http(page, urls: dict, ua: str | None = None) -> dict:
             try:
                 head_headers = dict(headers)
                 head_headers.pop("Range", None)
-                head_resp = s.head(url, headers=head_headers, timeout=8, allow_redirects=True)
-                cl = head_resp.headers.get('Content-Length') or head_resp.headers.get('content-length')
+                head_resp = s.head(
+                    url, headers=head_headers, timeout=8, allow_redirects=True
+                )
+                cl = head_resp.headers.get("Content-Length") or head_resp.headers.get(
+                    "content-length"
+                )
                 if cl:
                     total = int(str(cl).strip())
             except Exception:
@@ -267,12 +281,18 @@ def _measure_sizes_via_http(page, urls: dict, ua: str | None = None) -> dict:
                 try:
                     range_headers = dict(headers)
                     range_headers["Range"] = "bytes=0-0"
-                    get_resp = s.get(url, headers=range_headers, stream=True, timeout=12)
-                    cr = get_resp.headers.get('Content-Range') or get_resp.headers.get('content-range')
-                    if cr and '/' in cr:
-                        total = int(cr.split('/')[-1].strip())
+                    get_resp = s.get(
+                        url, headers=range_headers, stream=True, timeout=12
+                    )
+                    cr = get_resp.headers.get("Content-Range") or get_resp.headers.get(
+                        "content-range"
+                    )
+                    if cr and "/" in cr:
+                        total = int(cr.split("/")[-1].strip())
                     if not total:
-                        cl2 = get_resp.headers.get('Content-Length') or get_resp.headers.get('content-length')
+                        cl2 = get_resp.headers.get(
+                            "Content-Length"
+                        ) or get_resp.headers.get("content-length")
                         if cl2:
                             total = int(str(cl2).strip())
                 except Exception:
@@ -653,7 +673,9 @@ def _js_get_audio_src_for_label(label_key: str):
         if (a) return a.href;
         return null;
     }
-    """.replace('__KEY__', safe_key)
+    """.replace(
+        "__KEY__", safe_key
+    )
 
 
 def _js_head_or_range_size(url: str):
@@ -704,7 +726,7 @@ def _header_sizes_kb_for_current(page) -> dict:
         except Exception:
             ua = None
         sizes = _measure_sizes_via_http(page, urls, ua=ua)
-        for k in ("A","B","R"):
+        for k in ("A", "B", "R"):
             v = sizes.get(k) or 0
             try:
                 sizes_kb[k] = float(int(v)) / 1024.0
@@ -742,20 +764,24 @@ def _collect_media_via_perf(page) -> list[dict]:
     except Exception:
         items = []
     out = []
-    for it in (items or []):
+    for it in items or []:
         try:
-            out.append({
-                "url": it.get("url"),
-                "bytes": int(float(it.get("size") or 0)),
-                "time": float(it.get("time") or 0.0),
-                "start": float(it.get("start") or 0.0)
-            })
+            out.append(
+                {
+                    "url": it.get("url"),
+                    "bytes": int(float(it.get("size") or 0)),
+                    "time": float(it.get("time") or 0.0),
+                    "start": float(it.get("start") or 0.0),
+                }
+            )
         except Exception:
             continue
     return out
 
 
-def _collect_media_via_context(context, page, logger, timeout_s: int = 12) -> list[dict]:
+def _collect_media_via_context(
+    context, page, logger, timeout_s: int = 12
+) -> list[dict]:
     records = []
     store = {}
 
@@ -763,14 +789,14 @@ def _collect_media_via_context(context, page, logger, timeout_s: int = 12) -> li
         if not headers:
             return 0
         h = {str(k).lower(): v for k, v in headers.items()}
-        cr = h.get('content-range')
-        if cr and '/' in cr:
+        cr = h.get("content-range")
+        if cr and "/" in cr:
             try:
-                total = int(cr.split('/')[-1].strip())
+                total = int(cr.split("/")[-1].strip())
                 return total
             except Exception:
                 pass
-        cl = h.get('content-length')
+        cl = h.get("content-length")
         try:
             return int(str(cl).strip()) if cl else 0
         except Exception:
@@ -779,9 +805,9 @@ def _collect_media_via_context(context, page, logger, timeout_s: int = 12) -> li
     def on_req(req):
         try:
             store[req] = {
-                'url': req.url,
-                'start': time.time(),
-                'rtype': (req.resource_type or '').lower(),
+                "url": req.url,
+                "start": time.time(),
+                "rtype": (req.resource_type or "").lower(),
             }
         except Exception:
             pass
@@ -794,9 +820,11 @@ def _collect_media_via_context(context, page, logger, timeout_s: int = 12) -> li
                 return
             headers = resp.headers or {}
             size = _size_from_headers(headers)
-            mime = str(headers.get('content-type') or headers.get('Content-Type') or '').lower()
+            mime = str(
+                headers.get("content-type") or headers.get("Content-Type") or ""
+            ).lower()
             st = int(resp.status or 0)
-            rec.update({'status': st, 'mime': mime, 'bytes': size})
+            rec.update({"status": st, "mime": mime, "bytes": size})
         except Exception:
             pass
 
@@ -805,24 +833,42 @@ def _collect_media_via_context(context, page, logger, timeout_s: int = 12) -> li
             rec = store.get(req)
             if not rec:
                 return
-            rec['end'] = time.time()
-            url = (rec.get('url') or '').lower()
-            has_audio_ext = any(ext in url for ext in ['.wav','.mp3','.m4a','.aac','.ogg','.opus','.flac','.webm'])
-            looks_audio = has_audio_ext or (rec.get('mime') or '').startswith('audio') or (rec.get('rtype') == 'media')
-            st = int(rec.get('status') or 0)
-            if looks_audio and st in (200,206):
+            rec["end"] = time.time()
+            url = (rec.get("url") or "").lower()
+            has_audio_ext = any(
+                ext in url
+                for ext in [
+                    ".wav",
+                    ".mp3",
+                    ".m4a",
+                    ".aac",
+                    ".ogg",
+                    ".opus",
+                    ".flac",
+                    ".webm",
+                ]
+            )
+            looks_audio = (
+                has_audio_ext
+                or (rec.get("mime") or "").startswith("audio")
+                or (rec.get("rtype") == "media")
+            )
+            st = int(rec.get("status") or 0)
+            if looks_audio and st in (200, 206):
                 records.append(rec)
         except Exception:
             pass
 
-    context.on('request', on_req)
-    context.on('response', on_resp)
-    context.on('requestfinished', on_done)
+    context.on("request", on_req)
+    context.on("response", on_resp)
+    context.on("requestfinished", on_done)
 
     try:
         clicked = _click_refresh(page)
         if not clicked:
-            page.evaluate("() => { const as = Array.from(document.querySelectorAll('audio')); as.forEach(a=>{try{a.load&&a.load()}catch{}}); }")
+            page.evaluate(
+                "() => { const as = Array.from(document.querySelectorAll('audio')); as.forEach(a=>{try{a.load&&a.load()}catch{}}); }"
+            )
     except Exception:
         pass
 
@@ -836,9 +882,9 @@ def _collect_media_via_context(context, page, logger, timeout_s: int = 12) -> li
             pass
 
     try:
-        context.remove_listener('request', on_req)
-        context.remove_listener('response', on_resp)
-        context.remove_listener('requestfinished', on_done)
+        context.remove_listener("request", on_req)
+        context.remove_listener("response", on_resp)
+        context.remove_listener("requestfinished", on_done)
     except Exception:
         pass
 
@@ -857,11 +903,10 @@ def _decide_by_cdp_media(page, logger, timeout_s: int = 15) -> Optional[str]:
             session.send("Network.clearBrowserCache", {})
         except Exception:
             pass
-        session.send("Target.setAutoAttach", {
-            "autoAttach": True,
-            "waitForDebuggerOnStart": False,
-            "flatten": True
-        })
+        session.send(
+            "Target.setAutoAttach",
+            {"autoAttach": True, "waitForDebuggerOnStart": False, "flatten": True},
+        )
     except Exception:
         pass
 
@@ -871,14 +916,16 @@ def _decide_by_cdp_media(page, logger, timeout_s: int = 15) -> Optional[str]:
         try:
             req_id = e.get("requestId")
             req = e.get("request", {})
-            url = (req.get("url") or "")
+            url = req.get("url") or ""
             rtype = (e.get("type") or "").lower()
             data = entries.setdefault(req_id, {})
-            data.update({
-                "url": url,
-                "start": float(e.get("timestamp") or 0.0),
-                "rtype": rtype,
-            })
+            data.update(
+                {
+                    "url": url,
+                    "start": float(e.get("timestamp") or 0.0),
+                    "rtype": rtype,
+                }
+            )
         except Exception:
             pass
 
@@ -956,21 +1003,38 @@ def _decide_by_cdp_media(page, logger, timeout_s: int = 15) -> Optional[str]:
                 pass
 
     session.on("Network.requestWillBeSent", on_request)
-    session.on("Network.responseReceived", lambda e: (on_response(e), _apply_headers_to_entry(e.get("requestId"), (e.get("response") or {}).get("headers"))) )
-    session.on("Network.responseReceivedExtraInfo", lambda e: _apply_headers_to_entry(e.get("requestId"), e.get("headers")))
+    session.on(
+        "Network.responseReceived",
+        lambda e: (
+            on_response(e),
+            _apply_headers_to_entry(
+                e.get("requestId"), (e.get("response") or {}).get("headers")
+            ),
+        ),
+    )
+    session.on(
+        "Network.responseReceivedExtraInfo",
+        lambda e: _apply_headers_to_entry(e.get("requestId"), e.get("headers")),
+    )
     session.on("Network.loadingFinished", on_finished)
     session.on("Network.dataReceived", on_data)
 
     def _send_to_target(session_id: str, method: str, params: dict | None = None):
         try:
-            msg = {"id": int(time.time()*1000)%1000000, "method": method}
+            msg = {"id": int(time.time() * 1000) % 1000000, "method": method}
             if params:
                 msg["params"] = params
-            session.send("Target.sendMessageToTarget", {"sessionId": session_id, "message": json.dumps(msg)})
+            session.send(
+                "Target.sendMessageToTarget",
+                {"sessionId": session_id, "message": json.dumps(msg)},
+            )
         except Exception:
             pass
 
-    session.on("Target.attachedToTarget", lambda e: _send_to_target(e.get("sessionId"), "Network.enable", {}))
+    session.on(
+        "Target.attachedToTarget",
+        lambda e: _send_to_target(e.get("sessionId"), "Network.enable", {}),
+    )
 
     def _on_msg_from_target(e):
         try:
@@ -985,7 +1049,10 @@ def _decide_by_cdp_media(page, logger, timeout_s: int = 15) -> Optional[str]:
             elif method == "Network.responseReceived":
                 on_response(params)
                 try:
-                    _apply_headers_to_entry(params.get("requestId"), ((params.get("response") or {}).get("headers") or {}))
+                    _apply_headers_to_entry(
+                        params.get("requestId"),
+                        ((params.get("response") or {}).get("headers") or {}),
+                    )
                 except Exception:
                     pass
             elif method == "Network.loadingFinished":
@@ -994,6 +1061,7 @@ def _decide_by_cdp_media(page, logger, timeout_s: int = 15) -> Optional[str]:
                 on_data(params)
         except Exception:
             pass
+
     session.on("Target.receivedMessageFromTarget", _on_msg_from_target)
 
     tried_refresh = False
@@ -1017,42 +1085,69 @@ def _decide_by_cdp_media(page, logger, timeout_s: int = 15) -> Optional[str]:
         for d in entries.values():
             if ("start" in d) and ("end" in d):
                 st = int(d.get("status") or 0)
-                ok_status = (st == 206 or st == 200)
-                size = int(d.get("bytes_total") or d.get("bytes_header") or d.get("bytes_encoded") or d.get("bytes_data") or 0)
+                ok_status = st == 206 or st == 200
+                # size value is not used; omit to avoid unused variable lint
                 url = (d.get("url") or "").lower()
                 mime = (d.get("mime") or "").lower()
                 rtype = (d.get("rtype") or "").lower()
-                has_audio_ext = any(ext in url for ext in [
-                    ".wav", ".mp3", ".m4a", ".aac", ".ogg", ".opus", ".flac", ".webm"
-                ])
-                looks_audio = has_audio_ext or mime.startswith("audio") or (rtype == "media")
+                has_audio_ext = any(
+                    ext in url
+                    for ext in [
+                        ".wav",
+                        ".mp3",
+                        ".m4a",
+                        ".aac",
+                        ".ogg",
+                        ".opus",
+                        ".flac",
+                        ".webm",
+                    ]
+                )
+                looks_audio = (
+                    has_audio_ext or mime.startswith("audio") or (rtype == "media")
+                )
                 if ok_status and looks_audio and not mime.startswith("image"):
                     fins.append(d)
         if len(fins) >= 3:
             fins.sort(key=lambda x: x.get("start", 0.0))
             fins = fins[-3:]
             A, B, R = fins[0], fins[1], fins[2]
+
             def size_kb(d):
-                sz = int(d.get("bytes_total") or d.get("bytes_header") or d.get("bytes_encoded") or d.get("bytes_data") or 0)
+                sz = int(
+                    d.get("bytes_total")
+                    or d.get("bytes_header")
+                    or d.get("bytes_encoded")
+                    or d.get("bytes_data")
+                    or 0
+                )
                 return sz / 1024.0
+
             def time_ms(d):
-                return max(0.0, (float(d.get("end") or 0.0) - float(d.get("start") or 0.0)) * 1000.0)
+                return max(
+                    0.0,
+                    (float(d.get("end") or 0.0) - float(d.get("start") or 0.0))
+                    * 1000.0,
+                )
+
             sizes = [size_kb(A), size_kb(B), size_kb(R)]
             times = [time_ms(A), time_ms(B), time_ms(R)]
             r_idx = int(max(range(3), key=lambda i: sizes[i]))
             if r_idx != 2:
-                order = [0,1,2]
+                order = [0, 1, 2]
                 order.remove(r_idx)
                 order.append(r_idx)
-                A, B, R = [ [A,B,R][i] for i in order ]
-                sizes = [ sizes[i] for i in order ]
-                times = [ times[i] for i in order ]
+                A, B, R = [[A, B, R][i] for i in order]
+                sizes = [sizes[i] for i in order]
+                times = [times[i] for i in order]
             sa, sb, sr = sizes[0], sizes[1], sizes[2]
             ta, tb, tr = times[0], times[1], times[2]
+
             def closeness(sx, tx):
                 ns = abs(sx - sr) / max(sr, 1e-6)
                 nt = abs(tx - tr) / max(tr, 1e-6)
                 return 0.7 * ns + 0.3 * nt
+
             ca = closeness(sa, ta)
             cb = closeness(sb, tb)
             if abs(ca - cb) <= 0.01:
@@ -1065,17 +1160,56 @@ def _decide_by_cdp_media(page, logger, timeout_s: int = 15) -> Optional[str]:
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Automatiza comparaciones de calidad de audio (TLS)")
+    parser = argparse.ArgumentParser(
+        description="Automatiza comparaciones de calidad de audio (TLS)"
+    )
     parser.add_argument("--headed", action="store_true", help="Abrir navegador con UI")
-    parser.add_argument("--delay-seconds", type=int, default=1, help="Retardo humano por iteración (s)")
-    parser.add_argument("--max-iters", type=int, default=3, help="Máximo de iteraciones (0 = ilimitado)")
-    parser.add_argument("--log-file", type=str, default=str(paths.LOGS_DIR / "run.log"), help="Ruta del log (por defecto artifacts/tls_compara_audios/logs/run.log)")
-    parser.add_argument("--header-first", action="store_true", help="Preferir tamaños totales por headers (Content-Range/Length) usando los src del DOM")
-    parser.add_argument("--urls", nargs='*', help="Opcional: pasar 3 URLs WAV (A B R) para calcular tamaños por headers sin navegador")
-    parser.add_argument("--audit-csv", type=str, default=str(paths.OUTPUTS_DIR / "audit" / "decisions.csv"), help="Ruta de CSV para auditar decisiones/medidas (default en artifacts)")
-    parser.add_argument("--audit-limit", type=int, default=0, help="Máximo de filas a guardar en CSV (0 = todas)")
-    parser.add_argument("--audit-batch", type=int, default=1, help="Escribir el CSV cada N iteraciones (1 = cada iteración)")
-    parser.add_argument("--url", type=str, default="https://www.multimango.com/tasks/080825-audio-quality-compare", help="URL de la tarea")
+    parser.add_argument(
+        "--delay-seconds", type=int, default=1, help="Retardo humano por iteración (s)"
+    )
+    parser.add_argument(
+        "--max-iters", type=int, default=3, help="Máximo de iteraciones (0 = ilimitado)"
+    )
+    parser.add_argument(
+        "--log-file",
+        type=str,
+        default=str(paths.LOGS_DIR / "run.log"),
+        help="Ruta del log (por defecto artifacts/tls_compara_audios/logs/run.log)",
+    )
+    parser.add_argument(
+        "--header-first",
+        action="store_true",
+        help="Preferir tamaños totales por headers (Content-Range/Length) usando los src del DOM",
+    )
+    parser.add_argument(
+        "--urls",
+        nargs="*",
+        help="Opcional: pasar 3 URLs WAV (A B R) para calcular tamaños por headers sin navegador",
+    )
+    parser.add_argument(
+        "--audit-csv",
+        type=str,
+        default=str(paths.OUTPUTS_DIR / "audit" / "decisions.csv"),
+        help="Ruta de CSV para auditar decisiones/medidas (default en artifacts)",
+    )
+    parser.add_argument(
+        "--audit-limit",
+        type=int,
+        default=0,
+        help="Máximo de filas a guardar en CSV (0 = todas)",
+    )
+    parser.add_argument(
+        "--audit-batch",
+        type=int,
+        default=1,
+        help="Escribir el CSV cada N iteraciones (1 = cada iteración)",
+    )
+    parser.add_argument(
+        "--url",
+        type=str,
+        default="https://www.multimango.com/tasks/080825-audio-quality-compare",
+        help="URL de la tarea",
+    )
     args = parser.parse_args()
 
     log_path = Path(args.log_file) if args.log_file else None
@@ -1088,22 +1222,31 @@ def main():
     if args.urls and len(args.urls) >= 3:
         urls_list = args.urls[:3]
         urls = {"A": urls_list[0], "B": urls_list[1], "R": urls_list[2]}
+
         def size_for(u: str) -> int:
             try:
                 s = requests.Session()
                 try:
                     r = s.head(u, timeout=10, allow_redirects=True)
-                    cl = r.headers.get('Content-Length') or r.headers.get('content-length')
+                    cl = r.headers.get("Content-Length") or r.headers.get(
+                        "content-length"
+                    )
                     if cl:
                         return int(str(cl).strip())
                 except Exception:
                     pass
                 try:
-                    r = s.get(u, headers={"Range": "bytes=0-0"}, stream=True, timeout=15)
-                    cr = r.headers.get('Content-Range') or r.headers.get('content-range')
-                    if cr and '/' in cr:
-                        return int(cr.split('/')[-1].strip())
-                    cl2 = r.headers.get('Content-Length') or r.headers.get('content-length')
+                    r = s.get(
+                        u, headers={"Range": "bytes=0-0"}, stream=True, timeout=15
+                    )
+                    cr = r.headers.get("Content-Range") or r.headers.get(
+                        "content-range"
+                    )
+                    if cr and "/" in cr:
+                        return int(cr.split("/")[-1].strip())
+                    cl2 = r.headers.get("Content-Length") or r.headers.get(
+                        "content-length"
+                    )
                     if cl2:
                         return int(str(cl2).strip())
                 except Exception:
@@ -1111,9 +1254,12 @@ def main():
             except Exception:
                 return 0
             return 0
+
         sizes = {k: size_for(v) for k, v in urls.items()}
-        kb = {k: (v/1024.0 if v else 0.0) for k, v in sizes.items()}
-        print(f"Header sizes -> R:{kb['R']:.1f} kB A:{kb['A']:.1f} kB B:{kb['B']:.1f} kB (bytes R:{sizes['R']} A:{sizes['A']} B:{sizes['B']})")
+        kb = {k: (v / 1024.0 if v else 0.0) for k, v in sizes.items()}
+        print(
+            f"Header sizes -> R:{kb['R']:.1f} kB A:{kb['A']:.1f} kB B:{kb['B']:.1f} kB (bytes R:{sizes['R']} A:{sizes['A']} B:{sizes['B']})"
+        )
         return
 
     with sync_playwright() as p:
@@ -1148,28 +1294,40 @@ def main():
                         ua = None
                     sizes = _measure_sizes_via_http(page, urls, ua=ua)
                     times = _perf_times_for_urls(page, urls)
-                    vals = [sizes.get("A",0), sizes.get("B",0), sizes.get("R",0)]
-                    tvals = [times.get("A",0.0), times.get("B",0.0), times.get("R",0.0)]
-                    if sum(1 for v in vals if v>0) >= 2:
-                        sizes_kb = [v/1024.0 for v in vals]
+                    vals = [sizes.get("A", 0), sizes.get("B", 0), sizes.get("R", 0)]
+                    tvals = [
+                        times.get("A", 0.0),
+                        times.get("B", 0.0),
+                        times.get("R", 0.0),
+                    ]
+                    if sum(1 for v in vals if v > 0) >= 2:
+                        sizes_kb = [v / 1024.0 for v in vals]
                         r_idx = int(max(range(3), key=lambda i: sizes_kb[i]))
-                        order = [0,1,2]
+                        order = [0, 1, 2]
                         if r_idx != 2:
                             order.remove(r_idx)
                             order.append(r_idx)
                             sizes_kb = [sizes_kb[i] for i in order]
                             tvals = [tvals[i] for i in order]
-                        sa,sb,sr = sizes_kb[0], sizes_kb[1], sizes_kb[2]
-                        ta,tb,tr = tvals[0], tvals[1], tvals[2]
+                        sa, sb, sr = sizes_kb[0], sizes_kb[1], sizes_kb[2]
+                        ta, tb, tr = tvals[0], tvals[1], tvals[2]
+
                         def closeness(sx, tx):
                             ns = abs(sx - sr) / max(sr, 1e-6)
                             nt = abs(tx - tr) / max(tr, 1e-6)
-                            return 0.7*ns + 0.3*nt
-                        ca,cb = closeness(sa,ta), closeness(sb,tb)
-                        decision = 'Tie' if abs(ca-cb)<=0.01 else ('Version A' if ca<cb else 'Version B')
-                        iter_source = 'header-first'
+                            return 0.7 * ns + 0.3 * nt
+
+                        ca, cb = closeness(sa, ta), closeness(sb, tb)
+                        decision = (
+                            "Tie"
+                            if abs(ca - cb) <= 0.01
+                            else ("Version A" if ca < cb else "Version B")
+                        )
+                        iter_source = "header-first"
                         iter_sizes_kb = (sr, sa, sb)
-                        logger.debug(f"Header media (kB/ms) -> R:({sr:.0f}kB,{tr:.0f}ms) A:({sa:.0f}kB,{ta:.0f}ms) B:({sb:.0f}kB,{tb:.0f}ms) => {decision}")
+                        logger.debug(
+                            f"Header media (kB/ms) -> R:({sr:.0f}kB,{tr:.0f}ms) A:({sa:.0f}kB,{ta:.0f}ms) B:({sb:.0f}kB,{tb:.0f}ms) => {decision}"
+                        )
                 except Exception:
                     decision = None
 
@@ -1179,7 +1337,7 @@ def main():
                 dec_net = None
             if dec_net:
                 decision = dec_net
-                iter_source = iter_source or 'cdp'
+                iter_source = iter_source or "cdp"
 
             if not decision:
                 try:
@@ -1193,29 +1351,41 @@ def main():
                             ua = None
                         sizes = _measure_sizes_via_http(page, urls, ua=ua)
                         times = _perf_times_for_urls(page, urls)
-                        vals = [sizes.get("A",0), sizes.get("B",0), sizes.get("R",0)]
-                        tvals = [times.get("A",0.0), times.get("B",0.0), times.get("R",0.0)]
-                        if sum(1 for v in vals if v>0) >= 2:
-                            sizes_kb = [v/1024.0 for v in vals]
+                        vals = [sizes.get("A", 0), sizes.get("B", 0), sizes.get("R", 0)]
+                        tvals = [
+                            times.get("A", 0.0),
+                            times.get("B", 0.0),
+                            times.get("R", 0.0),
+                        ]
+                        if sum(1 for v in vals if v > 0) >= 2:
+                            sizes_kb = [v / 1024.0 for v in vals]
                             times_ms = tvals
                             r_idx = int(max(range(3), key=lambda i: sizes_kb[i]))
-                            order = [0,1,2]
+                            order = [0, 1, 2]
                             if r_idx != 2:
                                 order.remove(r_idx)
                                 order.append(r_idx)
                                 sizes_kb = [sizes_kb[i] for i in order]
                                 times_ms = [times_ms[i] for i in order]
-                            sa,sb,sr = sizes_kb
-                            ta,tb,tr = times_ms
+                            sa, sb, sr = sizes_kb
+                            ta, tb, tr = times_ms
+
                             def closeness(sx, tx):
                                 ns = abs(sx - sr) / max(sr, 1e-6)
                                 nt = abs(tx - tr) / max(tr, 1e-6)
-                                return 0.7*ns + 0.3*nt
-                            ca,cb = closeness(sa,ta), closeness(sb,tb)
-                            decision = 'Tie' if abs(ca-cb)<=0.01 else ('Version A' if ca<cb else 'Version B')
-                            iter_source = 'perf-http'
+                                return 0.7 * ns + 0.3 * nt
+
+                            ca, cb = closeness(sa, ta), closeness(sb, tb)
+                            decision = (
+                                "Tie"
+                                if abs(ca - cb) <= 0.01
+                                else ("Version A" if ca < cb else "Version B")
+                            )
+                            iter_source = "perf-http"
                             iter_sizes_kb = (sr, sa, sb)
-                            logger.debug(f"Perf last3+HTTP -> R:{sr:.0f}kB A:{sa:.0f}kB B:{sb:.0f}kB => {decision}")
+                            logger.debug(
+                                f"Perf last3+HTTP -> R:{sr:.0f}kB A:{sa:.0f}kB B:{sb:.0f}kB => {decision}"
+                            )
                 except Exception:
                     decision = None
 
@@ -1230,46 +1400,66 @@ def main():
                         ua = None
                     sizes = _measure_sizes_via_http(page, urls, ua=ua)
                     times = _perf_times_for_urls(page, urls)
-                    vals = [sizes.get("A",0), sizes.get("B",0), sizes.get("R",0)]
-                    tvals = [times.get("A",0.0), times.get("B",0.0), times.get("R",0.0)]
-                    if sum(1 for v in vals if v>0) >= 2 and all(t>=0 for t in tvals):
-                        sizes_kb = [val/1024.0 for val in vals]
+                    vals = [sizes.get("A", 0), sizes.get("B", 0), sizes.get("R", 0)]
+                    tvals = [
+                        times.get("A", 0.0),
+                        times.get("B", 0.0),
+                        times.get("R", 0.0),
+                    ]
+                    if sum(1 for v in vals if v > 0) >= 2 and all(
+                        t >= 0 for t in tvals
+                    ):
+                        sizes_kb = [val / 1024.0 for val in vals]
                         times_ms = tvals
                         r_idx = int(max(range(3), key=lambda i: sizes_kb[i]))
-                        order = [0,1,2]
+                        order = [0, 1, 2]
                         if r_idx != 2:
                             order.remove(r_idx)
                             order.append(r_idx)
                             sizes_kb = [sizes_kb[i] for i in order]
                             times_ms = [times_ms[i] for i in order]
-                        sa,sb,sr = sizes_kb[0], sizes_kb[1], sizes_kb[2]
-                        ta,tb,tr = times_ms[0], times_ms[1], times_ms[2]
+                        sa, sb, sr = sizes_kb[0], sizes_kb[1], sizes_kb[2]
+                        ta, tb, tr = times_ms[0], times_ms[1], times_ms[2]
+
                         def closeness(sx, tx):
                             ns = abs(sx - sr) / max(sr, 1e-6)
                             nt = abs(tx - tr) / max(tr, 1e-6)
-                            return 0.7*ns + 0.3*nt
-                        ca = closeness(sa,ta)
-                        cb = closeness(sb,tb)
-                        if abs(ca-cb) <= 0.01:
+                            return 0.7 * ns + 0.3 * nt
+
+                        ca = closeness(sa, ta)
+                        cb = closeness(sb, tb)
+                        if abs(ca - cb) <= 0.01:
                             decision = "Tie"
                         elif ca < cb:
                             decision = "Version A"
                         else:
                             decision = "Version B"
-                        iter_source = 'dom-http'
+                        iter_source = "dom-http"
                         iter_sizes_kb = (sr, sa, sb)
-                        logger.debug(f"DOM srcs+HTTP -> R:{sr:.0f}kB A:{sa:.0f}kB B:{sb:.0f}kB => {decision}")
+                        logger.debug(
+                            f"DOM srcs+HTTP -> R:{sr:.0f}kB A:{sa:.0f}kB B:{sb:.0f}kB => {decision}"
+                        )
                 except Exception:
                     decision = None
                 if not decision:
-                    logger.warning("No se detectaron 3 entradas Media tras CDP/Page/Perf. Declarando Tie.")
+                    logger.warning(
+                        "No se detectaron 3 entradas Media tras CDP/Page/Perf. Declarando Tie."
+                    )
                     decision = "Tie"
 
             if not iter_sizes_kb:
                 try:
                     hdr = _header_sizes_kb_for_current(page)
-                    iter_sizes_kb = (hdr.get('R', 0.0), hdr.get('A', 0.0), hdr.get('B', 0.0))
-                    if (iter_sizes_kb[0] == 0.0 and iter_sizes_kb[1] == 0.0 and iter_sizes_kb[2] == 0.0):
+                    iter_sizes_kb = (
+                        hdr.get("R", 0.0),
+                        hdr.get("A", 0.0),
+                        hdr.get("B", 0.0),
+                    )
+                    if (
+                        iter_sizes_kb[0] == 0.0
+                        and iter_sizes_kb[1] == 0.0
+                        and iter_sizes_kb[2] == 0.0
+                    ):
                         try:
                             last3 = _perf_get_last3_media_urls(page)
                             if len(last3) == 3:
@@ -1280,11 +1470,13 @@ def main():
                                 except Exception:
                                     ua = None
                                 sizes = _measure_sizes_via_http(page, urls, ua=ua)
-                                iter_sizes_kb = (float(int(sizes.get('R') or 0))/1024.0,
-                                                 float(int(sizes.get('A') or 0))/1024.0,
-                                                 float(int(sizes.get('B') or 0))/1024.0)
+                                iter_sizes_kb = (
+                                    float(int(sizes.get("R") or 0)) / 1024.0,
+                                    float(int(sizes.get("A") or 0)) / 1024.0,
+                                    float(int(sizes.get("B") or 0)) / 1024.0,
+                                )
                                 if not iter_source:
-                                    iter_source = 'perf-http'
+                                    iter_source = "perf-http"
                         except Exception:
                             pass
                 except Exception:
@@ -1306,12 +1498,18 @@ def main():
             try:
                 if not iter_sizes_kb:
                     hdr = _header_sizes_kb_for_current(page)
-                    iter_sizes_kb = (hdr.get('R', 0.0), hdr.get('A', 0.0), hdr.get('B', 0.0))
+                    iter_sizes_kb = (
+                        hdr.get("R", 0.0),
+                        hdr.get("A", 0.0),
+                        hdr.get("B", 0.0),
+                    )
             except Exception:
                 iter_sizes_kb = iter_sizes_kb or (0.0, 0.0, 0.0)
             try:
                 sr_kb, sa_kb, sb_kb = iter_sizes_kb or (0.0, 0.0, 0.0)
-                logger.info(f"Iter {iterations + 1} -> Sizes kB R:{sr_kb:.0f} A:{sa_kb:.0f} B:{sb_kb:.0f} | Decision: {decision}")
+                logger.info(
+                    f"Iter {iterations + 1} -> Sizes kB R:{sr_kb:.0f} A:{sa_kb:.0f} B:{sb_kb:.0f} | Decision: {decision}"
+                )
                 if csv_path:
                     row = {
                         "iter": iterations + 1,
@@ -1324,8 +1522,10 @@ def main():
                     }
                     csv_rows.append(row)
                     if args.audit_limit and len(csv_rows) > args.audit_limit:
-                        csv_rows = csv_rows[-args.audit_limit:]
-                    if (args.audit_batch <= 1) or (((iterations + 1) % args.audit_batch) == 0):
+                        csv_rows = csv_rows[-args.audit_limit :]
+                    if (args.audit_batch <= 1) or (
+                        ((iterations + 1) % args.audit_batch) == 0
+                    ):
                         try:
                             csv_path.parent.mkdir(parents=True, exist_ok=True)
                             with csv_path.open("w", newline="", encoding="utf-8") as f:

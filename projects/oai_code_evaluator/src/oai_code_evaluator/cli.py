@@ -1,19 +1,21 @@
 from __future__ import annotations
+
 import argparse
 import json
 from pathlib import Path
 from typing import Any
+
 import yaml
 
+from .config_loader import load_config_dir, validate_bundle
+from .evaluator import Evaluator
 from .logging_utils import setup_logger
 from .models import (
-    ModelResponse,
     AttemptRatings,
     AttemptSubmission,
     EvaluationInput,
+    ModelResponse,
 )
-from .evaluator import Evaluator
-from .config_loader import load_config_dir, validate_bundle
 
 
 def load_input(path: Path) -> EvaluationInput:
@@ -109,7 +111,7 @@ def main():  # pragma: no cover - CLI orchestration
 
     if args.report_md:
         lines = [
-            f"# Evaluation",
+            "# Evaluation",
             "## Summary",
             result.global_summary,
             "## Prompt Feedback",

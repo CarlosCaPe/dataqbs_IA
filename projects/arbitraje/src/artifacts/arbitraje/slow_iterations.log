@@ -1,0 +1,2 @@
+{"snapshot_id": "snap", "technique": "bellman_ford_numba", "numba_call_s": 1.3090660572052002, "postproc_s": 0.0, "total_s": 1.3090660572052002, "results": 1, "timestamp": 1760582946}
+{"snapshot_id": "snap", "technique": "bellman_ford_numba", "numba_call_s": 1.61100172996521, "postproc_s": 0.0, "total_s": 1.61100172996521, "results": 1, "timestamp": 1760583005}

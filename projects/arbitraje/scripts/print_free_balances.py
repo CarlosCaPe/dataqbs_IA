@@ -8,6 +8,7 @@ except Exception:
     load_dotenv = None  # type: ignore
 
 import json
+
 import ccxt  # type: ignore
 
 

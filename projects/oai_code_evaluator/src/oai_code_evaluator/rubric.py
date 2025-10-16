@@ -2,6 +2,7 @@
 In a real setting these would be loaded from authoritative docs or versioned guidelines.
 """
 from __future__ import annotations
+
 from typing import Dict, Tuple
 
 # Expected ranges or soft thresholds for each dimension (0-5 scale for example)

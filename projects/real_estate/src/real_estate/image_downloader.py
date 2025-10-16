@@ -1,8 +1,9 @@
-import os
-import json
-import requests
 import logging
+import os
 from concurrent.futures import ThreadPoolExecutor
+
+import requests
+
 from . import paths
 
 logger = logging.getLogger("real_estate")

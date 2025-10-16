@@ -1,6 +1,9 @@
 from __future__ import annotations
+
 import json
+
 import ccxt  # type: ignore
+
 
 def main() -> int:
     exs = ["binance", "okx", "bitget", "mexc"]

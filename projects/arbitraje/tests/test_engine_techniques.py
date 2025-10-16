@@ -1,5 +1,5 @@
-import time
 import pickle
+import time
 
 from arbitraje.engine_techniques import scan_arbitrage
 
@@ -32,9 +32,7 @@ def test_scan_arbitrage_stat_tri_and_bf():
     }
     cfg = {"techniques": {"enabled": ["stat_tri", "bellman_ford"], "max_workers": 2}}
 
-    t0 = time.time()
     res = scan_arbitrage("snap1", payload, cfg)
-    t1 = time.time()
     # Expect at least one actionable result
     assert isinstance(res, list)
     assert len(res) >= 1

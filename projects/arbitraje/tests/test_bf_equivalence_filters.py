@@ -1,5 +1,4 @@
 from arbitraje.engine_techniques import scan_arbitrage
-from arbitraje import arbitrage_report_ccxt as arc
 
 
 def make_tickers_with_blacklist():

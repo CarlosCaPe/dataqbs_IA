@@ -4,6 +4,7 @@ All runtime artifacts live under the monorepo-level `artifacts/email_collector` 
 Import these constants instead of hard-coding relative paths.
 """
 from __future__ import annotations
+
 from pathlib import Path
 
 # projects/email_collector/src/email_collector/paths.py -> src/email_collector -> project root

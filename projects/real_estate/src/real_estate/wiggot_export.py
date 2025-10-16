@@ -1,11 +1,14 @@
+import argparse
 import os
 import sys
 import time
-import argparse
 from pathlib import Path
+
+from playwright.sync_api import TimeoutError as PlaywrightTimeoutError
+from playwright.sync_api import sync_playwright
+
 from . import paths
 
-from playwright.sync_api import sync_playwright, TimeoutError as PlaywrightTimeoutError
 try:
     from dotenv import load_dotenv  # type: ignore
 except Exception:  # ImportError or others

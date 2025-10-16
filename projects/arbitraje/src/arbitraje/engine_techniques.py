@@ -1,11 +1,17 @@
 from __future__ import annotations
 
+import json
+from pathlib import Path
 import logging
 import os
 import time
-import json
-from concurrent.futures import ThreadPoolExecutor, TimeoutError as ThreadTimeoutError
-from concurrent.futures import ProcessPoolExecutor, as_completed
+from concurrent.futures import (
+    FIRST_COMPLETED,
+    ProcessPoolExecutor,
+    ThreadPoolExecutor,
+    wait,
+)
+from concurrent.futures import TimeoutError as ThreadTimeoutError
 from typing import Callable, Dict, List
 
 logger = logging.getLogger("arbitraje.engine_techniques")
@@ -24,13 +30,40 @@ def _tech_bellman_ford(
 ) -> List[ArbResult]:
     logger.debug("_tech_bellman_ford running snapshot=%s", snapshot_id)
     try:
+        # If a precomputed volatility map is attached to the payload, use it.
+        # This avoids recalculating stddevs inside the hot loop repeatedly.
+        pre_vol = None
+        try:
+            pre_vol = payload.get("_precomputed_volatility")
+        except Exception:
+            pre_vol = None
         # Expect a payload dict with tickers and tokens to avoid any network IO here.
-        if not isinstance(edges, dict):
-            logger.debug("_tech_bellman_ford received non-payload edges; skipping")
+        # Be defensive: callers may pass None or partial payloads; treat those
+        # gracefully and return an empty result rather than raising.
+        if not edges:
+            logger.debug("_tech_bellman_ford received empty edges; skipping")
             return []
 
-        payload = edges
+        # Prefer dict payloads. If a mapping-like object was passed, try to
+        # coerce to dict; otherwise skip.
+        if not isinstance(edges, dict):
+            try:
+                payload = dict(edges)
+            except Exception:
+                logger.debug(
+                    "_tech_bellman_ford received non-dict edges (%s); skipping",
+                    type(edges),
+                )
+                return []
+        else:
+            payload = edges
+
         tickers = payload.get("tickers") or {}
+        if tickers is None or not isinstance(tickers, dict):
+            logger.debug(
+                "_tech_bellman_ford tickers missing or invalid; treating as empty"
+            )
+            tickers = {}
         fee = float(payload.get("fee") or 0.0)
         min_net = float(payload.get("min_net") or 0.0)
         ts_now = payload.get("ts") or snapshot_id
@@ -80,6 +113,8 @@ def _tech_bellman_ford(
 
         import math
 
+        # Micro-optimizations: bind locals for hot loops
+        _log = math.log
         fee_frac = float(fee) / 100.0 if fee else 0.0
 
         # Build edge list in index form for Bellman-Ford in log space
@@ -87,41 +122,345 @@ def _tech_bellman_ford(
         n = len(nodes)
         edge_list = []
         rate_map: Dict[tuple, float] = {}
+        # localize frequently used names
+        _idx_get = idx.get
+        _edge_list_append = edge_list.append
+        _rate_map_set = rate_map.__setitem__
         for u, nbrs in graph.items():
+            if not nbrs:
+                continue
+            iu = _idx_get(u)
             for v, rate in nbrs.items():
-                if u not in idx or v not in idx:
+                iv = _idx_get(v)
+                if iu is None or iv is None:
                     continue
                 mult = rate * (1.0 - fee_frac)
                 if mult <= 0:
                     continue
                 try:
-                    w = -math.log(mult)
+                    w = -_log(mult)
                 except Exception:
                     continue
-                edge_list.append((idx[u], idx[v], w, u, v))
-                rate_map[(idx[u], idx[v])] = mult
+                # store only indices and weight to reduce allocation of strings
+                _edge_list_append((iu, iv, w))
+                _rate_map_set((iu, iv), mult)
 
         results: List[ArbResult] = []
         seen_cycles: set = set()
 
-        # Run Bellman-Ford from each source to detect negative cycles
+        # Attempt to use Numba-accelerated BF if available (faster numeric core)
+        use_numba = bool(cfg.get("techniques", {}).get("use_numba", True))
+        try:
+            # bf_numba_impl provides: bellman_ford_numba, build_arrays_from_payload, warmup_numba(optional)
+            from bf_numba_impl import (
+                bellman_ford_numba,
+                build_arrays_from_payload,
+                warmup_numba,
+            )
+        except Exception:
+            bellman_ford_numba = None
+            build_arrays_from_payload = None
+            warmup_numba = None
+
+        # Prepare arrays for numeric BF
+        u_arr = [u for (u, v, w) in edge_list]
+        v_arr = [v for (u, v, w) in edge_list]
+        w_arr = [w for (u, v, w) in edge_list]
+
+        if bellman_ford_numba is not None and use_numba:
+            try:
+                # Optional warm-up (compile) to amortize JIT overhead at startup
+                try:
+                    if warmup_numba is not None and cfg.get("techniques", {}).get("warmup_numba", False):
+                        warmup_numba()
+                except Exception:
+                    logger.debug("numba warmup failed or skipped")
+
+                # pruning: select a subset of sources based on node degree if configured
+                pruning_threshold = int(cfg.get("techniques", {}).get("pruning_degree_threshold", 0))
+                sources = None
+                if pruning_threshold and edge_list:
+                    deg = [0] * n
+                    for u_i, v_i, _w in edge_list:
+                        deg[u_i] += 1
+                        deg[v_i] += 1
+                    sources = [i for i, d in enumerate(deg) if d > pruning_threshold]
+
+                # Improved pruning heuristic: combine quoteVolume with a simple volatility metric
+                qvol_threshold_frac = float(cfg.get("techniques", {}).get("pruning_qvol_frac", 0.0))
+                pruning_volatility_window = int(cfg.get("techniques", {}).get("pruning_volatility_window", 5))
+                if qvol_threshold_frac and tokens:
+                    # compute per-token quoteVolume and volatility from tickers/history
+                    qvol_map = {}
+                    vol_map = {}
+                    # If precomputed vol map exists, use it preferentially
+                    if pre_vol and isinstance(pre_vol, dict):
+                        for tok, v in pre_vol.items():
+                            try:
+                                vol_map[tok] = float(v)
+                            except Exception:
+                                vol_map[tok] = 0.0
+
+                    for sym, t in tickers.items():
+                        if "/" not in sym:
+                            continue
+                        a, b = sym.split("/")
+                        # quoteVolume: support several key names and safe-cast
+                        qv = 0.0
+                        try:
+                            qv = float(
+                                t.get("quoteVolume")
+                                or t.get("quoteVolume24h")
+                                or t.get("quote_volume")
+                                or 0.0
+                            )
+                        except Exception:
+                            qv = 0.0
+                        qvol_map[a] = max(qvol_map.get(a, 0.0), qv)
+                        qvol_map[b] = max(qvol_map.get(b, 0.0), qv)
+
+                        # volatility: look for tiny 'history' list in ticker dict; compute stddev of mid prices
+                        hist = t.get("history") or t.get("ticks") or []
+                        mids = []
+                        try:
+                            for tick in hist[-pruning_volatility_window:]:
+                                bid = tick.get("bid")
+                                ask = tick.get("ask")
+                                if bid is not None and ask is not None:
+                                    mids.append((float(bid) + float(ask)) / 2.0)
+                                else:
+                                    mids.append(float(tick.get("price") or tick.get("px") or 0.0))
+                        except Exception:
+                            mids = []
+                        if len(mids) >= 2:
+                            mean = sum(mids) / len(mids)
+                            var = sum((x - mean) ** 2 for x in mids) / max(1, (len(mids) - 1))
+                            vol_map[a] = max(vol_map.get(a, 0.0), float(var ** 0.5))
+                            vol_map[b] = max(vol_map.get(b, 0.0), float(var ** 0.5))
+                        else:
+                            vol_map[a] = max(vol_map.get(a, 0.0), 0.0)
+                            vol_map[b] = max(vol_map.get(b, 0.0), 0.0)
+
+                    if qvol_map:
+                        # compute combined score and pick top-k tokens
+                        total_qvol = sum(qvol_map.values()) or 1.0
+                        score_map = {
+                            tok: qvol_map.get(tok, 0.0) * (1.0 + vol_map.get(tok, 0.0))
+                            for tok in qvol_map
+                        }
+                        k = max(1, int(len(nodes) * qvol_threshold_frac))
+                        sorted_tokens = sorted(nodes, key=lambda x: score_map.get(x, 0.0), reverse=True)
+                        q_sources = [idx.get(tok) for tok in sorted_tokens[:k] if idx.get(tok) is not None]
+                        if sources is None:
+                            sources = q_sources
+                        else:
+                            sources = [s for s in sources if s in q_sources]
+
+                # Call numba wrapper; if it supports a sources arg, pass it (it may ignore extra args)
+                # time the numba call separately from Python postprocessing
+                numba_call_start = time.time()
+                # Build blacklist index pairs to pass to numba
+                bl_pairs = None
+                if blacklist:
+                    bl_pairs = []
+                    try:
+                        for p in blacklist:
+                            if isinstance(p, str) and "->" in p:
+                                a_s, b_s = p.split("->", 1)
+                                a_i = idx.get(a_s)
+                                b_i = idx.get(b_s)
+                                if a_i is not None and b_i is not None:
+                                    bl_pairs.append((a_i, b_i))
+                    except Exception:
+                        bl_pairs = None
+
+                try:
+                    cycles_idx = bellman_ford_numba(
+                        n,
+                        u_arr,
+                        v_arr,
+                        w_arr,
+                        sources=sources,
+                        min_net_pct=min_net,
+                        min_hops=min_hops,
+                        max_hops=max_hops,
+                        min_net_per_hop=min_net_per_hop,
+                        blacklist_pairs=bl_pairs,
+                    )
+                except TypeError:
+                    # older bf_numba_impl may not accept keyword args
+                    cycles_idx = bellman_ford_numba(n, u_arr, v_arr, w_arr)
+                numba_call_elapsed = time.time() - numba_call_start
+                # cycles_idx is a list of lists of node indices representing cycles
+                # Map cycles back to tokens and apply same filters as before
+                # Precompute blacklist index pairs once
+                bl_idx = set()
+                if blacklist:
+                    try:
+                        for p in blacklist:
+                            if isinstance(p, str) and "->" in p:
+                                a_s, b_s = p.split("->", 1)
+                                a_i = idx.get(a_s)
+                                b_i = idx.get(b_s)
+                                if a_i is not None and b_i is not None:
+                                    bl_idx.add((a_i, b_i))
+                    except Exception:
+                        bl_idx = set()
+
+                postproc_start = time.time()
+                for entry in cycles_idx:
+                    # entry may be either a plain cycle_idx (legacy) or (cycle_idx, sum_w, hops)
+                    if not entry:
+                        continue
+                    sum_w = None
+                    hops = None
+                    if isinstance(entry, (list, tuple)) and len(entry) >= 3 and isinstance(entry[1], (float, int)):
+                        cycle_idx = entry[0]
+                        sum_w = float(entry[1])
+                        hops = int(entry[2])
+                    else:
+                        cycle_idx = entry
+
+                    # normalize and ensure ints
+                    cycle_idx = [int(x) for x in cycle_idx]
+                    # ensure closed cycle
+                    if cycle_idx[0] != cycle_idx[-1]:
+                        closed_idx = cycle_idx + [cycle_idx[0]]
+                    else:
+                        closed_idx = cycle_idx
+                    if len(closed_idx) < 2:
+                        continue
+
+                    # node names
+                    cycle_nodes = [nodes[i] for i in closed_idx]
+                    key = tuple(cycle_nodes)
+                    if key in seen_cycles:
+                        continue
+                    seen_cycles.add(key)
+
+                    # If sum_w was provided, compute prod via exp(-sum_w), otherwise fallback to rate_map
+                    prod = None
+                    if sum_w is not None and sum_w > 0:
+                        try:
+                            import math as _math
+
+                            prod = _math.exp(-sum_w)
+                        except Exception:
+                            prod = None
+
+                    if prod is None:
+                        prod = 1.0
+                        valid = True
+                        for i in range(len(closed_idx) - 1):
+                            u_i = closed_idx[i]
+                            v_i = closed_idx[i + 1]
+                            rate = rate_map.get((u_i, v_i))
+                            if rate is None or rate <= 0:
+                                valid = False
+                                break
+                            prod *= rate
+                        if not valid:
+                            continue
+                        if hops is None:
+                            hops = len(closed_idx) - 1
+
+                    # filters
+                    if hops is None:
+                        hops = len(closed_idx) - 1
+                    if (min_hops and hops < min_hops) or (max_hops and hops > max_hops):
+                        continue
+                    net_pct = (prod - 1.0) * 100.0
+                    if net_pct < min_net:
+                        continue
+                    if min_net_per_hop and (net_pct / max(1, hops)) < min_net_per_hop:
+                        continue
+
+                    # blacklist check
+                    if bl_idx:
+                        blocked = False
+                        for i in range(len(closed_idx) - 1):
+                            if (closed_idx[i], closed_idx[i + 1]) in bl_idx:
+                                blocked = True
+                                break
+                        if blocked:
+                            continue
+
+                    net_bps = (prod - 1.0) * 10000.0
+                    rec = {
+                        "ts": ts_now,
+                        "venue": ex_id,
+                        "cycle": "->".join(cycle_nodes),
+                        "net_bps_est": round(net_bps - latency_penalty, 4),
+                        "fee_bps_total": round(hops * fee * 1.0, 6),
+                        "status": "actionable",
+                    }
+                    results.append(rec)
+                    if len(results) >= top_n:
+                        return results
+                postproc_elapsed = time.time() - postproc_start
+                # attach last telemetry blob on the function for scan_arbitrage to consume
+                try:
+                    _tech_bellman_ford._last_telemetry = {
+                        "numba_call_s": numba_call_elapsed,
+                        "postprocess_s": postproc_elapsed,
+                        "numba_warmup_s": None,
+                    }
+                except Exception:
+                    pass
+                # slow-iteration logging
+                try:
+                    slow_thresh = float(cfg.get("techniques", {}).get("slow_iteration_threshold_s", 0.8))
+                    total_iter_s = (numba_call_elapsed or 0.0) + (postproc_elapsed or 0.0)
+                    if slow_thresh and total_iter_s >= slow_thresh:
+                        try:
+                            art_dir = Path(__file__).resolve().parents[1] / "artifacts" / "arbitraje"
+                            art_dir.mkdir(parents=True, exist_ok=True)
+                            slow_log = art_dir / "slow_iterations.log"
+                            with open(slow_log, "a", encoding="utf-8") as sfh:
+                                sfh.write(
+                                    json.dumps(
+                                        {
+                                            "snapshot_id": snapshot_id,
+                                            "technique": "bellman_ford_numba",
+                                            "numba_call_s": numba_call_elapsed,
+                                            "postproc_s": postproc_elapsed,
+                                            "total_s": total_iter_s,
+                                            "results": len(results),
+                                            "timestamp": int(time.time()),
+                                        }
+                                    )
+                                    + "\n"
+                                )
+                        except Exception:
+                            logger.debug("failed to write slow iteration log")
+                except Exception:
+                    pass
+                return results
+            except Exception:
+                logger.exception(
+                    "Numba BF path failed; falling back to Python implementation"
+                )
+
+        # fallback: original pure-Python BF loop
         for s in range(n):
             dist = [float("inf")] * n
             parent = [-1] * n
             dist[s] = 0.0
+            # standard Bellman-Ford relaxations with early-exit
             for _ in range(n - 1):
                 updated = False
-                for u, v, w, uu, vv in edge_list:
-                    if dist[u] + w < dist[v]:
-                        dist[v] = dist[u] + w
+                for u, v, w in edge_list:
+                    du = dist[u]
+                    if du + w < dist[v]:
+                        dist[v] = du + w
                         parent[v] = u
                         updated = True
                 if not updated:
                     break
             # check for cycle
-            for u, v, w, uu, vv in edge_list:
+            for u, v, w in edge_list:
                 if dist[u] + w < dist[v]:
-                    # reconstruct cycle
+                    # reconstruct cycle (indices only)
                     y = v
                     for _ in range(n):
                         y = parent[y] if parent[y] != -1 else y
@@ -132,50 +471,36 @@ def _tech_bellman_ford(
                         cur = parent[cur]
                         if cur == -1 or cur == y or len(cycle_idx) > n + 2:
                             break
-                    cycle_nodes = [nodes[i] for i in cycle_idx]
-                    if len(cycle_nodes) < 2:
+                    if len(cycle_idx) < 2:
                         continue
-                    # normalize and rotate to include an anchor if present (not enforced here)
+                    # ensure closed cycle (append first if missing)
+                    if cycle_idx[0] != cycle_idx[-1]:
+                        closed_idx = cycle_idx + [cycle_idx[0]]
+                    else:
+                        closed_idx = cycle_idx
+
+                    # build node-name list once and use as canonical key
+                    cycle_nodes = [nodes[i] for i in closed_idx]
                     key = tuple(cycle_nodes)
                     if key in seen_cycles:
                         continue
                     seen_cycles.add(key)
 
-                    # compute product along cycle using rate_map where available
+                    # compute product along cycle using rate_map where available (indices)
                     prod = 1.0
                     valid = True
-                    for i in range(len(cycle_nodes) - 1):
-                        a = cycle_nodes[i]
-                        b = cycle_nodes[i + 1]
-                        u_i = idx.get(a)
-                        v_i = idx.get(b)
-                        if u_i is None or v_i is None:
-                            valid = False
-                            break
+                    for i in range(len(closed_idx) - 1):
+                        u_i = closed_idx[i]
+                        v_i = closed_idx[i + 1]
                         rate = rate_map.get((u_i, v_i))
                         if rate is None or rate <= 0:
                             valid = False
                             break
                         prod *= rate
-                    # close cycle
-                    if valid and cycle_nodes[0] != cycle_nodes[-1]:
-                        a = cycle_nodes[-1]
-                        b = cycle_nodes[0]
-                        u_i = idx.get(a)
-                        v_i = idx.get(b)
-                        if u_i is None or v_i is None:
-                            valid = False
-                        else:
-                            rate = rate_map.get((u_i, v_i))
-                            if rate is None or rate <= 0:
-                                valid = False
-                            else:
-                                prod *= rate
-                                cycle_nodes.append(cycle_nodes[0])
                     if not valid:
                         continue
 
-                    hops = len(cycle_nodes) - 1
+                    hops = len(closed_idx) - 1
                     # hops filters
                     if (min_hops and hops < min_hops) or (max_hops and hops > max_hops):
                         continue
@@ -186,14 +511,31 @@ def _tech_bellman_ford(
                     if min_net_per_hop and (net_pct / max(1, hops)) < min_net_per_hop:
                         continue
 
-                    # blacklist check on pair-level
-                    path_pairs = []
-                    for i in range(len(cycle_nodes) - 1):
-                        path_pairs.append(f"{cycle_nodes[i]}->{cycle_nodes[i+1]}")
-                    if any(p in blacklist for p in path_pairs):
-                        continue
+                    # blacklist check on pair-level. Precompute blacklist index pairs to avoid
+                    # repeated string allocations in the hot loop.
+                    if blacklist:
+                        # convert blacklist strings like 'A->B' to index pairs once
+                        try:
+                            bl_idx = set()
+                            for p in blacklist:
+                                if isinstance(p, str) and "->" in p:
+                                    a_s, b_s = p.split("->", 1)
+                                    a_i = idx.get(a_s)
+                                    b_i = idx.get(b_s)
+                                    if a_i is not None and b_i is not None:
+                                        bl_idx.add((a_i, b_i))
+                        except Exception:
+                            bl_idx = set()
+                        blocked = False
+                        for i in range(len(closed_idx) - 1):
+                            if (closed_idx[i], closed_idx[i + 1]) in bl_idx:
+                                blocked = True
+                                break
+                        if blocked:
+                            continue
 
                     net_bps = (prod - 1.0) * 10000.0
+                    cycle_nodes = [nodes[i] for i in closed_idx]
                     rec = {
                         "ts": ts_now,
                         "venue": ex_id,
@@ -380,11 +722,56 @@ def scan_arbitrage(snapshot_id: str, edges: List[Edge], cfg: Dict) -> List[ArbRe
         "fallback_timeouts": 0,
     }
     try:
+        # allow specific techniques to run inline (skip ProcessPool) for low-latency
+        inline_set = set(cfg.get("techniques", {}).get("inline", []))
         for name in enabled:
             func = _TECHS.get(name)
             if not func:
                 logger.warning("Technique %s not found; skipping", name)
                 continue
+            # If configured to run inline, execute directly to avoid IPC/pickling overhead.
+            if name in inline_set:
+                try:
+                    start_ts = time.time()
+                    res = func(snapshot_id, edges, cfg)
+                    dur = time.time() - start_ts
+                    # emit per-scan telemetry line if configured
+                    try:
+                        telemetry_file = cfg.get("techniques", {}).get("telemetry_file")
+                        if telemetry_file:
+                            with open(telemetry_file, "a", encoding="utf-8") as tfh:
+                                    payload = {
+                                        "snapshot_id": snapshot_id,
+                                        "technique": name,
+                                        "timestamp": int(time.time()),
+                                        "duration_s": dur,
+                                        "results_count": len(res) if res else 0,
+                                    }
+                                    # include technique-specific telemetry if present
+                                    try:
+                                        tech_tel = getattr(func, "_last_telemetry", None)
+                                        if tech_tel:
+                                            payload.update(tech_tel)
+                                    except Exception:
+                                        pass
+                                    tfh.write(json.dumps(payload) + "\n")
+                    except Exception:
+                        logger.debug("failed to write per-scan telemetry for %s", name)
+                    stats.setdefault(name, {"count": 0.0, "total_time": 0.0})
+                    stats[name]["count"] += len(res) if res else 0.0
+                    stats[name]["total_time"] += dur
+                    if res:
+                        results.extend(res)
+                except Exception:
+                    logger.exception("Inline technique %s failed", name)
+                    # fall back to submitting to pool below
+                    fut = pool.submit(func, snapshot_id, edges, cfg)
+                    futures.append(fut)
+                    future_map[fut] = (name, time.time())
+                    stats.setdefault(name, {"count": 0.0, "total_time": 0.0})
+                # continue to next technique
+                continue
+
             fut = pool.submit(func, snapshot_id, edges, cfg)
             futures.append(fut)
             # record submit time to approximate worker duration
@@ -392,43 +779,173 @@ def scan_arbitrage(snapshot_id: str, edges: List[Edge], cfg: Dict) -> List[ArbRe
             # init stats
             stats.setdefault(name, {"count": 0.0, "total_time": 0.0})
 
-        for f in as_completed(futures):
-            name, submit_ts = future_map.get(f, ("unknown", time.time()))
-            start_wait = submit_ts
-            end_wait = time.time()
-            duration = max(0.0, end_wait - start_wait)
-            try:
-                res = f.result()
-                # update stats
-                stats.setdefault(name, {"count": 0.0, "total_time": 0.0})
-                stats[name]["count"] += len(res) if res else 0.0
-                stats[name]["total_time"] += duration
-                if res:
-                    results.extend(res)
-            except Exception:
-                logger.exception("Technique task %s failed; attempting fallback if available", name)
-                # safe fallback for bellman_ford: run in a thread with timeout to avoid blocking
-                if name == "bellman_ford":
-                    fb_timeout = float(cfg.get("techniques", {}).get("fallback_timeout", 5.0))
+            # Use wait + FIRST_COMPLETED to avoid blocking indefinitely when a submitted
+            # process hangs. If no future completes within the configured fallback
+            # timeout, attempt fallbacks (for bellman_ford) or cancel long-running
+            # tasks. This ensures timeouts actually fire instead of waiting forever
+            # on as_completed.
+            pending = set(futures)
+            # timeout used to detect stuck technique workers; default to cfg.fallback_timeout
+            global_timeout = float(
+                cfg.get("techniques", {}).get("fallback_timeout", 5.0)
+            )
+            while pending:
+                done, pending = wait(
+                    pending, timeout=global_timeout, return_when=FIRST_COMPLETED
+                )
+                if not done:
+                    # nothing completed within timeout -> handle pending tasks
+                    for fut in list(pending):
+                        name, submit_ts = future_map.get(fut, ("unknown", time.time()))
+                        logger.warning(
+                            "Technique %s did not complete within %.2fs; attempting fallback/cancel",
+                            name,
+                            global_timeout,
+                        )
+                        # Attempt fallback for bellman_ford specifically
+                        if name == "bellman_ford":
+                            fb_timeout = float(
+                                cfg.get("techniques", {}).get("fallback_timeout", 5.0)
+                            )
+                            try:
+                                with ThreadPoolExecutor(max_workers=1) as thpool:
+                                    fb_future = thpool.submit(
+                                        _tech_bellman_ford, snapshot_id, edges, cfg
+                                    )
+                                    fb_res = fb_future.result(timeout=fb_timeout)
+                                    fb_dur = (
+                                        time.time() - submit_ts if submit_ts else 0.0
+                                    )
+                                    logger.warning(
+                                        "bellman_ford fallback produced %d results (timeout %.2fs)",
+                                        len(fb_res) if fb_res else 0,
+                                        fb_timeout,
+                                    )
+                                    stats.setdefault(
+                                        name, {"count": 0.0, "total_time": 0.0}
+                                    )
+                                    stats[name]["count"] += (
+                                        len(fb_res) if fb_res else 0.0
+                                    )
+                                    stats[name]["total_time"] += fb_dur
+                                    if fb_res:
+                                        results.extend(fb_res)
+                                    telemetry_counters["fallback_count"] += 1
+                            except ThreadTimeoutError:
+                                logger.warning(
+                                    "bellman_ford fallback timed out after %.2fs",
+                                    fb_timeout,
+                                )
+                                telemetry_counters["fallback_timeouts"] += 1
+                            except Exception:
+                                logger.exception("bellman_ford fallback also failed")
+                            # Try to cancel the original pending future to avoid resource leak.
+                            # Even if cancel() returns False for a running ProcessPool future,
+                            # remove it from the pending set so we don't loop forever waiting
+                            # on an un-cancellable task.
+                            try:
+                                fut.cancel()
+                            except Exception:
+                                pass
+                            # remove from pending and cleanup map so wait() won't see it again
+                            try:
+                                pending.discard(fut)
+                            except Exception:
+                                pass
+                            future_map.pop(fut, None)
+                        else:
+                            # No generic fallback; cancel the pending future and continue
+                            try:
+                                fut.cancel()
+                            except Exception:
+                                pass
+                    # continue loop to wait for any remaining done tasks
+                    continue
+
+                # Process completed futures
+                for f in done:
+                    name, submit_ts = future_map.get(f, ("unknown", time.time()))
+                    start_wait = submit_ts
+                    end_wait = time.time()
+                    duration = max(0.0, end_wait - start_wait)
                     try:
-                        with ThreadPoolExecutor(max_workers=1) as thpool:
-                            fb_future = thpool.submit(_tech_bellman_ford, snapshot_id, edges, cfg)
-                            fb_res = fb_future.result(timeout=fb_timeout)
-                            fb_dur = time.time() - submit_ts if submit_ts else 0.0
-                            logger.warning("bellman_ford fallback produced %d results (timeout %.2fs)", len(fb_res) if fb_res else 0, fb_timeout)
-                            stats.setdefault(name, {"count": 0.0, "total_time": 0.0})
-                            stats[name]["count"] += len(fb_res) if fb_res else 0.0
-                            stats[name]["total_time"] += fb_dur
-                            if fb_res:
-                                results.extend(fb_res)
-                            telemetry_counters["fallback_count"] += 1
-                    except ThreadTimeoutError:
-                        logger.warning("bellman_ford fallback timed out after %.2fs", fb_timeout)
-                        telemetry_counters["fallback_timeouts"] += 1
+                        # This should not block because f is in done
+                        res = f.result()
+                        # emit per-scan telemetry line if configured
+                        try:
+                            telemetry_file = cfg.get("techniques", {}).get(
+                                "telemetry_file"
+                            )
+                            if telemetry_file:
+                                with open(telemetry_file, "a", encoding="utf-8") as tfh:
+                                    tfh.write(
+                                        json.dumps(
+                                            {
+                                                "snapshot_id": snapshot_id,
+                                                "technique": name,
+                                                "timestamp": int(time.time()),
+                                                "duration_s": duration,
+                                                "results_count": len(res) if res else 0,
+                                            }
+                                        )
+                                        + "\n"
+                                    )
+                        except Exception:
+                            logger.debug(
+                                "failed to write per-scan telemetry for %s", name
+                            )
+                        # update stats
+                        stats.setdefault(name, {"count": 0.0, "total_time": 0.0})
+                        stats[name]["count"] += len(res) if res else 0.0
+                        stats[name]["total_time"] += duration
+                        if res:
+                            results.extend(res)
                     except Exception:
-                        logger.exception("bellman_ford fallback also failed")
-                else:
-                    logger.warning("No fallback implemented for technique %s", name)
+                        logger.exception(
+                            "Technique task %s failed; attempting fallback if available",
+                            name,
+                        )
+                        # safe fallback for bellman_ford: run in a thread with timeout to avoid blocking
+                        if name == "bellman_ford":
+                            fb_timeout = float(
+                                cfg.get("techniques", {}).get("fallback_timeout", 5.0)
+                            )
+                            try:
+                                with ThreadPoolExecutor(max_workers=1) as thpool:
+                                    fb_future = thpool.submit(
+                                        _tech_bellman_ford, snapshot_id, edges, cfg
+                                    )
+                                    fb_res = fb_future.result(timeout=fb_timeout)
+                                    fb_dur = (
+                                        time.time() - submit_ts if submit_ts else 0.0
+                                    )
+                                    logger.warning(
+                                        "bellman_ford fallback produced %d results (timeout %.2fs)",
+                                        len(fb_res) if fb_res else 0,
+                                        fb_timeout,
+                                    )
+                                    stats.setdefault(
+                                        name, {"count": 0.0, "total_time": 0.0}
+                                    )
+                                    stats[name]["count"] += (
+                                        len(fb_res) if fb_res else 0.0
+                                    )
+                                    stats[name]["total_time"] += fb_dur
+                                    if fb_res:
+                                        results.extend(fb_res)
+                                    telemetry_counters["fallback_count"] += 1
+                            except ThreadTimeoutError:
+                                logger.warning(
+                                    "bellman_ford fallback timed out after %.2fs",
+                                    fb_timeout,
+                                )
+                                telemetry_counters["fallback_timeouts"] += 1
+                            except Exception:
+                                logger.exception("bellman_ford fallback also failed")
+                        else:
+                            logger.warning(
+                                "No fallback implemented for technique %s", name
+                            )
 
         # Optional rerank post-process
         if cfg.get("techniques", {}).get("enable_rerank_onnx", False):
@@ -441,9 +958,19 @@ def scan_arbitrage(snapshot_id: str, edges: List[Edge], cfg: Dict) -> List[ArbRe
                 size_bytes = len(json.dumps(edges))
             except Exception:
                 size_bytes = 0
-            logger.info("scan_arbitrage summary: techniques=%s results=%d payload_bytes=%d", list(stats.keys()), len(results), size_bytes)
+            logger.info(
+                "scan_arbitrage summary: techniques=%s results=%d payload_bytes=%d",
+                list(stats.keys()),
+                len(results),
+                size_bytes,
+            )
             for nm, s in stats.items():
-                logger.info("tech=%s result_count=%s total_time=%.3fs", nm, int(s.get("count") or 0), float(s.get("total_time") or 0.0))
+                logger.info(
+                    "tech=%s result_count=%s total_time=%.3fs",
+                    nm,
+                    int(s.get("count") or 0),
+                    float(s.get("total_time") or 0.0),
+                )
             # add overall telemetry
             telemetry_counters["total_runs"] += 1
             summary = {

@@ -1,8 +1,8 @@
-import os
-import json
-import requests
 import logging
+import os
 from concurrent.futures import ThreadPoolExecutor
+
+import requests
 
 logger = logging.getLogger("realstate")
 if not logger.handlers:

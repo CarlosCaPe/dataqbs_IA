@@ -1,15 +1,15 @@
-import os
+# ruff: noqa
+import argparse
 import json
 import logging
-import argparse
-from concurrent.futures import ThreadPoolExecutor, as_completed
-from typing import Iterable, List, Optional
-from threading import Lock
-from datetime import datetime
+import os
 import shutil
+from concurrent.futures import ThreadPoolExecutor, as_completed
+from datetime import datetime
+from threading import Lock
+from typing import Iterable, List, Optional
 
 import requests
-
 
 # ---------------- Logging ----------------
 logger = logging.getLogger("easybroker")

@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "dataqbs-monorepo"
-version = "1.4.1"
+version = "1.5.1"
 description = "Monorepo tooling (lint, tests, hooks) for dataqbs Python projects"
 authors = ["Carlos <you@example.com>"]
 license = "MIT"
@@ -25,6 +25,28 @@ testpaths = [
 [tool.ruff]
 line-length = 100
 target-version = "py311"
+# Files and directories that are generated, vendored or not part of active source
+exclude = [
+	"projects/arbitraje/sdk/**",
+	"projects/arbitraje/artifacts/**",
+	"projects/real_estate/easybroker_list.py",
+	"projects/real_estate/Fabric/**",
+	"projects/real_estate/PropertyData/**",
+	"projects/email_collector/main.py",
+	"projects/arbitraje/tests/**/data/**",
+	"projects/arbitraje/**/node_modules/**",
+	"projects/**/sdk/**",
+	"projects/**/third_party/**",
+	"projects/**/vendor/**",
+	"projects/**/generated/**",
+	"projects/arbitraje/sdk/okx/**",
+	"projects/**/artifacts/**",
+	"projects/**/tests/**/data/**",
+	"**/*.ipynb",
+]
+
+[tool.ruff.lint]
+# Moved deprecated top-level lint options here to satisfy ruff's new config shape
 extend-select = ["I"]
 ignore = ["E501"]
 

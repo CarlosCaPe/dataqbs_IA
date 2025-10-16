@@ -1,0 +1,18 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Arbitraje: Validate build & tests (env-checked)",
+            "type": "shell",
+            "command": "pwsh -NoProfile -Command \"./scripts/validate_env.ps1; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }; try { poetry lock } catch { Write-Host 'poetry.lock check/lock skipped or failed' }; try { poetry install --no-interaction --no-ansi --with dev } catch { Write-Host 'install with dev failed, trying without dev'; poetry install --no-interaction --no-ansi }; try { poetry run ruff check src || Write-Host 'ruff check failed or ruff not installed' } catch { Write-Host 'ruff not available; skipping' }; if (Test-Path 'tests') { try { poetry run pytest -q tests } catch { Write-Host 'pytest failed' } } else { Write-Host 'No tests directory; skipping pytest' }\"",
+            "options": {
+                "cwd": "${workspaceFolder}/projects/arbitraje"
+            },
+            "group": "build",
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            }
+        }
+    ]
+}

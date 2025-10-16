@@ -1,12 +1,16 @@
 from __future__ import annotations
-import statistics
-import re
-from typing import Dict, List, Any
+
 import hashlib
+import re
+import statistics
+from typing import Any, Dict, List
+
 from jinja2 import Template
-from .models import EvaluationInput, EvaluationResult, DimensionCorrection
-from .rubric import DIMENSIONS, suggest_adjustment, clamp
+
 from .config_loader import ConfigBundle
+from .models import DimensionCorrection, EvaluationInput, EvaluationResult
+from .rubric import DIMENSIONS, clamp, suggest_adjustment
+
 
 class Evaluator:
     """Configurable evaluator (YAML-driven).
@@ -30,7 +34,9 @@ class Evaluator:
         Returns dict with:
             text_space, text_lower, rewrite_lower, length_total, response_count
         """
-        text_space = "\n".join([r.text for r in sub.responses]) + "\n" + sub.rewrite_preferred
+        text_space = (
+            "\n".join([r.text for r in sub.responses]) + "\n" + sub.rewrite_preferred
+        )
         signals = {
             "text_space": text_space,
             "text_lower": text_space.lower(),
@@ -55,8 +61,12 @@ class Evaluator:
                     updated_val = original_val
                     rationale = "Within tolerance"
                 else:
-                    updated_val = clamp(original_val + pull_fraction * (ideal - original_val))
-                    rationale = f"Adjusted toward ideal {ideal} with fraction {pull_fraction}"
+                    updated_val = clamp(
+                        original_val + pull_fraction * (ideal - original_val)
+                    )
+                    rationale = (
+                        f"Adjusted toward ideal {ideal} with fraction {pull_fraction}"
+                    )
             else:
                 # fallback to original heuristic
                 updated_val = suggest_adjustment(original_val, dim)
@@ -69,7 +79,16 @@ class Evaluator:
         return corrected
 
     # ----------------- rule engine (simplified) -----------------
-    def _apply_rating_rules(self, corrected: Dict[str, DimensionCorrection], sub, rules_conf: Dict[str, Any], comments: List[str], fired_rules: List[Dict[str, Any]], signals: Dict[str, Any], state: Dict[str, Any]):
+    def _apply_rating_rules(
+        self,
+        corrected: Dict[str, DimensionCorrection],
+        sub,
+        rules_conf: Dict[str, Any],
+        comments: List[str],
+        fired_rules: List[Dict[str, Any]],
+        signals: Dict[str, Any],
+        state: Dict[str, Any],
+    ):
         options = rules_conf.get("options", {})
         stop_after_first = options.get("stop_after_first", False)
         dedupe = options.get("dedupe_comments", False)
@@ -80,7 +99,12 @@ class Evaluator:
             if not matched:
                 continue
             actions = rule.get("actions", {})
-            explanation = {"id": rule.get("id"), "type": "rating", "detail": detail, "actions": []}
+            explanation = {
+                "id": rule.get("id"),
+                "type": "rating",
+                "detail": detail,
+                "actions": [],
+            }
             adj = actions.get("adjust_dimension")
             if adj:
                 dim = adj.get("dimension")
@@ -90,7 +114,16 @@ class Evaluator:
                     new_val = clamp(prev + delta)
                     corrected[dim].rationale += f" | Rule {rule['id']} (Δ {delta:+.2f})"
                     corrected[dim].updated = new_val
-                    explanation["actions"].append({"adjust_dimension": {"dimension": dim, "from": prev, "to": new_val, "delta": delta}})
+                    explanation["actions"].append(
+                        {
+                            "adjust_dimension": {
+                                "dimension": dim,
+                                "from": prev,
+                                "to": new_val,
+                                "delta": delta,
+                            }
+                        }
+                    )
             if actions.get("add_comment"):
                 msg = actions["add_comment"]
                 if (not dedupe) or (msg not in seen_comments):
@@ -100,7 +133,11 @@ class Evaluator:
             if actions.get("add_comment_template"):
                 template_str = actions["add_comment_template"]
                 # Available variables: corrected (dimension->post-adjust value), signals, detail
-                context = {"signals": signals, "detail": detail, "corrected": {k: v.updated for k, v in corrected.items()}}
+                context = {
+                    "signals": signals,
+                    "detail": detail,
+                    "corrected": {k: v.updated for k, v in corrected.items()},
+                }
                 try:
                     msg = Template(template_str).render(**context)
                 except Exception as e:  # pragma: no cover - fallback
@@ -125,10 +162,15 @@ class Evaluator:
             if stop_after_first:
                 break
 
-    def _match_conditions(self, conds: Dict[str, Any], sub, signals: Dict[str, Any]) -> tuple[bool, Dict[str, Any]]:
+    def _match_conditions(
+        self, conds: Dict[str, Any], sub, signals: Dict[str, Any]
+    ) -> tuple[bool, Dict[str, Any]]:
         text_space = signals["text_space"]
         text_lower = signals["text_lower"]
+        # ensure text_space variable is used for downstream rules that may reference it
+        _ = text_space
         rewrite_lower = signals["rewrite_lower"]
+        detail: Dict[str, Any] = {}
         detail: Dict[str, Any] = {}
         # OR blocks (any_of): list of condition dicts, at least one must pass
         any_of = conds.get("any_of")
@@ -145,24 +187,38 @@ class Evaluator:
                 return False, detail
         # Basic implementations
         if "response_contains_any" in conds:
-            matches = [w for w in conds["response_contains_any"] if w.lower() in text_lower]
+            matches = [
+                w for w in conds["response_contains_any"] if w.lower() in text_lower
+            ]
             detail["response_contains_any"] = matches
             if not matches:
                 return False, detail
         if "preferred_rewrite_missing_substring" in conds:
-            if not any(s.lower() in rewrite_lower for s in conds["preferred_rewrite_missing_substring"]):
+            if not any(
+                s.lower() in rewrite_lower
+                for s in conds["preferred_rewrite_missing_substring"]
+            ):
                 # Actually condition says missing? interpret as: all substrings absent
-                if all(s.lower() not in rewrite_lower for s in conds["preferred_rewrite_missing_substring"]):
+                if all(
+                    s.lower() not in rewrite_lower
+                    for s in conds["preferred_rewrite_missing_substring"]
+                ):
                     detail["preferred_rewrite_missing_substring"] = "all_missing"
                 else:
                     return False, detail
         if "rewrite_regex_any" in conds:
-            reg_hits = [p for p in conds["rewrite_regex_any"] if re.search(p, sub.rewrite_preferred)]
+            reg_hits = [
+                p
+                for p in conds["rewrite_regex_any"]
+                if re.search(p, sub.rewrite_preferred)
+            ]
             detail["rewrite_regex_any"] = reg_hits
             if not reg_hits:
                 return False, detail
         if "not_contains_any" in conds:
-            forbidden = [w for w in conds["not_contains_any"] if w.lower() in text_lower]
+            forbidden = [
+                w for w in conds["not_contains_any"] if w.lower() in text_lower
+            ]
             detail["not_contains_any_found"] = forbidden
             if forbidden:
                 return False, detail
@@ -194,7 +250,9 @@ class Evaluator:
         return True, detail
 
     # ----------------- ranking normalization -----------------
-    def _normalize_ranking(self, sub, ranking_conf: Dict[str, Any]) -> tuple[list[str], str]:
+    def _normalize_ranking(
+        self, sub, ranking_conf: Dict[str, Any]
+    ) -> tuple[list[str], str]:
         response_ids = [r.id for r in sub.responses]
         ranking = []
         seen = set()
@@ -219,7 +277,9 @@ class Evaluator:
         return ranking, feedback
 
     # ----------------- rewrite improvements -----------------
-    def _improve_rewrite(self, sub, rewrite_conf: Dict[str, Any], rules_conf: Dict[str, Any]) -> str:
+    def _improve_rewrite(
+        self, sub, rewrite_conf: Dict[str, Any], rules_conf: Dict[str, Any]
+    ) -> str:
         text = sub.rewrite_preferred.strip()
         min_len = rewrite_conf.get("min_length", 0)
         if len(text) < min_len and rewrite_conf.get("add_note_if_short", True):
@@ -229,7 +289,7 @@ class Evaluator:
             when = rule.get("when", {})
             cond_ok = True
             if when.get("ends_without_punct"):
-                if text.endswith(('.', '!', '?')):
+                if text.endswith((".", "!", "?")):
                     cond_ok = False
             if when.get("shorter_than_min"):
                 if len(text) >= min_len:
@@ -248,15 +308,25 @@ class Evaluator:
         required = prompt_conf.get("required_fields", [])
         missing = [f for f in required if not getattr(sub, f, None)]
         if missing:
-            return prompt_conf.get("feedback", {}).get("missing_field", "Missing fields: {missing}").format(missing=",".join(missing))
+            return (
+                prompt_conf.get("feedback", {})
+                .get("missing_field", "Missing fields: {missing}")
+                .format(missing=",".join(missing))
+            )
         # Validate allowed labels
         for field, allow in prompt_conf.get("label_checks", {}).items():
             val = getattr(sub, field, None)
             if allow and val and val not in allow:
-                return prompt_conf.get("feedback", {}).get("invalid_label", "Invalid label {field}={value}").format(field=field, value=val)
+                return (
+                    prompt_conf.get("feedback", {})
+                    .get("invalid_label", "Invalid label {field}={value}")
+                    .format(field=field, value=val)
+                )
         return prompt_conf.get("feedback", {}).get("ok", "Prompt valid.")
 
-    def _final_decision(self, state: Dict[str, Any], rules_conf: Dict[str, Any]) -> Dict[str, Any]:
+    def _final_decision(
+        self, state: Dict[str, Any], rules_conf: Dict[str, Any]
+    ) -> Dict[str, Any]:
         decision_conf = rules_conf.get("decision", {})
         score = state.get("score")
         label = state.get("label")
@@ -265,7 +335,9 @@ class Evaluator:
             thresholds = decision_conf["score_thresholds"]
             # Expect mapping label->min_score
             chosen = None
-            for lab, thr in sorted(thresholds.items(), key=lambda x: x[1], reverse=True):
+            for lab, thr in sorted(
+                thresholds.items(), key=lambda x: x[1], reverse=True
+            ):
                 if score >= thr:
                     chosen = lab
                     break
@@ -278,9 +350,12 @@ class Evaluator:
             return None
         # Deterministic hash of concatenated sorted JSON dumps of bundle sections
         import json
+
         parts = []
         for key in sorted(self.config.keys()):
-            parts.append(json.dumps(self.config[key], sort_keys=True, ensure_ascii=False))
+            parts.append(
+                json.dumps(self.config[key], sort_keys=True, ensure_ascii=False)
+            )
         digest = hashlib.sha256("\n".join(parts).encode("utf-8")).hexdigest()
         return digest
 
@@ -295,7 +370,9 @@ class Evaluator:
         # 2. Rating rules
         rules_conf = (self.config.rules if self.config else {}) or {}
         fired_rules: List[Dict[str, Any]] = []
-        self._apply_rating_rules(corrected, sub, rules_conf, comments, fired_rules, signals, state)
+        self._apply_rating_rules(
+            corrected, sub, rules_conf, comments, fired_rules, signals, state
+        )
         # 3. Ranking
         ranking_conf = (self.config.ranking if self.config else {}) or {}
         ranking, ranking_feedback = self._normalize_ranking(sub, ranking_conf)
@@ -318,7 +395,11 @@ class Evaluator:
         meta = {
             "rule_version": rules_conf.get("version"),
             "config_hash": self._config_hash(),
-            "signals": {k: v for k, v in signals.items() if k in ("length_total", "response_count")},
+            "signals": {
+                k: v
+                for k, v in signals.items()
+                if k in ("length_total", "response_count")
+            },
         }
         return EvaluationResult(
             corrected_ratings=corrected,

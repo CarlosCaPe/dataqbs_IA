@@ -1,0 +1,84 @@
+[
+  {
+    "file": "C:/Users/Lenovo/dataqbs_IA/projects/email_collector/src/email_collector/main.py",
+    "count": 9,
+    "codes": [
+      [
+        "F401",
+        5
+      ],
+      [
+        "I001",
+        2
+      ],
+      [
+        "F841",
+        1
+      ],
+      [
+        "E402",
+        1
+      ]
+    ]
+  },
+  {
+    "file": "C:/Users/Lenovo/dataqbs_IA/projects/arbitraje/tests/test_bf_helpers.py",
+    "count": 3,
+    "codes": [
+      [
+        "E501",
+        3
+      ]
+    ]
+  },
+  {
+    "file": "C:/Users/Lenovo/dataqbs_IA/projects/arbitraje/tests/test_engine_techniques.py",
+    "count": 2,
+    "codes": [
+      [
+        "F841",
+        2
+      ]
+    ]
+  },
+  {
+    "file": "C:/Users/Lenovo/dataqbs_IA/projects/arbitraje/bootstrap_sdks.py",
+    "count": 1,
+    "codes": [
+      [
+        "E501",
+        1
+      ]
+    ]
+  },
+  {
+    "file": "C:/Users/Lenovo/dataqbs_IA/projects/arbitraje/tests/test_smoke_tri.py",
+    "count": 1,
+    "codes": [
+      [
+        "F841",
+        1
+      ]
+    ]
+  },
+  {
+    "file": "C:/Users/Lenovo/dataqbs_IA/projects/arbitraje/tools/bench_techniques.py",
+    "count": 1,
+    "codes": [
+      [
+        "E501",
+        1
+      ]
+    ]
+  },
+  {
+    "file": "C:/Users/Lenovo/dataqbs_IA/projects/oai_code_evaluator/src/oai_code_evaluator/evaluator.py",
+    "count": 1,
+    "codes": [
+      [
+        "F841",
+        1
+      ]
+    ]
+  }
+]

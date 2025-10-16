@@ -1,7 +1,5 @@
-import types
-import builtins
-import argparse
 import importlib
+
 import pytest
 
 
@@ -41,7 +39,6 @@ def test_smoke_tri_monkeypatched(monkeypatch, quote):
     monkeypatch.setattr(mod, "load_swaps_blacklist", lambda: {})
 
     # Provide minimal args using the module's parser defaults but override mode/repeat
-    parser = argparse.ArgumentParser()
     # The real module uses a global parser built in main(); we will call main with env args
     test_args = ["--mode", "tri", "--repeat", "1", "--quote", quote]
 

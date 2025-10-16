@@ -1,7 +1,8 @@
 import json
-import os
 import logging
+import os
 from pathlib import Path
+
 from image_downloader import RealstateImageDownloader
 
 logger = logging.getLogger("realstate")

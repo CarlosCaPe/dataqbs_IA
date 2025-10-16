@@ -1,6 +1,8 @@
 from __future__ import annotations
+
 import json
 import math
+
 import ccxt  # type: ignore
 
 EXS = ["binance", "okx", "bitget", "mexc"]

@@ -2,6 +2,7 @@
 This project not yet migrated to src/ layout; adjust once refactored.
 """
 from __future__ import annotations
+
 from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parent

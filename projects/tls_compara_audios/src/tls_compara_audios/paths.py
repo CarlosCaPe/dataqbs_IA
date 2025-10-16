@@ -5,8 +5,9 @@ Includes a lightweight migration shim: if an old artifact root
 data, it will be moved automatically to preserve history.
 """
 from __future__ import annotations
-from pathlib import Path
+
 import shutil
+from pathlib import Path
 
 PACKAGE_ROOT = Path(__file__).resolve().parent
 PROJECT_ROOT = PACKAGE_ROOT.parents[2]

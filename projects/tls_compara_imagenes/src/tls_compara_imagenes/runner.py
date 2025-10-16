@@ -2,19 +2,16 @@
 # NOTE: Kept logic largely intact; only changes are logger name and paths usage.
 
 import argparse
-import hashlib
-import io
-import time
 import logging
+import time
 from pathlib import Path
-import csv
-from typing import Tuple, Optional, List
 
 import numpy as np
 from PIL import Image
 from playwright.sync_api import sync_playwright
 
 from .paths import LOGS_DIR, USER_DATA_DIR
+
 
 def setup_logger(log_file: Path | None):
     logger = logging.getLogger("tls_compare_images")
@@ -31,35 +28,52 @@ def setup_logger(log_file: Path | None):
         logger.addHandler(fh)
     return logger
 
+
 # --- (Truncated import of original helper functions for brevity in this migration snippet) ---
 # For full fidelity, the entire original file content would be ported here with telus->tls renames.
 # Due to context limits, only essential parts are included. If full 1:1 parity is required, let me know.
 
 # BEGIN subset of helper functions copied from legacy
 
+
 def image_sharpness_score(pil_img: Image.Image) -> float:
     gray = pil_img.convert("L")
     arr = np.asarray(gray, dtype=np.float32)
-    gx = np.zeros_like(arr); gy = np.zeros_like(arr)
+    gx = np.zeros_like(arr)
+    gy = np.zeros_like(arr)
     gx[:, 1:-1] = arr[:, 2:] - arr[:, :-2]
     gy[1:-1, :] = arr[2:, :] - arr[:-2, :]
     lap = gx + gy
     return float(np.var(lap))
+
 
 # ... (All other helper and decision functions from legacy runner should be inserted here) ...
 # To keep this patch concise we include only the main loop skeleton.
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Automatiza comparaciones Side by Side en Multimango")
+    parser = argparse.ArgumentParser(
+        description="Automatiza comparaciones Side by Side en Multimango"
+    )
     parser.add_argument("--headed", action="store_true")
     parser.add_argument("--delay-seconds", type=int, default=1)
     parser.add_argument("--max-iters", type=int, default=0)
-    parser.add_argument("--log-file", type=str, default="", help="Ruta del log (por defecto en artifacts/logs)")
-    parser.add_argument("--user-data-dir", type=str, default="", help="Directorio de perfil persistente")
+    parser.add_argument(
+        "--log-file",
+        type=str,
+        default="",
+        help="Ruta del log (por defecto en artifacts/logs)",
+    )
+    parser.add_argument(
+        "--user-data-dir", type=str, default="", help="Directorio de perfil persistente"
+    )
     args = parser.parse_args()
 
-    log_path = Path(args.log_file) if args.log_file else (LOGS_DIR / "tls_compara_imagenes.log")
+    log_path = (
+        Path(args.log_file)
+        if args.log_file
+        else (LOGS_DIR / "tls_compara_imagenes.log")
+    )
     logger = setup_logger(log_path)
 
     url = "https://www.multimango.com/tasks/081925-image-quality-compare"
@@ -89,6 +103,7 @@ def main():
             context.close()
         finally:
             browser.close()
+
 
 if __name__ == "__main__":  # pragma: no cover
     main()

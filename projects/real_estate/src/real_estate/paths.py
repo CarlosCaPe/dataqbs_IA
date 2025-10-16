@@ -1,5 +1,6 @@
 """Path helpers for real_estate project (src layout)."""
 from __future__ import annotations
+
 from pathlib import Path
 
 # Directory structure:

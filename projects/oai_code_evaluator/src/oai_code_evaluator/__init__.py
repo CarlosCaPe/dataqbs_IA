@@ -4,5 +4,5 @@ __all__ = [
     "Evaluator",
 ]
 
-from .models import EvaluationInput, EvaluationResult
 from .evaluator import Evaluator
+from .models import EvaluationInput, EvaluationResult
