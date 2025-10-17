@@ -573,7 +573,7 @@ def _main_cli():
             amt = float(args.amount) if args.amount else default_amt
         else:
             amt = float(args.amount or 0.0)
-    plan = SwapPlan(exchange=ex_id, hops=hops, amount=amt)
+        plan = SwapPlan(exchange=ex_id, hops=hops, amount=amt)
 
     res = sw.run(plan)
     print(

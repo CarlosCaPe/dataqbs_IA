@@ -14,8 +14,8 @@ bf:
   fee: 0.10                  # modela taker≈0.1% por hop
   rank_by_qvol: true         # prioriza liquidez (reduce ciclos basura)
   currencies_limit: 400      # reduce universo a mercados más líquidos
-  min_net: 0.00              # sube umbral bruto para absorber slippage potencial (~30 bps)
-  min_net_per_hop: 0      # evita cadenas largas con hops marginales
+  min_net: -10000             # sube umbral bruto para absorber slippage potencial (~30 bps)
+  min_net_per_hop: -10000      # evita cadenas largas con hops marginales
   top: 40                    # inspección limitada
   require_quote: true        # obliga cerrar en ancla estable
   require_topofbook: false    # usa bid/ask (más seguro para ejecución)
@@ -36,13 +36,13 @@ max: 280                    # Alinear con reducción de currencies_limit para ca
 timeout: 20000
 sleep: 0
 repeat: 100
-repeat_sleep: 0
+repeat_sleep: 1
 
 # Note: use_balance/balance_kind removed; tool now always reads wallet balances when available
 balance_provider: ccxt
 ex_auth_only: true
-simulate_compound: true
-simulate_from_wallet: true
+simulate_compound: false
+simulate_from_wallet: false
 simulate_prefer: auto
 simulate_select: best
 simulate_auto_switch: true
@@ -62,7 +62,7 @@ tri:
   currencies_limit: 400
   min_net: 0.50           # TRI stricter: require larger buffer for execution
   top: 40
-  require_topofbook: true
+  require_topofbook: false
   min_quote_vol: 2000
 
 # Engine techniques orchestration (process-pool based)

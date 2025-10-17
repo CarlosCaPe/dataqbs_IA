@@ -8,8 +8,8 @@ bf:
   fee: 0.10
   rank_by_qvol: false
   currencies_limit: 2000
-  min_net: 0.00
-  min_net_per_hop: 0
+  min_net: -100.00
+  min_net_per_hop: -100
   top: 200
   require_quote: false
   require_topofbook: false

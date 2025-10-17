@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "arbitraje"
-version = "1.4.2"
+version = "1.5.0"
 description = "Crypto price arbitrage scanner using ccxt (BF/tri modes)"
 authors = ["Your Name <you@example.com>"]
 license = "MIT"
@@ -25,7 +25,7 @@ numba = "^0.62.1"
 python-bitget = "^1.0.8"
 python-okx = "^0.4.0"
 python-binance = "^1.0.30"
-mexc-api = "^0.0.2"
+mexc-api = {version = "^0.0.2", python = ">=3.11,<3.14"}
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.3.3"

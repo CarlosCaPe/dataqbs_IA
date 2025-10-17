@@ -49,11 +49,26 @@ except Exception:
 
 logger = logging.getLogger("arbitraje_ccxt")
 if not logger.handlers:
-    logger.setLevel(logging.INFO)
+    # Allow overriding the default logging level via environment variables
+    # ARBITRAJE_LOG_LEVEL or LOGLEVEL (e.g. DEBUG, INFO). If not set, default to INFO.
+    level_str = os.environ.get("ARBITRAJE_LOG_LEVEL") or os.environ.get("LOGLEVEL")
+    try:
+        level = getattr(logging, str(level_str).upper()) if level_str else logging.INFO
+        if not isinstance(level, int):
+            level = logging.INFO
+    except Exception:
+        level = logging.INFO
+    logger.setLevel(level)
     fmt = logging.Formatter("%(asctime)s %(levelname)s %(message)s")
     sh = logging.StreamHandler(sys.stdout)
     sh.setFormatter(fmt)
     logger.addHandler(sh)
+    try:
+        # Also set the root logger level so other arbitraje modules (engine_techniques, etc.)
+        # that use their own loggers will emit at the requested level during debugging.
+        logging.getLogger().setLevel(level)
+    except Exception:
+        pass
     try:
         paths.LOGS_DIR.mkdir(parents=True, exist_ok=True)
         fh = logging.FileHandler(
@@ -2886,26 +2901,24 @@ def main() -> None:
                             ex_id,
                             len(currencies),
                         )
-            # Optionally rank currencies by aggregate quote volume (desc) to prioritize liquid markets
-            # Only fetch all tickers if qvol ranking is enabled and batch fetch supported
+            # Decide tickers mapping in a single place to avoid accidental overwrites.
+            # Order of precedence:
+            # 1) offline snapshot (if offline and snapshot map provided)
+            # 2) qvol ranking path: batch fetch all tickers and compute qvol
+            # 3) leave as empty mapping (techniques may use tokens only)
             tickers = {}
-            if getattr(args, "offline", False) and offline_snapshot_map:
-                tickers = offline_snapshot_map.get(ex_id, {}).get("tickers", {})
-            else:
-                tickers = {}
-            # Defensive: ensure tickers is a mapping
-            if tickers is None or not isinstance(tickers, dict):
-                tickers = {}
             batch_supported = safe_has(ex, "fetchTickers")
-            if (
-                not getattr(args, "offline", False)
-                and args.bf_rank_by_qvol
-                and markets
-                and batch_supported
-            ):
-                tickers = ex.fetch_tickers()
+            if getattr(args, "offline", False) and offline_snapshot_map:
+                tickers = offline_snapshot_map.get(ex_id, {}).get("tickers", {}) or {}
+            elif (not getattr(args, "offline", False)) and args.bf_rank_by_qvol and markets and batch_supported:
+                # Batch fetch tickers to compute per-currency quote volume and rank currencies
+                try:
+                    tickers = ex.fetch_tickers() or {}
+                except Exception:
+                    logger.exception("Failed to fetch tickers for qvol ranking for %s", ex_id)
+                    tickers = {}
                 qvol_by_ccy: Dict[str, float] = {}
-                for sym, t in tickers.items():
+                for sym, t in (tickers or {}).items():
                     try:
                         m = markets.get(sym) or {}
                         base = str(m.get("base") or "").upper()
@@ -2917,9 +2930,10 @@ def main() -> None:
                             qvol_by_ccy[quote] = qvol_by_ccy.get(quote, 0.0) + float(qv)
                     except Exception:
                         continue
-                currencies = sorted(
-                    currencies, key=lambda c: qvol_by_ccy.get(c, 0.0), reverse=True
-                )
+                currencies = sorted(currencies, key=lambda c: qvol_by_ccy.get(c, 0.0), reverse=True)
+            # Defensive: ensure tickers is a mapping
+            if tickers is None or not isinstance(tickers, dict):
+                tickers = {}
             # If ranking path was taken, apply limit and ensure anchor-first
             if args.bf_rank_by_qvol:
                 currencies = currencies[: max(1, bf_currencies_limit)]
@@ -2943,6 +2957,57 @@ def main() -> None:
             if not getattr(args, "no_techniques_bf", False):
                 try:
                     from .engine_techniques import scan_arbitrage as _scan_arbitrage
+
+                    # Instrumentation: log tickers size and a small sample immediately
+                    # before assembling the payload to help debug zero-ticker cases.
+                    try:
+                        tk_len = 0 if tickers is None else (len(tickers) if isinstance(tickers, dict) else 0)
+                        sample_keys = []
+                        if isinstance(tickers, dict):
+                            sample_keys = list(tickers.keys())[:10]
+                        logger.info("[BF-INST] ex=%s tickers_len=%d sample_keys=%s", ex_id, tk_len, sample_keys)
+                        # Also try to append to diagnostics.log if possible
+                        try:
+                            diag_path = Path(__file__).parents[2] / "src" / "artifacts" / "arbitraje" / "diagnostics.log"
+                            diag_path.parent.mkdir(parents=True, exist_ok=True)
+                            with diag_path.open("a", encoding="utf-8") as f:
+                                f.write(f"[BF-INST] ex={ex_id} tickers_len={tk_len} sample_keys={sample_keys}\n")
+                        except Exception:
+                            pass
+                    except Exception:
+                        logger.exception("Failed to log BF instrumentation")
+
+                    # Fallback: if tickers is empty but batch fetch is supported, try to fetch tickers now.
+                    try:
+                        if (not tickers) and batch_supported:
+                            logger.info("[BF-FALLBACK] ex=%s tickers empty, attempting fetch_tickers()", ex_id)
+                            try:
+                                tickers = ex.fetch_tickers()
+                                logger.info(
+                                    "[BF-FALLBACK] ex=%s fetched %d tickers",
+                                    ex_id,
+                                    len(tickers) if isinstance(tickers, dict) else 0,
+                                )
+                            except Exception:
+                                logger.exception("[BF-FALLBACK] fetch_tickers failed for %s", ex_id)
+                    except Exception:
+                        logger.exception("[BF-FALLBACK] unexpected error while attempting fallback fetch")
+
+                    # Post-fallback instrumentation: record tickers state after any fallback fetch
+                    try:
+                        post_len = 0 if tickers is None else (len(tickers) if isinstance(tickers, dict) else 0)
+                        post_sample = []
+                        if isinstance(tickers, dict):
+                            post_sample = list(tickers.keys())[:10]
+                        logger.info("[BF-INST-POST] ex=%s tickers_len=%d sample_keys=%s", ex_id, post_len, post_sample)
+                        try:
+                            diag_path = Path(__file__).parents[2] / "src" / "artifacts" / "arbitraje" / "diagnostics.log"
+                            with diag_path.open("a", encoding="utf-8") as f:
+                                f.write(f"[BF-INST-POST] ex={ex_id} tickers_len={post_len} sample_keys={post_sample}\n")
+                        except Exception:
+                            pass
+                    except Exception:
+                        logger.exception("Failed to log BF post-instrumentation")
 
                     payload = {
                         "ex_id": ex_id,

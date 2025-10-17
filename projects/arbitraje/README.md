@@ -1,4 +1,5 @@
 # Arbitraje
+> Consulta el diagrama de flujo completo aquí: [docs/flujo_arbitraje.md](docs/flujo_arbitraje.md)
 
 Version: 1.3.0 (engine 3.0)
 
@@ -20,10 +21,10 @@ Buenas prácticas:
 - Añade tests que importen el módulo desde la ruta esperada para detectar roturas de compatibilidad.
 
 Gracias por mantener el repositorio limpio.
-# arbitraje
 
-Crypto price arbitrage scanner using ccxt (market data) with intra-exchange triangular and Bellman–Ford modes.
 
+
+Version: 1.5.0 HUNTER (engine 3.0)
 - Source layout: `src/`
 - Artifacts: `artifacts/arbitraje/{logs,outputs}`
 - CLIs:
@@ -39,6 +40,8 @@ Start with Binance (only) by copying `.env.example` to `.env` and filling:
 ```
 BINANCE_API_KEY=...
 BINANCE_API_SECRET=...
+## Diagrama de Flujo de Tests
+
 ```
 
 You can later add other exchanges using the placeholders in `.env.example`.
@@ -117,8 +120,12 @@ This project can read balances via multiple providers:
 - connector/SDK: official SDKs (e.g., Binance Spot SDK, Bitget SDK)
 
 Select with `--balance_provider`:
+## Descripción General
+
+
 
 ```
+
 --balance_provider ccxt|native|connector|bitget_sdk
 ```
 
@@ -184,9 +191,21 @@ bf:
   require_topofbook: true
   min_quote_vol: 5000
   min_hops: 3
+
   max_hops: 6
+- **engine_techniques.py**: Orquesta la conexión, descarga, normalización y grafo.
+- **bf_numba_impl.py**: Algoritmo Bellman-Ford acelerado para detección de ciclos.
+- **arbitrage_report_ccxt.py**: CLI principal, persistencia, reporte y loop de iteraciones.
+- **swapper.py**: Ejecuta swaps en el exchange usando las oportunidades detectadas.
+
   threads: 0
+- **test_engine_techniques.py**: Prueba todo el pipeline (descarga, normalización, grafo, persistencia, lectura, iteraciones).
+- **test_bf_numba_equivalence.py**: Prueba la lógica y equivalencia del Bellman-Ford acelerado.
+- **test_bf_migration.py**: Prueba migración y persistencia de ventanas de oportunidad.
+- **test_swapper.py**: Prueba la ejecución y lógica del swapper (si existe).
+
   require_dual_quote: false
+- Se generan logs en cada etapa crítica del flujo para auditoría y debugging:
   persist_top_csv: true
   revalidate_depth: true
   use_ws: true
@@ -195,14 +214,28 @@ bf:
   reset_history: true
   iter_timeout_sec: 0.0
 max: 280
+
 # ...otros parámetros generales...
+- El loop principal (`arbitrage_report_ccxt.py`) controla la cantidad de iteraciones y la operación continua.
+- El swapper se llama después de detectar y persistir oportunidades, ejecutando swaps reales en el exchange.
+
+```
+```python
+{
+  "BTC/USDT": {"bid": 60000, "ask": 60010},
+  "ETH/USDT": {"bid": 3500, "ask": 3510},
+  ...
+}
 ```
 
+
+- `arbitrage_bf_usdt_ccxt.csv` contiene:
 **Ventajas:**
 - Solo ventanas ejecutables en real (bid/ask y profundidad suficiente).
 - Filtra hops de bajo volumen y rutas con slippage oculto.
 - Permite muchas ventanas pequeñas y positivas.
-- Evita rutas con pares problemáticos (blacklist).
+
+
 
 **Riesgos:**
 - Muy bajo riesgo de negativos; solo podrían aparecer por cambios abruptos en el libro entre escaneo y ejecución.

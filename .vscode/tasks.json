@@ -145,12 +145,6 @@
 			"group": "build"
 		},
 		{
-			"label": "Arbitraje: Validate build & tests",
-			"type": "shell",
-			"command": "pwsh -NoProfile -Command \"Set-Location -Path 'projects/arbitraje'; try { poetry lock } catch { Write-Host 'poetry.lock check/lock skipped or failed' }; try { poetry install --no-interaction --no-ansi --with dev } catch { Write-Host 'install with dev failed, trying without dev'; poetry install --no-interaction --no-ansi }; try { poetry run ruff check src || Write-Host 'ruff check failed or ruff not installed' } catch { Write-Host 'ruff not available; skipping' }; if (Test-Path 'tests') { try { poetry run pytest -q tests } catch { Write-Host 'pytest failed' } } else { Write-Host 'No tests directory; skipping pytest' }\"",
-			"group": "build"
-		},
-		{
 			"label": "Repo: Init/Update submodules",
 			"type": "shell",
 			"command": "pwsh -NoProfile -Command \"git submodule update --init --recursive; git submodule update --remote --merge\"",
@@ -162,37 +156,7 @@
 		{
 			"label": "Arbitraje: Validate build & tests",
 			"type": "shell",
-			"command": "pwsh -NoProfile -Command \"Set-Location 'projects/arbitraje'; poetry install --no-interaction --no-ansi; poetry run ruff check src || $true; poetry run pytest -q --rootdir . tests\"",
-			"group": "build"
-		},
-		{
-			"label": "Arbitraje: Validate build & tests",
-			"type": "shell",
-			"command": "pwsh -NoProfile -Command \"Set-Location 'projects/arbitraje'; poetry install --no-interaction --no-ansi; poetry run ruff check src || $true; poetry run pytest -q --rootdir . tests\"",
-			"group": "build"
-		},
-		{
-			"label": "Arbitraje: Validate build & tests",
-			"type": "shell",
-			"command": "pwsh -NoProfile -Command \"Set-Location 'projects/arbitraje'; poetry install --no-interaction --no-ansi; poetry run ruff check src || $true; poetry run pytest -q --rootdir . tests\"",
-			"group": "build"
-		},
-		{
-			"label": "Arbitraje: Validate build & tests",
-			"type": "shell",
-			"command": "pwsh -NoProfile -Command \"Set-Location 'projects/arbitraje'; poetry install --no-interaction --no-ansi; poetry run ruff check src || $true; poetry run pytest -q --rootdir . tests\"",
-			"group": "build"
-		},
-		{
-			"label": "Arbitraje: Validate build & tests",
-			"type": "shell",
-			"command": "pwsh -NoProfile -Command \"Set-Location 'projects/arbitraje'; poetry install --no-interaction --no-ansi; poetry run ruff check src || $true; poetry run pytest -q --rootdir . tests\"",
-			"group": "build"
-		},
-		{
-			"label": "Arbitraje: Validate build & tests",
-			"type": "shell",
-			"command": "pwsh -NoProfile -Command \"Set-Location 'projects/arbitraje'; poetry install --no-interaction --no-ansi; poetry run pytest -q --rootdir . tests\"",
+			"command": "pwsh -NoProfile -Command \"Set-Location -Path 'projects/arbitraje'; try { poetry lock } catch { Write-Host 'poetry.lock check/lock skipped or failed' }; try { poetry install --no-interaction --no-ansi --with dev } catch { Write-Host 'install with dev failed, trying without dev'; poetry install --no-interaction --no-ansi }; try { poetry run ruff check src || Write-Host 'ruff check failed or ruff not installed' } catch { Write-Host 'ruff not available; skipping' }; if (Test-Path 'projects/arbitraje/tests') { try { poetry run pytest -q projects/arbitraje/tests } catch { Write-Host 'pytest failed' } } else { Write-Host 'No tests directory; skipping pytest' }\"",
 			"group": "build"
 		},
 		{

@@ -16,6 +16,13 @@ from typing import Callable, Dict, List
 
 logger = logging.getLogger("arbitraje.engine_techniques")
 
+try:
+    # prefer project paths helper if available to resolve absolute artifact root
+    from . import paths as _local_paths
+    ARTIFACTS_ROOT = _local_paths.ARTIFACTS_ROOT
+except Exception:
+    ARTIFACTS_ROOT = None
+
 # Types are expected to match project types; use light aliases to avoid heavy imports
 Edge = object
 
@@ -25,25 +32,196 @@ class ArbResult(dict):
 
 
 # --- Technique stubs (users will later map these to real implementations) ---
-def _tech_bellman_ford(
+def _tech_bellman_ford(snapshot_id: str, edges: List[Edge], cfg: Dict) -> List[ArbResult]:
     import datetime
     diag_log_path = None
     try:
-        diag_log_path = str(Path(__file__).resolve().parents[1] / "artifacts" / "arbitraje" / "diagnostics.log")
+        diag_log_path = str(
+            Path(__file__).resolve().parents[1] / "artifacts" / "arbitraje" / "diagnostics.log"
+        )
     except Exception:
         diag_log_path = None
 
     def diag_log(msg):
+        ts_line = f"[{datetime.datetime.utcnow().isoformat()}] {msg}\n"
+        wrote = False
+        attempted = []
+        # primary: if ARTIFACTS_ROOT is available, write to absolute artifacts path
+        if ARTIFACTS_ROOT is not None:
+            try:
+                abs_diag = Path(ARTIFACTS_ROOT) / "diagnostics.log"
+                abs_diag.parent.mkdir(parents=True, exist_ok=True)
+                with open(abs_diag, "a", encoding="utf-8") as dfh:
+                    dfh.write(ts_line)
+                wrote = True
+                attempted.append({"path": str(abs_diag), "ok": True, "err": None})
+            except Exception as e:
+                attempted.append({"path": str(ARTIFACTS_ROOT), "ok": False, "err": str(e)})
+                logger.debug("diag_log: failed to write absolute ARTIFACTS_ROOT diag=%s err=%s", ARTIFACTS_ROOT, e)
+
+        # primary: src/artifacts path (legacy)
         if diag_log_path:
             try:
+                Path(diag_log_path).parent.mkdir(parents=True, exist_ok=True)
                 with open(diag_log_path, "a", encoding="utf-8") as dfh:
-                    dfh.write(f"[{datetime.datetime.utcnow().isoformat()}] {msg}\n")
+                    dfh.write(ts_line)
+                wrote = True
+                attempted.append({"path": str(diag_log_path), "ok": True, "err": None})
+            except Exception as e:
+                attempted.append({"path": str(diag_log_path), "ok": False, "err": str(e)})
+                logger.debug("diag_log: failed to write primary diag_path=%s err=%s", diag_log_path, e)
+
+        # secondary: try project-level artifacts (parents[2]/artifacts/...)
+        try:
+            proj_diag_p = Path(__file__).resolve().parents[2] / "artifacts" / "arbitraje" / "diagnostics.log"
+            proj_diag = str(proj_diag_p)
+            if not wrote:
+                try:
+                    proj_diag_p.parent.mkdir(parents=True, exist_ok=True)
+                    with open(proj_diag, "a", encoding="utf-8") as pfh:
+                        pfh.write(ts_line)
+                    wrote = True
+                    attempted.append({"path": proj_diag, "ok": True, "err": None})
+                except Exception as e:
+                    attempted.append({"path": proj_diag, "ok": False, "err": str(e)})
+                    logger.debug("diag_log: failed to write proj_diag=%s err=%s", proj_diag, e)
+        except Exception as e:
+            logger.debug("diag_log: proj_diag resolution failed: %s", e)
+
+        # tertiary: workspace-level artifacts (top-level workspace artifacts/arbitraje)
+        if not wrote:
+            try:
+                ws_diag_p = Path(__file__).resolve().parents[3] / "artifacts" / "arbitraje" / "diagnostics.log"
+                ws_diag = str(ws_diag_p)
+                ws_diag_p.parent.mkdir(parents=True, exist_ok=True)
+                with open(ws_diag, "a", encoding="utf-8") as wfh:
+                    wfh.write(ts_line)
+                wrote = True
+                attempted.append({"path": ws_diag, "ok": True, "err": None})
+            except Exception as e:
+                attempted.append({"path": locals().get('ws_diag', '<unknown>'), "ok": False, "err": str(e)})
+                logger.debug("diag_log: failed to write workspace-level diag=%s err=%s", locals().get('ws_diag', '<unknown>'), e)
+
+        # Quiet mode: do not emit DIAG prints to stdout/logger here to avoid clutter.
+        # Diagnostics are persisted to files (path-dump + diagnostics.log) for CI inspection.
+
+        # Persist a canonical path-dump JSONL entry into the monorepo ARTIFACTS_ROOT
+        path_dump_entry = {"ts": int(time.time()), "msg": msg, "attempted": attempted, "wrote": wrote}
+        try:
+            if ARTIFACTS_ROOT is not None:
+                pd = Path(ARTIFACTS_ROOT) / "diag_paths.jsonl"
+            else:
+                pd = Path(__file__).resolve().parents[2] / "artifacts" / "arbitraje" / "diag_paths.jsonl"
+            pd.parent.mkdir(parents=True, exist_ok=True)
+            with open(pd, "a", encoding="utf-8") as pfh:
+                pfh.write(json.dumps(path_dump_entry) + "\n")
+            # Rotate / truncate the JSONL if it grows too large to avoid unbounded growth
+            try:
+                # Conservative limits: keep last MAX_LINES or trim when file > MAX_BYTES
+                MAX_BYTES = 5 * 1024 * 1024  # 5 MB
+                MAX_LINES = 10000
+
+                def _tail_lines_binary(path: Path, max_lines: int):
+                    # Read file from end in binary and return last max_lines as a list of bytes lines
+                    lines = []
+                    with open(path, "rb") as fh:
+                        fh.seek(0, os.SEEK_END)
+                        file_size = fh.tell()
+                        block_size = 4096
+                        data = bytearray()
+                        while file_size > 0 and len(lines) <= max_lines:
+                            read_size = min(block_size, file_size)
+                            fh.seek(file_size - read_size)
+                            chunk = fh.read(read_size)
+                            data = chunk + data
+                            lines = data.splitlines()
+                            file_size -= read_size
+                            if file_size == 0:
+                                break
+                        # Ensure we return at most max_lines entries
+                        if len(lines) > max_lines:
+                            return lines[-max_lines:]
+                        return lines
+
+                try:
+                    st = pd.stat()
+                    if st.st_size > MAX_BYTES:
+                        # Read last MAX_LINES lines and rewrite file atomically
+                        tail = _tail_lines_binary(pd, MAX_LINES)
+                        tmp = pd.with_suffix(".tmp")
+                        with open(tmp, "wb") as outfh:
+                            if tail:
+                                outfh.write(b"\n".join(tail) + b"\n")
+                        try:
+                            os.replace(str(tmp), str(pd))
+                        except Exception:
+                            # best-effort: if rename fails, remove tmp
+                            try:
+                                tmp.unlink(missing_ok=True)
+                            except Exception:
+                                pass
+                except Exception:
+                    # If stat/read fails, ignore rotation for now
+                    pass
+            except Exception:
+                # Keep diag logging robust: swallow any rotation errors
+                pass
+        except Exception as e:
+            logger.debug("diag_log: failed to write diag_paths.jsonl: %s", e)
+
+        # Duplicate a compact diagnostics.log entry to src artifacts for local debugging
+        try:
+            src_diag = Path(__file__).resolve().parents[1] / "artifacts" / "arbitraje" / "diagnostics.log"
+            src_diag.parent.mkdir(parents=True, exist_ok=True)
+            with open(src_diag, "a", encoding="utf-8") as sdf:
+                sdf.write(ts_line)
+        except Exception:
+            pass
+
+        # fallback: if neither file write succeeded, append to telemetry file if configured
+        if not wrote:
+            try:
+                telemetry_file = cfg.get("techniques", {}).get("telemetry_file")
+                if telemetry_file:
+                    # Resolve relative telemetry_file paths to project-level (parents[2])
+                    try:
+                        tfp = Path(telemetry_file)
+                        if not tfp.is_absolute():
+                            tfp = Path(__file__).resolve().parents[2] / telemetry_file
+                        tfp.parent.mkdir(parents=True, exist_ok=True)
+                        with open(tfp, "a", encoding="utf-8") as tfh:
+                            tfh.write(json.dumps({"diagnostic": msg, "ts": int(time.time())}) + "\n")
+                    except Exception:
+                        logger.debug("diag_log: failed to write telemetry fallback to %s", telemetry_file)
             except Exception:
                 pass
 
+    # If edges is a JSON string (we now submit JSON string), parse it into dict
+    try:
+        if isinstance(edges, str):
+            try:
+                edges = json.loads(edges)
+            except Exception:
+                # leave as string if parsing fails
+                pass
+    except Exception:
+        pass
+
+    # Worker-side diagnostic: record the payload byte-size to detect IPC/pickle losses
+    try:
+        import json as _json
+        try:
+            payload_bytes = len(_json.dumps(edges or {}))
+        except Exception:
+            payload_bytes = None
+        if payload_bytes is not None:
+            diag_log(f"Worker received payload_bytes={payload_bytes}")
+        else:
+            diag_log("Worker received payload_bytes=unknown")
+    except Exception:
+        pass
+
     t0 = time.time()
-    snapshot_id: str, edges: List[Edge], cfg: Dict
-) -> List[ArbResult]:
     logger.debug("_tech_bellman_ford running snapshot=%s", snapshot_id)
     try:
         # If a precomputed volatility map is attached to the payload, use it.
@@ -161,6 +339,7 @@ def _tech_bellman_ford(
         n_graph_nodes = len(graph)
         n_graph_edges = sum(len(nbrs) for nbrs in graph.values())
         diag_log(f"Graph before pruning: nodes={n_graph_nodes}, edges={n_graph_edges}")
+        # (dump_graph intentionally executed after BF config/locals are populated)
 
         # Minimal node set
         nodes = list(nodes_set)
@@ -229,8 +408,40 @@ def _tech_bellman_ford(
         v_arr = [v for (u, v, w) in edge_list]
         w_arr = [w for (u, v, w) in edge_list]
 
-    # Diagnostic: log edge list size before pruning
-    diag_log(f"Edge list before pruning: nodes={n}, edges={len(edge_list)}")
+        # Diagnostic: log edge list size before pruning
+        diag_log(f"Edge list before pruning: nodes={n}, edges={len(edge_list)}")
+
+        # Optional debug dump: persist the constructed graph, nodes and rate_map
+        try:
+            dump_graph_flag = bool(cfg.get("techniques", {}).get("dump_graph", False))
+        except Exception:
+            dump_graph_flag = False
+        if dump_graph_flag:
+            try:
+                art_dir = (
+                    Path(__file__).resolve().parents[1] / "artifacts" / "arbitraje"
+                )
+                art_dir.mkdir(parents=True, exist_ok=True)
+                dump_path = art_dir / f"graph_debug_{str(int(time.time()))}.jsonl"
+                # Compose a compact serializable structure
+                dump_obj = {
+                    "snapshot_id": snapshot_id,
+                    "timestamp": int(time.time()),
+                    "nodes": list(nodes),
+                    "edge_list": [[nodes[u], nodes[v], float(w)] for (u, v, w) in edge_list],
+                    "rate_map": {"%s->%s" % (nodes[u], nodes[v]): float(rate_map[(u, v)]) for (u, v) in list(rate_map.keys())},
+                    "cfg_filters": {
+                        "fee": fee,
+                        "min_net": min_net,
+                        "min_quote_vol": payload.get('min_quote_vol') if isinstance(payload, dict) else None,
+                        "latency_penalty": latency_penalty,
+                    },
+                }
+                with open(dump_path, "a", encoding="utf-8") as dfh:
+                    dfh.write(json.dumps(dump_obj) + "\n")
+                diag_log(f"Wrote graph debug to {dump_path}")
+            except Exception:
+                logger.exception("failed to write graph debug dump")
 
         if bellman_ford_numba is not None and use_numba:
             try:
@@ -555,6 +766,15 @@ def _tech_bellman_ford(
                             logger.debug("failed to write slow iteration log")
                 except Exception:
                     pass
+                # Persist worker return for debug (helps detect IPC/pickle loss)
+                try:
+                    dbg_dir = Path(__file__).resolve().parents[1] / "artifacts" / "arbitraje"
+                    dbg_dir.mkdir(parents=True, exist_ok=True)
+                    dbg_path = dbg_dir / "worker_return_debug.log"
+                    with dbg_path.open("a", encoding="utf-8") as wfh:
+                        wfh.write(json.dumps({"snapshot_id": snapshot_id, "path": "numba_postproc", "results_count": len(results), "sample": results[:3]}) + "\n")
+                except Exception:
+                    pass
                 return results
             except Exception:
                 logger.exception(
@@ -706,7 +926,6 @@ def _tech_bellman_ford(
                     if candidate_log_path:
                         try:
                             with open(candidate_log_path, "a", encoding="utf-8") as cfh:
-                                import json
                                 cfh.write(json.dumps(candidate_entry) + "\n")
                         except Exception:
                             pass
@@ -719,6 +938,15 @@ def _tech_bellman_ford(
                         if len(results) >= top_n:
                             return results
 
+        # Persist worker return for debug (helps detect IPC/pickle loss)
+        try:
+            dbg_dir = Path(__file__).resolve().parents[1] / "artifacts" / "arbitraje"
+            dbg_dir.mkdir(parents=True, exist_ok=True)
+            dbg_path = dbg_dir / "worker_return_debug.log"
+            with dbg_path.open("a", encoding="utf-8") as wfh:
+                wfh.write(json.dumps({"snapshot_id": snapshot_id, "path": "python_bf", "results_count": len(results), "sample": results[:3]}) + "\n")
+        except Exception:
+            pass
         return results
     except Exception:
         logger.exception("_tech_bellman_ford failed")
@@ -879,6 +1107,19 @@ def scan_arbitrage(snapshot_id: str, edges: List[Edge], cfg: Dict) -> List[ArbRe
     maxw = cfg.get("techniques", {}).get(
         "max_workers", min(len(enabled), (os.cpu_count() or 4))
     )
+    # To avoid stale worker processes (which may have been created with older code),
+    # recreate the global pool for each scan during debugging. This ensures worker
+    # processes run the latest code. In production this can be optimized.
+    global _POOL
+    try:
+        if _POOL is not None:
+            try:
+                _POOL.shutdown(wait=False)
+            except Exception:
+                pass
+            _POOL = None
+    except Exception:
+        _POOL = None
     pool = _get_pool(maxw)
 
     futures = []
@@ -943,10 +1184,179 @@ def scan_arbitrage(snapshot_id: str, edges: List[Edge], cfg: Dict) -> List[ArbRe
                 # continue to next technique
                 continue
 
-            fut = pool.submit(func, snapshot_id, edges, cfg)
-            futures.append(fut)
-            # record submit time to approximate worker duration
-            future_map[fut] = (name, time.time())
+            # Prepare a sanitized, JSON-friendly payload for worker submission to
+            # avoid pickling non-serializable objects (ccxt objects, custom types).
+            try:
+                # record original tickers count for diagnostics (before sanitization)
+                try:
+                    orig_tickers_count = len(edges.get('tickers', {})) if isinstance(edges, dict) else 0
+                except Exception:
+                    orig_tickers_count = 0
+                if isinstance(edges, dict):
+                    pw = {
+                        "ex_id": edges.get("ex_id"),
+                        "ts": edges.get("ts"),
+                        "tokens": list(edges.get("tokens") or []),
+                        "tickers": {},
+                        "fee": float(edges.get("fee") or 0.0),
+                    }
+                    for sym, t in (edges.get("tickers") or {}).items():
+                        try:
+                            pw_t = {}
+                            if t is None or not isinstance(t, dict):
+                                pw_t = {}
+                            else:
+                                b = t.get("bid")
+                                a = t.get("ask")
+                                l = t.get("last")
+                                qv = t.get("quoteVolume") or t.get("quoteVolume24h") or t.get("volumeQuote") or 0.0
+                                if b is not None:
+                                    pw_t["bid"] = float(b)
+                                if a is not None:
+                                    pw_t["ask"] = float(a)
+                                if l is not None:
+                                    pw_t["last"] = float(l)
+                                try:
+                                    pw_t["quoteVolume"] = float(qv or 0.0)
+                                except Exception:
+                                    pw_t["quoteVolume"] = 0.0
+                            pw["tickers"][sym] = pw_t
+                        except Exception:
+                            pw["tickers"][sym] = {}
+                else:
+                    pw = edges
+            except Exception:
+                pw = edges
+
+            # Write a tiny pre-submit diagnostic to help detect IPC/pickle issues
+            try:
+                # primary src/artifacts location
+                art_dir = (
+                    Path(__file__).resolve().parents[1] / "artifacts" / "arbitraje"
+                )
+                art_dir.mkdir(parents=True, exist_ok=True)
+                diag_path = art_dir / "diagnostics.log"
+                ts_line = None
+                try:
+                    # compute a conservative count of valid tickers (have bid/ask/last)
+                    raw_tickers = pw.get('tickers', {}) if isinstance(pw, dict) else {}
+                    valid_count = 0
+                    try:
+                        for v in (raw_tickers or {}).values():
+                            if not v or not isinstance(v, dict):
+                                continue
+                            try:
+                                if (v.get('bid') is not None and float(v.get('bid')) > 0) or (v.get('ask') is not None and float(v.get('ask')) > 0) or (v.get('last') is not None and float(v.get('last')) > 0):
+                                    valid_count += 1
+                            except Exception:
+                                continue
+                    except Exception:
+                        valid_count = 0
+                    pb = json.dumps(pw)
+                    ex_ctx = str(pw.get('ex_id') or '')
+                    ts_line = f"[{time.strftime('%Y-%m-%dT%H:%M:%S')}] Pre-submit {name} ex={ex_ctx} snap={snapshot_id}: orig_tickers={orig_tickers_count} sanitized_tickers={valid_count}, payload_bytes={len(pb)}\n"
+                except Exception:
+                    ex_ctx = str(pw.get('ex_id') or '') if isinstance(pw, dict) else ''
+                    # best-effort fallback line
+                    ts_line = f"[{time.strftime('%Y-%m-%dT%H:%M:%S')}] Pre-submit {name} ex={ex_ctx} snap={snapshot_id}: tickers=unknown, payload_bytes=unknown\n"
+                wrote = False
+                try:
+                    with open(diag_path, "a", encoding="utf-8") as dfh:
+                        dfh.write(ts_line)
+                    wrote = True
+                except Exception:
+                    wrote = False
+                # secondary: project-level artifacts (one level up)
+                try:
+                    proj_diag = Path(__file__).resolve().parents[2] / "artifacts" / "arbitraje" / "diagnostics.log"
+                    proj_diag.parent.mkdir(parents=True, exist_ok=True)
+                    if not wrote:
+                        try:
+                            with open(proj_diag, "a", encoding="utf-8") as pfh:
+                                pfh.write(ts_line)
+                            wrote = True
+                        except Exception:
+                            wrote = wrote or False
+                except Exception:
+                    pass
+                # fallback: append a small diagnostic entry into the telemetry file if configured
+                if not wrote:
+                    try:
+                        telemetry_file = cfg.get("techniques", {}).get("telemetry_file")
+                        if telemetry_file:
+                            with open(telemetry_file, "a", encoding="utf-8") as tfh:
+                                tfh.write(json.dumps({"diagnostic": ts_line, "ts": int(time.time())}) + "\n")
+                    except Exception:
+                        pass
+            except Exception:
+                pass
+
+                # Ensure a minimal, compact telemetry/diagnostic entry is persisted
+                try:
+                    telemetry_file = cfg.get("techniques", {}).get("telemetry_file")
+                    if telemetry_file:
+                        tfp = Path(telemetry_file)
+                        if not tfp.is_absolute():
+                            tfp = Path(__file__).resolve().parents[2] / telemetry_file
+                        tfp.parent.mkdir(parents=True, exist_ok=True)
+                        short = {"pre_submit": name, "tickers": len(pw.get("tickers", {})), "ts": int(time.time())}
+                        with open(tfp, "a", encoding="utf-8") as tfh:
+                            tfh.write(json.dumps(short) + "\n")
+                except Exception:
+                    logger.debug("Failed to write compact pre-submit telemetry")
+
+                # If there are zero tickers in the sanitized payload, skip submitting to the ProcessPool
+                try:
+                    # use the conservative valid_count above if available, otherwise fall back
+                    if isinstance(pw, dict):
+                        n_tickers = valid_count if 'valid_count' in locals() else len(pw.get("tickers", {}))
+                    else:
+                        n_tickers = 0
+                except Exception:
+                    n_tickers = 0
+                try:
+                    print(f"[PARENT] pre-submit technique={name} ex={pw.get('ex_id') if isinstance(pw, dict) else ''} orig_tickers={orig_tickers_count} sanitized_tickers={n_tickers}")
+                except Exception:
+                    pass
+                if n_tickers == 0:
+                    logger.debug("Skipping submit for technique %s: zero valid tickers in payload (ex=%s snap=%s)", name, str(pw.get('ex_id') if isinstance(pw, dict) else ''), snapshot_id)
+                    # don't submit an empty payload to worker processes
+                    continue
+                # Submit a JSON string payload to avoid pickling complex objects
+                try:
+                    payload_str = json.dumps(pw)
+                except Exception:
+                    # fallback to original object if serialization fails
+                    payload_str = pw
+
+                fut = None
+                try:
+                    fut = pool.submit(func, snapshot_id, payload_str, cfg)
+                    futures.append(fut)
+                    # record submit time to approximate worker duration
+                    future_map[fut] = (name, time.time())
+                    try:
+                        print(f"[PARENT] submitted technique={name} future={repr(fut)}")
+                    except Exception:
+                        pass
+                    # Persist a compact submission record so we can inspect future objects
+                    try:
+                        abs_dbg = Path(r"c:\Users\Lenovo\dataqbs_IA\artifacts\arbitraje")
+                        abs_dbg.mkdir(parents=True, exist_ok=True)
+                        sub_path = abs_dbg / "parent_future_submissions.log"
+                        with sub_path.open("a", encoding="utf-8") as sfh:
+                            sfh.write(json.dumps({"snapshot_id": snapshot_id, "technique": name, "future_repr": repr(fut), "ts": int(time.time())}) + "\n")
+                    except Exception:
+                        logger.debug("failed to write parent future submission debug")
+                except Exception:
+                    logger.exception("Failed to submit technique %s to process pool; attempting fallback submit", name)
+                    try:
+                        # try submitting the original edges as a last-resort
+                        fut = pool.submit(func, snapshot_id, edges, cfg)
+                        futures.append(fut)
+                        future_map[fut] = (name, time.time())
+                    except Exception:
+                        logger.exception("Fallback submit also failed for technique %s; skipping", name)
             # init stats
             stats.setdefault(name, {"count": 0.0, "total_time": 0.0})
 
@@ -1034,38 +1444,110 @@ def scan_arbitrage(snapshot_id: str, edges: List[Edge], cfg: Dict) -> List[ArbRe
                     continue
 
                 # Process completed futures
-                for f in done:
-                    name, submit_ts = future_map.get(f, ("unknown", time.time()))
-                    start_wait = submit_ts
-                    end_wait = time.time()
-                    duration = max(0.0, end_wait - start_wait)
-                    try:
-                        # This should not block because f is in done
-                        res = f.result()
-                        # emit per-scan telemetry line if configured
+                    for f in done:
+                        name, submit_ts = future_map.get(f, ("unknown", time.time()))
+                        start_wait = submit_ts
+                        end_wait = time.time()
+                        duration = max(0.0, end_wait - start_wait)
+                        # Robust parent-side debug: log future state before/after result, including exception and result
+                        fut_done = None
+                        fut_cancelled = None
+                        fut_repr = None
+                        fut_exc = None
+                        res = None
+                        # Before result()
                         try:
-                            telemetry_file = cfg.get("techniques", {}).get(
-                                "telemetry_file"
-                            )
-                            if telemetry_file:
-                                with open(telemetry_file, "a", encoding="utf-8") as tfh:
-                                    tfh.write(
-                                        json.dumps(
-                                            {
-                                                "snapshot_id": snapshot_id,
-                                                "technique": name,
-                                                "timestamp": int(time.time()),
-                                                "duration_s": duration,
-                                                "results_count": len(res) if res else 0,
-                                            }
-                                        )
-                                        + "\n"
-                                    )
+                            try:
+                                fut_done = f.done()
+                            except Exception:
+                                fut_done = None
+                            try:
+                                fut_cancelled = f.cancelled()
+                            except Exception:
+                                fut_cancelled = None
+                            try:
+                                fut_repr = repr(f)
+                            except Exception:
+                                fut_repr = None
+                            # Write pre-result state
+                            try:
+                                abs_dbg = Path(r"c:\Users\Lenovo\dataqbs_IA\artifacts\arbitraje")
+                                abs_dbg.mkdir(parents=True, exist_ok=True)
+                                abs_path = abs_dbg / "parent_future_debug.log"
+                                with abs_path.open("a", encoding="utf-8") as afh:
+                                    afh.write(json.dumps({"action": "pre_result", "snapshot_id": snapshot_id, "technique": name, "future_done": fut_done, "future_cancelled": fut_cancelled, "future_repr": fut_repr, "ts": int(time.time())}) + "\n")
+                            except Exception:
+                                pass
+                            # Try to get result
+                            try:
+                                res = f.result()
+                            except Exception as e:
+                                fut_exc = str(e)
+                                res = None
+                            # After result()
+                            try:
+                                sample = res[:3] if isinstance(res, (list, tuple)) else res
+                            except Exception:
+                                sample = str(res)
+                            try:
+                                dbg_payload = {
+                                    "action": "post_result",
+                                    "snapshot_id": snapshot_id,
+                                    "technique": name,
+                                    "future_done": fut_done,
+                                    "future_cancelled": fut_cancelled,
+                                    "future_repr": fut_repr,
+                                    "future_exception": fut_exc,
+                                    "results_count": len(res) if res else 0,
+                                    "sample": sample,
+                                    "ts": int(time.time()),
+                                }
+                                abs_dbg = Path(r"c:\Users\Lenovo\dataqbs_IA\artifacts\arbitraje")
+                                abs_dbg.mkdir(parents=True, exist_ok=True)
+                                abs_path = abs_dbg / "parent_future_debug.log"
+                                with abs_path.open("a", encoding="utf-8") as afh:
+                                    afh.write(json.dumps(dbg_payload) + "\n")
+                            except Exception:
+                                logger.debug("failed to write absolute parent future debug file")
+                            # update stats and results as before
+                            stats.setdefault(name, {"count": 0.0, "total_time": 0.0})
+                            stats[name]["count"] += len(res) if res else 0.0
+                            stats[name]["total_time"] += duration
+                            if res:
+                                results.extend(res)
+                                try:
+                                    print(f"[PARENT] got results from {name}: count={len(res)} sample={repr(res[:2])}")
+                                except Exception:
+                                    pass
                         except Exception:
-                            logger.debug(
-                                "failed to write per-scan telemetry for %s", name
+                            logger.exception(
+                                "Technique task %s failed; attempting fallback if available",
+                                name,
                             )
-                        # update stats
+                    # emit per-scan telemetry line if configured
+                    try:
+                        telemetry_file = cfg.get("techniques", {}).get(
+                            "telemetry_file"
+                        )
+                        if telemetry_file:
+                            with open(telemetry_file, "a", encoding="utf-8") as tfh:
+                                tfh.write(
+                                    json.dumps(
+                                        {
+                                            "snapshot_id": snapshot_id,
+                                            "technique": name,
+                                            "timestamp": int(time.time()),
+                                            "duration_s": duration,
+                                            "results_count": len(res) if res else 0,
+                                        }
+                                    )
+                                    + "\n"
+                                )
+                    except Exception:
+                        logger.debug(
+                            "failed to write per-scan telemetry for %s", name
+                        )
+                    # update stats
                         stats.setdefault(name, {"count": 0.0, "total_time": 0.0})
                         stats[name]["count"] += len(res) if res else 0.0
                         stats[name]["total_time"] += duration
