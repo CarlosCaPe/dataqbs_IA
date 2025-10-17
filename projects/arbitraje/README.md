@@ -42,82 +42,13 @@ BINANCE_API_KEY=...
 BINANCE_API_SECRET=...
 ## Diagrama de Flujo de Tests
 
-```
+Actualmente solo existe un test principal de sanidad:
 
-You can later add other exchanges using the placeholders in `.env.example`.
+`test_sanity.py`: Verifica que el entorno de ejecución y la configuración básica están correctos.
 
-See `docs/exchanges/` for per-exchange guides. Binance guide: `docs/exchanges/binance.md`.
+No existen tests legacy ni de equivalencia Numba en el flujo principal. El diagrama y la documentación han sido actualizados para reflejar esto.
 
-## Usage
-
-Install:
-
-```
-poetry install
-```
-
-Run Bellman–Ford on Binance only with balance-aware logging (read-only):
-
-```
-poetry run arbitraje-ccxt --mode bf \
-	--ex binance \
-	--quote USDT \
-	--bf_fee 0.10 \
-	--bf_currencies_limit 25 \
-	--bf_min_net 0.5 \
-	--bf_top 10 \
-	--bf_require_quote \
-	--bf_min_hops 3 \
-	--bf_max_hops 6 \
-	--repeat 10 \
-	--repeat_sleep 2 \
-	--bf_threads 1 \
-	# Wallet balance is always used automatically when credentials are present
-```
-
-Outputs are written to `artifacts/arbitraje/outputs` (CSVs) and logs to `artifacts/arbitraje/logs`.
-
-## Connector diagnostics (recommended)
-
-Before running the radar or production scans, validate connector health. From the `projects/arbitraje` directory run:
-
-```
-cd projects/arbitraje
-poetry install
-poetry run python tests/scripts/test_connector_fetch.py
-poetry run python scripts/diagnose_ticker_fetch.py
-```
-
-The diagnostic script includes environment checks and will show a clear error if SDKs are missing or if you run it from the repo root. Always run these commands inside the `projects/arbitraje` Poetry environment to avoid false negatives.
-
-### Swapper (isolated executor)
-
-Pruebas rápidas con round-trip entre estables (por ejemplo USDT↔USDC):
-
-Test (no órdenes reales):
-
-```
-poetry run swapper --config .\swapper.yaml --exchange binance --path USDT->USDC->USDT --anchor USDT
-```
-
-Real (órdenes reales; usa .env con tus llaves):
-
-```
-poetry run swapper --config .\swapper.live.yaml --exchange binance --path USDT->USDC->USDT --anchor USDT --amount 10.0
-```
-
-Notas:
-- En `swapper.live.yaml` `dry_run=false` ejecuta órdenes reales; úsalo con cantidades muy pequeñas.
-- Binance requiere ~10 USDT mínimo para USDT/USDC por filtros de NOTIONAL.
-- Bitget/MEXC suelen aceptar ~1.01 USDT; OKX ~1.0.
-
-## Balance providers & API keys
-
-This project can read balances via multiple providers:
-
-- ccxt (default): generic provider
-- native: exchange-specific REST (e.g., Binance native endpoints)
-- connector/SDK: official SDKs (e.g., Binance Spot SDK, Bitget SDK)
+Para pruebas funcionales y de integración, consulta los scripts y módulos principales en `src/arbitraje/`.
 
 Select with `--balance_provider`:
 ## Descripción General
