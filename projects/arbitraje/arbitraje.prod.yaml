@@ -12,25 +12,29 @@ bf:
   allowed_quotes: [USDT,USDC, TUSD, USDP, EURS, PAXG]
 
   fee: 0.10                  # modela taker≈0.1% por hop
-  rank_by_qvol: true         # prioriza liquidez (reduce ciclos basura)
-  currencies_limit: 220      # balance entre cobertura y velocidad
-  min_net: -10000             # sube umbral bruto para absorber slippage potencial (~30 bps)
-  min_net_per_hop: -10000      # evita cadenas largas con hops marginales
-  top: 40                    # inspección limitada
-  require_quote: true        # obliga cerrar en ancla estable
-  require_topofbook: true    # usa bid/ask (más seguro para ejecución)
-  min_quote_vol: 2000        # suficiente para evitar libros delgados sin perder demasiadas rutas
-  min_hops: 2                # evita ciclos de 1 hop / trivial
-  max_hops: 5                # menor acumulación de fees y riesgo
+  rank_by_qvol: false        # desactivar ranking por liquidez para no filtrar nada
+  currencies_limit: 500      # ampliar cobertura para diagnóstico
+  min_net: -10000            # permitir negativos extremos
+  min_net_per_hop: -10000    # permitir negativos por hop
+  top: 200                   # ampliar listado para diagnóstico
+  require_quote: false       # permitir ciclos no anclados en quote
+  require_topofbook: false   # no exigir top-of-book para no filtrar
+  min_quote_vol: 0           # sin filtro por liquidez
+  min_hops: 0                # sin mínimo de hops
+  max_hops: 0                # sin máximo de hops
   threads: 0                 # use default pool / per-exchange parallelism
   require_dual_quote: false
   persist_top_csv: true
-  revalidate_depth: true     # re-chequea profundidad antes de aceptar ciclo
+  revalidate_depth: false    # no revalidar profundidad para no descartar
   use_ws: true               # WS para menor latencia si disponible
   depth_levels: 20           # niveles más profundos en revalidación
-  latency_penalty_bps: 25    # penaliza net revalidado ~25 bps para cubrir ejecución
+  latency_penalty_bps: 0     # sin penalización por latencia
   reset_history: true
   iter_timeout_sec: 0
+  # Forzar listado de triángulos (incluye nets negativos) cuando BF no encuentra ciclos
+  debug_list_triangles: true
+  # Dev: devolver TODOS los ciclos (aunque sean filtrados) para diagnóstico ultra-abierto
+  log_all_cycles: true
 
 max: 280                    # Alinear con reducción de currencies_limit para calidad
 timeout: 20000
@@ -61,10 +65,10 @@ ui:
 tri:
   fee: 0.10
   currencies_limit: 120
-  min_net: 0.50           # TRI stricter: require larger buffer for execution
+  min_net: -10000           # TRI stricter: require larger buffer for execution
   top: 40
   require_topofbook: false
-  min_quote_vol: 2000
+  min_quote_vol: 0
   time_budget_sec: 5.0
 
 # Engine techniques orchestration (process-pool based)
@@ -74,45 +78,15 @@ techniques:
   enable_rerank_onnx: false
   fallback_timeout: 8.0
   telemetry_file: ./artifacts/arbitraje/techniques_telemetry.log
-  inline: [bellman_ford]
+  inline: [bellman_ford, stat_tri]
   iteration_watchdog_sec: 10.0
   # Pruning agresivo para acelerar BF
-  pruning_degree_threshold: 6
-  pruning_qvol_frac: 0.12
-  pruning_volatility_window: 5
+  pruning_degree_threshold: 0     # desactivar pruning por grado
+  pruning_qvol_frac: 0.0          # desactivar pruning por qvol
+  pruning_volatility_window: 0    # desactivar pruning por volatilidad
 
 # Per-exchange overrides (optional) — these can tune aggressiveness per-exchange.
-exchange_overrides:
-  mexc:
-    bf:
-      min_net: 0.50
-      min_quote_vol: 2000
-      latency_penalty_bps: 35
-    tri:
-      currencies_limit: 120
-      time_budget_sec: 6.0
-  binance:
-    bf:
-      min_net: 0.20
-      min_quote_vol: 10000
-      currencies_limit: 120
-    tri:
-      currencies_limit: 100
-      time_budget_sec: 6.0
-  okx:
-    bf:
-      min_net: 0.30
-      require_topofbook: true
-  coinbase:
-    bf:
-      min_net: 0.60
-      min_quote_vol: 5000
-  bitget:
-    bf:
-      currencies_limit: 120
-    tri:
-      currencies_limit: 120
-      time_budget_sec: 6.0
+exchange_overrides: {}
 
 # Manual blacklist (prod) – if needed, configure via artifacts/config blacklist file used by load_swaps_blacklist()
 # (Inline YAML blacklist removed due to unsupported schema)
