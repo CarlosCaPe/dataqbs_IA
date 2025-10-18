@@ -4299,7 +4299,35 @@ def main() -> None:
                 if iter_lines:
                     fh.write("\n".join(iter_lines) + "\n\n")
                 else:
-                    fh.write("(sin oportunidades en esta iteración)\n\n")
+                    # Si no hubo líneas de simulación/progreso, pero sí hubo resultados,
+                    # escribe un resumen compacto para evitar un mensaje vacío engañoso.
+                    if 'iter_results' in locals() and iter_results:
+                        try:
+                            import pandas as _pd
+                            _df = _pd.DataFrame(iter_results)
+                            _n = len(_df)
+                            _best = float(_df["net_pct"].max()) if "net_pct" in _df.columns else 0.0
+                            _by_ex = (
+                                _df.groupby("exchange", as_index=False)
+                                .agg(count=("net_pct", "count"), best_net=("net_pct", "max"))
+                                .sort_values(["best_net", "count"], ascending=[False, False])
+                            ) if "exchange" in _df.columns else None
+                            fh.write(
+                                f"(resumen) oportunidades={_n}, mejor_net={_best:.4f}%\n"
+                            )
+                            if _by_ex is not None and not _by_ex.empty:
+                                # Formato ligero por exchange
+                                _lines = [
+                                    f" - {_row['exchange']}: n={int(_row['count'])}, best={float(_row['best_net']):.4f}%"
+                                    for _idx, _row in _by_ex.iterrows()
+                                ]
+                                fh.write("\n".join(_lines) + "\n\n")
+                            else:
+                                fh.write("\n")
+                        except Exception:
+                            fh.write("(resumen) oportunidades encontradas\n\n")
+                    else:
+                        fh.write("(sin oportunidades en esta iteración)\n\n")
             try:
                 logger.info(
                     "BF history append: %s (exists=%s)",
