@@ -27,6 +27,11 @@ To clone the latest version:
 git clone https://github.com/CarlosCaPe/dataqbs_IA.git
 ```
 
+**Español:** Para clonar este proyecto en su versión 1.1.1, utiliza el comando:
+```bash
+git clone --branch v1.1.1 https://github.com/CarlosCaPe/dataqbs_IA.git
+```
+
 ## Environment setup
 
 1) Create a `.env` file at the repository root (not committed) with your credentials. Example placeholders below—replace with your own values; do not commit secrets:
