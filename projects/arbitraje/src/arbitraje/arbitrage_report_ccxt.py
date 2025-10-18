@@ -3519,16 +3519,20 @@ def main() -> None:
         t_threadpool_start = time.time()
         logger.info(f"[TIMING] BF iter {it}: ThreadPoolExecutor start")
         with concurrent.futures.ThreadPoolExecutor(max_workers=4) as executor:
+            # Map futures to (exchange id, submit_ts) to compute realistic durations
             future_map = {}
             for ex_id in EX_IDS:
+                _submit_ts = time.time()
                 future = executor.submit(bf_worker, ex_id, it, ts)
-                future_map[future] = ex_id
+                future_map[future] = (ex_id, _submit_ts)
             for future in concurrent.futures.as_completed(future_map, timeout=None):
-                ex_id = future_map[future]
+                ex_id, _submit_ts = future_map[future]
                 try:
-                    _ex_start = time.time()
+                    _wait_start = time.time()
                     _ex_id, lines, rows = future.result(timeout=per_exchange_watchdog_sec if per_exchange_watchdog_sec > 0 else None)
-                    _ex_dur = time.time() - _ex_start
+                    _end_ts = time.time()
+                    # Duration approximated from submit to completion; avoids ~0s artifacts
+                    _ex_dur = max(0.0, _end_ts - (_submit_ts or _wait_start))
                     logger.info(f"[TIMING] BF iter {it}: {ex_id} worker duration: {_ex_dur:.3f}s")
                 except concurrent.futures.TimeoutError:
                     logger.error(
