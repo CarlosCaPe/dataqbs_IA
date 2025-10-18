@@ -47,7 +47,7 @@ balance_provider: ccxt
 ex_auth_only: true
 simulate_compound: true
 # Para acelerar y evitar 10-12s de prefetch de wallet por iteración, desactivar:
-simulate_from_wallet: true
+simulate_from_wallet: false
 simulate_prefer: auto
 simulate_select: best
 simulate_auto_switch: true

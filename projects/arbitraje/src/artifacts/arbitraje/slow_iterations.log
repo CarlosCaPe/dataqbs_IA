@@ -20,3 +20,10 @@
 {"snapshot_id": "snap", "technique": "bellman_ford_numba", "numba_call_s": 2.02897310256958, "postproc_s": 0.0, "total_s": 2.02897310256958, "results": 1, "timestamp": 1760754749}
 {"snapshot_id": "snap1", "technique": "bellman_ford_numba", "numba_call_s": 1.5629925727844238, "postproc_s": 0.0, "total_s": 1.5629925727844238, "results": 0, "timestamp": 1760754907}
 {"snapshot_id": "snap1", "technique": "bellman_ford_numba", "numba_call_s": 1.281109094619751, "postproc_s": 0.0, "total_s": 1.281109094619751, "results": 0, "timestamp": 1760754972}
+{"snapshot_id": "2025-10-18T20:44:20.980697+00:00", "technique": "bellman_ford_numba", "numba_call_s": 2.283508062362671, "postproc_s": 0.0, "total_s": 2.283508062362671, "results": 0, "timestamp": 1760820280}
+{"snapshot_id": "2025-10-18T20:47:42.822848+00:00", "technique": "bellman_ford_numba", "numba_call_s": 1.3059968948364258, "postproc_s": 0.0, "total_s": 1.3059968948364258, "results": 0, "timestamp": 1760820470}
+{"snapshot_id": "2025-10-18T20:48:40.327998+00:00", "technique": "bellman_ford_numba", "numba_call_s": 0.8955180644989014, "postproc_s": 0.0, "total_s": 0.8955180644989014, "results": 0, "timestamp": 1760820524}
+{"snapshot_id": "2025-10-18T20:49:24.690880+00:00", "technique": "bellman_ford_numba", "numba_call_s": 2.438551187515259, "postproc_s": 0.0, "total_s": 2.438551187515259, "results": 0, "timestamp": 1760820571}
+{"snapshot_id": "2025-10-18T20:56:00.727443+00:00", "technique": "bellman_ford_numba", "numba_call_s": 2.5449047088623047, "postproc_s": 0.0, "total_s": 2.5449047088623047, "results": 0, "timestamp": 1760820968}
+{"snapshot_id": "2025-10-18T21:03:26.426939+00:00", "technique": "bellman_ford_numba", "numba_call_s": 2.552050828933716, "postproc_s": 0.0, "total_s": 2.552050828933716, "results": 0, "timestamp": 1760821418}
+{"snapshot_id": "2025-10-18T21:04:37.294415+00:00", "technique": "bellman_ford_numba", "numba_call_s": 2.518599033355713, "postproc_s": 0.0, "total_s": 2.518599033355713, "results": 0, "timestamp": 1760821483}

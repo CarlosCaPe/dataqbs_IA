@@ -479,3 +479,39 @@
 {"snapshot_id": "2025-10-18T18:16:41.723108+00:00", "path": "python_bf", "results_count": 0, "sample": []}
 {"snapshot_id": "2025-10-18T18:16:41.723108+00:00", "path": "python_bf", "results_count": 0, "sample": []}
 {"snapshot_id": "2025-10-18T18:16:41.723108+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "snap1", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "snap1", "path": "python_bf", "results_count": 2, "sample": [{"ts": "tst", "venue": "testex", "cycle": "B->C->B", "orientation": "forward", "net_bps_est": 179.6102, "fee_bps_total": 0.2, "hops": 2, "status": "actionable", "filter_reasons": []}, {"ts": "tst", "venue": "testex", "cycle": "C->B->C", "orientation": "forward", "net_bps_est": 179.6102, "fee_bps_total": 0.2, "hops": 2, "status": "actionable", "filter_reasons": []}]}
+{"snapshot_id": "snap", "path": "python_bf", "results_count": 2, "sample": [{"ts": "tst", "venue": "testex", "cycle": "C->B->C", "orientation": "forward", "net_bps_est": 179.6102, "fee_bps_total": 0.2, "hops": 2, "status": "actionable", "filter_reasons": []}, {"ts": "tst", "venue": "testex", "cycle": "B->C->B", "orientation": "forward", "net_bps_est": 179.6102, "fee_bps_total": 0.2, "hops": 2, "status": "actionable", "filter_reasons": []}]}
+{"snapshot_id": "binance", "path": "python_bf", "results_count": 1, "sample": [{"ts": "binance", "venue": null, "cycle": "B->C->A->B", "orientation": "reverse", "net_bps_est": 368.8312, "fee_bps_total": 0.3, "hops": 3, "status": "actionable", "filter_reasons": []}]}
+{"snapshot_id": "bitget", "path": "python_bf", "results_count": 1, "sample": [{"ts": "bitget", "venue": null, "cycle": "B->C->A->B", "orientation": "reverse", "net_bps_est": 368.8312, "fee_bps_total": 0.3, "hops": 3, "status": "actionable", "filter_reasons": []}]}
+{"snapshot_id": "mexc", "path": "python_bf", "results_count": 1, "sample": [{"ts": "mexc", "venue": null, "cycle": "B->C->A->B", "orientation": "reverse", "net_bps_est": 368.8312, "fee_bps_total": 0.3, "hops": 3, "status": "actionable", "filter_reasons": []}]}
+{"snapshot_id": "snap1", "path": "numba_postproc", "results_count": 0, "sample": []}
+{"snapshot_id": "snap1", "path": "numba_postproc", "results_count": 2, "sample": [{"ts": "tst", "venue": "testex", "cycle": "B->C->B", "net_bps_est": 179.6102, "fee_bps_total": 0.2, "status": "actionable"}, {"ts": "tst", "venue": "testex", "cycle": "C->B->C", "net_bps_est": 179.6102, "fee_bps_total": 0.2, "status": "actionable"}]}
+{"snapshot_id": "snap", "path": "numba_postproc", "results_count": 2, "sample": [{"ts": "tst", "venue": "testex", "cycle": "C->B->C", "net_bps_est": 179.6102, "fee_bps_total": 0.2, "status": "actionable"}, {"ts": "tst", "venue": "testex", "cycle": "B->C->B", "net_bps_est": 179.6102, "fee_bps_total": 0.2, "status": "actionable"}]}
+{"snapshot_id": "binance", "path": "python_bf", "results_count": 1, "sample": [{"ts": "binance", "venue": null, "cycle": "B->C->A->B", "orientation": "reverse", "net_bps_est": 368.8312, "fee_bps_total": 0.3, "hops": 3, "status": "actionable", "filter_reasons": []}]}
+{"snapshot_id": "bitget", "path": "python_bf", "results_count": 1, "sample": [{"ts": "bitget", "venue": null, "cycle": "B->C->A->B", "orientation": "reverse", "net_bps_est": 368.8312, "fee_bps_total": 0.3, "hops": 3, "status": "actionable", "filter_reasons": []}]}
+{"snapshot_id": "mexc", "path": "python_bf", "results_count": 1, "sample": [{"ts": "mexc", "venue": null, "cycle": "B->C->A->B", "orientation": "reverse", "net_bps_est": 368.8312, "fee_bps_total": 0.3, "hops": 3, "status": "actionable", "filter_reasons": []}]}
+{"snapshot_id": "2025-10-18T20:44:20.980697+00:00", "path": "numba_postproc", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T20:47:42.822848+00:00", "path": "numba_postproc", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T20:47:51.651779+00:00", "path": "numba_postproc", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T20:47:58.551070+00:00", "path": "numba_postproc", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T20:48:06.093201+00:00", "path": "numba_postproc", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T20:48:13.324889+00:00", "path": "numba_postproc", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T20:48:22.913021+00:00", "path": "numba_postproc", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T20:48:32.369661+00:00", "path": "numba_postproc", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T20:48:40.327998+00:00", "path": "numba_postproc", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T20:49:24.690880+00:00", "path": "numba_postproc", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T20:49:33.006473+00:00", "path": "numba_postproc", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T20:49:40.347516+00:00", "path": "numba_postproc", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T20:56:00.727443+00:00", "path": "numba_postproc", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T21:03:26.426939+00:00", "path": "numba_postproc", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T21:04:37.294415+00:00", "path": "numba_postproc", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T21:04:45.875611+00:00", "path": "numba_postproc", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T21:04:54.872387+00:00", "path": "numba_postproc", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T21:05:02.572700+00:00", "path": "numba_postproc", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T21:05:10.159877+00:00", "path": "numba_postproc", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T21:05:17.797261+00:00", "path": "numba_postproc", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T21:05:26.055062+00:00", "path": "numba_postproc", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T21:05:36.020083+00:00", "path": "numba_postproc", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T21:05:45.304938+00:00", "path": "numba_postproc", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T21:05:52.445838+00:00", "path": "numba_postproc", "results_count": 0, "sample": []}

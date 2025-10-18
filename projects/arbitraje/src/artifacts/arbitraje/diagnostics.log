@@ -1,0 +1,360 @@
+[2025-10-18T19:15:56.231169] Worker received payload_bytes=602
+[2025-10-18T19:15:56.231169] Worker received payload_bytes=602
+[2025-10-18T19:15:56.249883] Tickers: 6, Valid rates: 6
+[2025-10-18T19:15:56.249883] Tickers: 6, Valid rates: 6
+[2025-10-18T19:15:56.253884] Tickers fetch/preprocess time: 0.005s
+[2025-10-18T19:15:56.253884] Tickers fetch/preprocess time: 0.005s
+[2025-10-18T19:15:56.258883] Graph before pruning: nodes=4, edges=12
+[2025-10-18T19:15:56.258883] Graph before pruning: nodes=4, edges=12
+[2025-10-18T19:15:56.263888] Edge list before pruning: nodes=4, edges=12
+[2025-10-18T19:15:56.263888] Edge list before pruning: nodes=4, edges=12
+[2025-10-18T19:15:59.383313] Worker received payload_bytes=553
+[2025-10-18T19:15:59.383313] Worker received payload_bytes=553
+[2025-10-18T19:15:59.386309] Tickers: 6, Valid rates: 6
+[2025-10-18T19:15:59.386309] Tickers: 6, Valid rates: 6
+[2025-10-18T19:15:59.391304] Tickers fetch/preprocess time: 0.005s
+[2025-10-18T19:15:59.391304] Tickers fetch/preprocess time: 0.005s
+[2025-10-18T19:15:59.393277] Graph before pruning: nodes=4, edges=12
+[2025-10-18T19:15:59.393277] Graph before pruning: nodes=4, edges=12
+[2025-10-18T19:15:59.396277] Edge list before pruning: nodes=4, edges=12
+[2025-10-18T19:15:59.396277] Edge list before pruning: nodes=4, edges=12
+[2025-10-18T19:15:59.405287] Worker received payload_bytes=258
+[2025-10-18T19:15:59.405287] Worker received payload_bytes=258
+[2025-10-18T19:15:59.408274] Tickers: 3, Valid rates: 3
+[2025-10-18T19:15:59.408274] Tickers: 3, Valid rates: 3
+[2025-10-18T19:15:59.411277] Tickers fetch/preprocess time: 0.003s
+[2025-10-18T19:15:59.411277] Tickers fetch/preprocess time: 0.003s
+[2025-10-18T19:15:59.414309] Graph before pruning: nodes=3, edges=6
+[2025-10-18T19:15:59.414309] Graph before pruning: nodes=3, edges=6
+[2025-10-18T19:15:59.417278] Edge list before pruning: nodes=3, edges=6
+[2025-10-18T19:15:59.417278] Edge list before pruning: nodes=3, edges=6
+[2025-10-18T19:15:59.430310] Worker received payload_bytes=479
+[2025-10-18T19:15:59.430310] Worker received payload_bytes=479
+[2025-10-18T19:15:59.433308] Tickers: 3, Valid rates: 3
+[2025-10-18T19:15:59.433308] Tickers: 3, Valid rates: 3
+[2025-10-18T19:15:59.436277] Tickers fetch/preprocess time: 0.003s
+[2025-10-18T19:15:59.436277] Tickers fetch/preprocess time: 0.003s
+[2025-10-18T19:15:59.441282] Graph before pruning: nodes=3, edges=6
+[2025-10-18T19:15:59.441282] Graph before pruning: nodes=3, edges=6
+[2025-10-18T19:15:59.444277] Edge list before pruning: nodes=3, edges=6
+[2025-10-18T19:15:59.444277] Edge list before pruning: nodes=3, edges=6
+[2025-10-18T19:15:59.450279] Worker received payload_bytes=476
+[2025-10-18T19:15:59.450279] Worker received payload_bytes=476
+[2025-10-18T19:15:59.455281] Tickers: 3, Valid rates: 3
+[2025-10-18T19:15:59.455281] Tickers: 3, Valid rates: 3
+[2025-10-18T19:15:59.459277] Tickers fetch/preprocess time: 0.004s
+[2025-10-18T19:15:59.459277] Tickers fetch/preprocess time: 0.004s
+[2025-10-18T19:15:59.462278] Graph before pruning: nodes=3, edges=6
+[2025-10-18T19:15:59.462278] Graph before pruning: nodes=3, edges=6
+[2025-10-18T19:15:59.465289] Edge list before pruning: nodes=3, edges=6
+[2025-10-18T19:15:59.465289] Edge list before pruning: nodes=3, edges=6
+[2025-10-18T19:15:59.470274] Worker received payload_bytes=476
+[2025-10-18T19:15:59.470274] Worker received payload_bytes=476
+[2025-10-18T19:15:59.475311] Tickers: 3, Valid rates: 3
+[2025-10-18T19:15:59.475311] Tickers: 3, Valid rates: 3
+[2025-10-18T19:15:59.477274] Tickers fetch/preprocess time: 0.002s
+[2025-10-18T19:15:59.477274] Tickers fetch/preprocess time: 0.002s
+[2025-10-18T19:15:59.480276] Graph before pruning: nodes=3, edges=6
+[2025-10-18T19:15:59.480276] Graph before pruning: nodes=3, edges=6
+[2025-10-18T19:15:59.483313] Edge list before pruning: nodes=3, edges=6
+[2025-10-18T19:15:59.483313] Edge list before pruning: nodes=3, edges=6
+[2025-10-18T19:54:02.700382] Worker received payload_bytes=602
+[2025-10-18T19:54:02.700382] Worker received payload_bytes=602
+[2025-10-18T19:54:02.706380] Tickers: 6, Valid rates: 6
+[2025-10-18T19:54:02.706380] Tickers: 6, Valid rates: 6
+[2025-10-18T19:54:02.710379] Tickers fetch/preprocess time: 0.004s
+[2025-10-18T19:54:02.710379] Tickers fetch/preprocess time: 0.004s
+[2025-10-18T19:54:02.715380] Graph before pruning: nodes=4, edges=12
+[2025-10-18T19:54:02.715380] Graph before pruning: nodes=4, edges=12
+[2025-10-18T19:54:02.723385] Edge list before pruning: nodes=4, edges=12
+[2025-10-18T19:54:02.723385] Edge list before pruning: nodes=4, edges=12
+[2025-10-18T19:54:07.420909] Worker received payload_bytes=553
+[2025-10-18T19:54:07.420909] Worker received payload_bytes=553
+[2025-10-18T19:54:07.426900] Tickers: 6, Valid rates: 6
+[2025-10-18T19:54:07.426900] Tickers: 6, Valid rates: 6
+[2025-10-18T19:54:07.441899] Tickers fetch/preprocess time: 0.015s
+[2025-10-18T19:54:07.441899] Tickers fetch/preprocess time: 0.015s
+[2025-10-18T19:54:07.446899] Graph before pruning: nodes=4, edges=12
+[2025-10-18T19:54:07.446899] Graph before pruning: nodes=4, edges=12
+[2025-10-18T19:54:07.452901] Edge list before pruning: nodes=4, edges=12
+[2025-10-18T19:54:07.452901] Edge list before pruning: nodes=4, edges=12
+[2025-10-18T19:54:07.468902] Worker received payload_bytes=258
+[2025-10-18T19:54:07.468902] Worker received payload_bytes=258
+[2025-10-18T19:54:07.475899] Tickers: 3, Valid rates: 3
+[2025-10-18T19:54:07.475899] Tickers: 3, Valid rates: 3
+[2025-10-18T19:54:07.486901] Tickers fetch/preprocess time: 0.011s
+[2025-10-18T19:54:07.486901] Tickers fetch/preprocess time: 0.011s
+[2025-10-18T19:54:07.491900] Graph before pruning: nodes=3, edges=6
+[2025-10-18T19:54:07.491900] Graph before pruning: nodes=3, edges=6
+[2025-10-18T19:54:07.496900] Edge list before pruning: nodes=3, edges=6
+[2025-10-18T19:54:07.496900] Edge list before pruning: nodes=3, edges=6
+[2025-10-18T19:54:07.510900] Worker received payload_bytes=479
+[2025-10-18T19:54:07.510900] Worker received payload_bytes=479
+[2025-10-18T19:54:07.515908] Tickers: 3, Valid rates: 3
+[2025-10-18T19:54:07.515908] Tickers: 3, Valid rates: 3
+[2025-10-18T19:54:07.522900] Tickers fetch/preprocess time: 0.007s
+[2025-10-18T19:54:07.522900] Tickers fetch/preprocess time: 0.007s
+[2025-10-18T19:54:07.526898] Graph before pruning: nodes=3, edges=6
+[2025-10-18T19:54:07.526898] Graph before pruning: nodes=3, edges=6
+[2025-10-18T19:54:07.531900] Edge list before pruning: nodes=3, edges=6
+[2025-10-18T19:54:07.531900] Edge list before pruning: nodes=3, edges=6
+[2025-10-18T19:54:07.539908] Worker received payload_bytes=476
+[2025-10-18T19:54:07.539908] Worker received payload_bytes=476
+[2025-10-18T19:54:07.544900] Tickers: 3, Valid rates: 3
+[2025-10-18T19:54:07.544900] Tickers: 3, Valid rates: 3
+[2025-10-18T19:54:07.548902] Tickers fetch/preprocess time: 0.004s
+[2025-10-18T19:54:07.548902] Tickers fetch/preprocess time: 0.004s
+[2025-10-18T19:54:07.553904] Graph before pruning: nodes=3, edges=6
+[2025-10-18T19:54:07.553904] Graph before pruning: nodes=3, edges=6
+[2025-10-18T19:54:07.559897] Edge list before pruning: nodes=3, edges=6
+[2025-10-18T19:54:07.559897] Edge list before pruning: nodes=3, edges=6
+[2025-10-18T19:54:07.569910] Worker received payload_bytes=476
+[2025-10-18T19:54:07.569910] Worker received payload_bytes=476
+[2025-10-18T19:54:07.574908] Tickers: 3, Valid rates: 3
+[2025-10-18T19:54:07.574908] Tickers: 3, Valid rates: 3
+[2025-10-18T19:54:07.578899] Tickers fetch/preprocess time: 0.004s
+[2025-10-18T19:54:07.578899] Tickers fetch/preprocess time: 0.004s
+[2025-10-18T19:54:07.583897] Graph before pruning: nodes=3, edges=6
+[2025-10-18T19:54:07.583897] Graph before pruning: nodes=3, edges=6
+[2025-10-18T19:54:07.589898] Edge list before pruning: nodes=3, edges=6
+[2025-10-18T19:54:07.589898] Edge list before pruning: nodes=3, edges=6
+[2025-10-18T20:44:36.226424] Worker received payload_bytes=2083957
+[2025-10-18T20:44:36.226424] Worker received payload_bytes=2083957
+[2025-10-18T20:44:36.243426] Tickers: 2296, Valid rates: 2294
+[2025-10-18T20:44:36.243426] Tickers: 2296, Valid rates: 2294
+[2025-10-18T20:44:36.246425] Tickers fetch/preprocess time: 0.004s
+[2025-10-18T20:44:36.246425] Tickers fetch/preprocess time: 0.004s
+[2025-10-18T20:44:36.254425] Graph before pruning: nodes=2006, edges=4584
+[2025-10-18T20:44:36.254425] Graph before pruning: nodes=2006, edges=4584
+[2025-10-18T20:44:38.507180] Edge list before pruning: nodes=2018, edges=4584
+[2025-10-18T20:44:38.507180] Edge list before pruning: nodes=2018, edges=4584
+[2025-10-18T20:47:47.175139] Worker received payload_bytes=2084023
+[2025-10-18T20:47:47.175139] Worker received payload_bytes=2084023
+[2025-10-18T20:47:47.181139] Tickers: 2296, Valid rates: 2294
+[2025-10-18T20:47:47.181139] Tickers: 2296, Valid rates: 2294
+[2025-10-18T20:47:47.184138] Tickers fetch/preprocess time: 0.004s
+[2025-10-18T20:47:47.184138] Tickers fetch/preprocess time: 0.004s
+[2025-10-18T20:47:47.189137] Graph before pruning: nodes=2006, edges=4584
+[2025-10-18T20:47:47.189137] Graph before pruning: nodes=2006, edges=4584
+[2025-10-18T20:47:49.031698] Edge list before pruning: nodes=2023, edges=4584
+[2025-10-18T20:47:49.031698] Edge list before pruning: nodes=2023, edges=4584
+[2025-10-18T20:47:56.403878] Worker received payload_bytes=2083819
+[2025-10-18T20:47:56.403878] Worker received payload_bytes=2083819
+[2025-10-18T20:47:56.526879] Tickers: 2296, Valid rates: 2294
+[2025-10-18T20:47:56.526879] Tickers: 2296, Valid rates: 2294
+[2025-10-18T20:47:56.529880] Tickers fetch/preprocess time: 0.004s
+[2025-10-18T20:47:56.529880] Tickers fetch/preprocess time: 0.004s
+[2025-10-18T20:47:56.535910] Graph before pruning: nodes=2006, edges=4584
+[2025-10-18T20:47:56.535910] Graph before pruning: nodes=2006, edges=4584
+[2025-10-18T20:47:56.546880] Edge list before pruning: nodes=2023, edges=4584
+[2025-10-18T20:47:56.546880] Edge list before pruning: nodes=2023, edges=4584
+[2025-10-18T20:48:01.620116] Worker received payload_bytes=2083877
+[2025-10-18T20:48:01.620116] Worker received payload_bytes=2083877
+[2025-10-18T20:48:01.626115] Tickers: 2296, Valid rates: 2294
+[2025-10-18T20:48:01.626115] Tickers: 2296, Valid rates: 2294
+[2025-10-18T20:48:01.628083] Tickers fetch/preprocess time: 0.004s
+[2025-10-18T20:48:01.628083] Tickers fetch/preprocess time: 0.004s
+[2025-10-18T20:48:01.634113] Graph before pruning: nodes=2006, edges=4584
+[2025-10-18T20:48:01.634113] Graph before pruning: nodes=2006, edges=4584
+[2025-10-18T20:48:01.643081] Edge list before pruning: nodes=2023, edges=4584
+[2025-10-18T20:48:01.643081] Edge list before pruning: nodes=2023, edges=4584
+[2025-10-18T20:48:09.167811] Worker received payload_bytes=2083943
+[2025-10-18T20:48:09.167811] Worker received payload_bytes=2083943
+[2025-10-18T20:48:09.184806] Tickers: 2296, Valid rates: 2294
+[2025-10-18T20:48:09.184806] Tickers: 2296, Valid rates: 2294
+[2025-10-18T20:48:09.187804] Tickers fetch/preprocess time: 0.004s
+[2025-10-18T20:48:09.187804] Tickers fetch/preprocess time: 0.004s
+[2025-10-18T20:48:09.193802] Graph before pruning: nodes=2006, edges=4584
+[2025-10-18T20:48:09.193802] Graph before pruning: nodes=2006, edges=4584
+[2025-10-18T20:48:09.203803] Edge list before pruning: nodes=2023, edges=4584
+[2025-10-18T20:48:09.203803] Edge list before pruning: nodes=2023, edges=4584
+[2025-10-18T20:48:16.703073] Worker received payload_bytes=2084062
+[2025-10-18T20:48:16.703073] Worker received payload_bytes=2084062
+[2025-10-18T20:48:16.720996] Tickers: 2296, Valid rates: 2294
+[2025-10-18T20:48:16.720996] Tickers: 2296, Valid rates: 2294
+[2025-10-18T20:48:16.723995] Tickers fetch/preprocess time: 0.005s
+[2025-10-18T20:48:16.723995] Tickers fetch/preprocess time: 0.005s
+[2025-10-18T20:48:16.732995] Graph before pruning: nodes=2006, edges=4584
+[2025-10-18T20:48:16.732995] Graph before pruning: nodes=2006, edges=4584
+[2025-10-18T20:48:16.750996] Edge list before pruning: nodes=2023, edges=4584
+[2025-10-18T20:48:16.750996] Edge list before pruning: nodes=2023, edges=4584
+[2025-10-18T20:48:28.596511] Worker received payload_bytes=2083807
+[2025-10-18T20:48:28.596511] Worker received payload_bytes=2083807
+[2025-10-18T20:48:28.602512] Tickers: 2296, Valid rates: 2294
+[2025-10-18T20:48:28.602512] Tickers: 2296, Valid rates: 2294
+[2025-10-18T20:48:28.605510] Tickers fetch/preprocess time: 0.004s
+[2025-10-18T20:48:28.605510] Tickers fetch/preprocess time: 0.004s
+[2025-10-18T20:48:28.612509] Graph before pruning: nodes=2006, edges=4584
+[2025-10-18T20:48:28.612509] Graph before pruning: nodes=2006, edges=4584
+[2025-10-18T20:48:28.624516] Edge list before pruning: nodes=2023, edges=4584
+[2025-10-18T20:48:28.624516] Edge list before pruning: nodes=2023, edges=4584
+[2025-10-18T20:48:36.024020] Worker received payload_bytes=2083881
+[2025-10-18T20:48:36.024020] Worker received payload_bytes=2083881
+[2025-10-18T20:48:36.029866] Tickers: 2296, Valid rates: 2294
+[2025-10-18T20:48:36.029866] Tickers: 2296, Valid rates: 2294
+[2025-10-18T20:48:36.033868] Tickers fetch/preprocess time: 0.005s
+[2025-10-18T20:48:36.033868] Tickers fetch/preprocess time: 0.005s
+[2025-10-18T20:48:36.040867] Graph before pruning: nodes=2006, edges=4584
+[2025-10-18T20:48:36.040867] Graph before pruning: nodes=2006, edges=4584
+[2025-10-18T20:48:36.049868] Edge list before pruning: nodes=2023, edges=4584
+[2025-10-18T20:48:36.049868] Edge list before pruning: nodes=2023, edges=4584
+[2025-10-18T20:48:43.810535] Worker received payload_bytes=2083901
+[2025-10-18T20:48:43.810535] Worker received payload_bytes=2083901
+[2025-10-18T20:48:43.834529] Tickers: 2296, Valid rates: 2294
+[2025-10-18T20:48:43.834529] Tickers: 2296, Valid rates: 2294
+[2025-10-18T20:48:43.839530] Tickers fetch/preprocess time: 0.006s
+[2025-10-18T20:48:43.839530] Tickers fetch/preprocess time: 0.006s
+[2025-10-18T20:48:43.846528] Graph before pruning: nodes=2006, edges=4584
+[2025-10-18T20:48:43.846528] Graph before pruning: nodes=2006, edges=4584
+[2025-10-18T20:48:43.862559] Edge list before pruning: nodes=2023, edges=4584
+[2025-10-18T20:48:43.862559] Edge list before pruning: nodes=2023, edges=4584
+[2025-10-18T20:49:28.008140] Worker received payload_bytes=2084018
+[2025-10-18T20:49:28.008140] Worker received payload_bytes=2084018
+[2025-10-18T20:49:28.017152] Tickers: 2296, Valid rates: 2294
+[2025-10-18T20:49:28.017152] Tickers: 2296, Valid rates: 2294
+[2025-10-18T20:49:28.461140] Tickers fetch/preprocess time: 0.445s
+[2025-10-18T20:49:28.461140] Tickers fetch/preprocess time: 0.445s
+[2025-10-18T20:49:28.467138] Graph before pruning: nodes=2006, edges=4584
+[2025-10-18T20:49:28.467138] Graph before pruning: nodes=2006, edges=4584
+[2025-10-18T20:49:29.009557] Edge list before pruning: nodes=2025, edges=4584
+[2025-10-18T20:49:29.009557] Edge list before pruning: nodes=2025, edges=4584
+[2025-10-18T20:49:36.089370] Worker received payload_bytes=2084125
+[2025-10-18T20:49:36.089370] Worker received payload_bytes=2084125
+[2025-10-18T20:49:36.095369] Tickers: 2296, Valid rates: 2294
+[2025-10-18T20:49:36.095369] Tickers: 2296, Valid rates: 2294
+[2025-10-18T20:49:36.097402] Tickers fetch/preprocess time: 0.004s
+[2025-10-18T20:49:36.097402] Tickers fetch/preprocess time: 0.004s
+[2025-10-18T20:49:36.104401] Graph before pruning: nodes=2006, edges=4584
+[2025-10-18T20:49:36.104401] Graph before pruning: nodes=2006, edges=4584
+[2025-10-18T20:49:36.113369] Edge list before pruning: nodes=2025, edges=4584
+[2025-10-18T20:49:36.113369] Edge list before pruning: nodes=2025, edges=4584
+[2025-10-18T20:49:44.498111] Worker received payload_bytes=2084101
+[2025-10-18T20:49:44.498111] Worker received payload_bytes=2084101
+[2025-10-18T20:49:44.503108] Tickers: 2296, Valid rates: 2294
+[2025-10-18T20:49:44.503108] Tickers: 2296, Valid rates: 2294
+[2025-10-18T20:49:44.505109] Tickers fetch/preprocess time: 0.004s
+[2025-10-18T20:49:44.505109] Tickers fetch/preprocess time: 0.004s
+[2025-10-18T20:49:44.512106] Graph before pruning: nodes=2006, edges=4584
+[2025-10-18T20:49:44.512106] Graph before pruning: nodes=2006, edges=4584
+[2025-10-18T20:49:44.524108] Edge list before pruning: nodes=2025, edges=4584
+[2025-10-18T20:49:44.524108] Edge list before pruning: nodes=2025, edges=4584
+[2025-10-18T20:56:04.173449] Worker received payload_bytes=2083902
+[2025-10-18T20:56:04.173449] Worker received payload_bytes=2083902
+[2025-10-18T20:56:04.190461] Tickers: 2296, Valid rates: 2294
+[2025-10-18T20:56:04.190461] Tickers: 2296, Valid rates: 2294
+[2025-10-18T20:56:04.193448] Tickers fetch/preprocess time: 0.004s
+[2025-10-18T20:56:04.193448] Tickers fetch/preprocess time: 0.004s
+[2025-10-18T20:56:04.202451] Graph before pruning: nodes=2006, edges=4584
+[2025-10-18T20:56:04.202451] Graph before pruning: nodes=2006, edges=4584
+[2025-10-18T20:56:06.078062] Edge list before pruning: nodes=2028, edges=4584
+[2025-10-18T20:56:06.078062] Edge list before pruning: nodes=2028, edges=4584
+[2025-10-18T21:03:31.563100] Worker received payload_bytes=2084203
+[2025-10-18T21:03:31.563100] Worker received payload_bytes=2084203
+[2025-10-18T21:03:32.243098] Tickers: 2296, Valid rates: 2294
+[2025-10-18T21:03:32.243098] Tickers: 2296, Valid rates: 2294
+[2025-10-18T21:03:32.775609] Tickers fetch/preprocess time: 0.535s
+[2025-10-18T21:03:32.775609] Tickers fetch/preprocess time: 0.535s
+[2025-10-18T21:03:33.442784] Graph before pruning: nodes=2006, edges=4584
+[2025-10-18T21:03:33.442784] Graph before pruning: nodes=2006, edges=4584
+[2025-10-18T21:03:36.357786] Edge list before pruning: nodes=2022, edges=4584
+[2025-10-18T21:03:36.357786] Edge list before pruning: nodes=2022, edges=4584
+[2025-10-18T21:04:40.540065] Worker received payload_bytes=2084125
+[2025-10-18T21:04:40.540065] Worker received payload_bytes=2084125
+[2025-10-18T21:04:40.544068] Tickers: 2296, Valid rates: 2294
+[2025-10-18T21:04:40.544068] Tickers: 2296, Valid rates: 2294
+[2025-10-18T21:04:40.547067] Tickers fetch/preprocess time: 0.004s
+[2025-10-18T21:04:40.547067] Tickers fetch/preprocess time: 0.004s
+[2025-10-18T21:04:40.554065] Graph before pruning: nodes=2006, edges=4584
+[2025-10-18T21:04:40.554065] Graph before pruning: nodes=2006, edges=4584
+[2025-10-18T21:04:40.951064] Edge list before pruning: nodes=2028, edges=4584
+[2025-10-18T21:04:40.951064] Edge list before pruning: nodes=2028, edges=4584
+[2025-10-18T21:04:50.191662] Worker received payload_bytes=2084204
+[2025-10-18T21:04:50.191662] Worker received payload_bytes=2084204
+[2025-10-18T21:04:50.197623] Tickers: 2296, Valid rates: 2294
+[2025-10-18T21:04:50.197623] Tickers: 2296, Valid rates: 2294
+[2025-10-18T21:04:50.200656] Tickers fetch/preprocess time: 0.005s
+[2025-10-18T21:04:50.200656] Tickers fetch/preprocess time: 0.005s
+[2025-10-18T21:04:50.208623] Graph before pruning: nodes=2006, edges=4584
+[2025-10-18T21:04:50.208623] Graph before pruning: nodes=2006, edges=4584
+[2025-10-18T21:04:50.217624] Edge list before pruning: nodes=2028, edges=4584
+[2025-10-18T21:04:50.217624] Edge list before pruning: nodes=2028, edges=4584
+[2025-10-18T21:04:57.845478] Worker received payload_bytes=2084156
+[2025-10-18T21:04:57.845478] Worker received payload_bytes=2084156
+[2025-10-18T21:04:57.850442] Tickers: 2296, Valid rates: 2294
+[2025-10-18T21:04:57.850442] Tickers: 2296, Valid rates: 2294
+[2025-10-18T21:04:57.853473] Tickers fetch/preprocess time: 0.004s
+[2025-10-18T21:04:57.853473] Tickers fetch/preprocess time: 0.004s
+[2025-10-18T21:04:57.858475] Graph before pruning: nodes=2006, edges=4584
+[2025-10-18T21:04:57.858475] Graph before pruning: nodes=2006, edges=4584
+[2025-10-18T21:04:57.867439] Edge list before pruning: nodes=2028, edges=4584
+[2025-10-18T21:04:57.867439] Edge list before pruning: nodes=2028, edges=4584
+[2025-10-18T21:05:05.853620] Worker received payload_bytes=2084391
+[2025-10-18T21:05:05.853620] Worker received payload_bytes=2084391
+[2025-10-18T21:05:05.861618] Tickers: 2296, Valid rates: 2294
+[2025-10-18T21:05:05.861618] Tickers: 2296, Valid rates: 2294
+[2025-10-18T21:05:05.863618] Tickers fetch/preprocess time: 0.003s
+[2025-10-18T21:05:05.863618] Tickers fetch/preprocess time: 0.003s
+[2025-10-18T21:05:05.870651] Graph before pruning: nodes=2006, edges=4584
+[2025-10-18T21:05:05.870651] Graph before pruning: nodes=2006, edges=4584
+[2025-10-18T21:05:05.879652] Edge list before pruning: nodes=2028, edges=4584
+[2025-10-18T21:05:05.879652] Edge list before pruning: nodes=2028, edges=4584
+[2025-10-18T21:05:13.316155] Worker received payload_bytes=2084571
+[2025-10-18T21:05:13.316155] Worker received payload_bytes=2084571
+[2025-10-18T21:05:13.322155] Tickers: 2296, Valid rates: 2294
+[2025-10-18T21:05:13.322155] Tickers: 2296, Valid rates: 2294
+[2025-10-18T21:05:13.324156] Tickers fetch/preprocess time: 0.004s
+[2025-10-18T21:05:13.324156] Tickers fetch/preprocess time: 0.004s
+[2025-10-18T21:05:13.330154] Graph before pruning: nodes=2006, edges=4584
+[2025-10-18T21:05:13.330154] Graph before pruning: nodes=2006, edges=4584
+[2025-10-18T21:05:13.339154] Edge list before pruning: nodes=2028, edges=4584
+[2025-10-18T21:05:13.339154] Edge list before pruning: nodes=2028, edges=4584
+[2025-10-18T21:05:21.859250] Worker received payload_bytes=2084492
+[2025-10-18T21:05:21.859250] Worker received payload_bytes=2084492
+[2025-10-18T21:05:21.863254] Tickers: 2296, Valid rates: 2294
+[2025-10-18T21:05:21.863254] Tickers: 2296, Valid rates: 2294
+[2025-10-18T21:05:21.867250] Tickers fetch/preprocess time: 0.005s
+[2025-10-18T21:05:21.867250] Tickers fetch/preprocess time: 0.005s
+[2025-10-18T21:05:21.873283] Graph before pruning: nodes=2006, edges=4584
+[2025-10-18T21:05:21.873283] Graph before pruning: nodes=2006, edges=4584
+[2025-10-18T21:05:21.881287] Edge list before pruning: nodes=2028, edges=4584
+[2025-10-18T21:05:21.881287] Edge list before pruning: nodes=2028, edges=4584
+[2025-10-18T21:05:29.883104] Worker received payload_bytes=2084138
+[2025-10-18T21:05:29.883104] Worker received payload_bytes=2084138
+[2025-10-18T21:05:29.904107] Tickers: 2296, Valid rates: 2294
+[2025-10-18T21:05:29.904107] Tickers: 2296, Valid rates: 2294
+[2025-10-18T21:05:29.908105] Tickers fetch/preprocess time: 0.005s
+[2025-10-18T21:05:29.908105] Tickers fetch/preprocess time: 0.005s
+[2025-10-18T21:05:29.916104] Graph before pruning: nodes=2006, edges=4584
+[2025-10-18T21:05:29.916104] Graph before pruning: nodes=2006, edges=4584
+[2025-10-18T21:05:29.925105] Edge list before pruning: nodes=2028, edges=4584
+[2025-10-18T21:05:29.925105] Edge list before pruning: nodes=2028, edges=4584
+[2025-10-18T21:05:40.577584] Worker received payload_bytes=2084174
+[2025-10-18T21:05:40.577584] Worker received payload_bytes=2084174
+[2025-10-18T21:05:40.581584] Tickers: 2296, Valid rates: 2294
+[2025-10-18T21:05:40.581584] Tickers: 2296, Valid rates: 2294
+[2025-10-18T21:05:40.584586] Tickers fetch/preprocess time: 0.004s
+[2025-10-18T21:05:40.584586] Tickers fetch/preprocess time: 0.004s
+[2025-10-18T21:05:40.591584] Graph before pruning: nodes=2006, edges=4584
+[2025-10-18T21:05:40.591584] Graph before pruning: nodes=2006, edges=4584
+[2025-10-18T21:05:40.600584] Edge list before pruning: nodes=2028, edges=4584
+[2025-10-18T21:05:40.600584] Edge list before pruning: nodes=2028, edges=4584
+[2025-10-18T21:05:48.332918] Worker received payload_bytes=2084149
+[2025-10-18T21:05:48.332918] Worker received payload_bytes=2084149
+[2025-10-18T21:05:48.350910] Tickers: 2296, Valid rates: 2294
+[2025-10-18T21:05:48.350910] Tickers: 2296, Valid rates: 2294
+[2025-10-18T21:05:48.353909] Tickers fetch/preprocess time: 0.004s
+[2025-10-18T21:05:48.353909] Tickers fetch/preprocess time: 0.004s
+[2025-10-18T21:05:48.360909] Graph before pruning: nodes=2006, edges=4584
+[2025-10-18T21:05:48.360909] Graph before pruning: nodes=2006, edges=4584
+[2025-10-18T21:05:48.369943] Edge list before pruning: nodes=2028, edges=4584
+[2025-10-18T21:05:48.369943] Edge list before pruning: nodes=2028, edges=4584
+[2025-10-18T21:05:55.290008] Worker received payload_bytes=2084415
+[2025-10-18T21:05:55.290008] Worker received payload_bytes=2084415
+[2025-10-18T21:05:55.305008] Tickers: 2296, Valid rates: 2294
+[2025-10-18T21:05:55.305008] Tickers: 2296, Valid rates: 2294
+[2025-10-18T21:05:55.315012] Tickers fetch/preprocess time: 0.011s
+[2025-10-18T21:05:55.315012] Tickers fetch/preprocess time: 0.011s
+[2025-10-18T21:05:55.324006] Graph before pruning: nodes=2006, edges=4584
+[2025-10-18T21:05:55.324006] Graph before pruning: nodes=2006, edges=4584
+[2025-10-18T21:05:55.470009] Edge list before pruning: nodes=2028, edges=4584
+[2025-10-18T21:05:55.470009] Edge list before pruning: nodes=2028, edges=4584

@@ -12,7 +12,7 @@ from concurrent.futures import (
     wait,
 )
 from concurrent.futures import TimeoutError as ThreadTimeoutError
-from typing import Callable, Dict, List
+from typing import Callable, Dict, List, Any
 
 logger = logging.getLogger("arbitraje.engine_techniques")
 
@@ -287,13 +287,6 @@ def _tech_bellman_ford(
     t0 = time.time()
     logger.debug("_tech_bellman_ford running snapshot=%s", snapshot_id)
     try:
-        # If a precomputed volatility map is attached to the payload, use it.
-        # This avoids recalculating stddevs inside the hot loop repeatedly.
-        pre_vol = None
-        try:
-            pre_vol = payload.get("_precomputed_volatility")
-        except Exception:
-            pre_vol = None
         # Expect a payload dict with tickers and tokens to avoid any network IO here.
         # Be defensive: callers may pass None or partial payloads; treat those
         # gracefully and return an empty result rather than raising.
@@ -301,19 +294,23 @@ def _tech_bellman_ford(
             logger.debug("_tech_bellman_ford received empty edges; skipping")
             return []
 
-        # Prefer dict payloads. If a mapping-like object was passed, try to
-        # coerce to dict; otherwise skip.
+        # Prefer dict payloads. If it's not a mapping, skip (callers must pass dict/json)
         if not isinstance(edges, dict):
-            try:
-                payload = dict(edges)
-            except Exception:
-                logger.debug(
-                    "_tech_bellman_ford received non-dict edges (%s); skipping",
-                    type(edges),
-                )
-                return []
+            logger.debug(
+                "_tech_bellman_ford received non-dict edges (%s); skipping",
+                type(edges),
+            )
+            return []
         else:
             payload = edges
+
+        # If a precomputed volatility map is attached to the payload, use it.
+        # This avoids recalculating stddevs inside the hot loop repeatedly.
+        pre_vol = None
+        try:
+            pre_vol = payload.get("_precomputed_volatility")
+        except Exception:
+            pre_vol = None
 
         tickers = payload.get("tickers") or {}
         if tickers is None or not isinstance(tickers, dict):
@@ -359,18 +356,45 @@ def _tech_bellman_ford(
                 pass
             return default
 
-        fee = float(_pick("fee", float, payload.get("fee") or 0.0))
+        # Safe casters to avoid type-check/runtime issues when values are missing/None
+        def _f(x, dv=0.0):
+            try:
+                if x is None:
+                    return float(dv)
+                return float(x)
+            except Exception:
+                return float(dv)
+
+        def _i(x, dv=0):
+            try:
+                if x is None:
+                    return int(dv)
+                return int(x)
+            except Exception:
+                return int(dv)
+
+        fee_val = _pick("fee", float, None)
+        if fee_val is None:
+            fee_val = payload.get("fee")
+        fee = _f(fee_val, 0.0)
         # min_net is expressed in percent (e.g. 0.15 -> 0.15%)
-        min_net = float(_pick("min_net", float, 0.0))
+        min_net = _f(_pick("min_net", float, None), 0.0)
         ts_now = payload.get("ts") or snapshot_id
         ex_id = payload.get("ex_id")
-        tokens = list(_pick("tokens", list, payload.get("tokens") or []))
-        top_n = int(_pick("top", int, payload.get("top") or 20))
-        min_hops = int(_pick("min_hops", int, payload.get("min_hops") or 0))
-        max_hops = int(_pick("max_hops", int, payload.get("max_hops") or 0))
-        min_net_per_hop = float(_pick("min_net_per_hop", float, 0.0))
-        latency_penalty = float(_pick("latency_penalty", float, 0.0))
-        blacklist = set(_pick("blacklist", list, payload.get("blacklist") or []))
+        tokens_val = _pick("tokens", list, None)
+        if not tokens_val:
+            tokens_val = payload.get("tokens") or []
+        # ensure tokens are strings
+        tokens = [str(t) for t in list(tokens_val)]
+        top_n = _i(_pick("top", int, None), payload.get("top") or 20)
+        min_hops = _i(_pick("min_hops", int, None), payload.get("min_hops") or 0)
+        max_hops = _i(_pick("max_hops", int, None), payload.get("max_hops") or 0)
+        min_net_per_hop = _f(_pick("min_net_per_hop", float, None), 0.0)
+        latency_penalty = _f(_pick("latency_penalty", float, None), 0.0)
+        bl_val = _pick("blacklist", list, None)
+        if bl_val is None:
+            bl_val = payload.get("blacklist") or []
+        blacklist = set([str(b) for b in list(bl_val)])
 
         # Build quick adjacency/graph from the supplied tickers
         graph: Dict[str, Dict[str, float]] = {}
@@ -464,16 +488,14 @@ def _tech_bellman_ford(
         # Attempt to use Numba-accelerated BF if available (faster numeric core)
         use_numba = bool(cfg.get("techniques", {}).get("use_numba", True))
         try:
-            # bf_numba_impl provides: bellman_ford_numba, build_arrays_from_payload, warmup_numba(optional)
+            # bf_numba_impl provides: bellman_ford_numba, build_arrays_from_payload
             from .bf_numba_impl import (
                 bellman_ford_numba,
                 build_arrays_from_payload,
-                warmup_numba,
             )
         except Exception:
             bellman_ford_numba = None
             build_arrays_from_payload = None
-            warmup_numba = None
 
         # Prepare arrays for numeric BF
         u_arr = [u for (u, v, w) in edge_list]
@@ -527,13 +549,7 @@ def _tech_bellman_ford(
         if bellman_ford_numba is not None and use_numba:
             try:
                 # Optional warm-up (compile) to amortize JIT overhead at startup
-                try:
-                    if warmup_numba is not None and cfg.get("techniques", {}).get(
-                        "warmup_numba", False
-                    ):
-                        warmup_numba()
-                except Exception:
-                    logger.debug("numba warmup failed or skipped")
+                # optional warmup removed (function not guaranteed to exist)
 
                 # pruning: select a subset of sources based on node degree if configured
                 pruning_threshold = int(
@@ -712,9 +728,26 @@ def _tech_bellman_ford(
                         hops = int(entry[2])
                     else:
                         cycle_idx = entry
-
-                    # normalize and ensure ints
-                    cycle_idx = [int(x) for x in cycle_idx]
+                    # normalize and ensure iterable of ints
+                    if not isinstance(cycle_idx, (list, tuple)):
+                        # unsupported structure; skip
+                        continue
+                    cycle_idx_int: list[int] = []
+                    _ok = True
+                    for x in cycle_idx:
+                        # Guard against nested lists/tuples which are not valid indices
+                        if isinstance(x, (list, tuple, dict)):
+                            _ok = False
+                            break
+                        try:
+                            xi = int(x)
+                        except Exception:
+                            _ok = False
+                            break
+                        cycle_idx_int.append(xi)
+                    if not _ok or not cycle_idx_int:
+                        continue
+                    cycle_idx = cycle_idx_int
                     # ensure closed cycle
                     if cycle_idx[0] != cycle_idx[-1]:
                         closed_idx = cycle_idx + [cycle_idx[0]]
@@ -802,7 +835,7 @@ def _tech_bellman_ford(
                         "fee_bps_total": round(hops * fee * 1.0, 6),
                         "status": "actionable",
                     }
-                    results.append(rec)
+                    results.append(ArbResult(rec))
                     if len(results) >= top_n:
                         return results
                 postproc_elapsed = time.time() - postproc_start
@@ -883,18 +916,29 @@ def _tech_bellman_ford(
         # surface any cycles we might be filtering out later in postprocessing.
         try:
             diag_enabled = bool(cfg.get("bf", {}).get("diagnose_force_array_bf", False))
-            if diag_enabled:
+            if diag_enabled and build_arrays_from_payload is not None:
                 try:
-                    from .bf_numba_impl import bellman_ford_array
+                    # Use the available array builder and simple python array BF from bf_numba_impl if present
+                    import importlib
 
-                    nodes2, ua, va, wa = build_arrays_from_payload(payload)
-                    arr_cycles = bellman_ford_array(len(nodes2), ua, va, wa)
-                    if arr_cycles:
-                        logger.warning(
-                            "Diagnostic BF-array found %d cycles (sample): %s",
-                            len(arr_cycles),
-                            arr_cycles[:3],
-                        )
+                    bfmod = importlib.import_module("arbitraje.bf_numba_impl")
+                    bf_array = getattr(bfmod, "bellman_ford_array", None)
+                    if callable(bf_array):
+                        nodes2, ua, va, wa = build_arrays_from_payload(payload)
+                        arr_cycles = bf_array(len(nodes2), ua, va, wa)
+                        if arr_cycles:
+                            try:
+                                smp = (
+                                    arr_cycles[:3]
+                                    if isinstance(arr_cycles, (list, tuple))
+                                    else None
+                                )
+                            except Exception:
+                                smp = None
+                            logger.warning(
+                                "Diagnostic BF-array found cycles (sample): %s",
+                                smp,
+                            )
                 except Exception:
                     pass
         except Exception:
@@ -1042,7 +1086,7 @@ def _tech_bellman_ford(
                         cfg.get("bf", {}).get("log_all_cycles", False)
                     )
                     if log_all_cycles or not filter_reasons:
-                        results.append(candidate_entry)
+                        results.append(ArbResult(candidate_entry))
                         if len(results) >= top_n:
                             return results
 
@@ -1083,12 +1127,19 @@ def _tech_stat_triangles(
 ) -> List[ArbResult]:
     logger.debug("_tech_stat_triangles running snapshot=%s", snapshot_id)
     try:
+        # Accept JSON-serialized payloads (string) from ProcessPool submissions
+        if isinstance(edges, str):
+            try:
+                edges = json.loads(edges)
+            except Exception:
+                # If parsing fails, keep as-is and skip below
+                pass
         # If edges is a dict payload (preferred), unpack it
         if isinstance(edges, dict):
             payload = edges
             ex_id = payload.get("ex_id")
-            quote = payload.get("quote")
-            tokens = payload.get("tokens") or []
+            quote = str(payload.get("quote") or "")
+            tokens = [str(t) for t in (payload.get("tokens") or [])]
             tickers = payload.get("tickers") or {}
             fee = float(payload.get("fee") or 0.0)
             min_quote_vol = float(payload.get("min_quote_vol") or 0.0)
@@ -1173,7 +1224,7 @@ def _tech_stat_triangles(
                         "fee_bps_total": fee_bps_total,
                         "status": "actionable",
                     }
-                    results.append(rec)
+                    results.append(ArbResult(rec))
             return results
         else:
             logger.debug("_tech_stat_triangles received non-payload edges; skipping")
@@ -1311,104 +1362,109 @@ def scan_arbitrage(snapshot_id: str, edges: List[Edge], cfg: Dict) -> List[ArbRe
                 inline_set = set(enabled)
         except Exception:
             pass
-        for name in enabled:
-            func = _TECHS.get(name)
-            if not func:
-                logger.warning("Technique %s not found; skipping", name)
-                continue
-            # If configured to run inline, execute directly to avoid IPC/pickling overhead.
-            if name in inline_set:
-                try:
-                    start_ts = time.time()
-                    res = func(snapshot_id, edges, cfg)
-                    dur = time.time() - start_ts
-                    # emit per-scan telemetry line if configured
-                    try:
-                        telemetry_file = cfg.get("techniques", {}).get("telemetry_file")
-                        if telemetry_file:
-                            with open(telemetry_file, "a", encoding="utf-8") as tfh:
-                                payload = {
-                                    "snapshot_id": snapshot_id,
-                                    "technique": name,
-                                    "timestamp": int(time.time()),
-                                    "duration_s": dur,
-                                    "results_count": len(res) if res else 0,
-                                }
-                                # include technique-specific telemetry if present
-                                try:
-                                    tech_tel = getattr(func, "_last_telemetry", None)
-                                    if tech_tel:
-                                        payload.update(tech_tel)
-                                except Exception:
-                                    pass
-                                tfh.write(json.dumps(payload) + "\n")
-                    except Exception:
-                        logger.debug("failed to write per-scan telemetry for %s", name)
-                    stats.setdefault(name, {"count": 0.0, "total_time": 0.0})
-                    stats[name]["count"] += len(res) if res else 0.0
-                    stats[name]["total_time"] += dur
-                    if res:
-                        results.extend(res)
-                except Exception:
-                    logger.exception("Inline technique %s failed", name)
-                    # fall back to submitting to pool below
-                    fut = pool.submit(func, snapshot_id, edges, cfg)
-                    futures.append(fut)
-                    future_map[fut] = (name, time.time())
-                    stats.setdefault(name, {"count": 0.0, "total_time": 0.0})
-                # continue to next technique
-                continue
 
-            # Prepare a sanitized, JSON-friendly payload for worker submission to
-            # avoid pickling non-serializable objects (ccxt objects, custom types).
+    for name in enabled:
+        func = _TECHS.get(name)
+        if not func:
+            logger.warning("Technique %s not found; skipping", name)
+            continue
+        # If configured to run inline, execute directly to avoid IPC/pickling overhead.
+        if name in inline_set:
             try:
-                # record original tickers count for diagnostics (before sanitization)
+                start_ts = time.time()
+                res = func(snapshot_id, edges, cfg)
+                dur = time.time() - start_ts
+                # emit per-scan telemetry line if configured
                 try:
-                    orig_tickers_count = (
-                        len(edges.get("tickers", {})) if isinstance(edges, dict) else 0
-                    )
+                    telemetry_file = cfg.get("techniques", {}).get("telemetry_file")
+                    if telemetry_file:
+                        with open(telemetry_file, "a", encoding="utf-8") as tfh:
+                            payload = {
+                                "snapshot_id": snapshot_id,
+                                "technique": name,
+                                "timestamp": int(time.time()),
+                                "duration_s": dur,
+                                "results_count": len(res) if res else 0,
+                            }
+                            # include technique-specific telemetry if present
+                            try:
+                                tech_tel = getattr(func, "_last_telemetry", None)
+                                if tech_tel:
+                                    payload.update(tech_tel)
+                            except Exception:
+                                pass
+                            tfh.write(json.dumps(payload) + "\n")
                 except Exception:
-                    orig_tickers_count = 0
-                if isinstance(edges, dict):
-                    pw = {
-                        "ex_id": edges.get("ex_id"),
-                        "ts": edges.get("ts"),
-                        "tokens": list(edges.get("tokens") or []),
-                        "tickers": {},
-                        "fee": float(edges.get("fee") or 0.0),
-                    }
-                    for sym, t in (edges.get("tickers") or {}).items():
-                        try:
-                            pw_t = {}
-                            if t is None or not isinstance(t, dict):
-                                pw_t = {}
-                            else:
-                                b = t.get("bid")
-                                a = t.get("ask")
-                                l = t.get("last")
-                                qv = (
-                                    t.get("quoteVolume")
-                                    or t.get("quoteVolume24h")
-                                    or t.get("volumeQuote")
-                                    or 0.0
-                                )
-                                if b is not None:
-                                    pw_t["bid"] = float(b)
-                                if a is not None:
-                                    pw_t["ask"] = float(a)
-                                if l is not None:
-                                    pw_t["last"] = float(l)
-                                try:
-                                    pw_t["quoteVolume"] = float(qv or 0.0)
-                                except Exception:
-                                    pw_t["quoteVolume"] = 0.0
-                            pw["tickers"][sym] = pw_t
-                        except Exception:
-                            pw["tickers"][sym] = {}
-                else:
-                    pw = edges
+                    logger.debug("failed to write per-scan telemetry for %s", name)
+                stats.setdefault(name, {"count": 0.0, "total_time": 0.0})
+                stats[name]["count"] += len(res) if res else 0.0
+                stats[name]["total_time"] += dur
+                if res:
+                    results.extend(res)
             except Exception:
+                logger.exception("Inline technique %s failed", name)
+                # fall back to submitting to pool below
+                fut = pool.submit(func, snapshot_id, edges, cfg)
+                futures.append(fut)
+                future_map[fut] = (name, time.time())
+                stats.setdefault(name, {"count": 0.0, "total_time": 0.0})
+            # proceed to next technique
+            continue
+
+        # Prepare a sanitized, JSON-friendly payload for worker submission to
+        # avoid pickling non-serializable objects (ccxt objects, custom types).
+        try:
+            # record original tickers count for diagnostics (before sanitization)
+            try:
+                orig_tickers_count = (
+                    len(edges.get("tickers", {})) if isinstance(edges, dict) else 0
+                )
+            except Exception:
+                orig_tickers_count = 0
+            if isinstance(edges, dict):
+                pw = {
+                    "ex_id": edges.get("ex_id"),
+                    "ts": edges.get("ts"),
+                    "quote": edges.get("quote"),
+                    "tokens": list(edges.get("tokens") or []),
+                    "tickers": {},
+                    "fee": float(edges.get("fee") or 0.0),
+                    "min_net": float(edges.get("min_net") or 0.0),
+                    "min_quote_vol": float(edges.get("min_quote_vol") or 0.0),
+                    "latency_penalty": float(edges.get("latency_penalty") or 0.0),
+                }
+                for sym, t in (edges.get("tickers") or {}).items():
+                    try:
+                        pw_t = {}
+                        if t is None or not isinstance(t, dict):
+                            pw_t = {}
+                        else:
+                            b = t.get("bid")
+                            a = t.get("ask")
+                            l = t.get("last")
+                            qv = (
+                                t.get("quoteVolume")
+                                or t.get("quoteVolume24h")
+                                or t.get("volumeQuote")
+                                or 0.0
+                            )
+                            if b is not None:
+                                pw_t["bid"] = float(b)
+                            if a is not None:
+                                pw_t["ask"] = float(a)
+                            if l is not None:
+                                pw_t["last"] = float(l)
+                            try:
+                                pw_t["quoteVolume"] = float(qv or 0.0)
+                            except Exception:
+                                pw_t["quoteVolume"] = 0.0
+                        pw["tickers"][sym] = pw_t
+                    except Exception:
+                        pw["tickers"][sym] = {}
+            else:
                 pw = edges
+        except Exception:
+            pw = edges
 
             # Write a tiny pre-submit diagnostic to help detect IPC/pickle issues
             try:
@@ -1423,32 +1479,33 @@ def scan_arbitrage(snapshot_id: str, edges: List[Edge], cfg: Dict) -> List[ArbRe
                     # compute a conservative count of valid tickers (have bid/ask/last)
                     raw_tickers = pw.get("tickers", {}) if isinstance(pw, dict) else {}
                     valid_count = 0
+                    def _pos(x: Any) -> bool:
+                        if x is None:
+                            return False
+                        if isinstance(x, (int, float)):
+                            try:
+                                return float(x) > 0.0
+                            except Exception:
+                                return False
+                        if isinstance(x, str):
+                            try:
+                                return float(x.strip()) > 0.0
+                            except Exception:
+                                return False
+                        return False
                     try:
                         for v in (raw_tickers or {}).values():
                             if not v or not isinstance(v, dict):
                                 continue
-                            try:
-                                if (
-                                    (
-                                        v.get("bid") is not None
-                                        and float(v.get("bid")) > 0
-                                    )
-                                    or (
-                                        v.get("ask") is not None
-                                        and float(v.get("ask")) > 0
-                                    )
-                                    or (
-                                        v.get("last") is not None
-                                        and float(v.get("last")) > 0
-                                    )
-                                ):
-                                    valid_count += 1
-                            except Exception:
-                                continue
+                            b = v.get("bid")
+                            a = v.get("ask")
+                            l = v.get("last")
+                            if _pos(b) or _pos(a) or _pos(l):
+                                valid_count += 1
                     except Exception:
                         valid_count = 0
                     pb = json.dumps(pw)
-                    ex_ctx = str(pw.get("ex_id") or "")
+                    ex_ctx = str(pw.get("ex_id") or "") if isinstance(pw, dict) else ""
                     ts_line = f"[{time.strftime('%Y-%m-%dT%H:%M:%S')}] Pre-submit {name} ex={ex_ctx} snap={snapshot_id}: orig_tickers={orig_tickers_count} sanitized_tickers={valid_count}, payload_bytes={len(pb)}\n"
                 except Exception:
                     ex_ctx = str(pw.get("ex_id") or "") if isinstance(pw, dict) else ""
@@ -1496,207 +1553,205 @@ def scan_arbitrage(snapshot_id: str, edges: List[Edge], cfg: Dict) -> List[ArbRe
             except Exception:
                 pass
 
-                # Ensure a minimal, compact telemetry/diagnostic entry is persisted
-                try:
-                    telemetry_file = cfg.get("techniques", {}).get("telemetry_file")
-                    if telemetry_file:
-                        tfp = Path(telemetry_file)
-                        if not tfp.is_absolute():
-                            tfp = Path(__file__).resolve().parents[2] / telemetry_file
-                        tfp.parent.mkdir(parents=True, exist_ok=True)
-                        short = {
-                            "pre_submit": name,
-                            "tickers": len(pw.get("tickers", {})),
-                            "ts": int(time.time()),
-                        }
-                        with open(tfp, "a", encoding="utf-8") as tfh:
-                            tfh.write(json.dumps(short) + "\n")
-                except Exception:
-                    logger.debug("Failed to write compact pre-submit telemetry")
+            # Ensure a minimal, compact telemetry/diagnostic entry is persisted
+            try:
+                telemetry_file = cfg.get("techniques", {}).get("telemetry_file")
+                if telemetry_file:
+                    tfp = Path(telemetry_file)
+                    if not tfp.is_absolute():
+                        tfp = Path(__file__).resolve().parents[2] / telemetry_file
+                    tfp.parent.mkdir(parents=True, exist_ok=True)
+                    short = {
+                        "pre_submit": name,
+                        "tickers": (len(pw.get("tickers", {})) if isinstance(pw, dict) else 0),
+                        "ts": int(time.time()),
+                    }
+                    with open(tfp, "a", encoding="utf-8") as tfh:
+                        tfh.write(json.dumps(short) + "\n")
+            except Exception:
+                logger.debug("Failed to write compact pre-submit telemetry")
 
-                # If there are zero tickers in the sanitized payload, skip submitting to the ProcessPool
-                try:
-                    # use the conservative valid_count above if available, otherwise fall back
-                    if isinstance(pw, dict):
-                        n_tickers = (
-                            valid_count
-                            if "valid_count" in locals()
-                            else len(pw.get("tickers", {}))
-                        )
-                    else:
-                        n_tickers = 0
-                except Exception:
-                    n_tickers = 0
-                try:
-                    print(
-                        f"[PARENT] pre-submit technique={name} ex={pw.get('ex_id') if isinstance(pw, dict) else ''} orig_tickers={orig_tickers_count} sanitized_tickers={n_tickers}"
-                    )
-                except Exception:
-                    pass
-                if n_tickers == 0:
-                    logger.debug(
-                        "Skipping submit for technique %s: zero valid tickers in payload (ex=%s snap=%s)",
-                        name,
-                        str(pw.get("ex_id") if isinstance(pw, dict) else ""),
-                        snapshot_id,
-                    )
-                    # don't submit an empty payload to worker processes
-                    continue
-                # Submit a JSON string payload to avoid pickling complex objects
-                try:
-                    payload_str = json.dumps(pw)
-                except Exception:
-                    # fallback to original object if serialization fails
-                    payload_str = pw
+        # If there are zero tickers in the sanitized payload, skip submitting to the ProcessPool
+        try:
+            # use the conservative valid_count above if available, otherwise fall back
+            if isinstance(pw, dict):
+                n_tickers = (
+                    valid_count if "valid_count" in locals() else len(pw.get("tickers", {}))
+                )
+            else:
+                n_tickers = 0
+        except Exception:
+            n_tickers = 0
+        try:
+            print(
+                f"[PARENT] pre-submit technique={name} ex={pw.get('ex_id') if isinstance(pw, dict) else ''} orig_tickers={orig_tickers_count} sanitized_tickers={n_tickers}"
+            )
+        except Exception:
+            pass
+        if n_tickers == 0:
+            logger.debug(
+                "Skipping submit for technique %s: zero valid tickers in payload (ex=%s snap=%s)",
+                name,
+                str(pw.get("ex_id") if isinstance(pw, dict) else ""),
+                snapshot_id,
+            )
+            # don't submit an empty payload to worker processes
+            continue
+        # Submit a JSON string payload to avoid pickling complex objects
+        try:
+            payload_str = json.dumps(pw)
+        except Exception:
+            # fallback to original object if serialization fails
+            payload_str = pw
 
-                fut = None
-                try:
-                    fut = pool.submit(func, snapshot_id, payload_str, cfg)
-                    futures.append(fut)
-                    # record submit time to approximate worker duration
-                    future_map[fut] = (name, time.time())
-                    try:
-                        print(f"[PARENT] submitted technique={name} future={repr(fut)}")
-                    except Exception:
-                        pass
-                    # Persist a compact submission record so we can inspect future objects
-                    try:
-                        abs_dbg = Path(
-                            r"c:\Users\Lenovo\dataqbs_IA\artifacts\arbitraje"
+        fut = None
+        try:
+            fut = pool.submit(func, snapshot_id, payload_str, cfg)
+            futures.append(fut)
+            # record submit time to approximate worker duration
+            future_map[fut] = (name, time.time())
+            try:
+                print(f"[PARENT] submitted technique={name} future={repr(fut)}")
+            except Exception:
+                pass
+            # Persist a compact submission record so we can inspect future objects
+            try:
+                abs_dbg = Path(
+                    r"c:\Users\Lenovo\dataqbs_IA\artifacts\arbitraje"
+                )
+                abs_dbg.mkdir(parents=True, exist_ok=True)
+                sub_path = abs_dbg / "parent_future_submissions.log"
+                with sub_path.open("a", encoding="utf-8") as sfh:
+                    sfh.write(
+                        json.dumps(
+                            {
+                                "snapshot_id": snapshot_id,
+                                "technique": name,
+                                "future_repr": repr(fut),
+                                "ts": int(time.time()),
+                            }
                         )
-                        abs_dbg.mkdir(parents=True, exist_ok=True)
-                        sub_path = abs_dbg / "parent_future_submissions.log"
-                        with sub_path.open("a", encoding="utf-8") as sfh:
-                            sfh.write(
-                                json.dumps(
-                                    {
-                                        "snapshot_id": snapshot_id,
-                                        "technique": name,
-                                        "future_repr": repr(fut),
-                                        "ts": int(time.time()),
-                                    }
-                                )
-                                + "\n"
-                            )
-                    except Exception:
-                        logger.debug("failed to write parent future submission debug")
-                except Exception:
-                    logger.exception(
-                        "Failed to submit technique %s to process pool; attempting fallback submit",
-                        name,
+                        + "\n"
                     )
-                    try:
-                        # try submitting the original edges as a last-resort
-                        fut = pool.submit(func, snapshot_id, edges, cfg)
-                        futures.append(fut)
-                        future_map[fut] = (name, time.time())
-                    except Exception:
-                        logger.exception(
-                            "Fallback submit also failed for technique %s; skipping",
-                            name,
-                        )
+            except Exception:
+                logger.debug("failed to write parent future submission debug")
+        except Exception:
+            logger.exception(
+                "Failed to submit technique %s to process pool; attempting fallback submit",
+                name,
+            )
+            try:
+                # try submitting the original edges as a last-resort
+                fut = pool.submit(func, snapshot_id, edges, cfg)
+                futures.append(fut)
+                future_map[fut] = (name, time.time())
+            except Exception:
+                logger.exception(
+                    "Fallback submit also failed for technique %s; skipping",
+                    name,
+                )
             # init stats
             stats.setdefault(name, {"count": 0.0, "total_time": 0.0})
 
-            # Use wait + FIRST_COMPLETED to avoid blocking indefinitely when a submitted
-            # process hangs. If no future completes within the configured fallback
-            # timeout, attempt fallbacks (for bellman_ford) or cancel long-running
-            # tasks. This ensures timeouts actually fire instead of waiting forever
-            # on as_completed.
-            pending = set(futures)
-            global_timeout = float(
-                cfg.get("techniques", {}).get("fallback_timeout", 5.0)
+    # Use wait + FIRST_COMPLETED to avoid blocking indefinitely when a submitted
+    # process hangs. If no future completes within the configured fallback
+    # timeout, attempt fallbacks (for bellman_ford) or cancel long-running
+    # tasks. This ensures timeouts actually fire instead of waiting forever
+    # on as_completed.
+    pending = set(futures)
+    global_timeout = float(
+        cfg.get("techniques", {}).get("fallback_timeout", 5.0)
+    )
+    # Ensure a sane default watchdog to prevent unbounded waits
+    iter_watchdog = float(
+        cfg.get("techniques", {}).get("iteration_watchdog_sec", 15.0) or 15.0
+    )
+    loop_start = time.time()
+    _fallback_attempted = set()
+    while pending:
+        # hard watchdog to avoid infinite waits
+        if iter_watchdog and (time.time() - loop_start) >= iter_watchdog:
+            logger.error(
+                "scan_arbitrage watchdog fired after %.2fs; cancelling %d pending",
+                iter_watchdog,
+                len(pending),
             )
-            # Ensure a sane default watchdog to prevent unbounded waits
-            iter_watchdog = float(
-                cfg.get("techniques", {}).get("iteration_watchdog_sec", 15.0) or 15.0
-            )
-            loop_start = time.time()
-            _fallback_attempted = set()
-            while pending:
-                # hard watchdog to avoid infinite waits
-                if iter_watchdog and (time.time() - loop_start) >= iter_watchdog:
-                    logger.error(
-                        "scan_arbitrage watchdog fired after %.2fs; cancelling %d pending",
-                        iter_watchdog,
-                        len(pending),
-                    )
-                    for fut in list(pending):
-                        try:
-                            fut.cancel()
-                        except Exception:
-                            pass
-                        future_map.pop(fut, None)
-                    pending.clear()
-                    break
+            for fut in list(pending):
+                try:
+                    fut.cancel()
+                except Exception:
+                    pass
+                future_map.pop(fut, None)
+            pending.clear()
+            break
 
-                done, pending = wait(
-                    pending, timeout=global_timeout, return_when=FIRST_COMPLETED
+        done, pending = wait(
+            pending, timeout=global_timeout, return_when=FIRST_COMPLETED
+        )
+        if not done:
+            # nothing completed within timeout -> handle pending tasks
+            for fut in list(pending):
+                tech_name, submit_ts = future_map.get(
+                    fut, ("unknown", time.time())
                 )
-                if not done:
-                    # nothing completed within timeout -> handle pending tasks
-                    for fut in list(pending):
-                        tech_name, submit_ts = future_map.get(
-                            fut, ("unknown", time.time())
-                        )
-                        logger.warning(
-                            "Technique %s did not complete within %.2fs; attempting fallback/cancel",
-                            tech_name,
-                            global_timeout,
-                        )
-                        if tech_name == "bellman_ford":
-                            fb_timeout = float(
-                                cfg.get("techniques", {}).get("fallback_timeout", 5.0)
+                logger.warning(
+                    "Technique %s did not complete within %.2fs; attempting fallback/cancel",
+                    tech_name,
+                    global_timeout,
+                )
+                if tech_name == "bellman_ford":
+                    fb_timeout = float(
+                        cfg.get("techniques", {}).get("fallback_timeout", 5.0)
+                    )
+                    if fut not in _fallback_attempted:
+                        _fallback_attempted.add(fut)
+                        try:
+                            with ThreadPoolExecutor(max_workers=1) as thpool:
+                                fb_future = thpool.submit(
+                                    _tech_bellman_ford, snapshot_id, edges, cfg
+                                )
+                                fb_res = fb_future.result(timeout=fb_timeout)
+                                fb_dur = (
+                                    (time.time() - submit_ts) if submit_ts else 0.0
+                                )
+                                logger.warning(
+                                    "bellman_ford fallback produced %d results (timeout %.2fs)",
+                                    len(fb_res) if fb_res else 0,
+                                    fb_timeout,
+                                )
+                                stats.setdefault(
+                                    tech_name, {"count": 0.0, "total_time": 0.0}
+                                )
+                                stats[tech_name]["count"] += (
+                                    len(fb_res) if fb_res else 0.0
+                                )
+                                stats[tech_name]["total_time"] += fb_dur
+                                if fb_res:
+                                    results.extend(fb_res)
+                                telemetry_counters["fallback_count"] += 1
+                        except ThreadTimeoutError:
+                            logger.warning(
+                                "bellman_ford fallback timed out after %.2fs",
+                                fb_timeout,
                             )
-                            if fut not in _fallback_attempted:
-                                _fallback_attempted.add(fut)
-                                try:
-                                    with ThreadPoolExecutor(max_workers=1) as thpool:
-                                        fb_future = thpool.submit(
-                                            _tech_bellman_ford, snapshot_id, edges, cfg
-                                        )
-                                        fb_res = fb_future.result(timeout=fb_timeout)
-                                        fb_dur = (
-                                            (time.time() - submit_ts) if submit_ts else 0.0
-                                        )
-                                        logger.warning(
-                                            "bellman_ford fallback produced %d results (timeout %.2fs)",
-                                            len(fb_res) if fb_res else 0,
-                                            fb_timeout,
-                                        )
-                                        stats.setdefault(
-                                            tech_name, {"count": 0.0, "total_time": 0.0}
-                                        )
-                                        stats[tech_name]["count"] += (
-                                            len(fb_res) if fb_res else 0.0
-                                        )
-                                        stats[tech_name]["total_time"] += fb_dur
-                                        if fb_res:
-                                            results.extend(fb_res)
-                                        telemetry_counters["fallback_count"] += 1
-                                except ThreadTimeoutError:
-                                    logger.warning(
-                                        "bellman_ford fallback timed out after %.2fs",
-                                        fb_timeout,
-                                    )
-                                    telemetry_counters["fallback_timeouts"] += 1
-                                except Exception:
-                                    logger.exception("bellman_ford fallback also failed")
-                        # cancel the original pending future and drop it
-                        try:
-                            fut.cancel()
+                            telemetry_counters["fallback_timeouts"] += 1
                         except Exception:
-                            pass
-                        future_map.pop(fut, None)
-                        try:
-                            pending.remove(fut)
-                        except Exception:
-                            pass
-                    # continue to wait for any remaining futures
-                    continue
+                            logger.exception("bellman_ford fallback also failed")
+                # cancel the original pending future and drop it
+                try:
+                    fut.cancel()
+                except Exception:
+                    pass
+                future_map.pop(fut, None)
+                try:
+                    pending.remove(fut)
+                except Exception:
+                    pass
+            # continue to wait for any remaining futures
+            continue
 
-                # Process completed futures
-                for f in done:
+        # Process completed futures
+        for f in done:
                     tech_name, submit_ts = future_map.get(f, ("unknown", time.time()))
                     duration = max(0.0, time.time() - (submit_ts or time.time()))
                     fut_done = None
@@ -1830,53 +1885,50 @@ def scan_arbitrage(snapshot_id: str, edges: List[Edge], cfg: Dict) -> List[ArbRe
                                 "No fallback implemented for technique %s", tech_name
                             )
 
-        # Optional rerank post-process
-        if cfg.get("techniques", {}).get("enable_rerank_onnx", False):
-            results = _tech_rerank_onnx(snapshot_id, edges, cfg, results)
+    # Optional rerank post-process
+    if cfg.get("techniques", {}).get("enable_rerank_onnx", False):
+        results = _tech_rerank_onnx(snapshot_id, edges, cfg, results)
 
-        # emit a brief telemetry summary (counts and approximate time)
+    # emit a brief telemetry summary (counts and approximate time)
+    try:
+        size_bytes = 0
         try:
-            size_bytes = 0
-            try:
-                size_bytes = len(json.dumps(edges))
-            except Exception:
-                size_bytes = 0
-            logger.info(
-                "scan_arbitrage summary: techniques=%s results=%d payload_bytes=%d",
-                list(stats.keys()),
-                len(results),
-                size_bytes,
-            )
-            for nm, s in stats.items():
-                logger.info(
-                    "tech=%s result_count=%s total_time=%.3fs",
-                    nm,
-                    int(s.get("count") or 0),
-                    float(s.get("total_time") or 0.0),
-                )
-            # add overall telemetry
-            telemetry_counters["total_runs"] += 1
-            summary = {
-                "snapshot_id": snapshot_id,
-                "timestamp": int(time.time()),
-                "payload_bytes": size_bytes,
-                "techniques": list(stats.keys()),
-                "results_count": len(results),
-                "telemetry": telemetry_counters,
-            }
-            logger.info("scan_arbitrage telemetry: %s", summary)
-            # optional persistent telemetry file (append json line)
-            try:
-                telemetry_file = cfg.get("techniques", {}).get("telemetry_file")
-                if telemetry_file:
-                    with open(telemetry_file, "a", encoding="utf-8") as fh:
-                        fh.write(json.dumps(summary) + "\n")
-            except Exception:
-                logger.debug("failed to write telemetry file")
+            size_bytes = len(json.dumps(edges))
         except Exception:
-            logger.debug("failed to emit scan_arbitrage telemetry")
-
-        return _merge_results(results, cfg)
+            size_bytes = 0
+        logger.info(
+            "scan_arbitrage summary: techniques=%s results=%d payload_bytes=%d",
+            list(stats.keys()),
+            len(results),
+            size_bytes,
+        )
+        for nm, s in stats.items():
+            logger.info(
+                "tech=%s result_count=%s total_time=%.3fs",
+                nm,
+                int(s.get("count") or 0),
+                float(s.get("total_time") or 0.0),
+            )
+        # add overall telemetry
+        telemetry_counters["total_runs"] += 1
+        summary = {
+            "snapshot_id": snapshot_id,
+            "timestamp": int(time.time()),
+            "payload_bytes": size_bytes,
+            "techniques": list(stats.keys()),
+            "results_count": len(results),
+            "telemetry": telemetry_counters,
+        }
+        logger.info("scan_arbitrage telemetry: %s", summary)
+        # optional persistent telemetry file (append json line)
+        try:
+            telemetry_file = cfg.get("techniques", {}).get("telemetry_file")
+            if telemetry_file:
+                with open(telemetry_file, "a", encoding="utf-8") as fh:
+                    fh.write(json.dumps(summary) + "\n")
+        except Exception:
+            logger.debug("failed to write telemetry file")
     except Exception:
-        logger.exception("scan_arbitrage failed; returning empty result")
-        return []
+        logger.debug("failed to emit scan_arbitrage telemetry")
+
+    return _merge_results(results, cfg)
