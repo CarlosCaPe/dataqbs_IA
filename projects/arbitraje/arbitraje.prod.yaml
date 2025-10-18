@@ -7,19 +7,18 @@ quote: USDT
 inv: 0.0  # Always use wallet; do not assume extra investment
 
 bf:
-  # Anchors restringidas a stables líquidas para evitar exposure a fiat con gaps grandes.
-  # allowed_quotes: [USDT, USDC]
-  allowed_quotes: [USDT,USDC, TUSD, USDP, EURS, PAXG]
+  # Anchors restringidas a stables líquidas para performance/estabilidad del grafo
+  allowed_quotes: [USDT, USDC]
 
   fee: 0.10                  # modela taker≈0.1% por hop
   rank_by_qvol: true         # prioriza liquidez (reduce ciclos basura)
-  currencies_limit: 400      # reduce universo a mercados más líquidos
+  currencies_limit: 250      # reducir universo acelera técnicas
   min_net: -10000             # sube umbral bruto para absorber slippage potencial (~30 bps)
   min_net_per_hop: -10000      # evita cadenas largas con hops marginales
   top: 40                    # inspección limitada
   require_quote: true        # obliga cerrar en ancla estable
   require_topofbook: true    # usa bid/ask (más seguro para ejecución)
-  min_quote_vol: 0       # filtra books extremadamente delgados (quote units)
+  min_quote_vol: 2000        # filtra books delgados para acelerar
   min_hops: 2                # evita ciclos de 1 hop / trivial
   max_hops: 5                # menor acumulación de fees y riesgo
   threads: 0                 # use default pool / per-exchange parallelism
@@ -42,7 +41,8 @@ repeat_sleep: 1
 balance_provider: ccxt
 ex_auth_only: true
 simulate_compound: true
-simulate_from_wallet: true
+# Para acelerar y evitar 10-12s de prefetch de wallet por iteración, desactivar:
+simulate_from_wallet: false
 simulate_prefer: auto
 simulate_select: best
 simulate_auto_switch: true
@@ -68,12 +68,17 @@ tri:
 # Engine techniques orchestration (process-pool based)
 techniques:
   enabled: [bellman_ford, stat_tri]
-  max_workers: 2
+  max_workers: 1
   enable_rerank_onnx: false
   fallback_timeout: 8.0
   telemetry_file: ./artifacts/arbitraje/techniques_telemetry.log
-  inline: [bellman_ford]
+  # Ejecutar inline para evitar sobrecoste de pool y acelerar turnaround
+  inline: [bellman_ford, stat_tri]
   iteration_watchdog_sec: 10.0
+  # Pruning para acelerar BF (reducir fuentes y tamaño efectivo del grafo)
+  pruning_degree_threshold: 3
+  pruning_qvol_frac: 0.2
+  pruning_volatility_window: 5
 
 # Per-exchange overrides (optional) — these can tune aggressiveness per-exchange.
 exchange_overrides:
@@ -100,6 +105,10 @@ exchange_overrides:
 blacklist_pairs:
   okx:
     - USDC/USDT  # sCode 51155 compliance restriction
+
+# Watchdogs duros para evitar bloqueos por exchange/iteración
+per_exchange_watchdog_sec: 60
+iteration_watchdog_sec: 300
 
 
 # NOTAS de endurecimiento:
