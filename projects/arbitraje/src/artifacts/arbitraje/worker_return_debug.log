@@ -51,3 +51,431 @@
 {"snapshot_id": "bitget", "path": "python_bf", "results_count": 1, "sample": [{"ts": "bitget", "venue": null, "cycle": "B->C->A->B", "orientation": "reverse", "net_bps_est": 368.8312, "fee_bps_total": 0.3, "hops": 3, "status": "actionable", "filter_reasons": []}]}
 {"snapshot_id": "mexc", "path": "python_bf", "results_count": 1, "sample": [{"ts": "mexc", "venue": null, "cycle": "B->C->A->B", "orientation": "reverse", "net_bps_est": 368.8312, "fee_bps_total": 0.3, "hops": 3, "status": "actionable", "filter_reasons": []}]}
 {"snapshot_id": "snap1", "path": "numba_postproc", "results_count": 1, "sample": [{"ts": "tst", "venue": "testex", "cycle": "B->C->B", "net_bps_est": 179.6102, "fee_bps_total": 0.2, "status": "actionable"}]}
+{"snapshot_id": "2025-10-18T02:40:09.389305+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T02:44:16.909697+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T02:44:16.909697+00:00", "path": "python_bf", "results_count": 3, "sample": [{"ts": "2025-10-18T02:44:29.874979+00:00", "venue": "bitget", "cycle": "USDC->USD1->SOL->USDC", "orientation": "reverse", "net_bps_est": 1639.2323, "fee_bps_total": 0.3, "hops": 3, "status": "actionable", "filter_reasons": []}, {"ts": "2025-10-18T02:44:29.874979+00:00", "venue": "bitget", "cycle": "USD1->SOL->USDC->USD1", "orientation": "reverse", "net_bps_est": 1639.2323, "fee_bps_total": 0.3, "hops": 3, "status": "actionable", "filter_reasons": []}, {"ts": "2025-10-18T02:44:29.874979+00:00", "venue": "bitget", "cycle": "SOL->USDC->USD1->SOL", "orientation": "reverse", "net_bps_est": 1639.2323, "fee_bps_total": 0.3, "hops": 3, "status": "actionable", "filter_reasons": []}]}
+{"snapshot_id": "2025-10-18T02:49:37.348661+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T02:44:16.909697+00:00", "path": "python_bf", "results_count": 3, "sample": [{"ts": "2025-10-18T02:44:31.940005+00:00", "venue": "binance", "cycle": "DYM->FDUSD->TRY->DYM", "orientation": "reverse", "net_bps_est": 104511.224, "fee_bps_total": 0.3, "hops": 3, "status": "actionable", "filter_reasons": []}, {"ts": "2025-10-18T02:44:31.940005+00:00", "venue": "binance", "cycle": "TRY->DYM->FDUSD->TRY", "orientation": "reverse", "net_bps_est": 104511.224, "fee_bps_total": 0.3, "hops": 3, "status": "actionable", "filter_reasons": []}, {"ts": "2025-10-18T02:44:31.940005+00:00", "venue": "binance", "cycle": "FDUSD->TRY->DYM->FDUSD", "orientation": "reverse", "net_bps_est": 104511.224, "fee_bps_total": 0.3, "hops": 3, "status": "actionable", "filter_reasons": []}]}
+{"snapshot_id": "2025-10-18T02:56:57.082630+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T02:59:52.219838+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T02:59:52.219838+00:00", "path": "python_bf", "results_count": 3, "sample": [{"ts": "2025-10-18T02:59:53.287835+00:00", "venue": "bitget", "cycle": "USDC->USD1->SOL->USDC", "orientation": "reverse", "net_bps_est": 1618.9544, "fee_bps_total": 0.3, "hops": 3, "status": "actionable", "filter_reasons": []}, {"ts": "2025-10-18T02:59:53.287835+00:00", "venue": "bitget", "cycle": "USD1->SOL->USDC->USD1", "orientation": "reverse", "net_bps_est": 1618.9544, "fee_bps_total": 0.3, "hops": 3, "status": "actionable", "filter_reasons": []}, {"ts": "2025-10-18T02:59:53.287835+00:00", "venue": "bitget", "cycle": "SOL->USDC->USD1->SOL", "orientation": "reverse", "net_bps_est": 1618.9544, "fee_bps_total": 0.3, "hops": 3, "status": "actionable", "filter_reasons": []}]}
+{"snapshot_id": "2025-10-18T02:59:52.219838+00:00", "path": "python_bf", "results_count": 3, "sample": [{"ts": "2025-10-18T02:59:54.010855+00:00", "venue": "binance", "cycle": "DYM->FDUSD->TRY->DYM", "orientation": "reverse", "net_bps_est": 104744.8284, "fee_bps_total": 0.3, "hops": 3, "status": "actionable", "filter_reasons": []}, {"ts": "2025-10-18T02:59:54.010855+00:00", "venue": "binance", "cycle": "TRY->DYM->FDUSD->TRY", "orientation": "reverse", "net_bps_est": 104744.8284, "fee_bps_total": 0.3, "hops": 3, "status": "actionable", "filter_reasons": []}, {"ts": "2025-10-18T02:59:54.010855+00:00", "venue": "binance", "cycle": "FDUSD->TRY->DYM->FDUSD", "orientation": "reverse", "net_bps_est": 104744.8284, "fee_bps_total": 0.3, "hops": 3, "status": "actionable", "filter_reasons": []}]}
+{"snapshot_id": "2025-10-18T03:34:45.675774+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T03:34:45.675774+00:00", "path": "python_bf", "results_count": 3, "sample": [{"ts": "2025-10-18T03:34:46.541388+00:00", "venue": "bitget", "cycle": "USDC->USD1->SOL->USDC", "orientation": "reverse", "net_bps_est": 1717.7397, "fee_bps_total": 0.3, "hops": 3, "status": "actionable", "filter_reasons": []}, {"ts": "2025-10-18T03:34:46.541388+00:00", "venue": "bitget", "cycle": "USD1->SOL->USDC->USD1", "orientation": "reverse", "net_bps_est": 1717.7397, "fee_bps_total": 0.3, "hops": 3, "status": "actionable", "filter_reasons": []}, {"ts": "2025-10-18T03:34:46.541388+00:00", "venue": "bitget", "cycle": "SOL->USDC->USD1->SOL", "orientation": "reverse", "net_bps_est": 1717.7397, "fee_bps_total": 0.3, "hops": 3, "status": "actionable", "filter_reasons": []}]}
+{"snapshot_id": "2025-10-18T03:34:45.675774+00:00", "path": "python_bf", "results_count": 3, "sample": [{"ts": "2025-10-18T03:34:49.286422+00:00", "venue": "binance", "cycle": "DYM->FDUSD->TRY->DYM", "orientation": "reverse", "net_bps_est": 104318.0336, "fee_bps_total": 0.3, "hops": 3, "status": "actionable", "filter_reasons": []}, {"ts": "2025-10-18T03:34:49.286422+00:00", "venue": "binance", "cycle": "TRY->DYM->FDUSD->TRY", "orientation": "reverse", "net_bps_est": 104318.0336, "fee_bps_total": 0.3, "hops": 3, "status": "actionable", "filter_reasons": []}, {"ts": "2025-10-18T03:34:49.286422+00:00", "venue": "binance", "cycle": "FDUSD->TRY->DYM->FDUSD", "orientation": "reverse", "net_bps_est": 104318.0336, "fee_bps_total": 0.3, "hops": 3, "status": "actionable", "filter_reasons": []}]}
+{"snapshot_id": "2025-10-18T12:44:42.909726+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T12:44:42.909726+00:00", "path": "python_bf", "results_count": 3, "sample": [{"ts": "2025-10-18T12:44:45.887179+00:00", "venue": "binance", "cycle": "DYM->FDUSD->TRY->DYM", "orientation": "reverse", "net_bps_est": 103748.0223, "fee_bps_total": 0.3, "hops": 3, "status": "actionable", "filter_reasons": []}, {"ts": "2025-10-18T12:44:45.887179+00:00", "venue": "binance", "cycle": "TRY->DYM->FDUSD->TRY", "orientation": "reverse", "net_bps_est": 103748.0223, "fee_bps_total": 0.3, "hops": 3, "status": "actionable", "filter_reasons": []}, {"ts": "2025-10-18T12:44:45.887179+00:00", "venue": "binance", "cycle": "FDUSD->TRY->DYM->FDUSD", "orientation": "reverse", "net_bps_est": 103748.0223, "fee_bps_total": 0.3, "hops": 3, "status": "actionable", "filter_reasons": []}]}
+{"snapshot_id": "snap1", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "snap1", "path": "python_bf", "results_count": 2, "sample": [{"ts": "tst", "venue": "testex", "cycle": "B->C->B", "orientation": "forward", "net_bps_est": 179.6102, "fee_bps_total": 0.2, "hops": 2, "status": "actionable", "filter_reasons": []}, {"ts": "tst", "venue": "testex", "cycle": "C->B->C", "orientation": "forward", "net_bps_est": 179.6102, "fee_bps_total": 0.2, "hops": 2, "status": "actionable", "filter_reasons": []}]}
+{"snapshot_id": "snap", "path": "python_bf", "results_count": 2, "sample": [{"ts": "tst", "venue": "testex", "cycle": "C->B->C", "orientation": "forward", "net_bps_est": 179.6102, "fee_bps_total": 0.2, "hops": 2, "status": "actionable", "filter_reasons": []}, {"ts": "tst", "venue": "testex", "cycle": "B->C->B", "orientation": "forward", "net_bps_est": 179.6102, "fee_bps_total": 0.2, "hops": 2, "status": "actionable", "filter_reasons": []}]}
+{"snapshot_id": "binance", "path": "python_bf", "results_count": 1, "sample": [{"ts": "binance", "venue": null, "cycle": "B->C->A->B", "orientation": "reverse", "net_bps_est": 368.8312, "fee_bps_total": 0.3, "hops": 3, "status": "actionable", "filter_reasons": []}]}
+{"snapshot_id": "bitget", "path": "python_bf", "results_count": 1, "sample": [{"ts": "bitget", "venue": null, "cycle": "B->C->A->B", "orientation": "reverse", "net_bps_est": 368.8312, "fee_bps_total": 0.3, "hops": 3, "status": "actionable", "filter_reasons": []}]}
+{"snapshot_id": "mexc", "path": "python_bf", "results_count": 1, "sample": [{"ts": "mexc", "venue": null, "cycle": "B->C->A->B", "orientation": "reverse", "net_bps_est": 368.8312, "fee_bps_total": 0.3, "hops": 3, "status": "actionable", "filter_reasons": []}]}
+{"snapshot_id": "snap1", "path": "python_bf", "results_count": 2, "sample": [{"ts": "tst", "venue": "testex", "cycle": "B->C->B", "orientation": "forward", "net_bps_est": 179.6102, "fee_bps_total": 0.2, "hops": 2, "status": "actionable", "filter_reasons": []}, {"ts": "tst", "venue": "testex", "cycle": "C->B->C", "orientation": "forward", "net_bps_est": 179.6102, "fee_bps_total": 0.2, "hops": 2, "status": "actionable", "filter_reasons": []}]}
+{"snapshot_id": "snap1", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "snap1", "path": "python_bf", "results_count": 2, "sample": [{"ts": "tst", "venue": "testex", "cycle": "B->C->B", "orientation": "forward", "net_bps_est": 179.6102, "fee_bps_total": 0.2, "hops": 2, "status": "actionable", "filter_reasons": []}, {"ts": "tst", "venue": "testex", "cycle": "C->B->C", "orientation": "forward", "net_bps_est": 179.6102, "fee_bps_total": 0.2, "hops": 2, "status": "actionable", "filter_reasons": []}]}
+{"snapshot_id": "snap", "path": "python_bf", "results_count": 2, "sample": [{"ts": "tst", "venue": "testex", "cycle": "C->B->C", "orientation": "forward", "net_bps_est": 179.6102, "fee_bps_total": 0.2, "hops": 2, "status": "actionable", "filter_reasons": []}, {"ts": "tst", "venue": "testex", "cycle": "B->C->B", "orientation": "forward", "net_bps_est": 179.6102, "fee_bps_total": 0.2, "hops": 2, "status": "actionable", "filter_reasons": []}]}
+{"snapshot_id": "binance", "path": "python_bf", "results_count": 1, "sample": [{"ts": "binance", "venue": null, "cycle": "B->C->A->B", "orientation": "reverse", "net_bps_est": 368.8312, "fee_bps_total": 0.3, "hops": 3, "status": "actionable", "filter_reasons": []}]}
+{"snapshot_id": "bitget", "path": "python_bf", "results_count": 1, "sample": [{"ts": "bitget", "venue": null, "cycle": "B->C->A->B", "orientation": "reverse", "net_bps_est": 368.8312, "fee_bps_total": 0.3, "hops": 3, "status": "actionable", "filter_reasons": []}]}
+{"snapshot_id": "mexc", "path": "python_bf", "results_count": 1, "sample": [{"ts": "mexc", "venue": null, "cycle": "B->C->A->B", "orientation": "reverse", "net_bps_est": 368.8312, "fee_bps_total": 0.3, "hops": 3, "status": "actionable", "filter_reasons": []}]}
+{"snapshot_id": "snap1", "path": "python_bf", "results_count": 2, "sample": [{"ts": "tst", "venue": "testex", "cycle": "B->C->B", "orientation": "forward", "net_bps_est": 179.6102, "fee_bps_total": 0.2, "hops": 2, "status": "actionable", "filter_reasons": []}, {"ts": "tst", "venue": "testex", "cycle": "C->B->C", "orientation": "forward", "net_bps_est": 179.6102, "fee_bps_total": 0.2, "hops": 2, "status": "actionable", "filter_reasons": []}]}
+{"snapshot_id": "snap1", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "snap1", "path": "python_bf", "results_count": 2, "sample": [{"ts": "tst", "venue": "testex", "cycle": "B->C->B", "orientation": "forward", "net_bps_est": 179.6102, "fee_bps_total": 0.2, "hops": 2, "status": "actionable", "filter_reasons": []}, {"ts": "tst", "venue": "testex", "cycle": "C->B->C", "orientation": "forward", "net_bps_est": 179.6102, "fee_bps_total": 0.2, "hops": 2, "status": "actionable", "filter_reasons": []}]}
+{"snapshot_id": "snap", "path": "python_bf", "results_count": 2, "sample": [{"ts": "tst", "venue": "testex", "cycle": "C->B->C", "orientation": "forward", "net_bps_est": 179.6102, "fee_bps_total": 0.2, "hops": 2, "status": "actionable", "filter_reasons": []}, {"ts": "tst", "venue": "testex", "cycle": "B->C->B", "orientation": "forward", "net_bps_est": 179.6102, "fee_bps_total": 0.2, "hops": 2, "status": "actionable", "filter_reasons": []}]}
+{"snapshot_id": "binance", "path": "python_bf", "results_count": 1, "sample": [{"ts": "binance", "venue": null, "cycle": "B->C->A->B", "orientation": "reverse", "net_bps_est": 368.8312, "fee_bps_total": 0.3, "hops": 3, "status": "actionable", "filter_reasons": []}]}
+{"snapshot_id": "bitget", "path": "python_bf", "results_count": 1, "sample": [{"ts": "bitget", "venue": null, "cycle": "B->C->A->B", "orientation": "reverse", "net_bps_est": 368.8312, "fee_bps_total": 0.3, "hops": 3, "status": "actionable", "filter_reasons": []}]}
+{"snapshot_id": "mexc", "path": "python_bf", "results_count": 1, "sample": [{"ts": "mexc", "venue": null, "cycle": "B->C->A->B", "orientation": "reverse", "net_bps_est": 368.8312, "fee_bps_total": 0.3, "hops": 3, "status": "actionable", "filter_reasons": []}]}
+{"snapshot_id": "snap1", "path": "python_bf", "results_count": 2, "sample": [{"ts": "tst", "venue": "testex", "cycle": "B->C->B", "orientation": "forward", "net_bps_est": 179.6102, "fee_bps_total": 0.2, "hops": 2, "status": "actionable", "filter_reasons": []}, {"ts": "tst", "venue": "testex", "cycle": "C->B->C", "orientation": "forward", "net_bps_est": 179.6102, "fee_bps_total": 0.2, "hops": 2, "status": "actionable", "filter_reasons": []}]}
+{"snapshot_id": "snap1", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "snap1", "path": "python_bf", "results_count": 2, "sample": [{"ts": "tst", "venue": "testex", "cycle": "B->C->B", "orientation": "forward", "net_bps_est": 179.6102, "fee_bps_total": 0.2, "hops": 2, "status": "actionable", "filter_reasons": []}, {"ts": "tst", "venue": "testex", "cycle": "C->B->C", "orientation": "forward", "net_bps_est": 179.6102, "fee_bps_total": 0.2, "hops": 2, "status": "actionable", "filter_reasons": []}]}
+{"snapshot_id": "snap", "path": "python_bf", "results_count": 2, "sample": [{"ts": "tst", "venue": "testex", "cycle": "C->B->C", "orientation": "forward", "net_bps_est": 179.6102, "fee_bps_total": 0.2, "hops": 2, "status": "actionable", "filter_reasons": []}, {"ts": "tst", "venue": "testex", "cycle": "B->C->B", "orientation": "forward", "net_bps_est": 179.6102, "fee_bps_total": 0.2, "hops": 2, "status": "actionable", "filter_reasons": []}]}
+{"snapshot_id": "binance", "path": "python_bf", "results_count": 1, "sample": [{"ts": "binance", "venue": null, "cycle": "B->C->A->B", "orientation": "reverse", "net_bps_est": 368.8312, "fee_bps_total": 0.3, "hops": 3, "status": "actionable", "filter_reasons": []}]}
+{"snapshot_id": "bitget", "path": "python_bf", "results_count": 1, "sample": [{"ts": "bitget", "venue": null, "cycle": "B->C->A->B", "orientation": "reverse", "net_bps_est": 368.8312, "fee_bps_total": 0.3, "hops": 3, "status": "actionable", "filter_reasons": []}]}
+{"snapshot_id": "mexc", "path": "python_bf", "results_count": 1, "sample": [{"ts": "mexc", "venue": null, "cycle": "B->C->A->B", "orientation": "reverse", "net_bps_est": 368.8312, "fee_bps_total": 0.3, "hops": 3, "status": "actionable", "filter_reasons": []}]}
+{"snapshot_id": "snap1", "path": "python_bf", "results_count": 2, "sample": [{"ts": "tst", "venue": "testex", "cycle": "B->C->B", "orientation": "forward", "net_bps_est": 179.6102, "fee_bps_total": 0.2, "hops": 2, "status": "actionable", "filter_reasons": []}, {"ts": "tst", "venue": "testex", "cycle": "C->B->C", "orientation": "forward", "net_bps_est": 179.6102, "fee_bps_total": 0.2, "hops": 2, "status": "actionable", "filter_reasons": []}]}
+{"snapshot_id": "snap1", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "snap1", "path": "python_bf", "results_count": 2, "sample": [{"ts": "tst", "venue": "testex", "cycle": "B->C->B", "orientation": "forward", "net_bps_est": 179.6102, "fee_bps_total": 0.2, "hops": 2, "status": "actionable", "filter_reasons": []}, {"ts": "tst", "venue": "testex", "cycle": "C->B->C", "orientation": "forward", "net_bps_est": 179.6102, "fee_bps_total": 0.2, "hops": 2, "status": "actionable", "filter_reasons": []}]}
+{"snapshot_id": "snap", "path": "python_bf", "results_count": 2, "sample": [{"ts": "tst", "venue": "testex", "cycle": "C->B->C", "orientation": "forward", "net_bps_est": 179.6102, "fee_bps_total": 0.2, "hops": 2, "status": "actionable", "filter_reasons": []}, {"ts": "tst", "venue": "testex", "cycle": "B->C->B", "orientation": "forward", "net_bps_est": 179.6102, "fee_bps_total": 0.2, "hops": 2, "status": "actionable", "filter_reasons": []}]}
+{"snapshot_id": "binance", "path": "python_bf", "results_count": 1, "sample": [{"ts": "binance", "venue": null, "cycle": "B->C->A->B", "orientation": "reverse", "net_bps_est": 368.8312, "fee_bps_total": 0.3, "hops": 3, "status": "actionable", "filter_reasons": []}]}
+{"snapshot_id": "bitget", "path": "python_bf", "results_count": 1, "sample": [{"ts": "bitget", "venue": null, "cycle": "B->C->A->B", "orientation": "reverse", "net_bps_est": 368.8312, "fee_bps_total": 0.3, "hops": 3, "status": "actionable", "filter_reasons": []}]}
+{"snapshot_id": "mexc", "path": "python_bf", "results_count": 1, "sample": [{"ts": "mexc", "venue": null, "cycle": "B->C->A->B", "orientation": "reverse", "net_bps_est": 368.8312, "fee_bps_total": 0.3, "hops": 3, "status": "actionable", "filter_reasons": []}]}
+{"snapshot_id": "snap1", "path": "python_bf", "results_count": 2, "sample": [{"ts": "tst", "venue": "testex", "cycle": "B->C->B", "orientation": "forward", "net_bps_est": 179.6102, "fee_bps_total": 0.2, "hops": 2, "status": "actionable", "filter_reasons": []}, {"ts": "tst", "venue": "testex", "cycle": "C->B->C", "orientation": "forward", "net_bps_est": 179.6102, "fee_bps_total": 0.2, "hops": 2, "status": "actionable", "filter_reasons": []}]}
+{"snapshot_id": "2025-10-18T14:25:44.269938+00:00", "path": "python_bf", "results_count": 3, "sample": [{"ts": "2025-10-18T14:25:47.421449+00:00", "venue": "binance", "cycle": "DYM->FDUSD->TRY->DYM", "orientation": "reverse", "net_bps_est": 105233.6867, "fee_bps_total": 0.3, "hops": 3, "status": "actionable", "filter_reasons": []}, {"ts": "2025-10-18T14:25:47.421449+00:00", "venue": "binance", "cycle": "TRY->DYM->FDUSD->TRY", "orientation": "reverse", "net_bps_est": 105233.6867, "fee_bps_total": 0.3, "hops": 3, "status": "actionable", "filter_reasons": []}, {"ts": "2025-10-18T14:25:47.421449+00:00", "venue": "binance", "cycle": "FDUSD->TRY->DYM->FDUSD", "orientation": "reverse", "net_bps_est": 105233.6867, "fee_bps_total": 0.3, "hops": 3, "status": "actionable", "filter_reasons": []}]}
+{"snapshot_id": "snap1", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "snap1", "path": "python_bf", "results_count": 2, "sample": [{"ts": "tst", "venue": "testex", "cycle": "B->C->B", "orientation": "forward", "net_bps_est": 179.6102, "fee_bps_total": 0.2, "hops": 2, "status": "actionable", "filter_reasons": []}, {"ts": "tst", "venue": "testex", "cycle": "C->B->C", "orientation": "forward", "net_bps_est": 179.6102, "fee_bps_total": 0.2, "hops": 2, "status": "actionable", "filter_reasons": []}]}
+{"snapshot_id": "snap", "path": "python_bf", "results_count": 2, "sample": [{"ts": "tst", "venue": "testex", "cycle": "C->B->C", "orientation": "forward", "net_bps_est": 179.6102, "fee_bps_total": 0.2, "hops": 2, "status": "actionable", "filter_reasons": []}, {"ts": "tst", "venue": "testex", "cycle": "B->C->B", "orientation": "forward", "net_bps_est": 179.6102, "fee_bps_total": 0.2, "hops": 2, "status": "actionable", "filter_reasons": []}]}
+{"snapshot_id": "binance", "path": "python_bf", "results_count": 1, "sample": [{"ts": "binance", "venue": null, "cycle": "B->C->A->B", "orientation": "reverse", "net_bps_est": 368.8312, "fee_bps_total": 0.3, "hops": 3, "status": "actionable", "filter_reasons": []}]}
+{"snapshot_id": "bitget", "path": "python_bf", "results_count": 1, "sample": [{"ts": "bitget", "venue": null, "cycle": "B->C->A->B", "orientation": "reverse", "net_bps_est": 368.8312, "fee_bps_total": 0.3, "hops": 3, "status": "actionable", "filter_reasons": []}]}
+{"snapshot_id": "mexc", "path": "python_bf", "results_count": 1, "sample": [{"ts": "mexc", "venue": null, "cycle": "B->C->A->B", "orientation": "reverse", "net_bps_est": 368.8312, "fee_bps_total": 0.3, "hops": 3, "status": "actionable", "filter_reasons": []}]}
+{"snapshot_id": "snap1", "path": "python_bf", "results_count": 2, "sample": [{"ts": "tst", "venue": "testex", "cycle": "B->C->B", "orientation": "forward", "net_bps_est": 179.6102, "fee_bps_total": 0.2, "hops": 2, "status": "actionable", "filter_reasons": []}, {"ts": "tst", "venue": "testex", "cycle": "C->B->C", "orientation": "forward", "net_bps_est": 179.6102, "fee_bps_total": 0.2, "hops": 2, "status": "actionable", "filter_reasons": []}]}
+{"snapshot_id": "snap1", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "snap1", "path": "python_bf", "results_count": 2, "sample": [{"ts": "tst", "venue": "testex", "cycle": "B->C->B", "orientation": "forward", "net_bps_est": 179.6102, "fee_bps_total": 0.2, "hops": 2, "status": "actionable", "filter_reasons": []}, {"ts": "tst", "venue": "testex", "cycle": "C->B->C", "orientation": "forward", "net_bps_est": 179.6102, "fee_bps_total": 0.2, "hops": 2, "status": "actionable", "filter_reasons": []}]}
+{"snapshot_id": "snap", "path": "python_bf", "results_count": 2, "sample": [{"ts": "tst", "venue": "testex", "cycle": "C->B->C", "orientation": "forward", "net_bps_est": 179.6102, "fee_bps_total": 0.2, "hops": 2, "status": "actionable", "filter_reasons": []}, {"ts": "tst", "venue": "testex", "cycle": "B->C->B", "orientation": "forward", "net_bps_est": 179.6102, "fee_bps_total": 0.2, "hops": 2, "status": "actionable", "filter_reasons": []}]}
+{"snapshot_id": "binance", "path": "python_bf", "results_count": 1, "sample": [{"ts": "binance", "venue": null, "cycle": "B->C->A->B", "orientation": "reverse", "net_bps_est": 368.8312, "fee_bps_total": 0.3, "hops": 3, "status": "actionable", "filter_reasons": []}]}
+{"snapshot_id": "bitget", "path": "python_bf", "results_count": 1, "sample": [{"ts": "bitget", "venue": null, "cycle": "B->C->A->B", "orientation": "reverse", "net_bps_est": 368.8312, "fee_bps_total": 0.3, "hops": 3, "status": "actionable", "filter_reasons": []}]}
+{"snapshot_id": "mexc", "path": "python_bf", "results_count": 1, "sample": [{"ts": "mexc", "venue": null, "cycle": "B->C->A->B", "orientation": "reverse", "net_bps_est": 368.8312, "fee_bps_total": 0.3, "hops": 3, "status": "actionable", "filter_reasons": []}]}
+{"snapshot_id": "snap1", "path": "python_bf", "results_count": 2, "sample": [{"ts": "tst", "venue": "testex", "cycle": "B->C->B", "orientation": "forward", "net_bps_est": 179.6102, "fee_bps_total": 0.2, "hops": 2, "status": "actionable", "filter_reasons": []}, {"ts": "tst", "venue": "testex", "cycle": "C->B->C", "orientation": "forward", "net_bps_est": 179.6102, "fee_bps_total": 0.2, "hops": 2, "status": "actionable", "filter_reasons": []}]}
+{"snapshot_id": "snap1", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "snap1", "path": "python_bf", "results_count": 2, "sample": [{"ts": "tst", "venue": "testex", "cycle": "B->C->B", "orientation": "forward", "net_bps_est": 179.6102, "fee_bps_total": 0.2, "hops": 2, "status": "actionable", "filter_reasons": []}, {"ts": "tst", "venue": "testex", "cycle": "C->B->C", "orientation": "forward", "net_bps_est": 179.6102, "fee_bps_total": 0.2, "hops": 2, "status": "actionable", "filter_reasons": []}]}
+{"snapshot_id": "snap", "path": "python_bf", "results_count": 2, "sample": [{"ts": "tst", "venue": "testex", "cycle": "C->B->C", "orientation": "forward", "net_bps_est": 179.6102, "fee_bps_total": 0.2, "hops": 2, "status": "actionable", "filter_reasons": []}, {"ts": "tst", "venue": "testex", "cycle": "B->C->B", "orientation": "forward", "net_bps_est": 179.6102, "fee_bps_total": 0.2, "hops": 2, "status": "actionable", "filter_reasons": []}]}
+{"snapshot_id": "binance", "path": "python_bf", "results_count": 1, "sample": [{"ts": "binance", "venue": null, "cycle": "B->C->A->B", "orientation": "reverse", "net_bps_est": 368.8312, "fee_bps_total": 0.3, "hops": 3, "status": "actionable", "filter_reasons": []}]}
+{"snapshot_id": "bitget", "path": "python_bf", "results_count": 1, "sample": [{"ts": "bitget", "venue": null, "cycle": "B->C->A->B", "orientation": "reverse", "net_bps_est": 368.8312, "fee_bps_total": 0.3, "hops": 3, "status": "actionable", "filter_reasons": []}]}
+{"snapshot_id": "mexc", "path": "python_bf", "results_count": 1, "sample": [{"ts": "mexc", "venue": null, "cycle": "B->C->A->B", "orientation": "reverse", "net_bps_est": 368.8312, "fee_bps_total": 0.3, "hops": 3, "status": "actionable", "filter_reasons": []}]}
+{"snapshot_id": "snap1", "path": "python_bf", "results_count": 2, "sample": [{"ts": "tst", "venue": "testex", "cycle": "B->C->B", "orientation": "forward", "net_bps_est": 179.6102, "fee_bps_total": 0.2, "hops": 2, "status": "actionable", "filter_reasons": []}, {"ts": "tst", "venue": "testex", "cycle": "C->B->C", "orientation": "forward", "net_bps_est": 179.6102, "fee_bps_total": 0.2, "hops": 2, "status": "actionable", "filter_reasons": []}]}
+{"snapshot_id": "2025-10-18T16:10:04.049944+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T16:10:04.049944+00:00", "path": "python_bf", "results_count": 3, "sample": [{"ts": "2025-10-18T16:10:04.716515+00:00", "venue": "bitget", "cycle": "SOL->USDC->USD1->SOL", "orientation": "reverse", "net_bps_est": 1691.9237, "fee_bps_total": 0.3, "hops": 3, "status": "actionable", "filter_reasons": []}, {"ts": "2025-10-18T16:10:04.716515+00:00", "venue": "bitget", "cycle": "USDC->USD1->SOL->USDC", "orientation": "reverse", "net_bps_est": 1691.9237, "fee_bps_total": 0.3, "hops": 3, "status": "actionable", "filter_reasons": []}, {"ts": "2025-10-18T16:10:04.716515+00:00", "venue": "bitget", "cycle": "USD1->SOL->USDC->USD1", "orientation": "reverse", "net_bps_est": 1691.9237, "fee_bps_total": 0.3, "hops": 3, "status": "actionable", "filter_reasons": []}]}
+{"snapshot_id": "2025-10-18T16:10:04.049944+00:00", "path": "python_bf", "results_count": 3, "sample": [{"ts": "2025-10-18T16:10:06.266565+00:00", "venue": "binance", "cycle": "DYM->FDUSD->TRY->DYM", "orientation": "reverse", "net_bps_est": 105155.459, "fee_bps_total": 0.3, "hops": 3, "status": "actionable", "filter_reasons": []}, {"ts": "2025-10-18T16:10:06.266565+00:00", "venue": "binance", "cycle": "TRY->DYM->FDUSD->TRY", "orientation": "reverse", "net_bps_est": 105155.459, "fee_bps_total": 0.3, "hops": 3, "status": "actionable", "filter_reasons": []}, {"ts": "2025-10-18T16:10:06.266565+00:00", "venue": "binance", "cycle": "FDUSD->TRY->DYM->FDUSD", "orientation": "reverse", "net_bps_est": 105155.459, "fee_bps_total": 0.3, "hops": 3, "status": "actionable", "filter_reasons": []}]}
+{"snapshot_id": "2025-10-18T16:31:22.840074+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T16:31:22.840074+00:00", "path": "python_bf", "results_count": 3, "sample": [{"ts": "2025-10-18T16:31:23.873297+00:00", "venue": "bitget", "cycle": "SOL->USDC->USD1->SOL", "orientation": "reverse", "net_bps_est": 1627.928, "fee_bps_total": 0.3, "hops": 3, "status": "actionable", "filter_reasons": []}, {"ts": "2025-10-18T16:31:23.873297+00:00", "venue": "bitget", "cycle": "USDC->USD1->SOL->USDC", "orientation": "reverse", "net_bps_est": 1627.928, "fee_bps_total": 0.3, "hops": 3, "status": "actionable", "filter_reasons": []}, {"ts": "2025-10-18T16:31:23.873297+00:00", "venue": "bitget", "cycle": "USD1->SOL->USDC->USD1", "orientation": "reverse", "net_bps_est": 1627.928, "fee_bps_total": 0.3, "hops": 3, "status": "actionable", "filter_reasons": []}]}
+{"snapshot_id": "2025-10-18T16:31:22.840074+00:00", "path": "python_bf", "results_count": 4, "sample": [{"ts": "2025-10-18T16:31:24.461295+00:00", "venue": "binance", "cycle": "TRY->DYM->FDUSD->SCR->TRY", "orientation": "reverse", "net_bps_est": 106260.6365, "fee_bps_total": 0.4, "hops": 4, "status": "actionable", "filter_reasons": []}, {"ts": "2025-10-18T16:31:24.461295+00:00", "venue": "binance", "cycle": "DYM->FDUSD->SCR->TRY->DYM", "orientation": "reverse", "net_bps_est": 106260.6365, "fee_bps_total": 0.4, "hops": 4, "status": "actionable", "filter_reasons": []}, {"ts": "2025-10-18T16:31:24.461295+00:00", "venue": "binance", "cycle": "SCR->TRY->DYM->FDUSD->SCR", "orientation": "reverse", "net_bps_est": 106260.6365, "fee_bps_total": 0.4, "hops": 4, "status": "actionable", "filter_reasons": []}]}
+{"snapshot_id": "2025-10-18T17:58:22.150084+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T17:58:22.150084+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T17:58:36.460778+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T17:58:36.460778+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:03:08.357280+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:03:08.357280+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:03:08.357280+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:03:08.357280+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:03:30.870026+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:03:30.870026+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:03:30.870026+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:03:30.870026+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:04:50.271277+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:04:50.271277+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:04:50.271277+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:07:30.256198+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:07:30.256198+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:07:30.256198+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:07:33.370944+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:07:33.370944+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:07:33.370944+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:07:34.520533+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:07:34.520533+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:07:34.520533+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:07:35.935540+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:07:35.935540+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:07:35.935540+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:07:38.786214+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:07:38.786214+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:07:38.786214+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:07:39.784212+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:07:39.784212+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:07:39.784212+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:07:42.234262+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:07:42.234262+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:07:42.234262+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:07:44.210330+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:07:44.210330+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:07:44.210330+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:07:45.799922+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:07:45.799922+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:07:45.799922+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:07:48.180996+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:07:48.180996+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:07:48.180996+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:12:30.718627+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:12:30.718627+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:12:30.718627+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:12:33.697627+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:12:33.697627+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:12:33.697627+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:12:34.964158+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:12:34.964158+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:12:34.964158+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:12:36.844201+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:12:36.844201+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:12:36.844201+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:12:39.332261+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:12:39.332261+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:12:39.332261+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:12:40.416311+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:12:40.416311+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:12:40.416311+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:12:41.778310+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:12:41.778310+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:12:41.778310+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:12:43.626393+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:12:43.626393+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:12:43.626393+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:12:45.074980+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:12:45.074980+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:12:45.074980+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:12:46.709984+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:12:46.709984+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:12:46.709984+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:12:47.941979+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:12:47.941979+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:12:47.941979+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:12:49.461033+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:12:49.461033+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:12:49.461033+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:12:50.654036+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:12:50.654036+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:12:50.654036+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:12:52.075567+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:12:52.075567+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:12:52.075567+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:12:53.405670+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:12:53.405670+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:12:53.405670+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:12:55.158568+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:12:55.158568+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:12:55.158568+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:12:56.452241+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:12:56.452241+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:12:56.452241+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:12:58.470819+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:12:58.470819+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:12:58.470819+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:01.019535+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:01.019535+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:01.019535+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:02.903323+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:02.903323+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:02.903323+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:05.371943+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:05.371943+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:05.371943+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:07.068514+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:07.068514+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:07.068514+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:08.481217+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:08.481217+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:08.481217+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:09.153737+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:09.153737+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:09.153737+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:10.180736+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:10.180736+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:10.180736+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:11.575255+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:11.575255+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:11.575255+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:13.714785+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:13.714785+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:13.714785+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:15.271313+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:15.271313+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:15.271313+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:16.636832+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:16.636832+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:16.636832+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:17.375348+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:17.375348+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:17.375348+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:18.003873+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:18.003873+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:18.003873+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:18.607455+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:18.607455+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:18.607455+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:19.411456+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:19.411456+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:19.411456+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:20.873514+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:20.873514+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:20.873514+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:25.463652+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:25.463652+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:25.463652+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:29.427157+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:29.427157+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:29.427157+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:30.652522+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:30.652522+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:30.652522+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:31.587522+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:31.587522+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:31.587522+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:32.791336+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:32.791336+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:32.791336+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:34.140721+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:34.140721+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:34.140721+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:34.906631+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:34.906631+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:34.906631+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:35.912759+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:35.912759+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:35.912759+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:36.529410+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:36.529410+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:36.529410+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:37.440521+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:37.440521+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:37.440521+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:38.367463+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:38.367463+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:38.367463+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:39.368207+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:39.368207+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:39.368207+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:41.900340+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:41.900340+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:41.900340+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:42.566866+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:42.566866+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:42.566866+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:43.252952+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:43.252952+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:43.252952+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:44.188043+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:44.188043+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:44.188043+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:45.367622+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:45.367622+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:45.367622+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:46.145625+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:46.145625+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:46.145625+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:47.182761+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:47.182761+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:47.182761+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:48.425282+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:48.425282+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:48.425282+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:49.083283+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:49.083283+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:49.083283+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:49.983857+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:49.983857+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:13:49.983857+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:14:30.907696+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:14:30.907696+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:14:30.907696+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:14:32.778689+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:14:32.778689+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:14:32.778689+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:14:34.460259+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:14:34.460259+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:14:34.460259+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:14:36.045258+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:14:36.045258+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:14:36.045258+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:14:36.989327+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:14:36.989327+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:14:36.989327+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:14:37.988852+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:14:37.988852+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:14:37.988852+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:14:39.075854+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:14:39.075854+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:14:39.075854+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:14:40.261851+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:14:40.261851+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:14:40.261851+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:14:41.334901+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:14:41.334901+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:14:41.334901+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:14:42.290427+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:14:42.290427+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:14:42.290427+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:14:43.201973+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:14:43.201973+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:14:43.201973+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:14:44.072549+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:14:44.072549+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:14:44.072549+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:14:44.600963+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:14:44.600963+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:14:44.600963+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:14:45.118428+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:14:45.118428+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:14:45.118428+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:14:45.724953+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:14:45.724953+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:14:45.724953+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:14:47.030999+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:14:47.030999+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:14:47.030999+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:14:47.855799+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:14:47.855799+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:14:47.855799+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:14:48.984612+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:14:48.984612+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:14:48.984612+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:14:49.868495+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:14:49.868495+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:14:49.868495+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:14:50.684564+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:14:50.684564+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:14:50.684564+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:14:51.690463+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:14:51.690463+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:14:51.690463+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:14:52.818606+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:14:52.818606+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:14:52.818606+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:14:53.734604+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:14:53.734604+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:14:53.734604+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:14:56.016605+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:14:56.016605+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:14:56.016605+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:14:56.894702+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:14:56.894702+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:14:56.894702+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:14:58.031749+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:14:58.031749+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:14:58.031749+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:14:59.165358+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:14:59.165358+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:14:59.165358+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:15:00.565880+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:15:00.565880+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:15:00.565880+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:15:01.393445+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:15:01.393445+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:15:01.393445+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:15:02.394966+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:15:02.394966+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:15:02.394966+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:15:03.292547+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:15:03.292547+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:15:03.292547+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:15:04.225545+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:15:04.225545+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:15:04.225545+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:15:05.638546+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:15:05.638546+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:15:05.638546+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:15:06.589064+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:15:06.589064+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:15:06.589064+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:15:08.226584+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:15:08.226584+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:15:08.226584+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:15:09.305588+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:15:09.305588+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:15:09.305588+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:16:06.103871+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:16:06.103871+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:16:06.103871+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:16:23.173871+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:16:23.173871+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:16:23.173871+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:16:25.058872+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:16:25.058872+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:16:25.058872+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:16:26.740876+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:16:26.740876+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:16:26.740876+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:16:30.009876+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:16:30.009876+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:16:30.009876+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:16:32.104872+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:16:32.104872+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:16:32.104872+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:16:33.102397+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:16:33.102397+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:16:33.102397+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:16:34.971951+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:16:34.971951+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:16:34.971951+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:16:39.788507+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:16:39.788507+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:16:39.788507+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:16:41.723108+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:16:41.723108+00:00", "path": "python_bf", "results_count": 0, "sample": []}
+{"snapshot_id": "2025-10-18T18:16:41.723108+00:00", "path": "python_bf", "results_count": 0, "sample": []}

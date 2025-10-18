@@ -7,24 +7,25 @@ quote: USDT
 inv: 0.0  # Always use wallet; do not assume extra investment
 
 bf:
-  # Anchors restringidas a stables líquidas para performance/estabilidad del grafo
-  allowed_quotes: [USDT]
+  # Anchors restringidas a stables líquidas para evitar exposure a fiat con gaps grandes.
+  # allowed_quotes: [USDT, USDC]
+  allowed_quotes: [USDT,USDC, TUSD, USDP, EURS, PAXG]
 
   fee: 0.10                  # modela taker≈0.1% por hop
   rank_by_qvol: true         # prioriza liquidez (reduce ciclos basura)
-  currencies_limit: 150      # reducir universo acelera técnicas aún más
+  currencies_limit: 220      # balance entre cobertura y velocidad
   min_net: -10000             # sube umbral bruto para absorber slippage potencial (~30 bps)
   min_net_per_hop: -10000      # evita cadenas largas con hops marginales
   top: 40                    # inspección limitada
   require_quote: true        # obliga cerrar en ancla estable
   require_topofbook: true    # usa bid/ask (más seguro para ejecución)
-  min_quote_vol: 5000        # filtra books delgados para acelerar más
+  min_quote_vol: 2000        # suficiente para evitar libros delgados sin perder demasiadas rutas
   min_hops: 2                # evita ciclos de 1 hop / trivial
   max_hops: 5                # menor acumulación de fees y riesgo
   threads: 0                 # use default pool / per-exchange parallelism
   require_dual_quote: false
   persist_top_csv: true
-  revalidate_depth: false     # re-chequea profundidad antes de aceptar ciclo
+  revalidate_depth: true     # re-chequea profundidad antes de aceptar ciclo
   use_ws: true               # WS para menor latencia si disponible
   depth_levels: 20           # niveles más profundos en revalidación
   latency_penalty_bps: 25    # penaliza net revalidado ~25 bps para cubrir ejecución
@@ -42,7 +43,7 @@ balance_provider: ccxt
 ex_auth_only: true
 simulate_compound: true
 # Para acelerar y evitar 10-12s de prefetch de wallet por iteración, desactivar:
-simulate_from_wallet: false
+simulate_from_wallet: true
 simulate_prefer: auto
 simulate_select: best
 simulate_auto_switch: true
@@ -59,25 +60,25 @@ ui:
 
 tri:
   fee: 0.10
-  currencies_limit: 400
+  currencies_limit: 120
   min_net: 0.50           # TRI stricter: require larger buffer for execution
   top: 40
   require_topofbook: false
   min_quote_vol: 2000
+  time_budget_sec: 5.0
 
 # Engine techniques orchestration (process-pool based)
 techniques:
-  enabled: [bellman_ford]
+  enabled: [bellman_ford, stat_tri]
   max_workers: 2
   enable_rerank_onnx: false
   fallback_timeout: 8.0
   telemetry_file: ./artifacts/arbitraje/techniques_telemetry.log
-  # Ejecutar en pool (no inline) para permitir timeouts/fallbacks
-  inline: []
+  inline: [bellman_ford]
   iteration_watchdog_sec: 10.0
   # Pruning agresivo para acelerar BF
-  pruning_degree_threshold: 10
-  pruning_qvol_frac: 0.05
+  pruning_degree_threshold: 6
+  pruning_qvol_frac: 0.12
   pruning_volatility_window: 5
 
 # Per-exchange overrides (optional) — these can tune aggressiveness per-exchange.
@@ -87,11 +88,17 @@ exchange_overrides:
       min_net: 0.50
       min_quote_vol: 2000
       latency_penalty_bps: 35
+    tri:
+      currencies_limit: 120
+      time_budget_sec: 6.0
   binance:
     bf:
       min_net: 0.20
       min_quote_vol: 10000
       currencies_limit: 120
+    tri:
+      currencies_limit: 100
+      time_budget_sec: 6.0
   okx:
     bf:
       min_net: 0.30
@@ -102,21 +109,17 @@ exchange_overrides:
       min_quote_vol: 5000
   bitget:
     bf:
-      min_net: 0.20
-      min_quote_vol: 8000
       currencies_limit: 120
+    tri:
+      currencies_limit: 120
+      time_budget_sec: 6.0
 
-# Manual blacklist (prod) – evita rutas con pares restringidos
-# OKX: USDC/USDT con errores sCode 51155 (compliance) en swaps recientes
-blacklist_pairs:
-  okx:
-    - USDC/USDT  # sCode 51155 compliance restriction
+# Manual blacklist (prod) – if needed, configure via artifacts/config blacklist file used by load_swaps_blacklist()
+# (Inline YAML blacklist removed due to unsupported schema)
 
 # Watchdogs duros para evitar bloqueos por exchange/iteración
 per_exchange_watchdog_sec: 60
 iteration_watchdog_sec: 300
-
-
 # NOTAS de endurecimiento:
 # - require_topofbook + min_quote_vol + revalidate_depth + latency_penalty reducen falsos positivos.
 # - min_net elevado (0.6%) + min_net_per_hop evita que micro spreads sumen aparente net positivo frágil.

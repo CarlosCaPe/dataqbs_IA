@@ -1,6 +1,5 @@
-
-
 from __future__ import annotations
+
 # ...existing code...
 
 
@@ -28,7 +27,7 @@ from tabulate import tabulate
 from . import paths
 
 try:
-                # ...existing code...
+    # ...existing code...
     import ujson as _json  # optional faster JSON serializer
 except Exception:
     _json = None
@@ -78,7 +77,7 @@ if not logger.handlers:
         # that use their own loggers will emit at the requested level during debugging.
         logging.getLogger().setLevel(level)
     except Exception:
-            pass
+        pass
     try:
         paths.LOGS_DIR.mkdir(parents=True, exist_ok=True)
         fh = logging.FileHandler(
@@ -1166,6 +1165,11 @@ def _load_yaml_config_defaults(parser: argparse.ArgumentParser) -> None:
             "simulate_switch_threshold",
             "balance_provider",
             "ex_auth_only",
+            # Preloading/network control
+            "preload",
+            # Offline controls (already supported as CLI flags, allow YAML too)
+            "offline",
+            "offline_snapshot",
             "bf_allowed_quotes",
             # UI options (flat)
             "ui_progress_bar",
@@ -1209,73 +1213,8 @@ def _load_yaml_config_defaults(parser: argparse.ArgumentParser) -> None:
 
 
 def main() -> None:
-    # --- Connector Health Check (block on error) ---
-    import logging
-    logger = logging.getLogger("arbitraje_ccxt")
-    try:
-        from binance.client import Client as BinanceClient
-        binance = BinanceClient()
-    except Exception as e:
-        binance = None
-        logger.error(f"Binance import error: {e}")
-    try:
-        from bitget import BitgetSync
-        bitget = BitgetSync()
-    except Exception as e:
-        bitget = None
-        logger.error(f"Bitget import error: {e}")
-    try:
-        import okx.MarketData as OKXMarket
-        okx = OKXMarket.MarketAPI()
-    except Exception as e:
-        okx = None
-        logger.error(f"OKX import error: {e}")
-    try:
-        from mexc_api.spot import Spot
-        mexc = Spot("", "")
-    except Exception as e:
-        mexc = None
-        logger.error(f"MEXC import error: {e}")
-    health_results = {}
-    # Binance
-    if binance:
-        try:
-            tickers = binance.get_ticker()
-            health_results['binance'] = len(tickers)
-        except Exception as e:
-            logger.error(f"Binance fetch error: {e}")
-            health_results['binance'] = 0
-    # Bitget
-    if bitget:
-        try:
-            tickers = bitget.public_spot_get_spot_v1_market_tickers()
-            health_results['bitget'] = len(tickers.get('data', []))
-        except Exception as e:
-            logger.error(f"Bitget fetch error: {e}")
-            health_results['bitget'] = 0
-    # OKX
-    if okx:
-        try:
-            tickers = okx.get_tickers(instType="SPOT")
-            health_results['okx'] = len(tickers.get('data', []))
-        except Exception as e:
-            logger.error(f"OKX fetch error: {e}")
-            health_results['okx'] = 0
-    # MEXC
-    if mexc:
-        try:
-            tickers = mexc.market.ticker_price()
-            health_results['mexc'] = len(tickers)
-        except Exception as e:
-            logger.error(f"MEXC fetch error: {e}")
-            health_results['mexc'] = 0
-    logger.info(f"Connector ticker counts: {health_results}")
-    fatal_connectors = [name for name, count in health_results.items() if count == 0]
-    if fatal_connectors:
-        logger.critical(f"FATAL: The following connectors returned 0 tickers: {fatal_connectors}. Aborting execution.")
-        print(f"FATAL: The following connectors returned 0 tickers: {fatal_connectors}. Aborting execution.", file=sys.stderr)
-        sys.exit(1)
-    # --- End Health Check ---
+    # Startup health checks removed to avoid blocking network calls at startup.
+    # The BF/TRI loops already log per-exchange timings and errors.
     parser = argparse.ArgumentParser(
         description="Arbitraje (ccxt) - modes: tri | bf | balance | health"
     )
@@ -1359,6 +1298,12 @@ def main() -> None:
         help="Use only bid/ask; no 'last' fallback",
     )
     parser.add_argument(
+        "--tri_time_budget_sec",
+        type=float,
+        default=0.0,
+        help="Optional per-exchange time budget (seconds) for TRI scan; 0 disables",
+    )
+    parser.add_argument(
         "--tri_min_quote_vol",
         type=float,
         default=0.0,
@@ -1413,6 +1358,14 @@ def main() -> None:
         type=int,
         default=0,
         help="Threads for per-exchange BF scanning (1 = no threading, 0 or negative = one thread per exchange)",
+    )
+    parser.add_argument(
+        "--bf_debug_list_triangles",
+        action="store_true",
+        help=(
+            "DEBUG: en BF, listar también ciclos triangulares (USDT->X->Y->USDT) "
+            "incluyendo nets negativos para calibración; rellena el CSV aunque no haya arbs BF"
+        ),
     )
     parser.add_argument(
         "--bf_debug",
@@ -1757,7 +1710,14 @@ def main() -> None:
     ex_instances: Dict[str, ccxt.Exchange] = {}
     try:
         preload_for_modes = {"bf", "tri"}
-        if args.mode in preload_for_modes:
+        do_preload = True
+        try:
+            do_preload = bool(getattr(args, "preload", True)) and not bool(
+                getattr(args, "offline", False)
+            )
+        except Exception:
+            do_preload = True
+        if args.mode in preload_for_modes and do_preload:
             for _ex in EX_IDS:
                 try:
                     inst = load_exchange_auth_if_available(
@@ -2639,20 +2599,20 @@ def main() -> None:
         paths.OUTPUTS_DIR.mkdir(parents=True, exist_ok=True)
         bf_csv = paths.OUTPUTS_DIR / f"arbitrage_bf_{QUOTE.lower()}_ccxt.csv"
         bf_persist_csv = (
-        paths.OUTPUTS_DIR / f"arbitrage_bf_{QUOTE.lower()}_persistence.csv"
+            paths.OUTPUTS_DIR / f"arbitrage_bf_{QUOTE.lower()}_persistence.csv"
         )
         bf_sim_csv = (
-        paths.OUTPUTS_DIR / f"arbitrage_bf_simulation_{QUOTE.lower()}_ccxt.csv"
+            paths.OUTPUTS_DIR / f"arbitrage_bf_simulation_{QUOTE.lower()}_ccxt.csv"
         )
         # Use lowercase snapshot filename consistently with repo conventions
         current_file = paths.LOGS_DIR / "current_bf.txt"
         # Optional per-iteration top-k persistence CSV
         bf_top_hist_csv = (
-        paths.OUTPUTS_DIR / f"arbitrage_bf_top_{QUOTE.lower()}_history.csv"
+            paths.OUTPUTS_DIR / f"arbitrage_bf_top_{QUOTE.lower()}_history.csv"
         )
         # Per-iteration snapshot CSV (overwritten each iteration)
         bf_iter_csv = (
-        paths.OUTPUTS_DIR / f"arbitrage_bf_current_{QUOTE.lower()}_ccxt.csv"
+            paths.OUTPUTS_DIR / f"arbitrage_bf_current_{QUOTE.lower()}_ccxt.csv"
         )
 
         # Ensure BF snapshot log is clean at the start of every run to avoid mixing sessions
@@ -2767,16 +2727,18 @@ def main() -> None:
             ex = load_exchange_auth_if_available(ex_id, args.timeout, use_auth=True)
         t_load_ex_end = time.time()
         try:
-            logger.info(f"[TIMING] bf_worker({ex_id}): load_exchange {t_load_ex_end-t_load_ex_start:.3f}s")
+            logger.info(
+                f"[TIMING] bf_worker({ex_id}): load_exchange {t_load_ex_end-t_load_ex_start:.3f}s"
+            )
         except Exception:
             # If start var missing for any reason, log basic duration
-            logger.info(f"[TIMING] bf_worker({ex_id}): load_exchange took {t_load_ex_end-t0_total:.3f}s (fallback)")
+            logger.info(
+                f"[TIMING] bf_worker({ex_id}): load_exchange took {t_load_ex_end-t0_total:.3f}s (fallback)"
+            )
         if not safe_has(ex, "fetchTickers"):
             # Silence noisy warning for exchanges like bitso that don't support fetchTickers for BF
             if ex_id != "bitso":
-                logger.warning(
-                    "%s: omitido (no soporta fetchTickers para BF)", ex_id
-                )
+                logger.warning("%s: omitido (no soporta fetchTickers para BF)", ex_id)
             return ex_id, local_lines, local_results
         t0_markets = time.time()
         markets = None
@@ -2795,14 +2757,18 @@ def main() -> None:
         if not isinstance(markets, dict):
             markets = {}
         t1_markets = time.time()
-        logger.info(f"[TIMING] bf_worker({ex_id}): load_markets {t1_markets-t0_markets:.3f}s")
+        logger.info(
+            f"[TIMING] bf_worker({ex_id}): load_markets {t1_markets-t0_markets:.3f}s"
+        )
         t0_adj = time.time()
         adjacency = _adjacency_cache.get(ex_id)
         if adjacency is None:
             adjacency = _build_adjacency_from_markets(markets)
             _adjacency_cache[ex_id] = adjacency
         t1_adj = time.time()
-        logger.info(f"[TIMING] bf_worker({ex_id}): build_adjacency {t1_adj-t0_adj:.3f}s")
+        logger.info(
+            f"[TIMING] bf_worker({ex_id}): build_adjacency {t1_adj-t0_adj:.3f}s"
+        )
         t0_currency = time.time()
         ex_norm = normalize_ccxt_id(ex_id)
         exchange_blacklist = swaps_blacklist_map.get(ex_norm, set())
@@ -2811,7 +2777,9 @@ def main() -> None:
                 "[BF-DBG] %s blacklist_pairs=%d", ex_id, len(exchange_blacklist)
             )
         t1_currency = time.time()
-        logger.info(f"[TIMING] bf_worker({ex_id}): currency_selection {t1_currency-t0_currency:.3f}s")
+        logger.info(
+            f"[TIMING] bf_worker({ex_id}): currency_selection {t1_currency-t0_currency:.3f}s"
+        )
         # Apply per-exchange overrides (best-effort)
         bf_min_net = float(
             _apply_exchange_override("bf_", ex_id, "min_net", args.bf_min_net)
@@ -2934,12 +2902,19 @@ def main() -> None:
         batch_supported = safe_has(ex, "fetchTickers")
         if getattr(args, "offline", False) and offline_snapshot_map:
             tickers = offline_snapshot_map.get(ex_id, {}).get("tickers", {}) or {}
-        elif (not getattr(args, "offline", False)) and args.bf_rank_by_qvol and markets and batch_supported:
+        elif (
+            (not getattr(args, "offline", False))
+            and args.bf_rank_by_qvol
+            and markets
+            and batch_supported
+        ):
             # Batch fetch tickers to compute per-currency quote volume and rank currencies
             try:
                 tickers = ex.fetch_tickers() or {}
             except Exception:
-                logger.exception("Failed to fetch tickers for qvol ranking for %s", ex_id)
+                logger.exception(
+                    "Failed to fetch tickers for qvol ranking for %s", ex_id
+                )
                 tickers = {}
             qvol_by_ccy: Dict[str, float] = {}
             for sym, t in (tickers or {}).items():
@@ -2954,7 +2929,9 @@ def main() -> None:
                         qvol_by_ccy[quote] = qvol_by_ccy.get(quote, 0.0) + float(qv)
                 except Exception:
                     continue
-            currencies = sorted(currencies, key=lambda c: qvol_by_ccy.get(c, 0.0), reverse=True)
+            currencies = sorted(
+                currencies, key=lambda c: qvol_by_ccy.get(c, 0.0), reverse=True
+            )
         # Defensive: ensure tickers is a mapping
         if tickers is None or not isinstance(tickers, dict):
             tickers = {}
@@ -2966,7 +2943,9 @@ def main() -> None:
                     currencies = [q] + [c for c in currencies if c != q]
                     break
         t1_tickers = time.time()
-        logger.info(f"[TIMING] bf_worker({ex_id}): fetch_tickers {t1_tickers-t0_tickers:.3f}s")
+        logger.info(
+            f"[TIMING] bf_worker({ex_id}): fetch_tickers {t1_tickers-t0_tickers:.3f}s"
+        )
         if args.bf_debug:
             try:
                 logger.info(
@@ -2981,6 +2960,82 @@ def main() -> None:
         # results, we use them and skip the heavy in-process BF inner loop.
         # Prefer running BF in the techniques process pool unless explicitly disabled
         t0_delegate = time.time()
+
+        # Optional debug path: reuse the optimized triangular worker to emit paths
+        # even when BF finds no cycles (includes negative nets). Controlled by
+        # --bf_debug_list_triangles or YAML bf.debug_list_triangles.
+        try:
+            if bool(getattr(args, "bf_debug_list_triangles", False)):
+                # Temporarily relax TRI thresholds to surface many cycles (including negatives)
+                _orig_tri_min_net = getattr(args, "tri_min_net", 0.5)
+                _orig_tri_min_qv = getattr(args, "tri_min_quote_vol", 0.0)
+                _orig_tri_limit = getattr(args, "tri_currencies_limit", 35)
+                try:
+                    setattr(args, "tri_min_net", -10000.0)
+                    setattr(args, "tri_min_quote_vol", 0.0)
+                    # widen token set a bit for discovery but keep bounded
+                    setattr(
+                        args,
+                        "tri_currencies_limit",
+                        max(int(_orig_tri_limit or 35), 60),
+                    )
+                except Exception:
+                    pass
+                _ex_id_tri, _lines_tri, _tri_res = tri_worker(ex_id, it, ts)
+                # Restore original TRI args
+                try:
+                    setattr(args, "tri_min_net", _orig_tri_min_net)
+                    setattr(args, "tri_min_quote_vol", _orig_tri_min_qv)
+                    setattr(args, "tri_currencies_limit", _orig_tri_limit)
+                except Exception:
+                    pass
+                # Map tri records into BF schema
+                for rec in _tri_res or []:
+                    try:
+                        if "cycle" in rec and rec.get("net_bps_est") is not None:
+                            path = rec.get("cycle")
+                            net_pct = float(rec.get("net_bps_est", 0.0)) / 100.0
+                            hops = max(0, str(path).count("->"))
+                            inv_amt = float(inv_amt_effective)
+                            est_after = (
+                                round(inv_amt * (1.0 + net_pct / 100.0), 6)
+                                if inv_amt is not None
+                                else None
+                            )
+                            local_results.append(
+                                {
+                                    "exchange": ex_id,
+                                    "path": path,
+                                    "net_pct": round(net_pct, 4),
+                                    "inv": inv_amt,
+                                    "est_after": est_after,
+                                    "hops": hops,
+                                    "iteration": it,
+                                    "ts": ts,
+                                    "source": "tri",
+                                }
+                            )
+                    except Exception:
+                        continue
+                # If we populated any results from triangles, return early for this exchange
+                if local_results:
+                    t_delegate_total = time.time()
+                    logger.info(
+                        f"[TIMING] bf_worker({ex_id}): total {t_delegate_total-t0_total:.3f}s (tri-debug)"
+                    )
+                    return ex_id, local_lines, local_results
+        except Exception:
+            # Non-fatal: continue with normal BF flow
+            pass
+
+        # If triangle debug is on and we already produced results, skip heavy techniques
+        if bool(getattr(args, "bf_debug_list_triangles", False)) and local_results:
+            t_delegate_total = time.time()
+            logger.info(
+                f"[TIMING] bf_worker({ex_id}): total {t_delegate_total-t0_total:.3f}s (tri-only short-circuit)"
+            )
+            return ex_id, local_lines, local_results
+
         if not getattr(args, "no_techniques_bf", False):
             try:
                 from .engine_techniques import scan_arbitrage as _scan_arbitrage
@@ -2988,11 +3043,20 @@ def main() -> None:
                 # Instrumentation: log tickers size and a small sample immediately
                 # before assembling the payload to help debug zero-ticker cases.
                 try:
-                    tk_len = 0 if tickers is None else (len(tickers) if isinstance(tickers, dict) else 0)
+                    tk_len = (
+                        0
+                        if tickers is None
+                        else (len(tickers) if isinstance(tickers, dict) else 0)
+                    )
                     sample_keys = []
                     if isinstance(tickers, dict):
                         sample_keys = list(tickers.keys())[:10]
-                    logger.info("[BF-INST] ex=%s tickers_len=%d sample_keys=%s", ex_id, tk_len, sample_keys)
+                    logger.info(
+                        "[BF-INST] ex=%s tickers_len=%d sample_keys=%s",
+                        ex_id,
+                        tk_len,
+                        sample_keys,
+                    )
                 except Exception:
                     logger.exception("Failed to log BF instrumentation")
 
@@ -3026,13 +3090,56 @@ def main() -> None:
                     "max_workers", getattr(args, "tech_max_workers", 2)
                 )
                 techniques_cfg.setdefault(
-                    "enable_rerank_onnx", getattr(args, "tech_enable_rerank_onnx", False)
+                    "enable_rerank_onnx",
+                    getattr(args, "tech_enable_rerank_onnx", False),
                 )
+                # Run bellman_ford inline by default (avoids ProcessPool spawn overhead on Windows)
+                try:
+                    if not techniques_cfg.get("inline"):
+                        techniques_cfg["inline"] = ["bellman_ford"]
+                except Exception:
+                    pass
+                # Tighter, explicit timeouts for the technique scheduler
+                try:
+                    # fall back quickly if a process task doesn't complete
+                    techniques_cfg.setdefault(
+                        "fallback_timeout",
+                        float(getattr(args, "tech_fallback_timeout", 5.0) or 5.0),
+                    )
+                    # guard the entire scan to avoid long waits; tie to per-exchange watchdog when present
+                    per_ex_watch = float(
+                        getattr(args, "per_exchange_watchdog_sec", 0.0) or 0.0
+                    )
+                    if per_ex_watch > 0:
+                        techniques_cfg.setdefault(
+                            "iteration_watchdog_sec", per_ex_watch
+                        )
+                except Exception:
+                    pass
                 cfg_for_worker = {"techniques": techniques_cfg}
+                # Pass BF tuning knobs so the worker can honor them; also allow
+                # verbose cycle logging in Python fallback when requested via YAML.
+                try:
+                    cfg_for_worker["bf"] = {
+                        "min_net": bf_min_net,
+                        "min_hops": int(getattr(args, "bf_min_hops", 0)),
+                        "max_hops": int(getattr(args, "bf_max_hops", 0)),
+                        "min_net_per_hop": float(
+                            getattr(args, "bf_min_net_per_hop", 0.0)
+                        ),
+                        # Expose a debug option to log all cycles (Python BF fallback)
+                        "log_all_cycles": bool(
+                            getattr(args, "bf_debug_log_all_cycles", False)
+                        ),
+                    }
+                except Exception:
+                    pass
                 t_delegate_start = time.time()
                 tech_res = _scan_arbitrage(ts, payload, cfg_for_worker)
                 t_delegate_end = time.time()
-                logger.info(f"[TIMING] bf_worker({ex_id}): delegate_engine_techniques {t_delegate_end-t_delegate_start:.3f}s")
+                logger.info(
+                    f"[TIMING] bf_worker({ex_id}): delegate_engine_techniques {t_delegate_end-t_delegate_start:.3f}s"
+                )
                 if tech_res:
                     # Map technique ArbResult to legacy BF result schema expected by caller
                     for rec in tech_res:
@@ -3079,19 +3186,25 @@ def main() -> None:
                                 }
                             )
                     t_delegate_total = time.time()
-                    logger.info(f"[TIMING] bf_worker({ex_id}): total {t_delegate_total-t0_total:.3f}s")
+                    logger.info(
+                        f"[TIMING] bf_worker({ex_id}): total {t_delegate_total-t0_total:.3f}s"
+                    )
                     return ex_id, local_lines, local_results
             except Exception:
                 logger.debug(
                     "bf_worker: delegation to engine_techniques failed; no legacy BF available"
                 )
                 t_delegate_total = time.time()
-                logger.info(f"[TIMING] bf_worker({ex_id}): total {t_delegate_total-t0_total:.3f}s (fail)")
+                logger.info(
+                    f"[TIMING] bf_worker({ex_id}): total {t_delegate_total-t0_total:.3f}s (fail)"
+                )
                 # We intentionally removed the legacy BF implementation.
                 # If delegation to engine_techniques fails or is disabled, return no results.
                 return ex_id, local_lines, local_results
         t_delegate_total = time.time()
-        logger.info(f"[TIMING] bf_worker({ex_id}): total {t_delegate_total-t0_total:.3f}s (no techniques)")
+        logger.info(
+            f"[TIMING] bf_worker({ex_id}): total {t_delegate_total-t0_total:.3f}s (no techniques)"
+        )
         return ex_id, local_lines, local_results
 
     def tri_worker(ex_id: str, it: int, ts: str) -> Tuple[str, List[str], List[dict]]:
@@ -3109,7 +3222,7 @@ def main() -> None:
         local_lines: List[str] = []
         local_results: List[dict] = []
         try:
-            # In offline mode avoid creating exchange instances and network calls
+            # Load markets/tickers depending on mode
             if getattr(args, "offline", False):
                 ex = None
                 markets = None
@@ -3121,16 +3234,21 @@ def main() -> None:
                 if not markets:
                     # nothing to scan in offline mode for this exchange
                     return ex_id, local_lines, local_results
-                else:
-                    ex = load_exchange(ex_id, args.timeout)
-                    if not safe_has(ex, "fetchTickers"):
-                        return ex_id, local_lines, local_results
-
-                    markets = ex.load_markets()
-                    tickers = ex.fetch_tickers()
+            else:
+                # Online mode: create exchange and fetch live data
+                ex = load_exchange(ex_id, args.timeout)
+                if not safe_has(ex, "fetchTickers"):
+                    return ex_id, local_lines, local_results
+                markets = ex.load_markets()
+                tickers = ex.fetch_tickers()
 
             ex_norm = normalize_ccxt_id(ex_id)
-            exchange_blacklist = swaps_blacklist_map.get(ex_norm, set())
+            # Be robust if swaps_blacklist_map is not yet defined
+            try:
+                _sbm = swaps_blacklist_map if isinstance(swaps_blacklist_map, dict) else {}
+            except Exception:
+                _sbm = {}
+            exchange_blacklist = _sbm.get(ex_norm, set())
 
             # Bind frequently used attrs to locals for speed. Allow per-exchange
             # overrides via exchange_overrides_map loaded from YAML.
@@ -3163,6 +3281,14 @@ def main() -> None:
                     getattr(args, "tri_latency_penalty_bps", 0.0),
                 )
             )
+            tri_time_budget = float(
+                _apply_exchange_override(
+                    "tri_",
+                    ex_id,
+                    "time_budget_sec",
+                    getattr(args, "tri_time_budget_sec", 0.0),
+                )
+            )
             _pair_is_blacklisted_local = _pair_is_blacklisted
             get_rate_and_qvol_local = get_rate_and_qvol
             # removed unused `json_dumps` assignment
@@ -3193,6 +3319,10 @@ def main() -> None:
                     tokens_list.append(other_up)
             # cap tokens
             tokens = tokens_list[:tri_limit]
+            try:
+                logger.info("[TRI-DBG] %s tokens_for_quote(%s)=%d", ex_id, QUOTE, len(tokens))
+            except Exception:
+                pass
             if not tokens:
                 return ex_id, local_lines, local_results
 
@@ -3226,6 +3356,13 @@ def main() -> None:
                         "enable_rerank_onnx": getattr(
                             args, "tech_enable_rerank_onnx", False
                         ),
+                        # Run stat_tri inline to avoid ProcessPool spawn/IPC delays
+                        "inline": ["stat_tri"],
+                        # Keep tight timeouts in case future expansion adds pool usage
+                        "fallback_timeout": float(getattr(args, "tech_fallback_timeout", 5.0) or 5.0),
+                        "iteration_watchdog_sec": float(getattr(args, "per_exchange_watchdog_sec", 0.0) or 10.0),
+                        # optional time budget for stat_tri inner loop
+                        "tri_time_budget_sec": float(getattr(args, "tri_time_budget_sec", 0.0) or 0.0),
                     }
                 }
                 # Build a compact, serializable payload for stat_tri
@@ -3240,6 +3377,7 @@ def main() -> None:
                     "min_net": tri_min_net,
                     "latency_penalty": tri_latency_penalty,
                     "ts": ts_now,
+                    "time_budget_sec": float(tri_time_budget or 0.0),
                 }
                 tech_res = _scan_arbitrage(ts_now, payload, cfg_for_worker)
                 if tech_res:
@@ -3254,7 +3392,11 @@ def main() -> None:
                 )
 
             # Iterate pairs using permutations (X, Y)
+            loop_start = time.time()
             for X, Y in permutations(tokens, 2):
+                # enforce optional time budget
+                if tri_time_budget and (time.time() - loop_start) >= tri_time_budget:
+                    break
                 # skip blacklisted pair X->Y
                 if exchange_blacklist and _pair_is_blacklisted_local(
                     exchange_blacklist, X, Y
@@ -3294,6 +3436,8 @@ def main() -> None:
         except Exception as e:
             logger.debug("tri_worker fallo %s: %s", ex_id, e)
             return ex_id, local_lines, local_results
+        # Normal successful completion: return any collected results
+        return ex_id, local_lines, local_results
 
     # (removed fallback minimal BF loop that prematurely returned and bypassed the full BF rendering path)
 
@@ -3333,7 +3477,9 @@ def main() -> None:
         except Exception:
             wallet_buckets_cache = {}
         t_prefetch_end = time.time()
-        logger.info(f"[TIMING] BF iter {it}: prefetch_wallet_buckets {t_prefetch_end-t_prefetch_start:.3f}s")
+        logger.info(
+            f"[TIMING] BF iter {it}: prefetch_wallet_buckets {t_prefetch_end-t_prefetch_start:.3f}s"
+        )
         # Hydrate simulation balances from wallet snapshot once (first iteration) if requested
         t_hydrate_start = time.time()
         try:
@@ -3375,7 +3521,9 @@ def main() -> None:
         except Exception:
             pass
         t_hydrate_end = time.time()
-        logger.info(f"[TIMING] BF iter {it}: hydrate_sim_balances {t_hydrate_end-t_hydrate_start:.3f}s")
+        logger.info(
+            f"[TIMING] BF iter {it}: hydrate_sim_balances {t_hydrate_end-t_hydrate_start:.3f}s"
+        )
         t_console_start = time.time()
         if do_console_clear:
             try:
@@ -3386,7 +3534,9 @@ def main() -> None:
             except Exception:
                 pass
         t_console_end = time.time()
-        logger.info(f"[TIMING] BF iter {it}: console_clear {t_console_end-t_console_start:.3f}s")
+        logger.info(
+            f"[TIMING] BF iter {it}: console_clear {t_console_end-t_console_start:.3f}s"
+        )
         # Clean per-iteration artifacts and any historical files to avoid mixing iterations
         t_cleanup_start = time.time()
         try:
@@ -3406,7 +3556,9 @@ def main() -> None:
         except Exception:
             pass
         t_cleanup_end = time.time()
-        logger.info(f"[TIMING] BF iter {it}: cleanup {t_cleanup_end-t_cleanup_start:.3f}s")
+        logger.info(
+            f"[TIMING] BF iter {it}: cleanup {t_cleanup_end-t_cleanup_start:.3f}s"
+        )
         # Create snapshot header
         try:
             with open(current_file, "w", encoding="utf-8") as fh:
@@ -3509,6 +3661,7 @@ def main() -> None:
         completed_count = 0
         # Timeout duro por exchange usando ThreadPoolExecutor
         import concurrent.futures
+
         per_exchange_watchdog_sec = float(
             getattr(args, "per_exchange_watchdog_sec", 0.0) or 0.0
         )
@@ -3525,61 +3678,171 @@ def main() -> None:
                 _submit_ts = time.time()
                 future = executor.submit(bf_worker, ex_id, it, ts)
                 future_map[future] = (ex_id, _submit_ts)
-            for future in concurrent.futures.as_completed(future_map, timeout=None):
-                ex_id, _submit_ts = future_map[future]
-                try:
-                    _wait_start = time.time()
-                    _ex_id, lines, rows = future.result(timeout=per_exchange_watchdog_sec if per_exchange_watchdog_sec > 0 else None)
-                    _end_ts = time.time()
-                    # Duration approximated from submit to completion; avoids ~0s artifacts
-                    _ex_dur = max(0.0, _end_ts - (_submit_ts or _wait_start))
-                    logger.info(f"[TIMING] BF iter {it}: {ex_id} worker duration: {_ex_dur:.3f}s")
-                except concurrent.futures.TimeoutError:
-                    logger.error(
-                        "Exchange watchdog: %s timed out after %.2fs; skipping.",
-                        ex_id,
-                        per_exchange_watchdog_sec,
-                    )
-                    print(
-                        f"Exchange watchdog: {ex_id} timed out after {per_exchange_watchdog_sec:.2f}s. Skipping."
-                    )
-                    continue
-                except Exception as e:
-                    logger.error("Exchange %s failed: %s", ex_id, e)
-                    continue
-                iter_lines.extend(lines)
-                for row in rows:
-                    iter_results.append(row)
-                    key = (row["exchange"], row["path"])
-                    st = persistence.get(key)
-                    if not st:
-                        persistence[key] = {
-                            "first_seen": ts,
-                            "last_seen": ts,
-                            "occurrences": 1,
-                            "current_streak": 1,
-                            "max_streak": 1,
-                            "last_it": it,
-                        }
-                    else:
-                        st["last_seen"] = ts
-                        st["occurrences"] = int(st.get("occurrences", 0)) + 1
-                        prev_it = int(st.get("last_it", 0))
-                        if prev_it + 1 == it:
-                            st["current_streak"] = int(st.get("current_streak", 0)) + 1
-                        else:
-                            st["current_streak"] = 1
-                        st["max_streak"] = max(
-                            int(st.get("max_streak", 0)), int(st.get("current_streak", 0))
+            pending = set(future_map.keys())
+            iter_watchdog = float(getattr(args, "iteration_watchdog_sec", 0.0) or 0.0)
+            loop_start = time.time()
+            _interrupted = False
+            try:
+                while pending:
+                    # hard iteration watchdog across all futures
+                    if iter_watchdog and (time.time() - loop_start) >= iter_watchdog:
+                        logger.error(
+                            "BF main watchdog fired after %.2fs; cancelling %d pending",
+                            iter_watchdog,
+                            len(pending),
                         )
-                        st["last_it"] = it
-                    results_bf.append(row)
+                        for fut in list(pending):
+                            try:
+                                fut.cancel()
+                            except Exception:
+                                pass
+                        pending.clear()
+                        break
+
+                    done, still_pending = concurrent.futures.wait(
+                        pending,
+                        timeout=(
+                            per_exchange_watchdog_sec
+                            if per_exchange_watchdog_sec > 0
+                            else None
+                        ),
+                        return_when=concurrent.futures.FIRST_COMPLETED,
+                    )
+                    # Process any completed futures
+                    for future in list(done):
+                        pending.discard(future)
+                        ex_id, _submit_ts = future_map.get(future, ("<unknown>", None))
+                        try:
+                            _wait_start = time.time()
+                            _ex_id, lines, rows = future.result(timeout=0)
+                            _end_ts = time.time()
+                            _ex_dur = max(0.0, _end_ts - (_submit_ts or _wait_start))
+                            logger.info(
+                                f"[TIMING] BF iter {it}: {ex_id} worker duration: {_ex_dur:.3f}s"
+                            )
+                        except concurrent.futures.TimeoutError:
+                            logger.error(
+                                "Exchange watchdog: %s timed out after %.2fs; skipping.",
+                                ex_id,
+                                per_exchange_watchdog_sec,
+                            )
+                            print(
+                                f"Exchange watchdog: {ex_id} timed out after {per_exchange_watchdog_sec:.2f}s. Skipping."
+                            )
+                            continue
+                        except Exception as e:
+                            logger.error("Exchange %s failed: %s", ex_id, e)
+                            continue
+                        iter_lines.extend(lines)
+                        iter_results.extend(rows)
+                        completed_count += 1
+                        # Update persistence stats for each discovered opportunity row now
+                        try:
+                            for row in rows:
+                                key = (row.get("exchange"), row.get("path"))
+                                if not key[0] or not key[1]:
+                                    continue
+                                st = persistence.get(key)
+                                if not st:
+                                    persistence[key] = {
+                                        "first_seen": ts,
+                                        "last_seen": ts,
+                                        "occurrences": 1,
+                                        "current_streak": 1,
+                                        "max_streak": 1,
+                                        "last_it": it,
+                                    }
+                                else:
+                                    st["last_seen"] = ts
+                                    st["occurrences"] = (
+                                        int(st.get("occurrences", 0)) + 1
+                                    )
+                                    prev_it = int(st.get("last_it", 0))
+                                    if prev_it + 1 == it:
+                                        st["current_streak"] = (
+                                            int(st.get("current_streak", 0)) + 1
+                                        )
+                                    else:
+                                        st["current_streak"] = 1
+                                    st["max_streak"] = max(
+                                        int(st.get("max_streak", 0)),
+                                        int(st.get("current_streak", 0)),
+                                    )
+                                    st["last_it"] = it
+                                results_bf.append(row)
+                        except Exception:
+                            pass
+                        if getattr(args, "ui_progress_bar", True):
+                            try:
+                                total_ex = max(1, len(EX_IDS))
+                                frames = str(
+                                    getattr(args, "ui_spinner_frames", "|/-\\")
+                                )
+                                bar_len = int(getattr(args, "ui_progress_len", 20))
+                                filled = int(bar_len * completed_count / total_ex)
+                                bar = (
+                                    "["
+                                    + ("#" * filled)
+                                    + ("-" * (bar_len - filled))
+                                    + "]"
+                                )
+                                spinner = (
+                                    frames[completed_count % len(frames)]
+                                    if frames
+                                    else ""
+                                )
+                                # Open snapshot and append progress line safely
+                                with open(current_file, "a", encoding="utf-8") as _fhp:
+                                    _fhp.write(
+                                        f"{bar} {completed_count}/{total_ex} {spinner}\n"
+                                    )
+                            except Exception:
+                                pass
+
+                    # Cancel any futures that exceeded per-exchange watchdog
+                    if per_exchange_watchdog_sec > 0:
+                        now_ts = time.time()
+                        for fut in list(still_pending):
+                            ex_id, submit_ts = future_map.get(
+                                fut, ("<unknown>", now_ts)
+                            )
+                            if (
+                                submit_ts
+                                and (now_ts - submit_ts) >= per_exchange_watchdog_sec
+                            ):
+                                try:
+                                    fut.cancel()
+                                except Exception:
+                                    pass
+                                pending.discard(fut)
+                                logger.error(
+                                    "Exchange watchdog: %s timed out after %.2fs; cancelled.",
+                                    ex_id,
+                                    per_exchange_watchdog_sec,
+                                )
+            except KeyboardInterrupt:
+                # Graceful interrupt: cancel all pending and finish this iteration cleanly
+                _interrupted = True
+                try:
+                    for fut in list(pending):
+                        try:
+                            fut.cancel()
+                        except Exception:
+                            pass
+                    pending.clear()
+                finally:
+                    logger.warning(
+                        "KeyboardInterrupt during BF wait; finishing iteration and exiting run."
+                    )
+                # removed: invalid out-of-scope 'rows' processing; handled above per-future
         t_threadpool_end = time.time()
-        logger.info(f"[TIMING] BF iter {it}: ThreadPoolExecutor total {t_threadpool_end-t_threadpool_start:.3f}s")
+        logger.info(
+            f"[TIMING] BF iter {it}: ThreadPoolExecutor total {t_threadpool_end-t_threadpool_start:.3f}s"
+        )
         try:
             with open(current_file, "a", encoding="utf-8") as fh:
                 if getattr(args, "ui_progress_bar", True):
-                    completed_count += 1
+                    # Do not bump completed_count again here; it already reflects finished workers
                     total_ex = max(1, len(EX_IDS))
                     frames = str(getattr(args, "ui_spinner_frames", "|/-\\"))
                     bar_len = int(getattr(args, "ui_progress_len", 20))
@@ -3665,9 +3928,7 @@ def main() -> None:
                 else:
                     fh.write("TOP oportunidades (iteración): (sin resultados)\n\n")
             except Exception:
-                fh.write(
-                    "TOP oportunidades (iteración): (error al generar tabla)\n\n"
-                )
+                fh.write("TOP oportunidades (iteración): (error al generar tabla)\n\n")
             try:
                 if iter_results:
                     df_iter = pd.DataFrame(iter_results)
@@ -3695,14 +3956,25 @@ def main() -> None:
             pass
         _sync_snapshot_alias()
         t_iter_end = time.time()
-        logger.info(f"[TIMING] BF iter {it}: total iteration {t_iter_end-t_iter_start:.3f}s")
+        logger.info(
+            f"[TIMING] BF iter {it}: total iteration {t_iter_end-t_iter_start:.3f}s"
+        )
         # Sleep only between iterations
         if it < args.repeat:
             t_sleep_start = time.time()
             # Simple sleep between iterations; the next loop iteration will recreate headers and rerun
             time.sleep(max(0.0, args.repeat_sleep))
             t_sleep_end = time.time()
-            logger.info(f"[TIMING] BF iter {it}: sleep {t_sleep_end-t_sleep_start:.3f}s")
+            logger.info(
+                f"[TIMING] BF iter {it}: sleep {t_sleep_end-t_sleep_start:.3f}s"
+            )
+        # If user interrupted during wait loop, exit outer repeat loop after finalizing this iteration
+        try:
+            if _interrupted:
+                logger.info("BF run interrupted by user at iteration %d; exiting.", it)
+                break
+        except Exception:
+            pass
         # continue  # removed to allow simulation and summaries to run within the same loop
 
         # Simulation: per-exchange selection and compounding
@@ -3728,18 +4000,14 @@ def main() -> None:
                         try:
                             parts = str(r.get("path") or "").split("->")
                             # Allow any starting asset; require the path to end at the anchor currency
-                            return (
-                                len(parts) >= 2 and parts[-1].upper() == c.upper()
-                            )
+                            return len(parts) >= 2 and parts[-1].upper() == c.upper()
                         except Exception:
                             return False
 
                     # Best per anchor for this exchange
                     best_per_anchor: Dict[str, dict] = {}
                     anchors_iter = (
-                        set([a for a in allowed_quotes])
-                        if allowed_quotes
-                        else {QUOTE}
+                        set([a for a in allowed_quotes]) if allowed_quotes else {QUOTE}
                     )
                     for anc in anchors_iter:
                         anc_cands = [r for r in rows_ex if ends_with_ccy(r, anc)]
@@ -3816,9 +4084,7 @@ def main() -> None:
                     sim_state[ex_id] = {
                         "ccy": ccy,
                         "balance": after,
-                        "start_balance": float(
-                            prev.get("start_balance", 0.0) or 0.0
-                        ),
+                        "start_balance": float(prev.get("start_balance", 0.0) or 0.0),
                         "start_ccy": prev.get("start_ccy", ccy),
                     }
                     line = (
@@ -3838,9 +4104,9 @@ def main() -> None:
                     # pick top by net_pct across all lines parsed in this iteration (iter_results)
                     if iter_results:
                         df_top = pd.DataFrame(iter_results)
-                        df_top = df_top.sort_values(
-                            "net_pct", ascending=False
-                        ).head(max(1, int(args.bf_top)))
+                        df_top = df_top.sort_values("net_pct", ascending=False).head(
+                            max(1, int(args.bf_top))
+                        )
                         # Overwrite file every iteration (no historical accumulation)
                         df_top.to_csv(bf_top_hist_csv, index=False)
                 except Exception:
@@ -3871,9 +4137,9 @@ def main() -> None:
                 try:
                     if iter_results:
                         df_iter = pd.DataFrame(iter_results)
-                        df_top = df_iter.sort_values(
-                            "net_pct", ascending=False
-                        ).head(max(1, int(args.bf_top)))
+                        df_top = df_iter.sort_values("net_pct", ascending=False).head(
+                            max(1, int(args.bf_top))
+                        )
                         cols_top = [
                             c
                             for c in [
@@ -3898,9 +4164,7 @@ def main() -> None:
                         )
                         fh.write("\n\n")
                     else:
-                        fh.write(
-                            "TOP oportunidades (iteración): (sin resultados)\n\n"
-                        )
+                        fh.write("TOP oportunidades (iteración): (sin resultados)\n\n")
                 except Exception:
                     fh.write(
                         "TOP oportunidades (iteración): (error al generar tabla)\n\n"
@@ -3957,9 +4221,7 @@ def main() -> None:
                                     "exchange": ex_id,
                                     "path": path_str,
                                     "occurrences": int(st.get("occurrences", 0)),
-                                    "current_streak": int(
-                                        st.get("current_streak", 0)
-                                    ),
+                                    "current_streak": int(st.get("current_streak", 0)),
                                     "max_streak": int(st.get("max_streak", 0)),
                                     "last_seen": st.get("last_seen"),
                                 }
@@ -4154,7 +4416,7 @@ def main() -> None:
             logger.info("BF Summary MD: %s", sum_md)
         except Exception as e:
             logger.warning("No se pudo generar el resumen BF (CSV/MD): %s", e)
-        return
+        # Do not return here; allow the outer repeat loop to continue to the next iteration
 
     # ---------------------------
     # INTER-EXCHANGE SPREAD MODE (fallback only)
@@ -4465,7 +4727,6 @@ def main() -> None:
                 pass
             if it < args.repeat:
                 time.sleep(max(0.0, args.repeat_sleep))
-
 
 
 # Ejecuta main() si el archivo es ejecutado como script

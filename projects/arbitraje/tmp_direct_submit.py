@@ -33,13 +33,15 @@ def run():
         print("bellman_ford not found in _TECHS")
         return
 
-    payload_str = json.dumps({
-        "ex_id": payload.get("ex_id"),
-        "ts": payload.get("ts"),
-        "tokens": payload.get("tokens"),
-        "tickers": payload.get("tickers"),
-        "fee": float(payload.get("fee") or 0.0),
-    })
+    payload_str = json.dumps(
+        {
+            "ex_id": payload.get("ex_id"),
+            "ts": payload.get("ts"),
+            "tokens": payload.get("tokens"),
+            "tickers": payload.get("tickers"),
+            "fee": float(payload.get("fee") or 0.0),
+        }
+    )
 
     with ProcessPoolExecutor(max_workers=1) as p:
         f = p.submit(func, "snap-test-dir", payload_str, {})
@@ -68,5 +70,5 @@ def run():
                 print("error processing future:", e)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     run()

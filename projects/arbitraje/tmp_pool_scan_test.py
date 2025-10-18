@@ -25,7 +25,13 @@ def run():
         "min_net": 0.0,
         "ts": "tst",
     }
-    cfg = {"techniques": {"enabled": ["bellman_ford"], "max_workers": 1, "telemetry_file": "tech_telemetry.jsonl"}}
+    cfg = {
+        "techniques": {
+            "enabled": ["bellman_ford"],
+            "max_workers": 1,
+            "telemetry_file": "tech_telemetry.jsonl",
+        }
+    }
     res = scan_arbitrage("snap-test", payload, cfg)
     print("scan_arbitrage returned len:", len(res) if res else 0)
     try:
@@ -34,5 +40,5 @@ def run():
         print(res)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     run()

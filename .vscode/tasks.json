@@ -164,6 +164,12 @@
 			"type": "shell",
 			"command": "pwsh -NoProfile -Command \"Set-Location 'projects/arbitraje'; poetry run python -m arbitraje.arbitrage_report_ccxt --mode bf --config .\\arbitraje.prod.yaml --repeat 1 --repeat_sleep 0 --no_console_clear\"",
 			"group": "build"
+		},
+		{
+			"label": "Run BF (10x fast)",
+			"type": "shell",
+			"command": "pwsh -NoProfile -Command \"Set-Location 'projects/arbitraje'; poetry run python -m arbitraje.arbitrage_report_ccxt --mode bf --config .\\tmp_run_10_fast.yaml --no_console_clear\"",
+			"group": "build"
 		}
 	]
 }

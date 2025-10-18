@@ -19,6 +19,7 @@ logger = logging.getLogger("arbitraje.engine_techniques")
 try:
     # prefer project paths helper if available to resolve absolute artifact root
     from . import paths as _local_paths
+
     ARTIFACTS_ROOT = _local_paths.ARTIFACTS_ROOT
 except Exception:
     ARTIFACTS_ROOT = None
@@ -32,12 +33,18 @@ class ArbResult(dict):
 
 
 # --- Technique stubs (users will later map these to real implementations) ---
-def _tech_bellman_ford(snapshot_id: str, edges: List[Edge], cfg: Dict) -> List[ArbResult]:
+def _tech_bellman_ford(
+    snapshot_id: str, edges: List[Edge], cfg: Dict
+) -> List[ArbResult]:
     import datetime
+
     diag_log_path = None
     try:
         diag_log_path = str(
-            Path(__file__).resolve().parents[1] / "artifacts" / "arbitraje" / "diagnostics.log"
+            Path(__file__).resolve().parents[1]
+            / "artifacts"
+            / "arbitraje"
+            / "diagnostics.log"
         )
     except Exception:
         diag_log_path = None
@@ -56,8 +63,14 @@ def _tech_bellman_ford(snapshot_id: str, edges: List[Edge], cfg: Dict) -> List[A
                 wrote = True
                 attempted.append({"path": str(abs_diag), "ok": True, "err": None})
             except Exception as e:
-                attempted.append({"path": str(ARTIFACTS_ROOT), "ok": False, "err": str(e)})
-                logger.debug("diag_log: failed to write absolute ARTIFACTS_ROOT diag=%s err=%s", ARTIFACTS_ROOT, e)
+                attempted.append(
+                    {"path": str(ARTIFACTS_ROOT), "ok": False, "err": str(e)}
+                )
+                logger.debug(
+                    "diag_log: failed to write absolute ARTIFACTS_ROOT diag=%s err=%s",
+                    ARTIFACTS_ROOT,
+                    e,
+                )
 
         # primary: src/artifacts path (legacy)
         if diag_log_path:
@@ -68,12 +81,23 @@ def _tech_bellman_ford(snapshot_id: str, edges: List[Edge], cfg: Dict) -> List[A
                 wrote = True
                 attempted.append({"path": str(diag_log_path), "ok": True, "err": None})
             except Exception as e:
-                attempted.append({"path": str(diag_log_path), "ok": False, "err": str(e)})
-                logger.debug("diag_log: failed to write primary diag_path=%s err=%s", diag_log_path, e)
+                attempted.append(
+                    {"path": str(diag_log_path), "ok": False, "err": str(e)}
+                )
+                logger.debug(
+                    "diag_log: failed to write primary diag_path=%s err=%s",
+                    diag_log_path,
+                    e,
+                )
 
         # secondary: try project-level artifacts (parents[2]/artifacts/...)
         try:
-            proj_diag_p = Path(__file__).resolve().parents[2] / "artifacts" / "arbitraje" / "diagnostics.log"
+            proj_diag_p = (
+                Path(__file__).resolve().parents[2]
+                / "artifacts"
+                / "arbitraje"
+                / "diagnostics.log"
+            )
             proj_diag = str(proj_diag_p)
             if not wrote:
                 try:
@@ -84,14 +108,21 @@ def _tech_bellman_ford(snapshot_id: str, edges: List[Edge], cfg: Dict) -> List[A
                     attempted.append({"path": proj_diag, "ok": True, "err": None})
                 except Exception as e:
                     attempted.append({"path": proj_diag, "ok": False, "err": str(e)})
-                    logger.debug("diag_log: failed to write proj_diag=%s err=%s", proj_diag, e)
+                    logger.debug(
+                        "diag_log: failed to write proj_diag=%s err=%s", proj_diag, e
+                    )
         except Exception as e:
             logger.debug("diag_log: proj_diag resolution failed: %s", e)
 
         # tertiary: workspace-level artifacts (top-level workspace artifacts/arbitraje)
         if not wrote:
             try:
-                ws_diag_p = Path(__file__).resolve().parents[3] / "artifacts" / "arbitraje" / "diagnostics.log"
+                ws_diag_p = (
+                    Path(__file__).resolve().parents[3]
+                    / "artifacts"
+                    / "arbitraje"
+                    / "diagnostics.log"
+                )
                 ws_diag = str(ws_diag_p)
                 ws_diag_p.parent.mkdir(parents=True, exist_ok=True)
                 with open(ws_diag, "a", encoding="utf-8") as wfh:
@@ -99,19 +130,39 @@ def _tech_bellman_ford(snapshot_id: str, edges: List[Edge], cfg: Dict) -> List[A
                 wrote = True
                 attempted.append({"path": ws_diag, "ok": True, "err": None})
             except Exception as e:
-                attempted.append({"path": locals().get('ws_diag', '<unknown>'), "ok": False, "err": str(e)})
-                logger.debug("diag_log: failed to write workspace-level diag=%s err=%s", locals().get('ws_diag', '<unknown>'), e)
+                attempted.append(
+                    {
+                        "path": locals().get("ws_diag", "<unknown>"),
+                        "ok": False,
+                        "err": str(e),
+                    }
+                )
+                logger.debug(
+                    "diag_log: failed to write workspace-level diag=%s err=%s",
+                    locals().get("ws_diag", "<unknown>"),
+                    e,
+                )
 
         # Quiet mode: do not emit DIAG prints to stdout/logger here to avoid clutter.
         # Diagnostics are persisted to files (path-dump + diagnostics.log) for CI inspection.
 
         # Persist a canonical path-dump JSONL entry into the monorepo ARTIFACTS_ROOT
-        path_dump_entry = {"ts": int(time.time()), "msg": msg, "attempted": attempted, "wrote": wrote}
+        path_dump_entry = {
+            "ts": int(time.time()),
+            "msg": msg,
+            "attempted": attempted,
+            "wrote": wrote,
+        }
         try:
             if ARTIFACTS_ROOT is not None:
                 pd = Path(ARTIFACTS_ROOT) / "diag_paths.jsonl"
             else:
-                pd = Path(__file__).resolve().parents[2] / "artifacts" / "arbitraje" / "diag_paths.jsonl"
+                pd = (
+                    Path(__file__).resolve().parents[2]
+                    / "artifacts"
+                    / "arbitraje"
+                    / "diag_paths.jsonl"
+                )
             pd.parent.mkdir(parents=True, exist_ok=True)
             with open(pd, "a", encoding="utf-8") as pfh:
                 pfh.write(json.dumps(path_dump_entry) + "\n")
@@ -171,7 +222,12 @@ def _tech_bellman_ford(snapshot_id: str, edges: List[Edge], cfg: Dict) -> List[A
 
         # Duplicate a compact diagnostics.log entry to src artifacts for local debugging
         try:
-            src_diag = Path(__file__).resolve().parents[1] / "artifacts" / "arbitraje" / "diagnostics.log"
+            src_diag = (
+                Path(__file__).resolve().parents[1]
+                / "artifacts"
+                / "arbitraje"
+                / "diagnostics.log"
+            )
             src_diag.parent.mkdir(parents=True, exist_ok=True)
             with open(src_diag, "a", encoding="utf-8") as sdf:
                 sdf.write(ts_line)
@@ -190,9 +246,15 @@ def _tech_bellman_ford(snapshot_id: str, edges: List[Edge], cfg: Dict) -> List[A
                             tfp = Path(__file__).resolve().parents[2] / telemetry_file
                         tfp.parent.mkdir(parents=True, exist_ok=True)
                         with open(tfp, "a", encoding="utf-8") as tfh:
-                            tfh.write(json.dumps({"diagnostic": msg, "ts": int(time.time())}) + "\n")
+                            tfh.write(
+                                json.dumps({"diagnostic": msg, "ts": int(time.time())})
+                                + "\n"
+                            )
                     except Exception:
-                        logger.debug("diag_log: failed to write telemetry fallback to %s", telemetry_file)
+                        logger.debug(
+                            "diag_log: failed to write telemetry fallback to %s",
+                            telemetry_file,
+                        )
             except Exception:
                 pass
 
@@ -210,6 +272,7 @@ def _tech_bellman_ford(snapshot_id: str, edges: List[Edge], cfg: Dict) -> List[A
     # Worker-side diagnostic: record the payload byte-size to detect IPC/pickle losses
     try:
         import json as _json
+
         try:
             payload_bytes = len(_json.dumps(edges or {}))
         except Exception:
@@ -264,7 +327,11 @@ def _tech_bellman_ford(snapshot_id: str, edges: List[Edge], cfg: Dict) -> List[A
         n_valid_rates = 0
         for t in tickers.values():
             try:
-                if (t.get("bid") and float(t.get("bid")) > 0) or (t.get("ask") and float(t.get("ask")) > 0) or (t.get("last") and float(t.get("last")) > 0):
+                if (
+                    (t.get("bid") and float(t.get("bid")) > 0)
+                    or (t.get("ask") and float(t.get("ask")) > 0)
+                    or (t.get("last") and float(t.get("last")) > 0)
+                ):
                     n_valid_rates += 1
             except Exception:
                 pass
@@ -385,7 +452,12 @@ def _tech_bellman_ford(snapshot_id: str, edges: List[Edge], cfg: Dict) -> List[A
         # Candidate cycle logging setup
         candidate_log_path = None
         try:
-            candidate_log_path = str(Path(__file__).resolve().parents[1] / "artifacts" / "arbitraje" / "candidate_cycles.log")
+            candidate_log_path = str(
+                Path(__file__).resolve().parents[1]
+                / "artifacts"
+                / "arbitraje"
+                / "candidate_cycles.log"
+            )
         except Exception:
             candidate_log_path = None
 
@@ -393,7 +465,7 @@ def _tech_bellman_ford(snapshot_id: str, edges: List[Edge], cfg: Dict) -> List[A
         use_numba = bool(cfg.get("techniques", {}).get("use_numba", True))
         try:
             # bf_numba_impl provides: bellman_ford_numba, build_arrays_from_payload, warmup_numba(optional)
-            from bf_numba_impl import (
+            from .bf_numba_impl import (
                 bellman_ford_numba,
                 build_arrays_from_payload,
                 warmup_numba,
@@ -428,12 +500,21 @@ def _tech_bellman_ford(snapshot_id: str, edges: List[Edge], cfg: Dict) -> List[A
                     "snapshot_id": snapshot_id,
                     "timestamp": int(time.time()),
                     "nodes": list(nodes),
-                    "edge_list": [[nodes[u], nodes[v], float(w)] for (u, v, w) in edge_list],
-                    "rate_map": {"%s->%s" % (nodes[u], nodes[v]): float(rate_map[(u, v)]) for (u, v) in list(rate_map.keys())},
+                    "edge_list": [
+                        [nodes[u], nodes[v], float(w)] for (u, v, w) in edge_list
+                    ],
+                    "rate_map": {
+                        "%s->%s" % (nodes[u], nodes[v]): float(rate_map[(u, v)])
+                        for (u, v) in list(rate_map.keys())
+                    },
                     "cfg_filters": {
                         "fee": fee,
                         "min_net": min_net,
-                        "min_quote_vol": payload.get('min_quote_vol') if isinstance(payload, dict) else None,
+                        "min_quote_vol": (
+                            payload.get("min_quote_vol")
+                            if isinstance(payload, dict)
+                            else None
+                        ),
                         "latency_penalty": latency_penalty,
                     },
                 }
@@ -468,7 +549,9 @@ def _tech_bellman_ford(snapshot_id: str, edges: List[Edge], cfg: Dict) -> List[A
 
                 # Diagnostic: log after degree pruning
                 if pruning_threshold:
-                    diag_log(f"After degree pruning: sources={len(sources) if sources else 0}")
+                    diag_log(
+                        f"After degree pruning: sources={len(sources) if sources else 0}"
+                    )
 
                 # Improved pruning heuristic: combine quoteVolume with a simple volatility metric
                 qvol_threshold_frac = float(
@@ -557,7 +640,9 @@ def _tech_bellman_ford(snapshot_id: str, edges: List[Edge], cfg: Dict) -> List[A
                             sources = [s for s in sources if s in q_sources]
 
                         # Diagnostic: log after qvol pruning
-                        diag_log(f"After qvol pruning: sources={len(sources) if sources else 0}, k={k}, qvol_threshold_frac={qvol_threshold_frac}")
+                        diag_log(
+                            f"After qvol pruning: sources={len(sources) if sources else 0}, k={k}, qvol_threshold_frac={qvol_threshold_frac}"
+                        )
 
                 # Call numba wrapper; if it supports a sources arg, pass it (it may ignore extra args)
                 # time the numba call separately from Python postprocessing
@@ -768,11 +853,23 @@ def _tech_bellman_ford(snapshot_id: str, edges: List[Edge], cfg: Dict) -> List[A
                     pass
                 # Persist worker return for debug (helps detect IPC/pickle loss)
                 try:
-                    dbg_dir = Path(__file__).resolve().parents[1] / "artifacts" / "arbitraje"
+                    dbg_dir = (
+                        Path(__file__).resolve().parents[1] / "artifacts" / "arbitraje"
+                    )
                     dbg_dir.mkdir(parents=True, exist_ok=True)
                     dbg_path = dbg_dir / "worker_return_debug.log"
                     with dbg_path.open("a", encoding="utf-8") as wfh:
-                        wfh.write(json.dumps({"snapshot_id": snapshot_id, "path": "numba_postproc", "results_count": len(results), "sample": results[:3]}) + "\n")
+                        wfh.write(
+                            json.dumps(
+                                {
+                                    "snapshot_id": snapshot_id,
+                                    "path": "numba_postproc",
+                                    "results_count": len(results),
+                                    "sample": results[:3],
+                                }
+                            )
+                            + "\n"
+                        )
                 except Exception:
                     pass
                 return results
@@ -788,7 +885,7 @@ def _tech_bellman_ford(snapshot_id: str, edges: List[Edge], cfg: Dict) -> List[A
             diag_enabled = bool(cfg.get("bf", {}).get("diagnose_force_array_bf", False))
             if diag_enabled:
                 try:
-                    from bf_numba_impl import bellman_ford_array
+                    from .bf_numba_impl import bellman_ford_array
 
                     nodes2, ua, va, wa = build_arrays_from_payload(payload)
                     arr_cycles = bellman_ford_array(len(nodes2), ua, va, wa)
@@ -868,7 +965,9 @@ def _tech_bellman_ford(snapshot_id: str, edges: List[Edge], cfg: Dict) -> List[A
                     orientation = "forward"
                     if prod_fw is None and prod_rev is None:
                         prod = None
-                    elif prod_rev is not None and (prod_fw is None or prod_rev > prod_fw):
+                    elif prod_rev is not None and (
+                        prod_fw is None or prod_rev > prod_fw
+                    ):
                         prod = prod_rev
                         closed_idx = rev_idx
                         orientation = "reverse"
@@ -889,7 +988,11 @@ def _tech_bellman_ford(snapshot_id: str, edges: List[Edge], cfg: Dict) -> List[A
                         filter_reasons.append("invalid_product")
                     elif net_pct is not None and net_pct < min_net:
                         filter_reasons.append("min_net")
-                    if min_net_per_hop and net_pct is not None and (net_pct / max(1, hops)) < min_net_per_hop:
+                    if (
+                        min_net_per_hop
+                        and net_pct is not None
+                        and (net_pct / max(1, hops)) < min_net_per_hop
+                    ):
                         filter_reasons.append("min_net_per_hop")
                     # blacklist check
                     blocked = False
@@ -917,7 +1020,11 @@ def _tech_bellman_ford(snapshot_id: str, edges: List[Edge], cfg: Dict) -> List[A
                         "venue": ex_id,
                         "cycle": "->".join([nodes[i] for i in closed_idx]),
                         "orientation": orientation,
-                        "net_bps_est": round(net_bps - latency_penalty, 4) if net_bps is not None else None,
+                        "net_bps_est": (
+                            round(net_bps - latency_penalty, 4)
+                            if net_bps is not None
+                            else None
+                        ),
                         "fee_bps_total": round(hops * fee * 1.0, 6),
                         "hops": hops,
                         "status": "filtered" if filter_reasons else "actionable",
@@ -930,9 +1037,10 @@ def _tech_bellman_ford(snapshot_id: str, edges: List[Edge], cfg: Dict) -> List[A
                         except Exception:
                             pass
 
-
                     # Configurable: return all cycles if bf.log_all_cycles is set
-                    log_all_cycles = bool(cfg.get("bf", {}).get("log_all_cycles", False))
+                    log_all_cycles = bool(
+                        cfg.get("bf", {}).get("log_all_cycles", False)
+                    )
                     if log_all_cycles or not filter_reasons:
                         results.append(candidate_entry)
                         if len(results) >= top_n:
@@ -944,7 +1052,17 @@ def _tech_bellman_ford(snapshot_id: str, edges: List[Edge], cfg: Dict) -> List[A
             dbg_dir.mkdir(parents=True, exist_ok=True)
             dbg_path = dbg_dir / "worker_return_debug.log"
             with dbg_path.open("a", encoding="utf-8") as wfh:
-                wfh.write(json.dumps({"snapshot_id": snapshot_id, "path": "python_bf", "results_count": len(results), "sample": results[:3]}) + "\n")
+                wfh.write(
+                    json.dumps(
+                        {
+                            "snapshot_id": snapshot_id,
+                            "path": "python_bf",
+                            "results_count": len(results),
+                            "sample": results[:3],
+                        }
+                    )
+                    + "\n"
+                )
         except Exception:
             pass
         return results
@@ -999,6 +1117,7 @@ def _tech_stat_triangles(
                     return None, None
 
             from itertools import permutations
+            import time as _time
 
             # Precompute maps
             r1_map = {}
@@ -1007,7 +1126,24 @@ def _tech_stat_triangles(
                 r1_map[tkn] = get_rate_and_qvol_local(quote, tkn)
                 r3_map[tkn] = get_rate_and_qvol_local(tkn, quote)
 
+            # Optional budget: prefer payload-specific, else techniques config
+            time_budget = 0.0
+            try:
+                time_budget = float(payload.get("time_budget_sec") or 0.0)
+            except Exception:
+                time_budget = 0.0
+            if not time_budget:
+                try:
+                    time_budget = float(
+                        cfg.get("techniques", {}).get("tri_time_budget_sec", 0.0)
+                        or 0.0
+                    )
+                except Exception:
+                    time_budget = 0.0
+            _start = _time.time()
             for X, Y in permutations(tokens, 2):
+                if time_budget and (_time.time() - _start) >= time_budget:
+                    break
                 r1, qv1 = r1_map.get(X, (None, None))
                 if not r1:
                     continue
@@ -1107,19 +1243,49 @@ def scan_arbitrage(snapshot_id: str, edges: List[Edge], cfg: Dict) -> List[ArbRe
     maxw = cfg.get("techniques", {}).get(
         "max_workers", min(len(enabled), (os.cpu_count() or 4))
     )
-    # To avoid stale worker processes (which may have been created with older code),
-    # recreate the global pool for each scan during debugging. This ensures worker
-    # processes run the latest code. In production this can be optimized.
-    global _POOL
+    # Determine inline configuration early and take a fast path for BF-only
+    inline_set = set(cfg.get("techniques", {}).get("inline", []))
     try:
-        if _POOL is not None:
-            try:
-                _POOL.shutdown(wait=False)
-            except Exception:
-                pass
-            _POOL = None
+        logger.debug(
+            "scan_arbitrage: enabled=%s inline=%s max_workers=%s",
+            enabled,
+            list(inline_set),
+            maxw,
+        )
     except Exception:
-        _POOL = None
+        pass
+    # Fast path: if only bellman_ford is enabled and runs inline, avoid ProcessPool entirely
+    try:
+        if set(enabled) == {"bellman_ford"} and ("bellman_ford" in inline_set or not inline_set):
+            func = _TECHS.get("bellman_ford")
+            if func:
+                start_ts = time.time()
+                res = func(snapshot_id, edges, cfg)
+                dur = time.time() - start_ts
+                try:
+                    telemetry_file = cfg.get("techniques", {}).get("telemetry_file")
+                    if telemetry_file:
+                        with open(telemetry_file, "a", encoding="utf-8") as tfh:
+                            tfh.write(
+                                json.dumps(
+                                    {
+                                        "snapshot_id": snapshot_id,
+                                        "technique": "bellman_ford_inline",
+                                        "timestamp": int(time.time()),
+                                        "duration_s": dur,
+                                        "results_count": len(res) if res else 0,
+                                    }
+                                )
+                                + "\n"
+                            )
+                except Exception:
+                    pass
+                return res or []
+    except Exception:
+        # Fall through to ProcessPool path on any error
+        pass
+
+    # Reuse or create the pool (do not recreate per call; expensive on Windows spawn)
     pool = _get_pool(maxw)
 
     futures = []
@@ -1136,6 +1302,8 @@ def scan_arbitrage(snapshot_id: str, edges: List[Edge], cfg: Dict) -> List[ArbRe
     try:
         # allow specific techniques to run inline (skip ProcessPool) for low-latency
         inline_set = set(cfg.get("techniques", {}).get("inline", []))
+    except Exception:
+        inline_set = set()
         # In unit tests (pytest), default to running all techniques inline to avoid
         # pickling/IPC variability across platforms and ensure deterministic results.
         try:
@@ -1196,7 +1364,9 @@ def scan_arbitrage(snapshot_id: str, edges: List[Edge], cfg: Dict) -> List[ArbRe
             try:
                 # record original tickers count for diagnostics (before sanitization)
                 try:
-                    orig_tickers_count = len(edges.get('tickers', {})) if isinstance(edges, dict) else 0
+                    orig_tickers_count = (
+                        len(edges.get("tickers", {})) if isinstance(edges, dict) else 0
+                    )
                 except Exception:
                     orig_tickers_count = 0
                 if isinstance(edges, dict):
@@ -1216,7 +1386,12 @@ def scan_arbitrage(snapshot_id: str, edges: List[Edge], cfg: Dict) -> List[ArbRe
                                 b = t.get("bid")
                                 a = t.get("ask")
                                 l = t.get("last")
-                                qv = t.get("quoteVolume") or t.get("quoteVolume24h") or t.get("volumeQuote") or 0.0
+                                qv = (
+                                    t.get("quoteVolume")
+                                    or t.get("quoteVolume24h")
+                                    or t.get("volumeQuote")
+                                    or 0.0
+                                )
                                 if b is not None:
                                     pw_t["bid"] = float(b)
                                 if a is not None:
@@ -1246,24 +1421,37 @@ def scan_arbitrage(snapshot_id: str, edges: List[Edge], cfg: Dict) -> List[ArbRe
                 ts_line = None
                 try:
                     # compute a conservative count of valid tickers (have bid/ask/last)
-                    raw_tickers = pw.get('tickers', {}) if isinstance(pw, dict) else {}
+                    raw_tickers = pw.get("tickers", {}) if isinstance(pw, dict) else {}
                     valid_count = 0
                     try:
                         for v in (raw_tickers or {}).values():
                             if not v or not isinstance(v, dict):
                                 continue
                             try:
-                                if (v.get('bid') is not None and float(v.get('bid')) > 0) or (v.get('ask') is not None and float(v.get('ask')) > 0) or (v.get('last') is not None and float(v.get('last')) > 0):
+                                if (
+                                    (
+                                        v.get("bid") is not None
+                                        and float(v.get("bid")) > 0
+                                    )
+                                    or (
+                                        v.get("ask") is not None
+                                        and float(v.get("ask")) > 0
+                                    )
+                                    or (
+                                        v.get("last") is not None
+                                        and float(v.get("last")) > 0
+                                    )
+                                ):
                                     valid_count += 1
                             except Exception:
                                 continue
                     except Exception:
                         valid_count = 0
                     pb = json.dumps(pw)
-                    ex_ctx = str(pw.get('ex_id') or '')
+                    ex_ctx = str(pw.get("ex_id") or "")
                     ts_line = f"[{time.strftime('%Y-%m-%dT%H:%M:%S')}] Pre-submit {name} ex={ex_ctx} snap={snapshot_id}: orig_tickers={orig_tickers_count} sanitized_tickers={valid_count}, payload_bytes={len(pb)}\n"
                 except Exception:
-                    ex_ctx = str(pw.get('ex_id') or '') if isinstance(pw, dict) else ''
+                    ex_ctx = str(pw.get("ex_id") or "") if isinstance(pw, dict) else ""
                     # best-effort fallback line
                     ts_line = f"[{time.strftime('%Y-%m-%dT%H:%M:%S')}] Pre-submit {name} ex={ex_ctx} snap={snapshot_id}: tickers=unknown, payload_bytes=unknown\n"
                 wrote = False
@@ -1275,7 +1463,12 @@ def scan_arbitrage(snapshot_id: str, edges: List[Edge], cfg: Dict) -> List[ArbRe
                     wrote = False
                 # secondary: project-level artifacts (one level up)
                 try:
-                    proj_diag = Path(__file__).resolve().parents[2] / "artifacts" / "arbitraje" / "diagnostics.log"
+                    proj_diag = (
+                        Path(__file__).resolve().parents[2]
+                        / "artifacts"
+                        / "arbitraje"
+                        / "diagnostics.log"
+                    )
                     proj_diag.parent.mkdir(parents=True, exist_ok=True)
                     if not wrote:
                         try:
@@ -1292,7 +1485,12 @@ def scan_arbitrage(snapshot_id: str, edges: List[Edge], cfg: Dict) -> List[ArbRe
                         telemetry_file = cfg.get("techniques", {}).get("telemetry_file")
                         if telemetry_file:
                             with open(telemetry_file, "a", encoding="utf-8") as tfh:
-                                tfh.write(json.dumps({"diagnostic": ts_line, "ts": int(time.time())}) + "\n")
+                                tfh.write(
+                                    json.dumps(
+                                        {"diagnostic": ts_line, "ts": int(time.time())}
+                                    )
+                                    + "\n"
+                                )
                     except Exception:
                         pass
             except Exception:
@@ -1306,7 +1504,11 @@ def scan_arbitrage(snapshot_id: str, edges: List[Edge], cfg: Dict) -> List[ArbRe
                         if not tfp.is_absolute():
                             tfp = Path(__file__).resolve().parents[2] / telemetry_file
                         tfp.parent.mkdir(parents=True, exist_ok=True)
-                        short = {"pre_submit": name, "tickers": len(pw.get("tickers", {})), "ts": int(time.time())}
+                        short = {
+                            "pre_submit": name,
+                            "tickers": len(pw.get("tickers", {})),
+                            "ts": int(time.time()),
+                        }
                         with open(tfp, "a", encoding="utf-8") as tfh:
                             tfh.write(json.dumps(short) + "\n")
                 except Exception:
@@ -1316,17 +1518,28 @@ def scan_arbitrage(snapshot_id: str, edges: List[Edge], cfg: Dict) -> List[ArbRe
                 try:
                     # use the conservative valid_count above if available, otherwise fall back
                     if isinstance(pw, dict):
-                        n_tickers = valid_count if 'valid_count' in locals() else len(pw.get("tickers", {}))
+                        n_tickers = (
+                            valid_count
+                            if "valid_count" in locals()
+                            else len(pw.get("tickers", {}))
+                        )
                     else:
                         n_tickers = 0
                 except Exception:
                     n_tickers = 0
                 try:
-                    print(f"[PARENT] pre-submit technique={name} ex={pw.get('ex_id') if isinstance(pw, dict) else ''} orig_tickers={orig_tickers_count} sanitized_tickers={n_tickers}")
+                    print(
+                        f"[PARENT] pre-submit technique={name} ex={pw.get('ex_id') if isinstance(pw, dict) else ''} orig_tickers={orig_tickers_count} sanitized_tickers={n_tickers}"
+                    )
                 except Exception:
                     pass
                 if n_tickers == 0:
-                    logger.debug("Skipping submit for technique %s: zero valid tickers in payload (ex=%s snap=%s)", name, str(pw.get('ex_id') if isinstance(pw, dict) else ''), snapshot_id)
+                    logger.debug(
+                        "Skipping submit for technique %s: zero valid tickers in payload (ex=%s snap=%s)",
+                        name,
+                        str(pw.get("ex_id") if isinstance(pw, dict) else ""),
+                        snapshot_id,
+                    )
                     # don't submit an empty payload to worker processes
                     continue
                 # Submit a JSON string payload to avoid pickling complex objects
@@ -1348,22 +1561,40 @@ def scan_arbitrage(snapshot_id: str, edges: List[Edge], cfg: Dict) -> List[ArbRe
                         pass
                     # Persist a compact submission record so we can inspect future objects
                     try:
-                        abs_dbg = Path(r"c:\Users\Lenovo\dataqbs_IA\artifacts\arbitraje")
+                        abs_dbg = Path(
+                            r"c:\Users\Lenovo\dataqbs_IA\artifacts\arbitraje"
+                        )
                         abs_dbg.mkdir(parents=True, exist_ok=True)
                         sub_path = abs_dbg / "parent_future_submissions.log"
                         with sub_path.open("a", encoding="utf-8") as sfh:
-                            sfh.write(json.dumps({"snapshot_id": snapshot_id, "technique": name, "future_repr": repr(fut), "ts": int(time.time())}) + "\n")
+                            sfh.write(
+                                json.dumps(
+                                    {
+                                        "snapshot_id": snapshot_id,
+                                        "technique": name,
+                                        "future_repr": repr(fut),
+                                        "ts": int(time.time()),
+                                    }
+                                )
+                                + "\n"
+                            )
                     except Exception:
                         logger.debug("failed to write parent future submission debug")
                 except Exception:
-                    logger.exception("Failed to submit technique %s to process pool; attempting fallback submit", name)
+                    logger.exception(
+                        "Failed to submit technique %s to process pool; attempting fallback submit",
+                        name,
+                    )
                     try:
                         # try submitting the original edges as a last-resort
                         fut = pool.submit(func, snapshot_id, edges, cfg)
                         futures.append(fut)
                         future_map[fut] = (name, time.time())
                     except Exception:
-                        logger.exception("Fallback submit also failed for technique %s; skipping", name)
+                        logger.exception(
+                            "Fallback submit also failed for technique %s; skipping",
+                            name,
+                        )
             # init stats
             stats.setdefault(name, {"count": 0.0, "total_time": 0.0})
 
@@ -1373,200 +1604,194 @@ def scan_arbitrage(snapshot_id: str, edges: List[Edge], cfg: Dict) -> List[ArbRe
             # tasks. This ensures timeouts actually fire instead of waiting forever
             # on as_completed.
             pending = set(futures)
-            # timeout used to detect stuck technique workers; default to cfg.fallback_timeout
             global_timeout = float(
                 cfg.get("techniques", {}).get("fallback_timeout", 5.0)
             )
+            # Ensure a sane default watchdog to prevent unbounded waits
+            iter_watchdog = float(
+                cfg.get("techniques", {}).get("iteration_watchdog_sec", 15.0) or 15.0
+            )
+            loop_start = time.time()
+            _fallback_attempted = set()
             while pending:
+                # hard watchdog to avoid infinite waits
+                if iter_watchdog and (time.time() - loop_start) >= iter_watchdog:
+                    logger.error(
+                        "scan_arbitrage watchdog fired after %.2fs; cancelling %d pending",
+                        iter_watchdog,
+                        len(pending),
+                    )
+                    for fut in list(pending):
+                        try:
+                            fut.cancel()
+                        except Exception:
+                            pass
+                        future_map.pop(fut, None)
+                    pending.clear()
+                    break
+
                 done, pending = wait(
                     pending, timeout=global_timeout, return_when=FIRST_COMPLETED
                 )
                 if not done:
                     # nothing completed within timeout -> handle pending tasks
                     for fut in list(pending):
-                        name, submit_ts = future_map.get(fut, ("unknown", time.time()))
+                        tech_name, submit_ts = future_map.get(
+                            fut, ("unknown", time.time())
+                        )
                         logger.warning(
                             "Technique %s did not complete within %.2fs; attempting fallback/cancel",
-                            name,
+                            tech_name,
                             global_timeout,
                         )
-                        # Attempt fallback for bellman_ford specifically
-                        if name == "bellman_ford":
+                        if tech_name == "bellman_ford":
                             fb_timeout = float(
                                 cfg.get("techniques", {}).get("fallback_timeout", 5.0)
                             )
-                            try:
-                                with ThreadPoolExecutor(max_workers=1) as thpool:
-                                    fb_future = thpool.submit(
-                                        _tech_bellman_ford, snapshot_id, edges, cfg
-                                    )
-                                    fb_res = fb_future.result(timeout=fb_timeout)
-                                    fb_dur = (
-                                        time.time() - submit_ts if submit_ts else 0.0
-                                    )
+                            if fut not in _fallback_attempted:
+                                _fallback_attempted.add(fut)
+                                try:
+                                    with ThreadPoolExecutor(max_workers=1) as thpool:
+                                        fb_future = thpool.submit(
+                                            _tech_bellman_ford, snapshot_id, edges, cfg
+                                        )
+                                        fb_res = fb_future.result(timeout=fb_timeout)
+                                        fb_dur = (
+                                            (time.time() - submit_ts) if submit_ts else 0.0
+                                        )
+                                        logger.warning(
+                                            "bellman_ford fallback produced %d results (timeout %.2fs)",
+                                            len(fb_res) if fb_res else 0,
+                                            fb_timeout,
+                                        )
+                                        stats.setdefault(
+                                            tech_name, {"count": 0.0, "total_time": 0.0}
+                                        )
+                                        stats[tech_name]["count"] += (
+                                            len(fb_res) if fb_res else 0.0
+                                        )
+                                        stats[tech_name]["total_time"] += fb_dur
+                                        if fb_res:
+                                            results.extend(fb_res)
+                                        telemetry_counters["fallback_count"] += 1
+                                except ThreadTimeoutError:
                                     logger.warning(
-                                        "bellman_ford fallback produced %d results (timeout %.2fs)",
-                                        len(fb_res) if fb_res else 0,
+                                        "bellman_ford fallback timed out after %.2fs",
                                         fb_timeout,
                                     )
-                                    stats.setdefault(
-                                        name, {"count": 0.0, "total_time": 0.0}
-                                    )
-                                    stats[name]["count"] += (
-                                        len(fb_res) if fb_res else 0.0
-                                    )
-                                    stats[name]["total_time"] += fb_dur
-                                    if fb_res:
-                                        results.extend(fb_res)
-                                    telemetry_counters["fallback_count"] += 1
-                            except ThreadTimeoutError:
-                                logger.warning(
-                                    "bellman_ford fallback timed out after %.2fs",
-                                    fb_timeout,
-                                )
-                                telemetry_counters["fallback_timeouts"] += 1
-                            except Exception:
-                                logger.exception("bellman_ford fallback also failed")
-                            # Try to cancel the original pending future to avoid resource leak.
-                            # Even if cancel() returns False for a running ProcessPool future,
-                            # remove it from the pending set so we don't loop forever waiting
-                            # on an un-cancellable task.
-                            try:
-                                fut.cancel()
-                            except Exception:
-                                pass
-                            # remove from pending and cleanup map so wait() won't see it again
-                            try:
-                                pending.discard(fut)
-                            except Exception:
-                                pass
-                            future_map.pop(fut, None)
-                        else:
-                            # No generic fallback; cancel the pending future and continue
-                            try:
-                                fut.cancel()
-                            except Exception:
-                                pass
-                    # continue loop to wait for any remaining done tasks
+                                    telemetry_counters["fallback_timeouts"] += 1
+                                except Exception:
+                                    logger.exception("bellman_ford fallback also failed")
+                        # cancel the original pending future and drop it
+                        try:
+                            fut.cancel()
+                        except Exception:
+                            pass
+                        future_map.pop(fut, None)
+                        try:
+                            pending.remove(fut)
+                        except Exception:
+                            pass
+                    # continue to wait for any remaining futures
                     continue
 
                 # Process completed futures
-                    for f in done:
-                        name, submit_ts = future_map.get(f, ("unknown", time.time()))
-                        start_wait = submit_ts
-                        end_wait = time.time()
-                        duration = max(0.0, end_wait - start_wait)
-                        # Robust parent-side debug: log future state before/after result, including exception and result
-                        fut_done = None
-                        fut_cancelled = None
-                        fut_repr = None
-                        fut_exc = None
-                        res = None
-                        # Before result()
-                        try:
-                            try:
-                                fut_done = f.done()
-                            except Exception:
-                                fut_done = None
-                            try:
-                                fut_cancelled = f.cancelled()
-                            except Exception:
-                                fut_cancelled = None
-                            try:
-                                fut_repr = repr(f)
-                            except Exception:
-                                fut_repr = None
-                            # Write pre-result state
-                            try:
-                                abs_dbg = Path(r"c:\Users\Lenovo\dataqbs_IA\artifacts\arbitraje")
-                                abs_dbg.mkdir(parents=True, exist_ok=True)
-                                abs_path = abs_dbg / "parent_future_debug.log"
-                                with abs_path.open("a", encoding="utf-8") as afh:
-                                    afh.write(json.dumps({"action": "pre_result", "snapshot_id": snapshot_id, "technique": name, "future_done": fut_done, "future_cancelled": fut_cancelled, "future_repr": fut_repr, "ts": int(time.time())}) + "\n")
-                            except Exception:
-                                pass
-                            # Try to get result
-                            try:
-                                res = f.result()
-                            except Exception as e:
-                                fut_exc = str(e)
-                                res = None
-                            # After result()
-                            try:
-                                sample = res[:3] if isinstance(res, (list, tuple)) else res
-                            except Exception:
-                                sample = str(res)
-                            try:
-                                dbg_payload = {
-                                    "action": "post_result",
-                                    "snapshot_id": snapshot_id,
-                                    "technique": name,
-                                    "future_done": fut_done,
-                                    "future_cancelled": fut_cancelled,
-                                    "future_repr": fut_repr,
-                                    "future_exception": fut_exc,
-                                    "results_count": len(res) if res else 0,
-                                    "sample": sample,
-                                    "ts": int(time.time()),
-                                }
-                                abs_dbg = Path(r"c:\Users\Lenovo\dataqbs_IA\artifacts\arbitraje")
-                                abs_dbg.mkdir(parents=True, exist_ok=True)
-                                abs_path = abs_dbg / "parent_future_debug.log"
-                                with abs_path.open("a", encoding="utf-8") as afh:
-                                    afh.write(json.dumps(dbg_payload) + "\n")
-                            except Exception:
-                                logger.debug("failed to write absolute parent future debug file")
-                            # update stats and results as before
-                            stats.setdefault(name, {"count": 0.0, "total_time": 0.0})
-                            stats[name]["count"] += len(res) if res else 0.0
-                            stats[name]["total_time"] += duration
-                            if res:
-                                results.extend(res)
-                                try:
-                                    print(f"[PARENT] got results from {name}: count={len(res)} sample={repr(res[:2])}")
-                                except Exception:
-                                    pass
-                        except Exception:
-                            logger.exception(
-                                "Technique task %s failed; attempting fallback if available",
-                                name,
-                            )
-                    # emit per-scan telemetry line if configured
+                for f in done:
+                    tech_name, submit_ts = future_map.get(f, ("unknown", time.time()))
+                    duration = max(0.0, time.time() - (submit_ts or time.time()))
+                    fut_done = None
+                    fut_cancelled = None
+                    fut_repr = None
+                    fut_exc = None
+                    res = None
                     try:
-                        telemetry_file = cfg.get("techniques", {}).get(
-                            "telemetry_file"
-                        )
-                        if telemetry_file:
-                            with open(telemetry_file, "a", encoding="utf-8") as tfh:
-                                tfh.write(
+                        try:
+                            fut_done = f.done()
+                        except Exception:
+                            pass
+                        try:
+                            fut_cancelled = f.cancelled()
+                        except Exception:
+                            pass
+                        try:
+                            fut_repr = repr(f)
+                        except Exception:
+                            pass
+                        # before-result state
+                        try:
+                            abs_dbg = Path(
+                                r"c:\Users\Lenovo\dataqbs_IA\artifacts\arbitraje"
+                            )
+                            abs_dbg.mkdir(parents=True, exist_ok=True)
+                            abs_path = abs_dbg / "parent_future_debug.log"
+                            with abs_path.open("a", encoding="utf-8") as afh:
+                                afh.write(
                                     json.dumps(
                                         {
+                                            "action": "pre_result",
                                             "snapshot_id": snapshot_id,
-                                            "technique": name,
-                                            "timestamp": int(time.time()),
-                                            "duration_s": duration,
-                                            "results_count": len(res) if res else 0,
+                                            "technique": tech_name,
+                                            "future_done": fut_done,
+                                            "future_cancelled": fut_cancelled,
+                                            "future_repr": fut_repr,
+                                            "ts": int(time.time()),
                                         }
                                     )
                                     + "\n"
                                 )
-                    except Exception:
-                        logger.debug(
-                            "failed to write per-scan telemetry for %s", name
-                        )
-                    # update stats
-                        stats.setdefault(name, {"count": 0.0, "total_time": 0.0})
-                        stats[name]["count"] += len(res) if res else 0.0
-                        stats[name]["total_time"] += duration
+                        except Exception:
+                            pass
+                        try:
+                            res = f.result()
+                        except Exception as e:
+                            fut_exc = str(e)
+                            res = None
+                        # after-result state
+                        try:
+                            sample = res[:3] if isinstance(res, (list, tuple)) else res
+                        except Exception:
+                            sample = str(res)
+                        try:
+                            dbg_payload = {
+                                "action": "post_result",
+                                "snapshot_id": snapshot_id,
+                                "technique": tech_name,
+                                "future_done": fut_done,
+                                "future_cancelled": fut_cancelled,
+                                "future_repr": fut_repr,
+                                "future_exception": fut_exc,
+                                "results_count": len(res) if res else 0,
+                                "sample": sample,
+                                "ts": int(time.time()),
+                            }
+                            abs_dbg = Path(
+                                r"c:\Users\Lenovo\dataqbs_IA\artifacts\arbitraje"
+                            )
+                            abs_dbg.mkdir(parents=True, exist_ok=True)
+                            abs_path = abs_dbg / "parent_future_debug.log"
+                            with abs_path.open("a", encoding="utf-8") as afh:
+                                afh.write(json.dumps(dbg_payload) + "\n")
+                        except Exception:
+                            logger.debug(
+                                "failed to write absolute parent future debug file"
+                            )
+                        stats.setdefault(tech_name, {"count": 0.0, "total_time": 0.0})
+                        stats[tech_name]["count"] += len(res) if res else 0.0
+                        stats[tech_name]["total_time"] += duration
                         if res:
                             results.extend(res)
+                            try:
+                                print(
+                                    f"[PARENT] got results from {tech_name}: count={len(res)} sample={repr(res[:2])}"
+                                )
+                            except Exception:
+                                pass
                     except Exception:
                         logger.exception(
                             "Technique task %s failed; attempting fallback if available",
-                            name,
+                            tech_name,
                         )
-                        # safe fallback for bellman_ford: run in a thread with timeout to avoid blocking
-                        if name == "bellman_ford":
+                        if tech_name == "bellman_ford":
                             fb_timeout = float(
                                 cfg.get("techniques", {}).get("fallback_timeout", 5.0)
                             )
@@ -1576,21 +1801,19 @@ def scan_arbitrage(snapshot_id: str, edges: List[Edge], cfg: Dict) -> List[ArbRe
                                         _tech_bellman_ford, snapshot_id, edges, cfg
                                     )
                                     fb_res = fb_future.result(timeout=fb_timeout)
-                                    fb_dur = (
-                                        time.time() - submit_ts if submit_ts else 0.0
-                                    )
+                                    fb_dur = time.time() - (submit_ts or time.time())
                                     logger.warning(
                                         "bellman_ford fallback produced %d results (timeout %.2fs)",
                                         len(fb_res) if fb_res else 0,
                                         fb_timeout,
                                     )
                                     stats.setdefault(
-                                        name, {"count": 0.0, "total_time": 0.0}
+                                        tech_name, {"count": 0.0, "total_time": 0.0}
                                     )
-                                    stats[name]["count"] += (
+                                    stats[tech_name]["count"] += (
                                         len(fb_res) if fb_res else 0.0
                                     )
-                                    stats[name]["total_time"] += fb_dur
+                                    stats[tech_name]["total_time"] += fb_dur
                                     if fb_res:
                                         results.extend(fb_res)
                                     telemetry_counters["fallback_count"] += 1
@@ -1604,7 +1827,7 @@ def scan_arbitrage(snapshot_id: str, edges: List[Edge], cfg: Dict) -> List[ArbRe
                                 logger.exception("bellman_ford fallback also failed")
                         else:
                             logger.warning(
-                                "No fallback implemented for technique %s", name
+                                "No fallback implemented for technique %s", tech_name
                             )
 
         # Optional rerank post-process

@@ -1,0 +1,83 @@
+mode: bf
+
+# Exchanges to use (per request: always include binance, bitget, mexc)
+ex: [binance, bitget, mexc]
+
+quote: USDT
+inv: 0.0
+
+# Skip preloading exchanges/markets to avoid startup stalls
+preload: false
+
+# Keep iterations bounded and fast (short cycles for calibration)
+max: 120
+timeout: 20000
+sleep: 0
+repeat: 5
+repeat_sleep: 0
+
+balance_provider: ccxt
+# Do not force authenticated exchange construction at startup to avoid stalls
+ex_auth_only: false
+simulate_compound: false
+simulate_from_wallet: false
+simulate_prefer: auto
+simulate_select: best
+simulate_auto_switch: true
+simulate_fallback_to_inv: false
+
+no_console_clear: true
+
+bf:
+  allowed_quotes: [USDT, USDC, BTC, ETH, EUR, BNB, TRY, ARS, BRL, AUD, SGD]
+  fee: 0.10
+  rank_by_qvol: true
+  currencies_limit: 280
+  min_net: -10000
+  min_net_per_hop: -10000
+  top: 20
+  require_quote: true
+  require_topofbook: false
+  min_quote_vol: 0
+  min_hops: 2
+  max_hops: 6
+  threads: 0
+  require_dual_quote: false
+  persist_top_csv: true
+  revalidate_depth: false
+  use_ws: true
+  depth_levels: 20
+  latency_penalty_bps: 0
+  reset_history: true
+  iter_timeout_sec: 0
+
+# Technique engine tuned to avoid stalls
+techniques:
+  enabled: [bellman_ford]
+  inline: []            # disable inline so watchdog can cancel workers
+  max_workers: 1
+  enable_rerank_onnx: false
+  fallback_timeout: 5.0 # if worker doesn't finish, run inline fallback for up to 5s
+  telemetry_file: ./artifacts/arbitraje/techniques_telemetry_inline.log
+  iteration_watchdog_sec: 12.0 # cancel any pending futures after 12s
+  pruning_degree_threshold: 6
+  pruning_qvol_frac: 0.10
+  pruning_volatility_window: 5
+
+per_exchange_watchdog_sec: 30
+iteration_watchdog_sec: 60
+
+exchange_overrides:
+  binance:
+    bf:
+      min_net: -10000
+      min_quote_vol: 0
+      currencies_limit: 220
+  mexc:
+    bf:
+      min_net: -10000
+      min_quote_vol: 0
+  bitget:
+    bf:
+      min_net: -10000
+      min_quote_vol: 0

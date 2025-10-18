@@ -3866,3 +3866,55 @@
 {"snapshot_id": "2025-10-18T01:55:55.826248+00:00", "timestamp": 1760752874, "payload_bytes": 688614, "techniques": ["bellman_ford", "stat_tri"], "results_count": 3, "telemetry": {"total_runs": 1, "fallback_count": 0, "fallback_timeouts": 0}}
 {"snapshot_id": "2025-10-18T01:55:55.826248+00:00", "technique": "bellman_ford", "timestamp": 1760752980, "duration_s": 408.6742286682129, "results_count": 3}
 {"snapshot_id": "2025-10-18T01:55:55.826248+00:00", "timestamp": 1760752980, "payload_bytes": 3411393, "techniques": ["bellman_ford", "stat_tri"], "results_count": 3, "telemetry": {"total_runs": 1, "fallback_count": 0, "fallback_timeouts": 0}}
+{"snapshot_id": "2025-10-18T02:40:09.389305+00:00", "technique": "bellman_ford", "timestamp": 1760755237, "duration_s": 14.710510730743408, "results_count": 0}
+{"snapshot_id": "2025-10-18T02:40:09.389305+00:00", "timestamp": 1760755237, "payload_bytes": 2086604, "techniques": ["bellman_ford", "stat_tri"], "results_count": 0, "telemetry": {"total_runs": 1, "fallback_count": 0, "fallback_timeouts": 0}}
+{"snapshot_id": "2025-10-18T02:44:16.909697+00:00", "technique": "bellman_ford", "timestamp": 1760755486, "duration_s": 16.20359969139099, "results_count": 0}
+{"snapshot_id": "2025-10-18T02:44:16.909697+00:00", "timestamp": 1760755486, "payload_bytes": 2086607, "techniques": ["bellman_ford", "stat_tri"], "results_count": 0, "telemetry": {"total_runs": 1, "fallback_count": 0, "fallback_timeouts": 0}}
+{"snapshot_id": "2025-10-18T02:44:16.909697+00:00", "technique": "bellman_ford", "timestamp": 1760755802, "duration_s": 332.97950291633606, "results_count": 3}
+{"snapshot_id": "2025-10-18T02:44:16.909697+00:00", "timestamp": 1760755803, "payload_bytes": 688875, "techniques": ["bellman_ford", "stat_tri"], "results_count": 3, "telemetry": {"total_runs": 1, "fallback_count": 0, "fallback_timeouts": 0}}
+{"snapshot_id": "2025-10-18T02:49:37.348661+00:00", "technique": "bellman_ford", "timestamp": 1760755809, "duration_s": 19.122870922088623, "results_count": 0}
+{"snapshot_id": "2025-10-18T02:49:37.348661+00:00", "timestamp": 1760755809, "payload_bytes": 2086915, "techniques": ["bellman_ford", "stat_tri"], "results_count": 0, "telemetry": {"total_runs": 1, "fallback_count": 0, "fallback_timeouts": 0}}
+{"snapshot_id": "2025-10-18T02:44:16.909697+00:00", "technique": "bellman_ford", "timestamp": 1760755968, "duration_s": 496.06695461273193, "results_count": 3}
+{"snapshot_id": "2025-10-18T02:44:16.909697+00:00", "timestamp": 1760755968, "payload_bytes": 3411503, "techniques": ["bellman_ford", "stat_tri"], "results_count": 3, "telemetry": {"total_runs": 1, "fallback_count": 0, "fallback_timeouts": 0}}
+{"snapshot_id": "2025-10-18T02:56:57.082630+00:00", "technique": "bellman_ford", "timestamp": 1760756231, "duration_s": 13.591265439987183, "results_count": 0}
+{"snapshot_id": "2025-10-18T02:56:57.082630+00:00", "technique": "stat_tri", "timestamp": 1760756232, "duration_s": 0.005998134613037109, "results_count": 0}
+{"snapshot_id": "2025-10-18T02:56:57.082630+00:00", "timestamp": 1760756232, "payload_bytes": 2085681, "techniques": ["bellman_ford", "stat_tri"], "results_count": 0, "telemetry": {"total_runs": 1, "fallback_count": 0, "fallback_timeouts": 0}}
+{"snapshot_id": "2025-10-18T02:59:52.219838+00:00", "technique": "bellman_ford", "timestamp": 1760756409, "duration_s": 15.970155239105225, "results_count": 0}
+{"snapshot_id": "2025-10-18T02:59:52.219838+00:00", "technique": "stat_tri", "timestamp": 1760756409, "duration_s": 0.03199887275695801, "results_count": 0}
+{"snapshot_id": "2025-10-18T02:59:52.219838+00:00", "timestamp": 1760756409, "payload_bytes": 2085445, "techniques": ["bellman_ford", "stat_tri"], "results_count": 0, "telemetry": {"total_runs": 1, "fallback_count": 0, "fallback_timeouts": 0}}
+{"snapshot_id": "2025-10-18T02:59:52.219838+00:00", "technique": "bellman_ford", "timestamp": 1760756673, "duration_s": 279.87939381599426, "results_count": 3}
+{"snapshot_id": "2025-10-18T02:59:52.219838+00:00", "technique": "stat_tri", "timestamp": 1760756673, "duration_s": 0.007001638412475586, "results_count": 0}
+{"snapshot_id": "2025-10-18T02:59:52.219838+00:00", "timestamp": 1760756673, "payload_bytes": 687543, "techniques": ["bellman_ford", "stat_tri"], "results_count": 3, "telemetry": {"total_runs": 1, "fallback_count": 0, "fallback_timeouts": 0}}
+{"snapshot_id": "2025-10-18T02:59:52.219838+00:00", "technique": "bellman_ford", "timestamp": 1760756773, "duration_s": 379.71013832092285, "results_count": 3}
+{"snapshot_id": "2025-10-18T02:59:52.219838+00:00", "technique": "stat_tri", "timestamp": 1760756773, "duration_s": 0.005997419357299805, "results_count": 0}
+{"snapshot_id": "2025-10-18T02:59:52.219838+00:00", "timestamp": 1760756773, "payload_bytes": 3410630, "techniques": ["bellman_ford", "stat_tri"], "results_count": 3, "telemetry": {"total_runs": 1, "fallback_count": 0, "fallback_timeouts": 0}}
+{"snapshot_id": "2025-10-18T03:17:58.295702+00:00", "timestamp": 1760757479, "payload_bytes": 686497, "techniques": ["bellman_ford"], "results_count": 0, "telemetry": {"total_runs": 1, "fallback_count": 0, "fallback_timeouts": 0}}
+{"snapshot_id": "2025-10-18T03:17:58.295702+00:00", "timestamp": 1760757479, "payload_bytes": 2084372, "techniques": ["bellman_ford"], "results_count": 0, "telemetry": {"total_runs": 1, "fallback_count": 0, "fallback_timeouts": 0}}
+{"snapshot_id": "2025-10-18T03:17:58.295702+00:00", "timestamp": 1760757480, "payload_bytes": 3409443, "techniques": ["bellman_ford"], "results_count": 0, "telemetry": {"total_runs": 1, "fallback_count": 0, "fallback_timeouts": 0}}
+{"snapshot_id": "2025-10-18T03:19:54.555222+00:00", "timestamp": 1760757595, "payload_bytes": 686604, "techniques": ["bellman_ford", "stat_tri"], "results_count": 0, "telemetry": {"total_runs": 1, "fallback_count": 0, "fallback_timeouts": 0}}
+{"snapshot_id": "2025-10-18T03:19:54.555222+00:00", "timestamp": 1760757596, "payload_bytes": 2085146, "techniques": ["bellman_ford", "stat_tri"], "results_count": 0, "telemetry": {"total_runs": 1, "fallback_count": 0, "fallback_timeouts": 0}}
+{"snapshot_id": "2025-10-18T03:19:54.555222+00:00", "timestamp": 1760757597, "payload_bytes": 3409430, "techniques": ["bellman_ford", "stat_tri"], "results_count": 0, "telemetry": {"total_runs": 1, "fallback_count": 0, "fallback_timeouts": 0}}
+{"snapshot_id": "2025-10-18T03:34:45.675774+00:00", "technique": "bellman_ford", "timestamp": 1760758507, "duration_s": 20.952249765396118, "results_count": 0}
+{"snapshot_id": "2025-10-18T03:34:45.675774+00:00", "timestamp": 1760758508, "payload_bytes": 2085377, "techniques": ["bellman_ford", "stat_tri"], "results_count": 0, "telemetry": {"total_runs": 1, "fallback_count": 0, "fallback_timeouts": 0}}
+{"snapshot_id": "2025-10-18T03:34:45.675774+00:00", "technique": "bellman_ford", "timestamp": 1760758771, "duration_s": 284.8761284351349, "results_count": 3}
+{"snapshot_id": "2025-10-18T03:34:45.675774+00:00", "timestamp": 1760758771, "payload_bytes": 687735, "techniques": ["bellman_ford", "stat_tri"], "results_count": 3, "telemetry": {"total_runs": 1, "fallback_count": 0, "fallback_timeouts": 0}}
+{"snapshot_id": "2025-10-18T03:34:45.675774+00:00", "technique": "bellman_ford", "timestamp": 1760758867, "duration_s": 378.60269689559937, "results_count": 3}
+{"snapshot_id": "2025-10-18T03:34:45.675774+00:00", "timestamp": 1760758868, "payload_bytes": 3410408, "techniques": ["bellman_ford", "stat_tri"], "results_count": 3, "telemetry": {"total_runs": 1, "fallback_count": 0, "fallback_timeouts": 0}}
+{"snapshot_id": "2025-10-18T12:44:42.909726+00:00", "technique": "bellman_ford", "timestamp": 1760791492, "duration_s": 8.826062202453613, "results_count": 0}
+{"snapshot_id": "2025-10-18T12:44:42.909726+00:00", "technique": "stat_tri", "timestamp": 1760791492, "duration_s": 0.005966663360595703, "results_count": 0}
+{"snapshot_id": "2025-10-18T12:44:42.909726+00:00", "timestamp": 1760791492, "payload_bytes": 2080365, "techniques": ["bellman_ford", "stat_tri"], "results_count": 0, "telemetry": {"total_runs": 1, "fallback_count": 0, "fallback_timeouts": 0}}
+{"snapshot_id": "2025-10-18T12:44:42.909726+00:00", "technique": "bellman_ford", "timestamp": 1760791705, "duration_s": 219.9481325149536, "results_count": 3}
+{"snapshot_id": "2025-10-18T12:44:42.909726+00:00", "technique": "stat_tri", "timestamp": 1760791705, "duration_s": 0.005995988845825195, "results_count": 0}
+{"snapshot_id": "2025-10-18T12:44:42.909726+00:00", "timestamp": 1760791706, "payload_bytes": 3404986, "techniques": ["bellman_ford", "stat_tri"], "results_count": 3, "telemetry": {"total_runs": 1, "fallback_count": 0, "fallback_timeouts": 0}}
+{"snapshot_id": "2025-10-18T16:10:04.049944+00:00", "technique": "bellman_ford", "timestamp": 1760803820, "duration_s": 15.286890268325806, "results_count": 0}
+{"snapshot_id": "2025-10-18T16:10:04.049944+00:00", "timestamp": 1760803821, "payload_bytes": 2082838, "techniques": ["bellman_ford", "stat_tri"], "results_count": 0, "telemetry": {"total_runs": 1, "fallback_count": 0, "fallback_timeouts": 0}}
+{"snapshot_id": "2025-10-18T16:10:04.049944+00:00", "technique": "bellman_ford", "timestamp": 1760804104, "duration_s": 299.8254737854004, "results_count": 3}
+{"snapshot_id": "2025-10-18T16:10:04.049944+00:00", "timestamp": 1760804104, "payload_bytes": 685313, "techniques": ["bellman_ford", "stat_tri"], "results_count": 3, "telemetry": {"total_runs": 1, "fallback_count": 0, "fallback_timeouts": 0}}
+{"snapshot_id": "2025-10-18T16:10:04.049944+00:00", "technique": "bellman_ford", "timestamp": 1760804191, "duration_s": 385.1091387271881, "results_count": 3}
+{"snapshot_id": "2025-10-18T16:10:04.049944+00:00", "timestamp": 1760804191, "payload_bytes": 3405565, "techniques": ["bellman_ford", "stat_tri"], "results_count": 3, "telemetry": {"total_runs": 1, "fallback_count": 0, "fallback_timeouts": 0}}
+{"snapshot_id": "2025-10-18T16:31:22.840074+00:00", "technique": "bellman_ford", "timestamp": 1760805111, "duration_s": 27.791749238967896, "results_count": 0}
+{"snapshot_id": "2025-10-18T16:31:22.840074+00:00", "timestamp": 1760805112, "payload_bytes": 2082688, "techniques": ["bellman_ford", "stat_tri"], "results_count": 0, "telemetry": {"total_runs": 1, "fallback_count": 0, "fallback_timeouts": 0}}
+{"snapshot_id": "2025-10-18T16:31:22.840074+00:00", "technique": "bellman_ford", "timestamp": 1760805558, "duration_s": 475.03031754493713, "results_count": 3}
+{"snapshot_id": "2025-10-18T16:31:22.840074+00:00", "timestamp": 1760805559, "payload_bytes": 685100, "techniques": ["bellman_ford", "stat_tri"], "results_count": 3, "telemetry": {"total_runs": 1, "fallback_count": 0, "fallback_timeouts": 0}}
+{"snapshot_id": "2025-10-18T16:31:22.840074+00:00", "technique": "bellman_ford", "timestamp": 1760805697, "duration_s": 612.6146912574768, "results_count": 4}
+{"snapshot_id": "2025-10-18T16:31:22.840074+00:00", "timestamp": 1760805697, "payload_bytes": 3405122, "techniques": ["bellman_ford", "stat_tri"], "results_count": 4, "telemetry": {"total_runs": 1, "fallback_count": 0, "fallback_timeouts": 0}}
