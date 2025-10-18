@@ -1,67 +1,37 @@
 # Arbitraje
-> Consulta el diagrama de flujo completo aquí: [docs/flujo_arbitraje.md](docs/flujo_arbitraje.md)
+Consulta el diagrama de flujo: [docs/flujo_arbitraje.md](docs/flujo_arbitraje.md)
 
-Version: 1.3.0 (engine 3.0)
+Version: 1.6.0 FISHER (engine 3.2)
 
-Nota rápida sobre la estructura del código:
-
-- La implementación canónica del CLI y la lógica principal se encuentra en:
-
-  `projects/arbitraje/src/arbitraje/arbitrage_report_ccxt.py`
-
-- No crear copias del fichero `arbitrage_report_ccxt.py` en otras rutas. Si necesitas reorganizar
-  el código o mover la implementación, edita el archivo canónico y actualiza los consumidores.
-
-- Históricamente existía un "shim" en una ruta nidificada que re-exportaba el módulo canónico
-  para mantener compatibilidad. Ese shim se ha eliminado para evitar confusión y duplicación.
-
-Buenas prácticas:
-- Si es necesario mantener compatibilidad por un periodo de transición, crea un shim muy
-  pequeño que documente claramente su propósito (pero evita mantener lógica duplicada).
-- Añade tests que importen el módulo desde la ruta esperada para detectar roturas de compatibilidad.
-
-Gracias por mantener el repositorio limpio.
-
-
-
-Version: 1.5.0 HUNTER (engine 3.0)
 - Source layout: `src/`
-- Artifacts: `artifacts/arbitraje/{logs,outputs}`
+- Artefactos: `artifacts/arbitraje/{logs,outputs}`
 - CLIs:
-	- `arbitraje-ccxt` (main)
-	- `swapper` (módulo de swaps aislado)
+  - `arbitraje-ccxt` (principal)
+  - `swapper` (módulo de swaps aislado)
 
-## Configuration (.env)
+## Uso rápido
 
-We automatically load `.env` from the repo root and from `projects/arbitraje/.env`.
+VS Code Tasks (Terminal > Run Task):
+- Arbitraje: Validate build & tests
+- Run BF (1 iter quick) — rápido para smoke-test con `arbitraje.prod.yaml`
+- Arbitraje: Run CCXT (screen) / (prod)
 
-Start with Binance (only) by copying `.env.example` to `.env` and filling:
+CLI directo (desde `projects/arbitraje`):
+- `poetry run python -m arbitraje.arbitrage_report_ccxt --mode bf --config .\arbitraje.prod.yaml --repeat 1`
 
-```
-BINANCE_API_KEY=...
-BINANCE_API_SECRET=...
-## Diagrama de Flujo de Tests
+Artefactos esperados tras 1 iteración (USDT):
+- Logs: `artifacts/arbitraje/logs/current_bf.txt`, `bf_history.txt`
+- CSVs: `artifacts/arbitraje/outputs/arbitrage_bf_current_usdt_ccxt.csv`, `arbitrage_bf_usdt_ccxt.csv`, `arbitrage_bf_simulation_usdt_ccxt.csv`, `arbitrage_bf_simulation_summary_usdt_ccxt.csv`, `arbitrage_bf_usdt_persistence.csv`, `bf_sim_summary.{csv,md}`
 
-Actualmente solo existe un test principal de sanidad:
+¿Dónde aparecen los [SIM]?
+- En `current_bf.txt` (encabezado y resumen final) y en `bf_history.txt` (append por iteración).
+- En CSV: `arbitrage_bf_simulation_usdt_ccxt.csv` y `arbitrage_bf_simulation_summary_usdt_ccxt.csv`.
 
-`test_sanity.py`: Verifica que el entorno de ejecución y la configuración básica están correctos.
+## Configuración
 
-No existen tests legacy ni de equivalencia Numba en el flujo principal. El diagrama y la documentación han sido actualizados para reflejar esto.
+Precedencia: CLI > YAML (`arbitraje.yaml` / `arbitraje.prod.yaml`) > defaults.
 
-Para pruebas funcionales y de integración, consulta los scripts y módulos principales en `src/arbitraje/`.
-
-Select with `--balance_provider`:
-## Descripción General
-
-
-
-```
-
---balance_provider ccxt|native|connector|bitget_sdk
-```
-
-Environment variables per exchange (set in `.env`):
-
+Variables de entorno por exchange (usar `.env` en repo y/o en `projects/arbitraje`):
 - Binance: `BINANCE_API_KEY`, `BINANCE_API_SECRET`
 - Bitget: `BITGET_API_KEY`, `BITGET_API_SECRET`, `BITGET_PASSWORD`
 - Bybit: `BYBIT_API_KEY`, `BYBIT_API_SECRET`
@@ -69,47 +39,43 @@ Environment variables per exchange (set in `.env`):
 - OKX: `OKX_API_KEY`, `OKX_API_SECRET`, `OKX_API_PASSWORD`
 - KuCoin: `KUCOIN_API_KEY`, `KUCOIN_API_SECRET`, `KUCOIN_API_PASSWORD`
 - Kraken: `KRAKEN_API_KEY`, `KRAKEN_API_SECRET`
-- Gate.io: `GATEIO_API_KEY`, `GATEIO_API_SECRET` (also supports `GATE_API_KEY`/`GATE_API_SECRET`)
+- Gate.io: `GATEIO_API_KEY`, `GATEIO_API_SECRET` (o `GATE_API_KEY`/`GATE_API_SECRET`)
 - MEXC: `MEXC_API_KEY`, `MEXC_API_SECRET`
 
-Notes:
-- Balance usage is always on; if balance is unavailable, the tool assumes 0 to avoid overstating profits.
-- For `--simulate_from_wallet`, when wallet cannot be read, simulation starts at 0 (currency per `--simulate_prefer`).
+Balance y simulación:
+- Si no hay credenciales o no se puede leer el wallet, el balance se trata como 0.
+- `--simulate_from_wallet`: inicia desde wallet real o 0 (según disponibilidad), preferencia por `--simulate_prefer`.
 
-## SDK bootstrap (optional)
+## Instrumentación y observabilidad
 
-We keep SDK metadata in `arbitraje.yaml` under `sdk:`. You can either use Git submodules (preferred, already configured) or clone/update SDKs into `./sdk/*` with the helper.
+- El loop escribe el snapshot temprano (Progress/Headers) en `current_bf.txt`.
+- Marcadores `[TIMING]` por iteración y por exchange: setup, `load_markets`, `build_adjacency`, selección de monedas, `fetch_tickers`, delegación a técnicas.
+- La delegación puede dominar el tiempo total; usa los `[TIMING]` para identificar cuellos de botella.
 
-Submodules (preferred):
+## SDK bootstrap (opcional)
+
+Metadatos en `arbitraje.yaml` bajo `sdk:`. Preferir submódulos git:
 
 ```
 git submodule update --init --recursive
-git submodule update --remote --merge   # to update later
+git submodule update --remote --merge
 ```
 
-Helper script (optional alternative):
+Alternativa: `poetry run python bootstrap_sdks.py`
 
-```
-poetry run python bootstrap_sdks.py
-```
-
-SDK references (cloned into `sdk/*` when using bootstrap):
-
+Referencias:
 - Binance: https://github.com/binance/binance-connector-python
-- MEXC: https://github.com/mexcdevelop/mexc-api-sdk (docs: https://www.mexc.com/api-docs/spot-v3/introduction#api-library)
+- MEXC: https://github.com/mexcdevelop/mexc-api-sdk
 - Bitget: https://github.com/BitgetLimited/v3-bitget-api-sdk
 - OKX: https://github.com/okxapi/python-okx
 
----
-## Calibración recomendada para GUILLERMO (memo)
-
-Esta configuración está optimizada para maximizar el volumen de ventanas pequeñas y positivas, minimizando el riesgo de negativos en ejecución real. Es el punto de partida recomendado para calibrar el sistema de arbitraje GUILLERMO (memo).
+## Calibración recomendada (BF / USDT)
 
 ```yaml
 mode: bf
 ex: [binance, bitget, mexc, okx]
 quote: USDT
-inv: 0.0  # Siempre usa wallet; no asume inversión extra
+inv: 0.0
 bf:
   allowed_quotes: [USDT, USDC]
   fee: 0.10
@@ -122,21 +88,9 @@ bf:
   require_topofbook: true
   min_quote_vol: 5000
   min_hops: 3
-
   max_hops: 6
-- **engine_techniques.py**: Orquesta la conexión, descarga, normalización y grafo.
-- **bf_numba_impl.py**: Algoritmo Bellman-Ford acelerado para detección de ciclos.
-- **arbitrage_report_ccxt.py**: CLI principal, persistencia, reporte y loop de iteraciones.
-- **swapper.py**: Ejecuta swaps en el exchange usando las oportunidades detectadas.
-
   threads: 0
-- **test_engine_techniques.py**: Prueba todo el pipeline (descarga, normalización, grafo, persistencia, lectura, iteraciones).
-- **test_bf_numba_equivalence.py**: Prueba la lógica y equivalencia del Bellman-Ford acelerado.
-- **test_bf_migration.py**: Prueba migración y persistencia de ventanas de oportunidad.
-- **test_swapper.py**: Prueba la ejecución y lógica del swapper (si existe).
-
   require_dual_quote: false
-- Se generan logs en cada etapa crítica del flujo para auditoría y debugging:
   persist_top_csv: true
   revalidate_depth: true
   use_ws: true
@@ -145,35 +99,13 @@ bf:
   reset_history: true
   iter_timeout_sec: 0.0
 max: 280
-
-# ...otros parámetros generales...
-- El loop principal (`arbitrage_report_ccxt.py`) controla la cantidad de iteraciones y la operación continua.
-- El swapper se llama después de detectar y persistir oportunidades, ejecutando swaps reales en el exchange.
-
-```
-```python
-{
-  "BTC/USDT": {"bid": 60000, "ask": 60010},
-  "ETH/USDT": {"bid": 3500, "ask": 3510},
-  ...
-}
 ```
 
+## Estructura del código
 
-- `arbitrage_bf_usdt_ccxt.csv` contiene:
-**Ventajas:**
-- Solo ventanas ejecutables en real (bid/ask y profundidad suficiente).
-- Filtra hops de bajo volumen y rutas con slippage oculto.
-- Permite muchas ventanas pequeñas y positivas.
+- `arbitrage_report_ccxt.py`: CLI principal, loop de iteraciones, persistencia, reportes.
+- `engine_techniques.py`: delegación de técnicas CPU-bound (BF/tri payload), proceso/timeout.
+- `bf_numba_impl.py`: implementación BF acelerada (payload-aware).
+- `swapper.py`: ejecución de swaps en exchanges.
 
-
-
-**Riesgos:**
-- Muy bajo riesgo de negativos; solo podrían aparecer por cambios abruptos en el libro entre escaneo y ejecución.
-
-**Recomendación:**
-- Usar como base y ajustar solo si se detectan negativos en la práctica.
-- Para mayor seguridad, subir `min_quote_vol` o `min_net`.
-
-Esta calibración es clave para el funcionamiento óptimo de GUILLERMO (memo).
----
+Consejo: no dupliques `arbitrage_report_ccxt.py`; mantén la ruta canónica en `src/arbitraje`.

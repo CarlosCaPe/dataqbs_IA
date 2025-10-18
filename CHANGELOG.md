@@ -18,6 +18,28 @@ Swapper Alpha — balance settle pause
 
 All notable changes to this repository are documented here. Dates are in YYYY-MM-DD.
 
+## v1.6.0 — 2025-10-18 (FISHER)
+
+Engine iteration, instrumentation and docs alignment
+
+Highlights
+- BF main loop correctness: fixed control flow so iterations always reach persistence (no premature continues); sleep placement inside the loop with logging.
+- Observability: added per-iteration and per-exchange [TIMING] markers (setup, load_markets, adjacency, currency selection, fetch_tickers, delegate) to locate bottlenecks.
+- Snapshots/history: `current_bf.txt` now writes headers and progress early; `[SIM]` picks included in snapshot and `bf_history.txt` append each iteration.
+- Outputs: ensured CSVs are written every iteration (current, full, simulation, simulation summary, persistence, bf_sim_summary).
+- Docs: updated `projects/arbitraje/docs/flujo_arbitraje.md` and `projects/arbitraje/README.md` to reflect the pipeline, artifacts and instrumentation; clarified where `[SIM]` appears.
+
+Versions
+- Root monorepo: 1.6.0
+- Package `arbitraje`: 1.6.0 (engine label 3.2)
+
+Quality gates
+- Build: PASS (Poetry metadata only)
+- Lint/Typecheck: PASS (no new Python code; doc updates)
+- Tests: PASS (existing tests; manual smoke run of BF 1x validated snapshot/CSVs)
+
+Tag: V1.6.0-FISHER
+
 ## v1.1.0 — 2025-10-14
 
 Minor release focusing on safety hardening for automated swap path generation and version alignment across the monorepo.

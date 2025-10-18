@@ -1,73 +1,58 @@
-# Diagrama de Flujo del Motor de Arbitraje
+# Diagrama de Flujo del Motor de Arbitraje (v1.6.0 FISHER)
 
-Este diagrama describe el flujo completo de datos y ejecución del sistema de arbitraje, siguiendo las mejores prácticas de documentación recomendadas para proyectos Python.
+Vista de alto nivel del pipeline actual, artefactos, y puntos de instrumentación.
 
 ```plaintext
-[Exchange API]
-  |  (ccxt descarga tickers de Binance)
-  |  --> src/arbitraje/engine_techniques.py
-  |  Entrada:
-  |  {
-  |    "BTC/USDT": {"bid": 60000, "ask": 60010},
-  |    "ETH/USDT": {"bid": 3500, "ask": 3510},
-  |    ...
-  |  }
-  |  Test: test_sanity.py
-  |  Log: logs/exchange_download.log
+[Config/CLI]
+  |  arbitraje.prod.yaml / CLI overrides (CLI > YAML > defaults)
   v
-[Descarga de Tickers]
-  |  --> src/arbitraje/engine_techniques.py
-  |  Entrada: tickers (dict)
-  |  Salida: tickers normalizados (dict)
-  |  Test: test_sanity.py
-  |  Log: logs/tickers_normalization.log
+[Engine Main Loop]
+  |  -> src/arbitraje/arbitrage_report_ccxt.py (modo: bf/tri/inter/...)
+  |  - Escribe snapshot temprano (Progress/Headers) para observabilidad
+  |  - [TIMING] logs por iteración (carga de exchange, markets, tickers, delegación)
+  |  Artefactos (logs):
+  |    artifacts/arbitraje/logs/current_bf.txt
+  |    artifacts/arbitraje/logs/bf_history.txt
   v
-[Construcción de Grafo]
-  |  --> src/arbitraje/engine_techniques.py
-  |  Entrada: tickers normalizados
-  |  Salida: grafo de oportunidades (aristas, nodos)
-  |  Test: test_sanity.py
-  |  Log: logs/graph_build.log
+[Per-Exchange Worker]
+  |  -> ccxt.exchange(...)
+  |  -> load_markets() (Opcional)
+  |  -> fetch_tickers() o feeds
+  |  -> Normalización + build de adyacencias
+  |  -> Delegación a técnicas (engine_techniques) si aplica
+  |     (puede dominar el tiempo total)
+  |  [TIMING] ex: setup/markets/adj/currencies/tickers/delegate
   v
-[Bellman-Ford / Engine]
-  |  --> src/arbitraje/bf_numba_impl.py
-  |      src/arbitraje/engine_techniques.py
-  |  Entrada: grafo de oportunidades
-  |  Salida: ciclos de arbitraje detectados (paths, profit)
-  |  Test: test_sanity.py
-  |  Log: logs/bf_run.log
+[Detección de oportunidades]
+  |  -> BF/tri + filtros: volumen, top-of-book, hops, net, etc.
+  |  -> Agrega por exchange + ranking
   v
-[Resultados en CSV]
-  |  --> src/arbitraje/arbitrage_report_ccxt.py
-  |  Entrada: ciclos de arbitraje
-  |  Salida: arbitrage_bf_usdt_ccxt.csv (paths, profit, timestamp)
-  |  Test: test_sanity.py
-  |  Log: logs/csv_persistence.log
+[Persistencia de Resultados]
+  |  -> artifacts/arbitraje/outputs/
+  |     - arbitrage_bf_usdt_ccxt.csv (iteración)
+  |     - arbitrage_bf_current_usdt_ccxt.csv (snapshot actual)
+  |     - arbitrage_bf_simulation_usdt_ccxt.csv (por iteración)
+  |     - arbitrage_bf_simulation_summary_usdt_ccxt.csv
+  |     - arbitrage_bf_usdt_persistence.csv
+  |     - bf_sim_summary.{csv,md}
+  |  Logs/snapshots:
+  |     - current_bf.txt: incluye sección [SIM] y resumen por exchange
+  |     - bf_history.txt: append por iteración con [SIM]
   v
-[Radar / Swapper / Reporte]
-  |  --> src/arbitraje/arbitrage_report_ccxt.py
-  |  Entrada: arbitrage_bf_usdt_ccxt.csv
-  |  Salida: visualización, alertas, paths para swapper
-  |  Test: test_sanity.py
-  |  Log: logs/radar_swaps.log
-      |
-      v
-[Swapper]
-  |  --> src/arbitraje/swapper.py (o llamado desde arbitrage_report_ccxt.py)
-  |  Entrada: paths y oportunidades desde CSV
-  |  Salida: ejecución de swaps en el exchange, logs de swaps, actualizaciones en CSV
-  |  Test: test_sanity.py
-  |  Log: logs/swapper.log
-      |
-      v
-[Engine Loop]
-  |  --> src/arbitraje/arbitrage_report_ccxt.py (main loop)
-  |  Entrada: max_iters, config, modo de operación
-  |  Salida: repite todo el pipeline anterior, recolecta y actualiza resultados
-  |  Test: test_sanity.py
-  |  Log: logs/engine_loop.log
+[Radar / Swapper]
+  |  -> Lectura de CSVs y snapshot para decidir alertas/auto-swap
+  |  -> swapper.yaml / swapper.live.yaml
 ```
 
----
+Notas
+- La sección [SIM] aparece en current_bf.txt y bf_history.txt, y en CSVs dedicados para entrenamiento.
+- La delegación a técnicas puede ser el mayor contribuyente de tiempo por iteración; los [TIMING] ayudan a localizar cuellos de botella.
+- El loop nunca hace `continue` antes de persistir; el sleep está dentro del ciclo y logueado.
 
-Este archivo puede ser referenciado desde el README principal y los módulos para entender el flujo y la arquitectura del sistema.
+Artefactos clave
+- Logs: `artifacts/arbitraje/logs/*`
+- Outputs: `artifacts/arbitraje/outputs/*`
+
+Tests y validación
+- Smoke: ejecución 1x iter para verificar headers, [SIM] y CSVs.
+- Unit tests: equivalencia BF (payload) y CLI `--version`.
