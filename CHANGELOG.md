@@ -2,6 +2,24 @@
 
 All notable changes to this repository are documented here. Dates are in YYYY-MM-DD.
 
+## v1.1.1 — 2025-10-18
+
+This release adds documentation for cloning the project at specific versions.
+
+Highlights
+- Added instructions in README.md for cloning the repository at version 1.1.1
+- Created git tag v1.1.1 for version tracking
+- Documented clone commands for both specific versions and latest version
+
+Changes by area
+- Documentation
+  - Added "Cloning the Project" section to README.md
+  - Included examples for cloning at version 1.1.1 using both `--branch` and `checkout` methods
+  - Added instructions for cloning the latest version
+
+Links
+- Tag: https://github.com/CarlosCaPe/dataqbs_IA/tree/v1.1.1
+
 ## v0.3.0 — 2025-09-18
 
 This release focuses on reliability for the Email Collector (Hotmail/Outlook IMAP), clearer logs, and a small quality-of-life update to the EasyBrokers tools.

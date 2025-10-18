@@ -7,6 +7,31 @@ This repository contains two Python projects in a single workspace:
 
 See also: CHANGELOG.md for English release notes, visible to external collaborators/recruiters.
 
+## Cloning the Project
+
+To clone the project at a specific version, use the following command:
+
+```bash
+# Clone the repository at version 1.1.1
+git clone --branch v1.1.1 https://github.com/CarlosCaPe/dataqbs_IA.git
+
+# Or clone the entire repository and checkout the specific version
+git clone https://github.com/CarlosCaPe/dataqbs_IA.git
+cd dataqbs_IA
+git checkout v1.1.1
+```
+
+To clone the latest version:
+
+```bash
+git clone https://github.com/CarlosCaPe/dataqbs_IA.git
+```
+
+**Español:** Para clonar este proyecto en su versión 1.1.1, utiliza el comando:
+```bash
+git clone --branch v1.1.1 https://github.com/CarlosCaPe/dataqbs_IA.git
+```
+
 ## Environment setup
 
 1) Create a `.env` file at the repository root (not committed) with your credentials. Example placeholders below—replace with your own values; do not commit secrets:
