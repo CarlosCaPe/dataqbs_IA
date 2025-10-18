@@ -2932,6 +2932,23 @@ def main() -> None:
             currencies = sorted(
                 currencies, key=lambda c: qvol_by_ccy.get(c, 0.0), reverse=True
             )
+        elif (
+            # Non-ranking path: still fetch tickers so techniques can build graphs
+            (not getattr(args, "offline", False))
+            and markets
+            and batch_supported
+        ):
+            try:
+                tickers = ex.fetch_tickers() or {}
+                if args.bf_debug:
+                    logger.info(
+                        "[BF-DBG] %s rank_by_qvol disabled -> fetched %d tickers for graph",
+                        ex_id,
+                        len(tickers) if isinstance(tickers, dict) else 0,
+                    )
+            except Exception:
+                logger.debug("fetch_tickers (non-ranking) failed for %s", ex_id)
+                tickers = {}
         # Defensive: ensure tickers is a mapping
         if tickers is None or not isinstance(tickers, dict):
             tickers = {}
@@ -3063,6 +3080,7 @@ def main() -> None:
                 payload = {
                     "ex_id": ex_id,
                     "ts": pd.Timestamp.utcnow().isoformat(),
+                    "quote": QUOTE,
                     "tokens": currencies,
                     "tickers": tickers,
                     "fee": bf_fee,
@@ -3120,6 +3138,15 @@ def main() -> None:
                 # Pass BF tuning knobs so the worker can honor them; also allow
                 # verbose cycle logging in Python fallback when requested via YAML.
                 try:
+                    # Prefer explicit CLI flag, but also honor YAML bf.log_all_cycles
+                    yaml_log_all = False
+                    try:
+                        if cfg_raw and isinstance(cfg_raw, dict):
+                            yaml_log_all = bool(
+                                cfg_raw.get("bf", {}).get("log_all_cycles", False)
+                            )
+                    except Exception:
+                        yaml_log_all = False
                     cfg_for_worker["bf"] = {
                         "min_net": bf_min_net,
                         "min_hops": int(getattr(args, "bf_min_hops", 0)),
@@ -3129,7 +3156,7 @@ def main() -> None:
                         ),
                         # Expose a debug option to log all cycles (Python BF fallback)
                         "log_all_cycles": bool(
-                            getattr(args, "bf_debug_log_all_cycles", False)
+                            getattr(args, "bf_debug_log_all_cycles", False) or yaml_log_all
                         ),
                     }
                 except Exception:
