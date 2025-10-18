@@ -1,0 +1,4 @@
+{"snapshot_id": "2025-10-16T18:30:48", "technique": "bellman_ford", "timestamp": 1760661052, "duration_s": 3.4835643768310547, "results_count": 0, "numba_call_s": 2.7095186710357666, "postprocess_s": 0.0, "numba_warmup_s": null}
+{"snapshot_id": "2025-10-16T18:30:48", "timestamp": 1760661052, "payload_bytes": 2096087, "techniques": ["bellman_ford"], "results_count": 0, "telemetry": {"total_runs": 1, "fallback_count": 0, "fallback_timeouts": 0}}
+{"snapshot_id": "2025-10-16T18:33:07", "technique": "bellman_ford", "timestamp": 1760661193, "duration_s": 5.031326532363892, "results_count": 0, "numba_call_s": 4.242332458496094, "postprocess_s": 0.0, "numba_warmup_s": null}
+{"snapshot_id": "2025-10-16T18:33:07", "timestamp": 1760661193, "payload_bytes": 75562, "techniques": ["bellman_ford"], "results_count": 0, "telemetry": {"total_runs": 1, "fallback_count": 0, "fallback_timeouts": 0}}

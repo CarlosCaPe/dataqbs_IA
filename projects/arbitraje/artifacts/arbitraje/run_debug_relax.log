@@ -1,0 +1,33 @@
+2025-10-16 16:10:59,657 INFO Connector ticker counts: {'binance': 3353, 'bitget': 815, 'okx': 460, 'mexc': 2289}
+2025-10-16 16:10:59,667 INFO Usando config YAML: .\arbitraje.relax_diag.yaml
+2025-10-16 16:10:59,674 INFO Mode=bf | quote=USDT | ex=binance,bitget,mexc
+2025-10-16 16:11:11,371 INFO BF: sin oportunidades con los filtros actuales (min_net=0.0%, require_topofbook=False, min_quote_vol=0). Prueba relajar filtros (p.ej. bajar --bf_min_quote_vol, quitar --bf_require_topofbook, o bajar --bf_min_net) o aumentar --bf_currencies_limit.
+2025-10-16 16:11:11,371 INFO BF CSV: C:\Users\Lenovo\dataqbs_IA\artifacts\arbitraje\outputs\arbitrage_bf_usdt_ccxt.csv
+2025-10-16 16:11:11,378 INFO BF SIM SUM @binance: USDT 0.0000 -> USDT 0.0000 (ROI 0.0000%, it=1)
+2025-10-16 16:11:11,378 INFO BF SIM SUM @bitget: USDT 0.0000 -> USDT 0.0000 (ROI 0.0000%, it=1)
+2025-10-16 16:11:11,378 INFO BF SIM SUM @mexc: USDT 0.0000 -> USDT 0.0000 (ROI 0.0000%, it=1)
+2025-10-16 16:11:11,378 INFO BF Simulation Summary CSV: C:\Users\Lenovo\dataqbs_IA\artifacts\arbitraje\outputs\arbitrage_bf_simulation_summary_usdt_ccxt.csv
+2025-10-16 16:11:11,380 INFO BF Summary CSV: C:\Users\Lenovo\dataqbs_IA\artifacts\arbitraje\outputs\bf_sim_summary.csv
+2025-10-16 16:11:11,380 INFO BF Summary MD: C:\Users\Lenovo\dataqbs_IA\artifacts\arbitraje\outputs\bf_sim_summary.md
+2025-10-16 16:13:48,664 INFO Connector ticker counts: {'binance': 3353, 'bitget': 815, 'okx': 460, 'mexc': 2289}
+2025-10-16 16:13:48,677 INFO Usando config YAML: .\arbitraje.relax_diag.yaml
+2025-10-16 16:13:48,683 INFO Mode=bf | quote=USDT | ex=binance,bitget,mexc
+2025-10-16 16:13:59,740 INFO BF: sin oportunidades con los filtros actuales (min_net=0.0%, require_topofbook=False, min_quote_vol=0). Prueba relajar filtros (p.ej. bajar --bf_min_quote_vol, quitar --bf_require_topofbook, o bajar --bf_min_net) o aumentar --bf_currencies_limit.
+2025-10-16 16:13:59,741 INFO BF CSV: C:\Users\Lenovo\dataqbs_IA\artifacts\arbitraje\outputs\arbitrage_bf_usdt_ccxt.csv
+2025-10-16 16:13:59,748 INFO BF SIM SUM @binance: USDT 0.0000 -> USDT 0.0000 (ROI 0.0000%, it=1)
+2025-10-16 16:13:59,749 INFO BF SIM SUM @bitget: USDT 0.0000 -> USDT 0.0000 (ROI 0.0000%, it=1)
+2025-10-16 16:13:59,749 INFO BF SIM SUM @mexc: USDT 0.0000 -> USDT 0.0000 (ROI 0.0000%, it=1)
+2025-10-16 16:13:59,750 INFO BF Simulation Summary CSV: C:\Users\Lenovo\dataqbs_IA\artifacts\arbitraje\outputs\arbitrage_bf_simulation_summary_usdt_ccxt.csv
+2025-10-16 16:13:59,752 INFO BF Summary CSV: C:\Users\Lenovo\dataqbs_IA\artifacts\arbitraje\outputs\bf_sim_summary.csv
+2025-10-16 16:13:59,753 INFO BF Summary MD: C:\Users\Lenovo\dataqbs_IA\artifacts\arbitraje\outputs\bf_sim_summary.md
+2025-10-16 16:14:59,771 INFO Connector ticker counts: {'binance': 3353, 'bitget': 815, 'okx': 460, 'mexc': 2289}
+2025-10-16 16:14:59,784 INFO Usando config YAML: .\arbitraje.relax_diag.yaml
+2025-10-16 16:14:59,793 INFO Mode=bf | quote=USDT | ex=binance,bitget,mexc
+2025-10-16 16:15:11,519 INFO BF: sin oportunidades con los filtros actuales (min_net=0.0%, require_topofbook=False, min_quote_vol=0). Prueba relajar filtros (p.ej. bajar --bf_min_quote_vol, quitar --bf_require_topofbook, o bajar --bf_min_net) o aumentar --bf_currencies_limit.
+2025-10-16 16:15:11,519 INFO BF CSV: C:\Users\Lenovo\dataqbs_IA\artifacts\arbitraje\outputs\arbitrage_bf_usdt_ccxt.csv
+2025-10-16 16:15:11,522 INFO BF SIM SUM @binance: USDT 0.0000 -> USDT 0.0000 (ROI 0.0000%, it=1)
+2025-10-16 16:15:11,523 INFO BF SIM SUM @bitget: USDT 0.0000 -> USDT 0.0000 (ROI 0.0000%, it=1)
+2025-10-16 16:15:11,523 INFO BF SIM SUM @mexc: USDT 0.0000 -> USDT 0.0000 (ROI 0.0000%, it=1)
+2025-10-16 16:15:11,523 INFO BF Simulation Summary CSV: C:\Users\Lenovo\dataqbs_IA\artifacts\arbitraje\outputs\arbitrage_bf_simulation_summary_usdt_ccxt.csv
+2025-10-16 16:15:11,526 INFO BF Summary CSV: C:\Users\Lenovo\dataqbs_IA\artifacts\arbitraje\outputs\bf_sim_summary.csv
+2025-10-16 16:15:11,526 INFO BF Summary MD: C:\Users\Lenovo\dataqbs_IA\artifacts\arbitraje\outputs\bf_sim_summary.md

@@ -1,5 +1,9 @@
-{"ts": "tst", "venue": "testex", "cycle": "C->B->C", "orientation": "forward", "net_bps_est": 179.6102, "fee_bps_total": 0.2, "hops": 2, "status": "actionable", "filter_reasons": []}
-{"ts": "tst", "venue": "testex", "cycle": "B->C->B", "orientation": "forward", "net_bps_est": 179.6102, "fee_bps_total": 0.2, "hops": 2, "status": "actionable", "filter_reasons": []}
+{"ts": "binance", "venue": null, "cycle": "B->C->A->B", "orientation": "reverse", "net_bps_est": 368.8312, "fee_bps_total": 0.3, "hops": 3, "status": "actionable", "filter_reasons": []}
+{"ts": "bitget", "venue": null, "cycle": "B->C->A->B", "orientation": "reverse", "net_bps_est": 368.8312, "fee_bps_total": 0.3, "hops": 3, "status": "actionable", "filter_reasons": []}
+{"ts": "mexc", "venue": null, "cycle": "B->C->A->B", "orientation": "reverse", "net_bps_est": 368.8312, "fee_bps_total": 0.3, "hops": 3, "status": "actionable", "filter_reasons": []}
+{"ts": "binance", "venue": null, "cycle": "B->C->A->B", "orientation": "reverse", "net_bps_est": 368.8312, "fee_bps_total": 0.3, "hops": 3, "status": "actionable", "filter_reasons": []}
+{"ts": "bitget", "venue": null, "cycle": "B->C->A->B", "orientation": "reverse", "net_bps_est": 368.8312, "fee_bps_total": 0.3, "hops": 3, "status": "actionable", "filter_reasons": []}
+{"ts": "mexc", "venue": null, "cycle": "B->C->A->B", "orientation": "reverse", "net_bps_est": 368.8312, "fee_bps_total": 0.3, "hops": 3, "status": "actionable", "filter_reasons": []}
 {"ts": "binance", "venue": null, "cycle": "B->C->A->B", "orientation": "reverse", "net_bps_est": 368.8312, "fee_bps_total": 0.3, "hops": 3, "status": "actionable", "filter_reasons": []}
 {"ts": "bitget", "venue": null, "cycle": "B->C->A->B", "orientation": "reverse", "net_bps_est": 368.8312, "fee_bps_total": 0.3, "hops": 3, "status": "actionable", "filter_reasons": []}
 {"ts": "mexc", "venue": null, "cycle": "B->C->A->B", "orientation": "reverse", "net_bps_est": 368.8312, "fee_bps_total": 0.3, "hops": 3, "status": "actionable", "filter_reasons": []}

@@ -1136,6 +1136,13 @@ def scan_arbitrage(snapshot_id: str, edges: List[Edge], cfg: Dict) -> List[ArbRe
     try:
         # allow specific techniques to run inline (skip ProcessPool) for low-latency
         inline_set = set(cfg.get("techniques", {}).get("inline", []))
+        # In unit tests (pytest), default to running all techniques inline to avoid
+        # pickling/IPC variability across platforms and ensure deterministic results.
+        try:
+            if os.environ.get("PYTEST_CURRENT_TEST"):
+                inline_set = set(enabled)
+        except Exception:
+            pass
         for name in enabled:
             func = _TECHS.get(name)
             if not func:

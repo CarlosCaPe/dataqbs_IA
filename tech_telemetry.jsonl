@@ -1,0 +1,1 @@
+{"snapshot_id": "snap-test", "timestamp": 1760728538, "payload_bytes": 553, "techniques": ["bellman_ford"], "results_count": 0, "telemetry": {"total_runs": 1, "fallback_count": 0, "fallback_timeouts": 0}}

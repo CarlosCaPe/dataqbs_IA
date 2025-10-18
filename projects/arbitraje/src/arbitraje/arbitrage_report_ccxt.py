@@ -1,4 +1,13 @@
+
+
 from __future__ import annotations
+# ...existing code...
+
+
+# Ejecuta main() si el archivo es ejecutado como script
+
+# (esto debe ir al final del archivo para evitar NameError)
+
 
 import argparse
 import json
@@ -19,6 +28,7 @@ from tabulate import tabulate
 from . import paths
 
 try:
+                # ...existing code...
     import ujson as _json  # optional faster JSON serializer
 except Exception:
     _json = None
@@ -68,7 +78,7 @@ if not logger.handlers:
         # that use their own loggers will emit at the requested level during debugging.
         logging.getLogger().setLevel(level)
     except Exception:
-        pass
+            pass
     try:
         paths.LOGS_DIR.mkdir(parents=True, exist_ok=True)
         fh = logging.FileHandler(
@@ -2595,51 +2605,54 @@ def main() -> None:
                 pass
             if it < args.repeat:
                 time.sleep(max(0.0, args.repeat_sleep))
-        # Save CSV and exit tri mode
-        if results:
-            pd.DataFrame(results).to_csv(tri_csv, index=False)
-        else:
-            pd.DataFrame(
-                columns=[
-                    "exchange",
-                    "path",
-                    "r1",
-                    "r2",
-                    "r3",
-                    "net_pct",
-                    "inv",
-                    "est_after",
-                    "iteration",
-                    "ts",
-                ]
-            ).to_csv(tri_csv, index=False)
-        logger.info("TRI CSV: %s", tri_csv)
-        return
+            # Save CSV and exit tri mode
+            if results:
+                pd.DataFrame(results).to_csv(tri_csv, index=False)
+            else:
+                pd.DataFrame(
+                    columns=[
+                        "exchange",
+                        "path",
+                        "r1",
+                        "r2",
+                        "r3",
+                        "net_pct",
+                        "inv",
+                        "est_after",
+                        "iteration",
+                        "ts",
+                    ]
+                ).to_csv(tri_csv, index=False)
+            logger.info("TRI CSV: %s", tri_csv)
+            return
 
     # -----------
     # BF MODE
     # -----------
     if args.mode == "bf":
+        logger.info("[TIMING] BF main loop: starting full run")
+        logger.info("[DEBUG] EX_IDS justo antes del ciclo: %s", EX_IDS)
+        t_bf_main_start = time.time()
         results_bf: List[dict] = []
         # Persistence map: (exchange, path) -> stats
         persistence: Dict[Tuple[str, str], Dict[str, object]] = {}
         paths.OUTPUTS_DIR.mkdir(parents=True, exist_ok=True)
         bf_csv = paths.OUTPUTS_DIR / f"arbitrage_bf_{QUOTE.lower()}_ccxt.csv"
         bf_persist_csv = (
-            paths.OUTPUTS_DIR / f"arbitrage_bf_{QUOTE.lower()}_persistence.csv"
+        paths.OUTPUTS_DIR / f"arbitrage_bf_{QUOTE.lower()}_persistence.csv"
         )
         bf_sim_csv = (
-            paths.OUTPUTS_DIR / f"arbitrage_bf_simulation_{QUOTE.lower()}_ccxt.csv"
+        paths.OUTPUTS_DIR / f"arbitrage_bf_simulation_{QUOTE.lower()}_ccxt.csv"
         )
         # Use lowercase snapshot filename consistently with repo conventions
         current_file = paths.LOGS_DIR / "current_bf.txt"
         # Optional per-iteration top-k persistence CSV
         bf_top_hist_csv = (
-            paths.OUTPUTS_DIR / f"arbitrage_bf_top_{QUOTE.lower()}_history.csv"
+        paths.OUTPUTS_DIR / f"arbitrage_bf_top_{QUOTE.lower()}_history.csv"
         )
         # Per-iteration snapshot CSV (overwritten each iteration)
         bf_iter_csv = (
-            paths.OUTPUTS_DIR / f"arbitrage_bf_current_{QUOTE.lower()}_ccxt.csv"
+        paths.OUTPUTS_DIR / f"arbitrage_bf_current_{QUOTE.lower()}_ccxt.csv"
         )
 
         # Ensure BF snapshot log is clean at the start of every run to avoid mixing sessions
@@ -2739,365 +2752,346 @@ def main() -> None:
     def bf_worker(ex_id: str, it: int, ts: str) -> Tuple[str, List[str], List[dict]]:
         local_lines: List[str] = []
         local_results: List[dict] = []
+        t0_total = time.time()
+        logger.info(f"[TIMING] bf_worker({ex_id}) start")
+        t_load_ex_start = time.time()
+        # In offline mode avoid creating exchange instances and network calls
+        if getattr(args, "offline", False):
+            ex = ex_instances.get(ex_id) or None
+        else:
+            ex = ex_instances.get(ex_id) or load_exchange_auth_if_available(
+                ex_id, args.timeout, use_auth=bool(creds_from_env(ex_id))
+            )
+        # Force authenticated instance regardless of CLI/YAML
+        if not getattr(ex, "apiKey", None):
+            ex = load_exchange_auth_if_available(ex_id, args.timeout, use_auth=True)
+        t_load_ex_end = time.time()
         try:
-            t0_total = time.time()
-            # In offline mode avoid creating exchange instances and network calls
-            if getattr(args, "offline", False):
-                ex = ex_instances.get(ex_id) or None
-            else:
-                ex = ex_instances.get(ex_id) or load_exchange_auth_if_available(
-                    ex_id, args.timeout, use_auth=bool(creds_from_env(ex_id))
+            logger.info(f"[TIMING] bf_worker({ex_id}): load_exchange {t_load_ex_end-t_load_ex_start:.3f}s")
+        except Exception:
+            # If start var missing for any reason, log basic duration
+            logger.info(f"[TIMING] bf_worker({ex_id}): load_exchange took {t_load_ex_end-t0_total:.3f}s (fallback)")
+        if not safe_has(ex, "fetchTickers"):
+            # Silence noisy warning for exchanges like bitso that don't support fetchTickers for BF
+            if ex_id != "bitso":
+                logger.warning(
+                    "%s: omitido (no soporta fetchTickers para BF)", ex_id
                 )
-            # Force authenticated instance regardless of CLI/YAML
-            if not getattr(ex, "apiKey", None):
-                ex = load_exchange_auth_if_available(ex_id, args.timeout, use_auth=True)
-            if not safe_has(ex, "fetchTickers"):
-                # Silence noisy warning for exchanges like bitso that don't support fetchTickers for BF
-                if ex_id != "bitso":
-                    logger.warning(
-                        "%s: omitido (no soporta fetchTickers para BF)", ex_id
-                    )
-                return ex_id, local_lines, local_results
-            # Use cached markets if present, else load once
-            t0_markets = time.time()
-            markets = None
-            if getattr(args, "offline", False):
-                # Try load markets from offline snapshot if available; else skip network
-                if offline_snapshot_map and isinstance(offline_snapshot_map, dict):
-                    markets = offline_snapshot_map.get(ex_id, {}).get("markets")
-            # Defensive: ensure markets is a dict to avoid .items() on None
-            if markets is None or not isinstance(markets, dict):
-                markets = {}
-            else:
-                markets = getattr(ex, "markets", None)
+            return ex_id, local_lines, local_results
+        t0_markets = time.time()
+        markets = None
+        if getattr(args, "offline", False):
+            # Try load markets from offline snapshot if available; else skip network
+            if offline_snapshot_map and isinstance(offline_snapshot_map, dict):
+                markets = offline_snapshot_map.get(ex_id, {}).get("markets")
+        if markets is None:
+            # Online path: prefer cached ex.markets; else load
+            markets = getattr(ex, "markets", None)
+            try:
                 if not markets:
                     markets = ex.load_markets()
-            t1_markets = time.time()
-            # Build adjacency once to constrain candidate pairs
-            t0_adj = time.time()
-            adjacency = _adjacency_cache.get(ex_id)
-            if adjacency is None:
-                adjacency = _build_adjacency_from_markets(markets)
-                _adjacency_cache[ex_id] = adjacency
-            t1_adj = time.time()
-            # Select currencies around anchors as before
-            # We'll decide the minimal set of pairs then fetch only needed tickers when possible
-            # Fetching: prefer batch fetch if available; else fall back to per-symbol requests later
-            ex_norm = normalize_ccxt_id(ex_id)
-            exchange_blacklist = swaps_blacklist_map.get(ex_norm, set())
-            if args.bf_debug and exchange_blacklist:
-                logger.info(
-                    "[BF-DBG] %s blacklist_pairs=%d", ex_id, len(exchange_blacklist)
-                )
-            # Apply per-exchange overrides (best-effort)
-            bf_min_net = float(
-                _apply_exchange_override("bf_", ex_id, "min_net", args.bf_min_net)
+            except Exception:
+                markets = {}
+        if not isinstance(markets, dict):
+            markets = {}
+        t1_markets = time.time()
+        logger.info(f"[TIMING] bf_worker({ex_id}): load_markets {t1_markets-t0_markets:.3f}s")
+        t0_adj = time.time()
+        adjacency = _adjacency_cache.get(ex_id)
+        if adjacency is None:
+            adjacency = _build_adjacency_from_markets(markets)
+            _adjacency_cache[ex_id] = adjacency
+        t1_adj = time.time()
+        logger.info(f"[TIMING] bf_worker({ex_id}): build_adjacency {t1_adj-t0_adj:.3f}s")
+        t0_currency = time.time()
+        ex_norm = normalize_ccxt_id(ex_id)
+        exchange_blacklist = swaps_blacklist_map.get(ex_norm, set())
+        if args.bf_debug and exchange_blacklist:
+            logger.info(
+                "[BF-DBG] %s blacklist_pairs=%d", ex_id, len(exchange_blacklist)
             )
-            bf_fee = float(_apply_exchange_override("bf_", ex_id, "fee", args.bf_fee))
-            bf_depth_levels = int(
-                _apply_exchange_override(
-                    "bf_", ex_id, "depth_levels", getattr(args, "bf_depth_levels", 0)
-                )
+        t1_currency = time.time()
+        logger.info(f"[TIMING] bf_worker({ex_id}): currency_selection {t1_currency-t0_currency:.3f}s")
+        # Apply per-exchange overrides (best-effort)
+        bf_min_net = float(
+            _apply_exchange_override("bf_", ex_id, "min_net", args.bf_min_net)
+        )
+        bf_fee = float(_apply_exchange_override("bf_", ex_id, "fee", args.bf_fee))
+        bf_depth_levels = int(
+            _apply_exchange_override(
+                "bf_", ex_id, "depth_levels", getattr(args, "bf_depth_levels", 0)
             )
-            bf_latency_penalty_bps = float(
-                _apply_exchange_override(
-                    "bf_",
-                    ex_id,
-                    "latency_penalty_bps",
-                    getattr(args, "bf_latency_penalty_bps", 0.0),
-                )
+        )
+        bf_latency_penalty_bps = float(
+            _apply_exchange_override(
+                "bf_",
+                ex_id,
+                "latency_penalty_bps",
+                getattr(args, "bf_latency_penalty_bps", 0.0),
             )
-            bf_min_quote_vol = float(
-                _apply_exchange_override(
-                    "bf_", ex_id, "min_quote_vol", args.bf_min_quote_vol
-                )
+        )
+        bf_min_quote_vol = float(
+            _apply_exchange_override(
+                "bf_", ex_id, "min_quote_vol", args.bf_min_quote_vol
             )
-            bf_require_topofbook = bool(
-                _apply_exchange_override(
-                    "bf_", ex_id, "require_topofbook", args.bf_require_topofbook
-                )
+        )
+        bf_require_topofbook = bool(
+            _apply_exchange_override(
+                "bf_", ex_id, "require_topofbook", args.bf_require_topofbook
             )
-            bf_top = int(_apply_exchange_override("bf_", ex_id, "top", args.bf_top))
-            bf_currencies_limit = int(
-                _apply_exchange_override(
-                    "bf_", ex_id, "currencies_limit", args.bf_currencies_limit
-                )
+        )
+        bf_top = int(_apply_exchange_override("bf_", ex_id, "top", args.bf_top))
+        bf_currencies_limit = int(
+            _apply_exchange_override(
+                "bf_", ex_id, "currencies_limit", args.bf_currencies_limit
             )
-            bf_revalidate_depth = bool(
-                _apply_exchange_override(
-                    "bf_", ex_id, "revalidate_depth", args.bf_revalidate_depth
-                )
+        )
+        bf_revalidate_depth = bool(
+            _apply_exchange_override(
+                "bf_", ex_id, "revalidate_depth", args.bf_revalidate_depth
             )
-            bf_use_ws = bool(
-                _apply_exchange_override("bf_", ex_id, "use_ws", args.bf_use_ws)
-            )
-            # Determine investment amount possibly constrained by balance
-            inv_amt_cfg = float(args.inv)
-            inv_amt_effective = inv_amt_cfg
-            # Always use wallet balance for effective investment; if inv==0, use full wallet
-            bal = fetch_quote_balance(ex, QUOTE, kind="free")
-            if bal is not None:
-                bal_f = max(0.0, float(bal))
-                if inv_amt_cfg <= 0.0:
-                    inv_amt_effective = bal_f
-                else:
-                    inv_amt_effective = max(0.0, min(inv_amt_cfg, bal_f))
+        )
+        bf_use_ws = bool(
+            _apply_exchange_override("bf_", ex_id, "use_ws", args.bf_use_ws)
+        )
+        # Determine investment amount possibly constrained by balance
+        inv_amt_cfg = float(args.inv)
+        inv_amt_effective = inv_amt_cfg
+        # Always use wallet balance for effective investment; if inv==0, use full wallet
+        bal = fetch_quote_balance(ex, QUOTE, kind="free")
+        if bal is not None:
+            bal_f = max(0.0, float(bal))
+            if inv_amt_cfg <= 0.0:
+                inv_amt_effective = bal_f
             else:
-                # Balance unavailable: fall back to config inv (may be 0)
-                inv_amt_effective = max(0.0, inv_amt_cfg)
-            # Build currency universe around allowed anchors (e.g., USDT and USDC)
-            anchors = anchors_static
-            currencies: List[str] | None = None
-            # Reuse cached currencies when ranking is OFF to avoid recomputation
-            if not args.bf_rank_by_qvol:
-                cache_key = (
-                    ex_id,
-                    int(bf_currencies_limit),
-                    bool(args.bf_require_dual_quote),
-                    tuple(sorted(list(anchors))),
+                inv_amt_effective = max(0.0, min(inv_amt_cfg, bal_f))
+        else:
+            # Balance unavailable: fall back to config inv (may be 0)
+            inv_amt_effective = max(0.0, inv_amt_cfg)
+        # Build currency universe around allowed anchors (e.g., USDT and USDC)
+        anchors = anchors_static
+        currencies: List[str] | None = None
+        # Reuse cached currencies when ranking is OFF to avoid recomputation
+        if not args.bf_rank_by_qvol:
+            cache_key = (
+                ex_id,
+                int(bf_currencies_limit),
+                bool(args.bf_require_dual_quote),
+                tuple(sorted(list(anchors))),
+            )
+            currencies = _currencies_cache.get(cache_key)
+            if currencies and args.bf_debug:
+                logger.info(
+                    "[BF-DBG] %s currencies cache HIT: n=%d", ex_id, len(currencies)
                 )
-                currencies = _currencies_cache.get(cache_key)
-                if currencies and args.bf_debug:
-                    logger.info(
-                        "[BF-DBG] %s currencies cache HIT: n=%d", ex_id, len(currencies)
-                    )
-            if not currencies:
-                tokens = set([q for q in anchors])
-                # Build a map base -> set(quotes) to support dual-quote filtering
-                base_to_quotes: Dict[str, set] = {}
-                for s, m in markets.items():
-                    if not m.get("active", True):
-                        continue
-                    base = m.get("base")
-                    quote = m.get("quote")
-                    if base and quote and (base in anchors or quote in anchors):
-                        tokens.add(base)
-                        tokens.add(quote)
-                    if base and quote:
-                        b = str(base).upper()
-                        q = str(quote).upper()
-                        base_to_quotes.setdefault(b, set()).add(q)
-                # If requested and we have 2+ anchors, restrict tokens to bases that have all anchors as quotes
-                if args.bf_require_dual_quote and len(anchors) >= 2:
-                    required = set(anchors)
-                    filtered_tokens = set()
-                    for b, qs in base_to_quotes.items():
-                        if required.issubset(qs):
-                            filtered_tokens.add(b)
-                    # Keep anchors themselves too
-                    tokens = filtered_tokens | anchors
-                currencies = [c for c in tokens if isinstance(c, str)]
-                # If ranking is OFF, finalize list (limit + anchor-first) and cache it
-                if not args.bf_rank_by_qvol:
-                    currencies = currencies[: max(1, bf_currencies_limit)]
-                    for q in allowed_quotes:
-                        if q in currencies:
-                            currencies = [q] + [c for c in currencies if c != q]
-                            break
-                    _currencies_cache[cache_key] = list(currencies)
-                    if args.bf_debug:
-                        logger.info(
-                            "[BF-DBG] %s currencies cache SET: n=%d",
-                            ex_id,
-                            len(currencies),
-                        )
-            # Decide tickers mapping in a single place to avoid accidental overwrites.
-            # Order of precedence:
-            # 1) offline snapshot (if offline and snapshot map provided)
-            # 2) qvol ranking path: batch fetch all tickers and compute qvol
-            # 3) leave as empty mapping (techniques may use tokens only)
-            tickers = {}
-            batch_supported = safe_has(ex, "fetchTickers")
-            if getattr(args, "offline", False) and offline_snapshot_map:
-                tickers = offline_snapshot_map.get(ex_id, {}).get("tickers", {}) or {}
-            elif (not getattr(args, "offline", False)) and args.bf_rank_by_qvol and markets and batch_supported:
-                # Batch fetch tickers to compute per-currency quote volume and rank currencies
-                try:
-                    tickers = ex.fetch_tickers() or {}
-                except Exception:
-                    logger.exception("Failed to fetch tickers for qvol ranking for %s", ex_id)
-                    tickers = {}
-                qvol_by_ccy: Dict[str, float] = {}
-                for sym, t in (tickers or {}).items():
-                    try:
-                        m = markets.get(sym) or {}
-                        base = str(m.get("base") or "").upper()
-                        quote = str(m.get("quote") or "").upper()
-                        qv = get_quote_volume(t) or 0.0
-                        if base:
-                            qvol_by_ccy[base] = qvol_by_ccy.get(base, 0.0) + float(qv)
-                        if quote:
-                            qvol_by_ccy[quote] = qvol_by_ccy.get(quote, 0.0) + float(qv)
-                    except Exception:
-                        continue
-                currencies = sorted(currencies, key=lambda c: qvol_by_ccy.get(c, 0.0), reverse=True)
-            # Defensive: ensure tickers is a mapping
-            if tickers is None or not isinstance(tickers, dict):
-                tickers = {}
-            # If ranking path was taken, apply limit and ensure anchor-first
-            if args.bf_rank_by_qvol:
+        if not currencies:
+            tokens = set([q for q in anchors])
+            # Build a map base -> set(quotes) to support dual-quote filtering
+            base_to_quotes: Dict[str, set] = {}
+            for s, m in markets.items():
+                if not m.get("active", True):
+                    continue
+                base = m.get("base")
+                quote = m.get("quote")
+                if base and quote and (base in anchors or quote in anchors):
+                    tokens.add(base)
+                    tokens.add(quote)
+                if base and quote:
+                    b = str(base).upper()
+                    q = str(quote).upper()
+                    base_to_quotes.setdefault(b, set()).add(q)
+            # If requested and we have 2+ anchors, restrict tokens to bases that have all anchors as quotes
+            if args.bf_require_dual_quote and len(anchors) >= 2:
+                required = set(anchors)
+                filtered_tokens = set()
+                for b, qs in base_to_quotes.items():
+                    if required.issubset(qs):
+                        filtered_tokens.add(b)
+                # Keep anchors themselves too
+                tokens = filtered_tokens | anchors
+            currencies = [c for c in tokens if isinstance(c, str)]
+            # If ranking is OFF, finalize list (limit + anchor-first) and cache it
+            if not args.bf_rank_by_qvol:
                 currencies = currencies[: max(1, bf_currencies_limit)]
                 for q in allowed_quotes:
                     if q in currencies:
                         currencies = [q] + [c for c in currencies if c != q]
                         break
-            if args.bf_debug:
-                try:
+                _currencies_cache[cache_key] = list(currencies)
+                if args.bf_debug:
                     logger.info(
-                        "[BF-DBG] %s currencies=%d (anchors=%s)",
+                        "[BF-DBG] %s currencies cache SET: n=%d",
                         ex_id,
                         len(currencies),
-                        ",".join(sorted(anchors)),
                     )
-                except Exception:
-                    logger.info("[BF-DBG] %s currencies=%d", ex_id, len(currencies))
-            # Try delegating BF scan to engine_techniques if enabled. If delegation returns
-            # results, we use them and skip the heavy in-process BF inner loop.
-            # Prefer running BF in the techniques process pool unless explicitly disabled
-            if not getattr(args, "no_techniques_bf", False):
+        # Decide tickers mapping in a single place to avoid accidental overwrites.
+        # Order of precedence:
+        # 1) offline snapshot (if offline and snapshot map provided)
+        # 2) qvol ranking path: batch fetch all tickers and compute qvol
+        # 3) leave as empty mapping (techniques may use tokens only)
+        t0_tickers = time.time()
+        tickers = {}
+        batch_supported = safe_has(ex, "fetchTickers")
+        if getattr(args, "offline", False) and offline_snapshot_map:
+            tickers = offline_snapshot_map.get(ex_id, {}).get("tickers", {}) or {}
+        elif (not getattr(args, "offline", False)) and args.bf_rank_by_qvol and markets and batch_supported:
+            # Batch fetch tickers to compute per-currency quote volume and rank currencies
+            try:
+                tickers = ex.fetch_tickers() or {}
+            except Exception:
+                logger.exception("Failed to fetch tickers for qvol ranking for %s", ex_id)
+                tickers = {}
+            qvol_by_ccy: Dict[str, float] = {}
+            for sym, t in (tickers or {}).items():
                 try:
-                    from .engine_techniques import scan_arbitrage as _scan_arbitrage
-
-                    # Instrumentation: log tickers size and a small sample immediately
-                    # before assembling the payload to help debug zero-ticker cases.
-                    try:
-                        tk_len = 0 if tickers is None else (len(tickers) if isinstance(tickers, dict) else 0)
-                        sample_keys = []
-                        if isinstance(tickers, dict):
-                            sample_keys = list(tickers.keys())[:10]
-                        logger.info("[BF-INST] ex=%s tickers_len=%d sample_keys=%s", ex_id, tk_len, sample_keys)
-                        # Also try to append to diagnostics.log if possible
-                        try:
-                            diag_path = Path(__file__).parents[2] / "src" / "artifacts" / "arbitraje" / "diagnostics.log"
-                            diag_path.parent.mkdir(parents=True, exist_ok=True)
-                            with diag_path.open("a", encoding="utf-8") as f:
-                                f.write(f"[BF-INST] ex={ex_id} tickers_len={tk_len} sample_keys={sample_keys}\n")
-                        except Exception:
-                            pass
-                    except Exception:
-                        logger.exception("Failed to log BF instrumentation")
-
-                    # Fallback: if tickers is empty but batch fetch is supported, try to fetch tickers now.
-                    try:
-                        if (not tickers) and batch_supported:
-                            logger.info("[BF-FALLBACK] ex=%s tickers empty, attempting fetch_tickers()", ex_id)
-                            try:
-                                tickers = ex.fetch_tickers()
-                                logger.info(
-                                    "[BF-FALLBACK] ex=%s fetched %d tickers",
-                                    ex_id,
-                                    len(tickers) if isinstance(tickers, dict) else 0,
-                                )
-                            except Exception:
-                                logger.exception("[BF-FALLBACK] fetch_tickers failed for %s", ex_id)
-                    except Exception:
-                        logger.exception("[BF-FALLBACK] unexpected error while attempting fallback fetch")
-
-                    # Post-fallback instrumentation: record tickers state after any fallback fetch
-                    try:
-                        post_len = 0 if tickers is None else (len(tickers) if isinstance(tickers, dict) else 0)
-                        post_sample = []
-                        if isinstance(tickers, dict):
-                            post_sample = list(tickers.keys())[:10]
-                        logger.info("[BF-INST-POST] ex=%s tickers_len=%d sample_keys=%s", ex_id, post_len, post_sample)
-                        try:
-                            diag_path = Path(__file__).parents[2] / "src" / "artifacts" / "arbitraje" / "diagnostics.log"
-                            with diag_path.open("a", encoding="utf-8") as f:
-                                f.write(f"[BF-INST-POST] ex={ex_id} tickers_len={post_len} sample_keys={post_sample}\n")
-                        except Exception:
-                            pass
-                    except Exception:
-                        logger.exception("Failed to log BF post-instrumentation")
-
-                    payload = {
-                        "ex_id": ex_id,
-                        "ts": pd.Timestamp.utcnow().isoformat(),
-                        "tokens": currencies,
-                        "tickers": tickers,
-                        "fee": bf_fee,
-                        "min_net": bf_min_net,
-                        "top": bf_top,
-                        "min_hops": getattr(args, "bf_min_hops", 0),
-                        "max_hops": getattr(args, "bf_max_hops", 0),
-                        "min_net_per_hop": getattr(args, "bf_min_net_per_hop", 0.0),
-                        "min_quote_vol": bf_min_quote_vol,
-                        "latency_penalty": bf_latency_penalty_bps,
-                        "blacklist": list(exchange_blacklist),
-                    }
-                    # Pass through techniques config from YAML (if present) so
-                    # engine_techniques can pick up telemetry_file, inline settings, etc.
-                    techniques_cfg = {}
-                    try:
-                        techniques_cfg = cfg_raw.get("techniques", {}) if cfg_raw else {}
-                    except Exception:
-                        techniques_cfg = {}
-                    # allow CLI overrides for enabled/max_workers/rerank
-                    techniques_cfg.setdefault(
-                        "enabled", getattr(args, "techniques_enabled", ["bellman_ford"])
-                    )
-                    techniques_cfg.setdefault(
-                        "max_workers", getattr(args, "tech_max_workers", 2)
-                    )
-                    techniques_cfg.setdefault(
-                        "enable_rerank_onnx", getattr(args, "tech_enable_rerank_onnx", False)
-                    )
-                    cfg_for_worker = {"techniques": techniques_cfg}
-                    tech_res = _scan_arbitrage(ts, payload, cfg_for_worker)
-                    if tech_res:
-                        # Map technique ArbResult to legacy BF result schema expected by caller
-                        for rec in tech_res:
-                            try:
-                                net_bps = float(rec.get("net_bps_est", 0.0))
-                                net_pct = float(net_bps) / 100.0
-                                path = rec.get("cycle") or rec.get("path") or ""
-                                # compute hops if possible
-                                hops = max(0, (str(path).count("->")))
-                                inv_amt = float(
-                                    inv_amt_effective
-                                    if "inv_amt_effective" in locals()
-                                    else float(args.inv)
-                                )
-                                est_after = (
-                                    round(inv_amt * (1.0 + net_pct / 100.0), 6)
-                                    if inv_amt is not None
-                                    else None
-                                )
-                                local_results.append(
-                                    {
-                                        "exchange": ex_id,
-                                        "path": path,
-                                        "net_pct": round(net_pct, 4),
-                                        "inv": inv_amt,
-                                        "est_after": est_after,
-                                        "hops": hops,
-                                        "iteration": it,
-                                        "ts": ts,
-                                        **(
-                                            {"fee_bps_total": rec.get("fee_bps_total")}
-                                            if rec.get("fee_bps_total") is not None
-                                            else {}
-                                        ),
-                                    }
-                                )
-                            except Exception:
-                                # best-effort mapping per record
-                                local_results.append(
-                                    {
-                                        "exchange": ex_id,
-                                        "path": rec.get("cycle") or rec.get("path"),
-                                        "ts": ts,
-                                    }
-                                )
-                        return ex_id, local_lines, local_results
+                    m = markets.get(sym) or {}
+                    base = str(m.get("base") or "").upper()
+                    quote = str(m.get("quote") or "").upper()
+                    qv = get_quote_volume(t) or 0.0
+                    if base:
+                        qvol_by_ccy[base] = qvol_by_ccy.get(base, 0.0) + float(qv)
+                    if quote:
+                        qvol_by_ccy[quote] = qvol_by_ccy.get(quote, 0.0) + float(qv)
                 except Exception:
-                    logger.debug(
-                        "bf_worker: delegation to engine_techniques failed; no legacy BF available"
-                    )
-                    # We intentionally removed the legacy BF implementation.
-                    # If delegation to engine_techniques fails or is disabled, return no results.
+                    continue
+            currencies = sorted(currencies, key=lambda c: qvol_by_ccy.get(c, 0.0), reverse=True)
+        # Defensive: ensure tickers is a mapping
+        if tickers is None or not isinstance(tickers, dict):
+            tickers = {}
+        # If ranking path was taken, apply limit and ensure anchor-first
+        if args.bf_rank_by_qvol:
+            currencies = currencies[: max(1, bf_currencies_limit)]
+            for q in allowed_quotes:
+                if q in currencies:
+                    currencies = [q] + [c for c in currencies if c != q]
+                    break
+        t1_tickers = time.time()
+        logger.info(f"[TIMING] bf_worker({ex_id}): fetch_tickers {t1_tickers-t0_tickers:.3f}s")
+        if args.bf_debug:
+            try:
+                logger.info(
+                    "[BF-DBG] %s currencies=%d (anchors=%s)",
+                    ex_id,
+                    len(currencies),
+                    ",".join(sorted(anchors)),
+                )
+            except Exception:
+                logger.info("[BF-DBG] %s currencies=%d", ex_id, len(currencies))
+        # Try delegating BF scan to engine_techniques if enabled. If delegation returns
+        # results, we use them and skip the heavy in-process BF inner loop.
+        # Prefer running BF in the techniques process pool unless explicitly disabled
+        t0_delegate = time.time()
+        if not getattr(args, "no_techniques_bf", False):
+            try:
+                from .engine_techniques import scan_arbitrage as _scan_arbitrage
+
+                # Instrumentation: log tickers size and a small sample immediately
+                # before assembling the payload to help debug zero-ticker cases.
+                try:
+                    tk_len = 0 if tickers is None else (len(tickers) if isinstance(tickers, dict) else 0)
+                    sample_keys = []
+                    if isinstance(tickers, dict):
+                        sample_keys = list(tickers.keys())[:10]
+                    logger.info("[BF-INST] ex=%s tickers_len=%d sample_keys=%s", ex_id, tk_len, sample_keys)
+                except Exception:
+                    logger.exception("Failed to log BF instrumentation")
+
+                payload = {
+                    "ex_id": ex_id,
+                    "ts": pd.Timestamp.utcnow().isoformat(),
+                    "tokens": currencies,
+                    "tickers": tickers,
+                    "fee": bf_fee,
+                    "min_net": bf_min_net,
+                    "top": bf_top,
+                    "min_hops": getattr(args, "bf_min_hops", 0),
+                    "max_hops": getattr(args, "bf_max_hops", 0),
+                    "min_net_per_hop": getattr(args, "bf_min_net_per_hop", 0.0),
+                    "min_quote_vol": bf_min_quote_vol,
+                    "latency_penalty": bf_latency_penalty_bps,
+                    "blacklist": list(exchange_blacklist),
+                }
+                # Pass through techniques config from YAML (if present) so
+                # engine_techniques can pick up telemetry_file, inline settings, etc.
+                techniques_cfg = {}
+                try:
+                    techniques_cfg = cfg_raw.get("techniques", {}) if cfg_raw else {}
+                except Exception:
+                    techniques_cfg = {}
+                # allow CLI overrides for enabled/max_workers/rerank
+                techniques_cfg.setdefault(
+                    "enabled", getattr(args, "techniques_enabled", ["bellman_ford"])
+                )
+                techniques_cfg.setdefault(
+                    "max_workers", getattr(args, "tech_max_workers", 2)
+                )
+                techniques_cfg.setdefault(
+                    "enable_rerank_onnx", getattr(args, "tech_enable_rerank_onnx", False)
+                )
+                cfg_for_worker = {"techniques": techniques_cfg}
+                t_delegate_start = time.time()
+                tech_res = _scan_arbitrage(ts, payload, cfg_for_worker)
+                t_delegate_end = time.time()
+                logger.info(f"[TIMING] bf_worker({ex_id}): delegate_engine_techniques {t_delegate_end-t_delegate_start:.3f}s")
+                if tech_res:
+                    # Map technique ArbResult to legacy BF result schema expected by caller
+                    for rec in tech_res:
+                        try:
+                            net_bps = float(rec.get("net_bps_est", 0.0))
+                            net_pct = float(net_bps) / 100.0
+                            path = rec.get("cycle") or rec.get("path") or ""
+                            # compute hops if possible
+                            hops = max(0, (str(path).count("->")))
+                            inv_amt = float(
+                                inv_amt_effective
+                                if "inv_amt_effective" in locals()
+                                else float(args.inv)
+                            )
+                            est_after = (
+                                round(inv_amt * (1.0 + net_pct / 100.0), 6)
+                                if inv_amt is not None
+                                else None
+                            )
+                            local_results.append(
+                                {
+                                    "exchange": ex_id,
+                                    "path": path,
+                                    "net_pct": round(net_pct, 4),
+                                    "inv": inv_amt,
+                                    "est_after": est_after,
+                                    "hops": hops,
+                                    "iteration": it,
+                                    "ts": ts,
+                                    **(
+                                        {"fee_bps_total": rec.get("fee_bps_total")}
+                                        if rec.get("fee_bps_total") is not None
+                                        else {}
+                                    ),
+                                }
+                            )
+                        except Exception:
+                            # best-effort mapping per record
+                            local_results.append(
+                                {
+                                    "exchange": ex_id,
+                                    "path": rec.get("cycle") or rec.get("path"),
+                                    "ts": ts,
+                                }
+                            )
+                    t_delegate_total = time.time()
+                    logger.info(f"[TIMING] bf_worker({ex_id}): total {t_delegate_total-t0_total:.3f}s")
                     return ex_id, local_lines, local_results
-        except Exception as e:
-            logger.warning("%s: BF scan falló: %s", ex_id, e)
+            except Exception:
+                logger.debug(
+                    "bf_worker: delegation to engine_techniques failed; no legacy BF available"
+                )
+                t_delegate_total = time.time()
+                logger.info(f"[TIMING] bf_worker({ex_id}): total {t_delegate_total-t0_total:.3f}s (fail)")
+                # We intentionally removed the legacy BF implementation.
+                # If delegation to engine_techniques fails or is disabled, return no results.
+                return ex_id, local_lines, local_results
+        t_delegate_total = time.time()
+        logger.info(f"[TIMING] bf_worker({ex_id}): total {t_delegate_total-t0_total:.3f}s (no techniques)")
         return ex_id, local_lines, local_results
 
     def tri_worker(ex_id: str, it: int, ts: str) -> Tuple[str, List[str], List[dict]]:
@@ -3127,13 +3121,13 @@ def main() -> None:
                 if not markets:
                     # nothing to scan in offline mode for this exchange
                     return ex_id, local_lines, local_results
-            else:
-                ex = load_exchange(ex_id, args.timeout)
-                if not safe_has(ex, "fetchTickers"):
-                    return ex_id, local_lines, local_results
+                else:
+                    ex = load_exchange(ex_id, args.timeout)
+                    if not safe_has(ex, "fetchTickers"):
+                        return ex_id, local_lines, local_results
 
-                markets = ex.load_markets()
-                tickers = ex.fetch_tickers()
+                    markets = ex.load_markets()
+                    tickers = ex.fetch_tickers()
 
             ex_norm = normalize_ccxt_id(ex_id)
             exchange_blacklist = swaps_blacklist_map.get(ex_norm, set())
@@ -3299,14 +3293,18 @@ def main() -> None:
                     local_results.append(rec)
         except Exception as e:
             logger.debug("tri_worker fallo %s: %s", ex_id, e)
-        return ex_id, local_lines, local_results
+            return ex_id, local_lines, local_results
 
     # (removed fallback minimal BF loop that prematurely returned and bypassed the full BF rendering path)
 
     # Correct BF main loop (logs + history). This sits at the BF-block level, not inside bf_worker.
     iteration_watchdog_sec = float(getattr(args, "iteration_watchdog_sec", 0.0) or 0.0)
     _prev_iter_ts = None
+    logger.info("[DEBUG] Entrando al ciclo principal BF...")
     for it in range(1, int(max(1, args.repeat)) + 1):
+        logger.info(f"[DEBUG] Iteración BF número: {it}")
+        t_iter_start = time.time()
+        logger.info(f"[TIMING] BF iter {it}: start")
         _now = time.time()
         if _prev_iter_ts is not None and iteration_watchdog_sec > 0:
             _delta = _now - _prev_iter_ts
@@ -3325,6 +3323,7 @@ def main() -> None:
         _prev_iter_ts = _now
         ts = pd.Timestamp.utcnow().isoformat()
         swaps_blacklist_map = load_swaps_blacklist()
+        t_prefetch_start = time.time()
         # Prefetch wallet balances once per iteration for simulation/header if requested
         try:
             if args.simulate_compound and getattr(args, "simulate_from_wallet", False):
@@ -3333,7 +3332,10 @@ def main() -> None:
                 wallet_buckets_cache = {}
         except Exception:
             wallet_buckets_cache = {}
+        t_prefetch_end = time.time()
+        logger.info(f"[TIMING] BF iter {it}: prefetch_wallet_buckets {t_prefetch_end-t_prefetch_start:.3f}s")
         # Hydrate simulation balances from wallet snapshot once (first iteration) if requested
+        t_hydrate_start = time.time()
         try:
             if (
                 args.simulate_compound
@@ -3372,6 +3374,9 @@ def main() -> None:
                     }
         except Exception:
             pass
+        t_hydrate_end = time.time()
+        logger.info(f"[TIMING] BF iter {it}: hydrate_sim_balances {t_hydrate_end-t_hydrate_start:.3f}s")
+        t_console_start = time.time()
         if do_console_clear:
             try:
                 if os.name == "nt":
@@ -3380,7 +3385,10 @@ def main() -> None:
                     print("\033[2J\033[H", end="")
             except Exception:
                 pass
+        t_console_end = time.time()
+        logger.info(f"[TIMING] BF iter {it}: console_clear {t_console_end-t_console_start:.3f}s")
         # Clean per-iteration artifacts and any historical files to avoid mixing iterations
+        t_cleanup_start = time.time()
         try:
             if current_file.exists():
                 current_file.unlink()  # type: ignore[arg-type]
@@ -3397,6 +3405,8 @@ def main() -> None:
                 bf_top_hist_csv.unlink()  # type: ignore[arg-type]
         except Exception:
             pass
+        t_cleanup_end = time.time()
+        logger.info(f"[TIMING] BF iter {it}: cleanup {t_cleanup_end-t_cleanup_start:.3f}s")
         # Create snapshot header
         try:
             with open(current_file, "w", encoding="utf-8") as fh:
@@ -3497,7 +3507,8 @@ def main() -> None:
         iter_lines: List[str] = []
         iter_results: List[dict] = []
         completed_count = 0
-        # Sequential scan per exchange for stability
+        # Timeout duro por exchange usando ThreadPoolExecutor
+        import concurrent.futures
         per_exchange_watchdog_sec = float(
             getattr(args, "per_exchange_watchdog_sec", 0.0) or 0.0
         )
@@ -3505,71 +3516,84 @@ def main() -> None:
             per_exchange_watchdog_sec = float(
                 getattr(args, "iteration_watchdog_sec", 0.0) or 0.0
             )
-        for ex_id in EX_IDS:
-            _ex_start = time.time()
-            _ex_id, lines, rows = bf_worker(ex_id, it, ts)
-            _ex_dur = time.time() - _ex_start
-            if per_exchange_watchdog_sec > 0 and _ex_dur > per_exchange_watchdog_sec:
-                logger.error(
-                    "Exchange watchdog: %s took %.2fs > configured %.2fs; aborting iteration",
-                    ex_id,
-                    _ex_dur,
-                    per_exchange_watchdog_sec,
-                )
-                print(
-                    f"Exchange watchdog: {ex_id} took {_ex_dur:.2f}s "
-                    f"(limit {per_exchange_watchdog_sec}s). Aborting iteration."
-                )
-                break
-            iter_lines.extend(lines)
-            for row in rows:
-                iter_results.append(row)
-                key = (row["exchange"], row["path"])
-                st = persistence.get(key)
-                if not st:
-                    persistence[key] = {
-                        "first_seen": ts,
-                        "last_seen": ts,
-                        "occurrences": 1,
-                        "current_streak": 1,
-                        "max_streak": 1,
-                        "last_it": it,
-                    }
-                else:
-                    st["last_seen"] = ts
-                    st["occurrences"] = int(st.get("occurrences", 0)) + 1
-                    prev_it = int(st.get("last_it", 0))
-                    if prev_it + 1 == it:
-                        st["current_streak"] = int(st.get("current_streak", 0)) + 1
-                    else:
-                        st["current_streak"] = 1
-                    st["max_streak"] = max(
-                        int(st.get("max_streak", 0)), int(st.get("current_streak", 0))
+        t_threadpool_start = time.time()
+        logger.info(f"[TIMING] BF iter {it}: ThreadPoolExecutor start")
+        with concurrent.futures.ThreadPoolExecutor(max_workers=4) as executor:
+            future_map = {}
+            for ex_id in EX_IDS:
+                future = executor.submit(bf_worker, ex_id, it, ts)
+                future_map[future] = ex_id
+            for future in concurrent.futures.as_completed(future_map, timeout=None):
+                ex_id = future_map[future]
+                try:
+                    _ex_start = time.time()
+                    _ex_id, lines, rows = future.result(timeout=per_exchange_watchdog_sec if per_exchange_watchdog_sec > 0 else None)
+                    _ex_dur = time.time() - _ex_start
+                    logger.info(f"[TIMING] BF iter {it}: {ex_id} worker duration: {_ex_dur:.3f}s")
+                except concurrent.futures.TimeoutError:
+                    logger.error(
+                        "Exchange watchdog: %s timed out after %.2fs; skipping.",
+                        ex_id,
+                        per_exchange_watchdog_sec,
                     )
-                    st["last_it"] = it
-                results_bf.append(row)
-            try:
-                with open(current_file, "a", encoding="utf-8") as fh:
-                    if getattr(args, "ui_progress_bar", True):
-                        completed_count += 1
-                        total_ex = max(1, len(EX_IDS))
-                        frames = str(getattr(args, "ui_spinner_frames", "|/-\\"))
-                        bar_len = int(getattr(args, "ui_progress_len", 20))
-                        filled = int(bar_len * completed_count / total_ex)
-                        bar = "[" + ("#" * filled) + ("-" * (bar_len - filled)) + "]"
-                        try:
-                            spinner = (
-                                frames[completed_count % len(frames)] if frames else ""
-                            )
-                        except Exception:
-                            spinner = ""
-                        fh.write(f"{bar} {completed_count}/{total_ex} {spinner}\n")
-                    if lines:
-                        fh.write("\n" + "\n".join(lines) + "\n")
-                    fh.flush()
-                _sync_snapshot_alias()
-            except Exception:
-                pass
+                    print(
+                        f"Exchange watchdog: {ex_id} timed out after {per_exchange_watchdog_sec:.2f}s. Skipping."
+                    )
+                    continue
+                except Exception as e:
+                    logger.error("Exchange %s failed: %s", ex_id, e)
+                    continue
+                iter_lines.extend(lines)
+                for row in rows:
+                    iter_results.append(row)
+                    key = (row["exchange"], row["path"])
+                    st = persistence.get(key)
+                    if not st:
+                        persistence[key] = {
+                            "first_seen": ts,
+                            "last_seen": ts,
+                            "occurrences": 1,
+                            "current_streak": 1,
+                            "max_streak": 1,
+                            "last_it": it,
+                        }
+                    else:
+                        st["last_seen"] = ts
+                        st["occurrences"] = int(st.get("occurrences", 0)) + 1
+                        prev_it = int(st.get("last_it", 0))
+                        if prev_it + 1 == it:
+                            st["current_streak"] = int(st.get("current_streak", 0)) + 1
+                        else:
+                            st["current_streak"] = 1
+                        st["max_streak"] = max(
+                            int(st.get("max_streak", 0)), int(st.get("current_streak", 0))
+                        )
+                        st["last_it"] = it
+                    results_bf.append(row)
+        t_threadpool_end = time.time()
+        logger.info(f"[TIMING] BF iter {it}: ThreadPoolExecutor total {t_threadpool_end-t_threadpool_start:.3f}s")
+        try:
+            with open(current_file, "a", encoding="utf-8") as fh:
+                if getattr(args, "ui_progress_bar", True):
+                    completed_count += 1
+                    total_ex = max(1, len(EX_IDS))
+                    frames = str(getattr(args, "ui_spinner_frames", "|/-\\"))
+                    bar_len = int(getattr(args, "ui_progress_len", 20))
+                    filled = int(bar_len * completed_count / total_ex)
+                    bar = "[" + ("#" * filled) + ("-" * (bar_len - filled)) + "]"
+                    try:
+                        spinner = (
+                            frames[completed_count % len(frames)] if frames else ""
+                        )
+                    except Exception:
+                        spinner = ""
+                    fh.write(f"{bar} {completed_count}/{total_ex} {spinner}\n")
+                if iter_lines:
+                    fh.write("\n" + "\n".join(iter_lines) + "\n")
+                fh.flush()
+            _sync_snapshot_alias()
+        except Exception:
+            pass
 
         # Persist per-iteration top-k CSV (optional)
         try:
@@ -3605,12 +3629,247 @@ def main() -> None:
         try:
             with open(current_file, "a", encoding="utf-8") as fh:
                 fh.write("\n---\nResumen final (iteración)\n\n")
+            try:
+                if iter_results:
+                    df_iter = pd.DataFrame(iter_results)
+                    df_top = df_iter.sort_values("net_pct", ascending=False).head(
+                        max(1, int(args.bf_top))
+                    )
+                    cols_top = [
+                        c
+                        for c in [
+                            "exchange",
+                            "path",
+                            "hops",
+                            "net_pct",
+                            "inv",
+                            "est_after",
+                            "ts",
+                        ]
+                        if c in df_top.columns
+                    ]
+                    fh.write("TOP oportunidades (iteración)\n")
+                    fh.write(
+                        tabulate(
+                            df_top[cols_top],
+                            headers="keys",
+                            tablefmt="github",
+                            showindex=False,
+                        )
+                    )
+                    fh.write("\n\n")
+                else:
+                    fh.write("TOP oportunidades (iteración): (sin resultados)\n\n")
+            except Exception:
+                fh.write(
+                    "TOP oportunidades (iteración): (error al generar tabla)\n\n"
+                )
+            try:
+                if iter_results:
+                    df_iter = pd.DataFrame(iter_results)
+                    grp = df_iter.groupby("exchange", as_index=False).agg(
+                        count=("net_pct", "count"), best_net=("net_pct", "max")
+                    )
+                    grp = grp.sort_values(
+                        ["best_net", "count"], ascending=[False, False]
+                    )
+                    fh.write("Resumen por exchange (iteración)\n")
+                    fh.write(
+                        tabulate(
+                            grp, headers="keys", tablefmt="github", showindex=False
+                        )
+                    )
+                    fh.write("\n\n")
+            except Exception:
+                pass
+            if iter_lines:
+                fh.write("Detalle (iteración, completo)\n")
+                fh.write("\n".join(iter_lines) + "\n")
+            else:
+                fh.write("(sin oportunidades en esta iteración)\n")
+        except Exception:
+            pass
+        _sync_snapshot_alias()
+        t_iter_end = time.time()
+        logger.info(f"[TIMING] BF iter {it}: total iteration {t_iter_end-t_iter_start:.3f}s")
+        # Sleep only between iterations
+        if it < args.repeat:
+            t_sleep_start = time.time()
+            # Simple sleep between iterations; the next loop iteration will recreate headers and rerun
+            time.sleep(max(0.0, args.repeat_sleep))
+            t_sleep_end = time.time()
+            logger.info(f"[TIMING] BF iter {it}: sleep {t_sleep_end-t_sleep_start:.3f}s")
+        # continue  # removed to allow simulation and summaries to run within the same loop
+
+        # Simulation: per-exchange selection and compounding
+        if args.simulate_compound and sim_state:
+            # Group results by exchange
+            results_by_ex: Dict[str, List[dict]] = {}
+            for row in iter_results:
+                ex_id = row.get("exchange")
+                if not ex_id:
+                    continue
+                results_by_ex.setdefault(ex_id, []).append(row)
+            for ex_id in EX_IDS:
+                st = sim_state.get(ex_id)
+                if not st:
+                    continue
+                ccy = str(st.get("ccy") or QUOTE)
+                balance = float(st.get("balance") or 0.0)
+                rows_ex = results_by_ex.get(ex_id, [])
+                selected = None
+                if rows_ex:
+
+                    def ends_with_ccy(r: dict, c: str) -> bool:
+                        try:
+                            parts = str(r.get("path") or "").split("->")
+                            # Allow any starting asset; require the path to end at the anchor currency
+                            return (
+                                len(parts) >= 2 and parts[-1].upper() == c.upper()
+                            )
+                        except Exception:
+                            return False
+
+                    # Best per anchor for this exchange
+                    best_per_anchor: Dict[str, dict] = {}
+                    anchors_iter = (
+                        set([a for a in allowed_quotes])
+                        if allowed_quotes
+                        else {QUOTE}
+                    )
+                    for anc in anchors_iter:
+                        anc_cands = [r for r in rows_ex if ends_with_ccy(r, anc)]
+                        if not anc_cands:
+                            continue
+                        if args.simulate_select == "first":
+                            best_per_anchor[anc] = anc_cands[0]
+                        else:
+                            best_per_anchor[anc] = max(
+                                anc_cands,
+                                key=lambda r: float(r.get("net_pct", 0.0)),
+                            )
+                    current_best = best_per_anchor.get(ccy)
+                    chosen_anchor = ccy
+                    chosen_row = current_best
+                    if args.simulate_auto_switch and best_per_anchor:
+                        overall_anchor, overall_row = None, None
+                        for anc, row in best_per_anchor.items():
+                            if overall_row is None or float(
+                                row.get("net_pct", 0.0)
+                            ) > float(overall_row.get("net_pct", 0.0)):
+                                overall_anchor, overall_row = anc, row
+                        if overall_row is not None:
+                            cur_net = (
+                                float(current_best.get("net_pct", 0.0))
+                                if current_best
+                                else -1e9
+                            )
+                            over_net = float(overall_row.get("net_pct", 0.0))
+                            if (
+                                current_best is None
+                                or (over_net - cur_net)
+                                >= float(args.simulate_switch_threshold) - 1e-12
+                            ):
+                                chosen_anchor, chosen_row = (
+                                    overall_anchor,
+                                    overall_row,
+                                )
+                    if chosen_row is not None:
+                        if chosen_anchor != ccy:
+                            # Anchor change is useful but keep it silent at INFO level to avoid [SIM] duplication
+                            logger.debug(
+                                "Cambio de ancla @%s: %s -> %s (mejor net%%)",
+                                ex_id,
+                                ccy,
+                                chosen_anchor,
+                            )
+                            ccy = chosen_anchor
+                        selected = chosen_row
+                if selected is not None:
+                    product = 1.0 + (float(selected.get("net_pct", 0.0)) / 100.0)
+                    before = balance
+                    after = round(before * product, 8)
+                    gain_amt = round(after - before, 8)
+                    gain_pct = round((product - 1.0) * 100.0, 6)
+                    sim_rows.append(
+                        {
+                            "iteration": it,
+                            "ts": ts,
+                            "exchange": ex_id,
+                            "path": selected.get("path"),
+                            "hops": selected.get("hops"),
+                            "net_pct": float(selected.get("net_pct", 0.0)),
+                            "product": round(product, 12),
+                            "balance_before": before,
+                            "balance_after": after,
+                            "gain_amount": gain_amt,
+                            "gain_pct": gain_pct,
+                            "currency": ccy,
+                        }
+                    )
+                    # Update state (preserve start_balance/start_ccy)
+                    prev = sim_state.get(ex_id, {})
+                    sim_state[ex_id] = {
+                        "ccy": ccy,
+                        "balance": after,
+                        "start_balance": float(
+                            prev.get("start_balance", 0.0) or 0.0
+                        ),
+                        "start_ccy": prev.get("start_ccy", ccy),
+                    }
+                    line = (
+                        f"[SIM] it#{it} @{ex_id} {ccy} pick {selected.get('path')} net {gain_pct:.4f}% "
+                        f"| {ccy} {before:.4f} -> {after:.4f} (+{gain_amt:.4f})"
+                    )
+                else:
+                    line = None
+                if line:
+                    # Do not log [SIM] lines via logger; keep them only in current_bf.txt and CSV
+                    iter_lines.append(line)
+
+        try:
+            # Persist per-iteration top-k (optional)
+            if args.bf_persist_top_csv:
+                try:
+                    # pick top by net_pct across all lines parsed in this iteration (iter_results)
+                    if iter_results:
+                        df_top = pd.DataFrame(iter_results)
+                        df_top = df_top.sort_values(
+                            "net_pct", ascending=False
+                        ).head(max(1, int(args.bf_top)))
+                        # Overwrite file every iteration (no historical accumulation)
+                        df_top.to_csv(bf_top_hist_csv, index=False)
+                except Exception:
+                    pass
+            # Overwrite the current-iteration CSV with this iteration's results
+            try:
+                if iter_results:
+                    pd.DataFrame(iter_results).to_csv(bf_iter_csv, index=False)
+                else:
+                    pd.DataFrame(
+                        columns=[
+                            "exchange",
+                            "path",
+                            "net_pct",
+                            "inv",
+                            "est_after",
+                            "hops",
+                            "iteration",
+                            "ts",
+                        ]
+                    ).to_csv(bf_iter_csv, index=False)
+            except Exception:
+                pass
+            # Snapshot file: append final aggregated sections (keep earlier progress)
+            with open(current_file, "a", encoding="utf-8") as fh:
+                fh.write("\n---\nResumen final (iteración)\n\n")
+                # 1) Top oportunidades de la iteración
                 try:
                     if iter_results:
                         df_iter = pd.DataFrame(iter_results)
-                        df_top = df_iter.sort_values("net_pct", ascending=False).head(
-                            max(1, int(args.bf_top))
-                        )
+                        df_top = df_iter.sort_values(
+                            "net_pct", ascending=False
+                        ).head(max(1, int(args.bf_top)))
                         cols_top = [
                             c
                             for c in [
@@ -3635,11 +3894,14 @@ def main() -> None:
                         )
                         fh.write("\n\n")
                     else:
-                        fh.write("TOP oportunidades (iteración): (sin resultados)\n\n")
+                        fh.write(
+                            "TOP oportunidades (iteración): (sin resultados)\n\n"
+                        )
                 except Exception:
                     fh.write(
                         "TOP oportunidades (iteración): (error al generar tabla)\n\n"
                     )
+                # 2) Resumen por exchange de la iteración
                 try:
                     if iter_results:
                         df_iter = pd.DataFrame(iter_results)
@@ -3652,344 +3914,111 @@ def main() -> None:
                         fh.write("Resumen por exchange (iteración)\n")
                         fh.write(
                             tabulate(
-                                grp, headers="keys", tablefmt="github", showindex=False
+                                grp,
+                                headers="keys",
+                                tablefmt="github",
+                                showindex=False,
                             )
                         )
                         fh.write("\n\n")
                 except Exception:
                     pass
+                # 3) Resumen de simulación (estado actual)
+                try:
+                    if args.simulate_compound and sim_state:
+                        rows_sim = _build_simulation_rows(
+                            sim_state, args, wallet_buckets_cache
+                        )
+                        if rows_sim:
+                            df_sim = pd.DataFrame(rows_sim)
+                            fh.write("Simulación (estado actual)\n")
+                            fh.write(
+                                tabulate(
+                                    df_sim,
+                                    headers="keys",
+                                    tablefmt="github",
+                                    showindex=False,
+                                )
+                            )
+                            fh.write("\n\n")
+                except Exception:
+                    pass
+                # 4) Persistencia (top por racha)
+                try:
+                    if persistence:
+                        prow = []
+                        for (ex_id, path_str), st in persistence.items():
+                            prow.append(
+                                {
+                                    "exchange": ex_id,
+                                    "path": path_str,
+                                    "occurrences": int(st.get("occurrences", 0)),
+                                    "current_streak": int(
+                                        st.get("current_streak", 0)
+                                    ),
+                                    "max_streak": int(st.get("max_streak", 0)),
+                                    "last_seen": st.get("last_seen"),
+                                }
+                            )
+                        if prow:
+                            dfp = pd.DataFrame(prow)
+                            dfp = dfp.sort_values(
+                                ["max_streak", "occurrences"],
+                                ascending=[False, False],
+                            ).head(10)
+                            cols_p = [
+                                c
+                                for c in [
+                                    "exchange",
+                                    "path",
+                                    "occurrences",
+                                    "current_streak",
+                                    "max_streak",
+                                    "last_seen",
+                                ]
+                                if c in dfp.columns
+                            ]
+                            fh.write("Persistencia (top)\n")
+                            fh.write(
+                                tabulate(
+                                    dfp[cols_p],
+                                    headers="keys",
+                                    tablefmt="github",
+                                    showindex=False,
+                                )
+                            )
+                            fh.write("\n\n")
+                except Exception:
+                    pass
+                # 5) Detalle texto final (incluye [SIM] picks por iteración)
+                # Ya se fueron agregando líneas de progreso; añadimos el detalle completo al final por conveniencia
                 if iter_lines:
                     fh.write("Detalle (iteración, completo)\n")
                     fh.write("\n".join(iter_lines) + "\n")
                 else:
                     fh.write("(sin oportunidades en esta iteración)\n")
-        except Exception:
-            pass
-        _sync_snapshot_alias()
-        if it < args.repeat:
-            # Simple sleep between iterations; the next loop iteration will recreate headers and rerun
-            time.sleep(max(0.0, args.repeat_sleep))
-            continue
-
-            # Simulation: per-exchange selection and compounding
-            if args.simulate_compound and sim_state:
-                # Group results by exchange
-                results_by_ex: Dict[str, List[dict]] = {}
-                for row in iter_results:
-                    ex_id = row.get("exchange")
-                    if not ex_id:
-                        continue
-                    results_by_ex.setdefault(ex_id, []).append(row)
-                for ex_id in EX_IDS:
-                    st = sim_state.get(ex_id)
-                    if not st:
-                        continue
-                    ccy = str(st.get("ccy") or QUOTE)
-                    balance = float(st.get("balance") or 0.0)
-                    rows_ex = results_by_ex.get(ex_id, [])
-                    selected = None
-                    if rows_ex:
-
-                        def ends_with_ccy(r: dict, c: str) -> bool:
-                            try:
-                                parts = str(r.get("path") or "").split("->")
-                                # Allow any starting asset; require the path to end at the anchor currency
-                                return (
-                                    len(parts) >= 2 and parts[-1].upper() == c.upper()
-                                )
-                            except Exception:
-                                return False
-
-                        # Best per anchor for this exchange
-                        best_per_anchor: Dict[str, dict] = {}
-                        anchors_iter = (
-                            set([a for a in allowed_quotes])
-                            if allowed_quotes
-                            else {QUOTE}
-                        )
-                        for anc in anchors_iter:
-                            anc_cands = [r for r in rows_ex if ends_with_ccy(r, anc)]
-                            if not anc_cands:
-                                continue
-                            if args.simulate_select == "first":
-                                best_per_anchor[anc] = anc_cands[0]
-                            else:
-                                best_per_anchor[anc] = max(
-                                    anc_cands,
-                                    key=lambda r: float(r.get("net_pct", 0.0)),
-                                )
-                        current_best = best_per_anchor.get(ccy)
-                        chosen_anchor = ccy
-                        chosen_row = current_best
-                        if args.simulate_auto_switch and best_per_anchor:
-                            overall_anchor, overall_row = None, None
-                            for anc, row in best_per_anchor.items():
-                                if overall_row is None or float(
-                                    row.get("net_pct", 0.0)
-                                ) > float(overall_row.get("net_pct", 0.0)):
-                                    overall_anchor, overall_row = anc, row
-                            if overall_row is not None:
-                                cur_net = (
-                                    float(current_best.get("net_pct", 0.0))
-                                    if current_best
-                                    else -1e9
-                                )
-                                over_net = float(overall_row.get("net_pct", 0.0))
-                                if (
-                                    current_best is None
-                                    or (over_net - cur_net)
-                                    >= float(args.simulate_switch_threshold) - 1e-12
-                                ):
-                                    chosen_anchor, chosen_row = (
-                                        overall_anchor,
-                                        overall_row,
-                                    )
-                        if chosen_row is not None:
-                            if chosen_anchor != ccy:
-                                # Anchor change is useful but keep it silent at INFO level to avoid [SIM] duplication
-                                logger.debug(
-                                    "Cambio de ancla @%s: %s -> %s (mejor net%%)",
-                                    ex_id,
-                                    ccy,
-                                    chosen_anchor,
-                                )
-                                ccy = chosen_anchor
-                            selected = chosen_row
-                    if selected is not None:
-                        product = 1.0 + (float(selected.get("net_pct", 0.0)) / 100.0)
-                        before = balance
-                        after = round(before * product, 8)
-                        gain_amt = round(after - before, 8)
-                        gain_pct = round((product - 1.0) * 100.0, 6)
-                        sim_rows.append(
-                            {
-                                "iteration": it,
-                                "ts": ts,
-                                "exchange": ex_id,
-                                "path": selected.get("path"),
-                                "hops": selected.get("hops"),
-                                "net_pct": float(selected.get("net_pct", 0.0)),
-                                "product": round(product, 12),
-                                "balance_before": before,
-                                "balance_after": after,
-                                "gain_amount": gain_amt,
-                                "gain_pct": gain_pct,
-                                "currency": ccy,
-                            }
-                        )
-                        # Update state (preserve start_balance/start_ccy)
-                        prev = sim_state.get(ex_id, {})
-                        sim_state[ex_id] = {
-                            "ccy": ccy,
-                            "balance": after,
-                            "start_balance": float(
-                                prev.get("start_balance", 0.0) or 0.0
-                            ),
-                            "start_ccy": prev.get("start_ccy", ccy),
-                        }
-                        line = (
-                            f"[SIM] it#{it} @{ex_id} {ccy} pick {selected.get('path')} net {gain_pct:.4f}% "
-                            f"| {ccy} {before:.4f} -> {after:.4f} (+{gain_amt:.4f})"
-                        )
-                    else:
-                        line = None
-                    if line:
-                        # Do not log [SIM] lines via logger; keep them only in current_bf.txt and CSV
-                        iter_lines.append(line)
-
+            # Mirror snapshot alias so both filenames stay in sync
+            _sync_snapshot_alias()
+            # History file: append all iterations to keep a running log
+            bf_hist = paths.LOGS_DIR / "bf_history.txt"
+            with open(bf_hist, "a", encoding="utf-8") as fh:
+                fh.write(f"[BF] Iteración {it}/{args.repeat} @ {ts}\n")
+                if iter_lines:
+                    fh.write("\n".join(iter_lines) + "\n\n")
+                else:
+                    fh.write("(sin oportunidades en esta iteración)\n\n")
             try:
-                # Persist per-iteration top-k (optional)
-                if args.bf_persist_top_csv:
-                    try:
-                        # pick top by net_pct across all lines parsed in this iteration (iter_results)
-                        if iter_results:
-                            df_top = pd.DataFrame(iter_results)
-                            df_top = df_top.sort_values(
-                                "net_pct", ascending=False
-                            ).head(max(1, int(args.bf_top)))
-                            # Overwrite file every iteration (no historical accumulation)
-                            df_top.to_csv(bf_top_hist_csv, index=False)
-                    except Exception:
-                        pass
-                # Overwrite the current-iteration CSV with this iteration's results
-                try:
-                    if iter_results:
-                        pd.DataFrame(iter_results).to_csv(bf_iter_csv, index=False)
-                    else:
-                        pd.DataFrame(
-                            columns=[
-                                "exchange",
-                                "path",
-                                "net_pct",
-                                "inv",
-                                "est_after",
-                                "hops",
-                                "iteration",
-                                "ts",
-                            ]
-                        ).to_csv(bf_iter_csv, index=False)
-                except Exception:
-                    pass
-                # Snapshot file: append final aggregated sections (keep earlier progress)
-                with open(current_file, "a", encoding="utf-8") as fh:
-                    fh.write("\n---\nResumen final (iteración)\n\n")
-                    # 1) Top oportunidades de la iteración
-                    try:
-                        if iter_results:
-                            df_iter = pd.DataFrame(iter_results)
-                            df_top = df_iter.sort_values(
-                                "net_pct", ascending=False
-                            ).head(max(1, int(args.bf_top)))
-                            cols_top = [
-                                c
-                                for c in [
-                                    "exchange",
-                                    "path",
-                                    "hops",
-                                    "net_pct",
-                                    "inv",
-                                    "est_after",
-                                    "ts",
-                                ]
-                                if c in df_top.columns
-                            ]
-                            fh.write("TOP oportunidades (iteración)\n")
-                            fh.write(
-                                tabulate(
-                                    df_top[cols_top],
-                                    headers="keys",
-                                    tablefmt="github",
-                                    showindex=False,
-                                )
-                            )
-                            fh.write("\n\n")
-                        else:
-                            fh.write(
-                                "TOP oportunidades (iteración): (sin resultados)\n\n"
-                            )
-                    except Exception:
-                        fh.write(
-                            "TOP oportunidades (iteración): (error al generar tabla)\n\n"
-                        )
-                    # 2) Resumen por exchange de la iteración
-                    try:
-                        if iter_results:
-                            df_iter = pd.DataFrame(iter_results)
-                            grp = df_iter.groupby("exchange", as_index=False).agg(
-                                count=("net_pct", "count"), best_net=("net_pct", "max")
-                            )
-                            grp = grp.sort_values(
-                                ["best_net", "count"], ascending=[False, False]
-                            )
-                            fh.write("Resumen por exchange (iteración)\n")
-                            fh.write(
-                                tabulate(
-                                    grp,
-                                    headers="keys",
-                                    tablefmt="github",
-                                    showindex=False,
-                                )
-                            )
-                            fh.write("\n\n")
-                    except Exception:
-                        pass
-                    # 3) Resumen de simulación (estado actual)
-                    try:
-                        if args.simulate_compound and sim_state:
-                            rows_sim = _build_simulation_rows(
-                                sim_state, args, wallet_buckets_cache
-                            )
-                            if rows_sim:
-                                df_sim = pd.DataFrame(rows_sim)
-                                fh.write("Simulación (estado actual)\n")
-                                fh.write(
-                                    tabulate(
-                                        df_sim,
-                                        headers="keys",
-                                        tablefmt="github",
-                                        showindex=False,
-                                    )
-                                )
-                                fh.write("\n\n")
-                    except Exception:
-                        pass
-                    # 4) Persistencia (top por racha)
-                    try:
-                        if persistence:
-                            prow = []
-                            for (ex_id, path_str), st in persistence.items():
-                                prow.append(
-                                    {
-                                        "exchange": ex_id,
-                                        "path": path_str,
-                                        "occurrences": int(st.get("occurrences", 0)),
-                                        "current_streak": int(
-                                            st.get("current_streak", 0)
-                                        ),
-                                        "max_streak": int(st.get("max_streak", 0)),
-                                        "last_seen": st.get("last_seen"),
-                                    }
-                                )
-                            if prow:
-                                dfp = pd.DataFrame(prow)
-                                dfp = dfp.sort_values(
-                                    ["max_streak", "occurrences"],
-                                    ascending=[False, False],
-                                ).head(10)
-                                cols_p = [
-                                    c
-                                    for c in [
-                                        "exchange",
-                                        "path",
-                                        "occurrences",
-                                        "current_streak",
-                                        "max_streak",
-                                        "last_seen",
-                                    ]
-                                    if c in dfp.columns
-                                ]
-                                fh.write("Persistencia (top)\n")
-                                fh.write(
-                                    tabulate(
-                                        dfp[cols_p],
-                                        headers="keys",
-                                        tablefmt="github",
-                                        showindex=False,
-                                    )
-                                )
-                                fh.write("\n\n")
-                    except Exception:
-                        pass
-                    # 5) Detalle texto final (incluye [SIM] picks por iteración)
-                    # Ya se fueron agregando líneas de progreso; añadimos el detalle completo al final por conveniencia
-                    if iter_lines:
-                        fh.write("Detalle (iteración, completo)\n")
-                        fh.write("\n".join(iter_lines) + "\n")
-                    else:
-                        fh.write("(sin oportunidades en esta iteración)\n")
-                # Mirror snapshot alias so both filenames stay in sync
-                _sync_snapshot_alias()
-                # History file: append all iterations to keep a running log
-                bf_hist = paths.LOGS_DIR / "bf_history.txt"
-                with open(bf_hist, "a", encoding="utf-8") as fh:
-                    fh.write(f"[BF] Iteración {it}/{args.repeat} @ {ts}\n")
-                    if iter_lines:
-                        fh.write("\n".join(iter_lines) + "\n\n")
-                    else:
-                        fh.write("(sin oportunidades en esta iteración)\n\n")
-                try:
-                    logger.info(
-                        "BF history append: %s (exists=%s)",
-                        str(bf_hist),
-                        str(bf_hist.exists()),
-                    )
-                except Exception:
-                    pass
-                # No alias writes for history to avoid duplicates and mixed-case filenames
+                logger.info(
+                    "BF history append: %s (exists=%s)",
+                    str(bf_hist),
+                    str(bf_hist.exists()),
+                )
             except Exception:
                 pass
-            if it < args.repeat:
-                time.sleep(max(0.0, args.repeat_sleep))
+            # No alias writes for history to avoid duplicates and mixed-case filenames
+        except Exception:
+            pass
+        # (sleep already handled above)
         if results_bf:
             pd.DataFrame(results_bf).to_csv(bf_csv, index=False)
         else:
@@ -4434,5 +4463,7 @@ def main() -> None:
                 time.sleep(max(0.0, args.repeat_sleep))
 
 
+
+# Ejecuta main() si el archivo es ejecutado como script
 if __name__ == "__main__":
     main()

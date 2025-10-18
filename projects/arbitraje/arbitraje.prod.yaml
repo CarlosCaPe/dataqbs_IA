@@ -18,7 +18,7 @@ bf:
   min_net_per_hop: -10000      # evita cadenas largas con hops marginales
   top: 40                    # inspección limitada
   require_quote: true        # obliga cerrar en ancla estable
-  require_topofbook: false    # usa bid/ask (más seguro para ejecución)
+  require_topofbook: true    # usa bid/ask (más seguro para ejecución)
   min_quote_vol: 0       # filtra books extremadamente delgados (quote units)
   min_hops: 2                # evita ciclos de 1 hop / trivial
   max_hops: 5                # menor acumulación de fees y riesgo
@@ -41,8 +41,8 @@ repeat_sleep: 1
 # Note: use_balance/balance_kind removed; tool now always reads wallet balances when available
 balance_provider: ccxt
 ex_auth_only: true
-simulate_compound: false
-simulate_from_wallet: false
+simulate_compound: true
+simulate_from_wallet: true
 simulate_prefer: auto
 simulate_select: best
 simulate_auto_switch: true

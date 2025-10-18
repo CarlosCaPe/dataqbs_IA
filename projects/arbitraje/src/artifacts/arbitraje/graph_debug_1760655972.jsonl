@@ -1,0 +1,1 @@
+{"snapshot_id": "oneoff-dump", "timestamp": 1760655972, "nodes": ["B", "C", "A"], "graph": {"A": {"B": 2.0, "C": 3.846153846153846}, "B": {"A": 0.5, "C": 2.0}, "C": {"B": 0.5, "A": 0.26}}, "cfg_filters": {"fee": 0.1, "min_net": 0.0, "min_quote_vol": 0.0, "latency_penalty": 0.0}}

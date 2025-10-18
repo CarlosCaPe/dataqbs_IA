@@ -1,0 +1,22 @@
+mode: test
+# Inherit other sensible defaults from prod but make dry-run explicit
+timeout_ms: 15000
+order_type: market
+time_in_force: IOC
+max_slippage_bps: 50
+min_notional: 1
+# For safety: test mode and dry_run ensure no real orders are placed
+dry_run: true
+settle_sleep_ms: 0
+confirm_fill: false
+# Per-exchange minimum test amount
+test_min_amounts:
+  binance: 10.0
+  okx: 1.0
+  bitget: 1.0
+  mexc: 1.0
+
+# Keep default blacklist from swapper.yaml
+blacklist_pairs:
+  okx:
+    - USDC/USDT

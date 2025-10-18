@@ -1,0 +1,39 @@
+mode: bf
+ex: [mexc]
+quote: USDT
+inv: 0.0
+bf:
+  allowed_quotes: [USDT,USDC]
+  fee: 0.10
+  rank_by_qvol: true
+  currencies_limit: 10000
+  min_net: -10000
+  min_net_per_hop: -10000
+  top: 40
+  require_quote: true
+  require_topofbook: false
+  min_quote_vol: 0
+  min_hops: 2
+  max_hops: 5
+  threads: 0
+  persist_top_csv: true
+
+max: 280
+timeout: 20000
+sleep: 0
+repeat: 1
+repeat_sleep: 0
+
+simulate_compound: false
+simulate_from_wallet: false
+simulate_prefer: auto
+simulate_select: best
+simulate_auto_switch: true
+simulate_fallback_to_inv: false
+
+no_console_clear: true
+
+techniques:
+  enabled: [bellman_ford]
+  max_workers: 2
+  inline: []

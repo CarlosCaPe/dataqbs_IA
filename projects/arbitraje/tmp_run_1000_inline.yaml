@@ -1,0 +1,52 @@
+mode: bf
+ex: [binance, bitget, mexc, kraken, coinbase, okx, huobi, gateio]
+quote: USDT
+inv: 0.0
+bf:
+  allowed_quotes: [USDT]
+  fee: 0.10
+  rank_by_qvol: true
+  currencies_limit: 400
+  min_net: -10000
+  min_net_per_hop: -10000
+  top: 200
+  require_quote: true
+  require_topofbook: false
+  min_quote_vol: 0
+  min_hops: 2
+  max_hops: 5
+  threads: 0
+  persist_top_csv: true
+  revalidate_depth: false
+  use_ws: false
+  depth_levels: 10
+  latency_penalty_bps: 25
+  log_all_cycles: false
+max: 280
+timeout: 20000
+sleep: 0
+repeat: 1000
+repeat_sleep: 0
+balance_provider: ccxt
+ex_auth_only: false
+simulate_compound: false
+simulate_from_wallet: false
+simulate_prefer: auto
+no_console_clear: true
+techniques:
+  enabled: [bellman_ford, stat_tri]
+  max_workers: 1
+  enable_rerank_onnx: false
+  fallback_timeout: 8.0
+  telemetry_file: ./artifacts/arbitraje/techniques_telemetry_run1000.log
+  inline: [bellman_ford]
+  iteration_watchdog_sec: 30.0
+
+exchange_overrides:
+  mexc:
+    bf:
+      min_net: -10000
+      min_quote_vol: 0
+      latency_penalty_bps: 25
+
+no_console_clear: true
