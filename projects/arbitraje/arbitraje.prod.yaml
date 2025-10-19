@@ -18,7 +18,7 @@ bf:
   min_net_per_hop: -10000    # permitir negativos por hop
   top: 200                   # ampliar listado para diagnóstico
   require_quote: false       # permitir ciclos no anclados en quote
-  require_topofbook: false   # no exigir top-of-book para no filtrar
+  require_topofbook: true   # no exigir top-of-book para no filtrar
   min_quote_vol: 0           # sin filtro por liquidez
   min_hops: 0                # sin mínimo de hops
   max_hops: 0                # sin máximo de hops
@@ -40,11 +40,11 @@ max: 280                    # Alinear con reducción de currencies_limit para ca
 timeout: 20000
 sleep: 0
 repeat: 100
-repeat_sleep: 1
+repeat_sleep: 0
 
 # Note: use_balance/balance_kind removed; tool now always reads wallet balances when available
 balance_provider: ccxt
-ex_auth_only: true
+ex_auth_only: false
 simulate_compound: true
 # Para acelerar y evitar 10-12s de prefetch de wallet por iteración, desactivar:
 simulate_from_wallet: false
@@ -67,9 +67,9 @@ tri:
   currencies_limit: 120
   min_net: -10000           # TRI stricter: require larger buffer for execution
   top: 40
-  require_topofbook: false
+  require_topofbook: true
   min_quote_vol: 0
-  time_budget_sec: 5.0
+  time_budget_sec: 1.0
 
 # Engine techniques orchestration (process-pool based)
 techniques:

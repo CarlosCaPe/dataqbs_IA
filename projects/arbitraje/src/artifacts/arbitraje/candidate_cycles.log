@@ -10,3 +10,9 @@
 {"ts": "binance", "venue": null, "cycle": "B->C->A->B", "orientation": "reverse", "net_bps_est": 368.8312, "fee_bps_total": 0.3, "hops": 3, "status": "actionable", "filter_reasons": []}
 {"ts": "bitget", "venue": null, "cycle": "B->C->A->B", "orientation": "reverse", "net_bps_est": 368.8312, "fee_bps_total": 0.3, "hops": 3, "status": "actionable", "filter_reasons": []}
 {"ts": "mexc", "venue": null, "cycle": "B->C->A->B", "orientation": "reverse", "net_bps_est": 368.8312, "fee_bps_total": 0.3, "hops": 3, "status": "actionable", "filter_reasons": []}
+{"ts": "binance", "venue": null, "cycle": "B->C->A->B", "orientation": "reverse", "net_bps_est": 368.8312, "fee_bps_total": 0.3, "hops": 3, "status": "actionable", "filter_reasons": []}
+{"ts": "bitget", "venue": null, "cycle": "B->C->A->B", "orientation": "reverse", "net_bps_est": 368.8312, "fee_bps_total": 0.3, "hops": 3, "status": "actionable", "filter_reasons": []}
+{"ts": "mexc", "venue": null, "cycle": "B->C->A->B", "orientation": "reverse", "net_bps_est": 368.8312, "fee_bps_total": 0.3, "hops": 3, "status": "actionable", "filter_reasons": []}
+{"ts": "binance", "venue": null, "cycle": "B->C->A->B", "orientation": "reverse", "net_bps_est": 368.8312, "fee_bps_total": 0.3, "hops": 3, "status": "actionable", "filter_reasons": []}
+{"ts": "bitget", "venue": null, "cycle": "B->C->A->B", "orientation": "reverse", "net_bps_est": 368.8312, "fee_bps_total": 0.3, "hops": 3, "status": "actionable", "filter_reasons": []}
+{"ts": "mexc", "venue": null, "cycle": "B->C->A->B", "orientation": "reverse", "net_bps_est": 368.8312, "fee_bps_total": 0.3, "hops": 3, "status": "actionable", "filter_reasons": []}

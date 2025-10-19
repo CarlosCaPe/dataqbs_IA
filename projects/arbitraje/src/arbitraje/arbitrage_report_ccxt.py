@@ -9,6 +9,7 @@ from __future__ import annotations
 
 
 import argparse
+import re
 import json
 import logging
 import math
@@ -536,12 +537,75 @@ def normalize_ccxt_id(ex_id: str) -> str:
     return aliases.get(x, x)
 
 
-def _build_adjacency_from_markets(markets: dict) -> Dict[str, set]:
-    """Build undirected adjacency: currency -> set(other currencies with a direct market)."""
+def _is_contract_like_symbol(symbol: str) -> bool:
+    """Heuristic filter for derivative/contract-like symbols.
+
+    - Contains ':' (e.g., BTC/USDT:USDT or USDT:USDT-YYYYMM)
+    - Has delivery-like suffix with 6-8 digits (e.g., -260925, -202512)
+    - Mentions PERP (perpetual)
+    """
+    try:
+        s = str(symbol or "").upper()
+    except Exception:
+        return False
+    if ":" in s:
+        return True
+    if "PERP" in s:
+        return True
+    try:
+        if re.search(r"-\d{6,8}$", s):
+            return True
+    except Exception:
+        pass
+    return False
+
+
+def _should_exclude_market(symbol: str, m: dict, exclude_contract_symbols: bool) -> bool:
+    """Decide if a market entry should be excluded for spot-only BF scans.
+
+    Excludes when:
+    - exclude_contract_symbols is True and symbol looks like a contract (':', PERP, delivery date)
+    - market has explicit derivatives flags (contract/swap/future/option) or spot==False
+    - market type is present and not 'spot'
+    """
+    if not exclude_contract_symbols:
+        return False
+    try:
+        if _is_contract_like_symbol(symbol):
+            return True
+        if isinstance(m, dict):
+            # Explicit flags from ccxt market metadata
+            for k in ("contract", "swap", "future", "option"):
+                try:
+                    if bool(m.get(k)):
+                        return True
+                except Exception:
+                    continue
+            try:
+                spot_flag = m.get("spot")
+                if spot_flag is False:
+                    return True
+            except Exception:
+                pass
+            t = m.get("type")
+            if isinstance(t, str) and t.lower() != "spot":
+                return True
+    except Exception:
+        return False
+    return False
+
+
+def _build_adjacency_from_markets(markets: dict, exclude_contract_symbols: bool = False) -> Dict[str, set]:
+    """Build undirected adjacency: currency -> set(other currencies with a direct market).
+
+    Optionally exclude contract-like (non-spot) symbols.
+    """
     adj: Dict[str, set] = {}
     try:
         for s, m in (markets or {}).items():
             if not m.get("active", True):
+                continue
+            if _should_exclude_market(s, m, exclude_contract_symbols):
                 continue
             base = str(m.get("base") or "").upper()
             quote = str(m.get("quote") or "").upper()
@@ -1410,6 +1474,13 @@ def main() -> None:
         type=float,
         default=0.0,
         help="Penalización de latencia (bps) restada al net%% estimado tras revalidación de profundidad",
+    )
+    parser.add_argument(
+        "--bf_exclude_contract_symbols",
+        action="store_true",
+        help=(
+            "Excluir símbolos tipo contrato/derivados en BF (spot-only): descarta pares con ':'/PERP/entregas"
+        ),
     )
     parser.add_argument(
         "--bf_iter_timeout_sec",
@@ -2763,7 +2834,9 @@ def main() -> None:
         t0_adj = time.time()
         adjacency = _adjacency_cache.get(ex_id)
         if adjacency is None:
-            adjacency = _build_adjacency_from_markets(markets)
+            adjacency = _build_adjacency_from_markets(
+                markets, exclude_contract_symbols=bool(getattr(args, "bf_exclude_contract_symbols", False))
+            )
             _adjacency_cache[ex_id] = adjacency
         t1_adj = time.time()
         logger.info(
@@ -2859,6 +2932,10 @@ def main() -> None:
             for s, m in markets.items():
                 if not m.get("active", True):
                     continue
+                if _should_exclude_market(
+                    s, m, exclude_contract_symbols=bool(getattr(args, "bf_exclude_contract_symbols", False))
+                ):
+                    continue
                 base = m.get("base")
                 quote = m.get("quote")
                 if base and quote and (base in anchors or quote in anchors):
@@ -2940,6 +3017,13 @@ def main() -> None:
         ):
             try:
                 tickers = ex.fetch_tickers() or {}
+                # Filter out contract-like symbols if requested
+                if bool(getattr(args, "bf_exclude_contract_symbols", False)) and isinstance(tickers, dict):
+                    tickers = {
+                        k: v
+                        for k, v in tickers.items()
+                        if not _is_contract_like_symbol(k)
+                    }
                 if args.bf_debug:
                     logger.info(
                         "[BF-DBG] %s rank_by_qvol disabled -> fetched %d tickers for graph",
@@ -3006,11 +3090,119 @@ def main() -> None:
                     setattr(args, "tri_currencies_limit", _orig_tri_limit)
                 except Exception:
                     pass
+                # If no TRI results under the primary QUOTE, try alternate anchors (BTC, ETH)
+                if (not _tri_res) and markets and isinstance(markets, dict):
+                    try:
+                        from .engine_techniques import scan_arbitrage as _scan_arbitrage
+                        alt_quotes = ["BTC", "ETH", "USDC"]
+                        for _alt in alt_quotes:
+                            # Build token set for the alternate anchor
+                            _tokens_alt: list[str] = []
+                            _seen: set[str] = set()
+                            for s, m in markets.items():
+                                if not m.get("active", True):
+                                    continue
+                                base = str(m.get("base") or "").upper()
+                                quote_sym = str(m.get("quote") or "").upper()
+                                if base == _alt or quote_sym == _alt:
+                                    other = quote_sym if base == _alt else base
+                                    if not other:
+                                        continue
+                                    ou = other.upper()
+                                    if ou in _seen:
+                                        continue
+                                    # Skip if blacklisted
+                                    if exchange_blacklist and _pair_is_blacklisted(
+                                        exchange_blacklist, _alt, ou
+                                    ):
+                                        continue
+                                    # Ensure tickers exist and optionally filter out contract-like symbols
+                                    try:
+                                        if not tickers:
+                                            tickers = ex.fetch_tickers() or {}
+                                        if bool(getattr(args, "bf_exclude_contract_symbols", False)) and isinstance(tickers, dict):
+                                            tickers = {
+                                                k: v
+                                                for k, v in tickers.items()
+                                                if not _is_contract_like_symbol(k)
+                                            }
+                                    except Exception:
+                                        pass
+                                    _seen.add(ou)
+                                    _tokens_alt.append(ou)
+                            if not _tokens_alt:
+                                continue
+                            # Prepare payload for stat_tri with alternate anchor
+                            _payload_alt = {
+                                "ex_id": ex_id,
+                                "quote": _alt,
+                                "tokens": _tokens_alt[: max(1, int(getattr(args, "tri_currencies_limit", 60) or 60))],
+                                "tickers": tickers,
+                                "fee": bf_fee,
+                                "require_top": False,
+                                "min_quote_vol": 0.0,
+                                "min_net": -10000.0,
+                                "latency_penalty": 0.0,
+                                "ts": pd.Timestamp.utcnow().isoformat(),
+                                "time_budget_sec": float(getattr(args, "tri_time_budget_sec", 0.0) or 0.0),
+                            }
+                            _cfg_alt = {
+                                "techniques": {
+                                    "enabled": ["stat_tri"],
+                                    "inline": ["stat_tri"],
+                                    "max_workers": 1,
+                                    "fallback_timeout": float(getattr(args, "tech_fallback_timeout", 5.0) or 5.0),
+                                    "iteration_watchdog_sec": float(getattr(args, "per_exchange_watchdog_sec", 0.0) or 10.0),
+                                }
+                            }
+                            _res_alt = _scan_arbitrage(ts, _payload_alt, _cfg_alt) or []
+                            for rec in _res_alt:
+                                try:
+                                    if "cycle" in rec and rec.get("net_bps_est") is not None:
+                                        path = rec.get("cycle")
+                                        net_pct = float(rec.get("net_bps_est", 0.0)) / 100.0
+                                        hops = max(0, str(path).count("->"))
+                                        inv_amt = float(inv_amt_effective)
+                                        est_after = (
+                                            round(inv_amt * (1.0 + net_pct / 100.0), 6)
+                                            if inv_amt is not None
+                                            else None
+                                        )
+                                        local_results.append(
+                                            {
+                                                "exchange": ex_id,
+                                                "path": path,
+                                                "net_pct": round(net_pct, 4),
+                                                "inv": inv_amt,
+                                                "est_after": est_after,
+                                                "hops": hops,
+                                                "iteration": it,
+                                                "ts": ts,
+                                                "source": "tri-alt",
+                                            }
+                                        )
+                                except Exception:
+                                    continue
+                    except Exception:
+                        pass
                 # Map tri records into BF schema
                 for rec in _tri_res or []:
                     try:
                         if "cycle" in rec and rec.get("net_bps_est") is not None:
                             path = rec.get("cycle")
+                            # Enforce anchoring if required
+                            if getattr(args, "bf_require_quote", False):
+                                try:
+                                    parts = str(path).split("->")
+                                    if not parts or len(parts) < 2:
+                                        continue
+                                    start = parts[0].upper()
+                                    end = parts[-1].upper()
+                                    allowed = set([q for q in allowed_quotes]) if allowed_quotes else {QUOTE}
+                                    if not (start in allowed and end in allowed and start == end):
+                                        continue
+                                except Exception:
+                                    continue
                             net_pct = float(rec.get("net_bps_est", 0.0)) / 100.0
                             hops = max(0, str(path).count("->"))
                             inv_amt = float(inv_amt_effective)
@@ -3174,6 +3366,19 @@ def main() -> None:
                             net_bps = float(rec.get("net_bps_est", 0.0))
                             net_pct = float(net_bps) / 100.0
                             path = rec.get("cycle") or rec.get("path") or ""
+                            # Enforce anchoring if required (start==end in allowed quotes)
+                            if getattr(args, "bf_require_quote", False):
+                                try:
+                                    parts = str(path).split("->")
+                                    if not parts or len(parts) < 2:
+                                        continue
+                                    start = parts[0].upper()
+                                    end = parts[-1].upper()
+                                    allowed = set([q for q in allowed_quotes]) if allowed_quotes else {QUOTE}
+                                    if not (start in allowed and end in allowed and start == end):
+                                        continue
+                                except Exception:
+                                    continue
                             # compute hops if possible
                             hops = max(0, (str(path).count("->")))
                             inv_amt = float(
@@ -3370,7 +3575,9 @@ def main() -> None:
             from itertools import permutations
 
             ts_now = datetime.utcnow().isoformat()
-            fee_bps_total = 3.0 * fee
+            # fee is percent (e.g., 0.10 = 0.10%). We'll rely on get_rate_and_qvol applying per-hop fee,
+            # so do NOT subtract fee again in bps here to avoid double counting.
+            fee_bps_total = None  # not used when using per-hop fee-adjusted rates
 
             # Try delegating triangular scan to engine_techniques if enabled.
             try:
@@ -3449,14 +3656,15 @@ def main() -> None:
                     continue
 
                 gross_bps = (r1 * r2 * r3 - 1.0) * 10000.0
-                net_bps = gross_bps - fee_bps_total
+                # Do not subtract fee again: get_rate_and_qvol already applied per-hop fee
+                net_bps = gross_bps
                 if net_bps >= tri_min_net:
                     rec = {
                         "ts": ts_now,
                         "venue": ex.id,
                         "cycle": f"{QUOTE}->{X}->{Y}->{QUOTE}",
                         "net_bps_est": round(net_bps - tri_latency_penalty, 4),
-                        "fee_bps_total": fee_bps_total,
+                        # fee_bps_total omitted to avoid confusion; already accounted in rates
                         "status": "actionable",
                     }
                     local_results.append(rec)
@@ -3972,6 +4180,49 @@ def main() -> None:
                         )
                     )
                     fh.write("\n\n")
+                # New: listado completo por exchange (ordenado por net desc)
+                if iter_results:
+                    df_iter = pd.DataFrame(iter_results)
+                    if "exchange" in df_iter.columns:
+                        try:
+                            exchanges_sorted = sorted(
+                                [str(x) for x in df_iter["exchange"].dropna().unique()]
+                            )
+                        except Exception:
+                            exchanges_sorted = []
+                        for _ex in exchanges_sorted:
+                            try:
+                                dfx = (
+                                    df_iter[df_iter["exchange"] == _ex]
+                                    .copy()
+                                    .sort_values("net_pct", ascending=False)
+                                )
+                                cols = [
+                                    c
+                                    for c in [
+                                        "exchange",
+                                        "path",
+                                        "hops",
+                                        "net_pct",
+                                        "inv",
+                                        "est_after",
+                                        "ts",
+                                    ]
+                                    if c in dfx.columns
+                                ]
+                                if not dfx.empty and cols:
+                                    fh.write(f"Oportunidades por exchange: {_ex}\n")
+                                    fh.write(
+                                        tabulate(
+                                            dfx[cols],
+                                            headers="keys",
+                                            tablefmt="github",
+                                            showindex=False,
+                                        )
+                                    )
+                                    fh.write("\n\n")
+                            except Exception:
+                                continue
             except Exception:
                 pass
             if iter_lines:

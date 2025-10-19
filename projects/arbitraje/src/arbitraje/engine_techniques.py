@@ -1141,14 +1141,16 @@ def _tech_stat_triangles(
             quote = str(payload.get("quote") or "")
             tokens = [str(t) for t in (payload.get("tokens") or [])]
             tickers = payload.get("tickers") or {}
-            fee = float(payload.get("fee") or 0.0)
+            # Fee provided in percent (e.g., 0.10 = 0.10%). Convert to basis points for net_bps math.
+            fee_pct = float(payload.get("fee") or 0.0)
             min_quote_vol = float(payload.get("min_quote_vol") or 0.0)
             min_net = float(payload.get("min_net") or 0.0)
             latency_penalty = float(payload.get("latency_penalty") or 0.0)
             ts_now = payload.get("ts") or snapshot_id
 
             results: List[ArbResult] = []
-            fee_bps_total = 3.0 * fee
+            # Total fee across three hops, expressed in basis points
+            fee_bps_total = 3.0 * (fee_pct * 100.0)
 
             def get_rate_and_qvol_local(a: str, b: str):
                 sym = f"{a}/{b}"

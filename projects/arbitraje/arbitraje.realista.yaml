@@ -1,0 +1,80 @@
+mode: bf
+
+ex: [binance, bitget, mexc]
+
+quote: USDT
+inv: 0.0
+
+bf:
+  fee: 0.10
+  rank_by_qvol: true
+  currencies_limit: 300
+  min_net: -300        # -3.00%
+  min_net_per_hop: -150 # -1.50% por hop
+  top: 60
+  require_quote: true
+  require_topofbook: true
+  min_quote_vol: 20000
+  min_hops: 0
+  max_hops: 0
+  threads: 0
+  require_dual_quote: false
+  persist_top_csv: true
+  revalidate_depth: true
+  use_ws: true
+  depth_levels: 20
+  latency_penalty_bps: 10
+  reset_history: false
+  iter_timeout_sec: 0
+  debug_list_triangles: false
+  log_all_cycles: false
+
+max: 200
+timeout: 20000
+sleep: 0
+repeat: 1
+repeat_sleep: 0
+
+balance_provider: ccxt
+ex_auth_only: true
+simulate_compound: true
+simulate_from_wallet: false
+simulate_prefer: auto
+simulate_select: best
+simulate_auto_switch: true
+simulate_fallback_to_inv: false
+
+no_console_clear: true
+
+ui:
+  progress_bar: true
+  progress_len: 20
+  spinner_frames: "|/-\\"
+  draw_tables_first: true
+  show_simulation_header_always: true
+
+tri:
+  fee: 0.10
+  currencies_limit: 80
+  min_net: -300
+  top: 40
+  require_topofbook: true
+  min_quote_vol: 20000
+  time_budget_sec: 3.0
+
+techniques:
+  enabled: [bellman_ford, stat_tri]
+  max_workers: 2
+  enable_rerank_onnx: false
+  fallback_timeout: 8.0
+  telemetry_file: ./artifacts/arbitraje/techniques_telemetry.log
+  inline: [bellman_ford, stat_tri]
+  iteration_watchdog_sec: 10.0
+  pruning_degree_threshold: 0
+  pruning_qvol_frac: 0.0
+  pruning_volatility_window: 0
+
+exchange_overrides: {}
+
+per_exchange_watchdog_sec: 60
+iteration_watchdog_sec: 180
