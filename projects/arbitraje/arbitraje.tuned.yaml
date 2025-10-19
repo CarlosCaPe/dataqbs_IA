@@ -8,14 +8,14 @@ inv: 10.0
 bf:
   fee: 0.02               # 2 bps per hop realistic baseline for taker on top venues
   rank_by_qvol: true
-  currencies_limit: 120   # focus on liquid set
+  currencies_limit: 60    # tighter liquid set for speed
   min_net: -1000
   min_net_per_hop: -1000
   top: 50
   require_quote: true
   allowed_quotes: [USDT]
-  require_topofbook: true
-  min_quote_vol: 20000    # avoid illiquid outliers
+  require_topofbook: false   # allow 'last' fallback for speed; tighten later if needed
+  min_quote_vol: 10000    # avoid illiquid outliers but admit more
   min_hops: 0
   max_hops: 0
   threads: 0
@@ -24,7 +24,7 @@ bf:
   revalidate_depth: false  # keep off for speed; can flip on for realism
   use_ws: true
   depth_levels: 10
-  latency_penalty_bps: 2   # penalize by 2 bps for latency risk
+  latency_penalty_bps: 3   # penalize by 3 bps for latency risk
   reset_history: false
   iter_timeout_sec: 0
   debug_list_triangles: false
@@ -41,7 +41,7 @@ repeat_sleep: 0
 balance_provider: ccxt
 ex_auth_only: true
 simulate_compound: true
-simulate_from_wallet: true     # use wallet if present
+simulate_from_wallet: false    # disable wallet prefetch to avoid 10s+ delays
 simulate_prefer: USDT
 simulate_select: best
 simulate_auto_switch: false
@@ -69,7 +69,7 @@ techniques:
   enabled: [bellman_ford]
   max_workers: 2
   enable_rerank_onnx: false
-  fallback_timeout: 5.0
+  fallback_timeout: 3.0
   telemetry_file: ./artifacts/arbitraje/techniques_telemetry.log
   inline: [bellman_ford]
   iteration_watchdog_sec: 10.0
@@ -80,13 +80,16 @@ techniques:
 exchange_overrides:
   binance:
     bf:
-      require_topofbook: true
+      currencies_limit: 60
+      require_topofbook: false
   bitget:
     bf:
-      require_topofbook: true
+      currencies_limit: 60
+      require_topofbook: false
   mexc:
     bf:
-      require_topofbook: true
+      currencies_limit: 40
+      require_topofbook: false
 
 per_exchange_watchdog_sec: 10
-iteration_watchdog_sec: 25
+iteration_watchdog_sec: 20

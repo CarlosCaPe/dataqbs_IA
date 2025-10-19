@@ -3943,6 +3943,30 @@ def main() -> None:
                         ),
                         return_when=concurrent.futures.FIRST_COMPLETED,
                     )
+                    # Cancel any futures that exceeded per-exchange watchdog
+                    if per_exchange_watchdog_sec > 0:
+                        now_ts = time.time()
+                        for fut in list(pending):
+                            try:
+                                ex_id_chk, sub_ts = future_map.get(fut, (None, None))
+                                if sub_ts is None:
+                                    continue
+                                if (now_ts - sub_ts) > per_exchange_watchdog_sec:
+                                    try:
+                                        fut.cancel()
+                                        pending.discard(fut)
+                                        logger.error(
+                                            "Exchange watchdog: %s exceeded %.2fs; cancelled.",
+                                            ex_id_chk,
+                                            per_exchange_watchdog_sec,
+                                        )
+                                        print(
+                                            f"Exchange watchdog: {ex_id_chk} exceeded {per_exchange_watchdog_sec:.2f}s; cancelled."
+                                        )
+                                    except Exception:
+                                        continue
+                            except Exception:
+                                continue
                     # Process any completed futures
                     for future in list(done):
                         pending.discard(future)
