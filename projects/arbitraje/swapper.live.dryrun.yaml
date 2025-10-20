@@ -1,0 +1,35 @@
+mode: real
+# Safe dry-run variant of swapper.live.yaml: same params but no real orders will be sent.
+# Useful to validate integration and logging without risk.
+test_exchange: binance
+
+# Runtime
+timeout_ms: 20000
+order_type: limit
+time_in_force: GTC
+max_slippage_bps: 25
+min_notional: 1
+
+# Safety: do not place orders
+dry_run: true
+
+# Execution pacing
+settle_sleep_ms: 100
+confirm_fill: false
+
+# Per-exchange minimum test amount (used for test mode defaults, not here)
+test_min_amounts:
+  binance: 10.0
+  okx: 1.0
+  bitget: 1.0
+  mexc: 1.0
+
+# Blacklist (same as live)
+blacklist_pairs:
+  okx:
+    - USDC/USDT  # sCode 51155 compliance restriction
+
+# Round-trip mirror last leg (enabled)
+roundtrip_mirror_last_leg: true
+roundtrip_mirror_price_offset_bps: 5
+roundtrip_mirror_amount_tolerance_bps: 5

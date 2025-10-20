@@ -310,6 +310,11 @@ class Swapper:
                 return float(ex.currency_to_precision(currency, amount))
             except Exception:
                 return float(amount)
+        def _price_to_precision(sym: str, price: float) -> float:
+            try:
+                return float(ex.price_to_precision(sym, price))
+            except Exception:
+                return float(price)
         def _sum_fees(order_obj: dict) -> Dict[str, float]:
             fees_sum: Dict[str, float] = {}
             try:
@@ -344,6 +349,8 @@ class Swapper:
             first_hop_out_amount: Optional[float] = None
             first_hop_base = plan.hops[0].base.upper() if plan.hops else ""
             first_hop_quote = plan.hops[0].quote.upper() if plan.hops else ""
+            # Track the limit price used on the mirror order for observability
+            mirror_limit_price_used: Optional[float] = None
             for idx, hop in enumerate(plan.hops):
                 base, quote = hop.base.upper(), hop.quote.upper()
                 sym1 = f"{base}/{quote}"
@@ -360,12 +367,14 @@ class Swapper:
                     sym = sym2
                     invert = True
                 else:
+                    # Neutralize amounts on failure to avoid unit mismatch confusion
+                    ain = float(amount_in_used or 0.0)
                     return SwapResult(
                         False,
                         "failed",
-                        float(amount_in_used or 0.0),
-                        amount_cur,
-                        amount_cur - float(amount_in_used or 0.0),
+                        ain,
+                        ain,
+                        0.0,
                         {"reason": "symbol_missing", "hop": f"{base}->{quote}", "cur_ccy": cur_ccy},
                     )
 
@@ -380,12 +389,13 @@ class Swapper:
                 if amount_in_used is None and first_cap > 0:
                     src_to_use = min(src_to_use, float(first_cap))
                 if src_to_use <= 0:
+                    ain = float(amount_in_used or 0.0)
                     return SwapResult(
                         False,
                         "failed",
-                        float(amount_in_used or 0.0),
-                        amount_cur,
-                        amount_cur - float(amount_in_used or 0.0),
+                        ain,
+                        ain,
+                        0.0,
                         {"reason": "no_funds_source", "source": base},
                     )
 
@@ -445,16 +455,48 @@ class Swapper:
                     else:
                         # quote -> base
                         amount_next = float(amount_param or 0.0)
-                    fills.append(
-                        {
-                            "symbol": sym,
-                            "side": side,
-                            "amount_in": src_to_use,
-                            "amount_out": amount_next,
-                            "price": fill_price,
-                            "simulated": True,
-                        }
-                    )
+                    # Prepare base fill record
+                    fill_rec = {
+                        "symbol": sym,
+                        "side": side,
+                        "amount_in": src_to_use,
+                        "amount_out": amount_next,
+                        "price": fill_price,
+                        "simulated": True,
+                    }
+                    # If this is the last hop in a round-trip and mirror is enabled, also surface mirror observability
+                    if (
+                        self.roundtrip_mirror_last_leg
+                        and bool(plan.hops)
+                        and (plan.hops[0].base.upper() == plan.hops[-1].quote.upper())
+                        and idx == (len(plan.hops) - 1)
+                        and first_hop_unit_price_q_per_b
+                        and first_hop_unit_price_q_per_b > 0
+                        and first_hop_out_amount is not None
+                    ):
+                        try:
+                            if not invert:
+                                limit_price_sim = float(1.0 / float(first_hop_unit_price_q_per_b))
+                            else:
+                                limit_price_sim = float(first_hop_unit_price_q_per_b)
+                            off = float(self.roundtrip_mirror_price_offset_bps or 0.0) / 10000.0
+                            if off and off > 0:
+                                if side == "buy":
+                                    limit_price_sim = float(max(0.0, limit_price_sim * (1.0 - off)))
+                                else:
+                                    limit_price_sim = float(limit_price_sim * (1.0 + off))
+                            fill_rec.update({
+                                "mirror_last_leg": True,
+                                "mirror_first_price_q_per_b": float(first_hop_unit_price_q_per_b or 0.0),
+                                "mirror_price_offset_bps": float(self.roundtrip_mirror_price_offset_bps or 0.0),
+                                "mirror_amount_tolerance_bps": float(self.roundtrip_mirror_amount_tolerance_bps or 0.0),
+                                "mirror_limit_price": float(limit_price_sim or 0.0),
+                                "last_symbol": sym,
+                                "last_side": side,
+                            })
+                        except Exception:
+                            pass
+                    fills.append(fill_rec)
                     amount_cur = float(amount_next)
                     cur_ccy = quote
                     if amount_in_used is None:
@@ -520,6 +562,32 @@ class Swapper:
                         # Determine mirrored amount: aim to use exactly the first hop's out amount of the non-anchor
                         # Last hop base currency is the source of funds in this hop ("base")
                         tol = float(self.roundtrip_mirror_amount_tolerance_bps or 0.0) / 10000.0
+                        # Fetch market limits/precision for validation
+                        try:
+                            market = (ex.markets or {}).get(sym) or {}
+                        except Exception:
+                            market = {}
+                        def _get_min(d: dict, *keys) -> Optional[float]:
+                            cur = d
+                            try:
+                                for k in keys:
+                                    cur = cur.get(k) or {}
+                                v = float(cur) if isinstance(cur, (int, float)) else None
+                            except Exception:
+                                v = None
+                            return v
+                        limits = market.get("limits") or {}
+                        min_amount = None
+                        min_cost = None
+                        try:
+                            min_amount = float(((limits.get("amount") or {}).get("min")) or 0) or None
+                        except Exception:
+                            min_amount = None
+                        try:
+                            # prefer cost.min; some exchanges use notional
+                            min_cost = float(((limits.get("cost") or {}).get("min")) or 0) or None
+                        except Exception:
+                            min_cost = None
                         if not invert:
                             # sym is base/quote == B/A and side == 'sell'; amount is in B units
                             needed_amount = float(first_hop_out_amount)
@@ -528,13 +596,29 @@ class Swapper:
                                 if tol > 0 and src_to_use >= needed_amount * (1.0 - tol):
                                     needed_amount = float(src_to_use)
                                 else:
+                                    ain = float(amount_in_used or 0.0)
                                     return SwapResult(
                                         False,
                                         "failed",
-                                        float(amount_in_used or 0.0),
-                                        amount_cur,
-                                        amount_cur - float(amount_in_used or 0.0),
+                                        ain,
+                                        ain,
+                                        0.0,
                                         {"reason": "mirror_insufficient_funds", "needed": needed_amount, "free": src_to_use, "symbol": sym},
+                                    )
+                            # Enforce min amount if available
+                            if min_amount is not None and needed_amount < float(min_amount):
+                                # If wallet can cover the min amount, bump; else fail
+                                if src_to_use >= float(min_amount):
+                                    needed_amount = float(min_amount)
+                                else:
+                                    ain = float(amount_in_used or 0.0)
+                                    return SwapResult(
+                                        False,
+                                        "failed",
+                                        ain,
+                                        ain,
+                                        0.0,
+                                        {"reason": "mirror_below_min_amount", "min_amount": float(min_amount), "free": src_to_use, "symbol": sym},
                                     )
                             order_amount = _amount_to_precision(sym, needed_amount)
                         else:
@@ -546,15 +630,46 @@ class Swapper:
                                 if tol > 0 and src_to_use >= needed_cost_b * (1.0 - tol):
                                     needed_cost_b = float(src_to_use)
                                 else:
+                                    ain = float(amount_in_used or 0.0)
                                     return SwapResult(
                                         False,
                                         "failed",
-                                        float(amount_in_used or 0.0),
-                                        amount_cur,
-                                        amount_cur - float(amount_in_used or 0.0),
+                                        ain,
+                                        ain,
+                                        0.0,
                                         {"reason": "mirror_insufficient_funds", "needed": needed_cost_b, "free": src_to_use, "symbol": sym},
                                     )
+                            # Enforce min notional (cost) if available by bumping cost up to min_cost (bounded by wallet)
+                            if min_cost is not None and needed_cost_b < float(min_cost):
+                                if src_to_use >= float(min_cost):
+                                    needed_cost_b = float(min_cost)
+                                else:
+                                    ain = float(amount_in_used or 0.0)
+                                    return SwapResult(
+                                        False,
+                                        "failed",
+                                        ain,
+                                        ain,
+                                        0.0,
+                                        {"reason": "mirror_below_min_notional", "min_cost": float(min_cost), "free": src_to_use, "symbol": sym},
+                                    )
                             qty_a = needed_cost_b / float(limit_price)
+                            # Enforce min amount too if present
+                            if min_amount is not None and qty_a < float(min_amount):
+                                # Try to raise qty to min_amount if wallet can cover its cost
+                                min_cost_needed = float(min_amount) * float(limit_price)
+                                if src_to_use >= min_cost_needed:
+                                    qty_a = float(min_amount)
+                                else:
+                                    ain = float(amount_in_used or 0.0)
+                                    return SwapResult(
+                                        False,
+                                        "failed",
+                                        ain,
+                                        ain,
+                                        0.0,
+                                        {"reason": "mirror_below_min_amount", "min_amount": float(min_amount), "free": src_to_use, "symbol": sym},
+                                    )
                             order_amount = _amount_to_precision(sym, qty_a)
 
                         order_type = "limit"
@@ -562,6 +677,10 @@ class Swapper:
                         tif = str(self.time_in_force or "GTC").upper()
                         params = dict(params)
                         params["timeInForce"] = tif
+                        # Apply price precision to reduce rejections (tick size)
+                        limit_price = _price_to_precision(sym, float(limit_price))
+                        # Save for observability outside this block
+                        mirror_limit_price_used = float(limit_price)
                         order = ex.create_order(
                             symbol=sym,
                             type=order_type,
@@ -571,12 +690,13 @@ class Swapper:
                             params=params,
                         )
                     except Exception as e:
+                        ain = float(amount_in_used or 0.0)
                         return SwapResult(
                             False,
                             "failed",
-                            float(amount_in_used or 0.0),
-                            amount_cur,
-                            amount_cur - float(amount_in_used or 0.0),
+                            ain,
+                            ain,
+                            0.0,
                             {"reason": "mirror_order_error", "error": str(e), "symbol": sym},
                         )
                 else:
@@ -666,6 +786,9 @@ class Swapper:
                             "mirror_first_price_q_per_b": float(first_hop_unit_price_q_per_b or 0.0),
                             "mirror_price_offset_bps": float(self.roundtrip_mirror_price_offset_bps or 0.0),
                             "mirror_amount_tolerance_bps": float(self.roundtrip_mirror_amount_tolerance_bps or 0.0),
+                            "mirror_limit_price": float(mirror_limit_price_used or 0.0),
+                            "last_symbol": sym,
+                            "last_side": side,
                         } if (self.roundtrip_mirror_last_leg and is_roundtrip and idx == (len(plan.hops) - 1)) else {}),
                     }
                 )
@@ -680,6 +803,14 @@ class Swapper:
                                 eff_avg = float(order.get("average") or order.get("price") or 0.0)
                         except Exception:
                             eff_avg = 0.0
+                        # Fallback: derive from realized amounts if no avg/price returned by exchange
+                        if (not eff_avg or eff_avg <= 0) and amount_in_used and out_val:
+                            try:
+                                # First hop transforms BASE0 -> QUOTE0. Effective unit price (quote/base)
+                                # approx = (out_quote) / (in_base)
+                                eff_avg = float(out_val) / float(amount_in_used)
+                            except Exception:
+                                eff_avg = 0.0
                         if eff_avg and eff_avg > 0:
                             # Normalize to (first_hop_quote per first_hop_base)
                             if not invert:
@@ -692,24 +823,76 @@ class Swapper:
 
             # Result summary: if start and end currencies coincide, delta is meaningful; otherwise report 0 delta
             amount_in_final = float(amount_in_used or 0.0)
-            delta = (amount_cur - amount_in_final) if (start_ccy == end_ccy) else 0.0
+            is_rt = (start_ccy == end_ccy)
+            delta = (amount_cur - amount_in_final) if is_rt else 0.0
             status = "ok"
+            ok_flag = True
+            # Promote mirror observability to top-level details for simpler grepping
+            mirror_meta: Dict[str, object] = {}
+            try:
+                if self.roundtrip_mirror_last_leg and is_rt and fills:
+                    last_fill = fills[-1]
+                    if bool(last_fill.get("mirror_last_leg")):
+                        mlp = float(last_fill.get("mirror_limit_price") or 0.0)
+                        lsym = str(last_fill.get("last_symbol") or "")
+                        lside = str(last_fill.get("last_side") or "")
+                        mirror_meta = {
+                            "mirror_limit_price": mlp,
+                            "last_symbol": lsym,
+                            "last_side": lside,
+                        }
+                        # Detect mirror pending (last hop limit placed but effectively not filled)
+                        try:
+                            out_last = float(last_fill.get("amount_out") or 0.0)
+                        except Exception:
+                            out_last = 0.0
+                        if out_last <= 1e-12:
+                            status = "mirror_pending"
+                            ok_flag = False
+                            # Option 1 (default): neutralize delta so dashboards don't show realized loss
+                            delta = 0.0
+                            # Optionally compute mark-to-market estimate in start_ccy
+                            try:
+                                sym = str(last_fill.get("symbol") or "")
+                                side = str(last_fill.get("last_side") or "")
+                                # We assume two-hop common case: we currently hold the quote from hop 1
+                                # amount we hold approximately equals first_hop_out_amount
+                                held_est_q = float(first_hop_out_amount or 0.0)
+                                m2m_delta = None
+                                if sym and held_est_q > 0 and side == "buy":
+                                    t = ex.fetch_ticker(sym)
+                                    px = float(t.get("ask") or t.get("last") or t.get("bid") or 0.0)
+                                    if px > 0:
+                                        # Convert quote -> base estimate
+                                        m2m_out_b = held_est_q / px
+                                        m2m_delta = float(m2m_out_b - amount_in_final)
+                                if m2m_delta is not None:
+                                    mirror_meta["m2m_delta_estimate"] = float(m2m_delta)
+                            except Exception:
+                                pass
+            except Exception:
+                mirror_meta = {}
+            # Guardrail: never mark ok if round-trip ends negative (only if not mirror pending)
+            if is_rt and status != "mirror_pending" and delta < 0:
+                ok_flag = False
+                status = "failed"
             return SwapResult(
-                True,
+                ok_flag,
                 status,
                 amount_in_final,
                 amount_cur,
                 delta,
-                {"fills": fills, "exchange": ex_id, "start_ccy": start_ccy, "final_ccy": cur_ccy},
+                {"fills": fills, "exchange": ex_id, "start_ccy": start_ccy, "final_ccy": cur_ccy, **mirror_meta},
             )
         except Exception as e:
             amount_in_final = float(amount_in_used or 0.0) if 'amount_in_used' in locals() else 0.0
+            # On failure, report neutral out/in and zero delta to avoid unit-mismatch confusion
             return SwapResult(
                 False,
                 "failed",
                 amount_in_final,
-                amount_cur,
-                amount_cur - amount_in_final,
+                amount_in_final,
+                0.0,
                 {"error": str(e), "fills": fills, "cur_ccy": cur_ccy},
             )
 
@@ -759,35 +942,119 @@ def _main_cli():
             amt = float(args.amount or 0.0)
     plan = SwapPlan(exchange=ex_id, hops=hops, amount=amt)
 
-    # Log start
+    # Log start (include units if possible)
     try:
+        path_nodes = ("->".join([plan.hops[0].base] + [h.quote for h in plan.hops]) if plan.hops else (args.path or ""))
+        amt = float(getattr(plan, "amount", 0.0) or 0.0)
+        unit = plan.hops[0].base if (plan and plan.hops) else ""
+        # Best-effort free balance for start currency
+        bal_free = None
+        try:
+            if plan and plan.hops:
+                start_ccy = plan.hops[0].base
+                bal_free = SpotBalanceFetcher(timeout_ms=sw.timeout_ms).get_balance(plan.exchange, start_ccy)
+        except Exception:
+            bal_free = None
         logger.info(
-            "start | config=%s | mode=%s | order_type=%s | tif=%s | exchange=%s | path=%s | amount=%s",
+            "start | config=%s | mode=%s | order_type=%s | tif=%s | exchange=%s | path=%s | amount_cap=%.8f %s | balance_free=%s %s",
             args.config,
             sw.mode,
             sw.order_type,
             sw.time_in_force,
             plan.exchange,
-            "->".join([plan.hops[0].base] + [h.quote for h in plan.hops]) if plan.hops else "",
-            plan.amount,
+            path_nodes,
+            amt,
+            unit,
+            (f"{float(bal_free):.8f}" if bal_free is not None else "n/a"),
+            unit,
         )
     except Exception:
         pass
 
     res = sw.run(plan)
 
-    # Log result summary
+    # Log result summary (neutral on failure). Include reason and mirror observability if available.
     try:
-        logger.info(
-            "result | ok=%s | status=%s | in=%.8f | out=%.8f | delta=%.8f | exchange=%s | hops=%d",
-            res.ok,
-            res.status,
-            res.amount_in,
-            res.amount_out,
-            res.delta,
-            plan.exchange,
-            len(plan.hops or []),
-        )
+        reason = None
+        error_text = None
+        try:
+            if isinstance(res.details, dict):
+                d = res.details
+                reason = d.get("reason") or (d.get("error") and "error")
+                # Preserve exact error text when present
+                if d.get("error"):
+                    try:
+                        error_text = str(d.get("error"))
+                    except Exception:
+                        error_text = None
+        except Exception:
+            reason = None
+        # Unit for amount_used
+        try:
+            start_unit = ""
+            if isinstance(res.details, dict) and res.details.get("start_ccy"):
+                start_unit = str(res.details.get("start_ccy"))
+            elif plan and plan.hops:
+                start_unit = plan.hops[0].base
+        except Exception:
+            start_unit = ""
+        # Optional mirror debugging fields
+        mirror_suffix = ""
+        m2m_suffix = ""
+        try:
+            if isinstance(res.details, dict):
+                mlp = res.details.get("mirror_limit_price")
+                lsym = res.details.get("last_symbol")
+                lside = res.details.get("last_side")
+                m2m = res.details.get("m2m_delta_estimate")
+                if (mlp is not None) or lsym or lside:
+                    mlp_f = 0.0
+                    try:
+                        mlp_f = float(mlp or 0.0)
+                    except Exception:
+                        mlp_f = 0.0
+                    mirror_suffix = f" | mirror: {str(lsym or '')} {str(lside or '')} limit={mlp_f:.8f}"
+                if m2m is not None:
+                    try:
+                        m2m_f = float(m2m)
+                        m2m_suffix = f" | m2m_delta={m2m_f:.8f}"
+                    except Exception:
+                        m2m_suffix = ""
+        except Exception:
+            mirror_suffix = ""
+            m2m_suffix = ""
+        if reason:
+            logger.info(
+                "result | ok=%s | status=%s | in=%.8f | out=%.8f | delta=%.8f | exchange=%s | hops=%d | amount_used=%.8f %s | reason=%s%s%s%s",
+                res.ok,
+                res.status,
+                res.amount_in,
+                res.amount_out,
+                res.delta,
+                plan.exchange,
+                len(plan.hops or []),
+                float(res.amount_in or 0.0),
+                start_unit,
+                reason,
+                mirror_suffix,
+                (f" | error={error_text}" if error_text else ""),
+                m2m_suffix,
+            )
+        else:
+            logger.info(
+                "result | ok=%s | status=%s | in=%.8f | out=%.8f | delta=%.8f | exchange=%s | hops=%d | amount_used=%.8f %s%s%s",
+                res.ok,
+                res.status,
+                res.amount_in,
+                res.amount_out,
+                res.delta,
+                plan.exchange,
+                len(plan.hops or []),
+                float(res.amount_in or 0.0),
+                start_unit,
+                mirror_suffix,
+                m2m_suffix,
+            )
     except Exception:
         pass
     print(

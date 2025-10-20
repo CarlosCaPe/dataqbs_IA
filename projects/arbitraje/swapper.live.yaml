@@ -39,5 +39,5 @@ blacklist_pairs:
 
 # Round-trip mirror settings so last hop buys back same tokens at equal or better terms
 roundtrip_mirror_last_leg: true
-roundtrip_mirror_price_offset_bps: 3    # require ~0.03% improvement over entry
+roundtrip_mirror_price_offset_bps: 5    # require ~0.05% improvement over entry
 roundtrip_mirror_amount_tolerance_bps: 5
