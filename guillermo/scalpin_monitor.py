@@ -496,38 +496,23 @@ class ScalpinMonitor:
                 ):
                     accion = f"@{ex_id} swap {asset.upper()}->{self.anchor}->{asset.upper()}"
                     if accion:
-                        log_path = self.swapper_log_path
-                        fh = None
-                        try:
-                            os.makedirs(os.path.dirname(log_path), exist_ok=True)
-                            fh = open(log_path, "ab")
-                        except Exception:
-                            fh = None
-                        try:
-                            __import__("subprocess").Popen(
-                                [
-                                    sys.executable,
-                                    "-m",
-                                    "arbitraje.swapper",
-                                    "--config",
-                                    os.path.join(os.getcwd(), "projects", "arbitraje", "swapper.live.yaml"),
-                                    "--exchange",
-                                    ex_id,
-                                    "--path",
-                                    f"{asset.upper()}->{self.anchor}->{asset.upper()}",
-                                ],
-                                env=dict(os.environ, PYTHONPATH=os.path.join(os.getcwd(), "projects", "arbitraje", "src")),
-                                stdout=fh if fh is not None else None,
-                                stderr=__import__("subprocess").STDOUT if fh is not None else None,
-                            )
-                        finally:
-                            try:
-                                if fh is not None:
-                                    fh.flush()
-                                    os.fsync(fh.fileno())
-                                    fh.close()
-                            except Exception:
-                                pass
+                        # Spawn swapper without redirecting stdout/stderr to the shared log file.
+                        # The swapper's own logger writes to artifacts/arbitraje/logs/swapper.log (UTF-8),
+                        # avoiding binary/NUL corruption from mixed writers on Windows.
+                        __import__("subprocess").Popen(
+                            [
+                                sys.executable,
+                                "-m",
+                                "arbitraje.swapper",
+                                "--config",
+                                os.path.join(os.getcwd(), "projects", "arbitraje", "swapper.live.yaml"),
+                                "--exchange",
+                                ex_id,
+                                "--path",
+                                f"{asset.upper()}->{self.anchor}->{asset.upper()}",
+                            ],
+                            env=dict(os.environ, PYTHONPATH=os.path.join(os.getcwd(), "projects", "arbitraje", "src")),
+                        )
                 local_rows.append(
                     {
                         "exchange": ex_id,
