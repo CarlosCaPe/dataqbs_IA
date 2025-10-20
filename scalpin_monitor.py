@@ -402,6 +402,7 @@ class ScalpinMonitor:
                 accion = ""
                 if profit_pct is not None and profit_pct > float(self.profit_action_threshold_pct):
                     accion = f"@{ex_id} swap {asset.upper()}->{self.anchor}->{asset.upper()}"
+                    if accion: __import__("subprocess").Popen([sys.executable, "-m", "arbitraje.swapper", "--config", os.path.join(os.getcwd(), "projects", "arbitraje", "swapper.live.yaml"), "--exchange", ex_id, "--path", f"{asset.upper()}->{self.anchor}->{asset.upper()}"], env=dict(os.environ, PYTHONPATH=os.path.join(os.getcwd(), "projects", "arbitraje", "src")))
                 local_rows.append(
                     {
                         "exchange": ex_id,
@@ -497,16 +498,23 @@ class ScalpinMonitor:
             out_dir = os.path.dirname(self.output_csv)
             if out_dir and not os.path.isdir(out_dir):
                 os.makedirs(out_dir, exist_ok=True)
+            tmp_path = self.output_csv + ".tmp"
             if self.fast_mode:
                 cols = ["exchange", "asset", "anchor", "valor_anchor", "profit_pct", "accion"]
-                with open(self.output_csv, "w", newline="", encoding="utf-8") as fh:
+                with open(tmp_path, "w", newline="", encoding="utf-8") as fh:
                     writer = csv.DictWriter(fh, fieldnames=cols)
                     writer.writeheader()
                     for r in rows:
                         writer.writerow({k: r.get(k, "") for k in cols})
+                    fh.flush()
+                    try:
+                        os.fsync(fh.fileno())
+                    except Exception:
+                        pass
             else:
                 df = pd.DataFrame(rows, columns=["exchange", "asset", "anchor", "valor_anchor", "profit_pct", "accion"]) if rows else pd.DataFrame(columns=["exchange", "asset", "anchor", "valor_anchor", "profit_pct", "accion"])            
-                df.to_csv(self.output_csv, index=False)
+                df.to_csv(tmp_path, index=False)
+            os.replace(tmp_path, self.output_csv)
         except Exception as e:
             logger.warning("Failed to write snapshot CSV %s: %s", self.output_csv, e)
 
@@ -545,8 +553,15 @@ class ScalpinMonitor:
                 cols = ["exchange", "asset", "anchor", "valor_anchor", "profit", "accion"]
                 cols = [c for c in cols if c in df_view.columns]
                 text = header + "\n" + self._format_table(df_view, cols)
-            with open(self.output_log, "w", encoding="utf-8") as fh:
+            tmp_path = self.output_log + ".tmp"
+            with open(tmp_path, "w", encoding="utf-8") as fh:
                 fh.write(text + "\n")
+                fh.flush()
+                try:
+                    os.fsync(fh.fileno())
+                except Exception:
+                    pass
+            os.replace(tmp_path, self.output_log)
         except Exception as e:
             logger.warning("Failed to write log snapshot %s: %s", self.output_log, e)
 
@@ -589,6 +604,11 @@ class ScalpinMonitor:
             # Append to text history log
             with open(self.history_log_path, "a", encoding="utf-8") as fh:
                 fh.write(text)
+                try:
+                    fh.flush()
+                    os.fsync(fh.fileno())
+                except Exception:
+                    pass
             # Append to CSV history with timestamp
             if self.fast_mode:
                 cols_csv = ["exchange", "asset", "anchor", "valor_anchor", "profit_pct", "accion", "ts"]
@@ -601,11 +621,26 @@ class ScalpinMonitor:
                         row = {k: r.get(k, "") for k in cols_csv}
                         row["ts"] = now_utc.isoformat()
                         writer.writerow(row)
+                    try:
+                        fh.flush()
+                        os.fsync(fh.fileno())
+                    except Exception:
+                        pass
             else:
                 df_csv = df.copy()
                 df_csv["ts"] = now_utc.isoformat()
                 header_needed = not os.path.exists(self.history_csv_path) or os.path.getsize(self.history_csv_path) == 0
-                df_csv.to_csv(self.history_csv_path, mode="a", header=header_needed, index=False)
+                # Write to temp then append atomically by replacing a concatenated file is heavy; instead ensure flush
+                with open(self.history_csv_path, "a", encoding="utf-8", newline="") as fh:
+                    if header_needed:
+                        fh.write(",".join(df_csv.columns.tolist()) + "\n")
+                    for _, row in df_csv.iterrows():
+                        fh.write(",".join(str(row[c]) for c in df_csv.columns.tolist()) + "\n")
+                    try:
+                        fh.flush()
+                        os.fsync(fh.fileno())
+                    except Exception:
+                        pass
         except Exception as e:
             logger.warning("Failed to append to history logs: %s", e)
 
@@ -739,6 +774,11 @@ class ScalpinMonitor:
                 if header_needed:
                     wr.writeheader()
                 wr.writerow({k: perf.get(k, "") for k in cols})
+                try:
+                    fh.flush()
+                    os.fsync(fh.fileno())
+                except Exception:
+                    pass
         except Exception as e:
             logger.debug("perf csv write failed: %s", e)
 
