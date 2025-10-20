@@ -388,20 +388,6 @@ class ScalpinMonitor:
         # Swapper log path (configurable), defaults anchored to config dir
         default_swapper_log = os.path.join(self.base_artifacts_dir, "arbitraje", "logs", "swapper.log")
         self.swapper_log_path: str = str(self.cfg.get("swapper_log_path") or default_swapper_log)
-        # Swap fraction configuration
-        # mode: 'from_threshold' (fraction = 1 - threshold/scale) or 'fixed'
-        self.swap_fraction_mode: str = str(self.cfg.get("swap_fraction_mode") or "from_threshold")
-        try:
-            self.swap_fraction_scale: float = float(self.cfg.get("swap_fraction_scale") or 100.0)
-        except Exception:
-            self.swap_fraction_scale = 100.0
-        try:
-            self.swap_fraction_fixed: Optional[float] = (
-                None if self.cfg.get("swap_fraction_fixed") in (None, "", "null")
-                else float(self.cfg.get("swap_fraction_fixed"))
-            )
-        except Exception:
-            self.swap_fraction_fixed = None
         # Initial balances snapshot (valor_anchor) captured on first render to compute accumulated profit in views
         self._initial_balances: Dict[tuple, float] = {}
         self._snapshot_taken: bool = False
@@ -506,25 +492,9 @@ class ScalpinMonitor:
                 if (
                     profit_pct is not None
                     and profit_pct > float(self.profit_action_threshold_pct)
-                    and profit_acum > 0.0
+                    ##and profit_acum > 0.0
                 ):
-                    # Compute fraction to swap
-                    if (self.swap_fraction_mode or "").lower() == "fixed" and isinstance(self.swap_fraction_fixed, float):
-                        frac = float(self.swap_fraction_fixed)
-                    else:
-                        try:
-                            frac = 1.0 - (float(self.profit_action_threshold_pct) / float(self.swap_fraction_scale))
-                        except Exception:
-                            frac = 1.0 - (float(self.profit_action_threshold_pct) / 100.0)
-                    # Clamp to [0,1]
-                    try:
-                        if frac < 0.0:
-                            frac = 0.0
-                        elif frac > 1.0:
-                            frac = 1.0
-                    except Exception:
-                        frac = max(0.0, min(1.0, frac if isinstance(frac, (int, float)) else 1.0))
-                    accion = f"@{ex_id} swap {asset.upper()}->{self.anchor}->{asset.upper()} f={frac:.4f}"
+                    accion = f"@{ex_id} swap {asset.upper()}->{self.anchor}->{asset.upper()}"
                     if accion:
                         log_path = self.swapper_log_path
                         fh = None
@@ -545,14 +515,8 @@ class ScalpinMonitor:
                                     ex_id,
                                     "--path",
                                     f"{asset.upper()}->{self.anchor}->{asset.upper()}",
-                                    "--fraction",
-                                    f"{frac:.8f}",
                                 ],
-                                env=dict(
-                                    os.environ,
-                                    PYTHONPATH=os.path.join(os.getcwd(), "projects", "arbitraje", "src"),
-                                    SWAP_FRACTION=f"{frac:.8f}",
-                                ),
+                                env=dict(os.environ, PYTHONPATH=os.path.join(os.getcwd(), "projects", "arbitraje", "src")),
                                 stdout=fh if fh is not None else None,
                                 stderr=__import__("subprocess").STDOUT if fh is not None else None,
                             )

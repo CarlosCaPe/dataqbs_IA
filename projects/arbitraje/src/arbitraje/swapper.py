@@ -53,7 +53,6 @@ class SwapPlan:
     exchange: str
     hops: List[SwapHop]
     amount: float
-    anchor: Optional[str] = None
     raw_line: Optional[str] = None
 
 
@@ -101,6 +100,16 @@ class Swapper:
         self.max_slippage_bps = float(self.config.get("max_slippage_bps", 25.0))
         self.min_notional = float(self.config.get("min_notional", 1.0))
         self.dry_run = bool(self.config.get("dry_run", False))
+        # Optional: in round-trip paths (start_ccy == end_ccy), make the LAST hop a mirrored LIMIT
+        # using the price and amount from the FIRST hop. This aims to "lock" the previously-detected
+        # edge by only closing at the entry terms. If funds are insufficient, the last hop fails.
+        self.roundtrip_mirror_last_leg = bool(self.config.get("roundtrip_mirror_last_leg", False))
+        # Mirror tuning: how much better than the mirror price to require (bps), and
+        # how much quantity/cost shortfall to tolerate due to fees (bps)
+        self.roundtrip_mirror_price_offset_bps = float(self.config.get("roundtrip_mirror_price_offset_bps", 0.0))
+        self.roundtrip_mirror_amount_tolerance_bps = float(
+            self.config.get("roundtrip_mirror_amount_tolerance_bps", 0.0)
+        )
         # Execution tuning (optional; defaults are fastest)
         self.settle_sleep_ms = int(self.config.get("settle_sleep_ms", 0))
         self.confirm_fill = bool(self.config.get("confirm_fill", False))
@@ -114,12 +123,6 @@ class Swapper:
             }
         except Exception:
             self.test_min_amounts = {}
-        # Optional swap fraction (0..1) to apply to first-hop source funds
-        try:
-            env_frac = os.environ.get("SWAP_FRACTION")
-            self.swap_fraction: Optional[float] = (float(env_frac) if env_frac not in (None, "", "null") else None)
-        except Exception:
-            self.swap_fraction = None
 
     def plan_from_bf_line(self, line: str, amount: Optional[float] = None) -> Optional[SwapPlan]:
         parsed = _parse_bf_line(line)
@@ -132,7 +135,7 @@ class Swapper:
             amt = float(amount) if amount else float(self.test_min_amounts.get(_normalize_ccxt_id(ex), 1.0))
         else:
             amt = float(amount or 0.0)
-        return SwapPlan(exchange=ex, hops=hops, amount=amt, anchor=_anchor, raw_line=line)
+        return SwapPlan(exchange=ex, hops=hops, amount=amt, raw_line=line)
 
     def run(self, plan: SwapPlan) -> SwapResult:
         if self.mode == "test":
@@ -155,7 +158,7 @@ class Swapper:
             amount_cur = float(amt_first)
             fills: List[Dict[str, object]] = []
             amount_in_used = float(amount_cur)
-            for idx, hop in enumerate(plan.hops):
+            for hop in plan.hops:
                 base, quote = hop.base.upper(), hop.quote.upper()
                 sym1, sym2 = f"{base}/{quote}", f"{quote}/{base}"
                 invert = False
@@ -308,7 +311,12 @@ class Swapper:
         try:
             start_ccy = plan.hops[0].base.upper() if plan.hops else cur_ccy
             end_ccy = plan.hops[-1].quote.upper() if plan.hops else cur_ccy
-            anchor_ccy = (plan.anchor or start_ccy).upper()
+            is_roundtrip = bool(plan.hops and (start_ccy == end_ccy))
+            # Track FIRST hop executed price (quote per base) and out amount (new currency units)
+            first_hop_unit_price_q_per_b: Optional[float] = None
+            first_hop_out_amount: Optional[float] = None
+            first_hop_base = plan.hops[0].base.upper() if plan.hops else ""
+            first_hop_quote = plan.hops[0].quote.upper() if plan.hops else ""
             for idx, hop in enumerate(plan.hops):
                 base, quote = hop.base.upper(), hop.quote.upper()
                 sym1 = f"{base}/{quote}"
@@ -342,20 +350,8 @@ class Swapper:
                 # Determine source funds from real wallet balance of the hop's base currency
                 src_free = _free_balance(base)
                 src_to_use = float(src_free)
-                # Apply cap on first hop only
-                if idx == 0 and first_cap > 0:
+                if amount_in_used is None and first_cap > 0:
                     src_to_use = min(src_to_use, float(first_cap))
-                # Apply optional fraction on the hop that returns to the anchor currency
-                if hop.quote.upper() == anchor_ccy and isinstance(self.swap_fraction, (int, float)):
-                    frac = float(self.swap_fraction)
-                    try:
-                        if frac < 0.0:
-                            frac = 0.0
-                        elif frac > 1.0:
-                            frac = 1.0
-                    except Exception:
-                        pass
-                    src_to_use = src_to_use * frac
                 if src_to_use <= 0:
                     return SwapResult(
                         False,
@@ -363,11 +359,11 @@ class Swapper:
                         float(amount_in_used or 0.0),
                         amount_cur,
                         amount_cur - float(amount_in_used or 0.0),
-                        {"reason": "no_funds_source", "source": base, "free": float(src_free)},
+                        {"reason": "no_funds_source", "source": base},
                     )
 
                 params = {}
-                # For market orders, many exchanges ignore or reject timeInForce; don't set it
+                # Default order params
                 order_type = "market"
 
                 try:
@@ -429,7 +425,6 @@ class Swapper:
                             "amount_in": src_to_use,
                             "amount_out": amount_next,
                             "price": fill_price,
-                            "hop_index": idx,
                             "simulated": True,
                         }
                     )
@@ -437,6 +432,25 @@ class Swapper:
                     cur_ccy = quote
                     if amount_in_used is None:
                         amount_in_used = float(src_to_use)
+                    # Capture first hop references for mirrored last-leg if requested
+                    if idx == 0 and self.roundtrip_mirror_last_leg and is_roundtrip:
+                        try:
+                            # price here is in sym units (sym_quote per sym_base)
+                            eff_avg = float(price or 0.0)
+                            if eff_avg and eff_avg > 0:
+                                # Normalize to (first_hop_quote per first_hop_base)
+                                # If symbol was base/quote == first_hop_base/first_hop_quote (not invert), keep as-is
+                                # Else invert the price
+                                if (not invert and base == first_hop_base and quote == first_hop_quote) or (
+                                    invert and base == first_hop_quote and quote == first_hop_base
+                                ):
+                                    # invert==True here implies sym is first_hop_quote/first_hop_base, so invert the price
+                                    first_hop_unit_price_q_per_b = (1.0 / eff_avg) if invert else eff_avg
+                                else:
+                                    first_hop_unit_price_q_per_b = eff_avg if not invert else (1.0 / eff_avg)
+                            first_hop_out_amount = float(amount_next)
+                        except Exception:
+                            pass
                     continue
 
                 # Capture first-hop input now for accurate reporting
@@ -446,14 +460,107 @@ class Swapper:
                 order_amount = amount_param
                 if side == "buy" and buy_uses_cost and "quoteOrderQty" in params:
                     order_amount = None  # let exchange compute base from quote cost
-                order = ex.create_order(
-                    symbol=sym,
-                    type=order_type,
-                    side=side,
-                    amount=order_amount,
-                    price=None,
-                    params=params,
-                )
+                # If this is the LAST hop in a round-trip and mirror is enabled, place a LIMIT "mirror" order
+                if (
+                    self.roundtrip_mirror_last_leg
+                    and is_roundtrip
+                    and idx == (len(plan.hops) - 1)
+                    and first_hop_unit_price_q_per_b
+                    and first_hop_unit_price_q_per_b > 0
+                    and first_hop_out_amount is not None
+                ):
+                    try:
+                        # Compute mirrored price in current symbol orientation
+                        # sym price unit is sym_quote per sym_base
+                        if not invert:
+                            # sym is base/quote i.e., (B/A) for final hop; need A per B => invert first price
+                            limit_price = float(1.0 / float(first_hop_unit_price_q_per_b))
+                        else:
+                            # sym is quote/base i.e., (A/B); need A per B which equals first price as-is
+                            limit_price = float(first_hop_unit_price_q_per_b)
+
+                        # Apply price offset bps: for buys we want cheaper (minus), for sells we want better (plus)
+                        try:
+                            off = float(self.roundtrip_mirror_price_offset_bps or 0.0) / 10000.0
+                            if off and off > 0:
+                                if side == "buy":
+                                    limit_price = float(max(0.0, limit_price * (1.0 - off)))
+                                else:
+                                    limit_price = float(limit_price * (1.0 + off))
+                        except Exception:
+                            pass
+
+                        # Determine mirrored amount: aim to use exactly the first hop's out amount of the non-anchor
+                        # Last hop base currency is the source of funds in this hop ("base")
+                        tol = float(self.roundtrip_mirror_amount_tolerance_bps or 0.0) / 10000.0
+                        if not invert:
+                            # sym is base/quote == B/A and side == 'sell'; amount is in B units
+                            needed_amount = float(first_hop_out_amount)
+                            if src_to_use + 1e-12 < needed_amount:
+                                # Allow small shortfall within tolerance by reducing to available free balance
+                                if tol > 0 and src_to_use >= needed_amount * (1.0 - tol):
+                                    needed_amount = float(src_to_use)
+                                else:
+                                    return SwapResult(
+                                        False,
+                                        "failed",
+                                        float(amount_in_used or 0.0),
+                                        amount_cur,
+                                        amount_cur - float(amount_in_used or 0.0),
+                                        {"reason": "mirror_insufficient_funds", "needed": needed_amount, "free": src_to_use, "symbol": sym},
+                                    )
+                            order_amount = _amount_to_precision(sym, needed_amount)
+                        else:
+                            # sym is quote/base == A/B and side == 'buy'; exchange expects base (A) amount
+                            # Spend exactly first_hop_out_amount of B at price limit_price
+                            needed_cost_b = float(first_hop_out_amount)
+                            if src_to_use + 1e-12 < needed_cost_b:
+                                # Allow small shortfall within tolerance by reducing cost to available
+                                if tol > 0 and src_to_use >= needed_cost_b * (1.0 - tol):
+                                    needed_cost_b = float(src_to_use)
+                                else:
+                                    return SwapResult(
+                                        False,
+                                        "failed",
+                                        float(amount_in_used or 0.0),
+                                        amount_cur,
+                                        amount_cur - float(amount_in_used or 0.0),
+                                        {"reason": "mirror_insufficient_funds", "needed": needed_cost_b, "free": src_to_use, "symbol": sym},
+                                    )
+                            qty_a = needed_cost_b / float(limit_price)
+                            order_amount = _amount_to_precision(sym, qty_a)
+
+                        order_type = "limit"
+                        # TimeInForce for limit: default to configured value
+                        tif = str(self.time_in_force or "GTC").upper()
+                        params = dict(params)
+                        params["timeInForce"] = tif
+                        order = ex.create_order(
+                            symbol=sym,
+                            type=order_type,
+                            side=side,
+                            amount=order_amount,
+                            price=float(limit_price),
+                            params=params,
+                        )
+                    except Exception as e:
+                        return SwapResult(
+                            False,
+                            "failed",
+                            float(amount_in_used or 0.0),
+                            amount_cur,
+                            amount_cur - float(amount_in_used or 0.0),
+                            {"reason": "mirror_order_error", "error": str(e), "symbol": sym},
+                        )
+                else:
+                    order = ex.create_order(
+                        symbol=sym,
+                        type=order_type,
+                        side=side,
+                        amount=order_amount,
+                        price=None,
+                        params=params,
+                    )
                 # Optional settling delay to allow balances to update (only if configured)
                 if self.settle_sleep_ms > 0:
                     try:
@@ -524,9 +631,37 @@ class Swapper:
                         "amount_out": out_val,
                         "order_id": oid,
                         "fees": order_fees,
-                        "hop_index": idx,
+                        "mirror_last_leg": bool(
+                            self.roundtrip_mirror_last_leg and is_roundtrip and idx == (len(plan.hops) - 1)
+                        ),
+                        # Observability for mirror
+                        **({
+                            "mirror_first_price_q_per_b": float(first_hop_unit_price_q_per_b or 0.0),
+                            "mirror_price_offset_bps": float(self.roundtrip_mirror_price_offset_bps or 0.0),
+                            "mirror_amount_tolerance_bps": float(self.roundtrip_mirror_amount_tolerance_bps or 0.0),
+                        } if (self.roundtrip_mirror_last_leg and is_roundtrip and idx == (len(plan.hops) - 1)) else {}),
                     }
                 )
+
+                # If this was the first hop, capture reference price and amount for mirrored last-leg (real mode)
+                if idx == 0 and self.roundtrip_mirror_last_leg and is_roundtrip:
+                    try:
+                        # Try to compute an effective average price from available info
+                        eff_avg = 0.0
+                        try:
+                            if isinstance(order, dict):
+                                eff_avg = float(order.get("average") or order.get("price") or 0.0)
+                        except Exception:
+                            eff_avg = 0.0
+                        if eff_avg and eff_avg > 0:
+                            # Normalize to (first_hop_quote per first_hop_base)
+                            if not invert:
+                                first_hop_unit_price_q_per_b = eff_avg
+                            else:
+                                first_hop_unit_price_q_per_b = (1.0 / eff_avg)
+                        first_hop_out_amount = float(out_val)
+                    except Exception:
+                        pass
 
             # Result summary: if start and end currencies coincide, delta is meaningful; otherwise report 0 delta
             amount_in_final = float(amount_in_used or 0.0)
@@ -563,16 +698,9 @@ def _main_cli():
     # --anchor is deprecated here; kept for backward-compat but ignored in execution
     parser.add_argument("--anchor", type=str, default=None)
     parser.add_argument("--amount", type=float, default=0.0)
-    parser.add_argument("--fraction", type=float, default=None, help="Fraction (0..1) applied on the anchor hop (->anchor)")
     args = parser.parse_args()
 
     sw = Swapper(config_path=args.config)
-    # Override swap fraction from CLI if provided
-    if args.fraction is not None:
-        try:
-            sw.swap_fraction = float(args.fraction)
-        except Exception:
-            pass
     if args.bf_line:
         plan = sw.plan_from_bf_line(args.bf_line)
         if not plan:
@@ -595,25 +723,14 @@ def _main_cli():
                 "Exchange is required in real mode. Provide --exchange or use mode=test with test_exchange in config."
             )
             sys.exit(2)
-        path_nodes = args.path.split("->")
-        hops = [SwapHop(base=p, quote=q) for p, q in zip(path_nodes, path_nodes[1:])]
+        hops = [SwapHop(base=p, quote=q) for p, q in zip(args.path.split("->"), args.path.split("->")[1:])]
         # In test mode, choose the configured min amount per exchange if not explicitly provided
         if sw.mode == "test":
             default_amt = float(sw.test_min_amounts.get(_normalize_ccxt_id(ex_id), 1.0))
             amt = float(args.amount) if args.amount else default_amt
         else:
             amt = float(args.amount or 0.0)
-    # Determine anchor: CLI --anchor wins; else if cycle, last equals first -> anchor is first; else default to first base
-    anchor_cli = (args.anchor.upper() if args.anchor else None)
-    inferred_anchor = None
-    try:
-        first_node = path_nodes[0].upper()
-        last_node = path_nodes[-1].upper()
-        inferred_anchor = first_node if last_node == first_node else first_node
-    except Exception:
-        pass
-    anchor_final = anchor_cli or inferred_anchor
-    plan = SwapPlan(exchange=ex_id, hops=hops, amount=amt, anchor=anchor_final)
+    plan = SwapPlan(exchange=ex_id, hops=hops, amount=amt)
 
     res = sw.run(plan)
     print(

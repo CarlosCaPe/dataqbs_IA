@@ -10,6 +10,14 @@ dry_run: true  # when true, do not place orders even in real mode; only compute 
 settle_sleep_ms: 100  # ms; set to 0 for maximum speed
 confirm_fill: false # avoid extra fetch_order to confirm fills/fees (faster)
 
+# Round-trip mirror: if a path starts and ends in the same currency, place the LAST hop as a LIMIT
+# mirroring the FIRST hop's price and amount to lock in prior edge. If funds are insufficient, abort.
+roundtrip_mirror_last_leg: false
+# Place the last-leg limit slightly better than the mirror price (bps). For buys: below; for sells: above.
+roundtrip_mirror_price_offset_bps: 0
+# Tolerate small quantity/cost shortfall due to fees (bps). If shortfall <= tolerance, reduce order amount.
+roundtrip_mirror_amount_tolerance_bps: 0
+
 # Per-exchange minimum test amount (in quote currency, typically USDT)
 # Used only when mode=test and no explicit --amount is provided.
 # If an exchange is not listed, a default of 1.0 will be used.
