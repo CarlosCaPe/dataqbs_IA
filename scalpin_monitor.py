@@ -402,7 +402,38 @@ class ScalpinMonitor:
                 accion = ""
                 if profit_pct is not None and profit_pct > float(self.profit_action_threshold_pct):
                     accion = f"@{ex_id} swap {asset.upper()}->{self.anchor}->{asset.upper()}"
-                    if accion: __import__("subprocess").Popen([sys.executable, "-m", "arbitraje.swapper", "--config", os.path.join(os.getcwd(), "projects", "arbitraje", "swapper.live.yaml"), "--exchange", ex_id, "--path", f"{asset.upper()}->{self.anchor}->{asset.upper()}"], env=dict(os.environ, PYTHONPATH=os.path.join(os.getcwd(), "projects", "arbitraje", "src")))
+                    if accion:
+                        log_path = os.path.join(os.getcwd(), "artifacts", "arbitraje", "logs", "swapper.log")
+                        fh = None
+                        try:
+                            fh = open(log_path, "ab")
+                        except Exception:
+                            fh = None
+                        try:
+                            __import__("subprocess").Popen(
+                                [
+                                    sys.executable,
+                                    "-m",
+                                    "arbitraje.swapper",
+                                    "--config",
+                                    os.path.join(os.getcwd(), "projects", "arbitraje", "swapper.live.yaml"),
+                                    "--exchange",
+                                    ex_id,
+                                    "--path",
+                                    f"{asset.upper()}->{self.anchor}->{asset.upper()}",
+                                ],
+                                env=dict(os.environ, PYTHONPATH=os.path.join(os.getcwd(), "projects", "arbitraje", "src")),
+                                stdout=fh if fh is not None else None,
+                                stderr=__import__("subprocess").STDOUT if fh is not None else None,
+                            )
+                        finally:
+                            try:
+                                if fh is not None:
+                                    fh.flush()
+                                    os.fsync(fh.fileno())
+                                    fh.close()
+                            except Exception:
+                                pass
                 local_rows.append(
                     {
                         "exchange": ex_id,
