@@ -946,10 +946,12 @@ class ScalpinMonitor:
                 t1 = time.perf_counter()
                 # Decide actions for next iteration number
                 next_iter = self.iteration + 1
-                do_print = (self.render_every_n <= 1) or (next_iter % self.render_every_n == 0)
-                do_snapshot = (self.snapshot_every_n <= 1) or (next_iter % self.snapshot_every_n == 0)
-                do_log = (self.log_every_n > 0) and (next_iter % self.log_every_n == 0)
-                do_hist = (self.history_every_n > 0) and (next_iter % self.history_every_n == 0)
+                # Always seed first iteration outputs so .log files are not empty
+                seed_first_output = (self.iteration == 0)
+                do_print = seed_first_output or (self.render_every_n <= 1) or (next_iter % self.render_every_n == 0)
+                do_snapshot = seed_first_output or (self.snapshot_every_n <= 1) or (next_iter % self.snapshot_every_n == 0)
+                do_log = seed_first_output or ((self.log_every_n > 0) and (next_iter % self.log_every_n == 0))
+                do_hist = seed_first_output or ((self.history_every_n > 0) and (next_iter % self.history_every_n == 0))
                 df = None
                 t2 = t1
                 if do_print or do_log or do_hist:
@@ -1035,6 +1037,16 @@ def main() -> None:
     # Resolve config path relative to CWD
     cfg_path = os.environ.get("SCALPIN_CONFIG") or os.path.join(os.getcwd(), "scalpin.yaml")
     mon = ScalpinMonitor(config_path=cfg_path)
+    # Optional environment overrides to support short test runs without editing YAML
+    try:
+        _steps = os.environ.get("SCALPIN_RUN_STEPS")
+        if _steps:
+            mon.max_iterations = int(_steps)
+        _dur = os.environ.get("SCALPIN_RUN_DURATION_SEC")
+        if _dur:
+            mon.run_duration_sec = float(_dur)
+    except Exception:
+        pass
     mon.run()
 
 
