@@ -143,6 +143,16 @@ class Swapper:
         self.mirror_reemit_ttl_sec = int(self.config.get("mirror_reemit_ttl_sec", 0))
         self.mirror_reemit_safety_bps = float(self.config.get("mirror_reemit_safety_bps", 0.0))
         self.mirror_reemit_max = int(self.config.get("mirror_reemit_max", 0))
+        # Optional: time-based relaxation to avoid being stuck at entry-bound when price runs away
+        # After mirror_relax_after_sec, allow increasing (buy) or decreasing (sell) the protective bound
+        # by relax_bps_per_ttl per TTL cycle, capped by mirror_relax_max_bps
+        self.mirror_relax_after_sec = int(self.config.get("mirror_relax_after_sec", 0))
+        self.mirror_relax_bps_per_ttl = float(self.config.get("mirror_relax_bps_per_ttl", 0.0))
+        self.mirror_relax_max_bps = float(self.config.get("mirror_relax_max_bps", 0.0))
+        # Optional: force-close the mirror after timeout (seconds); 0 disables
+        self.mirror_close_timeout_sec = int(self.config.get("mirror_close_timeout_sec", 0))
+        # Optional: guard to cap max loss vs entry (in bps) when force-closing; 0 disables guard
+        self.roundtrip_allow_max_loss_bps = float(self.config.get("roundtrip_allow_max_loss_bps", 0.0))
         # Execution tuning (optional; defaults are fastest)
         self.settle_sleep_ms = int(self.config.get("settle_sleep_ms", 0))
         self.confirm_fill = bool(self.config.get("confirm_fill", False))
@@ -878,6 +888,94 @@ class Swapper:
                                 elapsed_s = int(max(0.0, time.time() - orig_ts))
                             except Exception:
                                 elapsed_s = 0
+                            # Force-close path (optional)
+                            try:
+                                if int(self.mirror_close_timeout_sec or 0) > 0 and elapsed_s >= int(self.mirror_close_timeout_sec):
+                                    # Attempt to cancel current order
+                                    try:
+                                        ex.cancel_order(oid, sym)
+                                    except Exception:
+                                        pass
+                                    # Loss guard check vs entry
+                                    loss_guard_ok = True
+                                    try:
+                                        allow_loss_bps = float(self.roundtrip_allow_max_loss_bps or 0.0)
+                                        if allow_loss_bps > 0.0 and entry_sym_price:
+                                            if side == "buy":
+                                                limit = float(entry_sym_price) * (1.0 + allow_loss_bps / 10000.0)
+                                                # Fetch mid to evaluate guard
+                                                t0 = ex.fetch_ticker(sym)
+                                                bid0 = float(t0.get("bid") or 0.0)
+                                                ask0 = float(t0.get("ask") or 0.0)
+                                                last0 = float(t0.get("last") or 0.0)
+                                                mid0 = (bid0 + ask0) / 2.0 if (bid0 > 0 and ask0 > 0) else (last0 if last0 > 0 else 0.0)
+                                                if mid0 and mid0 > limit:
+                                                    loss_guard_ok = False
+                                            else:
+                                                limit = float(entry_sym_price) * (1.0 - allow_loss_bps / 10000.0)
+                                                t0 = ex.fetch_ticker(sym)
+                                                bid0 = float(t0.get("bid") or 0.0)
+                                                ask0 = float(t0.get("ask") or 0.0)
+                                                last0 = float(t0.get("last") or 0.0)
+                                                mid0 = (bid0 + ask0) / 2.0 if (bid0 > 0 and ask0 > 0) else (last0 if last0 > 0 else 0.0)
+                                                if mid0 and mid0 < limit:
+                                                    loss_guard_ok = False
+                                    except Exception:
+                                        loss_guard_ok = True
+                                    if not loss_guard_ok:
+                                        try:
+                                            logger.info(
+                                                "mirror_forced_close_skipped | symbol=%s | side=%s | entry=%.8f | allow_loss_bps=%.2f | elapsed_s=%d",
+                                                sym,
+                                                side,
+                                                float(entry_sym_price or 0.0),
+                                                float(self.roundtrip_allow_max_loss_bps or 0.0),
+                                                int(elapsed_s),
+                                            )
+                                        except Exception:
+                                            pass
+                                        break
+                                    # Place market order to close remainder
+                                    try:
+                                        # Determine remaining amount/cost
+                                        amt_mkt = order_amount
+                                        if side == "buy":
+                                            # compute qty from quote budget and current ask/last
+                                            tt = ex.fetch_ticker(sym)
+                                            _ask = float(tt.get("ask") or 0.0)
+                                            _last = float(tt.get("last") or 0.0)
+                                            px = _ask if _ask > 0 else _last
+                                            if mirror_needed_cost_quote is not None and px > 0:
+                                                qty_mkt = float(mirror_needed_cost_quote) / float(px)
+                                                amt_mkt = _amount_to_precision(sym, qty_mkt)
+                                        # Minimum checks
+                                        if (min_amount is not None) and (float(amt_mkt) < float(min_amount)):
+                                            break
+                                        o_fc = ex.create_order(
+                                            symbol=sym,
+                                            type="market",
+                                            side=side,
+                                            amount=amt_mkt,
+                                            params=params,
+                                        )
+                                        try:
+                                            logger.info(
+                                                "mirror_forced_close | symbol=%s | side=%s | market_amount=%.8f | entry=%.8f | elapsed_s=%d | old_oid=%s | new_oid=%s",
+                                                sym,
+                                                side,
+                                                float(amt_mkt or 0.0),
+                                                float(entry_sym_price or 0.0),
+                                                int(elapsed_s),
+                                                str(oid),
+                                                str((o_fc.get("id") if isinstance(o_fc, dict) else "") or ""),
+                                            )
+                                        except Exception:
+                                            pass
+                                    except Exception:
+                                        pass
+                                    break
+                            except Exception:
+                                pass
                             # Check if still open
                             try:
                                 o_cur = ex.fetch_order(oid, sym)
@@ -900,16 +998,44 @@ class Swapper:
                             if not mid or not entry_sym_price:
                                 continue
                             new_price = None
+                            # Compute relaxation used (in bps) based on elapsed time and TTL cycles
+                            relax_used_bps = 0.0
+                            try:
+                                if int(self.mirror_relax_after_sec or 0) > 0 and elapsed_s >= int(self.mirror_relax_after_sec):
+                                    step_bps = float(self.mirror_relax_bps_per_ttl or 0.0)
+                                    if step_bps > 0.0:
+                                        steps = (_i + 1)
+                                        relax_used_bps = min(float(self.mirror_relax_max_bps or 0.0), steps * step_bps)
+                            except Exception:
+                                relax_used_bps = 0.0
                             if side == "buy":
-                                # Favorable only if mid < entry
+                                # Favorable only if mid < entry (strict mode)
                                 if mid < float(entry_sym_price):
                                     cand = float(mid) * (1.0 - safety) if safety > 0 else float(mid)
                                     new_price = min(float(protective_bound), float(cand))
+                                # Relaxed mode: allow crossing entry up to relax_used_bps ceiling
+                                elif relax_used_bps > 0.0:
+                                    try:
+                                        allowed_ceiling = float(entry_sym_price) * (1.0 + relax_used_bps / 10000.0)
+                                        # Place near current bid to maximize maker chances, but never exceed allowed ceiling
+                                        target_level = bid if bid > 0 else mid
+                                        new_price = min(float(allowed_ceiling), max(float(protective_bound), float(target_level)))
+                                    except Exception:
+                                        new_price = None
                             else:
                                 # Sell: favorable only if mid > entry; push price up but never above protective bound
                                 if mid > float(entry_sym_price):
                                     cand = float(mid) * (1.0 + safety) if safety > 0 else float(mid)
                                     new_price = max(float(protective_bound), float(cand))
+                                # Relaxed mode: allow going below entry down to relax_used_bps floor
+                                elif relax_used_bps > 0.0:
+                                    try:
+                                        allowed_floor = float(entry_sym_price) * (1.0 - relax_used_bps / 10000.0)
+                                        # Place near current ask for maker chances, but not below allowed_floor
+                                        target_level = ask if ask > 0 else mid
+                                        new_price = max(float(allowed_floor), min(float(protective_bound), float(target_level)))
+                                    except Exception:
+                                        new_price = None
                             if new_price is None:
                                 continue
                             # If change is negligible, skip
@@ -953,12 +1079,13 @@ class Swapper:
                                     except Exception:
                                         delta_bps = 0.0
                                     logger.info(
-                                        "mirror_reemit | symbol=%s | side=%s | old_limit=%.8f | new_limit=%.8f | delta_bps=%.2f | mid=%.8f | entry=%.8f | old_oid=%s | new_oid=%s | attempt=%d/%d | elapsed_s=%d",
+                                        "mirror_reemit | symbol=%s | side=%s | old_limit=%.8f | new_limit=%.8f | delta_bps=%.2f | relax_used_bps=%.2f | mid=%.8f | entry=%.8f | old_oid=%s | new_oid=%s | attempt=%d/%d | elapsed_s=%d",
                                         sym,
                                         side,
                                         float(protective_bound or 0.0),
                                         float(new_price_prec or 0.0),
                                         float(delta_bps),
+                                        float(relax_used_bps),
                                         float(mid or 0.0),
                                         float(entry_sym_price or 0.0),
                                         str(oid),
