@@ -946,12 +946,19 @@ class Swapper:
                                 # Audit log: explicit record of re-emit (old_limit -> new_limit)
                                 try:
                                     attempt_idx = _i + 1
+                                    try:
+                                        _old = float(protective_bound or 0.0)
+                                        _new = float(new_price_prec or 0.0)
+                                        delta_bps = (abs(_new - _old) / _old * 10000.0) if _old else 0.0
+                                    except Exception:
+                                        delta_bps = 0.0
                                     logger.info(
-                                        "mirror_reemit | symbol=%s | side=%s | old_limit=%.8f | new_limit=%.8f | mid=%.8f | entry=%.8f | old_oid=%s | new_oid=%s | attempt=%d/%d | elapsed_s=%d",
+                                        "mirror_reemit | symbol=%s | side=%s | old_limit=%.8f | new_limit=%.8f | delta_bps=%.2f | mid=%.8f | entry=%.8f | old_oid=%s | new_oid=%s | attempt=%d/%d | elapsed_s=%d",
                                         sym,
                                         side,
                                         float(protective_bound or 0.0),
                                         float(new_price_prec or 0.0),
+                                        float(delta_bps),
                                         float(mid or 0.0),
                                         float(entry_sym_price or 0.0),
                                         str(oid),
