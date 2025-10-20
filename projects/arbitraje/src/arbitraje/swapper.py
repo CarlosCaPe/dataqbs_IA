@@ -137,6 +137,12 @@ class Swapper:
         self.roundtrip_mirror_amount_tolerance_bps = float(
             self.config.get("roundtrip_mirror_amount_tolerance_bps", 0.0)
         )
+        # Optional: TTL-based re-emit for last-hop mirror orders
+        # After TTL seconds, if order is still open and mid moved favorably (toward entry),
+        # cancel-and-replace at min(entry*(1-off), mid*(1-safety)) for buys; symmetric for sells.
+        self.mirror_reemit_ttl_sec = int(self.config.get("mirror_reemit_ttl_sec", 0))
+        self.mirror_reemit_safety_bps = float(self.config.get("mirror_reemit_safety_bps", 0.0))
+        self.mirror_reemit_max = int(self.config.get("mirror_reemit_max", 0))
         # Execution tuning (optional; defaults are fastest)
         self.settle_sleep_ms = int(self.config.get("settle_sleep_ms", 0))
         self.confirm_fill = bool(self.config.get("confirm_fill", False))
@@ -541,12 +547,16 @@ class Swapper:
                     try:
                         # Compute mirrored price in current symbol orientation
                         # sym price unit is sym_quote per sym_base
+                        # Keep track of entry price in symbol units (without offset) for re-emit checks
+                        entry_sym_price = None
                         if not invert:
                             # sym is base/quote i.e., (B/A) for final hop; need A per B => invert first price
-                            limit_price = float(1.0 / float(first_hop_unit_price_q_per_b))
+                            entry_sym_price = float(1.0 / float(first_hop_unit_price_q_per_b))
+                            limit_price = float(entry_sym_price)
                         else:
                             # sym is quote/base i.e., (A/B); need A per B which equals first price as-is
-                            limit_price = float(first_hop_unit_price_q_per_b)
+                            entry_sym_price = float(first_hop_unit_price_q_per_b)
+                            limit_price = float(entry_sym_price)
 
                         # Apply price offset bps: for buys we want cheaper (minus), for sells we want better (plus)
                         try:
@@ -588,6 +598,9 @@ class Swapper:
                             min_cost = float(((limits.get("cost") or {}).get("min")) or 0) or None
                         except Exception:
                             min_cost = None
+                        # Stash variables for potential re-emit
+                        mirror_needed_amount_base = None  # type: Optional[float]
+                        mirror_needed_cost_quote = None   # type: Optional[float]
                         if not invert:
                             # sym is base/quote == B/A and side == 'sell'; amount is in B units
                             needed_amount = float(first_hop_out_amount)
@@ -620,6 +633,7 @@ class Swapper:
                                         0.0,
                                         {"reason": "mirror_below_min_amount", "min_amount": float(min_amount), "free": src_to_use, "symbol": sym},
                                     )
+                            mirror_needed_amount_base = float(needed_amount)
                             order_amount = _amount_to_precision(sym, needed_amount)
                         else:
                             # sym is quote/base == A/B and side == 'buy'; exchange expects base (A) amount
@@ -670,6 +684,7 @@ class Swapper:
                                         0.0,
                                         {"reason": "mirror_below_min_amount", "min_amount": float(min_amount), "free": src_to_use, "symbol": sym},
                                     )
+                            mirror_needed_cost_quote = float(needed_cost_b)
                             order_amount = _amount_to_precision(sym, qty_a)
 
                         order_type = "limit"
@@ -690,15 +705,58 @@ class Swapper:
                             params=params,
                         )
                     except Exception as e:
-                        ain = float(amount_in_used or 0.0)
-                        return SwapResult(
-                            False,
-                            "failed",
-                            ain,
-                            ain,
-                            0.0,
-                            {"reason": "mirror_order_error", "error": str(e), "symbol": sym},
-                        )
+                        # If the exchange complains about insufficient position, retry once with a reduced amount
+                        err_text = str(e)
+                        retry_done = False
+                        if any(s in err_text.lower() for s in ["insufficient", "not enough", "30004"]):
+                            try:
+                                red = max(tol, 0.002)  # at least 20 bps reduction
+                                if not invert:
+                                    # Reduce base amount for sell
+                                    amt0 = float(order_amount or 0.0)
+                                    amt2 = _amount_to_precision(sym, max(0.0, amt0 * (1.0 - red)))
+                                    if amt2 and amt2 > 0:
+                                        order = ex.create_order(
+                                            symbol=sym,
+                                            type=order_type,
+                                            side=side,
+                                            amount=amt2,
+                                            price=float(limit_price),
+                                            params=params,
+                                        )
+                                        retry_done = True
+                                else:
+                                    # Buy side: spend slightly less quote to cover fees/precision
+                                    max_cost = float(src_to_use) * (1.0 - red)
+                                    qty2 = max_cost / float(limit_price)
+                                    # Honor min amount if present; if below, give up (cannot cover minimum)
+                                    if (min_amount is not None) and (qty2 < float(min_amount)):
+                                        retry_done = False
+                                    else:
+                                        amt2 = _amount_to_precision(sym, max(0.0, qty2))
+                                        if amt2 and amt2 > 0:
+                                            order = ex.create_order(
+                                                symbol=sym,
+                                                type=order_type,
+                                                side=side,
+                                                amount=amt2,
+                                                price=float(limit_price),
+                                                params=params,
+                                            )
+                                            retry_done = True
+                            except Exception as e2:
+                                retry_done = False
+                                err_text = f"{err_text} | retry_failed: {str(e2)}"
+                        if not retry_done:
+                            ain = float(amount_in_used or 0.0)
+                            return SwapResult(
+                                False,
+                                "failed",
+                                ain,
+                                ain,
+                                0.0,
+                                {"reason": "mirror_order_error", "error": err_text, "symbol": sym},
+                            )
                 else:
                     order = ex.create_order(
                         symbol=sym,
@@ -793,6 +851,129 @@ class Swapper:
                     }
                 )
 
+                # Optional TTL-based re-emit for mirror last leg (real mode only)
+                if (
+                    self.roundtrip_mirror_last_leg
+                    and is_roundtrip
+                    and idx == (len(plan.hops) - 1)
+                    and not self.dry_run
+                    and oid
+                    and int(self.mirror_reemit_ttl_sec or 0) > 0
+                    and int(self.mirror_reemit_max or 0) > 0
+                ):
+                    try:
+                        # Establish protective bound (original mirror limit price) and safety adjustment
+                        protective_bound = float(mirror_limit_price_used or 0.0)
+                        safety = float(self.mirror_reemit_safety_bps or 0.0) / 10000.0
+                        # Track original placement time to report elapsed seconds
+                        orig_ts = time.time()
+                        max_reemits = int(self.mirror_reemit_max)
+                        for _i in range(max_reemits):
+                            try:
+                                time.sleep(max(0, int(self.mirror_reemit_ttl_sec)))
+                            except Exception:
+                                pass
+                            # Compute elapsed seconds since original mirror placement
+                            try:
+                                elapsed_s = int(max(0.0, time.time() - orig_ts))
+                            except Exception:
+                                elapsed_s = 0
+                            # Check if still open
+                            try:
+                                o_cur = ex.fetch_order(oid, sym)
+                                filled_cur = float(o_cur.get("filled") or 0.0)
+                                status_cur = str(o_cur.get("status") or "").lower()
+                                if filled_cur > 0 or status_cur in ("closed", "canceled"):
+                                    break  # nothing to do
+                            except Exception:
+                                # If we can't fetch, best-effort proceed to ticker check
+                                pass
+                            # Fetch mid and see if it moved favorably vs entry
+                            try:
+                                t = ex.fetch_ticker(sym)
+                                bid = float(t.get("bid") or 0.0)
+                                ask = float(t.get("ask") or 0.0)
+                                last = float(t.get("last") or 0.0)
+                                mid = (bid + ask) / 2.0 if (bid > 0 and ask > 0) else (last if last > 0 else 0.0)
+                            except Exception:
+                                mid = 0.0
+                            if not mid or not entry_sym_price:
+                                continue
+                            new_price = None
+                            if side == "buy":
+                                # Favorable only if mid < entry
+                                if mid < float(entry_sym_price):
+                                    cand = float(mid) * (1.0 - safety) if safety > 0 else float(mid)
+                                    new_price = min(float(protective_bound), float(cand))
+                            else:
+                                # Sell: favorable only if mid > entry; push price up but never above protective bound
+                                if mid > float(entry_sym_price):
+                                    cand = float(mid) * (1.0 + safety) if safety > 0 else float(mid)
+                                    new_price = max(float(protective_bound), float(cand))
+                            if new_price is None:
+                                continue
+                            # If change is negligible, skip
+                            try:
+                                if abs(float(new_price) - float(protective_bound)) <= (abs(protective_bound) * 1e-6 + 1e-10):
+                                    continue
+                            except Exception:
+                                pass
+                            # Apply price precision
+                            new_price_prec = _price_to_precision(sym, float(new_price))
+                            # Cancel and replace
+                            try:
+                                ex.cancel_order(oid, sym)
+                            except Exception:
+                                pass
+                            # Recompute amount if needed (buy side uses price-dependent qty)
+                            amt2 = order_amount
+                            if side == "buy" and mirror_needed_cost_quote is not None:
+                                qty2 = float(mirror_needed_cost_quote) / float(new_price_prec)
+                                if (min_amount is not None) and (qty2 < float(min_amount)):
+                                    # Can't meet minimum; skip re-emit
+                                    continue
+                                amt2 = _amount_to_precision(sym, qty2)
+                            # Place new order
+                            try:
+                                o_new = ex.create_order(
+                                    symbol=sym,
+                                    type=order_type,
+                                    side=side,
+                                    amount=amt2,
+                                    price=float(new_price_prec),
+                                    params=params,
+                                )
+                                # Audit log: explicit record of re-emit (old_limit -> new_limit)
+                                try:
+                                    attempt_idx = _i + 1
+                                    logger.info(
+                                        "mirror_reemit | symbol=%s | side=%s | old_limit=%.8f | new_limit=%.8f | mid=%.8f | entry=%.8f | old_oid=%s | new_oid=%s | attempt=%d/%d | elapsed_s=%d",
+                                        sym,
+                                        side,
+                                        float(protective_bound or 0.0),
+                                        float(new_price_prec or 0.0),
+                                        float(mid or 0.0),
+                                        float(entry_sym_price or 0.0),
+                                        str(oid),
+                                        str((o_new.get("id") if isinstance(o_new, dict) else "") or ""),
+                                        int(attempt_idx),
+                                        int(max_reemits),
+                                        int(elapsed_s),
+                                    )
+                                except Exception:
+                                    pass
+                                try:
+                                    oid = o_new.get("id") or oid
+                                except Exception:
+                                    pass
+                                protective_bound = float(new_price_prec)
+                                mirror_limit_price_used = float(new_price_prec)
+                            except Exception:
+                                # Failed to re-emit; keep original
+                                break
+                    except Exception:
+                        pass
+
                 # If this was the first hop, capture reference price and amount for mirrored last-leg (real mode)
                 if idx == 0 and self.roundtrip_mirror_last_leg and is_roundtrip:
                     try:
@@ -846,7 +1027,12 @@ class Swapper:
                             out_last = float(last_fill.get("amount_out") or 0.0)
                         except Exception:
                             out_last = 0.0
-                        if out_last <= 1e-12:
+                        # Treat as pending when only dust was realized on the last hop.
+                        # Use a threshold relative to the initial amount to ignore pre-existing dust balances.
+                        # Example: if we started with 0.00015 BTC and ended with 0.00000085 BTC due to an unfilled mirror,
+                        # classify as pending instead of a realized negative delta.
+                        pending_threshold_units = max(1e-12, 0.05 * float(amount_in_final or 0.0))
+                        if out_last <= pending_threshold_units:
                             status = "mirror_pending"
                             ok_flag = False
                             # Option 1 (default): neutralize delta so dashboards don't show realized loss

@@ -39,5 +39,13 @@ blacklist_pairs:
 
 # Round-trip mirror settings so last hop buys back same tokens at equal or better terms
 roundtrip_mirror_last_leg: true
-roundtrip_mirror_price_offset_bps: 5    # require ~0.05% improvement over entry
+roundtrip_mirror_price_offset_bps: 8    # require ~0.08% improvement over entry (tune 5-10 bps)
 roundtrip_mirror_amount_tolerance_bps: 5
+
+# Mirror re-emit settings (optional)
+# After TTL seconds, if order is still open and mid moved favorably versus entry,
+# cancel & replace at min(entry*(1-off), mid*(1-safety)) for buys; symmetric for sells.
+# Set mirror_reemit_ttl_sec=0 to disable.
+mirror_reemit_ttl_sec: 120     # seconds between checks
+mirror_reemit_safety_bps: 5    # 0.05% below mid for buys (above for sells)
+mirror_reemit_max: 2           # up to 2 re-emits per last-hop

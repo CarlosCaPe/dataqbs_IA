@@ -467,8 +467,9 @@ class ScalpinMonitor:
                 if self.min_value_anchor and value_anchor < self.min_value_anchor:
                     continue
                 key = (ex_id, asset.upper())
-                # Ensure initial snapshot is captured before evaluating triggers so ProfitAcum is available immediately
-                if not self._snapshot_taken and key not in self._initial_balances:
+                # Ensure initial snapshot is set for NEW assets as they appear, even after the first snapshot.
+                # This keeps "balance inicial" populated for re-incorporated coins.
+                if key not in self._initial_balances:
                     try:
                         self._initial_balances[key] = float(value_anchor)
                     except Exception:

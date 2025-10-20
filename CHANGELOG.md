@@ -18,6 +18,34 @@ Swapper Alpha — balance settle pause
 
 All notable changes to this repository are documented here. Dates are in YYYY-MM-DD.
 
+## v2.2.0-MEMO2 — 2025-10-20
+
+Safety, mirror TTL re-emit and audit logs; monitor snapshot fixes
+
+Highlights
+- Swapper
+  - Mirror last-leg protection: classify tiny last-hop fills as mirror_pending (neutral delta) using a dust threshold relative to input.
+  - Minimums/precision: apply price_to_precision and validate min amount/notional for the mirror to reduce rejections.
+  - Retry on "Insufficient position" (e.g., MEXC 30004) with slightly reduced amount to leave a pending limit order when feasible.
+  - TTL-based re-emit: if the mirror order remains open and the mid moves favorably, cancel-and-replace at min(entry*(1-off), mid*(1-safety)) for buys (symmetric for sells). Bounded by protective price.
+  - Auditability: explicit mirror_reemit log lines include old_limit → new_limit, mid, entry, order ids, attempt i/Max, and elapsed seconds.
+- Monitor
+  - Dynamic initial snapshot: when a new (exchange, asset) appears after the initial pass, set its "balance inicial" on the fly.
+  - Dust gating (recommended): use min_value_anchor to avoid attempts under exchange minima; path to unified swapper log ensured.
+
+Quality gates
+- Build: PASS
+- Lint/Typecheck: PASS
+- Tests: manual dry-runs and small live validations; no unit suite changes
+
+Upgrade notes
+- Review `projects/arbitraje/swapper.live.yaml` for new keys:
+  - mirror_reemit_ttl_sec, mirror_reemit_safety_bps, mirror_reemit_max
+  - roundtrip_mirror_price_offset_bps now 8 bps by default
+- Ensure the monitor uses the intended YAML via SCALPIN_CONFIG and consider min_value_anchor ≥ 5.0 USDT.
+
+Tag sugerido: v2.2.0-MEMO2
+
 ## v1.1.0 — 2025-10-14
 
 Minor release focusing on safety hardening for automated swap path generation and version alignment across the monorepo.
