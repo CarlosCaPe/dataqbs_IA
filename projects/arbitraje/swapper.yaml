@@ -1,0 +1,28 @@
+mode: real  # test | real
+test_exchange: binance  # default exchange to use when mode=test and not explicitly provided
+timeout_ms: 12000
+order_type: market   # market only for v1
+time_in_force: IOC   # IOC | FOK (exchange-dependent)
+max_slippage_bps: 25
+min_notional: 1
+dry_run: true  # when true, do not place orders even in real mode; only compute fast estimates
+# Small optional wait between hops to better mimic live balance settling while simulating
+settle_sleep_ms: 100  # ms; set to 0 for maximum speed
+confirm_fill: false # avoid extra fetch_order to confirm fills/fees (faster)
+
+# Per-exchange minimum test amount (in quote currency, typically USDT)
+# Used only when mode=test and no explicit --amount is provided.
+# If an exchange is not listed, a default of 1.0 will be used.
+test_min_amounts:
+  binance: 10.0
+  okx: 1.0
+  bitget: 1.0
+  mexc: 1.0
+
+# Manual blacklist for radar / path building.
+# Detected compliance restriction (OKX sCode 51155) during swap attempts involving USDC/USDT.
+# By blacklisting the pair we prevent constructing paths that require crossing USDC<->USDT on OKX for now.
+# If later confirmed that only one direction is affected or issue was transient, remove this entry.
+blacklist_pairs:
+  okx:
+    - USDC/USDT  # sCode 51155 compliance restriction (log captured)

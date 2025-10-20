@@ -2,23 +2,24 @@
 .env
 realstate/.env
 
-# Realstate data artifacts to avoid committing
-realstate/properties/data/**/*.json
-realstate/properties/images/**
-realstate/properties/wiggot_login_debug.png
-realstate/properties/.auth_wiggot.json
-realstate/properties/.auth_*.json
-
-# Ignore entire realstate data folder (generated artifacts)
-realstate/properties/data/**
+## (Legacy) realstate paths (project renamed to real_estate); keep defensive ignores for old path & new path data remnants
+realstate/properties/**
+realstate/logs/**
+projects/real_estate/properties/data/**
+projects/real_estate/properties/images/**
+projects/real_estate/logs/**
 
 # Common image types
 *.jpg
 *.jpeg
 *.png
 
-# Logs
-realstate/logs/**
+# Logs & artifacts (new monorepo layout)
+artifacts/**
+!artifacts/.gitkeep
+!artifacts/README.md
+
+# Legacy paths (pre-refactor) kept for safety; can remove later (scheduled for cleanup)
 emails_out/**
 .env
 .venv
@@ -37,7 +38,6 @@ __pycache__/
 .env.*
 
 # Outputs
-emails_out/
 collector_tmp/
 *.zip
 dist/
@@ -59,11 +59,12 @@ build/
 # Easybrokers images (explicit path)
 easybrokers/properties/images/
 
-# Telus compare local artifacts
+## Telus compare local artifacts now under artifacts/; keep legacy ignores defensively
 telus_compara_imagenes/.user_data/**
-telus_compara_imagenes/audit/**
 telus_compara_audios/.user_data/**
-telus_compara_audios/audit/**
+telus_compara_audios/emails_out/**
+telus_compara_audios/logs/**
 
-# Realstate data images under data/
-realstate/properties/data/images/**
+## Explicit sensitive auth files (even if moved later)
+realstate/properties/.auth_wiggot.json
+realstate/properties/.auth_*.json

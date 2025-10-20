@@ -50,6 +50,159 @@
 			},
 			"args": [],
 			"group": "build"
+		},
+		{
+			"label": "TLS Audios: Install deps",
+			"type": "shell",
+			"command": "poetry install",
+			"options": {
+				"cwd": "${workspaceFolder}/projects/tls_compara_audios"
+			},
+			"args": [],
+			"group": "build"
+		},
+		{
+			"label": "TLS Audios: Run 1x (headed)",
+			"type": "shell",
+			"command": "poetry run python -m tls_compara_audios.runner --max-iters 1 --log-file logs/run.log --headed",
+			"options": {
+				"cwd": "${workspaceFolder}/projects/tls_compara_audios"
+			},
+			"group": "build"
+		},
+		{
+			"label": "TLS Audios: Run 3x (headed, header-first)",
+			"type": "shell",
+			"command": "poetry run python -m tls_compara_audios.runner --max-iters 3 --log-file logs/run.log --headed --header-first",
+			"options": {
+				"cwd": "${workspaceFolder}/projects/tls_compara_audios"
+			},
+			"group": "build"
+		},
+		{
+			"label": "TLS Images: Install deps",
+			"type": "shell",
+			"command": "poetry install",
+			"options": {
+				"cwd": "${workspaceFolder}/projects/tls_compara_imagenes"
+			},
+			"args": [],
+			"group": "build"
+		},
+		{
+			"label": "TLS Images: Run (headed)",
+			"type": "shell",
+			"command": "poetry run python -m tls_compara_imagenes.runner --headed",
+			"options": {
+				"cwd": "${workspaceFolder}/projects/tls_compara_imagenes"
+			},
+			"group": "build"
+		},
+		{
+			"label": "Arbitraje: Install deps",
+			"type": "shell",
+			"command": "poetry install",
+			"options": {
+				"cwd": "${workspaceFolder}/projects/arbitraje"
+			},
+			"args": [],
+			"group": "build"
+		},
+		{
+			"label": "Arbitraje: Run (report)",
+			"type": "shell",
+			"command": "echo 'arbitraje.coingecko_arbitrage_report is deprecated; use arbitraje-ccxt'",
+			"options": {
+				"cwd": "${workspaceFolder}/projects/arbitraje"
+			},
+			"group": "build"
+		},
+		{
+			"label": "Arbitraje: Run CCXT (screen)",
+			"type": "shell",
+			"command": "poetry run python -m arbitraje.arbitrage_report_ccxt --ex binance,kraken,kucoin,bybit,okx,bitfinex,gateio,mexc --quote USDT --max 300 --min_spread 0.3 --buy_fee 0.10 --sell_fee 0.10 --top 40",
+			"options": {
+				"cwd": "${workspaceFolder}/projects/arbitraje"
+			},
+			"group": "build"
+		},
+		{
+			"label": "Arbitraje: Run CCXT (prod)",
+			"type": "shell",
+			"command": "poetry run python -m arbitraje.arbitrage_report_ccxt --config .\\arbitraje.prod.yaml",
+			"options": {
+				"cwd": "${workspaceFolder}/projects/arbitraje"
+			},
+			"group": "build"
+		},
+		{
+			"label": "Arbitraje: Swapper (test USDT<->USDC)",
+			"type": "shell",
+			"command": "poetry run swapper --config .\\swapper.yaml --exchange binance --path USDT->USDC->USDT --anchor USDT",
+			"options": {
+				"cwd": "${workspaceFolder}/projects/arbitraje"
+			},
+			"group": "build"
+		},
+		{
+			"label": "Arbitraje: Validate build & tests",
+			"type": "shell",
+			"command": "pwsh -NoProfile -Command \"Set-Location 'projects/arbitraje'; poetry install --no-interaction --no-ansi; poetry run ruff check src || $true; poetry run pytest -q --rootdir . tests\"",
+			"problemMatcher": [
+				"$tsc"
+			],
+			"group": "build"
+		},
+		{
+			"label": "Repo: Init/Update submodules",
+			"type": "shell",
+			"command": "pwsh -NoProfile -Command \"git submodule update --init --recursive; git submodule update --remote --merge\"",
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"group": "build"
+		},
+		{
+			"label": "Arbitraje: Validate build & tests",
+			"type": "shell",
+			"command": "pwsh -NoProfile -Command \"Set-Location 'projects/arbitraje'; poetry install --no-interaction --no-ansi; poetry run ruff check src || $true; poetry run pytest -q --rootdir . tests\"",
+			"group": "build"
+		},
+		{
+			"label": "Arbitraje: Validate build & tests",
+			"type": "shell",
+			"command": "pwsh -NoProfile -Command \"Set-Location 'projects/arbitraje'; poetry install --no-interaction --no-ansi; poetry run ruff check src || $true; poetry run pytest -q --rootdir . tests\"",
+			"group": "build"
+		},
+		{
+			"label": "Arbitraje: Validate build & tests",
+			"type": "shell",
+			"command": "pwsh -NoProfile -Command \"Set-Location 'projects/arbitraje'; poetry install --no-interaction --no-ansi; poetry run ruff check src || $true; poetry run pytest -q --rootdir . tests\"",
+			"group": "build"
+		},
+		{
+			"label": "Arbitraje: Validate build & tests",
+			"type": "shell",
+			"command": "pwsh -NoProfile -Command \"Set-Location 'projects/arbitraje'; poetry install --no-interaction --no-ansi; poetry run ruff check src || $true; poetry run pytest -q --rootdir . tests\"",
+			"group": "build"
+		},
+		{
+			"label": "Arbitraje: Validate build & tests",
+			"type": "shell",
+			"command": "pwsh -NoProfile -Command \"Set-Location 'projects/arbitraje'; poetry install --no-interaction --no-ansi; poetry run ruff check src || $true; poetry run pytest -q --rootdir . tests\"",
+			"group": "build"
+		},
+		{
+			"label": "Arbitraje: Validate build & tests",
+			"type": "shell",
+			"command": "pwsh -NoProfile -Command \"Set-Location 'projects/arbitraje'; poetry install --no-interaction --no-ansi; poetry run pytest -q --rootdir . tests\"",
+			"group": "build"
+		},
+		{
+			"label": "Run BF (1 iter quick)",
+			"type": "shell",
+			"command": "pwsh -NoProfile -Command \"Set-Location 'projects/arbitraje'; poetry run python -m arbitraje.arbitrage_report_ccxt --mode bf --config .\\arbitraje.prod.yaml --repeat 1 --repeat_sleep 0 --no_console_clear\"",
+			"group": "build"
 		}
 	]
 }

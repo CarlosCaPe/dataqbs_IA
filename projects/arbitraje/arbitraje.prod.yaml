@@ -1,0 +1,69 @@
+mode: bf
+
+# Exchanges to include (leaner prod set; can expand as needed)
+ex: [binance, bitget, mexc, okx]
+
+quote: USDT
+inv: 0.0  # Always use wallet; do not assume extra investment
+
+bf:
+  allowed_quotes: [USDT, USDC]
+  fee: 0.10
+  rank_by_qvol: true
+  currencies_limit: 600
+  min_net: .4
+  min_net_per_hop: 0.0
+  top: 30
+  require_quote: true
+  require_topofbook: false
+  min_quote_vol: 0
+  min_hops: 2
+  max_hops: 6
+  threads: 0
+  require_dual_quote: false
+  persist_top_csv: true
+  revalidate_depth: false
+  use_ws: true
+  depth_levels: 20
+  latency_penalty_bps: 0
+  reset_history: true
+  iter_timeout_sec: 0.0
+
+max: 200
+timeout: 20000
+sleep: 0
+repeat: 10000
+repeat_sleep: 0
+
+# Note: use_balance/balance_kind removed; tool now always reads wallet balances when available
+balance_provider: ccxt
+ex_auth_only: true
+simulate_compound: true
+simulate_from_wallet: true
+simulate_prefer: auto
+simulate_select: best
+simulate_auto_switch: true
+simulate_fallback_to_inv: true
+
+no_console_clear: true
+
+ui:
+  progress_bar: true
+  progress_len: 20
+  spinner_frames: "|/-\\"
+  draw_tables_first: true
+  show_simulation_header_always: true
+
+tri:
+  fee: 0.10
+  currencies_limit: 35
+  min_net: 0.5
+  top: 5
+  require_topofbook: false
+  min_quote_vol: 0
+
+# Manual blacklist (prod) – evita rutas con pares restringidos
+# OKX: USDC/USDT con errores sCode 51155 (compliance) en swaps recientes
+blacklist_pairs:
+  okx:
+    - USDC/USDT  # sCode 51155 compliance restriction

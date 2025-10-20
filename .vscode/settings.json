@@ -9,5 +9,7 @@
   "python.defaultInterpreterPath": "python",
   "terminal.integrated.defaultProfile.windows": "PowerShell",
   "python-envs.defaultEnvManager": "ms-python.python:system",
-  "python-envs.pythonProjects": []
+  "python-envs.pythonProjects": [],
+  // Inject variables from .env files into terminals started by Python extension
+  "python.terminal.useEnvFile": true
 }

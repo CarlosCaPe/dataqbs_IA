@@ -1,22 +1,41 @@
 [tool.poetry]
-name = "email-collector"
-version = "0.1.0"
-description = "Automatiza descarga, clasificación y validación de correos .eml"
-authors = ["Your Name <you@example.com>"]
-readme = "README.md"
-packages = [{ include = "email_collector" }]
+name = "dataqbs-monorepo"
+version = "1.1.1"
+description = "Monorepo tooling (lint, tests, hooks) for dataqbs Python projects"
+authors = ["Carlos <you@example.com>"]
 license = "MIT"
+package-mode = false
+readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.9"
-python-dotenv = "^1.0.1"
-imap-tools = "^0.46.0"
-PyYAML = "^6.0"
-langdetect = "^1.0.9"
+python = ">=3.10,<3.14"
 
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.2"
+ruff = "^0.6.9"
+pre-commit = "^3.8.0"
 
-[tool.poetry.scripts]
-email-collect = "email_collector.main:main"
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "-q"
+testpaths = [
+	"projects/oai_code_evaluator/tests"
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+extend-select = ["I"]
+ignore = ["E501"]
+
+[tool.ruff.lint.isort]
+known-first-party = [
+	"email_collector",
+	"oai_code_evaluator",
+	"real_estate",
+	"telus_compara_audios",
+	"telus_compara_imagenes"
+]
 
 [build-system]
 requires = ["poetry-core"]

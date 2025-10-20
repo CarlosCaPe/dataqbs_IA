@@ -1,0 +1,19 @@
+; removed binance-connector-python submodule
+[submodule "projects/arbitraje/sdk/binance"]
+	path = projects/arbitraje/sdk/binance
+	url = https://github.com/binance/binance-connector-python
+[submodule "projects/arbitraje/sdk/bitget"]
+	path = projects/arbitraje/sdk/bitget
+	url = https://github.com/BitgetLimited/v3-bitget-api-sdk
+[submodule "projects/arbitraje/sdk/mexc"]
+	path = projects/arbitraje/sdk/mexc
+	url = https://github.com/mexcdevelop/mexc-api-sdk
+[submodule "projects/arbitraje/projects/arbitraje/sdk/bitget"]
+	path = projects/arbitraje/sdk/bitget
+	url = https://github.com/BitgetLimited/v3-bitget-api-sdk
+[submodule "projects/arbitraje/projects/arbitraje/sdk/mexc"]
+	path = projects/arbitraje/sdk/mexc
+	url = https://github.com/mexcdevelop/mexc-api-sdk
+[submodule "projects/arbitraje/sdk/okx"]
+	path = projects/arbitraje/sdk/okx
+	url = https://github.com/okxapi/python-okx

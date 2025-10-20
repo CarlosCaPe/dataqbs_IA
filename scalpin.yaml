@@ -1,0 +1,34 @@
+# Example configuration for scalpin_monitor.py
+# Adjust exchanges and credentials via .env at the workspace root
+exchanges:
+  - binance
+  - bitget
+  - mexc
+assets_validos: []   # [] means all assets; e.g. ["BTC","ETH","USDT"]
+anchor: USDC         # single anchor
+poll_interval_sec: 0
+min_value_anchor: 1  # filter out tiny rows (in anchor units)
+# When profit_pct exceeds this threshold (percent), show 'accion' swap hint
+profit_action_threshold_pct: 0.01
+# Clear the console each iteration (recommended)
+clear_screen: true
+# Optional run controls (both are optional; 0 means unlimited)
+run_duration_sec: 0
+max_iterations: 10000000
+# Optional HTTP timeout (ms)
+timeout_ms: 10000
+ 
+ # Performance
+ fast_mode: true        # evita sobrecarga de pandas/tabulate en render y CSV
+ concurrency: 3         # paraleliza por exchange (<= numero de exchanges)
+ table_format: grid     # formato de tabla (grid/fancy_grid/plain); 'plain' es un poco más rápido
+
+# Frecuencia de acciones (producción)
+# Barre balances y precios cada iteración (1s recomendado con poll_interval_sec)
+snapshot_every_n: 1    # escribir snapshot CSV cada tick
+log_every_n: 5         # sobreescribir log de texto cada 5 ticks
+history_every_n: 10    # anexar a historico cada 10 ticks
+render_every_n: 5      # imprimir tabla a consola cada 5 ticks
+
+# Recomendación producción: usar poll_interval_sec=1
+poll_interval_sec: 1

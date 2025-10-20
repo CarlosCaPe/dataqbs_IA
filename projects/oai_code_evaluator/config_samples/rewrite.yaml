@@ -1,0 +1,7 @@
+# Rewrite improvement rules
+min_length: 60
+add_note_if_short: true
+note_text: "Note: expand details to fully cover the solution as per documentation."
+postprocessors:
+  - type: ensure_period
+  - type: trim_spaces

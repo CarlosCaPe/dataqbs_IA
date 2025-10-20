@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "supplier-verifier"
+version = "0.1.0"
+description = "Automated company address verification and supplier type classification"
+authors = ["Carlos <you@example.com>"]
+license = "MIT"
+packages = [{ include = "supplier_verifier", from = "src" }]
+
+[tool.poetry.dependencies]
+python = ">=3.10,<3.14"
+requests = "^2.32.0"
+python-slugify = "^8.0.0"
+rapidfuzz = "^3.9.1"
+
+[tool.poetry.scripts]
+supplier-verify = "supplier_verifier.cli:main"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
