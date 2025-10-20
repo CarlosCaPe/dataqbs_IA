@@ -1,0 +1,12 @@
+# Swapper real-mode configuration for live test
+mode: real
+timeout_ms: 15000
+order_type: market
+time_in_force: IOC
+max_slippage_bps: 50.0
+min_notional: 5.0
+# IMPORTANT: ensure your Binance API keys are available via .env or OS env vars
+# and spot trading is enabled on your account.
+dry_run: false
+confirm_fill: false
+settle_sleep_ms: 250

@@ -53,6 +53,7 @@ class SwapPlan:
     exchange: str
     hops: List[SwapHop]
     amount: float
+    anchor: Optional[str] = None
     raw_line: Optional[str] = None
 
 
@@ -113,6 +114,12 @@ class Swapper:
             }
         except Exception:
             self.test_min_amounts = {}
+        # Optional swap fraction (0..1) to apply to first-hop source funds
+        try:
+            env_frac = os.environ.get("SWAP_FRACTION")
+            self.swap_fraction: Optional[float] = (float(env_frac) if env_frac not in (None, "", "null") else None)
+        except Exception:
+            self.swap_fraction = None
 
     def plan_from_bf_line(self, line: str, amount: Optional[float] = None) -> Optional[SwapPlan]:
         parsed = _parse_bf_line(line)
@@ -125,7 +132,7 @@ class Swapper:
             amt = float(amount) if amount else float(self.test_min_amounts.get(_normalize_ccxt_id(ex), 1.0))
         else:
             amt = float(amount or 0.0)
-        return SwapPlan(exchange=ex, hops=hops, amount=amt, raw_line=line)
+        return SwapPlan(exchange=ex, hops=hops, amount=amt, anchor=_anchor, raw_line=line)
 
     def run(self, plan: SwapPlan) -> SwapResult:
         if self.mode == "test":
@@ -148,7 +155,7 @@ class Swapper:
             amount_cur = float(amt_first)
             fills: List[Dict[str, object]] = []
             amount_in_used = float(amount_cur)
-            for hop in plan.hops:
+            for idx, hop in enumerate(plan.hops):
                 base, quote = hop.base.upper(), hop.quote.upper()
                 sym1, sym2 = f"{base}/{quote}", f"{quote}/{base}"
                 invert = False
@@ -301,7 +308,8 @@ class Swapper:
         try:
             start_ccy = plan.hops[0].base.upper() if plan.hops else cur_ccy
             end_ccy = plan.hops[-1].quote.upper() if plan.hops else cur_ccy
-            for hop in plan.hops:
+            anchor_ccy = (plan.anchor or start_ccy).upper()
+            for idx, hop in enumerate(plan.hops):
                 base, quote = hop.base.upper(), hop.quote.upper()
                 sym1 = f"{base}/{quote}"
                 sym2 = f"{quote}/{base}"
@@ -334,8 +342,20 @@ class Swapper:
                 # Determine source funds from real wallet balance of the hop's base currency
                 src_free = _free_balance(base)
                 src_to_use = float(src_free)
-                if amount_in_used is None and first_cap > 0:
+                # Apply cap on first hop only
+                if idx == 0 and first_cap > 0:
                     src_to_use = min(src_to_use, float(first_cap))
+                # Apply optional fraction on the hop that returns to the anchor currency
+                if hop.quote.upper() == anchor_ccy and isinstance(self.swap_fraction, (int, float)):
+                    frac = float(self.swap_fraction)
+                    try:
+                        if frac < 0.0:
+                            frac = 0.0
+                        elif frac > 1.0:
+                            frac = 1.0
+                    except Exception:
+                        pass
+                    src_to_use = src_to_use * frac
                 if src_to_use <= 0:
                     return SwapResult(
                         False,
@@ -343,7 +363,7 @@ class Swapper:
                         float(amount_in_used or 0.0),
                         amount_cur,
                         amount_cur - float(amount_in_used or 0.0),
-                        {"reason": "no_funds_source", "source": base},
+                        {"reason": "no_funds_source", "source": base, "free": float(src_free)},
                     )
 
                 params = {}
@@ -409,6 +429,7 @@ class Swapper:
                             "amount_in": src_to_use,
                             "amount_out": amount_next,
                             "price": fill_price,
+                            "hop_index": idx,
                             "simulated": True,
                         }
                     )
@@ -503,6 +524,7 @@ class Swapper:
                         "amount_out": out_val,
                         "order_id": oid,
                         "fees": order_fees,
+                        "hop_index": idx,
                     }
                 )
 
@@ -541,9 +563,16 @@ def _main_cli():
     # --anchor is deprecated here; kept for backward-compat but ignored in execution
     parser.add_argument("--anchor", type=str, default=None)
     parser.add_argument("--amount", type=float, default=0.0)
+    parser.add_argument("--fraction", type=float, default=None, help="Fraction (0..1) applied on the anchor hop (->anchor)")
     args = parser.parse_args()
 
     sw = Swapper(config_path=args.config)
+    # Override swap fraction from CLI if provided
+    if args.fraction is not None:
+        try:
+            sw.swap_fraction = float(args.fraction)
+        except Exception:
+            pass
     if args.bf_line:
         plan = sw.plan_from_bf_line(args.bf_line)
         if not plan:
@@ -566,14 +595,25 @@ def _main_cli():
                 "Exchange is required in real mode. Provide --exchange or use mode=test with test_exchange in config."
             )
             sys.exit(2)
-        hops = [SwapHop(base=p, quote=q) for p, q in zip(args.path.split("->"), args.path.split("->")[1:])]
+        path_nodes = args.path.split("->")
+        hops = [SwapHop(base=p, quote=q) for p, q in zip(path_nodes, path_nodes[1:])]
         # In test mode, choose the configured min amount per exchange if not explicitly provided
         if sw.mode == "test":
             default_amt = float(sw.test_min_amounts.get(_normalize_ccxt_id(ex_id), 1.0))
             amt = float(args.amount) if args.amount else default_amt
         else:
             amt = float(args.amount or 0.0)
-    plan = SwapPlan(exchange=ex_id, hops=hops, amount=amt)
+    # Determine anchor: CLI --anchor wins; else if cycle, last equals first -> anchor is first; else default to first base
+    anchor_cli = (args.anchor.upper() if args.anchor else None)
+    inferred_anchor = None
+    try:
+        first_node = path_nodes[0].upper()
+        last_node = path_nodes[-1].upper()
+        inferred_anchor = first_node if last_node == first_node else first_node
+    except Exception:
+        pass
+    anchor_final = anchor_cli or inferred_anchor
+    plan = SwapPlan(exchange=ex_id, hops=hops, amount=amt, anchor=anchor_final)
 
     res = sw.run(plan)
     print(

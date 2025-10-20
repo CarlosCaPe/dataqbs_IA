@@ -17,7 +17,9 @@ def creds_from_env(ex_id: str) -> Dict[str, Any]:
     ex_id = normalize_ccxt_id(ex_id)
     try:
         if ex_id == "binance":
-            k, s = env.get("BINANCE_API_KEY"), env.get("BINANCE_API_SECRET")
+            # Accept common aliases for compatibility
+            k = env.get("BINANCE_API_KEY") or env.get("BINANCE_KEY")
+            s = env.get("BINANCE_API_SECRET") or env.get("BINANCE_SECRET")
             if k and s:
                 return {"apiKey": k, "secret": s}
         elif ex_id == "bybit":

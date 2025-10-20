@@ -34,10 +34,17 @@ class SpotBalanceFetcher:
     def get_balance(self, exchange_id: str, asset: str) -> float:
         client = self._get_client(exchange_id)
         balances = None
+        # Try spot first, then generic, then funding if supported
         try:
             balances = client.fetch_balance({"type": "spot"})
         except Exception:
-            balances = client.fetch_balance()
+            try:
+                balances = client.fetch_balance()
+            except Exception:
+                try:
+                    balances = client.fetch_balance({"type": "funding"})
+                except Exception:
+                    balances = {}
         asset_key = asset.upper()
         free_map = balances.get("free") if isinstance(balances, dict) else None
         if isinstance(free_map, dict) and asset_key in free_map:
