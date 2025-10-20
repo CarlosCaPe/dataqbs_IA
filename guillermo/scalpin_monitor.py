@@ -499,20 +499,37 @@ class ScalpinMonitor:
                         # Spawn swapper without redirecting stdout/stderr to the shared log file.
                         # The swapper's own logger writes to artifacts/arbitraje/logs/swapper.log (UTF-8),
                         # avoiding binary/NUL corruption from mixed writers on Windows.
-                        __import__("subprocess").Popen(
-                            [
-                                sys.executable,
-                                "-m",
-                                "arbitraje.swapper",
-                                "--config",
-                                os.path.join(os.getcwd(), "projects", "arbitraje", "swapper.live.yaml"),
-                                "--exchange",
-                                ex_id,
-                                "--path",
-                                f"{asset.upper()}->{self.anchor}->{asset.upper()}",
-                            ],
-                            env=dict(os.environ, PYTHONPATH=os.path.join(os.getcwd(), "projects", "arbitraje", "src")),
+                        # Use this repository's swapper config (independent of current working directory)
+                        repo_root = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
+                        cfg_path = os.path.join(repo_root, "projects", "arbitraje", "swapper.live.yaml")
+                        swap_path = f"{asset.upper()}->{self.anchor}->{asset.upper()}"
+                        cmd = [
+                            sys.executable,
+                            "-m",
+                            "arbitraje.swapper",
+                            "--config",
+                            cfg_path,
+                            "--exchange",
+                            ex_id,
+                            "--path",
+                            swap_path,
+                        ]
+                        logger.info(
+                            "Spawning swapper: exchange=%s path=%s config=%s", ex_id, swap_path, cfg_path
                         )
+                        try:
+                            # Prepare environment including optional SWAPPER_LOG_FILE override
+                            env_map = dict(os.environ)
+                            swapper_log = str(self.swapper_log_path or "").strip()
+                            if swapper_log:
+                                env_map["SWAPPER_LOG_FILE"] = swapper_log
+                            env_map["PYTHONPATH"] = os.path.join(repo_root, "projects", "arbitraje", "src")
+                            __import__("subprocess").Popen(
+                                cmd,
+                                env=env_map,
+                            )
+                        except Exception as e:
+                            logger.error("Failed to spawn swapper: %s", e, exc_info=True)
                 local_rows.append(
                     {
                         "exchange": ex_id,

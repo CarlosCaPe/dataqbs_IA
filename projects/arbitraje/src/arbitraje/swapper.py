@@ -23,19 +23,46 @@ except Exception:  # pragma: no cover
     pass
 
 logger = logging.getLogger("swapper")
-if not logger.handlers:
-    logger.setLevel(logging.INFO)
-    fmt = logging.Formatter("%(asctime)s - %(levelname)s - %(message)s")
-    sh = logging.StreamHandler()
-    sh.setFormatter(fmt)
-    logger.addHandler(sh)
+logger.setLevel(logging.INFO)
+logger.propagate = False
+fmt = logging.Formatter("%(asctime)s - %(levelname)s - %(message)s")
+try:
+    has_sh = any(isinstance(h, logging.StreamHandler) for h in logger.handlers)
+except Exception:
+    has_sh = False
+if not has_sh:
     try:
-        paths.LOGS_DIR.mkdir(parents=True, exist_ok=True)
-        fh = logging.FileHandler(paths.LOGS_DIR / "swapper.log", encoding="utf-8")
-        fh.setFormatter(fmt)
-        logger.addHandler(fh)
+        sh = logging.StreamHandler()
+        sh.setFormatter(fmt)
+        logger.addHandler(sh)
     except Exception:
         pass
+try:
+    paths.LOGS_DIR.mkdir(parents=True, exist_ok=True)
+except Exception:
+    pass
+try:
+    # Allow overriding the log file path via SWAPPER_LOG_FILE
+    override = os.environ.get("SWAPPER_LOG_FILE")
+    if override and override.strip():
+        log_path_str = str(os.path.abspath(override.strip()))
+    else:
+        log_path_str = str((paths.LOGS_DIR / "swapper.log").resolve())
+    has_fh = False
+    for h in list(logger.handlers):
+        try:
+            if isinstance(h, logging.FileHandler) and getattr(h, "baseFilename", None):
+                if str(h.baseFilename) == log_path_str:
+                    has_fh = True
+                    break
+        except Exception:
+            continue
+    if not has_fh:
+        fh = logging.FileHandler(log_path_str, encoding="utf-8")
+        fh.setFormatter(fmt)
+        logger.addHandler(fh)
+except Exception:
+    pass
 
 
 @dataclass
@@ -732,7 +759,37 @@ def _main_cli():
             amt = float(args.amount or 0.0)
     plan = SwapPlan(exchange=ex_id, hops=hops, amount=amt)
 
+    # Log start
+    try:
+        logger.info(
+            "start | config=%s | mode=%s | order_type=%s | tif=%s | exchange=%s | path=%s | amount=%s",
+            args.config,
+            sw.mode,
+            sw.order_type,
+            sw.time_in_force,
+            plan.exchange,
+            "->".join([plan.hops[0].base] + [h.quote for h in plan.hops]) if plan.hops else "",
+            plan.amount,
+        )
+    except Exception:
+        pass
+
     res = sw.run(plan)
+
+    # Log result summary
+    try:
+        logger.info(
+            "result | ok=%s | status=%s | in=%.8f | out=%.8f | delta=%.8f | exchange=%s | hops=%d",
+            res.ok,
+            res.status,
+            res.amount_in,
+            res.amount_out,
+            res.delta,
+            plan.exchange,
+            len(plan.hops or []),
+        )
+    except Exception:
+        pass
     print(
         {
             "ok": res.ok,

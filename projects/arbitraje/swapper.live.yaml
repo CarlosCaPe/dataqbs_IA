@@ -5,9 +5,9 @@ mode: real
 test_exchange: binance
 
 # Runtime
-timeout_ms: 12000
-order_type: market
-time_in_force: IOC   # May be ignored by some exchanges for market orders
+timeout_ms: 20000
+order_type: limit
+time_in_force: GTC   # Rest last hop until protective price is reached
 max_slippage_bps: 25
 min_notional: 1
 
@@ -19,7 +19,7 @@ dry_run: false
 
 # Fast execution flags
 # Small wait between hops to allow wallet balances to settle on the exchange
-settle_sleep_ms: 200  # ms; helps avoid balance race conditions between legs
+settle_sleep_ms: 100  # ms; faster chain with limits
 confirm_fill: false   # avoid extra fetch_order (faster; set true for fee/filled precision)
 
 # Per-exchange minimum test amount (in quote currency, typically USDT)
@@ -36,3 +36,8 @@ test_min_amounts:
 blacklist_pairs:
   okx:
     - USDC/USDT  # sCode 51155 compliance restriction
+
+# Round-trip mirror settings so last hop buys back same tokens at equal or better terms
+roundtrip_mirror_last_leg: true
+roundtrip_mirror_price_offset_bps: 3    # require ~0.03% improvement over entry
+roundtrip_mirror_amount_tolerance_bps: 5
