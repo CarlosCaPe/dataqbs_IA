@@ -39,23 +39,23 @@ blacklist_pairs:
 
 # Round-trip mirror settings so last hop buys back same tokens at equal or better terms
 roundtrip_mirror_last_leg: true
-roundtrip_mirror_price_offset_bps: 8    # require ~0.08% improvement over entry (tune 5-10 bps)
+roundtrip_mirror_price_offset_bps: 5    # require ~0.05% improvement over entry (tune 5-10 bps)
 roundtrip_mirror_amount_tolerance_bps: 5
 
 # Mirror re-emit settings (optional)
 # After TTL seconds, if order is still open and mid moved favorably versus entry,
 # cancel & replace at min(entry*(1-off), mid*(1-safety)) for buys; symmetric for sells.
 # Set mirror_reemit_ttl_sec=0 to disable.
-mirror_reemit_ttl_sec: 120     # seconds between checks
+mirror_reemit_ttl_sec: 90      # seconds between checks (faster refresh to track mid)
 mirror_reemit_safety_bps: 5    # 0.05% below mid for buys (above for sells)
 mirror_reemit_max: 2           # up to 2 re-emits per last-hop
 
 # Time-based relaxation to avoid being stuck if price runs away from entry
 # After mirror_relax_after_sec, allow crossing entry by relax_bps_per_ttl each TTL cycle,
 # capped by mirror_relax_max_bps. Set zeros to disable.
-mirror_relax_after_sec: 180
+mirror_relax_after_sec: 120
 mirror_relax_bps_per_ttl: 1
-mirror_relax_max_bps: 5
+mirror_relax_max_bps: 8
 
 # Forced close: after timeout seconds, optionally close remaining with market
 # roundtrip_allow_max_loss_bps caps allowed loss vs entry at close time; set 0 to disable guard.
@@ -69,13 +69,13 @@ sizing:
   mode: auto
   # USD sizing knobs (simple, low-risk):
   alpha_tob: 15        # base USD per trade; if dv factor used, alpha is baseline USD
-  beta_dv_pct: 0.0     # optional extra USD = 100 * dailyVolPct (e.g., 0.5 -> +$50)
-  min_usd: 5           # clamp lower bound
+  beta_dv_pct: 0.10    # modest volume factor: +$10 per 10% DV estimate
+  min_usd: 10          # raise to surpass Binance mins and reduce dust
   max_usd: 25          # clamp upper bound
   ladder_levels: 1     # not used yet (future laddered mirrors)
   ladder_step_bps: 0.0 # spacing between ladder levels
   overrides:
     binance:
       ZEC/USDT:
-        min_usd: 10
-        max_usd: 20
+        min_usd: 12
+        max_usd: 25

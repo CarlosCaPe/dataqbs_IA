@@ -4,7 +4,8 @@ import os
 import sys
 import time
 import logging
-from typing import Dict, List, Optional
+from typing import Dict, List, Optional, Tuple
+import re
 from datetime import datetime, timedelta, timezone
 import csv
 from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -151,7 +152,8 @@ class ExchangeClient:
         """Return total balances per asset; exclude zero/None."""
         try:
             bal = self._ex.fetch_balance() or {}
-            bucket = bal.get("total") or bal.get("free") or {}
+            # Prefer free balances to avoid counting locked-in-order funds; fallback to total
+            bucket = bal.get("free") or bal.get("total") or {}
             out: Dict[str, float] = {}
             if isinstance(bucket, dict):
                 for ccy, amt in bucket.items():
@@ -165,6 +167,56 @@ class ExchangeClient:
         except Exception as e:
             logger.warning("%s: fetch_balance failed: %s", self.ex_id, e)
             return {}
+
+    def get_market_limits(self, base: str, quote: str) -> Tuple[Optional[float], Optional[float], Optional[str]]:
+        """Return (min_cost, min_amount, symbol_orientation) for the market between base and quote if present.
+        - min_cost is the minimum notional (quote currency) if available
+        - min_amount is the minimum amount (base currency) if available
+        - symbol_orientation is either 'base/quote', 'quote/base' or None if not found
+        """
+        try:
+            markets = self.load_markets()
+            b = base.upper(); q = quote.upper()
+            s1 = f"{b}/{q}"; s2 = f"{q}/{b}"
+            m1 = markets.get(s1)
+            if isinstance(m1, dict):
+                limits = m1.get("limits") or {}
+                min_cost = None
+                min_amount = None
+                try:
+                    lc = (limits.get("cost") or {}).get("min")
+                    if lc is not None:
+                        min_cost = float(lc)
+                except Exception:
+                    min_cost = None
+                try:
+                    la = (limits.get("amount") or {}).get("min")
+                    if la is not None:
+                        min_amount = float(la)
+                except Exception:
+                    min_amount = None
+                return min_cost, min_amount, s1
+            m2 = markets.get(s2)
+            if isinstance(m2, dict):
+                limits = m2.get("limits") or {}
+                min_cost = None
+                min_amount = None
+                try:
+                    lc = (limits.get("cost") or {}).get("min")
+                    if lc is not None:
+                        min_cost = float(lc)
+                except Exception:
+                    min_cost = None
+                try:
+                    la = (limits.get("amount") or {}).get("min")
+                    if la is not None:
+                        min_amount = float(la)
+                except Exception:
+                    min_amount = None
+                return min_cost, min_amount, s2
+        except Exception:
+            pass
+        return None, None, None
 
     def _rate_to_anchor(self, base: str, markets: dict, tickers: dict) -> Optional[float]:
         base = base.upper()
@@ -388,9 +440,19 @@ class ScalpinMonitor:
         # Swapper log path (configurable), defaults anchored to config dir
         default_swapper_log = os.path.join(self.base_artifacts_dir, "arbitraje", "logs", "swapper.log")
         self.swapper_log_path: str = str(self.cfg.get("swapper_log_path") or default_swapper_log)
+        # Optional: read swapper config for fallback min_notional and sizing defaults
+        try:
+            repo_root = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
+            swap_cfg_path = os.path.join(repo_root, "projects", "arbitraje", "swapper.live.yaml")
+            scfg = parse_yaml(swap_cfg_path)
+            self._fallback_min_notional = float(scfg.get("min_notional") or 0.0)
+        except Exception:
+            self._fallback_min_notional = 0.0
         # Initial balances snapshot (valor_anchor) captured on first render to compute accumulated profit in views
         self._initial_balances: Dict[tuple, float] = {}
         self._snapshot_taken: bool = False
+        # Cache of mirror states parsed from swapper.log: {(exchange, start_ccy): (state, ts_iso, extra)}
+        self._mirror_states: Dict[Tuple[str, str], Tuple[str, str, Dict[str, str]]] = {}
         # Log diagnostic info about loaded envs and config
         try:
             logger.info(
@@ -449,6 +511,12 @@ class ScalpinMonitor:
         rows: List[dict] = []
         now_utc = datetime.now(timezone.utc)
 
+        # Parse latest mirror states once per tick for gating/visibility
+        try:
+            self._mirror_states = self._parse_mirror_states_from_log(self.swapper_log_path)
+        except Exception:
+            self._mirror_states = {}
+
         def worker(ex_id: str, client: ExchangeClient) -> List[dict]:
             local_rows: List[dict] = []
             balances = client.fetch_balances()
@@ -458,8 +526,6 @@ class ScalpinMonitor:
             assets = list(balances.keys())
             prices = client.fetch_prices_in_anchor(assets)
             for asset, bal in balances.items():
-                if asset.upper() == self.anchor:
-                    continue
                 price = prices.get(asset.upper())
                 if price is None or price <= 0:
                     continue
@@ -490,47 +556,80 @@ class ScalpinMonitor:
                 except Exception:
                     profit_acum = 0.0
                 accion = ""
+                mirror_status = ""
                 if (
                     profit_pct is not None
                     and profit_pct > float(self.profit_action_threshold_pct)
                     ##and profit_acum > 0.0
                 ):
-                    accion = f"@{ex_id} swap {asset.upper()}->{self.anchor}->{asset.upper()}"
-                    if accion:
-                        # Spawn swapper without redirecting stdout/stderr to the shared log file.
-                        # The swapper's own logger writes to artifacts/arbitraje/logs/swapper.log (UTF-8),
-                        # avoiding binary/NUL corruption from mixed writers on Windows.
-                        # Use this repository's swapper config (independent of current working directory)
-                        repo_root = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
-                        cfg_path = os.path.join(repo_root, "projects", "arbitraje", "swapper.live.yaml")
-                        swap_path = f"{asset.upper()}->{self.anchor}->{asset.upper()}"
-                        cmd = [
-                            sys.executable,
-                            "-m",
-                            "arbitraje.swapper",
-                            "--config",
-                            cfg_path,
-                            "--exchange",
-                            ex_id,
-                            "--path",
-                            swap_path,
-                        ]
-                        logger.info(
-                            "Spawning swapper: exchange=%s path=%s config=%s", ex_id, swap_path, cfg_path
-                        )
+                    # 1) Gate by mirror_pending status for this (exchange, asset)
+                    mkey = (ex_id, asset.upper())
+                    mstate = self._mirror_states.get(mkey)
+                    if mstate and mstate[0] == "mirror_pending":
+                        mirror_status = "pending"
+                        accion = "PAUSA (mirror pendiente)"
+                    else:
+                        # 2) Gate by min_notional/amount limits for first hop asset->anchor
+                        min_cost, min_amount, sym_used = client.get_market_limits(asset.upper(), self.anchor)
+                        # Compute available notional in quote using free balance and price
                         try:
-                            # Prepare environment including optional SWAPPER_LOG_FILE override
-                            env_map = dict(os.environ)
-                            swapper_log = str(self.swapper_log_path or "").strip()
-                            if swapper_log:
-                                env_map["SWAPPER_LOG_FILE"] = swapper_log
-                            env_map["PYTHONPATH"] = os.path.join(repo_root, "projects", "arbitraje", "src")
-                            __import__("subprocess").Popen(
-                                cmd,
-                                env=env_map,
-                            )
-                        except Exception as e:
-                            logger.error("Failed to spawn swapper: %s", e, exc_info=True)
+                            avail_notional = float(bal) * float(price)
+                        except Exception:
+                            avail_notional = 0.0
+                        below_min = False
+                        reason = ""
+                        if (min_cost is not None) and min_cost > 0:
+                            if avail_notional + 1e-12 < float(min_cost):
+                                below_min = True
+                                reason = f"min_notional {float(min_cost):.6f} > avail {float(avail_notional):.6f}"
+                        elif (min_amount is not None) and min_amount > 0:
+                            if float(bal) + 1e-12 < float(min_amount):
+                                below_min = True
+                                reason = f"min_amount {float(min_amount):.8f} > bal {float(bal):.8f}"
+                        else:
+                            # Fallback to swapper config min_notional if available
+                            if float(self._fallback_min_notional or 0.0) > 0 and avail_notional + 1e-12 < float(self._fallback_min_notional):
+                                below_min = True
+                                reason = f"fallback_min_notional {float(self._fallback_min_notional):.6f} > avail {float(avail_notional):.6f}"
+                        if below_min:
+                            accion = f"PAUSA (debajo mínimo: {reason})"
+                        else:
+                            accion = f"@{ex_id} swap {asset.upper()}->{self.anchor}->{asset.upper()}"
+                            if accion:
+                                # Spawn swapper
+                                repo_root = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
+                                cfg_path = os.path.join(repo_root, "projects", "arbitraje", "swapper.live.yaml")
+                                swap_path = f"{asset.upper()}->{self.anchor}->{asset.upper()}"
+                                cmd = [
+                                    sys.executable,
+                                    "-m",
+                                    "arbitraje.swapper",
+                                    "--config",
+                                    cfg_path,
+                                    "--exchange",
+                                    ex_id,
+                                    "--path",
+                                    swap_path,
+                                ]
+                                logger.info(
+                                    "Spawning swapper: exchange=%s path=%s config=%s", ex_id, swap_path, cfg_path
+                                )
+                                try:
+                                    env_map = dict(os.environ)
+                                    swapper_log = str(self.swapper_log_path or "").strip()
+                                    if swapper_log:
+                                        env_map["SWAPPER_LOG_FILE"] = swapper_log
+                                    env_map["PYTHONPATH"] = os.path.join(repo_root, "projects", "arbitraje", "src")
+                                    __import__("subprocess").Popen(
+                                        cmd,
+                                        env=env_map,
+                                    )
+                                except Exception as e:
+                                    logger.error("Failed to spawn swapper: %s", e, exc_info=True)
+                # If mirror status not set above, surface any last known mirror state for visibility
+                if not mirror_status:
+                    mstate = self._mirror_states.get((ex_id, asset.upper()))
+                    mirror_status = (mstate[0] if mstate else "")
                 local_rows.append(
                     {
                         "exchange": ex_id,
@@ -538,6 +637,7 @@ class ScalpinMonitor:
                         "anchor": self.anchor,
                         "valor_anchor": round(value_anchor, 8),
                         "profit_pct": round(profit_pct, 6),
+                        "mirror": mirror_status,
                         "accion": accion,
                     }
                 )
@@ -560,6 +660,61 @@ class ScalpinMonitor:
         if not self._snapshot_taken and self._initial_balances:
             self._snapshot_taken = True
         return rows
+
+    def _parse_mirror_states_from_log(self, log_path: str) -> Dict[Tuple[str, str], Tuple[str, str, Dict[str, str]]]:
+        """Parse swapper.log and return latest mirror state per (exchange, start_ccy).
+
+        Recognized states:
+        - mirror_pending: result status indicates pending mirror
+        - forced_close: a mirror_forced_close entry was recorded
+        - reemit: mirror_reemit observed (treated as pending for gating)
+        - ok/failed: final states; we clear gating on these
+
+        Returns a mapping: {(exchange, start_ccy): (state, ts_iso, extras)}
+        """
+        out: Dict[Tuple[str, str], Tuple[str, str, Dict[str, str]]] = {}
+        try:
+            if not log_path or not os.path.exists(log_path):
+                return out
+            # Read last N lines to avoid huge files
+            with open(log_path, "r", encoding="utf-8", errors="ignore") as fh:
+                lines = fh.readlines()
+            tail = lines[-2000:] if len(lines) > 2000 else lines
+            # Regexes
+            re_ts = re.compile(r"^(?P<ts>\d{4}-\d{2}-\d{2}[^ ]+)")
+            re_result = re.compile(r"result \|[^\n]*status=(?P<status>[a-zA-Z_]+)[^\n]*exchange=(?P<ex>[a-z0-9_]+)[^\n]*amount_used=[^\n]*\s(?P<start>[A-Z0-9_]{3,10})\b")
+            re_forced = re.compile(r"mirror_forced_close \|[^\n]*symbol=")
+            re_reemit = re.compile(r"mirror_reemit \|")
+            for raw in reversed(tail):
+                line = raw.strip()
+                if not line:
+                    continue
+                ts_m = re_ts.search(line)
+                ts_iso = ts_m.group("ts") if ts_m else ""
+                m = re_result.search(line)
+                if m:
+                    ex = normalize_ccxt_id(m.group("ex"))
+                    start = m.group("start").upper()
+                    status = m.group("status").lower()
+                    key = (ex, start)
+                    state = ""
+                    if status == "mirror_pending":
+                        state = "mirror_pending"
+                    elif status == "ok":
+                        state = "ok"
+                    elif status == "failed":
+                        state = "failed"
+                    if state:
+                        out[key] = (state, ts_iso, {})
+                    # If we've collected states for all current exchanges/assets, we could early-exit; keep simple
+                    continue
+                # We keep reemit and forced close as global hints; without start_ccy we can't key precisely
+                # But if only one asset/exchange is active, this can still be informative. Skip mapping to a key.
+                # Optionally, could store under a special key.
+                _ = re_forced.search(line) or re_reemit.search(line)
+            return out
+        except Exception:
+            return {}
 
     def _render(self, rows: List[dict], print_console: bool = True) -> pd.DataFrame:
         self.iteration += 1
@@ -590,9 +745,9 @@ class ScalpinMonitor:
         if not rows:
             if print_console:
                 print("(sin saldos o por debajo de min_value_anchor)")
-            return pd.DataFrame(columns=["exchange", "asset", "anchor", "valor_anchor", "profit_pct", "accion", "ts"])
+            return pd.DataFrame(columns=["exchange", "asset", "anchor", "valor_anchor", "profit_pct", "mirror", "accion", "ts"])
         try:
-            df = pd.DataFrame(rows, columns=["exchange", "asset", "anchor", "valor_anchor", "profit_pct", "accion"])
+            df = pd.DataFrame(rows, columns=["exchange", "asset", "anchor", "valor_anchor", "profit_pct", "mirror", "accion"])
         except Exception:
             df = pd.DataFrame(rows)
         # Take initial snapshot on first render only
@@ -610,8 +765,12 @@ class ScalpinMonitor:
         # Pretty print
         if self.fast_mode:
             # Build rows directly to avoid DataFrame overhead with new columns
-            cols = ["exchange", "asset", "anchor", "balance inicial", "balance actual", "ProfitAcum", "iter profit%", "accion"]
+            cols = ["exchange", "asset", "anchor", "balance inicial", "balance actual", "ProfitAcum", "iter profit%", "mirror", "accion"]
             view_rows: List[Dict[str, str]] = []
+            # running totals
+            total_init = 0.0
+            total_actual = 0.0
+            total_profit = 0.0
             for r in rows:
                 key = (str(r.get("exchange", "")), str(r.get("asset", "")))
                 init_bal = self._initial_balances.get(key)
@@ -620,6 +779,13 @@ class ScalpinMonitor:
                 except Exception:
                     bal_actual = 0.0
                 profit_acum = (bal_actual - float(init_bal)) if init_bal is not None else 0.0
+                # accumulate totals
+                try:
+                    total_init += float(init_bal) if init_bal is not None else 0.0
+                except Exception:
+                    pass
+                total_actual += float(bal_actual or 0.0)
+                total_profit += float(profit_acum or 0.0)
                 view_rows.append({
                     "exchange": r.get("exchange", ""),
                     "asset": r.get("asset", ""),
@@ -628,7 +794,21 @@ class ScalpinMonitor:
                     "balance actual": f"{bal_actual:.6f}",
                     "ProfitAcum": f"{profit_acum:.6f}",
                     "iter profit%": f"{float(r.get('profit_pct', 0.0)):.4f}%",
+                    "mirror": r.get("mirror", ""),
                     "accion": r.get("accion", ""),
+                })
+            # Append totals row
+            if view_rows:
+                view_rows.append({
+                    "exchange": "",
+                    "asset": "TOTAL",
+                    "anchor": self.anchor,
+                    "balance inicial": f"{total_init:.6f}",
+                    "balance actual": f"{total_actual:.6f}",
+                    "ProfitAcum": f"{total_profit:.6f}",
+                    "iter profit%": "",
+                    "mirror": "",
+                    "accion": "",
                 })
             if print_console:
                 print(self._format_table(pd.DataFrame(view_rows), cols))
@@ -656,7 +836,26 @@ class ScalpinMonitor:
                 df_view["iter profit%"] = df_view["profit_pct"].apply(lambda x: f"{float(x):.4f}%")
             except Exception:
                 df_view["iter profit%"] = df_view.get("profit_pct", [])
-            cols = ["exchange", "asset", "anchor", "balance inicial", "balance actual", "ProfitAcum", "iter profit%", "accion"]
+            # Append totals row for display
+            try:
+                if not df_view.empty:
+                    tot_init = float(pd.to_numeric(df_view["balance inicial"], errors="coerce").fillna(0.0).sum()) if "balance inicial" in df_view.columns else 0.0
+                    tot_actual = float(pd.to_numeric(df_view["balance actual"], errors="coerce").fillna(0.0).sum()) if "balance actual" in df_view.columns else 0.0
+                    tot_profit = float(pd.to_numeric(df_view["ProfitAcum"], errors="coerce").fillna(0.0).sum()) if "ProfitAcum" in df_view.columns else 0.0
+                    total_row = {
+                        "exchange": "",
+                        "asset": "TOTAL",
+                        "anchor": self.anchor,
+                        "balance inicial": f"{tot_init:.6f}",
+                        "balance actual": f"{tot_actual:.6f}",
+                        "ProfitAcum": f"{tot_profit:.6f}",
+                        "iter profit%": "",
+                        "accion": "",
+                    }
+                    df_view = pd.concat([df_view, pd.DataFrame([total_row])], ignore_index=True)
+            except Exception:
+                pass
+            cols = ["exchange", "asset", "anchor", "balance inicial", "balance actual", "ProfitAcum", "iter profit%", "mirror", "accion"]
             cols = [c for c in cols if c in df_view.columns]
             if print_console:
                 print(self._format_table(df_view, cols))
@@ -670,7 +869,7 @@ class ScalpinMonitor:
                 os.makedirs(out_dir, exist_ok=True)
             tmp_path = self.output_csv + ".tmp"
             if self.fast_mode:
-                cols = ["exchange", "asset", "anchor", "valor_anchor", "profit_pct", "accion"]
+                cols = ["exchange", "asset", "anchor", "valor_anchor", "profit_pct", "mirror", "accion"]
                 with open(tmp_path, "w", newline="", encoding="utf-8") as fh:
                     writer = csv.DictWriter(fh, fieldnames=cols)
                     writer.writeheader()
@@ -682,7 +881,7 @@ class ScalpinMonitor:
                     except Exception:
                         pass
             else:
-                df = pd.DataFrame(rows, columns=["exchange", "asset", "anchor", "valor_anchor", "profit_pct", "accion"]) if rows else pd.DataFrame(columns=["exchange", "asset", "anchor", "valor_anchor", "profit_pct", "accion"])            
+                df = pd.DataFrame(rows, columns=["exchange", "asset", "anchor", "valor_anchor", "profit_pct", "mirror", "accion"]) if rows else pd.DataFrame(columns=["exchange", "asset", "anchor", "valor_anchor", "profit_pct", "mirror", "accion"])            
                 df.to_csv(tmp_path, index=False)
             try:
                 os.replace(tmp_path, self.output_csv)
@@ -690,7 +889,7 @@ class ScalpinMonitor:
                 try:
                     # Fallback: write directly
                     if self.fast_mode:
-                        cols = ["exchange", "asset", "anchor", "valor_anchor", "profit_pct", "accion"]
+                        cols = ["exchange", "asset", "anchor", "valor_anchor", "profit_pct", "mirror", "accion"]
                         with open(self.output_csv, "w", newline="", encoding="utf-8") as fh:
                             writer = csv.DictWriter(fh, fieldnames=cols)
                             writer.writeheader()
@@ -702,7 +901,7 @@ class ScalpinMonitor:
                             except Exception:
                                 pass
                     else:
-                        df = pd.DataFrame(rows, columns=["exchange", "asset", "anchor", "valor_anchor", "profit_pct", "accion"]) if rows else pd.DataFrame(columns=["exchange", "asset", "anchor", "valor_anchor", "profit_pct", "accion"])            
+                        df = pd.DataFrame(rows, columns=["exchange", "asset", "anchor", "valor_anchor", "profit_pct", "mirror", "accion"]) if rows else pd.DataFrame(columns=["exchange", "asset", "anchor", "valor_anchor", "profit_pct", "mirror", "accion"])            
                         df.to_csv(self.output_csv, index=False)
                 finally:
                     try:
@@ -727,9 +926,12 @@ class ScalpinMonitor:
             iter_total = self.max_iterations if self.max_iterations else "Γê₧"
             header = f"{title}\nanchor={self.anchor} | exchanges={','.join(self.exchanges)} | iter {self.iteration}/{iter_total} | elapsed={str(elapsed).split('.')[0]} | ts={now_utc.isoformat()}"
             # Build display with initial balance and accumulated profit columns for the log snapshot
-            disp_cols = ["exchange", "asset", "anchor", "balance inicial", "balance actual", "ProfitAcum", "iter profit%", "accion"]
+            disp_cols = ["exchange", "asset", "anchor", "balance inicial", "balance actual", "ProfitAcum", "iter profit%", "mirror", "accion"]
             if self.fast_mode:
                 view_rows: List[Dict[str, str]] = []
+                total_init = 0.0
+                total_actual = 0.0
+                total_profit = 0.0
                 for r in df.to_dict(orient="records"):
                     key = (str(r.get("exchange", "")), str(r.get("asset", "")))
                     init_bal = self._initial_balances.get(key)
@@ -738,6 +940,12 @@ class ScalpinMonitor:
                     except Exception:
                         bal_actual = 0.0
                     profit_acum = (bal_actual - float(init_bal)) if init_bal is not None else 0.0
+                    try:
+                        total_init += float(init_bal) if init_bal is not None else 0.0
+                    except Exception:
+                        pass
+                    total_actual += float(bal_actual or 0.0)
+                    total_profit += float(profit_acum or 0.0)
                     view_rows.append({
                         "exchange": r.get("exchange", ""),
                         "asset": r.get("asset", ""),
@@ -746,7 +954,19 @@ class ScalpinMonitor:
                         "balance actual": f"{bal_actual:.6f}",
                         "ProfitAcum": f"{profit_acum:.6f}",
                         "iter profit%": f"{float(r.get('profit_pct', 0.0)):.4f}%",
+                        "mirror": r.get("mirror", ""),
                         "accion": r.get("accion", ""),
+                    })
+                if view_rows:
+                    view_rows.append({
+                        "exchange": "",
+                        "asset": "TOTAL",
+                        "anchor": self.anchor,
+                        "balance inicial": f"{total_init:.6f}",
+                        "balance actual": f"{total_actual:.6f}",
+                        "ProfitAcum": f"{total_profit:.6f}",
+                        "iter profit%": "",
+                        "accion": "",
                     })
                 text = header + "\n" + self._format_table(pd.DataFrame(view_rows), disp_cols)
             else:
@@ -772,6 +992,25 @@ class ScalpinMonitor:
                     df_view["iter profit%"] = df_view["profit_pct"].apply(lambda x: f"{float(x):.4f}%")
                 except Exception:
                     df_view["iter profit%"] = df_view.get("profit_pct", [])
+                # Append totals row
+                try:
+                    if not df_view.empty:
+                        tot_init = float(pd.to_numeric(df_view["balance inicial"], errors="coerce").fillna(0.0).sum()) if "balance inicial" in df_view.columns else 0.0
+                        tot_actual = float(pd.to_numeric(df_view["balance actual"], errors="coerce").fillna(0.0).sum()) if "balance actual" in df_view.columns else 0.0
+                        tot_profit = float(pd.to_numeric(df_view["ProfitAcum"], errors="coerce").fillna(0.0).sum()) if "ProfitAcum" in df_view.columns else 0.0
+                        total_row = {
+                            "exchange": "",
+                            "asset": "TOTAL",
+                            "anchor": self.anchor,
+                            "balance inicial": f"{tot_init:.6f}",
+                            "balance actual": f"{tot_actual:.6f}",
+                            "ProfitAcum": f"{tot_profit:.6f}",
+                            "iter profit%": "",
+                            "accion": "",
+                        }
+                        df_view = pd.concat([df_view, pd.DataFrame([total_row])], ignore_index=True)
+                except Exception:
+                    pass
                 text = header + "\n" + self._format_table(df_view, disp_cols)
             tmp_path = self.output_log + ".tmp"
             # Write to temp first
@@ -820,6 +1059,9 @@ class ScalpinMonitor:
             if self.fast_mode:
                 disp_cols = ["exchange", "asset", "anchor", "balance inicial", "balance actual", "ProfitAcum", "iter profit%", "accion"]
                 view_rows: List[Dict[str, str]] = []
+                total_init = 0.0
+                total_actual = 0.0
+                total_profit = 0.0
                 for r in df.to_dict(orient="records"):
                     key = (str(r.get("exchange", "")), str(r.get("asset", "")))
                     init_bal = self._initial_balances.get(key)
@@ -828,6 +1070,12 @@ class ScalpinMonitor:
                     except Exception:
                         bal_actual = 0.0
                     profit_acum = (bal_actual - float(init_bal)) if init_bal is not None else 0.0
+                    try:
+                        total_init += float(init_bal) if init_bal is not None else 0.0
+                    except Exception:
+                        pass
+                    total_actual += float(bal_actual or 0.0)
+                    total_profit += float(profit_acum or 0.0)
                     view_rows.append({
                         "exchange": r.get("exchange", ""),
                         "asset": r.get("asset", ""),
@@ -837,6 +1085,17 @@ class ScalpinMonitor:
                         "ProfitAcum": f"{profit_acum:.6f}",
                         "iter profit%": f"{float(r.get('profit_pct', 0.0)):.4f}%",
                         "accion": r.get("accion", ""),
+                    })
+                if view_rows:
+                    view_rows.append({
+                        "exchange": "",
+                        "asset": "TOTAL",
+                        "anchor": self.anchor,
+                        "balance inicial": f"{total_init:.6f}",
+                        "balance actual": f"{total_actual:.6f}",
+                        "ProfitAcum": f"{total_profit:.6f}",
+                        "iter profit%": "",
+                        "accion": "",
                     })
                 text = header + "\n" + self._format_table(pd.DataFrame(view_rows), disp_cols) + "\n\n"
             else:
@@ -862,6 +1121,25 @@ class ScalpinMonitor:
                     df_view["iter profit%"] = df_view["profit_pct"].apply(lambda x: f"{float(x):.4f}%")
                 except Exception:
                     df_view["iter profit%"] = df_view.get("profit_pct", [])
+                # Append totals row
+                try:
+                    if not df_view.empty:
+                        tot_init = float(pd.to_numeric(df_view["balance inicial"], errors="coerce").fillna(0.0).sum()) if "balance inicial" in df_view.columns else 0.0
+                        tot_actual = float(pd.to_numeric(df_view["balance actual"], errors="coerce").fillna(0.0).sum()) if "balance actual" in df_view.columns else 0.0
+                        tot_profit = float(pd.to_numeric(df_view["ProfitAcum"], errors="coerce").fillna(0.0).sum()) if "ProfitAcum" in df_view.columns else 0.0
+                        total_row = {
+                            "exchange": "",
+                            "asset": "TOTAL",
+                            "anchor": self.anchor,
+                            "balance inicial": f"{tot_init:.6f}",
+                            "balance actual": f"{tot_actual:.6f}",
+                            "ProfitAcum": f"{tot_profit:.6f}",
+                            "iter profit%": "",
+                            "accion": "",
+                        }
+                        df_view = pd.concat([df_view, pd.DataFrame([total_row])], ignore_index=True)
+                except Exception:
+                    pass
                 disp_cols = ["exchange", "asset", "anchor", "balance inicial", "balance actual", "ProfitAcum", "iter profit%", "accion"]
                 text = header + "\n" + self._format_table(df_view, disp_cols) + "\n\n"
             # Append to text history log
