@@ -440,6 +440,15 @@ class ScalpinMonitor:
         # Swapper log path (configurable), defaults anchored to config dir
         default_swapper_log = os.path.join(self.base_artifacts_dir, "arbitraje", "logs", "swapper.log")
         self.swapper_log_path: str = str(self.cfg.get("swapper_log_path") or default_swapper_log)
+        # Recalibration knobs
+        try:
+            self.min_amount_multiplier: float = float(self.cfg.get("min_amount_multiplier") or 1.2)
+        except Exception:
+            self.min_amount_multiplier = 1.2
+        try:
+            self.mirror_cooldown_minutes: float = float(self.cfg.get("mirror_cooldown_minutes") or 12)
+        except Exception:
+            self.mirror_cooldown_minutes = 12.0
         # Optional: read swapper config for fallback min_notional and sizing defaults
         try:
             repo_root = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
@@ -565,9 +574,31 @@ class ScalpinMonitor:
                     # 1) Gate by mirror_pending status for this (exchange, asset)
                     mkey = (ex_id, asset.upper())
                     mstate = self._mirror_states.get(mkey)
-                    if mstate and mstate[0] == "mirror_pending":
-                        mirror_status = "pending"
-                        accion = "PAUSA (mirror pendiente)"
+                    if mstate:
+                        # mstate: (state, ts_iso, extras)
+                        last_state = mstate[0]
+                        ts_iso = mstate[1] or ""
+                        # Parse timestamp "YYYY-MM-DD HH:MM:SS,mmm"
+                        age_min = None
+                        try:
+                            if ts_iso:
+                                dt = datetime.strptime(ts_iso, "%Y-%m-%d %H:%M:%S,%f").replace(tzinfo=timezone.utc)
+                                age_min = (now_utc - dt).total_seconds() / 60.0
+                        except Exception:
+                            # Fallback: if only date captured, treat as very old
+                            age_min = None
+                        if last_state == "mirror_pending":
+                            mirror_status = "pending"
+                            # Always pause when a mirror is currently pending
+                            if age_min is not None:
+                                accion = f"PAUSA (mirror pendiente, {age_min:.1f}m)"
+                            else:
+                                accion = "PAUSA (mirror pendiente)"
+                        elif last_state in ("failed", "ok") and self.mirror_cooldown_minutes and age_min is not None and age_min < float(self.mirror_cooldown_minutes):
+                            mirror_status = last_state
+                            # Cooldown shortly after a close to avoid rapid re-triggers
+                            remaining = float(self.mirror_cooldown_minutes) - float(age_min)
+                            accion = f"PAUSA (cooldown {remaining:.1f}m)"
                     else:
                         # 2) Gate by min_notional/amount limits for first hop asset->anchor
                         min_cost, min_amount, sym_used = client.get_market_limits(asset.upper(), self.anchor)
@@ -583,9 +614,11 @@ class ScalpinMonitor:
                                 below_min = True
                                 reason = f"min_notional {float(min_cost):.6f} > avail {float(avail_notional):.6f}"
                         elif (min_amount is not None) and min_amount > 0:
-                            if float(bal) + 1e-12 < float(min_amount):
+                            # Dust guard: require balance >= min_amount * multiplier to absorb fees/precision
+                            min_amt_req = float(min_amount) * float(self.min_amount_multiplier or 1.0)
+                            if float(bal) + 1e-12 < float(min_amt_req):
                                 below_min = True
-                                reason = f"min_amount {float(min_amount):.8f} > bal {float(bal):.8f}"
+                                reason = f"min_amount {float(min_amount):.8f}*{float(self.min_amount_multiplier):.2f} > bal {float(bal):.8f}"
                         else:
                             # Fallback to swapper config min_notional if available
                             if float(self._fallback_min_notional or 0.0) > 0 and avail_notional + 1e-12 < float(self._fallback_min_notional):
@@ -681,7 +714,8 @@ class ScalpinMonitor:
                 lines = fh.readlines()
             tail = lines[-2000:] if len(lines) > 2000 else lines
             # Regexes
-            re_ts = re.compile(r"^(?P<ts>\d{4}-\d{2}-\d{2}[^ ]+)")
+            # Capture full timestamp, e.g., "2025-10-20 19:24:00,902"
+            re_ts = re.compile(r"^(?P<ts>\d{4}-\d{2}-\d{2} [0-9:,]+)")
             re_result = re.compile(r"result \|[^\n]*status=(?P<status>[a-zA-Z_]+)[^\n]*exchange=(?P<ex>[a-z0-9_]+)[^\n]*amount_used=[^\n]*\s(?P<start>[A-Z0-9_]{3,10})\b")
             re_forced = re.compile(r"mirror_forced_close \|[^\n]*symbol=")
             re_reemit = re.compile(r"mirror_reemit \|")

@@ -35,3 +35,9 @@ poll_interval_sec: 10
 
 # Swapper log wiring for mirror gating (absolute path to live swapper.log)
 swapper_log_path: "c:\\Users\\Lenovo\\Guillermo\\guillermo\\artifacts\\arbitraje\\logs\\swapper.log"
+
+# Recalibration knobs
+# Require base balance >= min_amount * multiplier (absorbs fees/precision)
+min_amount_multiplier: 1.2
+# Cooldown after a mirror closes (ok/failed) before allowing a new trigger (minutes)
+mirror_cooldown_minutes: 12
