@@ -62,3 +62,20 @@ mirror_relax_max_bps: 5
 # Set mirror_close_timeout_sec=0 to disable forced close entirely.
 mirror_close_timeout_sec: 900
 roundtrip_allow_max_loss_bps: 3
+
+# Sizing: auto cap for first hop with per-exchange/symbol overrides
+# mode: auto|manual (manual uses plan.amount as-is; auto ignores plan.amount when 0)
+sizing:
+  mode: auto
+  # USD sizing knobs (simple, low-risk):
+  alpha_tob: 15        # base USD per trade; if dv factor used, alpha is baseline USD
+  beta_dv_pct: 0.0     # optional extra USD = 100 * dailyVolPct (e.g., 0.5 -> +$50)
+  min_usd: 5           # clamp lower bound
+  max_usd: 25          # clamp upper bound
+  ladder_levels: 1     # not used yet (future laddered mirrors)
+  ladder_step_bps: 0.0 # spacing between ladder levels
+  overrides:
+    binance:
+      ZEC/USDT:
+        min_usd: 10
+        max_usd: 20

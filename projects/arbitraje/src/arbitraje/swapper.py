@@ -156,6 +156,11 @@ class Swapper:
         # Execution tuning (optional; defaults are fastest)
         self.settle_sleep_ms = int(self.config.get("settle_sleep_ms", 0))
         self.confirm_fill = bool(self.config.get("confirm_fill", False))
+        # Sizing configuration (auto/fixed) with per-exchange/symbol overrides
+        try:
+            self.sizing_cfg: Dict[str, object] = dict(self.config.get("sizing") or {})
+        except Exception:
+            self.sizing_cfg = {}
         # Cached balance fetcher for live mode
         self._balance_fetcher = SpotBalanceFetcher(timeout_ms=self.timeout_ms)
         # Per-exchange minimums for test mode
@@ -281,7 +286,106 @@ class Swapper:
         # We will follow the path strictly: for each hop base->quote, use the actual free balance
         # of the source currency (base) as the amount to convert, ignoring the anchor for execution.
         # If plan.amount > 0, it caps only the first hop source amount.
+        # If sizing.mode == auto and plan.amount == 0, compute automatic cap.
+        def _get_override(ex_id_l: str, sym_l: str, key: str) -> Optional[float]:
+            try:
+                ovr = (self.sizing_cfg.get("overrides") or {})
+                ex_map = (ovr or {}).get(ex_id_l.lower()) or {}
+                # symbol overrides use uppercase key to match paths like ZEC/USDT
+                v = (ex_map.get(sym_l.upper()) or {}).get(key)
+                if v is None:
+                    v = ex_map.get(key)
+                return float(v) if v is not None else None
+            except Exception:
+                return None
+        def _compute_auto_cap_usdt(ex_id_l: str, sym_l: str, start_ccy_l: str) -> Tuple[float, Dict[str, float]]:
+            # Defaults
+            mode = str((self.sizing_cfg.get("mode") or "")).lower()
+            alpha = float(self.sizing_cfg.get("alpha_tob", 0.0) or 0.0)
+            beta = float(self.sizing_cfg.get("beta_dv_pct", 0.0) or 0.0)
+            min_usd = float(self.sizing_cfg.get("min_usd", 0.0) or 0.0)
+            max_usd = float(self.sizing_cfg.get("max_usd", 0.0) or 0.0)
+            ladder_n = int(self.sizing_cfg.get("ladder_levels", 1) or 1)
+            ladder_step = float(self.sizing_cfg.get("ladder_step_bps", 0.0) or 0.0)
+            # Apply overrides per exchange/symbol when present
+            alpha = _get_override(ex_id_l, sym_l, "alpha_tob") or alpha
+            beta = _get_override(ex_id_l, sym_l, "beta_dv_pct") or beta
+            min_usd = _get_override(ex_id_l, sym_l, "min_usd") or min_usd
+            max_usd = _get_override(ex_id_l, sym_l, "max_usd") or max_usd
+            ladder_n = int(_get_override(ex_id_l, sym_l, "ladder_levels") or ladder_n)
+            ladder_step = _get_override(ex_id_l, sym_l, "ladder_step_bps") or ladder_step
+            # Derive top-of-book for start_ccy vs USDT if possible
+            est_usd_price = 0.0
+            try:
+                # Prefer a direct USDT market, else try USDC
+                syms = [f"{start_ccy_l}/USDT", f"USDT/{start_ccy_l}", f"{start_ccy_l}/USDC", f"USDC/{start_ccy_l}"]
+                for s in syms:
+                    try:
+                        t = ex.fetch_ticker(s)
+                        bid = float(t.get("bid") or 0.0)
+                        ask = float(t.get("ask") or 0.0)
+                        last = float(t.get("last") or 0.0)
+                        mid = (bid + ask) / 2.0 if (bid > 0 and ask > 0) else (last if last > 0 else 0.0)
+                        if mid and mid > 0:
+                            if s.endswith("/USDT") or s.endswith("/USDC"):
+                                est_usd_price = float(mid)
+                            else:
+                                est_usd_price = 1.0 / float(mid)
+                            break
+                    except Exception:
+                        continue
+            except Exception:
+                est_usd_price = 0.0
+            # Estimate daily vol percent from config or default; in this initial version, use beta directly if >0
+            dv_pct = max(0.0, float(beta or 0.0))
+            # Compute base target in USD using alpha over ToB; add beta factor if configured
+            target_usd = 0.0
+            if str(mode) == "auto":
+                try:
+                    # alpha is direct USD if <0 means disabled; assume alpha is USD size when est_usd_price > 0
+                    target_usd = float(alpha or 0.0)
+                    if dv_pct and dv_pct > 0.0 and est_usd_price > 0:
+                        # lightweight: add proportional term dv_pct * $100 baseline
+                        target_usd += 100.0 * dv_pct
+                except Exception:
+                    target_usd = 0.0
+                # Clamp to min/max
+                if min_usd and target_usd < min_usd:
+                    target_usd = float(min_usd)
+                if max_usd and max_usd > 0 and target_usd > max_usd:
+                    target_usd = float(max_usd)
+            meta = {
+                "mode": 1.0 if str(mode) == "auto" else 0.0,
+                "alpha_tob": float(alpha or 0.0),
+                "beta_dv_pct": float(dv_pct or 0.0),
+                "min_usd": float(min_usd or 0.0),
+                "max_usd": float(max_usd or 0.0),
+                "ladder_levels": float(ladder_n or 1),
+                "ladder_step_bps": float(ladder_step or 0.0),
+                "est_usd_price": float(est_usd_price or 0.0),
+                "target_usd": float(target_usd or 0.0),
+            }
+            return float(target_usd), meta
+
+        # Compute first hop cap in source currency units; base on plan.amount or auto sizing
         first_cap = float(plan.amount or 0.0)
+        sizing_meta: Dict[str, float] = {}
+        try:
+            if (not first_cap or first_cap <= 0.0) and isinstance(self.sizing_cfg, dict):
+                mode = str((self.sizing_cfg.get("mode") or "")).lower()
+                if mode == "auto" and plan.hops:
+                    start_ccy0 = plan.hops[0].base.upper()
+                    # Use the second symbol in the path as proxy for symbol-level overrides
+                    hop0 = plan.hops[0]
+                    sym_guess = f"{hop0.base.upper()}/{hop0.quote.upper()}"
+                    usd_cap, sizing_meta = _compute_auto_cap_usdt(ex_id, sym_guess, start_ccy0)
+                    if usd_cap and usd_cap > 0:
+                        # Convert USD cap to source units using ToB if available; else fallback to wallet later
+                        est_price = float(sizing_meta.get("est_usd_price") or 0.0)
+                        if est_price and est_price > 0:
+                            first_cap = float(usd_cap) / float(est_price)
+        except Exception:
+            pass
         amount_cur = 0.0  # will be set after first order
         # Current currency is advanced per hop; initialize to first hop base for clarity
         cur_ccy = plan.hops[0].base.upper() if plan.hops else ""
@@ -404,6 +508,19 @@ class Swapper:
                 src_to_use = float(src_free)
                 if amount_in_used is None and first_cap > 0:
                     src_to_use = min(src_to_use, float(first_cap))
+                # Log when there are no funds for the source but we are still attempting a hop
+                try:
+                    if src_free <= 0:
+                        logger.info(
+                            "no_funds | exchange=%s | hop=%d/%d | base=%s | quote=%s | attempted=true | note=zero-free-balance will fail",
+                            ex_id,
+                            int(idx + 1),
+                            int(len(plan.hops or [])),
+                            base,
+                            quote,
+                        )
+                except Exception:
+                    pass
                 if src_to_use <= 0:
                     ain = float(amount_in_used or 0.0)
                     return SwapResult(
@@ -714,6 +831,20 @@ class Swapper:
                             price=float(limit_price),
                             params=params,
                         )
+                        try:
+                            logger.info(
+                                "mirror_placed | symbol=%s | side=%s | limit=%.8f | amount=%.8f | entry=%.8f | tol_bps=%.2f | sizing_mode=%s | first_cap_units=%.8f",
+                                sym,
+                                side,
+                                float(limit_price or 0.0),
+                                float(order_amount or 0.0),
+                                float(entry_sym_price or 0.0),
+                                float(self.roundtrip_mirror_amount_tolerance_bps or 0.0),
+                                ("auto" if sizing_meta.get("mode") else "manual"),
+                                float(first_cap or 0.0),
+                            )
+                        except Exception:
+                            pass
                     except Exception as e:
                         # If the exchange complains about insufficient position, retry once with a reduced amount
                         err_text = str(e)
@@ -846,6 +977,11 @@ class Swapper:
                         "amount_out": out_val,
                         "order_id": oid,
                         "fees": order_fees,
+                        "sizing": {
+                            **({"mode": ("auto" if sizing_meta.get("mode") else "manual")}),
+                            **({k: float(v) for k, v in sizing_meta.items()} if sizing_meta else {}),
+                            "first_cap_units": float(first_cap or 0.0),
+                        },
                         "mirror_last_leg": bool(
                             self.roundtrip_mirror_last_leg and is_roundtrip and idx == (len(plan.hops) - 1)
                         ),
@@ -1202,7 +1338,18 @@ class Swapper:
                 amount_in_final,
                 amount_cur,
                 delta,
-                {"fills": fills, "exchange": ex_id, "start_ccy": start_ccy, "final_ccy": cur_ccy, **mirror_meta},
+                {
+                    "fills": fills,
+                    "exchange": ex_id,
+                    "start_ccy": start_ccy,
+                    "final_ccy": cur_ccy,
+                    **mirror_meta,
+                    "sizing": {
+                        **({"mode": ("auto" if sizing_meta.get("mode") else "manual")} if isinstance(sizing_meta, dict) else {}),
+                        **({k: float(v) for k, v in (sizing_meta.items() if isinstance(sizing_meta, dict) else [])}),
+                        "first_cap_units": float(first_cap or 0.0),
+                    },
+                },
             )
         except Exception as e:
             amount_in_final = float(amount_in_used or 0.0) if 'amount_in_used' in locals() else 0.0
@@ -1275,8 +1422,16 @@ def _main_cli():
                 bal_free = SpotBalanceFetcher(timeout_ms=sw.timeout_ms).get_balance(plan.exchange, start_ccy)
         except Exception:
             bal_free = None
+        sizing_note = ""
+        try:
+            scfg = sw.config.get("sizing") if isinstance(sw.config, dict) else None
+            if isinstance(scfg, dict) and str((scfg.get("mode") or "")).lower() == "auto":
+                sizing_note = f" | sizing=auto alpha={float(scfg.get('alpha_tob') or 0.0):.4f} beta={float(scfg.get('beta_dv_pct') or 0.0):.4f} min_usd={float(scfg.get('min_usd') or 0.0):.2f} max_usd={float(scfg.get('max_usd') or 0.0):.2f}"
+        except Exception:
+            sizing_note = ""
+        zero_bal_note = (" | note=zero-free-balance" if (bal_free is not None and float(bal_free) <= 0.0) else "")
         logger.info(
-            "start | config=%s | mode=%s | order_type=%s | tif=%s | exchange=%s | path=%s | amount_cap=%.8f %s | balance_free=%s %s",
+            "start | config=%s | mode=%s | order_type=%s | tif=%s | exchange=%s | path=%s | amount_cap=%.8f %s | balance_free=%s %s%s%s",
             args.config,
             sw.mode,
             sw.order_type,
@@ -1287,6 +1442,8 @@ def _main_cli():
             unit,
             (f"{float(bal_free):.8f}" if bal_free is not None else "n/a"),
             unit,
+            sizing_note,
+            zero_bal_note,
         )
     except Exception:
         pass
@@ -1343,9 +1500,21 @@ def _main_cli():
         except Exception:
             mirror_suffix = ""
             m2m_suffix = ""
+        # Sizing suffix
+        sizing_suffix = ""
+        try:
+            if isinstance(res.details, dict):
+                sz = res.details.get("sizing") or {}
+                if isinstance(sz, dict) and sz.get("mode"):
+                    sizing_suffix = (
+                        f" | sizing={str(sz.get('mode'))} cap={float(sz.get('first_cap_units') or 0.0):.8f}"
+                        f" usd={float(sz.get('target_usd') or 0.0):.2f} est_px={float(sz.get('est_usd_price') or 0.0):.6f}"
+                    )
+        except Exception:
+            sizing_suffix = ""
         if reason:
             logger.info(
-                "result | ok=%s | status=%s | in=%.8f | out=%.8f | delta=%.8f | exchange=%s | hops=%d | amount_used=%.8f %s | reason=%s%s%s%s",
+                "result | ok=%s | status=%s | in=%.8f | out=%.8f | delta=%.8f | exchange=%s | hops=%d | amount_used=%.8f %s | reason=%s%s%s%s%s",
                 res.ok,
                 res.status,
                 res.amount_in,
@@ -1359,10 +1528,11 @@ def _main_cli():
                 mirror_suffix,
                 (f" | error={error_text}" if error_text else ""),
                 m2m_suffix,
+                sizing_suffix,
             )
         else:
             logger.info(
-                "result | ok=%s | status=%s | in=%.8f | out=%.8f | delta=%.8f | exchange=%s | hops=%d | amount_used=%.8f %s%s%s",
+                "result | ok=%s | status=%s | in=%.8f | out=%.8f | delta=%.8f | exchange=%s | hops=%d | amount_used=%.8f %s%s%s%s",
                 res.ok,
                 res.status,
                 res.amount_in,
@@ -1374,6 +1544,7 @@ def _main_cli():
                 start_unit,
                 mirror_suffix,
                 m2m_suffix,
+                sizing_suffix,
             )
     except Exception:
         pass

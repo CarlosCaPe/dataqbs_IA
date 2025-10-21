@@ -46,6 +46,28 @@ Upgrade notes
 
 Tag sugerido: v2.2.0-MEMO2
 
+## v2.2.1-MEMO3 — 2025-10-20
+
+Auto sizing, per-symbol overrides, and log clarity for zero-balance attempts
+
+Highlights
+- Swapper
+  - Auto sizing: new `sizing` section in `projects/arbitraje/swapper.live.yaml` to compute a USD cap for the first hop when `plan.amount=0`. Converts to source units via ToB and clamps `[min_usd, max_usd]`.
+  - Overrides: per-exchange/symbol overrides supported (e.g., `binance -> ZEC/USDT`).
+  - Audit logs: `mirror_placed` line on last-leg mirror placement; result and start logs include sizing summaries.
+  - Diagnostics: emits `no_funds` info when a hop is attempted with zero free balance (helps explain failed starts like Binance in the attached logs).
+  - Mirror: keeps existing TTL re-emit logs (`delta_bps`, `relax_used_bps`); mirror logs now also show sizing mode/cap.
+
+Quality gates
+- Build: PASS
+- Lint/Typecheck: PASS
+- Tests: manual smoke via dry-run/live; no unit changes in this commit.
+
+Upgrade notes
+- Review `sizing` defaults and adjust `overrides` per your risk. To disable, set `sizing.mode: manual` or provide a non-zero `plan.amount`.
+
+Tag sugerido: v2.2.1-MEMO3
+
 ## v1.1.0 — 2025-10-14
 
 Minor release focusing on safety hardening for automated swap path generation and version alignment across the monorepo.
