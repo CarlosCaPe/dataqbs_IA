@@ -9,7 +9,7 @@ timeout_ms: 20000
 order_type: limit
 time_in_force: GTC   # Rest last hop until protective price is reached
 max_slippage_bps: 25
-min_notional: 1
+min_notional: 5
 
 # Live mode
 # Set to false to actually place orders
@@ -39,28 +39,28 @@ blacklist_pairs:
 
 # Round-trip mirror settings so last hop buys back same tokens at equal or better terms
 roundtrip_mirror_last_leg: true
-roundtrip_mirror_price_offset_bps: 3    # slightly easier to rest inside book to reduce mirror_pending thrash
-roundtrip_mirror_amount_tolerance_bps: 8
+roundtrip_mirror_price_offset_bps: 3    # require ~0.03% improvement over entry (eases fill to cut pending)
+roundtrip_mirror_amount_tolerance_bps: 5
 
 # Mirror re-emit settings (optional)
 # After TTL seconds, if order is still open and mid moved favorably versus entry,
 # cancel & replace at min(entry*(1-off), mid*(1-safety)) for buys; symmetric for sells.
 # Set mirror_reemit_ttl_sec=0 to disable.
-mirror_reemit_ttl_sec: 60      # refresh a bit faster so we adapt sooner
+mirror_reemit_ttl_sec: 60      # seconds between checks (faster refresh to track mid)
 mirror_reemit_safety_bps: 5    # 0.05% below mid for buys (above for sells)
 mirror_reemit_max: 2           # up to 2 re-emits per last-hop
 
 # Time-based relaxation to avoid being stuck if price runs away from entry
 # After mirror_relax_after_sec, allow crossing entry by relax_bps_per_ttl each TTL cycle,
 # capped by mirror_relax_max_bps. Set zeros to disable.
-mirror_relax_after_sec: 150
-mirror_relax_bps_per_ttl: 2     # relax a bit faster but still capped
+mirror_relax_after_sec: 120
+mirror_relax_bps_per_ttl: 1
 mirror_relax_max_bps: 6
 
 # Forced close: after timeout seconds, optionally close remaining with market
 # roundtrip_allow_max_loss_bps caps allowed loss vs entry at close time; set 0 to disable guard.
 # Set mirror_close_timeout_sec=0 to disable forced close entirely.
-mirror_close_timeout_sec: 900
+mirror_close_timeout_sec: 600
 roundtrip_allow_max_loss_bps: 3
 
 # Sizing: auto cap for first hop with per-exchange/symbol overrides
@@ -70,16 +70,12 @@ sizing:
   # USD sizing knobs (simple, low-risk):
   alpha_tob: 15        # base USD per trade; if dv factor used, alpha is baseline USD
   beta_dv_pct: 0.10    # modest volume factor: +$10 per 10% DV estimate
-  min_usd: 12          # slightly higher default to further reduce precision/dust errors
+  min_usd: 12          # raise to surpass Binance mins and reduce dust
   max_usd: 25          # clamp upper bound
   ladder_levels: 1     # not used yet (future laddered mirrors)
   ladder_step_bps: 0.0 # spacing between ladder levels
   overrides:
     binance:
       ZEC/USDT:
-        min_usd: 15
+        min_usd: 12
         max_usd: 25
-    bitget:
-      COAI/USDT:
-        min_usd: 6
-        max_usd: 15

@@ -6,10 +6,10 @@ exchanges:
   - mexc
 assets_validos: []   # [] means all assets; e.g. ["BTC","ETH","USDT"]
 anchor: USDT         # single anchor
-min_value_anchor: 1  # filter out tiny rows (in anchor units)
+min_value_anchor: 5  # filter out tiny rows (in anchor units)
 # When profit_pct exceeds this threshold (percent), show 'accion' swap hint
 # Raised to reduce triggers that are fee-negative or too marginal
-profit_action_threshold_pct: 0.35
+profit_action_threshold_pct: 0.30
 # Clear the console each iteration (recommended)
 clear_screen: true
 # Optional run controls (both are optional; 0 means unlimited)
@@ -31,13 +31,13 @@ history_every_n: 10    # anexar a historico cada 10 ticks
 render_every_n: 5      # imprimir tabla a consola cada 5 ticks
 
 # Recomendación producción: usar poll_interval_sec=1-2 (5 es conservador)
-poll_interval_sec: 6
+poll_interval_sec: 5
 
 # Swapper log wiring for mirror gating (absolute path to live swapper.log)
 swapper_log_path: "c:\\Users\\Lenovo\\Guillermo\\guillermo\\artifacts\\arbitraje\\logs\\swapper.log"
 
 # Recalibration knobs
 # Require base balance >= min_amount * multiplier (absorbs fees/precision)
-min_amount_multiplier: 1.25
+min_amount_multiplier: 1.5
 # Cooldown after a mirror closes (ok/failed) before allowing a new trigger (minutes)
 mirror_cooldown_minutes: 15
