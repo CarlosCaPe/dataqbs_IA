@@ -17,8 +17,8 @@ run_duration_sec: 0
 max_iterations: 10000000
 # Optional HTTP timeout (ms)
 timeout_ms: 10000
- 
- # Performance
+
+# Performance
 fast_mode: true        # evita sobrecarga de pandas/tabulate en render y CSV
 concurrency: 3         # paraleliza por exchange (<= numero de exchanges)
 table_format: grid     # formato de tabla (grid/fancy_grid/plain); 'plain' es un poco más rápido
@@ -34,7 +34,7 @@ render_every_n: 5      # imprimir tabla a consola cada 5 ticks
 poll_interval_sec: 5
 
 # Swapper log wiring for mirror gating (absolute path to live swapper.log)
-swapper_log_path: "c:\\Users\\Lenovo\\Guillermo\\guillermo\\artifacts\\arbitraje\\logs\\swapper.log"
+swapper_log_path: "C:/Users/Lenovo/Guillermo/guillermo/artifacts/arbitraje/logs/swapper.log"
 
 # Recalibration knobs
 # Require base balance >= min_amount * multiplier (absorbs fees/precision)
