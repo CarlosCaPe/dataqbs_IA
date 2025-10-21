@@ -8,7 +8,8 @@ assets_validos: []   # [] means all assets; e.g. ["BTC","ETH","USDT"]
 anchor: USDT         # single anchor
 min_value_anchor: 1  # filter out tiny rows (in anchor units)
 # When profit_pct exceeds this threshold (percent), show 'accion' swap hint
-profit_action_threshold_pct: 0.1
+# Raised to reduce triggers that are fee-negative or too marginal
+profit_action_threshold_pct: 0.30
 # Clear the console each iteration (recommended)
 clear_screen: true
 # Optional run controls (both are optional; 0 means unlimited)
@@ -31,3 +32,6 @@ render_every_n: 5      # imprimir tabla a consola cada 5 ticks
 
 # Recomendación producción: usar poll_interval_sec=1-2 (5 es conservador)
 poll_interval_sec: 10
+
+# Swapper log wiring for mirror gating (absolute path to live swapper.log)
+swapper_log_path: "c:\\Users\\Lenovo\\Guillermo\\guillermo\\artifacts\\arbitraje\\logs\\swapper.log"

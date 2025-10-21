@@ -53,9 +53,9 @@ mirror_reemit_max: 2           # up to 2 re-emits per last-hop
 # Time-based relaxation to avoid being stuck if price runs away from entry
 # After mirror_relax_after_sec, allow crossing entry by relax_bps_per_ttl each TTL cycle,
 # capped by mirror_relax_max_bps. Set zeros to disable.
-mirror_relax_after_sec: 120
+mirror_relax_after_sec: 150
 mirror_relax_bps_per_ttl: 1
-mirror_relax_max_bps: 8
+mirror_relax_max_bps: 6
 
 # Forced close: after timeout seconds, optionally close remaining with market
 # roundtrip_allow_max_loss_bps caps allowed loss vs entry at close time; set 0 to disable guard.
