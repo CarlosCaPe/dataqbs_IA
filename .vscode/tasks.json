@@ -36,7 +36,7 @@
 			"type": "shell",
 			"command": "poetry install",
 			"options": {
-				"cwd": "${workspaceFolder}/realstate"
+				"cwd": "${workspaceFolder}/projects/real_estate"
 			},
 			"args": [],
 			"group": "build"
@@ -46,7 +46,7 @@
 			"type": "shell",
 			"command": "poetry run python test_download.py",
 			"options": {
-				"cwd": "${workspaceFolder}/realstate"
+				"cwd": "${workspaceFolder}/projects/real_estate"
 			},
 			"args": [],
 			"group": "build"

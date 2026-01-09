@@ -20,6 +20,7 @@ python-dotenv = "^1.0.1"
 
 [tool.poetry.scripts]
 wiggot-export = "real_estate.wiggot_export:main"
+real-estate-search = "real_estate.requirements_search:main"
 
 [build-system]
 requires = ["poetry-core"]

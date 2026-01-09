@@ -5,5 +5,5 @@
     "properties": "https://api.easybroker.com/v1/properties",
     "listing_statuses": "https://api.easybroker.com/v1/listing_statuses"
   },
-  "BASE_JSON_FOLDER": "properties/data"
+  "BASE_JSON_FOLDER": "easybrokers/properties/data"
 }

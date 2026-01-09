@@ -1,0 +1,98 @@
+{
+  "profiles": {
+    "bodega_chica": {
+      "description": "Bodega chica 200-300 m², renta 15k-25k MXN, altura >=5m, zonas Periférico Sur/Miramar/Santa Ana Tepetitlán/Las Pintas.",
+      "operation": "rental",
+      "rent_mxn": {"min": 15000, "max": 25000},
+      "area_m2": {"min": 200, "max": 300, "prefer": "construction"},
+      "property_type_any": ["Bodega", "Nave", "Industrial", "Bodega comercial", "Bodega industrial"],
+      "zones_any": [
+        "Periférico Sur",
+        "Periferico Sur",
+        "Miramar",
+        "Santa Ana Tepetitlán",
+        "Santa Ana Tepetitlan",
+        "Las Pintas",
+
+        "Centro Sur",
+        "López Mateos Sur",
+        "Lopez Mateos Sur",
+        "Camino Real a Colima",
+        "La Tijera",
+        "Las Pomas"
+      ],
+      "min_height_m": 5,
+      "require_explicit_height": true,
+      "require_gate_height_at_least_min_height": true,
+      "require_explicit_gate_height": true,
+      "soft_keywords_any": ["maquila", "lámina", "lamina", "corte", "doblez"]
+    },
+    "bodega_grande": {
+      "description": "Bodega grande >=500 m², renta 30k-45k MXN con opción a compra, compra 4-8 M MXN, 220V, mismas zonas.",
+      "operation": "rental_or_sale",
+      "rent_mxn": {"min": 30000, "max": 45000},
+      "sale_mxn": {"min": 4000000, "max": 8000000},
+      "area_m2": {"min": 500, "prefer": "construction"},
+      "property_type_any": ["Bodega", "Nave", "Industrial", "Bodega industrial"],
+      "zones_any": [
+        "Periférico Sur",
+        "Periferico Sur",
+        "Miramar",
+        "Santa Ana Tepetitlán",
+        "Santa Ana Tepetitlan",
+        "Las Pintas",
+
+        "Centro Sur",
+        "López Mateos Sur",
+        "Lopez Mateos Sur",
+        "Camino Real a Colima",
+        "La Tijera",
+        "Las Pomas"
+      ],
+      "require_220v": true,
+      "require_rent_to_own": true,
+      "soft_keywords_any": ["alimentos", "planta", "almacén", "almacen"]
+    },
+    "bodega_gym_12x16": {
+      "description": "Bodega 12x16 (≈192 m²), renta 30k MXN, altura 8m, zonas anteriores + Mariano Otero y cerca de Centro Sur.",
+      "operation": "rental",
+      "rent_mxn": {"min": 30000, "max": 30000},
+      "dimensions_m": {"width": 12, "length": 16, "tolerance": 0.6},
+      "min_height_m": 8,
+      "require_explicit_height": true,
+      "property_type_any": ["Bodega", "Local", "Industrial"],
+      "zones_any": [
+        "Periférico Sur",
+        "Periferico Sur",
+        "Miramar",
+        "Santa Ana Tepetitlán",
+        "Santa Ana Tepetitlan",
+        "Las Pintas",
+        "Mariano Otero",
+        "Centro Sur",
+        "López Mateos Sur",
+        "Lopez Mateos Sur",
+        "Camino Real a Colima",
+        "La Tijera",
+        "Las Pomas"
+      ],
+      "require_gate_height_at_least_min_height": true,
+      "require_explicit_gate_height": true,
+      "soft_keywords_any": ["gimnasia", "gimnacia", "academia", "gym"]
+    },
+    "terreno_bardeado_centro_sur": {
+      "description": "Terreno (preferible bardeado) cerca de Centro Sur y/o Mariano Otero (misma zona general).",
+      "operation": "sale",
+      "property_type_any": ["Terreno", "Lote"],
+      "zones_any": [
+        "Centro Sur",
+        "Mariano Otero",
+        "Periférico Sur",
+        "Miramar",
+        "Santa Ana Tepetitlán",
+        "Las Pintas"
+      ],
+      "keywords_any": ["barda", "bardeado", "bardas", "cercado", "muro", "cerramiento"]
+    }
+  }
+}
