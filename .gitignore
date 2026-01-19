@@ -50,6 +50,18 @@ build/
 !.vscode/launch.json
 !.vscode/extensions.json
 
+# Local workspace artifacts under certificaciones/
+certificaciones/.vscode/
+
+# Local datasets / extracted artifacts (do not commit)
+certificaciones/snowflakeIA/TestAssesments/data/
+
+# Vendor/course materials (do not commit)
+certificaciones/snowflakeIA/generativeai-with-snowflake/
+
+# Local utility scripts (keep untracked unless explicitly needed)
+certificaciones/snowflakeIA/ocr_extract.py
+
 # Media (ignore JPEGs/JPGs)
 *.jpg
 *.JPG
