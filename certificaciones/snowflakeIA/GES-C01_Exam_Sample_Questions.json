@@ -133,17 +133,19 @@
     {
       "id": 5,
       "topic": "Document AI",
-      "question": "A data engineering team is onboarding a new client whose workflow involves extracting critical financial data from thousands of daily scanned PDF receipts. They decide to use Snowflake Document Al and store all incoming PDFs in an internal stage name. after deploying their pipeline, they observe intermittent failures and varying error messages in the output, specifically: ( \"_ncesSingErrOr•S\": t identify imge file at s\"; [ hu .y IBO. Which two of the following actions are most likely required to resolve these processing errors?",
+      "question": "A data engineering team is onboarding a new client whose workflow involves extracting critical financial data from thousands of daily scanned PDF receipts. They decide to use Snowflake Document AI and store all incoming PDFs in an internal stage. After deploying their pipeline, they observe intermittent failures with error messages including 'cannot identify image file' and 'Document has too many pages'. Which two of the following actions are most likely required to resolve these processing errors? (Select two)",
       "correctAnswer": "A,B",
-      "explanation": "The first error message, 'cannot identity image file', is a known error that occurs when an internal stage used for Document AI is not configured with 'SNOWFLAKE_SSE encryption. Therefore, option A is a direct solution. The second error message, 'Document has too many pages. Actual: 1",
+      "explanation": "The 'cannot identify image file' error occurs when an internal stage used for Document AI is not configured with SNOWFLAKE_SSE encryption — Document AI requires server-side encryption. The 'Document has too many pages' error indicates PDFs exceed the 125-page limit. Warehouse size does not affect Document AI processing, and there is no 'max_tokens' parameter for PREDICT.",
       "multipleSelect": true,
       "options": {
-        "A": "Ensure the internal stage is configured with 'ENCRYPTION (TYPE 'SNOWFLAKE SSE')'.",
-        "B": "Split any PDF documents exceeding 125 pages into smaller, compliant files, or reject them it splitting is not feasible.",
-        "C": "Increase the 'max_tokens' parameter within the ' 'PREDICT function options to accommodate longer document processing.",
-        "D": "Change the virtual warehouse size from an X-Small to a Large to improve Document Al processing speed.",
-        "E": "Grant the 'SNOWFLAKE.CORTEX_U"
-      }
+        "A": "Ensure the internal stage is configured with 'ENCRYPTION = (TYPE = 'SNOWFLAKE_SSE')'.",
+        "B": "Split any PDF documents exceeding 125 pages into smaller, compliant files, or reject them if splitting is not feasible.",
+        "C": "Increase the 'max_tokens' parameter within the PREDICT function options to accommodate longer document processing.",
+        "D": "Change the virtual warehouse size from X-Small to Large to improve Document AI processing speed.",
+        "E": "Grant the SNOWFLAKE.DOCUMENT_INTELLIGENCE_CREATOR database role to the executing role."
+      },
+      "source": "https://docs.snowflake.com/en/user-guide/snowflake-cortex/document-ai/preparing-documents",
+      "regenerated": true
     },
     {
       "id": 6,
@@ -341,17 +343,19 @@
     {
       "id": 17,
       "topic": "Document AI",
-      "question": "A new Gen Al team member attempts to use Document Al to process a batch of 1 ,500 scanned image files (JPG) that are 70 MB each, stored in an internal stage that was created without specifying an encryption type. Their \"PREDICT queries consistently fail with various errors. Which of the following are valid reasons for the \"PREDICT queries to fail in this scenario?",
-      "correctAnswer": "E",
-      "explanation": "To improve Document Al model training, it is crucial to ensure that the documents uploaded for training represent a real use case and that the dataset consists of diverse documents in terms of both layout and data. It all documents contain the same data or are always presented in the same form, the model might provide incorrect results. for table extraction, it is vital that enough data is used to train the model to include 'NULL values and maintain order. Therefore, ensuring a diverse training dataset (Option B) is a key best practice. Additionally, Subject Mafter Experts (SMEs) and document owners are crucial partners in understanding and evaluating the model's effectiveness in extracting the required information. Their involvement in defining data values, providing annotations, and evaluating results will significantly improve accuracy (Option C). Option A is not a best practice; it's recommended to keep questions as encompassing as possible and rely on training with annotations rather than complex prompt engineering, especially for document variability. Option D is incorrect; a higher 'temperature' value increases the randomness and diversity of the moders output, which is generally undesirable for accurate data extraction where deterministic results are preferred. for most consistent results, 'temperature' should be set to O. Option E is incorrect because training on a restricted set of perfectly formatted documents can lead to a model that performs poorly on real-world,",
-      "multipleSelect": false,
+      "question": "A new Gen AI team member attempts to use Document AI to process a batch of 1,500 scanned image files (JPG) that are 70 MB each, stored in an internal stage that was created without specifying an encryption type. Their PREDICT queries consistently fail with various errors. Which of the following are valid reasons for the PREDICT queries to fail in this scenario? (Select all that apply)",
+      "correctAnswer": "A,C,D",
+      "explanation": "Document AI requires internal stages to use SNOWFLAKE_SSE encryption (A is valid). Document AI can process up to 1,000 documents per query, so 1,500 exceeds that limit (C is valid). Document AI requires files to be 50 MB or less, so 70 MB files exceed the size limit (D is valid). JPG/JPEG is a supported format, so E is incorrect. While a database role is needed, the question describes a missing encryption type and size/count issues as the primary failures.",
+      "multipleSelect": true,
       "options": {
-        "A": "The internal stage was not created with 'ENCRYPTION = (TYPE - 'SNOWFLAKE SSE'V, which is a requirement for Document Al.",
-        "B": "The team member's role lacks the database role, which is essential for using Document Al functions.",
-        "C": "Processing 1 ,500 documents in one query exceeds the maximum limit for Document Al.",
-        "D": "The individual JPG files exceed the maximum supported file size for Document Al.",
-        "E": "JPG is an unsupported file format for Document Al."
-      }
+        "A": "The internal stage was not created with 'ENCRYPTION = (TYPE = 'SNOWFLAKE_SSE')', which is a requirement for Document AI.",
+        "B": "The team member's role lacks the required database role for using Document AI functions.",
+        "C": "Processing 1,500 documents in one query exceeds the maximum limit of 1,000 documents for Document AI.",
+        "D": "The individual JPG files exceed the maximum supported file size of 50 MB for Document AI.",
+        "E": "JPG is an unsupported file format for Document AI."
+      },
+      "source": "https://docs.snowflake.com/en/user-guide/snowflake-cortex/document-ai/limitations",
+      "regenerated": true
     },
     {
       "id": 18,
@@ -499,17 +503,19 @@
     {
       "id": 26,
       "topic": "Document AI",
-      "question": "An analytics team is preparing documents for a new Document Al model build to extract information from internal policy reviews. They have a variety of documents that they intend to upload to an internal stage for processing. The document list includes: (1) a 70 MB PDF with 100 pages, (2) a 45 MB DOCX with 150 pages, (3) a 30 MB PNG image, (4) a 60 MB TIFF image, and (5) a 20 MB HTML file. All documents are in English. Which of these documents would fail' to meet the direct input requirements for Document Al processing?",
-      "correctAnswer": "E",
-      "explanation": "3",
-      "multipleSelect": false,
+      "question": "An analytics team is preparing documents for a new Document AI model build to extract information from internal policy reviews. They have a variety of documents that they intend to upload to an internal stage for processing. The document list includes: (1) a 70 MB PDF with 100 pages, (2) a 45 MB DOCX with 150 pages, (3) a 30 MB PNG image, (4) a 60 MB TIFF image, and (5) a 20 MB HTML file. All documents are in English. Which of these documents would fail to meet the direct input requirements for Document AI processing? (Select all that apply)",
+      "correctAnswer": "A,B,D",
+      "explanation": "Document AI requires documents to be no more than 125 pages and 50 MB. The 70 MB PDF (A) exceeds the 50 MB size limit. The 45 MB DOCX with 150 pages (B) exceeds the 125-page limit. The 60 MB TIFF (D) exceeds the 50 MB size limit. The 30 MB PNG (C) and 20 MB HTML (E) meet all requirements.",
+      "multipleSelect": true,
       "options": {
-        "A": "The 70 MB POF with 100 pages.",
+        "A": "The 70 MB PDF with 100 pages.",
         "B": "The 45 MB DOCX with 150 pages.",
         "C": "The 30 MB PNG image.",
         "D": "The 60 MB TIFF image.",
         "E": "The 20 MB HTML file."
-      }
+      },
+      "source": "https://docs.snowflake.com/en/user-guide/snowflake-cortex/document-ai/preparing-documents",
+      "regenerated": true
     },
     {
       "id": 27,
