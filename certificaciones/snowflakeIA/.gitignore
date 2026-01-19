@@ -1,3 +1,10 @@
 # Avoid committing large/binary training materials
 TestAssesments/data/pdfs/
+TestAssesments/data/json/
 intro_to_gen_ai_snowflake/course_readings/*.docx
+
+# External course content (not owned)
+generativeai-with-snowflake/
+
+# Utility/scratch scripts
+ocr_extract.py
