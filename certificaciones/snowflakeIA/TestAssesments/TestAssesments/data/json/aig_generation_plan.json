@@ -1,0 +1,45 @@
+{
+  "current_questions": 53,
+  "topic_coverage": {
+    "Cortex Analyst": 3,
+    "Vector Embeddings": 4,
+    "Document AI": 15,
+    "Cortex Search": 8,
+    "Cortex LLM Functions": 10,
+    "RAG": 2,
+    "Snowpark Container Services": 3,
+    "General Cortex AI": 4,
+    "Cost & Governance": 2,
+    "Fine-tuning": 2
+  },
+  "knowledge_gaps": [],
+  "topic_deficit": {
+    "Cortex Analyst": 7,
+    "Vector Embeddings": 6,
+    "Cortex Search": 2,
+    "RAG": 8,
+    "Snowpark Container Services": 7,
+    "General Cortex AI": 6,
+    "Cost & Governance": 8,
+    "Fine-tuning": 8
+  },
+  "estimated_new_questions": {
+    "from_knowledge_gaps": 0,
+    "from_topic_balance": 15,
+    "total_estimated": 15
+  },
+  "methodology": {
+    "name": "Automatic Item Generation (AIG)",
+    "techniques": [
+      "Distractor Analysis - Convert incorrect options into new questions",
+      "Knowledge Gap Analysis - Test concepts from verified docs not yet covered",
+      "Item Isomorphs - Create variations testing same concept differently",
+      "Bloom's Taxonomy Coverage - Ensure multiple cognitive levels tested"
+    ],
+    "sources": [
+      "Official Snowflake Documentation (docs.snowflake.com)",
+      "Gierl & Haladyna (2013) - Automatic Item Generation Theory",
+      "Educational Testing Service (ETS) Best Practices"
+    ]
+  }
+}

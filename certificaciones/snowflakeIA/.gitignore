@@ -1,0 +1,3 @@
+# Avoid committing large/binary training materials
+TestAssesments/data/pdfs/
+intro_to_gen_ai_snowflake/course_readings/*.docx

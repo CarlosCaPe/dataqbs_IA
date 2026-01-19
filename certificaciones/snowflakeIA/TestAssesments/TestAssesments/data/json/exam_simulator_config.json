@@ -1,0 +1,221 @@
+{
+  "examInfo": {
+    "code": "GES-C01",
+    "name": "SnowPro Specialty: Generative AI Certification Exam",
+    "provider": "Snowflake",
+    "passingScore": "750/1000 (approximately 75%)",
+    "duration": "115 minutes",
+    "questionCount": "65 questions on actual exam",
+    "fee": "$375 USD",
+    "format": [
+      "Multiple Choice (single answer)",
+      "Multiple Select (choose all that apply)"
+    ],
+    "prerequisites": "SnowPro Core Certification (preferred)",
+    "domains": [
+      {
+        "name": "Snowflake Cortex AI Foundations",
+        "weight": "10-15%"
+      },
+      {
+        "name": "Cortex LLM Functions (AI_COMPLETE, etc.)",
+        "weight": "15-20%"
+      },
+      {
+        "name": "Cortex Search",
+        "weight": "15-20%"
+      },
+      {
+        "name": "Cortex Analyst",
+        "weight": "10-15%"
+      },
+      {
+        "name": "Document AI",
+        "weight": "15-20%"
+      },
+      {
+        "name": "Vector Embeddings & RAG",
+        "weight": "10-15%"
+      },
+      {
+        "name": "Fine-tuning & Custom Models",
+        "weight": "10-15%"
+      },
+      {
+        "name": "AI Observability & Governance",
+        "weight": "5-10%"
+      }
+    ]
+  },
+  "simulatorConfig": {
+    "totalQuestions": 65,
+    "timeLimitMinutes": 115,
+    "passingScore": 0.75,
+    "domainWeights": {
+      "Cortex LLM Functions": [
+        0.15,
+        0.2
+      ],
+      "Cortex Search": [
+        0.15,
+        0.2
+      ],
+      "Document AI": [
+        0.15,
+        0.2
+      ],
+      "Cortex Analyst": [
+        0.1,
+        0.15
+      ],
+      "Vector Embeddings": [
+        0.1,
+        0.15
+      ],
+      "Fine-tuning": [
+        0.1,
+        0.15
+      ],
+      "RAG": [
+        0.1,
+        0.15
+      ],
+      "General Cortex AI": [
+        0.1,
+        0.15
+      ],
+      "Snowpark Container Services": [
+        0.05,
+        0.1
+      ],
+      "Cost & Governance": [
+        0.05,
+        0.1
+      ]
+    }
+  },
+  "questionBankStats": {
+    "total_questions": 70,
+    "by_topic": {
+      "Cortex Analyst": 7,
+      "Vector Embeddings": 7,
+      "Document AI": 15,
+      "Cortex Search": 8,
+      "Cortex LLM Functions": 10,
+      "RAG": 5,
+      "Snowpark Container Services": 3,
+      "General Cortex AI": 4,
+      "Cost & Governance": 5,
+      "Fine-tuning": 6
+    },
+    "by_type": {
+      "single_select": 53,
+      "multiple_select": 17
+    },
+    "coverage_vs_exam": {
+      "Cortex LLM Functions": {
+        "target": 11,
+        "actual": 10,
+        "coverage_pct": 90.9
+      },
+      "Cortex Search": {
+        "target": 11,
+        "actual": 8,
+        "coverage_pct": 72.7
+      },
+      "Document AI": {
+        "target": 11,
+        "actual": 15,
+        "coverage_pct": 136.4
+      },
+      "Cortex Analyst": {
+        "target": 8,
+        "actual": 7,
+        "coverage_pct": 87.5
+      },
+      "Vector Embeddings": {
+        "target": 8,
+        "actual": 7,
+        "coverage_pct": 87.5
+      },
+      "Fine-tuning": {
+        "target": 8,
+        "actual": 6,
+        "coverage_pct": 75.0
+      },
+      "RAG": {
+        "target": 8,
+        "actual": 5,
+        "coverage_pct": 62.5
+      },
+      "General Cortex AI": {
+        "target": 8,
+        "actual": 4,
+        "coverage_pct": 50.0
+      },
+      "Snowpark Container Services": {
+        "target": 4,
+        "actual": 3,
+        "coverage_pct": 75.0
+      },
+      "Cost & Governance": {
+        "target": 4,
+        "actual": 5,
+        "coverage_pct": 125.0
+      }
+    }
+  },
+  "studyGuide": {
+    "Cortex Analyst": [
+      "Semantic models bridge natural language and database schema",
+      "LLM summarization agent manages multi-turn conversations",
+      "Llama 3.1 70B used for summarization (96.5% accuracy)",
+      "verified_queries for pre-defined specific questions",
+      "Warehouse size MEDIUM or smaller recommended for all Cortex functions"
+    ],
+    "Cortex Search": [
+      "Hybrid search engine (vector + keyword)",
+      "Chunk text to max 512 tokens for best results",
+      "CHANGE_TRACKING required for incremental refreshes",
+      "Cost: 6.3 credits per GB/month of indexed data",
+      "Requires virtual warehouse for refreshes (MEDIUM or smaller)"
+    ],
+    "Document AI": [
+      "SNOWFLAKE_SSE encryption required for internal stages",
+      "Maximum 125 pages and 50 MB per document",
+      "Maximum 1000 documents per query",
+      "Supported formats: PDF, PNG, DOCX, XML, JPEG, HTML, TXT, TIFF",
+      "SNOWFLAKE.DOCUMENT_INTELLIGENCE_CREATOR role required",
+      "Training with diverse documents improves accuracy"
+    ],
+    "Vector Embeddings": [
+      "VECTOR data type supports up to 4096 dimensions",
+      "Element types: FLOAT (32-bit) or INT (32-bit)",
+      "Not supported: VARIANT columns, clustering keys, primary keys",
+      "EMBED_TEXT_768: e5-base-v2, etc.",
+      "EMBED_TEXT_1024: snowflake-arctic-embed, voyage-multilingual-2, etc."
+    ],
+    "Cortex LLM Functions": [
+      "AI_COMPLETE: General LLM completions with structured outputs",
+      "response_format parameter for JSON schema enforcement",
+      "temperature=0 for most consistent results",
+      "TRY_COMPLETE returns NULL on failure instead of error",
+      "Token billing: input + output tokens (varies by function)"
+    ],
+    "Fine-tuning": [
+      "Supported models: llama3-8b, llama3.1-8b, llama3.1-70b, mistral-7b",
+      "Training data: prompt/completion pairs",
+      "Context window varies by model (e.g., 8k for llama3-8b)",
+      "Fine-tuned models exclusive to your account",
+      "Deploy to SPCS with GPU compute pools"
+    ],
+    "Governance & Security": [
+      "CORTEX_MODELS_ALLOWLIST controls model access",
+      "Customer data never used to train shared models",
+      "Cortex Guard filters unsafe/harmful responses",
+      "RBAC controls access to stages and semantic models",
+      "Metadata should not contain sensitive data"
+    ]
+  },
+  "exportDate": "2026-01-19T14:39:13.698792"
+}

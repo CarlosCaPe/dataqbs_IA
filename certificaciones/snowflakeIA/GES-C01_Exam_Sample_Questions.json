@@ -1,0 +1,1345 @@
+{
+  "examInfo": {
+    "code": "GES-C01",
+    "name": "SnowPro Specialty: Generative AI Certification Exam",
+    "provider": "Snowflake",
+    "passingScore": "750/1000 (approximately 75%)",
+    "duration": "115 minutes",
+    "questionCount": "65 questions on actual exam",
+    "fee": "$375 USD",
+    "format": [
+      "Multiple Choice (single answer)",
+      "Multiple Select (choose all that apply)"
+    ],
+    "prerequisites": "SnowPro Core Certification (preferred)",
+    "domains": [
+      {
+        "name": "Snowflake Cortex AI Foundations",
+        "weight": "10-15%"
+      },
+      {
+        "name": "Cortex LLM Functions (AI_COMPLETE, etc.)",
+        "weight": "15-20%"
+      },
+      {
+        "name": "Cortex Search",
+        "weight": "15-20%"
+      },
+      {
+        "name": "Cortex Analyst",
+        "weight": "10-15%"
+      },
+      {
+        "name": "Document AI",
+        "weight": "15-20%"
+      },
+      {
+        "name": "Vector Embeddings & RAG",
+        "weight": "10-15%"
+      },
+      {
+        "name": "Fine-tuning & Custom Models",
+        "weight": "10-15%"
+      },
+      {
+        "name": "AI Observability & Governance",
+        "weight": "5-10%"
+      }
+    ]
+  },
+  "metadata": {
+    "totalQuestions": 70,
+    "source": "OCR extracted from GES-C01 practice exam screenshots",
+    "extractionDate": "2025-01-27",
+    "verifiedDate": "2026-01-19",
+    "verificationStatus": "Verified against official Snowflake Cortex AI documentation",
+    "note": "26 preguntas regeneradas con opciones estructuradas. Todas las preguntas verificadas contra docs.snowflake.com. Key facts: MEDIUM warehouse max, VECTOR max 4096 dimensions, 512 token chunks for Cortex Search, Document AI requires SNOWFLAKE_SSE, 125 page PDF limit.",
+    "lastUpdated": "2026-01-19",
+    "pdfSources": [
+      "ges-c01-02.pdf",
+      "ges-c01-03.pdf",
+      "ges-c01-04.pdf"
+    ],
+    "aigGenerated": 17,
+    "aigMethodology": "Automatic Item Generation based on verified Snowflake documentation",
+    "regeneratedQuestions": 26,
+    "autoFixedEmbeddedOptions": 22,
+    "notes": "[2026-01-19T23:16:19Z] Regenerated 13 corrupted questions (batch2) to fix missing/truncated options and answer mismatches.",
+    "lastUpdatedAt": "2026-01-19T23:16:19Z"
+  },
+  "questions": [
+    {
+      "id": 1,
+      "topic": "Cortex Analyst",
+      "question": "A business team using a Snowflake Cortex Analyst-powered chatbot reports that follow up questions in multi turn conversations are sometimes slow to process, impacting user experience. The development team wants to optimize for responsiveness while maintaining accuracy in SQL generation. Which of the following strategies directly addresses latency in multi-turn conversations within Cortex Analyst, considering its underlying mechanisms?",
+      "correctAnswer": "B",
+      "explanation": "To address latency in multi-turn conversations within Cortex Analyst, implementing an LLM summarization agent to condense conversation history is the key strategy. Cortex Analyst utilizes such an agent to manage arbitrarily long conversation histories, preventing longer inference times, non-determinism, and performance degradation that would occur it the full history were passed to every LLM call. Option A is incorrect because Snowflake recommends executing queries that call Cortex Al SOL functions, including those underlying Cortex Analyst, with smaller warehouses (no larger than MEDIUM), as larger warehouses do not increase performance for these functions. Option C is a manual approach to context management, whereas Cortex Analyst incorporates an automated summarization agent for this purpose. Option D is problematic because while a smaller model might reduce general inference latency, Cortex Analyst specifically chose Llama 3.1 70B as its summarization agent due to its superior accuracy (96.5% good rating by LLM judge) over Llama 3.1 8B (5% error rate) for this task, indicating that a smaller, less capable model could degrade summarization quality. Option E is incorrect as 'verified_queries' are for specific, pre-defined questions and do not handle the dynamic, contextual nature of multi-turn conversations or the summarization of past turns.",
+      "multipleSelect": false,
+      "options": {
+        "A": "Increase the warehouse size used for Cortex Analyst queries to 'Large' to accelerate LLM inference.",
+        "B": "Implement an explicit LLM summarization agent within the semantic model to condense conversation history before it's passed to subsequent LLM calls.",
+        "C": "Configure the semantic model to reset the conversation context after every three turns to limit token count.",
+        "D": "Switch the underlying text-to-SQL LLM to a smaller model, such as mistral-7b without considering its impact on summarization tasks.",
+        "E": "Rely on verified_queries for all follow-up questions, as"
+      }
+    },
+    {
+      "id": 2,
+      "topic": "Vector Embeddings",
+      "question": "A data engineer is tasked with implementing a product recommendation system in Snowflake. They have pre-computed product embeddings and want to find similar items using VECTOR_COSINE_SIMILARITY. They are evaluating options for interacting with this function. Which of the following statements is TRUE regarding the use of VECTOR_COSINE_SIMILARITY and Snowflake's VECTOR data type?",
+      "correctAnswer": "B",
+      "explanation": "VERIFIED: Option B is correct because snowflake-arctic-embed-l-v2.0 outputs 1024-dimensional vectors and should be stored as VECTOR(FLOAT, 1024), not INT. Per official docs: VECTOR data type max dimension is 4096 (not 768 as in C). Option A is incorrect - VECTOR functions require SQL calls. Option C is incorrect - max is 4096 dimensions. Option D is incorrect - direct comparisons are byte-wise lexicographic, not semantic. Option E is incorrect - per docs 'Vectors aren't supported in VARIANT columns'.",
+      "multipleSelect": false,
+      "verified": true,
+      "options": {
+        "A": "The VECTOR_COSINE_SIMILARITY function is directly available as a method on Snowpark DataFrames within the snowflake.snowpark.functions module for Python users.",
+        "B": "A column defined as VECTOR(INT, 1024) is the most appropriate data type for storing embeddings generated by the snowflake-arctic-embed-l-v2.0 model, which outputs 1024-dimensional float vectors.",
+        "C": "The maximum dimension supported by the VECTOR data type in Snowflake is 768, which aligns with common embedding models like snowflake-arctic-embed.",
+        "D": "Direct comparison operators like < can be used reliably on VECTOR columns to sort by similarity.",
+        "E": "VECTOR columns can be stored in VARIANT type columns for flexible schema handling."
+      }
+    },
+    {
+      "id": 3,
+      "topic": "Document AI",
+      "question": "A security architect is configuring access controls for a new custom role 'document_processor_role' which will manage Document AI operations. What is the minimum database-level role required to begin working with Document AI features?",
+      "options": {
+        "A": "GRANT DATABASE ROLE SNOWFLAKE.CORTEX_USER TO ROLE document_processor_role",
+        "B": "GRANT DATABASE ROLE SNOWFLAKE.DOCUMENT_INTELLIGENCE_CREATOR TO ROLE document_processor_role",
+        "C": "GRANT USAGE ON DATABASE TO ROLE document_processor_role",
+        "D": "GRANT CREATE STAGE ON SCHEMA TO ROLE document_processor_role",
+        "E": "GRANT DATABASE ROLE SNOWFLAKE.ML_ADMIN TO ROLE document_processor_role"
+      },
+      "correctAnswer": "B",
+      "explanation": "VERIFIED: Per Snowflake docs, SNOWFLAKE.DOCUMENT_INTELLIGENCE_CREATOR is the specific database role required for Document AI operations. This role enables creating Document AI model builds and working with document processing pipelines. CORTEX_USER is more general for Cortex functions but not specific to Document AI.",
+      "multipleSelect": false,
+      "source": "https://docs.snowflake.com/en/user-guide/snowflake-cortex/document-ai/using"
+    },
+    {
+      "id": 4,
+      "topic": "Cortex Search",
+      "question": "A business intelligence team wants to enable non-technical users to query structured data in Snowflake using natural language. They are considering Cortex Analyst. What is the primary role of a semantic model in Cortex Analyst to achieve this goal for structured/text-to-SQL use cases?",
+      "correctAnswer": "C",
+      "explanation": "Option C is correct. Cortex Analyst uses semantic models to bridge the gap between business users' natural language and the technical database schema. Semantic models provide semantic information like descriptive names and synonyms for tables and columns, which helps the underlying LLM accurately generate SQL queries from natural language questions. Option A is incorrect because the semantic model does not directly execute SOL; it provides the context for an LLM to generate SQL. Option B is incorrect as access control is managed by Snowflake's RBAC and not stored within the semantic model itself. Option D is incorrect; while performance is a consideration, caching is not the primary role of the semantic model in bridging the language gap for text-to-SQL functionality. Option E is incorrect because while vector embeddings are used in Snowflake (e.g., Cortex Search for RAG), the semantic model itself isn't primarily a vector store for all data columns for direct semantic search in this context; rather, it provides metadata for text-to-SQL generation.",
+      "multipleSelect": false,
+      "options": {
+        "A": "The semantic model directly executes SQL queries provided by end-users, bypassing the need for an LLM to generate them.",
+        "B": "It stores user authentication credentials and data access policies, ensuring that only authorized users can interact with the data.",
+        "C": "The semantic model provides a mapping between business-friendly terms and the underlying technical database schema, enhancing the LLM's ability to generate accurate SQL from natural language questions.",
+        "D": "It serves as a cache for frequently requested data, reducing latency for natural language queries by providing pre-computed results.",
+        "E": "The semantic model acts as a vector store, storing embeddings of all data columns to enable semantic search for"
+      }
+    },
+    {
+      "id": 5,
+      "topic": "Document AI",
+      "question": "A data engineering team is onboarding a new client whose workflow involves extracting critical financial data from thousands of daily scanned PDF receipts. They decide to use Snowflake Document Al and store all incoming PDFs in an internal stage name. after deploying their pipeline, they observe intermittent failures and varying error messages in the output, specifically: ( \"_ncesSingErrOr•S\": t identify imge file at s\"; [ hu .y IBO. Which two of the following actions are most likely required to resolve these processing errors?",
+      "correctAnswer": "A,B",
+      "explanation": "The first error message, 'cannot identity image file', is a known error that occurs when an internal stage used for Document AI is not configured with 'SNOWFLAKE_SSE encryption. Therefore, option A is a direct solution. The second error message, 'Document has too many pages. Actual: 1",
+      "multipleSelect": true,
+      "options": {
+        "A": "Ensure the internal stage is configured with 'ENCRYPTION (TYPE 'SNOWFLAKE SSE')'.",
+        "B": "Split any PDF documents exceeding 125 pages into smaller, compliant files, or reject them it splitting is not feasible.",
+        "C": "Increase the 'max_tokens' parameter within the ' 'PREDICT function options to accommodate longer document processing.",
+        "D": "Change the virtual warehouse size from an X-Small to a Large to improve Document Al processing speed.",
+        "E": "Grant the 'SNOWFLAKE.CORTEX_U"
+      }
+    },
+    {
+      "id": 6,
+      "topic": "Cortex LLM Functions",
+      "question": "You want consistent, machine-parseable JSON from a Cortex LLM call and you also want the SQL to be resilient to generation failures. Which actions help achieve this? (Select all that apply)",
+      "options": {
+        "A": "Use the COMPLETE function with the response_format option and provide a JSON schema.",
+        "B": "In the JSON schema, list required keys under required so the model must include them.",
+        "C": "Use TRY_COMPLETE so the function returns NULL instead of raising an error when it cannot perform the operation.",
+        "D": "Set temperature to 0 to reduce randomness and improve determinism.",
+        "E": "Rely on TRY_COMPLETE to return a structured error object instead of text when failures occur."
+      },
+      "correctAnswer": "A,B,C,D",
+      "multipleSelect": true,
+      "explanation": "COMPLETE supports response_format with a JSON schema, and you can mark properties as required to encourage consistent JSON outputs. TRY_COMPLETE behaves like COMPLETE but returns NULL instead of raising an error if it cannot perform the operation. Setting temperature to 0 reduces randomness.",
+      "source": [
+        "https://docs.snowflake.com/en/sql-reference/functions/complete-snowflake-cortex",
+        "https://docs.snowflake.com/en/sql-reference/functions/try_complete-snowflake-cortex"
+      ],
+      "difficulty": "medium",
+      "lastUpdatedAt": "2026-01-19T23:16:19Z",
+      "regenerated": true,
+      "regenerationBatch": "batch2"
+    },
+    {
+      "id": 7,
+      "topic": "Cortex LLM Functions",
+      "question": "A Snowflake user wants to access the Cortex Playground to experiment with LLM functions but receives an error indicating insufficient privileges. Which TWO of the following steps must be taken to ensure they can successfully use the Cortex Playground?",
+      "options": {
+        "A": "The user must have the SNOWFLAKE.CORTEX_USER database role granted to their account role",
+        "B": "The ACCOUNTADMIN must enable the CORTEX_ENABLED_CROSS_REGION parameter",
+        "C": "The user must have access to a warehouse of size MEDIUM or smaller",
+        "D": "The user must have the ENABLE_CORTEX_PLAYGROUND account parameter set to TRUE for their role",
+        "E": "The ACCOUNTADMIN must not have restricted LLM access via CORTEX_ENABLED_IDENTIFIERS"
+      },
+      "correctAnswer": "A,D",
+      "explanation": "VERIFIED: To use Cortex Playground, users need: 1) The SNOWFLAKE.CORTEX_USER database role, and 2) The ENABLE_CORTEX_PLAYGROUND parameter enabled. Cross-region is for model availability, not Playground access specifically.",
+      "multipleSelect": true,
+      "source": "https://docs.snowflake.com/en/user-guide/snowflake-cortex/llm-functions"
+    },
+    {
+      "id": 8,
+      "topic": "Cortex Search",
+      "question": "You are planning a Cortex Search service over a table that changes frequently. Which statements about requirements and cost/performance are true? (Select all that apply)",
+      "options": {
+        "A": "Change tracking must be enabled on the underlying object(s) used as the service source.",
+        "B": "A warehouse is used for service refresh operations.",
+        "C": "Snowflake recommends using a dedicated warehouse no larger than MEDIUM for a Cortex Search service.",
+        "D": "Costs can include refresh warehouse usage, embedding token costs, and serving costs.",
+        "E": "Cortex Search services refresh continuously without any warehouse usage."
+      },
+      "correctAnswer": "A,B,C,D",
+      "multipleSelect": true,
+      "explanation": "Cortex Search requires change tracking on the underlying source object(s) and uses a warehouse for refresh. Snowflake recommends a dedicated warehouse no larger than MEDIUM. Cost components include refresh compute, embedding token usage, and serving costs.",
+      "source": [
+        "https://docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-search/cortex-search-overview"
+      ],
+      "difficulty": "medium",
+      "lastUpdatedAt": "2026-01-19T23:16:19Z",
+      "regenerated": true,
+      "regenerationBatch": "batch2"
+    },
+    {
+      "id": 9,
+      "topic": "Vector Embeddings",
+      "question": "A data scientist needs to generate vector embeddings for product descriptions stored in a column 'PRODUCT DESCRIPTION' in the 'PRODUCT CATALOG' table. They want to use the 'e5-base-v2 model for this task. Which of the following SOL statements correctly applies the 'SNOWFLAKE.CORTEX.EMBED TEXT 768 function and accurately describes the expected data type of the resulting embedding?",
+      "correctAnswer": "C",
+      "explanation": "option C is correct. The 'SNOWFLAKE-CORTEX.EMBED_TEXT 768 function takes the model name as the first argument and the text to be embedded as the second argument. The 'e5-base-v2 model is a 768-dimension embedding model, and the function correctly returns a VECTOR(FLOAT, 768)' data type. Options A, B, D, and E incorrectly describe the function's arguments or the return data type.",
+      "multipleSelect": false,
+      "options": {
+        "A": "The query snecT , returns a VARIANT containing the embedding array.",
+        "B": "The query returns a JSON object with embedding defails and a confidence score.",
+        "C": "The query returns a VECTOR(FLOAT, 768) data type.",
+        "D": "The query returns a STRING representation of the vector.",
+        "E": "The query SELECT PRm.KT_CATuos; returns a BINARY data type for the embedding, requiring explicit conversion for"
+      }
+    },
+    {
+      "id": 10,
+      "topic": "Cortex LLM Functions",
+      "question": "A data application developer is building a multi-turn conversational AI application using Streamlit in Snowflake (SiS) that leverages the COMPLETE function. What is the most appropriate method for handling and passing the conversation history?",
+      "options": {
+        "A": "Store conversation history in a Snowflake table and query it before each LLM call",
+        "B": "Pass the entire conversation history as a JSON array in the 'messages' parameter of COMPLETE",
+        "C": "Use Snowflake's built-in session variables to maintain conversation state automatically",
+        "D": "Implement a custom caching mechanism using Streamlit's st.cache_data decorator",
+        "E": "Rely on the LLM's internal memory to maintain context between API calls"
+      },
+      "correctAnswer": "B",
+      "explanation": "VERIFIED: Per Snowflake docs, the COMPLETE function accepts a 'messages' parameter which is a JSON array containing the conversation history with roles (system, user, assistant). This is the standard way to maintain multi-turn context. LLMs don't have persistent memory between calls.",
+      "multipleSelect": false,
+      "source": "https://docs.snowflake.com/en/sql-reference/functions/complete-snowflake-cortex"
+    },
+    {
+      "id": 11,
+      "topic": "Cortex Search",
+      "question": "A data scientist is optimising a Cortex Analyst application to improve the accuracy of literal searches within user queries, especially for high-cardinality dimension values. They decide to integrate Cortex Search for this purpose. Which of the following statements are true about this integration and the underlying data types in Snowflake? (Select all that apply)",
+      "correctAnswer": "A,B",
+      "explanation": "Option A is correct. Cortex Analyst can leverage Cortex Search Services to improve literal search by including a configuration block within a dimension's definition in the semantic model YAML This block specifies the service name and an optional 'literal_column'. Option B correct. Snowflake recommends splitting text in your search column into chunks of no more than 512 tokens for best search results with Cortex Search, even when using models with larger context windows like 'snowflake- arctic-embed-I-v",
+      "multipleSelect": true,
+      "options": {
+        "A": "To integrate Cortex Search with a logical dimension, the semantic model YAML must include a block within the dimension's definition, specifying the service name and optionally a 'literal_column'.",
+        "B": "for optimal RAG retrieval performance with Cortex Search, it is generally recommended to split text into chunks of no more than 512 tokens, even when using embedding models with larger context windows such as 'snowflake-arctic- embed-I-v2.0-8k'.",
+        "C": "The \"VECTOR data type in Snowflake, used to store embeddings generated for Cortex Search, is fully supported as a clustering key in standard tables and as a primary key in hybrid tabl"
+      }
+    },
+    {
+      "id": 12,
+      "topic": "Governance & Security",
+      "question": "Which statement aligns with Snowflake's guidance about how customer data is handled when using Snowflake AI features?",
+      "options": {
+        "A": "Customer data is not used to train models that are shared with other customers.",
+        "B": "Customer prompts and completions are automatically shared with other Snowflake accounts for benchmarking.",
+        "C": "Using Snowflake AI features requires exporting data to an external model provider by default.",
+        "D": "AI features only work when data is stored in a stage encrypted with customer-managed keys.",
+        "E": "AI features require disabling access controls so models can read all account data."
+      },
+      "correctAnswer": "A",
+      "multipleSelect": false,
+      "explanation": "Snowflake's AI feature guidance emphasizes customer trust and privacy, including that customer data is not used to train models shared across customers.",
+      "source": [
+        "https://docs.snowflake.com/en/guides-overview-ai-features"
+      ],
+      "difficulty": "medium",
+      "lastUpdatedAt": "2026-01-19T23:16:19Z",
+      "regenerated": true,
+      "regenerationBatch": "batch2"
+    },
+    {
+      "id": 13,
+      "topic": "Document AI",
+      "question": "A Gen AI specialist is preparing to upload a large volume of diverse documents to an internal stage for Document AI processing. The objective is to extract detailed information, including lists of items and potentially classifying document types, and then automate this process. Which of the following statements represent best practices or important considerations/limitations when preparing documents and setting up the Document AI workflow in Snowflake? (Select ALL that apply.)",
+      "correctAnswer": "A,C",
+      "explanation": "VERIFIED: Option A is correct per docs - diverse training documents improve model accuracy. Option C is correct - streams and tasks automate Document AI pipelines. Per official docs: Document AI supports max 125 pages, 50MB per doc, requires SNOWFLAKE_SSE encryption on internal stages.",
+      "multipleSelect": true,
+      "verified": true,
+      "options": {
+        "A": "To improve model training, documents uploaded should represent a real use case, and the dataset should consist of diverse documents in terms of both layout and data.",
+        "B": "If the Document AI model does not find an answer for a specific field, the !PREDICT method will omit the 'value' key but will still return a 'score' key to indicate confidence.",
+        "C": "For continuous processing of new documents, it is best practice to create a stream on the internal stage and a task to automate the PREDICT calls."
+      }
+    },
+    {
+      "id": 14,
+      "topic": "AI Observability",
+      "question": "You are enabling AI Observability tracing in a Python application that connects to Snowflake. Which prerequisite is explicitly required to ensure traces are sent to Snowflake?",
+      "options": {
+        "A": "Set the TRULENS_OTEL_TRACING environment variable to 1 before connecting to Snowflake.",
+        "B": "Run the application only inside a Snowflake Notebook.",
+        "C": "Disable network policies so traces can be exported.",
+        "D": "Grant CREATE WAREHOUSE to the application role.",
+        "E": "Set a parameter that forces all Cortex models to be enabled for the account."
+      },
+      "correctAnswer": "A",
+      "multipleSelect": false,
+      "explanation": "AI Observability requires setting TRULENS_OTEL_TRACING=1 prior to connecting. The documentation also notes that AI Observability is not supported from within Snowflake Notebooks.",
+      "source": [
+        "https://docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-observability/ai-observability"
+      ],
+      "difficulty": "medium",
+      "lastUpdatedAt": "2026-01-19T23:16:19Z",
+      "regenerated": true,
+      "regenerationBatch": "batch2"
+    },
+    {
+      "id": 15,
+      "topic": "Vector Embeddings",
+      "question": "A data platform architect is integrating SNOWFLAKE.CORTEX.EMBED TEXT 768' into a complex data pipeline for a new search application. The pipeline involves extracting text from various sources, generating embeddings, storing them in Snowflake, and performing semantic searches. Which of the following statements accurately describes a compatibility aspect or limitation when working with 'EMBED TEXT 768' and the resulting 'VECTOR' data type within Snowflake?",
+      "correctAnswer": "D",
+      "explanation": "Option D is correct. When Snowflake Cortex LLM functions, such as are called on snowflake data (e.g., within a snowpark Python UDF), the data never actually leaves Snowflake's network boundary. This ensures that data governance and security are maintained. Option A is incorrect because Snowflake Cortex functions, induding , do not support dynamic tables. Option B is incorrect; cross-region inference can be enabled it ' is not natively available in a region, using the param eter. Option C is incorrect because the VECTOR data type is not supported as primary or secondary index keys in hybrid tables. Option E is incorrect because 'VECTOR data types are explicitly not supported in VARIANT columns.",
+      "multipleSelect": false,
+      "options": {
+        "A": "The function can be directly integrated into a dynamic table's 'SELECT statement to provide continuous, automated embedding updates for new data.",
+        "B": "It the function is not natively available in the accounts primary Snowflake region, cross-region inference cannot be enabled, thus preventing its use.",
+        "C": "The 'VECTOR' data type, which stores the output of is fully compatible with all Snowflake features, including being used as a primary key in hybrid tables for tast lookups.",
+        "D": "When is invoked within a Snowpark Python User-Defined Funct"
+      }
+    },
+    {
+      "id": 16,
+      "topic": "Document AI",
+      "question": "A data engineering team is setting up an automated pipeline to extract information from invoices using Document AI. They've created a database, schema, and Document AI model build. They created an internal stage for documents. When they attempt to run the PREDICT method, they receive errors. Which TWO actions are most likely required?",
+      "options": {
+        "A": "Ensure the internal stage is configured with ENCRYPTION = (TYPE = 'SNOWFLAKE_SSE')",
+        "B": "Split any PDF documents exceeding 125 pages into smaller files",
+        "C": "Increase the max_tokens parameter in the PREDICT function options",
+        "D": "Change the virtual warehouse size from X-Small to Large",
+        "E": "Grant the SNOWFLAKE.DOCUMENT_INTELLIGENCE_CREATOR role to the executing role"
+      },
+      "correctAnswer": "A,B",
+      "explanation": "VERIFIED: Document AI requires: 1) Internal stages must use SNOWFLAKE_SSE encryption, and 2) PDFs cannot exceed 125 pages. Larger warehouses don't improve Document AI performance. max_tokens is not a Document AI parameter.",
+      "multipleSelect": true,
+      "source": "https://docs.snowflake.com/en/user-guide/snowflake-cortex/document-ai/using"
+    },
+    {
+      "id": 17,
+      "topic": "Document AI",
+      "question": "A new Gen Al team member attempts to use Document Al to process a batch of 1 ,500 scanned image files (JPG) that are 70 MB each, stored in an internal stage that was created without specifying an encryption type. Their \"PREDICT queries consistently fail with various errors. Which of the following are valid reasons for the \"PREDICT queries to fail in this scenario?",
+      "correctAnswer": "E",
+      "explanation": "To improve Document Al model training, it is crucial to ensure that the documents uploaded for training represent a real use case and that the dataset consists of diverse documents in terms of both layout and data. It all documents contain the same data or are always presented in the same form, the model might provide incorrect results. for table extraction, it is vital that enough data is used to train the model to include 'NULL values and maintain order. Therefore, ensuring a diverse training dataset (Option B) is a key best practice. Additionally, Subject Mafter Experts (SMEs) and document owners are crucial partners in understanding and evaluating the model's effectiveness in extracting the required information. Their involvement in defining data values, providing annotations, and evaluating results will significantly improve accuracy (Option C). Option A is not a best practice; it's recommended to keep questions as encompassing as possible and rely on training with annotations rather than complex prompt engineering, especially for document variability. Option D is incorrect; a higher 'temperature' value increases the randomness and diversity of the moders output, which is generally undesirable for accurate data extraction where deterministic results are preferred. for most consistent results, 'temperature' should be set to O. Option E is incorrect because training on a restricted set of perfectly formatted documents can lead to a model that performs poorly on real-world,",
+      "multipleSelect": false,
+      "options": {
+        "A": "The internal stage was not created with 'ENCRYPTION = (TYPE - 'SNOWFLAKE SSE'V, which is a requirement for Document Al.",
+        "B": "The team member's role lacks the database role, which is essential for using Document Al functions.",
+        "C": "Processing 1 ,500 documents in one query exceeds the maximum limit for Document Al.",
+        "D": "The individual JPG files exceed the maximum supported file size for Document Al.",
+        "E": "JPG is an unsupported file format for Document Al."
+      }
+    },
+    {
+      "id": 18,
+      "topic": "Document AI",
+      "question": "You are building a Document AI model to extract fields from invoices. Which practices are recommended to improve results? (Select all that apply)",
+      "options": {
+        "A": "Always set a high temperature to maximize creativity in extracted values.",
+        "B": "Use training documents that reflect the real-world variability you expect (including missing or empty values when relevant).",
+        "C": "Involve subject matter experts and document owners iteratively to define fields and validate results.",
+        "D": "Only train on perfectly formatted documents so the model never sees edge cases.",
+        "E": "Increase the refresh warehouse size to XL to improve extraction accuracy."
+      },
+      "correctAnswer": "B,C",
+      "multipleSelect": true,
+      "explanation": "Document AI guidance emphasizes using representative documents (including variations and missing values) and involving domain experts iteratively to define and validate extracted fields.",
+      "source": [
+        "https://docs.snowflake.com/en/user-guide/snowflake-cortex/document-ai/overview",
+        "https://docs.snowflake.com/en/user-guide/snowflake-cortex/document-ai/preparing-documents"
+      ],
+      "difficulty": "medium",
+      "lastUpdatedAt": "2026-01-19T23:16:19Z",
+      "regenerated": true,
+      "regenerationBatch": "batch2"
+    },
+    {
+      "id": 19,
+      "topic": "Document AI",
+      "question": "A retail company wants to use Document AI to extract product information from supplier catalogs in PDF format. What is the correct sequence of steps to set up and use Document AI for this task?",
+      "options": {
+        "A": "Create stage → Upload documents → Create model build → Train model → Call PREDICT",
+        "B": "Create database role → Create model build → Define extraction schema → Upload documents → Call PREDICT",
+        "C": "Upload documents → Create model build → Define questions/values to extract → Review extractions → Publish build → Call PREDICT",
+        "D": "Create warehouse → Upload documents → Call COMPLETE with extraction prompt → Parse JSON output",
+        "E": "Create Cortex Search service → Index documents → Query with natural language"
+      },
+      "correctAnswer": "C",
+      "explanation": "VERIFIED: Document AI workflow: 1) Upload documents to stage, 2) Create model build, 3) Define extraction questions/values, 4) Review and correct extractions for training, 5) Publish the build, 6) Call PREDICT method on new documents.",
+      "multipleSelect": false,
+      "source": "https://docs.snowflake.com/en/user-guide/snowflake-cortex/document-ai/tutorials/tutorial-1"
+    },
+    {
+      "id": 20,
+      "topic": "Cortex Search",
+      "question": "An administrafor is reviewing their Snowflake bill and observes higher than expected storage and cloud services compute costs for a newly deployed Cortex Search Service. They need to investigate these charges. Which of the following statements correctly explains how these specific costs are incurred or can be monitored for a Cortex Search Service?",
+      "correctAnswer": "B",
+      "explanation": "Option B is correct: Storage costs for Cortex Search cover the materialized results of the source query and the search index, which are stored in the users account. Snowflake documentation explicitly states that the size of this stored data can be estimated by materializing the source query into a table using the table function (or similar process) and then examining its size. Option A is incorrect: While tracks some usage, the provided sources do not defail its capability for granular breakdowns of storage per TB or explicitly show the 10% cloud services adjustment applied to Cortex Search specifically. The view shows aggregate AI_SERVICES usage. Option C is incorrect: Cloud Services compute for Cortex Search is subject to the constraint that Snowflake only bills it the daily cloud services cost exceeds of the daily warehouse cost for the account. Option D is incorrect: Cloud services compute costs for Cortex Search are primarily influenced by the data's change rate and the 'TARGET LAG, not the complexity of the embedding model. Embedding model complexity impacts 'EMBED_TEXT TOKENS' costs. Option E incorrect: The view tracks Document ' processing function activity, not cortex Search costs. The appropriate view for overall ' Services usage is and for more specific cortex search usage, would be relevant for tokens, but B specifically addresses how to 'estimate' storage, not just monitor.",
+      "multipleSelect": false,
+      "options": {
+        "A": "The view provides detailed breakdowns of storage costs per TB and cloud services compute credits incurred, including the 10% daily warehouse cost adjustment.",
+        "B": "Storage costs are incurred for both the materialized source query data and the search index data structures, and these costs can be estimated by materializing the source query into a table using the table function, and then examining the size of that table.",
+        "C": "Cloud Services compute costs for Cortex Search are always billed without any adjustments, regardless of the daily virtual warehouse compute costs, because they are considered serverless features.",
+        "D": "High cloud services comput"
+      }
+    },
+    {
+      "id": 21,
+      "topic": "Cortex Search",
+      "question": "A data science team is using SNOWFLAKE. CORTEX. CLASSIFY_TEXT to categorize product reviews into detailed segments like 'Bug Report - Critical', 'Feature Request - LJVUX', 'General Praise', or 'Query - Billing Issue'. for highly nuanced reviews, they find the initial classifications lack precision, and they are also concerned about the associated compute costs for processing large volumes of data. Which strategies should they employ to optimize classification accuracy and manage costs effectively with this function?",
+      "correctAnswer": "A,B",
+      "explanation": "Option B is correct: Storage costs for Cortex Search cover the materialized results of the source query and the search index, which are stored in the users account. Snowflake documentation explicitly states that the size of this stored data can be estimated by materializing the source query into a table using the table function (or similar process) and then examining its size. Option A is incorrect: While tracks some usage, the provided sources do not defail its capability for granular breakdowns of storage per TB or explicitly show the 10% cloud services adjustment applied to Cortex Search specifically. The view shows aggregate AI_SERVICES usage. Option C is incorrect: Cloud Services compute for Cortex Search is subject to the constraint that Snowflake only bills it the daily cloud services cost exceeds of the daily warehouse cost for the account. Option D is incorrect: Cloud services compute costs for Cortex Search are primarily influenced by the data's change rate and the 'TARGET LAG, not the complexity of the embedding model. Embedding model complexity impacts 'EMBED_TEXT TOKENS' costs. Option E incorrect: The view tracks Document ' processing function activity, not cortex Search costs. The appropriate view for overall ' Services usage is and for more specific cortex search usage, would be relevant for tokens, but B specifically addresses how to 'estimate' storage, not just monitor.",
+      "multipleSelect": true,
+      "options": {
+        "A": "To improve accuracy for ambiguous classifications, they should augment the list_ot_categories with explicit description and examples for each category, understanding that these additions will increase input token costs for each record",
+        "B": "for complex scenarios where the relationship between review text and categories is not straightforward, including a concise task_description (e.g., 'Classify the product review focusing on technical support relevance') in the options arg"
+      }
+    },
+    {
+      "id": 22,
+      "topic": "Cortex LLM Functions",
+      "question": "A team is using CORTEX.COMPLETE to generate product descriptions. They want to ensure consistent, deterministic outputs for the same input. Which parameter configuration is recommended?",
+      "options": {
+        "A": "Set temperature = 1.0 for maximum creativity and consistency",
+        "B": "Set temperature = 0 to minimize randomness in outputs",
+        "C": "Set max_tokens = 0 to allow unlimited output length",
+        "D": "Set top_p = 1.0 to include all possible tokens",
+        "E": "Use the seed parameter with a fixed value for reproducibility"
+      },
+      "correctAnswer": "B",
+      "explanation": "VERIFIED: Per Snowflake docs, setting temperature = 0 produces the most deterministic outputs. Temperature controls randomness - 0 means the model always picks the most likely token. Higher values increase variability.",
+      "multipleSelect": false,
+      "source": "https://docs.snowflake.com/en/sql-reference/functions/complete-snowflake-cortex"
+    },
+    {
+      "id": 23,
+      "topic": "AI Observability",
+      "question": "Which prerequisites are needed to use AI Observability with a Python application? (Select all that apply)",
+      "options": {
+        "A": "Grant the SNOWFLAKE.CORTEX_USER database role to the role used by the application.",
+        "B": "Install the TruLens packages required by the Snowflake AI Observability connector.",
+        "C": "Set TRULENS_OTEL_TRACING=1 before connecting to Snowflake.",
+        "D": "Run the application only from Snowflake Notebooks.",
+        "E": "Grant the AI_OBSERVABILITY_EVENTS_LOOKUP application role to access trace events."
+      },
+      "correctAnswer": "A,B,C,E",
+      "multipleSelect": true,
+      "explanation": "AI Observability documentation lists required roles/privileges (including CORTEX_USER and the AI Observability application roles), required Python packages (TruLens), and the TRULENS_OTEL_TRACING setting. Snowflake Notebooks are explicitly not supported.",
+      "source": [
+        "https://docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-observability/ai-observability"
+      ],
+      "difficulty": "medium",
+      "lastUpdatedAt": "2026-01-19T23:16:19Z",
+      "regenerated": true,
+      "regenerationBatch": "batch2"
+    },
+    {
+      "id": 24,
+      "topic": "Cortex LLM Functions",
+      "question": "A developer wants to use structured outputs with AI_COMPLETE to ensure responses conform to a specific JSON schema. Which statement is TRUE about using structured outputs?",
+      "options": {
+        "A": "Structured outputs are only available with the llama3.1-70b model",
+        "B": "The response_format parameter accepts a JSON schema defining required properties and types",
+        "C": "Structured outputs guarantee 100% accuracy in extracted values",
+        "D": "The JSON schema must be stored in a Snowflake table before use",
+        "E": "Structured outputs bypass token limits for complex schemas"
+      },
+      "correctAnswer": "B",
+      "explanation": "VERIFIED: AI_COMPLETE accepts a response_format argument with a JSON schema object that defines required structure, data types, and constraints. The schema is passed inline, not stored in a table. It doesn't guarantee accuracy of values, only format.",
+      "multipleSelect": false,
+      "source": "https://docs.snowflake.com/en/sql-reference/functions/complete-snowflake-cortex"
+    },
+    {
+      "id": 25,
+      "topic": "Document AI",
+      "question": "Which statements about Document AI limits and operational usage are correct? (Select all that apply)",
+      "options": {
+        "A": "Documents must be within supported file type and size limits (for example, PDFs up to 125 pages and 50 MB).",
+        "B": "Document AI can process up to 1000 documents per query.",
+        "C": "For internal stages, Document AI supports only server-side encryption.",
+        "D": "You can build automated pipelines for Document AI using streams and tasks.",
+        "E": "Document AI pipelines support serverless tasks."
+      },
+      "correctAnswer": "A,B,C,D",
+      "multipleSelect": true,
+      "explanation": "Document AI has explicit document constraints (format, size, pages) and query limits. It supports only server-side encryption for internal stages and can be operationalized with streams and tasks, but does not support serverless tasks.",
+      "source": [
+        "https://docs.snowflake.com/en/user-guide/snowflake-cortex/document-ai/preparing-documents",
+        "https://docs.snowflake.com/en/user-guide/snowflake-cortex/document-ai/limitations",
+        "https://docs.snowflake.com/en/user-guide/snowflake-cortex/document-ai/overview"
+      ],
+      "difficulty": "medium",
+      "lastUpdatedAt": "2026-01-19T23:16:19Z",
+      "regenerated": true,
+      "regenerationBatch": "batch2"
+    },
+    {
+      "id": 26,
+      "topic": "Document AI",
+      "question": "An analytics team is preparing documents for a new Document Al model build to extract information from internal policy reviews. They have a variety of documents that they intend to upload to an internal stage for processing. The document list includes: (1) a 70 MB PDF with 100 pages, (2) a 45 MB DOCX with 150 pages, (3) a 30 MB PNG image, (4) a 60 MB TIFF image, and (5) a 20 MB HTML file. All documents are in English. Which of these documents would fail' to meet the direct input requirements for Document Al processing?",
+      "correctAnswer": "E",
+      "explanation": "3",
+      "multipleSelect": false,
+      "options": {
+        "A": "The 70 MB POF with 100 pages.",
+        "B": "The 45 MB DOCX with 150 pages.",
+        "C": "The 30 MB PNG image.",
+        "D": "The 60 MB TIFF image.",
+        "E": "The 20 MB HTML file."
+      }
+    },
+    {
+      "id": 27,
+      "topic": "Document AI",
+      "question": "Which of the following file formats are supported by Snowflake Document AI for document processing?",
+      "options": {
+        "A": "PDF, PNG, JPEG, TIFF, and BMP",
+        "B": "Only PDF files with embedded text (not scanned images)",
+        "C": "PDF, DOCX, XLSX, and PPTX",
+        "D": "PDF and images (PNG, JPEG, GIF) up to 50MB each",
+        "E": "Any file format that can be converted to text"
+      },
+      "correctAnswer": "A",
+      "explanation": "VERIFIED: Document AI supports PDF, PNG, JPEG, TIFF, and BMP formats. It can process both native PDFs and scanned document images. DOCX/XLSX are not supported directly.",
+      "multipleSelect": false,
+      "source": "https://docs.snowflake.com/en/user-guide/snowflake-cortex/document-ai/overview"
+    },
+    {
+      "id": 28,
+      "topic": "Document AI",
+      "question": "What is the maximum number of pages allowed in a single PDF document when using Document AI?",
+      "options": {
+        "A": "50 pages",
+        "B": "100 pages",
+        "C": "125 pages",
+        "D": "500 pages",
+        "E": "No page limit, only file size limit of 100MB"
+      },
+      "correctAnswer": "C",
+      "explanation": "VERIFIED: Per Snowflake documentation, Document AI supports PDF documents with a maximum of 125 pages. Documents exceeding this limit must be split before processing.",
+      "multipleSelect": false,
+      "source": "https://docs.snowflake.com/en/user-guide/snowflake-cortex/document-ai/overview"
+    },
+    {
+      "id": 29,
+      "topic": "Cortex LLM Functions",
+      "question": "Which Snowflake Cortex function should be used to classify text into predefined categories?",
+      "options": {
+        "A": "COMPLETE with a classification prompt",
+        "B": "CLASSIFY_TEXT with a list of categories",
+        "C": "EXTRACT with classification schema",
+        "D": "SENTIMENT to determine positive/negative/neutral",
+        "E": "EMBED_TEXT_768 to create classification vectors"
+      },
+      "correctAnswer": "B",
+      "explanation": "VERIFIED: CLASSIFY_TEXT is the dedicated Cortex function for classifying text into user-specified categories. It takes the text and a list of possible categories as parameters.",
+      "multipleSelect": false,
+      "source": "https://docs.snowflake.com/en/sql-reference/functions/classify_text"
+    },
+    {
+      "id": 30,
+      "topic": "General Cortex AI",
+      "question": "A company wants to ingest and process scanned invoices and digitally-born contracts in Snowflake. They need to extract all text, preserving layout for contracts and just the text content for scanned invoices. Which AI_PARSE_DOCUMENT modes would be most appropriate for this scenario, and what is the primary purpose of the function itself?",
+      "correctAnswer": "C",
+      "explanation": "option C is correct. AI_PARSE DOCUMENT is a Cortex Al SQL function designed to extract text, data, and layout elements from documents with high fidelity, preserving structure like tables, headers, and reading order. for digitally- born contracts where layout preservation is needed, the mode is appropriate. for scanned invoices where only text content is needed without layout, the OCR mode, which extracts text LAYOUT from scanned documents and does not preserve layout, is suitable.",
+      "multipleSelect": false,
+      "options": {
+        "A": "Primary purpose is to generate new text. for contracts, use OCR mode; for invoices, use LAYOUT mode.",
+        "B": "Primary purpose is to classify text. for contracts, use LAYOUT mode; for invoices, use OCR mode.",
+        "C": "Primary purpose is to extract data and layout. for contracts, use LAYOUT mode; for invoices, use OCR mode.",
+        "D": "Primary purpose is to summarize text. for contracts, use OCR mode; for invoices, use LAYOUT mode.",
+        "E": "Primary purpose is to translate text. Both document types should use LAYOUT"
+      }
+    },
+    {
+      "id": 31,
+      "topic": "Cortex LLM Functions",
+      "question": "What is the maximum recommended warehouse size for executing Cortex LLM functions like COMPLETE and SUMMARIZE?",
+      "options": {
+        "A": "X-Small only for cost optimization",
+        "B": "Small to Medium - larger sizes don't improve performance",
+        "C": "Large or X-Large for best inference speed",
+        "D": "2X-Large or higher for production workloads",
+        "E": "Warehouse size doesn't affect Cortex function performance"
+      },
+      "correctAnswer": "B",
+      "explanation": "VERIFIED: Per Snowflake docs, Cortex AI SQL functions should be executed with smaller warehouses (no larger than MEDIUM). Larger warehouses do NOT increase performance for these serverless functions but still incur compute costs.",
+      "multipleSelect": false,
+      "source": "https://docs.snowflake.com/en/user-guide/snowflake-cortex/llm-functions"
+    },
+    {
+      "id": 32,
+      "topic": "Snowpark Container Services",
+      "question": "A team wants to deploy a custom ML model in Snowflake using Snowpark Container Services. Which component is required to define the container runtime environment?",
+      "options": {
+        "A": "A Dockerfile specifying the base image and dependencies",
+        "B": "A YAML specification file defining the service endpoints",
+        "C": "A Python requirements.txt file uploaded to a stage",
+        "D": "A Snowflake UDF wrapper for the model inference function",
+        "E": "A compute pool definition with GPU specifications"
+      },
+      "correctAnswer": "B",
+      "explanation": "VERIFIED: Snowpark Container Services uses a YAML specification file to define service configuration including endpoints, resources, and container settings. The spec file is used with CREATE SERVICE command.",
+      "multipleSelect": false,
+      "source": "https://docs.snowflake.com/en/developer-guide/snowpark-container-services/overview"
+    },
+    {
+      "id": 33,
+      "topic": "Snowpark Container Services",
+      "question": "What must be created before deploying a container service in Snowpark Container Services?",
+      "options": {
+        "A": "An external function pointing to the container registry",
+        "B": "A compute pool to provide container runtime resources",
+        "C": "A network rule allowing outbound internet access",
+        "D": "A stream on the input data table",
+        "E": "A Snowflake Native App package"
+      },
+      "correctAnswer": "B",
+      "explanation": "VERIFIED: A compute pool must be created before deploying services. Compute pools provide the compute resources (CPU/GPU) for running containers. Services are deployed to a specific compute pool.",
+      "multipleSelect": false,
+      "source": "https://docs.snowflake.com/en/developer-guide/snowpark-container-services/working-with-compute-pool"
+    },
+    {
+      "id": 34,
+      "topic": "Document AI",
+      "question": "When training a Document AI model build, what is the purpose of reviewing and correcting extracted values?",
+      "options": {
+        "A": "To generate synthetic training data for the underlying LLM",
+        "B": "To fine-tune the base model weights using supervised learning",
+        "C": "To provide examples that help the model understand document layout and extraction patterns",
+        "D": "To validate that the documents meet format requirements before processing",
+        "E": "To create a cache of pre-computed extractions for faster inference"
+      },
+      "correctAnswer": "C",
+      "explanation": "VERIFIED: Document AI uses few-shot learning. By reviewing and correcting extractions during build creation, you provide examples that help the model understand where to find specific values in your document types. This is layout-aware extraction training.",
+      "multipleSelect": false,
+      "source": "https://docs.snowflake.com/en/user-guide/snowflake-cortex/document-ai/using"
+    },
+    {
+      "id": 35,
+      "topic": "General Cortex AI",
+      "question": "Which statement correctly describes how Snowflake Cortex AI functions are billed?",
+      "options": {
+        "A": "Flat monthly fee based on account tier",
+        "B": "Per-token pricing based on input and output tokens processed",
+        "C": "Only warehouse compute credits are charged, no additional AI fees",
+        "D": "Per-API-call pricing regardless of input/output size",
+        "E": "Free for all Enterprise edition accounts"
+      },
+      "correctAnswer": "B",
+      "explanation": "VERIFIED: Cortex LLM functions are billed based on tokens processed. Pricing varies by model and includes both input tokens (prompt) and output tokens (completion). More complex models cost more per token.",
+      "multipleSelect": false,
+      "source": "https://docs.snowflake.com/en/user-guide/snowflake-cortex/llm-functions#cost-considerations"
+    },
+    {
+      "id": 36,
+      "topic": "Cost & Governance",
+      "question": "You are planning to use SNOWFLAKE.CORTEX.TRANSLATE for text translation at scale. Which statements are correct? (Select all that apply)",
+      "options": {
+        "A": "TRANSLATE runs on Snowflake-managed compute, not your virtual warehouse.",
+        "B": "TRANSLATE is billed by warehouse credits only.",
+        "C": "TRANSLATE supports translating non-text inputs such as images.",
+        "D": "Because TRANSLATE may add an internal prompt to your input text, its token-based billing can be higher than the raw input text token count.",
+        "E": "Snowflake recommends you use a warehouse no larger than MEDIUM for workloads that call Cortex AI functions."
+      },
+      "correctAnswer": "A,D,E",
+      "multipleSelect": true,
+      "explanation": "TRANSLATE uses Snowflake-managed compute. Cortex AI function usage is token-based, and some functions (including TRANSLATE) may add internal prompts affecting token counts. Snowflake recommends using warehouses no larger than MEDIUM for AI workloads.",
+      "source": [
+        "https://docs.snowflake.com/en/sql-reference/functions/translate-snowflake-cortex",
+        "https://docs.snowflake.com/en/user-guide/snowflake-cortex/aisql"
+      ],
+      "difficulty": "medium",
+      "lastUpdatedAt": "2026-01-19T23:16:19Z",
+      "regenerated": true,
+      "regenerationBatch": "batch2"
+    },
+    {
+      "id": 37,
+      "topic": "Cortex LLM Functions",
+      "question": "A developer wants to extract entities from text using Cortex. Which function is specifically designed for named entity extraction?",
+      "options": {
+        "A": "PARSE_TEXT for extracting structured elements",
+        "B": "EXTRACT_ANSWER for question-based extraction",
+        "C": "COMPLETE with an extraction prompt template",
+        "D": "ENTITY_EXTRACT for named entity recognition",
+        "E": "There is no dedicated entity extraction function; use COMPLETE with structured output"
+      },
+      "correctAnswer": "B",
+      "explanation": "VERIFIED: EXTRACT_ANSWER is used for extractive question answering - given a question and source text, it extracts the answer. For general entity extraction, COMPLETE with appropriate prompts or structured outputs is recommended.",
+      "multipleSelect": false,
+      "source": "https://docs.snowflake.com/en/sql-reference/functions/extract_answer"
+    },
+    {
+      "id": 38,
+      "topic": "Cost & Governance",
+      "question": "When estimating token usage for Cortex AI functions, which statement about SNOWFLAKE.CORTEX.COUNT_TOKENS is true?",
+      "options": {
+        "A": "COUNT_TOKENS includes the managed system prompt added by AI functions, so it always matches the billable token count.",
+        "B": "COUNT_TOKENS supports fine-tuned models.",
+        "C": "COUNT_TOKENS may underestimate billable tokens because it does not include the managed system prompt that Snowflake adds to AI function calls.",
+        "D": "COUNT_TOKENS itself incurs token-based charges just like COMPLETE.",
+        "E": "COUNT_TOKENS is only available in regions where a specific model is deployed."
+      },
+      "correctAnswer": "C",
+      "multipleSelect": false,
+      "explanation": "The documentation notes that COUNT_TOKENS does not include the managed system prompt that Snowflake adds when running AI functions, so it can be lower than the billable token count.",
+      "source": [
+        "https://docs.snowflake.com/en/sql-reference/functions/count_tokens-snowflake-cortex"
+      ],
+      "difficulty": "medium",
+      "lastUpdatedAt": "2026-01-19T23:16:19Z",
+      "regenerated": true,
+      "regenerationBatch": "batch2"
+    },
+    {
+      "id": 39,
+      "topic": "Fine-tuning",
+      "question": "What is the maximum number of training rows supported when fine-tuning a model in Snowflake Cortex with 3 epochs?",
+      "options": {
+        "A": "10,000 rows for all models",
+        "B": "50,000 rows for llama models, 100,000 for mistral",
+        "C": "Varies by model: mistral-7b supports 15k rows, llama3-70b supports 7k rows",
+        "D": "Unlimited rows with automatic batching",
+        "E": "100,000 rows for all supported models"
+      },
+      "correctAnswer": "C",
+      "explanation": "VERIFIED: Row limits vary by model when using 3 epochs. mistral-7b supports ~15k rows (45k total samples), llama3-8b supports ~62k rows, llama3-70b supports ~7k rows. Larger models have lower row limits.",
+      "multipleSelect": false,
+      "source": "https://docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-finetuning"
+    },
+    {
+      "id": 40,
+      "topic": "Cortex Search",
+      "question": "A GenAI specialist is designing a RAG pipeline utilizing Cortex Search for an application that queries a large repository of unstructured text documents. To optimize retrieval quality and downstream LLM responses, which considerations about text processing and tokenization are most appropriate? (Select all that apply)",
+      "options": {
+        "A": "Split the search text into chunks of no more than ~512 tokens to improve retrieval precision and provide more relevant context to the LLM.",
+        "B": "If the input exceeds the embedding model context window, Cortex Search truncates the text for both semantic embedding and keyword-based retrieval.",
+        "C": "Embedding models with very large context windows are always superior because they let you index entire documents as a single chunk.",
+        "D": "Use helper functions like COUNT_TOKENS to estimate token counts when preparing chunking and prompts.",
+        "E": "Cortex Search is purely vector-based, so keyword retrieval behavior is not relevant when text exceeds the embedding context window."
+      },
+      "correctAnswer": "A,D",
+      "explanation": "Option A is correct: Snowflake recommends chunking text (commonly ~512 tokens) to improve retrieval precision and the relevance of context provided to the LLM. Option B is incorrect: Cortex Search may truncate text for semantic embedding when it exceeds the embedding model context window, but keyword retrieval can still use the full text. Option C is incorrect: larger context windows are not automatically better for retrieval; smaller, well-chunked passages often retrieve more precisely. Option D is correct: COUNT_TOKENS helps estimate token counts when preparing chunking and prompts. Option E is incorrect because Cortex Search is hybrid (vector + keyword), so keyword retrieval behavior matters.",
+      "multipleSelect": true,
+      "verified": true,
+      "source": "https://docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-search/cortex-search-overview"
+    },
+    {
+      "id": 41,
+      "topic": "Cortex Search",
+      "question": "What is the recommended chunk size for text when creating a Cortex Search service?",
+      "options": {
+        "A": "256 tokens for optimal embedding quality",
+        "B": "512 tokens as the default and recommended size",
+        "C": "1024 tokens for longer context windows",
+        "D": "2048 tokens to match LLM context limits",
+        "E": "Variable sizing based on document type"
+      },
+      "correctAnswer": "B",
+      "explanation": "VERIFIED: Per Snowflake documentation, 512 tokens is the default and recommended chunk size for Cortex Search. This balances semantic coherence with retrieval precision.",
+      "multipleSelect": false,
+      "source": "https://docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-search/cortex-search-overview"
+    },
+    {
+      "id": 42,
+      "topic": "Document AI",
+      "question": "What encryption type is REQUIRED for internal stages used with Document AI?",
+      "options": {
+        "A": "SNOWFLAKE_FULL encryption with customer-managed keys",
+        "B": "SNOWFLAKE_SSE (Server-Side Encryption)",
+        "C": "AWS_SSE_S3 for cross-cloud compatibility",
+        "D": "No encryption required; Document AI handles encryption internally",
+        "E": "Client-side encryption before upload"
+      },
+      "correctAnswer": "B",
+      "explanation": "VERIFIED: Document AI requires internal stages to be configured with ENCRYPTION = (TYPE = 'SNOWFLAKE_SSE'). This is a hard requirement and using other encryption types will result in errors.",
+      "multipleSelect": false,
+      "source": "https://docs.snowflake.com/en/user-guide/snowflake-cortex/document-ai/using"
+    },
+    {
+      "id": 43,
+      "topic": "Cortex Search",
+      "question": "Which requirements apply when creating and operating a Cortex Search service? (Select all that apply)",
+      "options": {
+        "A": "Change tracking must be enabled on the underlying source object(s).",
+        "B": "A warehouse is used for service refresh operations.",
+        "C": "The role creating the service must have a Snowflake Cortex database role such as SNOWFLAKE.CORTEX_USER or SNOWFLAKE.CORTEX_EMBED_USER.",
+        "D": "Snowflake recommends using a dedicated warehouse no larger than MEDIUM for the service.",
+        "E": "Cortex Search services refresh continuously using serverless compute only, so no warehouse is needed."
+      },
+      "correctAnswer": "A,B,C,D",
+      "multipleSelect": true,
+      "explanation": "Cortex Search requires change tracking on the source, uses a warehouse for refresh, and requires appropriate Cortex roles. Snowflake recommends a dedicated warehouse no larger than MEDIUM.",
+      "source": [
+        "https://docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-search/cortex-search-overview"
+      ],
+      "difficulty": "medium",
+      "lastUpdatedAt": "2026-01-19T23:16:19Z",
+      "regenerated": true,
+      "regenerationBatch": "batch2"
+    },
+    {
+      "id": 44,
+      "topic": "Fine-tuning",
+      "question": "Which base models are currently supported for fine-tuning in Snowflake Cortex?",
+      "options": {
+        "A": "Only Snowflake Arctic models",
+        "B": "llama3-8b, llama3-70b, llama3.1-8b, llama3.1-70b, mistral-7b, and mixtral-8x7b",
+        "C": "Any open-source model uploaded to a stage",
+        "D": "GPT-4 and Claude through API integration",
+        "E": "Only mistral-7b for text generation tasks"
+      },
+      "correctAnswer": "B",
+      "explanation": "VERIFIED: Snowflake Cortex supports fine-tuning of Llama 3/3.1 (8b and 70b variants), Mistral-7b, and Mixtral-8x7b models. Custom or proprietary models like GPT-4 cannot be fine-tuned in Cortex.",
+      "multipleSelect": false,
+      "source": "https://docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-finetuning"
+    },
+    {
+      "id": 45,
+      "topic": "Document AI",
+      "question": "You want to process a set of PDFs with Document AI and productionize the workflow. Which considerations are critical? (Select all that apply)",
+      "options": {
+        "A": "Documents must be within supported format and size limits (for example, PDFs up to 125 pages and 50 MB).",
+        "B": "You must convert PDFs to plain text before Document AI can process them.",
+        "C": "Document AI supports processing up to 1000 documents per query.",
+        "D": "You can operationalize extraction using streams and tasks.",
+        "E": "Document AI supports serverless tasks for pipelines."
+      },
+      "correctAnswer": "A,C,D",
+      "multipleSelect": true,
+      "explanation": "Document AI has explicit limits on supported formats and document size/page count. It can process up to 1000 documents per query, and it can be productionized using streams and tasks. Document AI does not support serverless tasks.",
+      "source": [
+        "https://docs.snowflake.com/en/user-guide/snowflake-cortex/document-ai/preparing-documents",
+        "https://docs.snowflake.com/en/user-guide/snowflake-cortex/document-ai/limitations",
+        "https://docs.snowflake.com/en/user-guide/snowflake-cortex/document-ai/overview"
+      ],
+      "difficulty": "medium",
+      "lastUpdatedAt": "2026-01-19T23:16:19Z",
+      "regenerated": true,
+      "regenerationBatch": "batch2"
+    },
+    {
+      "id": 46,
+      "topic": "Document AI",
+      "question": "After publishing a Document AI model build, how do you extract values from new documents?",
+      "options": {
+        "A": "Call the EXTRACT function with the model build name",
+        "B": "Use the PREDICT method on the model build object",
+        "C": "Insert documents into a table monitored by the model build",
+        "D": "Call DOCUMENT_AI_EXTRACT with the build ID",
+        "E": "Use COMPLETE with the model build as the model parameter"
+      },
+      "correctAnswer": "B",
+      "explanation": "VERIFIED: After publishing, you call the PREDICT method: model_build!PREDICT(GET_PRESIGNED_URL(@stage, 'file.pdf'), 1). The PREDICT method returns extracted values based on the trained extraction schema.",
+      "multipleSelect": false,
+      "source": "https://docs.snowflake.com/en/user-guide/snowflake-cortex/document-ai/using"
+    },
+    {
+      "id": 47,
+      "topic": "Cortex LLM Functions",
+      "question": "You need deterministic, schema-validated JSON output from a Cortex LLM call and you want robust error handling. Which statements are correct? (Select all that apply)",
+      "options": {
+        "A": "With COMPLETE, you can provide response_format with a JSON schema and set temperature to 0 for more consistent outputs.",
+        "B": "You can declare required keys in the schema so the model is expected to include them in the response.",
+        "C": "TRY_COMPLETE returns NULL instead of raising an error when it cannot perform the operation.",
+        "D": "The response_format option is provided as a string containing JSON schema.",
+        "E": "Using a larger virtual warehouse increases COMPLETE speed and lowers token cost."
+      },
+      "correctAnswer": "A,B,C,D",
+      "multipleSelect": true,
+      "explanation": "COMPLETE supports response_format using a JSON schema passed as a string, and using temperature 0 reduces randomness. TRY_COMPLETE is like COMPLETE but returns NULL instead of raising an error.",
+      "source": [
+        "https://docs.snowflake.com/en/sql-reference/functions/complete-snowflake-cortex",
+        "https://docs.snowflake.com/en/sql-reference/functions/try_complete-snowflake-cortex"
+      ],
+      "difficulty": "medium",
+      "lastUpdatedAt": "2026-01-19T23:16:19Z",
+      "regenerated": true,
+      "regenerationBatch": "batch2"
+    },
+    {
+      "id": 48,
+      "topic": "General Cortex AI",
+      "question": "Which Cortex function would you use to generate a dense vector representation of text for semantic similarity comparisons?",
+      "options": {
+        "A": "VECTORIZE for creating searchable embeddings",
+        "B": "EMBED_TEXT_768 or EMBED_TEXT_1024 for generating embeddings",
+        "C": "ENCODE_TEXT for numerical text representation",
+        "D": "HASH_TEXT for fixed-length vector output",
+        "E": "SIMILARITY_VECTOR for comparison-ready vectors"
+      },
+      "correctAnswer": "B",
+      "explanation": "VERIFIED: Snowflake provides EMBED_TEXT_768 and EMBED_TEXT_1024 functions (and snowflake-arctic-embed models) to generate dense vector embeddings. These embeddings can be used for semantic similarity with VECTOR_COSINE_SIMILARITY.",
+      "multipleSelect": false,
+      "source": "https://docs.snowflake.com/en/sql-reference/functions/embed_text_768"
+    },
+    {
+      "id": 50,
+      "topic": "Cortex LLM Functions",
+      "question": "When using TRY_COMPLETE instead of COMPLETE, what happens when the LLM function fails?",
+      "options": {
+        "A": "It raises a detailed error with diagnostic information",
+        "B": "It returns NULL instead of raising an error",
+        "C": "It automatically retries with a smaller model",
+        "D": "It returns a default fallback message",
+        "E": "It logs the error and continues with partial output"
+      },
+      "correctAnswer": "B",
+      "explanation": "VERIFIED: TRY_COMPLETE performs the same operation as COMPLETE but returns NULL instead of raising an error when the operation fails. This allows pipelines to continue processing without interruption.",
+      "multipleSelect": false,
+      "source": "https://docs.snowflake.com/en/sql-reference/functions/try_complete"
+    },
+    {
+      "id": 52,
+      "topic": "Cortex Analyst",
+      "question": "What format is used to define a semantic model for Cortex Analyst?",
+      "options": {
+        "A": "JSON configuration file with table mappings",
+        "B": "YAML file with tables, dimensions, measures, and relationships",
+        "C": "SQL DDL statements with semantic annotations",
+        "D": "Python dictionary uploaded via Snowpark",
+        "E": "XML schema with business term definitions"
+      },
+      "correctAnswer": "B",
+      "explanation": "VERIFIED: Cortex Analyst semantic models are defined in YAML format. The YAML includes table definitions, columns with descriptions, measures, dimensions, time dimensions, relationships, and verified queries.",
+      "multipleSelect": false,
+      "source": "https://docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-analyst"
+    },
+    {
+      "id": 54,
+      "topic": "Vector Embeddings",
+      "question": "What is the maximum dimension supported by the VECTOR data type in Snowflake?",
+      "options": {
+        "A": "768 dimensions (matching BERT embeddings)",
+        "B": "1024 dimensions (matching Arctic embeddings)",
+        "C": "2048 dimensions",
+        "D": "4096 dimensions",
+        "E": "8192 dimensions"
+      },
+      "correctAnswer": "D",
+      "explanation": "VERIFIED: The Snowflake VECTOR data type supports a maximum of 4096 dimensions. This accommodates most embedding models including those with 768, 1024, and larger dimension outputs.",
+      "multipleSelect": false,
+      "source": "https://docs.snowflake.com/en/sql-reference/data-types-vector"
+    },
+    {
+      "id": 56,
+      "topic": "RAG",
+      "question": "In a RAG (Retrieval-Augmented Generation) application using Snowflake, what is the correct order of operations?",
+      "options": {
+        "A": "Generate answer → Retrieve context → Embed query",
+        "B": "Embed query → Retrieve similar chunks → Generate answer with context",
+        "C": "Store documents → Generate embeddings → Answer queries directly",
+        "D": "Parse query → Call COMPLETE → Post-process output",
+        "E": "Index documents → Use SEARCH function → Return raw results"
+      },
+      "correctAnswer": "B",
+      "explanation": "VERIFIED: Standard RAG flow: 1) Embed the user query, 2) Retrieve semantically similar document chunks using vector similarity, 3) Pass retrieved context to LLM with the original query to generate a grounded answer.",
+      "multipleSelect": false,
+      "source": "https://docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-search/tutorials/tutorial-1"
+    },
+    {
+      "id": 58,
+      "topic": "Governance & Security",
+      "question": "A Streamlit in Snowflake app queries a table in a database/schema and calls Cortex LLM functions. Which privileges are required for the role used by the app? (Select all that apply)",
+      "options": {
+        "A": "Grant the SNOWFLAKE.CORTEX_USER database role.",
+        "B": "Grant USAGE on the database and schema that contain the table.",
+        "C": "Grant SELECT on the underlying table or view.",
+        "D": "Use ACCOUNTADMIN; Cortex functions require it.",
+        "E": "Grant CREATE COMPUTE POOL; Streamlit apps require it."
+      },
+      "correctAnswer": "A,B,C",
+      "multipleSelect": true,
+      "explanation": "Cortex LLM functions require the SNOWFLAKE.CORTEX_USER database role. In addition, standard Snowflake access control requires USAGE on the database and schema and SELECT on the referenced objects.",
+      "source": [
+        "https://docs.snowflake.com/en/user-guide/snowflake-cortex/aisql"
+      ],
+      "difficulty": "medium",
+      "lastUpdatedAt": "2026-01-19T23:16:19Z",
+      "regenerated": true,
+      "regenerationBatch": "batch2"
+    },
+    {
+      "id": 59,
+      "topic": "Fine-tuning",
+      "question": "A data science team wants to fine-tune a large language model in Snowflake Cortex for a specialized text classification task. They have 100,000 training examples. Which of the following base models would allow them to use all their training data with 3 training epochs without truncation?",
+      "options": {
+        "A": "llama3-8b (62k row limit for 3 epochs)",
+        "B": "llama3-70b (7k row limit for 3 epochs)",
+        "C": "llama3.1-70b (4.5k row limit for 3 epochs)",
+        "D": "mistral-7b (15k row limit for 3 epochs)",
+        "E": "mixtral-8x7b (9k row limit for 3 epochs)"
+      },
+      "correctAnswer": "A",
+      "explanation": "Per official Snowflake documentation, llama3-8b has a row limit of 62k for 3 epochs (186k ÷ 3), which is the highest among the options and can accommodate 100k training examples. llama3-70b is limited to 7k rows, llama3.1-70b to 4.5k, mistral-7b to 15k, and mixtral-8x7b to 9k rows when training with 3 epochs.",
+      "multipleSelect": false,
+      "source": "docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-finetuning",
+      "generated": true,
+      "generatedDate": "2026-01-19"
+    },
+    {
+      "id": 60,
+      "topic": "Fine-tuning",
+      "question": "Which of the following statements about the training data requirements for Snowflake Cortex Fine-tuning are TRUE? (Select all that apply)",
+      "options": {
+        "A": "The training data query must return columns named 'prompt' and 'completion'.",
+        "B": "Training data must be stored in an external stage with SNOWFLAKE_SSE encryption.",
+        "C": "Column aliases (SELECT a AS prompt, d AS completion) can be used to rename columns.",
+        "D": "The fine-tuning function will use all columns in the query result for training.",
+        "E": "Prompt and completion pairs exceeding the context window will be truncated, potentially impacting model quality."
+      },
+      "correctAnswer": "A,C,E",
+      "explanation": "Per official docs: (A) Training data must have 'prompt' and 'completion' columns. (C) Column aliases can be used to rename columns. (E) Pairs exceeding context window limits are truncated, which may negatively impact quality. (B) is incorrect - training data comes from Snowflake tables/views, not stages. (D) is incorrect - columns other than prompt and completion are ignored.",
+      "multipleSelect": true,
+      "source": "docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-finetuning",
+      "generated": true,
+      "generatedDate": "2026-01-19"
+    },
+    {
+      "id": 61,
+      "topic": "Fine-tuning",
+      "question": "A data engineer has successfully completed a fine-tuning job and wants to analyze the training results. Which artifact is available after fine-tuning completes, and what information does it contain?",
+      "options": {
+        "A": "model_metrics.json containing accuracy, precision, recall, and F1 scores.",
+        "B": "training_results.csv containing step, epoch, training_loss, and validation_loss columns.",
+        "C": "inference_logs.txt containing all prompts and completions used during training.",
+        "D": "model_weights.bin containing the raw model weights for external deployment.",
+        "E": "evaluation_report.pdf containing a summary of model performance across test cases."
+      },
+      "correctAnswer": "B",
+      "explanation": "Per official Snowflake documentation, after fine-tuning completes, a training_results.csv file is available containing columns: step (training steps completed), epoch (training epoch starting at 1), training_loss (loss for training batch), and validation_loss (loss on validation dataset, available at last step of each epoch). This file can be accessed via the Model Registry UI or SQL/Python API.",
+      "multipleSelect": false,
+      "source": "docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-finetuning",
+      "generated": true,
+      "generatedDate": "2026-01-19"
+    },
+    {
+      "id": 62,
+      "topic": "Fine-tuning",
+      "question": "A company fine-tuned a model in AWS US West 2 (Oregon) and wants to share it with another team in AWS Europe Central 1 (Frankfurt). Which statements are TRUE about sharing and replicating fine-tuned models? (Select all that apply)",
+      "options": {
+        "A": "Fine-tuned models can be shared to other accounts via Data Sharing with the USAGE privilege.",
+        "B": "Cross-region inference automatically works for fine-tuned models without additional configuration.",
+        "C": "Database replication can replicate the fine-tuned model object to another region that supports the base model.",
+        "D": "Fine-tuned models require re-training in each region where they will be used.",
+        "E": "Inference must take place in the same region where the model object is located unless replicated."
+      },
+      "correctAnswer": "A,C,E",
+      "explanation": "Per official docs: (A) Fine-tuned models can be shared via Data Sharing with USAGE privilege. (C) Database replication can replicate models to regions supporting the base model. (E) Cross-region inference does NOT support fine-tuned models - inference must be in the same region as the model object. (B) is incorrect - cross-region inference does NOT support fine-tuned models. (D) is incorrect - replication works without re-training.",
+      "multipleSelect": true,
+      "source": "docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-finetuning",
+      "generated": true,
+      "generatedDate": "2026-01-19"
+    },
+    {
+      "id": 63,
+      "topic": "Cortex Analyst",
+      "question": "A company wants to restrict Cortex Analyst access to only the Sales Analyst team while other teams can still use other Cortex AI functions. Which approach correctly achieves this selective access control?",
+      "options": {
+        "A": "Revoke SNOWFLAKE.CORTEX_USER from PUBLIC and grant SNOWFLAKE.CORTEX_ANALYST_USER to the sales_analyst role.",
+        "B": "Set ENABLE_CORTEX_ANALYST = FALSE at the account level and create an exception for the sales team.",
+        "C": "Grant SNOWFLAKE.CORTEX_USER to sales_analyst role only.",
+        "D": "Store the semantic model YAML in a stage accessible only to sales_analyst role.",
+        "E": "Use CORTEX_MODELS_ALLOWLIST to restrict Cortex Analyst to specific roles."
+      },
+      "correctAnswer": "A",
+      "explanation": "Per official docs, SNOWFLAKE.CORTEX_ANALYST_USER provides access ONLY to Cortex Analyst, while CORTEX_USER provides access to ALL Covered AI features. By revoking CORTEX_USER from PUBLIC and granting CORTEX_ANALYST_USER to specific roles, you achieve selective access. Option D (stage access) controls semantic model access but not the API itself. Option E is incorrect - CORTEX_MODELS_ALLOWLIST controls LLM models, not Cortex Analyst access.",
+      "multipleSelect": false,
+      "source": "docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-analyst",
+      "generated": true,
+      "generatedDate": "2026-01-19"
+    },
+    {
+      "id": 64,
+      "topic": "Cortex Analyst",
+      "question": "When Cortex Analyst selects which LLM to use for processing a request, what is the order of preference for model selection (assuming all models are accessible)?",
+      "options": {
+        "A": "Mistral Large 2 → Llama 3.1 70b → Claude Sonnet 3.5 → GPT 4.1",
+        "B": "Claude Sonnet 4 → Claude Sonnet 3.7 → Claude Sonnet 3.5 → GPT 4.1 → Mistral/Llama combination",
+        "C": "GPT 4.1 → Claude Sonnet 4 → Mistral Large 2 → Llama 3.1 70b",
+        "D": "User-specified model → Default model based on region → Fallback to any available model",
+        "E": "Random selection from available models to distribute load"
+      },
+      "correctAnswer": "B",
+      "explanation": "Per official Snowflake documentation, Cortex Analyst selects models in the following preference order: Anthropic Claude Sonnet 4 → Claude Sonnet 3.7 → Claude Sonnet 3.5 → OpenAI GPT 4.1 → Combination of Mistral Large 2 and Llama 3.1 70b. The selection considers region availability, cross-region configuration, and RBAC restrictions.",
+      "multipleSelect": false,
+      "source": "docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-analyst",
+      "generated": true,
+      "generatedDate": "2026-01-19"
+    },
+    {
+      "id": 65,
+      "topic": "Cortex Analyst",
+      "question": "Which of the following are known limitations of multi-turn conversations in Cortex Analyst? (Select all that apply)",
+      "options": {
+        "A": "Cortex Analyst cannot access results from previous SQL queries in the conversation.",
+        "B": "Multi-turn conversations are limited to a maximum of 5 turns.",
+        "C": "Cortex Analyst cannot generate general business insights like 'What trends do you observe?'",
+        "D": "Long conversations or frequent intent shifts may cause difficulty interpreting follow-up questions.",
+        "E": "Each turn in a multi-turn conversation incurs the same fixed cost regardless of history length."
+      },
+      "correctAnswer": "A,C,D",
+      "explanation": "Per official docs, limitations include: (A) No access to previous SQL query results - cannot reference items from prior query outputs. (C) Limited to SQL-answerable questions - cannot generate general insights or trends. (D) Long conversations with many turns or frequent intent shifts may struggle. (B) is not a documented limitation. (E) is incorrect - compute cost increases with conversation history length.",
+      "multipleSelect": true,
+      "source": "docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-analyst",
+      "generated": true,
+      "generatedDate": "2026-01-19"
+    },
+    {
+      "id": 66,
+      "topic": "Cortex Analyst",
+      "question": "How is Cortex Analyst billing calculated, and what does NOT affect the cost?",
+      "options": {
+        "A": "Billing is based on the number of tokens in each message, similar to AI_COMPLETE.",
+        "B": "Billing is based on messages processed; only successful responses (HTTP 200) are counted.",
+        "C": "Billing includes both the Cortex Analyst API calls and a percentage of warehouse compute costs.",
+        "D": "Failed requests (non-200 responses) still incur half the normal message cost.",
+        "E": "The number of tokens in messages affects cost only when Cortex Analyst is invoked via Cortex Agents."
+      },
+      "correctAnswer": "B",
+      "explanation": "Per official docs, Cortex Analyst is billed per message processed, and only successful responses (HTTP 200) are counted. The number of tokens in each message does NOT affect cost UNLESS Cortex Analyst is invoked using Cortex Agents. Additionally, warehouse costs apply when executing the generated SQL, but this is separate from Cortex Analyst API costs.",
+      "multipleSelect": false,
+      "source": "docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-analyst",
+      "generated": true,
+      "generatedDate": "2026-01-19"
+    },
+    {
+      "id": 67,
+      "topic": "Vector Embeddings",
+      "question": "A data engineer needs to store 1024-dimensional embeddings generated by the snowflake-arctic-embed-l-v2.0 model. Which of the following column definitions is CORRECT?",
+      "options": {
+        "A": "VECTOR(INT, 1024) - Integer type is required for embedding storage.",
+        "B": "VECTOR(FLOAT, 1024) - Float type with 1024 dimensions matching the model output.",
+        "C": "VARIANT - Store embeddings as JSON arrays for flexible querying.",
+        "D": "ARRAY(FLOAT) - Use native array type for better performance.",
+        "E": "VECTOR(FLOAT, 4096) - Always use maximum dimensions for future compatibility."
+      },
+      "correctAnswer": "B",
+      "explanation": "The snowflake-arctic-embed-l-v2.0 model outputs 1024-dimensional float vectors, so VECTOR(FLOAT, 1024) is the correct definition. (A) is incorrect - embeddings use FLOAT, not INT. (C) is incorrect - VECTOR types are NOT supported in VARIANT columns. (D) is incorrect - ARRAY is not the VECTOR data type. (E) is incorrect - dimensions should match the model output exactly.",
+      "multipleSelect": false,
+      "source": "docs.snowflake.com/en/sql-reference/data-types-vector",
+      "generated": true,
+      "generatedDate": "2026-01-19"
+    },
+    {
+      "id": 68,
+      "topic": "Vector Embeddings",
+      "question": "Which of the following operations are NOT supported with the VECTOR data type in Snowflake? (Select all that apply)",
+      "options": {
+        "A": "Using VECTOR columns as clustering keys in standard tables.",
+        "B": "Storing VECTOR values inside VARIANT columns.",
+        "C": "Using VECTOR columns as primary keys in hybrid tables.",
+        "D": "Calculating cosine similarity between two VECTOR columns.",
+        "E": "Creating a table with a VECTOR(FLOAT, 2048) column."
+      },
+      "correctAnswer": "A,B,C",
+      "explanation": "Per official Snowflake documentation: (A) VECTOR is NOT supported as clustering keys. (B) Vectors are NOT supported in VARIANT columns. (C) VECTOR is NOT supported as primary or secondary index keys in hybrid tables. (D) is supported via VECTOR_COSINE_SIMILARITY function. (E) is supported - VECTOR supports up to 4096 dimensions.",
+      "multipleSelect": true,
+      "source": "docs.snowflake.com/en/sql-reference/data-types-vector",
+      "generated": true,
+      "generatedDate": "2026-01-19"
+    },
+    {
+      "id": 69,
+      "topic": "Vector Embeddings",
+      "question": "A company needs multilingual text embeddings for a global search application. Which embedding model and function combination should they use?",
+      "options": {
+        "A": "EMBED_TEXT_768 with e5-base-v2 model for best multilingual support.",
+        "B": "EMBED_TEXT_1024 with voyage-multilingual-2 model for multilingual support.",
+        "C": "EMBED_TEXT_768 with snowflake-arctic-embed-m for English-only optimization.",
+        "D": "EMBED_TEXT_1024 with snowflake-arctic-embed-m-v1.5 for lowest cost.",
+        "E": "Any EMBED_TEXT function automatically handles multilingual content."
+      },
+      "correctAnswer": "B",
+      "explanation": "voyage-multilingual-2 is specifically designed for multilingual embeddings and is available through EMBED_TEXT_1024. (A) e5-base-v2 through EMBED_TEXT_768 has limited multilingual support. (C) and (D) Arctic models are optimized for English. (E) is incorrect - model selection matters for multilingual support.",
+      "multipleSelect": false,
+      "source": "docs.snowflake.com/en/user-guide/snowflake-cortex/llm-functions",
+      "generated": true,
+      "generatedDate": "2026-01-19"
+    },
+    {
+      "id": 70,
+      "topic": "RAG",
+      "question": "A development team is building a RAG application with Cortex Search on documents using the snowflake-arctic-embed-l-v2.0-8k model with an 8000 token context window. What is the recommended chunk size for optimal search results?",
+      "options": {
+        "A": "8000 tokens to fully utilize the embedding model's context window.",
+        "B": "4000 tokens as a balanced middle ground between context and retrieval.",
+        "C": "512 tokens or less, even when using larger context window models.",
+        "D": "1024 tokens to match common embedding dimension sizes.",
+        "E": "Variable sizes based on document structure with no upper limit."
+      },
+      "correctAnswer": "C",
+      "explanation": "Per official Snowflake documentation, for best search results with Cortex Search, text should be split into chunks of no more than 512 tokens, EVEN when using embedding models with larger context windows like snowflake-arctic-embed-l-v2.0-8k (8000 tokens). Research shows smaller chunk sizes typically result in higher retrieval and downstream LLM response quality.",
+      "multipleSelect": false,
+      "source": "docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-search/cortex-search-overview",
+      "generated": true,
+      "generatedDate": "2026-01-19"
+    },
+    {
+      "id": 71,
+      "topic": "RAG",
+      "question": "When text input exceeds an embedding model's context window in Cortex Search, what happens to the search capability?",
+      "options": {
+        "A": "The search fails with an error indicating context window exceeded.",
+        "B": "Cortex Search truncates text for semantic embedding but uses full text for keyword-based retrieval.",
+        "C": "The text is automatically split into multiple chunks and each is embedded separately.",
+        "D": "Both semantic and keyword search use only the truncated portion of the text.",
+        "E": "Cortex Search automatically selects a larger context window model."
+      },
+      "correctAnswer": "B",
+      "explanation": "Per official documentation, when text exceeds the embedding model's context window, Cortex Search truncates the text for semantic (vector) embedding. However, the FULL body of text is still used for keyword-based retrieval. This hybrid approach ensures keyword matches are not lost even when semantic embedding is truncated.",
+      "multipleSelect": false,
+      "source": "docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-search/cortex-search-overview",
+      "generated": true,
+      "generatedDate": "2026-01-19"
+    },
+    {
+      "id": 72,
+      "topic": "RAG",
+      "question": "In a Streamlit in Snowflake (SiS) application using COMPLETE for multi-turn RAG conversations, which approach correctly maintains conversation context across user interactions?",
+      "options": {
+        "A": "Store conversation history in a Snowflake table and query it for each request.",
+        "B": "Use st.session_state to maintain an array of messages with role and content for each turn.",
+        "C": "Rely on the COMPLETE function's built-in conversation memory between calls.",
+        "D": "Pass only the last 3 messages to avoid token limits, discarding older context.",
+        "E": "Use Cortex Search to retrieve relevant conversation history dynamically."
+      },
+      "correctAnswer": "B",
+      "explanation": "Per Snowflake documentation and best practices, st.session_state in Streamlit is the recommended mechanism for maintaining chat history. The COMPLETE function requires passing ALL previous messages as an array with 'role' (user/assistant) and 'content' keys in chronological order. COMPLETE does NOT retain state between calls - history must be explicitly managed.",
+      "multipleSelect": false,
+      "source": "docs.snowflake.com/en/user-guide/snowflake-cortex/llm-functions",
+      "generated": true,
+      "generatedDate": "2026-01-19"
+    },
+    {
+      "id": 73,
+      "topic": "Cost & Governance",
+      "question": "A data engineer wants to monitor token consumption and costs for all Cortex LLM function calls in their account. Which view provides the MOST granular information including prompt_tokens, completion_tokens, and guard_tokens?",
+      "options": {
+        "A": "SNOWFLAKE.ACCOUNT_USAGE.METERING_HISTORY with SERVICE_TYPE = 'AI_SERVICES'",
+        "B": "SNOWFLAKE.ACCOUNT_USAGE.CORTEX_FUNCTIONS_USAGE_HISTORY",
+        "C": "SNOWFLAKE.ACCOUNT_USAGE.WAREHOUSE_METERING_HISTORY",
+        "D": "SNOWFLAKE.ACCOUNT_USAGE.QUERY_HISTORY filtered by Cortex function names",
+        "E": "SNOWFLAKE.INFORMATION_SCHEMA.CORTEX_USAGE"
+      },
+      "correctAnswer": "B",
+      "explanation": "CORTEX_FUNCTIONS_USAGE_HISTORY provides the most granular token-level information including prompt_tokens, completion_tokens, and guard_tokens (when Cortex Guard is enabled) for individual Cortex LLM function calls. METERING_HISTORY shows aggregate credit consumption but lacks token-level detail.",
+      "multipleSelect": false,
+      "source": "docs.snowflake.com/en/user-guide/snowflake-cortex/llm-functions",
+      "generated": true,
+      "generatedDate": "2026-01-19"
+    },
+    {
+      "id": 74,
+      "topic": "Cost & Governance",
+      "question": "An ACCOUNTADMIN has set CORTEX_MODELS_ALLOWLIST to 'mistral-large' and CORTEX_ENABLED_CROSS_REGION to 'ANY_REGION'. A user attempts to call AI_COMPLETE with 'llama3.1-70b'. What happens?",
+      "options": {
+        "A": "The call succeeds via cross-region inference since ANY_REGION is enabled.",
+        "B": "The call fails because llama3.1-70b is not in the CORTEX_MODELS_ALLOWLIST.",
+        "C": "The call succeeds but with increased latency due to cross-region processing.",
+        "D": "The call is automatically redirected to mistral-large as a fallback.",
+        "E": "The call succeeds if the user has the SNOWFLAKE.CORTEX_USER database role."
+      },
+      "correctAnswer": "B",
+      "explanation": "CORTEX_ENABLED_CROSS_REGION enables cross-region processing for ALLOWED models but does NOT bypass the CORTEX_MODELS_ALLOWLIST. Since llama3.1-70b is not in the allowlist (only mistral-large is allowed), the call fails regardless of cross-region settings or user roles.",
+      "multipleSelect": false,
+      "source": "docs.snowflake.com/en/user-guide/snowflake-cortex/llm-functions",
+      "generated": true,
+      "generatedDate": "2026-01-19"
+    },
+    {
+      "id": 75,
+      "topic": "Cost & Governance",
+      "question": "Which statements about Snowflake's AI Trust and Safety principles are TRUE? (Select all that apply)",
+      "options": {
+        "A": "Customer data used in Cortex AI functions is never used to train models made available to other customers.",
+        "B": "Fine-tuned models are exclusive to the account that created them and not shared with others.",
+        "C": "Cortex Guard automatically anonymizes PII before it reaches the LLM.",
+        "D": "When using Snowflake-hosted LLMs, data including prompts stays within Snowflake's governance boundary.",
+        "E": "Human oversight is recommended for decisions based on AI outputs."
+      },
+      "correctAnswer": "A,B,D,E",
+      "explanation": "Per official docs: (A) Snowflake never uses Customer Data to train shared models. (B) Fine-tuned models are exclusive to your account. (D) Data stays within Snowflake's governance boundary for Snowflake-hosted LLMs. (E) Human oversight is recommended for AI-based decisions. (C) is FALSE - Cortex Guard filters unsafe/harmful responses but does NOT anonymize PII.",
+      "multipleSelect": true,
+      "source": "docs.snowflake.com/en/guides-overview-ai-features",
+      "generated": true,
+      "generatedDate": "2026-01-19"
+    }
+  ],
+  "studyGuide": {
+    "Cortex Analyst": [
+      "Semantic models bridge natural language and database schema",
+      "LLM summarization agent manages multi-turn conversations",
+      "Llama 3.1 70B used for summarization (96.5% accuracy)",
+      "verified_queries for pre-defined specific questions",
+      "Warehouse size MEDIUM or smaller recommended for all Cortex functions"
+    ],
+    "Cortex Search": [
+      "Hybrid search engine (vector + keyword)",
+      "Chunk text to max 512 tokens for best results",
+      "CHANGE_TRACKING required for incremental refreshes",
+      "Cost: 6.3 credits per GB/month of indexed data",
+      "Requires virtual warehouse for refreshes (MEDIUM or smaller)"
+    ],
+    "Document AI": [
+      "SNOWFLAKE_SSE encryption required for internal stages",
+      "Maximum 125 pages and 50 MB per document",
+      "Maximum 1000 documents per query",
+      "Supported formats: PDF, PNG, DOCX, XML, JPEG, HTML, TXT, TIFF",
+      "SNOWFLAKE.DOCUMENT_INTELLIGENCE_CREATOR role required",
+      "Training with diverse documents improves accuracy"
+    ],
+    "Vector Embeddings": [
+      "VECTOR data type supports up to 4096 dimensions",
+      "Element types: FLOAT (32-bit) or INT (32-bit)",
+      "Not supported: VARIANT columns, clustering keys, primary keys",
+      "EMBED_TEXT_768: e5-base-v2, etc.",
+      "EMBED_TEXT_1024: snowflake-arctic-embed, voyage-multilingual-2, etc."
+    ],
+    "Cortex LLM Functions": [
+      "AI_COMPLETE: General LLM completions with structured outputs",
+      "response_format parameter for JSON schema enforcement",
+      "temperature=0 for most consistent results",
+      "TRY_COMPLETE returns NULL on failure instead of error",
+      "Token billing: input + output tokens (varies by function)"
+    ],
+    "Fine-tuning": [
+      "Supported models: llama3-8b, llama3.1-8b, llama3.1-70b, mistral-7b",
+      "Training data: prompt/completion pairs",
+      "Context window varies by model (e.g., 8k for llama3-8b)",
+      "Fine-tuned models exclusive to your account",
+      "Deploy to SPCS with GPU compute pools"
+    ],
+    "Governance & Security": [
+      "CORTEX_MODELS_ALLOWLIST controls model access",
+      "Customer data never used to train shared models",
+      "Cortex Guard filters unsafe/harmful responses",
+      "RBAC controls access to stages and semantic models",
+      "Metadata should not contain sensitive data"
+    ]
+  }
+}
