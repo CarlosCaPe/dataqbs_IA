@@ -636,12 +636,13 @@ def render_question():
     
     # Si options ya existe como dict con valores, usarlas directamente
     if options and isinstance(options, dict) and len(options) >= 2:
-        # Verificar que no son opciones genéricas
-        first_val = list(options.values())[0].lower() if options else ""
-        if "option a" not in first_val and "[ver pdf" not in first_val:
-            has_valid_options = True
-        else:
-            has_valid_options = False
+        # Verificar que no son opciones genéricas (placeholders OCR)
+        # Solo marcar como inválidas si el texto es EXACTAMENTE un placeholder
+        first_val = list(options.values())[0].strip().lower() if options else ""
+        # Detectar placeholders genéricos: "Option A", "Option B", "[Ver PDF original]", etc.
+        import re
+        is_placeholder = bool(re.match(r'^option\s*[a-e]\.?$', first_val)) or first_val.startswith('[ver pdf')
+        has_valid_options = not is_placeholder
     else:
         # Intentar extraer del texto de la pregunta
         import re
