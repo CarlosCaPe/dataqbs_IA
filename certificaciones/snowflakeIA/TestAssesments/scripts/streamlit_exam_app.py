@@ -23,6 +23,8 @@ import streamlit as st
 import json
 import random
 import time
+import copy
+import hashlib
 from pathlib import Path
 from datetime import datetime, timedelta
 from typing import Dict, List, Optional
@@ -340,9 +342,44 @@ def load_questions():
 
 def initialize_exam_state(questions: List[Dict], mode: str):
     """Inicializa el estado del examen"""
-    # Aleatorizar orden de preguntas
-    shuffled_questions = questions.copy()
+    # Generar semilla única con alta entropía (timestamp en nanosegundos + id de objeto)
+    entropy = f"{time.time_ns()}-{id(questions)}-{os.getpid()}-{random.random()}"
+    seed = int(hashlib.sha256(entropy.encode()).hexdigest()[:16], 16)
+    random.seed(seed)
+    
+    # Aleatorizar orden de preguntas - usar deep copy para no modificar cache
+    shuffled_questions = copy.deepcopy(questions)
     random.shuffle(shuffled_questions)
+    
+    # También aleatorizar el orden de las opciones dentro de cada pregunta
+    for q in shuffled_questions:
+        if 'options' in q and isinstance(q['options'], dict):
+            # Guardar mapeo original -> nuevo orden
+            original_options = q['options']
+            option_keys = list(original_options.keys())
+            random.shuffle(option_keys)
+            
+            # Crear nuevo diccionario con opciones reordenadas
+            new_options = {}
+            key_mapping = {}  # original_key -> new_key
+            new_keys = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'][:len(option_keys)]
+            
+            for new_key, old_key in zip(new_keys, option_keys):
+                new_options[new_key] = original_options[old_key]
+                key_mapping[old_key] = new_key
+            
+            q['options'] = new_options
+            
+            # Actualizar correctAnswer con el nuevo mapeo
+            original_answer = q.get('correctAnswer', '')
+            if ',' in original_answer:  # Multiple select
+                new_answers = [key_mapping.get(a.strip(), a.strip()) for a in original_answer.split(',')]
+                q['correctAnswer'] = ','.join(sorted(new_answers))
+            else:
+                q['correctAnswer'] = key_mapping.get(original_answer, original_answer)
+            
+            # Guardar mapeo para referencia (debugging si es necesario)
+            q['_option_mapping'] = key_mapping
     
     st.session_state.questions = shuffled_questions
     st.session_state.current_question = 0
@@ -354,6 +391,7 @@ def initialize_exam_state(questions: List[Dict], mode: str):
     st.session_state.start_time = time.time()
     st.session_state.time_limit = 115 * 60 if mode == "exam" else None  # 115 min en segundos
     st.session_state.show_explanation = {}  # Para modo práctica
+    st.session_state.exam_seed = seed  # Guardar semilla para debugging
 
 
 def get_remaining_time() -> Optional[int]:

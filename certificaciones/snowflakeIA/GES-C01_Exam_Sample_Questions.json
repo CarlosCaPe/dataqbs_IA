@@ -412,15 +412,21 @@
     },
     {
       "id": 21,
-      "topic": "Cortex Search",
-      "question": "A data science team is using SNOWFLAKE. CORTEX. CLASSIFY_TEXT to categorize product reviews into detailed segments like 'Bug Report - Critical', 'Feature Request - LJVUX', 'General Praise', or 'Query - Billing Issue'. for highly nuanced reviews, they find the initial classifications lack precision, and they are also concerned about the associated compute costs for processing large volumes of data. Which strategies should they employ to optimize classification accuracy and manage costs effectively with this function?",
-      "correctAnswer": "A,B",
-      "explanation": "Option B is correct: Storage costs for Cortex Search cover the materialized results of the source query and the search index, which are stored in the users account. Snowflake documentation explicitly states that the size of this stored data can be estimated by materializing the source query into a table using the table function (or similar process) and then examining its size. Option A is incorrect: While tracks some usage, the provided sources do not defail its capability for granular breakdowns of storage per TB or explicitly show the 10% cloud services adjustment applied to Cortex Search specifically. The view shows aggregate AI_SERVICES usage. Option C is incorrect: Cloud Services compute for Cortex Search is subject to the constraint that Snowflake only bills it the daily cloud services cost exceeds of the daily warehouse cost for the account. Option D is incorrect: Cloud services compute costs for Cortex Search are primarily influenced by the data's change rate and the 'TARGET LAG, not the complexity of the embedding model. Embedding model complexity impacts 'EMBED_TEXT TOKENS' costs. Option E incorrect: The view tracks Document ' processing function activity, not cortex Search costs. The appropriate view for overall ' Services usage is and for more specific cortex search usage, would be relevant for tokens, but B specifically addresses how to 'estimate' storage, not just monitor.",
-      "multipleSelect": true,
+      "topic": "Cortex LLM Functions",
+      "question": "A data science team is using SNOWFLAKE.CORTEX.CLASSIFY_TEXT to categorize product reviews into detailed segments like 'Bug Report - Critical', 'Feature Request - UX', 'General Praise', or 'Query - Billing Issue'. For highly nuanced reviews, they find the initial classifications lack precision, and they are also concerned about the associated compute costs for processing large volumes of data. Which strategies should they employ to optimize classification accuracy and manage costs effectively? (Select all that apply)",
       "options": {
-        "A": "To improve accuracy for ambiguous classifications, they should augment the list_ot_categories with explicit description and examples for each category, understanding that these additions will increase input token costs for each record",
-        "B": "for complex scenarios where the relationship between review text and categories is not straightforward, including a concise task_description (e.g., 'Classify the product review focusing on technical support relevance') in the options arg"
-      }
+        "A": "Augment the list_of_categories with explicit descriptions and examples for each category, understanding that these additions will increase input token costs per record.",
+        "B": "Include a concise task_description in the options argument (e.g., 'Classify the product review focusing on technical support relevance') to clarify ambiguous relationships.",
+        "C": "Use simple string categories instead of objects with descriptions to minimize token costs while maintaining accuracy.",
+        "D": "Increase the number of categories to over 100 to capture more nuanced classifications.",
+        "E": "Ensure categories are mutually exclusive and use descriptive labels rather than abbreviations or codes."
+      },
+      "correctAnswer": "A,B,E",
+      "explanation": "VERIFIED per official docs: (A) Using category objects with 'description' and 'examples' keys improves accuracy for ambiguous classifications, but increases input token costs. (B) Adding a task_description in the options helps when the relationship between input and categories is nuanced. (E) Categories should be mutually exclusive and descriptive - avoid abbreviations, special characters, or jargon. (C) is incorrect - while simpler categories reduce costs, they don't 'maintain accuracy' for nuanced cases. (D) is incorrect - CLASSIFY_TEXT supports a maximum of 100 categories, not more.",
+      "multipleSelect": true,
+      "source": "https://docs.snowflake.com/en/sql-reference/functions/classify_text-snowflake-cortex",
+      "correctedAt": "2026-01-21",
+      "correctionReason": "Original question was corrupted - had wrong explanation (Cortex Search instead of CLASSIFY_TEXT) and only 2 options instead of 5."
     },
     {
       "id": 22,
