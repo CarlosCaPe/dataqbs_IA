@@ -694,10 +694,12 @@
         "D": "ENTITY_EXTRACT for named entity recognition",
         "E": "There is no dedicated entity extraction function; use COMPLETE with structured output"
       },
-      "correctAnswer": "B",
-      "explanation": "VERIFIED: EXTRACT_ANSWER is used for extractive question answering - given a question and source text, it extracts the answer. For general entity extraction, COMPLETE with appropriate prompts or structured outputs is recommended.",
+      "correctAnswer": "E",
+      "explanation": "VERIFIED: Snowflake Cortex does NOT have a dedicated named entity extraction (NER) function. EXTRACT_ANSWER (option B) is for extractive question-answering (extracting answers from text given a question), NOT for NER. ENTITY_EXTRACT (option D) does not exist as a Snowflake function. PARSE_TEXT (option A) also doesn't exist. The correct approach for NER is to use COMPLETE/AI_COMPLETE with structured output (response_format with JSON schema) to extract entities. Per official documentation: https://docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-llm-functions-reference",
       "multipleSelect": false,
-      "source": "https://docs.snowflake.com/en/sql-reference/functions/extract_answer"
+      "source": "https://docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-llm-functions-reference",
+      "correctedAt": "2025-01-20",
+      "correctionReason": "Original answer B (EXTRACT_ANSWER) was incorrect - EXTRACT_ANSWER is for question-answering, not named entity extraction. No dedicated NER function exists in Snowflake Cortex."
     },
     {
       "id": 38,
