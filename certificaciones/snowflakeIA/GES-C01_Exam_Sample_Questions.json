@@ -48,13 +48,13 @@
     ]
   },
   "metadata": {
-    "totalQuestions": 70,
+    "totalQuestions": 133,
     "source": "OCR extracted from GES-C01 practice exam screenshots",
     "extractionDate": "2025-01-27",
-    "verifiedDate": "2026-01-19",
+    "verifiedDate": "2026-01-23",
     "verificationStatus": "Verified against official Snowflake Cortex AI documentation",
-    "note": "26 preguntas regeneradas con opciones estructuradas. Todas las preguntas verificadas contra docs.snowflake.com. Key facts: MEDIUM warehouse max, VECTOR max 4096 dimensions, 512 token chunks for Cortex Search, Document AI requires SNOWFLAKE_SSE, 125 page PDF limit.",
-    "lastUpdated": "2026-01-19",
+    "note": "84 questions total. 26 preguntas regeneradas con opciones estructuradas. 9 nuevas preguntas de screenshots verificadas contra docs.snowflake.com. Key facts: MEDIUM warehouse max, VECTOR max 4096 dimensions, 512 token chunks for Cortex Search, Document AI requires SNOWFLAKE_SSE, 125 page PDF limit.",
+    "lastUpdated": "2026-01-23",
     "pdfSources": [
       "ges-c01-02.pdf",
       "ges-c01-03.pdf",
@@ -81,7 +81,8 @@
         "C": "Configure the semantic model to reset the conversation context after every three turns to limit token count.",
         "D": "Switch the underlying text-to-SQL LLM to a smaller model, such as mistral-7b without considering its impact on summarization tasks.",
         "E": "Rely on verified_queries for all follow-up questions, as"
-      }
+      },
+      "category": "Cortex Analyst"
     },
     {
       "id": 2,
@@ -97,7 +98,8 @@
         "C": "The maximum dimension supported by the VECTOR data type in Snowflake is 768, which aligns with common embedding models like snowflake-arctic-embed.",
         "D": "Direct comparison operators like < can be used reliably on VECTOR columns to sort by similarity.",
         "E": "VECTOR columns can be stored in VARIANT type columns for flexible schema handling."
-      }
+      },
+      "category": "General"
     },
     {
       "id": 3,
@@ -113,7 +115,8 @@
       "correctAnswer": "B",
       "explanation": "VERIFIED: Per Snowflake docs, SNOWFLAKE.DOCUMENT_INTELLIGENCE_CREATOR is the specific database role required for Document AI operations. This role enables creating Document AI model builds and working with document processing pipelines. CORTEX_USER is more general for Cortex functions but not specific to Document AI.",
       "multipleSelect": false,
-      "source": "https://docs.snowflake.com/en/user-guide/snowflake-cortex/document-ai/using"
+      "source": "https://docs.snowflake.com/en/user-guide/snowflake-cortex/document-ai/using",
+      "category": "Document AI"
     },
     {
       "id": 4,
@@ -128,7 +131,8 @@
         "C": "The semantic model provides a mapping between business-friendly terms and the underlying technical database schema, enhancing the LLM's ability to generate accurate SQL from natural language questions.",
         "D": "It serves as a cache for frequently requested data, reducing latency for natural language queries by providing pre-computed results.",
         "E": "The semantic model acts as a vector store, storing embeddings of all data columns to enable semantic search for"
-      }
+      },
+      "category": "Cortex Analyst"
     },
     {
       "id": 5,
@@ -145,7 +149,8 @@
         "E": "Grant the SNOWFLAKE.DOCUMENT_INTELLIGENCE_CREATOR database role to the executing role."
       },
       "source": "https://docs.snowflake.com/en/user-guide/snowflake-cortex/document-ai/preparing-documents",
-      "regenerated": true
+      "regenerated": true,
+      "category": "Document AI"
     },
     {
       "id": 6,
@@ -168,7 +173,8 @@
       "difficulty": "medium",
       "lastUpdatedAt": "2026-01-19T23:16:19Z",
       "regenerated": true,
-      "regenerationBatch": "batch2"
+      "regenerationBatch": "batch2",
+      "category": "Cortex LLM Functions"
     },
     {
       "id": 7,
@@ -184,7 +190,8 @@
       "correctAnswer": "A,D",
       "explanation": "VERIFIED: To use Cortex Playground, users need: 1) The SNOWFLAKE.CORTEX_USER database role, and 2) The ENABLE_CORTEX_PLAYGROUND parameter enabled. Cross-region is for model availability, not Playground access specifically.",
       "multipleSelect": true,
-      "source": "https://docs.snowflake.com/en/user-guide/snowflake-cortex/llm-functions"
+      "source": "https://docs.snowflake.com/en/user-guide/snowflake-cortex/llm-functions",
+      "category": "Cortex LLM Functions"
     },
     {
       "id": 8,
@@ -206,7 +213,8 @@
       "difficulty": "medium",
       "lastUpdatedAt": "2026-01-19T23:16:19Z",
       "regenerated": true,
-      "regenerationBatch": "batch2"
+      "regenerationBatch": "batch2",
+      "category": "Cortex Search"
     },
     {
       "id": 9,
@@ -221,7 +229,8 @@
         "C": "The query returns a VECTOR(FLOAT, 768) data type.",
         "D": "The query returns a STRING representation of the vector.",
         "E": "The query SELECT PRm.KT_CATuos; returns a BINARY data type for the embedding, requiring explicit conversion for"
-      }
+      },
+      "category": "Cortex LLM Functions"
     },
     {
       "id": 10,
@@ -237,7 +246,8 @@
       "correctAnswer": "B",
       "explanation": "VERIFIED: Per Snowflake docs, the COMPLETE function accepts a 'messages' parameter which is a JSON array containing the conversation history with roles (system, user, assistant). This is the standard way to maintain multi-turn context. LLMs don't have persistent memory between calls.",
       "multipleSelect": false,
-      "source": "https://docs.snowflake.com/en/sql-reference/functions/complete-snowflake-cortex"
+      "source": "https://docs.snowflake.com/en/sql-reference/functions/complete-snowflake-cortex",
+      "category": "Cortex LLM Functions"
     },
     {
       "id": 11,
@@ -250,7 +260,8 @@
         "A": "To integrate Cortex Search with a logical dimension, the semantic model YAML must include a block within the dimension's definition, specifying the service name and optionally a 'literal_column'.",
         "B": "for optimal RAG retrieval performance with Cortex Search, it is generally recommended to split text into chunks of no more than 512 tokens, even when using embedding models with larger context windows such as 'snowflake-arctic- embed-I-v2.0-8k'.",
         "C": "The \"VECTOR data type in Snowflake, used to store embeddings generated for Cortex Search, is fully supported as a clustering key in standard tables and as a primary key in hybrid tabl"
-      }
+      },
+      "category": "Cortex Analyst"
     },
     {
       "id": 12,
@@ -272,7 +283,8 @@
       "difficulty": "medium",
       "lastUpdatedAt": "2026-01-19T23:16:19Z",
       "regenerated": true,
-      "regenerationBatch": "batch2"
+      "regenerationBatch": "batch2",
+      "category": "General"
     },
     {
       "id": 13,
@@ -286,7 +298,8 @@
         "A": "To improve model training, documents uploaded should represent a real use case, and the dataset should consist of diverse documents in terms of both layout and data.",
         "B": "If the Document AI model does not find an answer for a specific field, the !PREDICT method will omit the 'value' key but will still return a 'score' key to indicate confidence.",
         "C": "For continuous processing of new documents, it is best practice to create a stream on the internal stage and a task to automate the PREDICT calls."
-      }
+      },
+      "category": "Document AI"
     },
     {
       "id": 14,
@@ -308,7 +321,8 @@
       "difficulty": "medium",
       "lastUpdatedAt": "2026-01-19T23:16:19Z",
       "regenerated": true,
-      "regenerationBatch": "batch2"
+      "regenerationBatch": "batch2",
+      "category": "General"
     },
     {
       "id": 15,
@@ -322,7 +336,8 @@
         "B": "It the function is not natively available in the accounts primary Snowflake region, cross-region inference cannot be enabled, thus preventing its use.",
         "C": "The 'VECTOR' data type, which stores the output of is fully compatible with all Snowflake features, including being used as a primary key in hybrid tables for tast lookups.",
         "D": "When is invoked within a Snowpark Python User-Defined Funct"
-      }
+      },
+      "category": "Cortex LLM Functions"
     },
     {
       "id": 16,
@@ -338,7 +353,8 @@
       "correctAnswer": "A,B",
       "explanation": "VERIFIED: Document AI requires: 1) Internal stages must use SNOWFLAKE_SSE encryption, and 2) PDFs cannot exceed 125 pages. Larger warehouses don't improve Document AI performance. max_tokens is not a Document AI parameter.",
       "multipleSelect": true,
-      "source": "https://docs.snowflake.com/en/user-guide/snowflake-cortex/document-ai/using"
+      "source": "https://docs.snowflake.com/en/user-guide/snowflake-cortex/document-ai/using",
+      "category": "Document AI"
     },
     {
       "id": 17,
@@ -355,7 +371,8 @@
         "E": "JPG is an unsupported file format for Document AI."
       },
       "source": "https://docs.snowflake.com/en/user-guide/snowflake-cortex/document-ai/limitations",
-      "regenerated": true
+      "regenerated": true,
+      "category": "Document AI"
     },
     {
       "id": 18,
@@ -378,7 +395,8 @@
       "difficulty": "medium",
       "lastUpdatedAt": "2026-01-19T23:16:19Z",
       "regenerated": true,
-      "regenerationBatch": "batch2"
+      "regenerationBatch": "batch2",
+      "category": "Document AI"
     },
     {
       "id": 19,
@@ -394,7 +412,8 @@
       "correctAnswer": "C",
       "explanation": "VERIFIED: Document AI workflow: 1) Upload documents to stage, 2) Create model build, 3) Define extraction questions/values, 4) Review and correct extractions for training, 5) Publish the build, 6) Call PREDICT method on new documents.",
       "multipleSelect": false,
-      "source": "https://docs.snowflake.com/en/user-guide/snowflake-cortex/document-ai/tutorials/tutorial-1"
+      "source": "https://docs.snowflake.com/en/user-guide/snowflake-cortex/document-ai/tutorials/tutorial-1",
+      "category": "Document AI"
     },
     {
       "id": 20,
@@ -408,7 +427,8 @@
         "B": "Storage costs are incurred for both the materialized source query data and the search index data structures, and these costs can be estimated by materializing the source query into a table using the table function, and then examining the size of that table.",
         "C": "Cloud Services compute costs for Cortex Search are always billed without any adjustments, regardless of the daily virtual warehouse compute costs, because they are considered serverless features.",
         "D": "High cloud services comput"
-      }
+      },
+      "category": "Cortex Search"
     },
     {
       "id": 21,
@@ -426,7 +446,8 @@
       "multipleSelect": true,
       "source": "https://docs.snowflake.com/en/sql-reference/functions/classify_text-snowflake-cortex",
       "correctedAt": "2026-01-21",
-      "correctionReason": "Original question was corrupted - had wrong explanation (Cortex Search instead of CLASSIFY_TEXT) and only 2 options instead of 5."
+      "correctionReason": "Original question was corrupted - had wrong explanation (Cortex Search instead of CLASSIFY_TEXT) and only 2 options instead of 5.",
+      "category": "Cost & Governance"
     },
     {
       "id": 22,
@@ -442,7 +463,8 @@
       "correctAnswer": "B",
       "explanation": "VERIFIED: Per Snowflake docs, setting temperature = 0 produces the most deterministic outputs. Temperature controls randomness - 0 means the model always picks the most likely token. Higher values increase variability.",
       "multipleSelect": false,
-      "source": "https://docs.snowflake.com/en/sql-reference/functions/complete-snowflake-cortex"
+      "source": "https://docs.snowflake.com/en/sql-reference/functions/complete-snowflake-cortex",
+      "category": "Cortex LLM Functions"
     },
     {
       "id": 23,
@@ -464,7 +486,8 @@
       "difficulty": "medium",
       "lastUpdatedAt": "2026-01-19T23:16:19Z",
       "regenerated": true,
-      "regenerationBatch": "batch2"
+      "regenerationBatch": "batch2",
+      "category": "General"
     },
     {
       "id": 24,
@@ -480,7 +503,8 @@
       "correctAnswer": "B",
       "explanation": "VERIFIED: AI_COMPLETE accepts a response_format argument with a JSON schema object that defines required structure, data types, and constraints. The schema is passed inline, not stored in a table. It doesn't guarantee accuracy of values, only format.",
       "multipleSelect": false,
-      "source": "https://docs.snowflake.com/en/sql-reference/functions/complete-snowflake-cortex"
+      "source": "https://docs.snowflake.com/en/sql-reference/functions/complete-snowflake-cortex",
+      "category": "Cortex LLM Functions"
     },
     {
       "id": 25,
@@ -504,7 +528,8 @@
       "difficulty": "medium",
       "lastUpdatedAt": "2026-01-19T23:16:19Z",
       "regenerated": true,
-      "regenerationBatch": "batch2"
+      "regenerationBatch": "batch2",
+      "category": "Document AI"
     },
     {
       "id": 26,
@@ -521,7 +546,8 @@
         "E": "The 20 MB HTML file."
       },
       "source": "https://docs.snowflake.com/en/user-guide/snowflake-cortex/document-ai/preparing-documents",
-      "regenerated": true
+      "regenerated": true,
+      "category": "Document AI"
     },
     {
       "id": 27,
@@ -537,7 +563,8 @@
       "correctAnswer": "A",
       "explanation": "VERIFIED: Document AI supports PDF, PNG, JPEG, TIFF, and BMP formats. It can process both native PDFs and scanned document images. DOCX/XLSX are not supported directly.",
       "multipleSelect": false,
-      "source": "https://docs.snowflake.com/en/user-guide/snowflake-cortex/document-ai/overview"
+      "source": "https://docs.snowflake.com/en/user-guide/snowflake-cortex/document-ai/overview",
+      "category": "Document AI"
     },
     {
       "id": 28,
@@ -553,7 +580,8 @@
       "correctAnswer": "C",
       "explanation": "VERIFIED: Per Snowflake documentation, Document AI supports PDF documents with a maximum of 125 pages. Documents exceeding this limit must be split before processing.",
       "multipleSelect": false,
-      "source": "https://docs.snowflake.com/en/user-guide/snowflake-cortex/document-ai/overview"
+      "source": "https://docs.snowflake.com/en/user-guide/snowflake-cortex/document-ai/overview",
+      "category": "Document AI"
     },
     {
       "id": 29,
@@ -569,7 +597,8 @@
       "correctAnswer": "B",
       "explanation": "VERIFIED: CLASSIFY_TEXT is the dedicated Cortex function for classifying text into user-specified categories. It takes the text and a list of possible categories as parameters.",
       "multipleSelect": false,
-      "source": "https://docs.snowflake.com/en/sql-reference/functions/classify_text"
+      "source": "https://docs.snowflake.com/en/sql-reference/functions/classify_text",
+      "category": "Cortex LLM Functions"
     },
     {
       "id": 30,
@@ -584,7 +613,8 @@
         "C": "Primary purpose is to extract data and layout. for contracts, use LAYOUT mode; for invoices, use OCR mode.",
         "D": "Primary purpose is to summarize text. for contracts, use OCR mode; for invoices, use LAYOUT mode.",
         "E": "Primary purpose is to translate text. Both document types should use LAYOUT"
-      }
+      },
+      "category": "General"
     },
     {
       "id": 31,
@@ -600,7 +630,8 @@
       "correctAnswer": "B",
       "explanation": "VERIFIED: Per Snowflake docs, Cortex AI SQL functions should be executed with smaller warehouses (no larger than MEDIUM). Larger warehouses do NOT increase performance for these serverless functions but still incur compute costs.",
       "multipleSelect": false,
-      "source": "https://docs.snowflake.com/en/user-guide/snowflake-cortex/llm-functions"
+      "source": "https://docs.snowflake.com/en/user-guide/snowflake-cortex/llm-functions",
+      "category": "Cortex LLM Functions"
     },
     {
       "id": 32,
@@ -616,7 +647,8 @@
       "correctAnswer": "B",
       "explanation": "VERIFIED: Snowpark Container Services uses a YAML specification file to define service configuration including endpoints, resources, and container settings. The spec file is used with CREATE SERVICE command.",
       "multipleSelect": false,
-      "source": "https://docs.snowflake.com/en/developer-guide/snowpark-container-services/overview"
+      "source": "https://docs.snowflake.com/en/developer-guide/snowpark-container-services/overview",
+      "category": "SPCS & ML"
     },
     {
       "id": 33,
@@ -632,7 +664,8 @@
       "correctAnswer": "B",
       "explanation": "VERIFIED: A compute pool must be created before deploying services. Compute pools provide the compute resources (CPU/GPU) for running containers. Services are deployed to a specific compute pool.",
       "multipleSelect": false,
-      "source": "https://docs.snowflake.com/en/developer-guide/snowpark-container-services/working-with-compute-pool"
+      "source": "https://docs.snowflake.com/en/developer-guide/snowpark-container-services/working-with-compute-pool",
+      "category": "SPCS & ML"
     },
     {
       "id": 34,
@@ -648,7 +681,8 @@
       "correctAnswer": "C",
       "explanation": "VERIFIED: Document AI uses few-shot learning. By reviewing and correcting extractions during build creation, you provide examples that help the model understand where to find specific values in your document types. This is layout-aware extraction training.",
       "multipleSelect": false,
-      "source": "https://docs.snowflake.com/en/user-guide/snowflake-cortex/document-ai/using"
+      "source": "https://docs.snowflake.com/en/user-guide/snowflake-cortex/document-ai/using",
+      "category": "Document AI"
     },
     {
       "id": 35,
@@ -664,7 +698,8 @@
       "correctAnswer": "B",
       "explanation": "VERIFIED: Cortex LLM functions are billed based on tokens processed. Pricing varies by model and includes both input tokens (prompt) and output tokens (completion). More complex models cost more per token.",
       "multipleSelect": false,
-      "source": "https://docs.snowflake.com/en/user-guide/snowflake-cortex/llm-functions#cost-considerations"
+      "source": "https://docs.snowflake.com/en/user-guide/snowflake-cortex/llm-functions#cost-considerations",
+      "category": "Cortex LLM Functions"
     },
     {
       "id": 36,
@@ -687,7 +722,8 @@
       "difficulty": "medium",
       "lastUpdatedAt": "2026-01-19T23:16:19Z",
       "regenerated": true,
-      "regenerationBatch": "batch2"
+      "regenerationBatch": "batch2",
+      "category": "Cortex LLM Functions"
     },
     {
       "id": 37,
@@ -705,7 +741,8 @@
       "multipleSelect": false,
       "source": "https://docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-llm-functions-reference",
       "correctedAt": "2025-01-20",
-      "correctionReason": "Original answer B (EXTRACT_ANSWER) was incorrect - EXTRACT_ANSWER is for question-answering, not named entity extraction. No dedicated NER function exists in Snowflake Cortex."
+      "correctionReason": "Original answer B (EXTRACT_ANSWER) was incorrect - EXTRACT_ANSWER is for question-answering, not named entity extraction. No dedicated NER function exists in Snowflake Cortex.",
+      "category": "Cortex LLM Functions"
     },
     {
       "id": 38,
@@ -727,7 +764,8 @@
       "difficulty": "medium",
       "lastUpdatedAt": "2026-01-19T23:16:19Z",
       "regenerated": true,
-      "regenerationBatch": "batch2"
+      "regenerationBatch": "batch2",
+      "category": "Cortex LLM Functions"
     },
     {
       "id": 39,
@@ -743,7 +781,8 @@
       "correctAnswer": "C",
       "explanation": "VERIFIED: Row limits vary by model when using 3 epochs. mistral-7b supports ~15k rows (45k total samples), llama3-8b supports ~62k rows, llama3-70b supports ~7k rows. Larger models have lower row limits.",
       "multipleSelect": false,
-      "source": "https://docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-finetuning"
+      "source": "https://docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-finetuning",
+      "category": "Fine-Tuning"
     },
     {
       "id": 40,
@@ -760,7 +799,8 @@
       "explanation": "Option A is correct: Snowflake recommends chunking text (commonly ~512 tokens) to improve retrieval precision and the relevance of context provided to the LLM. Option B is incorrect: Cortex Search may truncate text for semantic embedding when it exceeds the embedding model context window, but keyword retrieval can still use the full text. Option C is incorrect: larger context windows are not automatically better for retrieval; smaller, well-chunked passages often retrieve more precisely. Option D is correct: COUNT_TOKENS helps estimate token counts when preparing chunking and prompts. Option E is incorrect because Cortex Search is hybrid (vector + keyword), so keyword retrieval behavior matters.",
       "multipleSelect": true,
       "verified": true,
-      "source": "https://docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-search/cortex-search-overview"
+      "source": "https://docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-search/cortex-search-overview",
+      "category": "Cortex Search"
     },
     {
       "id": 41,
@@ -776,7 +816,8 @@
       "correctAnswer": "B",
       "explanation": "VERIFIED: Per Snowflake documentation, 512 tokens is the default and recommended chunk size for Cortex Search. This balances semantic coherence with retrieval precision.",
       "multipleSelect": false,
-      "source": "https://docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-search/cortex-search-overview"
+      "source": "https://docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-search/cortex-search-overview",
+      "category": "Cortex Search"
     },
     {
       "id": 42,
@@ -792,7 +833,8 @@
       "correctAnswer": "B",
       "explanation": "VERIFIED: Document AI requires internal stages to be configured with ENCRYPTION = (TYPE = 'SNOWFLAKE_SSE'). This is a hard requirement and using other encryption types will result in errors.",
       "multipleSelect": false,
-      "source": "https://docs.snowflake.com/en/user-guide/snowflake-cortex/document-ai/using"
+      "source": "https://docs.snowflake.com/en/user-guide/snowflake-cortex/document-ai/using",
+      "category": "Document AI"
     },
     {
       "id": 43,
@@ -814,7 +856,8 @@
       "difficulty": "medium",
       "lastUpdatedAt": "2026-01-19T23:16:19Z",
       "regenerated": true,
-      "regenerationBatch": "batch2"
+      "regenerationBatch": "batch2",
+      "category": "Cortex Search"
     },
     {
       "id": 44,
@@ -830,7 +873,8 @@
       "correctAnswer": "B",
       "explanation": "VERIFIED: Snowflake Cortex supports fine-tuning of Llama 3/3.1 (8b and 70b variants), Mistral-7b, and Mixtral-8x7b models. Custom or proprietary models like GPT-4 cannot be fine-tuned in Cortex.",
       "multipleSelect": false,
-      "source": "https://docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-finetuning"
+      "source": "https://docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-finetuning",
+      "category": "Fine-Tuning"
     },
     {
       "id": 45,
@@ -854,7 +898,8 @@
       "difficulty": "medium",
       "lastUpdatedAt": "2026-01-19T23:16:19Z",
       "regenerated": true,
-      "regenerationBatch": "batch2"
+      "regenerationBatch": "batch2",
+      "category": "Document AI"
     },
     {
       "id": 46,
@@ -870,7 +915,8 @@
       "correctAnswer": "B",
       "explanation": "VERIFIED: After publishing, you call the PREDICT method: model_build!PREDICT(GET_PRESIGNED_URL(@stage, 'file.pdf'), 1). The PREDICT method returns extracted values based on the trained extraction schema.",
       "multipleSelect": false,
-      "source": "https://docs.snowflake.com/en/user-guide/snowflake-cortex/document-ai/using"
+      "source": "https://docs.snowflake.com/en/user-guide/snowflake-cortex/document-ai/using",
+      "category": "Document AI"
     },
     {
       "id": 47,
@@ -893,7 +939,8 @@
       "difficulty": "medium",
       "lastUpdatedAt": "2026-01-19T23:16:19Z",
       "regenerated": true,
-      "regenerationBatch": "batch2"
+      "regenerationBatch": "batch2",
+      "category": "Cortex LLM Functions"
     },
     {
       "id": 48,
@@ -909,7 +956,8 @@
       "correctAnswer": "B",
       "explanation": "VERIFIED: Snowflake provides EMBED_TEXT_768 and EMBED_TEXT_1024 functions (and snowflake-arctic-embed models) to generate dense vector embeddings. These embeddings can be used for semantic similarity with VECTOR_COSINE_SIMILARITY.",
       "multipleSelect": false,
-      "source": "https://docs.snowflake.com/en/sql-reference/functions/embed_text_768"
+      "source": "https://docs.snowflake.com/en/sql-reference/functions/embed_text_768",
+      "category": "Cortex LLM Functions"
     },
     {
       "id": 50,
@@ -925,7 +973,8 @@
       "correctAnswer": "B",
       "explanation": "VERIFIED: TRY_COMPLETE performs the same operation as COMPLETE but returns NULL instead of raising an error when the operation fails. This allows pipelines to continue processing without interruption.",
       "multipleSelect": false,
-      "source": "https://docs.snowflake.com/en/sql-reference/functions/try_complete"
+      "source": "https://docs.snowflake.com/en/sql-reference/functions/try_complete",
+      "category": "Cortex LLM Functions"
     },
     {
       "id": 52,
@@ -941,7 +990,8 @@
       "correctAnswer": "B",
       "explanation": "VERIFIED: Cortex Analyst semantic models are defined in YAML format. The YAML includes table definitions, columns with descriptions, measures, dimensions, time dimensions, relationships, and verified queries.",
       "multipleSelect": false,
-      "source": "https://docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-analyst"
+      "source": "https://docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-analyst",
+      "category": "Cortex Analyst"
     },
     {
       "id": 54,
@@ -957,7 +1007,8 @@
       "correctAnswer": "D",
       "explanation": "VERIFIED: The Snowflake VECTOR data type supports a maximum of 4096 dimensions. This accommodates most embedding models including those with 768, 1024, and larger dimension outputs.",
       "multipleSelect": false,
-      "source": "https://docs.snowflake.com/en/sql-reference/data-types-vector"
+      "source": "https://docs.snowflake.com/en/sql-reference/data-types-vector",
+      "category": "General"
     },
     {
       "id": 56,
@@ -973,7 +1024,8 @@
       "correctAnswer": "B",
       "explanation": "VERIFIED: Standard RAG flow: 1) Embed the user query, 2) Retrieve semantically similar document chunks using vector similarity, 3) Pass retrieved context to LLM with the original query to generate a grounded answer.",
       "multipleSelect": false,
-      "source": "https://docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-search/tutorials/tutorial-1"
+      "source": "https://docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-search/tutorials/tutorial-1",
+      "category": "General"
     },
     {
       "id": 58,
@@ -995,7 +1047,8 @@
       "difficulty": "medium",
       "lastUpdatedAt": "2026-01-19T23:16:19Z",
       "regenerated": true,
-      "regenerationBatch": "batch2"
+      "regenerationBatch": "batch2",
+      "category": "Cortex LLM Functions"
     },
     {
       "id": 59,
@@ -1013,7 +1066,8 @@
       "multipleSelect": false,
       "source": "docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-finetuning",
       "generated": true,
-      "generatedDate": "2026-01-19"
+      "generatedDate": "2026-01-19",
+      "category": "Fine-Tuning"
     },
     {
       "id": 60,
@@ -1031,7 +1085,8 @@
       "multipleSelect": true,
       "source": "docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-finetuning",
       "generated": true,
-      "generatedDate": "2026-01-19"
+      "generatedDate": "2026-01-19",
+      "category": "Fine-Tuning"
     },
     {
       "id": 61,
@@ -1049,7 +1104,8 @@
       "multipleSelect": false,
       "source": "docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-finetuning",
       "generated": true,
-      "generatedDate": "2026-01-19"
+      "generatedDate": "2026-01-19",
+      "category": "Fine-Tuning"
     },
     {
       "id": 62,
@@ -1067,7 +1123,8 @@
       "multipleSelect": true,
       "source": "docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-finetuning",
       "generated": true,
-      "generatedDate": "2026-01-19"
+      "generatedDate": "2026-01-19",
+      "category": "Fine-Tuning"
     },
     {
       "id": 63,
@@ -1085,7 +1142,8 @@
       "multipleSelect": false,
       "source": "docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-analyst",
       "generated": true,
-      "generatedDate": "2026-01-19"
+      "generatedDate": "2026-01-19",
+      "category": "Cortex Analyst"
     },
     {
       "id": 64,
@@ -1103,7 +1161,8 @@
       "multipleSelect": false,
       "source": "docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-analyst",
       "generated": true,
-      "generatedDate": "2026-01-19"
+      "generatedDate": "2026-01-19",
+      "category": "Cortex Analyst"
     },
     {
       "id": 65,
@@ -1121,7 +1180,8 @@
       "multipleSelect": true,
       "source": "docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-analyst",
       "generated": true,
-      "generatedDate": "2026-01-19"
+      "generatedDate": "2026-01-19",
+      "category": "Cortex Analyst"
     },
     {
       "id": 66,
@@ -1139,7 +1199,8 @@
       "multipleSelect": false,
       "source": "docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-analyst",
       "generated": true,
-      "generatedDate": "2026-01-19"
+      "generatedDate": "2026-01-19",
+      "category": "Cortex Analyst"
     },
     {
       "id": 67,
@@ -1157,7 +1218,8 @@
       "multipleSelect": false,
       "source": "docs.snowflake.com/en/sql-reference/data-types-vector",
       "generated": true,
-      "generatedDate": "2026-01-19"
+      "generatedDate": "2026-01-19",
+      "category": "General"
     },
     {
       "id": 68,
@@ -1175,7 +1237,8 @@
       "multipleSelect": true,
       "source": "docs.snowflake.com/en/sql-reference/data-types-vector",
       "generated": true,
-      "generatedDate": "2026-01-19"
+      "generatedDate": "2026-01-19",
+      "category": "General"
     },
     {
       "id": 69,
@@ -1193,7 +1256,8 @@
       "multipleSelect": false,
       "source": "docs.snowflake.com/en/user-guide/snowflake-cortex/llm-functions",
       "generated": true,
-      "generatedDate": "2026-01-19"
+      "generatedDate": "2026-01-19",
+      "category": "General"
     },
     {
       "id": 70,
@@ -1211,7 +1275,8 @@
       "multipleSelect": false,
       "source": "docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-search/cortex-search-overview",
       "generated": true,
-      "generatedDate": "2026-01-19"
+      "generatedDate": "2026-01-19",
+      "category": "Cortex Search"
     },
     {
       "id": 71,
@@ -1229,7 +1294,8 @@
       "multipleSelect": false,
       "source": "docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-search/cortex-search-overview",
       "generated": true,
-      "generatedDate": "2026-01-19"
+      "generatedDate": "2026-01-19",
+      "category": "Cortex Search"
     },
     {
       "id": 72,
@@ -1247,7 +1313,8 @@
       "multipleSelect": false,
       "source": "docs.snowflake.com/en/user-guide/snowflake-cortex/llm-functions",
       "generated": true,
-      "generatedDate": "2026-01-19"
+      "generatedDate": "2026-01-19",
+      "category": "Cortex LLM Functions"
     },
     {
       "id": 73,
@@ -1265,7 +1332,8 @@
       "multipleSelect": false,
       "source": "docs.snowflake.com/en/user-guide/snowflake-cortex/llm-functions",
       "generated": true,
-      "generatedDate": "2026-01-19"
+      "generatedDate": "2026-01-19",
+      "category": "Cost & Governance"
     },
     {
       "id": 74,
@@ -1283,7 +1351,8 @@
       "multipleSelect": false,
       "source": "docs.snowflake.com/en/user-guide/snowflake-cortex/llm-functions",
       "generated": true,
-      "generatedDate": "2026-01-19"
+      "generatedDate": "2026-01-19",
+      "category": "Cost & Governance"
     },
     {
       "id": 75,
@@ -1301,7 +1370,1146 @@
       "multipleSelect": true,
       "source": "docs.snowflake.com/en/guides-overview-ai-features",
       "generated": true,
-      "generatedDate": "2026-01-19"
+      "generatedDate": "2026-01-19",
+      "category": "General"
+    },
+    {
+      "id": 76,
+      "topic": "Cortex Analyst",
+      "question": "A Snowflake Gen AI Specialist is defining a semantic model for Cortex Analyst to improve text-to-SQL accuracy. They are adding entries to the verified_queries section of their YAML file. Consider the following semantic model snippet and a proposed verified_query entry:\n\nSemantic Model Snippet:\nname: Sales Data\ntables:\n  - name: sales_data\n    base_table:\n      database: sales\n      schema: public\n      table: sd_data\n    dimensions:\n      - name: state\n        expr: d_state\n        data_type: TEXT\n      - name: product_category\n        expr: category_id\n        data_type: INTEGER\n    measures:\n      - name: total_revenue\n        expr: revenue_amount\n        data_type: NUMBER\n\nProposed verified_query entry:\n- name: \"Category A Sales\"\n  question: \"What was the total revenue for 'Category A' products last month?\"\n  sql: \"SELECT sum(revenue_amount) FROM sales.public.sd_data WHERE category_id = 'Category A' AND sale_date >= DATE_TRUNC('month', DATEADD('month', -1, CURRENT_DATE))\"\n\nWhich of the following statements correctly identifies an issue or a best practice not followed in the sql field of the proposed verified_query entry, based on Cortex Analyst VQR guidelines? (Select all that apply)",
+      "options": {
+        "A": "The sql field should not contain aggregate functions like sum() as Cortex Analyst handles aggregation automatically.",
+        "B": "The sql query incorrectly references the physical table name sales.public.sd_data instead of the logical table name __sales_data.",
+        "C": "The sql query directly uses the physical column name revenue_amount instead of the logical measure name total_revenue.",
+        "D": "The sql query does not include a GROUP BY clause for product_category, which is essential for filtering by category.",
+        "E": "The sql query should explicitly cast 'Category A' to the data_type of product_category (INTEGER) for type consistency."
+      },
+      "correctAnswer": "C,E",
+      "explanation": "Option C is correct. According to Cortex Analyst VQR guidelines, SQL in verified_queries should reference logical names from the semantic model (like total_revenue) rather than physical column names (like revenue_amount). This helps maintain consistency and allows Cortex Analyst to properly map between business terms and database columns. Option E is correct. The product_category dimension is defined as INTEGER type, but the query compares category_id to 'Category A' which is a string. For type consistency and to avoid runtime errors, the value should match the defined data type. Option A is incorrect because verified_queries can and should contain complete SQL including aggregate functions. Option B is incorrect because the sql field should reference the actual table structure. Option D is incorrect because GROUP BY is only needed when selecting non-aggregated columns alongside aggregates.",
+      "multipleSelect": true,
+      "source": "docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-analyst/verified-query-repository",
+      "generated": true,
+      "generatedDate": "2026-01-23",
+      "category": "Cortex Analyst"
+    },
+    {
+      "id": 77,
+      "topic": "Cortex LLM Functions",
+      "question": "A data engineering team is designing a scalable data pipeline in Snowflake that involves processing large text inputs with Cortex AI LLM functions. They want to ensure cost efficiency and prevent queries from failing due to exceeding LLM context window limits. They plan to use SNOWFLAKE.CORTEX.COUNT_TOKENS for pre-validation. Which of the following statements are TRUE about the role and cost of COUNT_TOKENS in this scenario? (Select all that apply)",
+      "options": {
+        "A": "Using COUNT_TOKENS to estimate tokens for an embedding model like snowflake-arctic-embed-m-v1.5 will help ensure the input text does not exceed its 512-token context window, thus preventing truncation or unexpected behavior.",
+        "B": "The COUNT_TOKENS function directly contributes to the overall token-based billing of the LLM inference call it precedes.",
+        "C": "For optimal retrieval quality in RAG scenarios, COUNT_TOKENS can help facilitate splitting text into smaller chunks, ideally no more than 512 tokens, even for models with larger context windows.",
+        "D": "The compute cost for running COUNT_TOKENS is entirely independent of the length of the input text, as it only reflects the cost of function invocation.",
+        "E": "The COUNT_TOKENS function is universally available in all Snowflake regions and supports token counting for any Cortex model, irrespective of that model's specific regional availability for other inference functions."
+      },
+      "correctAnswer": "A,C,E",
+      "explanation": "Option A is correct. The snowflake-arctic-embed-m-v1.5 embedding model has a 512-token context window. Using COUNT_TOKENS helps verify that input text stays within this limit, preventing silent truncation. Option C is correct. Snowflake recommends splitting text into chunks of no more than 512 tokens for best search results with Cortex Search, even when using longer-context embedding models. COUNT_TOKENS is the helper function for measuring token counts. Option E is correct. According to Snowflake documentation, AI_COUNT_TOKENS (the updated version of COUNT_TOKENS) is available in all regions for any model, even though the models themselves may have regional availability restrictions for other functions. Option B is incorrect. COUNT_TOKENS incurs only compute cost to run the function; no additional token-based costs are incurred for the counting operation itself. Option D is incorrect. While COUNT_TOKENS doesn't incur token-based billing, the compute cost does involve processing the input text.",
+      "multipleSelect": true,
+      "source": "docs.snowflake.com/en/sql-reference/functions/count_tokens-snowflake-cortex",
+      "generated": true,
+      "generatedDate": "2026-01-23",
+      "category": "Cost & Governance"
+    },
+    {
+      "id": 78,
+      "topic": "Cross-Region Inference",
+      "question": "A global enterprise has Snowflake accounts in various regions, including a US East (Ohio) account where a critical application is deployed. They need to use AI_COMPLETE with the claude-3-5-sonnet model for real-time customer support, but this model is not natively available in US East (Ohio) for direct AI_COMPLETE usage. The Snowflake administrator considers enabling cross-region inference. Which statements accurately reflect the considerations and characteristics of cross-region inference in Snowflake Cortex? (Select all that apply)",
+      "options": {
+        "A": "Cross-region inference automatically caches user inputs and generated outputs to reduce latency for subsequent requests to the same model.",
+        "B": "Setting the CORTEX_ENABLED_CROSS_REGION account parameter to 'ANY_REGION' in the US East (Ohio) account would enable inference requests for claude-3-5-sonnet to be processed in any region where it is natively available.",
+        "C": "Cross-region inference is not supported in U.S. SnowGov regions for either inbound or outbound inference requests.",
+        "D": "Latency between regions for cross-region inference is negligible and consistently low, irrespective of cloud provider infrastructure.",
+        "E": "The CORTEX_ENABLED_CROSS_REGION parameter can be configured at the session level to temporarily enable cross-region inference for specific workloads."
+      },
+      "correctAnswer": "B,C",
+      "explanation": "Option B is correct. Setting CORTEX_ENABLED_CROSS_REGION to 'ANY_REGION' allows inference requests to be processed in any of the Snowflake regions that support cross-region inference. This enables access to models not natively available in the account's default region. Option C is correct. According to Snowflake documentation, cross-region inference is not supported in U.S. SnowGov regions, meaning you cannot make cross-region inference requests into or out of SnowGov regions. Option A is incorrect. User inputs, service-generated prompts, and outputs are not stored or cached during cross-region inference. Option D is incorrect. Latency between regions depends on the cloud provider infrastructure and network status; Snowflake recommends testing specific use cases with cross-region inference enabled. Option E is incorrect. The CORTEX_ENABLED_CROSS_REGION parameter can only be set at the account level, not at the user or session levels, and only by the ACCOUNTADMIN role.",
+      "multipleSelect": true,
+      "source": "docs.snowflake.com/en/user-guide/snowflake-cortex/cross-region-inference",
+      "generated": true,
+      "generatedDate": "2026-01-23",
+      "category": "Cortex LLM Functions"
+    },
+    {
+      "id": 79,
+      "topic": "Snowflake Model Registry",
+      "question": "A machine learning team is leveraging the Snowflake Model Registry to manage diverse models, including a custom Python utility for data preprocessing that they wish to make available as a model method. Which of the following statements accurately describe capabilities or considerations when logging models and their associated artifacts and methods in the Model Registry? (Select all that apply)",
+      "options": {
+        "A": "The Snowflake Model Registry supports built-in types such as Scikit-learn, XGBoost, and PyTorch, but does not allow logging custom Python objects or processing code directly as models.",
+        "B": "To include additional local files, such as configuration files or custom scripts, with a logged model, the user_files argument must be used in log_model, mapping stage subdirectories to local file paths.",
+        "C": "Once a model version is logged, its methods can be invoked using either mv.run() in Python or through service functions named <service_name>!<method_name> in SQL, after the model has been deployed to SPCS.",
+        "D": "The function_type option within method_options in log_model allows specifying whether a model method should be exposed as a FUNCTION or TABLE_FUNCTION in SQL, influencing how data is processed.",
+        "E": "The maximum total model size for models deployed to a Snowflake warehouse is 5 GB, whereas models deployed to SPCS have no such size limitations."
+      },
+      "correctAnswer": "B,C,D",
+      "explanation": "Option B is correct. The user_files argument in log_model allows including additional local files with a logged model, mapping stage subdirectories to local file paths for configuration files or custom scripts. Option C is correct. Model methods can be invoked using mv.run() in Python or through service functions with the naming convention <service_name>!<method_name> in SQL after deployment to Snowpark Container Services. Option D is correct. The function_type option within method_options allows specifying whether a method should be exposed as a FUNCTION (returns single value) or TABLE_FUNCTION (returns table) in SQL. Option A is incorrect. The Model Registry does support logging custom Python objects and processing code as models using custom model classes and the ModelContext API. Option E is incorrect. While there are size considerations for models, the 5 GB limit stated is not accurate according to current documentation, and SPCS deployments do have resource constraints based on compute pool specifications.",
+      "multipleSelect": true,
+      "source": "docs.snowflake.com/en/developer-guide/snowflake-ml/model-registry/overview",
+      "generated": true,
+      "generatedDate": "2026-01-23",
+      "category": "Snowflake ML"
+    },
+    {
+      "id": 80,
+      "topic": "Cortex LLM Functions",
+      "question": "A data analyst is working with a table containing customer feedback text and needs to perform various text analysis tasks efficiently within Snowflake. They want to summarize the reviews, determine their sentiment, and extract specific pieces of information. Which of the following Snowflake Cortex LLM functions, when applied to a text column, will achieve the desired outcome and return the specified output type? (Select all that apply)",
+      "options": {
+        "A": "The AI_AGG function can aggregate text across multiple rows and return insights based on a user-defined prompt.",
+        "B": "To extract a specific answer to a question from each review, the analyst can use SNOWFLAKE.CORTEX.EXTRACT_ANSWER(<text_column>, 'What is the main issue?').",
+        "C": "To determine the overall sentiment of each review, the analyst should use SNOWFLAKE.CORTEX.SENTIMENT(<text_column>), which returns a score from -1 to 1.",
+        "D": "To get a concise overview of each review, the analyst should use SNOWFLAKE.CORTEX.SUMMARIZE(<text_column>), which returns summarized text.",
+        "E": "To categorize reviews into predefined labels, the analyst should use SNOWFLAKE.CORTEX.CLASSIFY_TEXT(<text_column>, ['positive', 'negative']), which returns the classification label."
+      },
+      "correctAnswer": "B,C,D,E",
+      "explanation": "Option B is correct. EXTRACT_ANSWER (or AI_EXTRACT) takes text and a question as inputs and returns the answer if it can be found in the text. Option C is correct. SENTIMENT (or AI_SENTIMENT) returns a sentiment score from -1 to 1, representing the detected positive or negative sentiment of the given text. Option D is correct. SUMMARIZE returns a summary of the specified text, providing a concise overview. Option E is correct. CLASSIFY_TEXT (or AI_CLASSIFY) classifies text into user-defined categories and returns the classification label. Option A is incorrect in this context because AI_AGG is an aggregate function that works across multiple rows, not on individual text values per row. The question asks about applying functions to each review (row-level operations).",
+      "multipleSelect": true,
+      "source": "docs.snowflake.com/en/user-guide/snowflake-cortex/aisql",
+      "generated": true,
+      "generatedDate": "2026-01-23",
+      "category": "Cortex LLM Functions"
+    },
+    {
+      "id": 81,
+      "topic": "RAG",
+      "question": "A data application developer is building a Streamlit chat application within Snowflake. This application uses a RAG pattern to answer user questions about a knowledge base, leveraging a Cortex Search Service for retrieval and an LLM for generating responses. The developer wants to ensure responses are relevant, concise, and structured. Which of the following practices are crucial when integrating Cortex Search with Snowflake Cortex LLM functions like AI_COMPLETE for this RAG chatbot? (Select all that apply)",
+      "options": {
+        "A": "Using the response_format option within AI_COMPLETE or COMPLETE allows enforcing structured JSON output, which helps ensure responses are formatted consistently.",
+        "B": "For performance and cost optimization, it is always recommended to query Cortex Search and the LLM function within a single SQL statement.",
+        "C": "The retrieved context from Cortex Search should be directly concatenated with the user's prompt as input to the AI_COMPLETE function.",
+        "D": "The SNOWFLAKE.CORTEX.EMBED_TEXT_768 function should be used directly within the AI_COMPLETE function call to generate embeddings on-the-fly.",
+        "E": "To maintain conversational context in a multi-turn chat, the developer should pass all previous user prompts and model responses in the prompt_or_history array to the AI_COMPLETE function for each turn."
+      },
+      "correctAnswer": "A,E",
+      "explanation": "Option A is correct. Using the response_format option with AI_COMPLETE allows specifying a JSON schema to ensure consistent, structured output, which is valuable for chat applications that need predictable response formats. Option E is correct. To provide a stateful, conversational experience with AI_COMPLETE, all previous user prompts and model responses must be passed as part of the prompt_or_history argument. This argument accepts an array of message objects with 'role' and 'content' keys, maintaining conversation context. Option B is incorrect. While combining operations can be efficient, it's not always recommended—separating retrieval and generation can provide better control, error handling, and debugging. Option C is oversimplified. While retrieved context is used with the prompt, the implementation involves proper prompt engineering, system instructions, and context formatting rather than simple concatenation. Option D is incorrect. EMBED_TEXT_768 generates embeddings for text, which is used during Cortex Search Service creation or for vector similarity searches, not directly within AI_COMPLETE calls.",
+      "multipleSelect": true,
+      "source": "docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-search/cortex-search-overview",
+      "generated": true,
+      "generatedDate": "2026-01-23",
+      "category": "Cortex Search"
+    },
+    {
+      "id": 82,
+      "topic": "Cortex Agents",
+      "question": "An AI development team is deploying a new Cortex Agent and needs to ensure optimal performance and adherence to Snowflake's Gen AI principles regarding data governance. Which of the following statements accurately reflect the models supported by Cortex Agents and the data governance considerations? (Select all that apply)",
+      "options": {
+        "A": "Cortex Agents exclusively use proprietary Snowflake models, such as Snowflake Arctic, ensuring all data remains within Snowflake's governance boundary without exception.",
+        "B": "Supported LLMs for orchestration by Cortex Agents include llama3.1-70b, mistral-large2, and claude-3-5-sonnet. Cross-region inference may be required if the model is not available in the local region.",
+        "C": "Customer Data, including inputs and outputs from Cortex Agents, is not used to train or fine-tune models made available to others, and fine-tuned models built with customer data are exclusively for that customer's use.",
+        "D": "Cortex Agents support all models available through the AI_COMPLETE function, including those that require explicit opt-in for Azure OpenAI GPT models, with data always staying within Snowflake's governance boundary.",
+        "E": "To use Cortex Agents, a role must be granted the SNOWFLAKE.CORTEX_AGENT_USER database role, which provides access specifically to the Agents feature."
+      },
+      "correctAnswer": "B,C",
+      "explanation": "Option B is correct. Cortex Agents support orchestration using various LLMs including llama3.1-70b, mistral-large2, and claude-3-5-sonnet. If a model is not natively available in the account's region, cross-region inference can be used when properly configured. Option C is correct. According to Snowflake's Gen AI principles, Customer Data (inputs and outputs of Snowflake AI Features) is NOT available to other customers and is NOT used to train, re-train, or fine-tune models made available to others. Fine-tuned models built using customer data are exclusively owned by and available to that customer. Option A is incorrect. Cortex Agents support multiple LLMs from different providers, not just Snowflake Arctic. Option D is incorrect. Not all AI_COMPLETE models are supported for Cortex Agents, and there are specific models designated for agent orchestration. Option E is incorrect. Access to Cortex features is typically managed through SNOWFLAKE.CORTEX_USER database role, not a specific CORTEX_AGENT_USER role.",
+      "multipleSelect": true,
+      "source": "docs.snowflake.com/en/guides-overview-ai-features",
+      "generated": true,
+      "generatedDate": "2026-01-23",
+      "category": "Cost & Governance"
+    },
+    {
+      "id": 83,
+      "topic": "Vector Embeddings",
+      "question": "A data engineering team is building a Retrieval Augmented Generation (RAG) pipeline that heavily relies on SNOWFLAKE.CORTEX.EMBED_TEXT_768 to process millions of documents daily. They need to optimize for both cost and retrieval quality. Which of the following statements are true regarding the cost and performance of EMBED_TEXT_768 in Snowflake? (Select all that apply)",
+      "options": {
+        "A": "The EMBED_TEXT_768 function is billed based on the number of output tokens generated by the embedding model, as this represents the computational complexity of the vector.",
+        "B": "For optimal retrieval quality in RAG scenarios, text should be split into chunks of no more than 512 tokens before being passed to EMBED_TEXT_768, even if the model supports a larger context window.",
+        "C": "To minimize costs for EMBED_TEXT_768 operations, it is recommended to execute queries using a smaller virtual warehouse (no larger than MEDIUM), as larger warehouses do not improve performance for these functions.",
+        "D": "The EMBED_TEXT_768 function, regardless of the 768-dimension model used, has a fixed cost of 1.50 Credits per one million tokens processed.",
+        "E": "The snowflake-arctic-embed-m-v1.5 model, used by EMBED_TEXT_768, has a context window of 512 tokens, and texts exceeding this length are truncated before embedding."
+      },
+      "correctAnswer": "B,C,E",
+      "explanation": "Option B is correct. Snowflake recommends splitting text into chunks of no more than 512 tokens for best search results, even when using embedding models with larger context windows. Research shows smaller chunk sizes typically result in higher retrieval and downstream LLM response quality. Option C is correct. Snowflake recommends using a warehouse size no larger than MEDIUM when calling Cortex AI Functions. Larger warehouses do not increase performance but can result in unnecessary costs. Option E is correct. The snowflake-arctic-embed-m-v1.5 model has a 512-token context window. When input text exceeds this limit, Cortex Search truncates the string to the context window size for embedding purposes. Option A is incorrect. Embedding functions are billed based on input tokens, not output tokens (vectors). The output is a fixed-size vector based on the model dimensions. Option D is incorrect. Different embedding models have different costs. For example, snowflake-arctic-embed-m-v1.5 costs 0.03 credits per million tokens, while voyage-multilingual-2 costs 0.07 credits per million tokens.",
+      "multipleSelect": true,
+      "source": "docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-search/cortex-search-overview",
+      "generated": true,
+      "generatedDate": "2026-01-23",
+      "category": "Cost & Governance"
+    },
+    {
+      "id": 84,
+      "topic": "Vector Embeddings",
+      "question": "A data engineer is tasked with implementing a product recommendation system in Snowflake. They have pre-computed product embeddings and want to find similar items using VECTOR_COSINE_SIMILARITY. They are evaluating options for interacting with this function. Which of the following statements is TRUE regarding the use of VECTOR_COSINE_SIMILARITY and Snowflake's VECTOR data type?",
+      "options": {
+        "A": "VECTOR_COSINE_SIMILARITY can be used in SQL queries to compare two VECTOR(FLOAT, N) columns and returns a similarity score between -1 and 1.",
+        "B": "The maximum dimension supported by the VECTOR data type in Snowflake is 768, which aligns with common embedding models like snowflake-arctic-embed-m-v1.5.",
+        "C": "Direct comparison operators like <= can be used reliably on VECTOR columns to sort by similarity in scenarios where VECTOR_COSINE_SIMILARITY is computationally intensive.",
+        "D": "A column defined as VECTOR(INT, 1024) is the most appropriate data type for storing embeddings generated by the snowflake-arctic-embed-l-v2.0 model, which outputs 1024-dimensional float vectors.",
+        "E": "The VECTOR_COSINE_SIMILARITY function is directly available as a method on Snowpark DataFrames within the snowflake.snowpark.functions module for Python users."
+      },
+      "correctAnswer": "A",
+      "explanation": "Option A is correct. VECTOR_COSINE_SIMILARITY is a SQL function that compares two VECTOR columns and returns a cosine similarity score. Cosine similarity ranges from -1 to 1, where 1 indicates identical direction, 0 indicates orthogonality, and -1 indicates opposite direction. Option B is incorrect. The VECTOR data type supports dimensions up to 4096, not just 768. Option C is incorrect. Direct vector comparisons (e.g., v1 < v2) are byte-wise lexicographic and won't produce meaningful similarity results. For vector comparisons, use the vector similarity functions provided. Option D is incorrect. The snowflake-arctic-embed-l-v2.0 model outputs FLOAT vectors, so the appropriate type would be VECTOR(FLOAT, 1024), not VECTOR(INT, 1024). Option E is not entirely accurate as VECTOR_COSINE_SIMILARITY is primarily a SQL function; for similarity operations in Python, you would typically use SQL through Snowpark or the AI_SIMILARITY function.",
+      "multipleSelect": false,
+      "source": "docs.snowflake.com/en/sql-reference/data-types-vector",
+      "generated": true,
+      "generatedDate": "2026-01-23",
+      "category": "General"
+    },
+    {
+      "id": 85,
+      "topic": "Cost & Governance",
+      "question": "A Gen AI Specialist needs to analyze the daily costs incurred for AI services in Snowflake. Which query will retrieve the credit consumption from Snowflake's metadata objects for data usage?",
+      "options": {
+        "A": "SELECT * FROM SNOWFLAKE.ACCOUNT_USAGE.QUERY_HISTORY WHERE SERVICE_TYPE='AI_SERVICES';",
+        "B": "SELECT * FROM SNOWFLAKE.INFORMATION_SCHEMA.METERING_HISTORY WHERE SERVICE_TYPE='AI_SERVICES';",
+        "C": "SELECT * FROM SNOWFLAKE.ACCOUNT_USAGE.METERING_HISTORY WHERE SERVICE_TYPE='AI_SERVICES';",
+        "D": "SELECT * FROM SNOWFLAKE.ACCOUNT_USAGE.METERING_DAILY_HISTORY WHERE SERVICE_TYPE='AI_SERVICES';"
+      },
+      "correctAnswer": "D",
+      "explanation": "The METERING_DAILY_HISTORY view in SNOWFLAKE.ACCOUNT_USAGE provides daily aggregated credit consumption data, including AI_SERVICES. This is the appropriate view for analyzing daily costs. Option A (QUERY_HISTORY) tracks query execution, not credit consumption. Options B and C use different views that don't provide daily aggregation specifically for AI services.",
+      "multipleSelect": false,
+      "source": "Snowflake-GES-C01-Study-Guide.pdf",
+      "generated": false,
+      "generatedDate": "2026-01-23",
+      "category": "Cost & Governance"
+    },
+    {
+      "id": 86,
+      "topic": "Cortex LLM Functions",
+      "question": "Which Snowflake feature allows developers to integrate generative AI workloads directly with data stored in Snowflake without moving the data outside the platform?",
+      "options": {
+        "A": "Snowflake Data Exchange",
+        "B": "Snowflake Cortex",
+        "C": "Snowflake Marketplace",
+        "D": "Snowflake Streams"
+      },
+      "correctAnswer": "B",
+      "explanation": "Snowflake Cortex is the feature that enables developers to integrate generative AI workloads directly with data stored in Snowflake. It provides LLM functions, search capabilities, and AI features that process data within Snowflake's governance boundary, eliminating the need to move data outside the platform. Data Exchange is for sharing data, Marketplace is for third-party data/apps, and Streams are for change data capture.",
+      "multipleSelect": false,
+      "source": "Snowflake-GES-C01-Study-Guide.pdf",
+      "generated": false,
+      "generatedDate": "2026-01-23",
+      "category": "General"
+    },
+    {
+      "id": 87,
+      "topic": "Document AI",
+      "question": "A Gen AI Specialist is using Document AI to create a model. When creating a model build with a name unique to the specified schema, this error is returned: 'Unable to create a build on the specified database and schema. Please check the documentation to learn more.' What would cause this error?",
+      "options": {
+        "A": "There is a model build with the same name in another schema in the database.",
+        "B": "The CREATE SNOWFLAKE.ML.DOCUMENT_INTELLIGENCE privilege has not been granted to the role the Specialist is using.",
+        "C": "The USAGE privilege on the database used to create the model build has not been granted to the role the Specialist is using.",
+        "D": "The SNOWFLAKE.DOCUMENT_INTELLIGENCE_CREATOR database role has not been granted to the role the Specialist is using."
+      },
+      "correctAnswer": "B",
+      "explanation": "The error 'Unable to create a build on the specified database and schema' is caused by missing the CREATE SNOWFLAKE.ML.DOCUMENT_INTELLIGENCE privilege. This specific privilege is required to create Document AI model builds. Option A is incorrect because model names only need to be unique within a schema. Options C and D describe different privilege issues that would cause different error messages.",
+      "multipleSelect": false,
+      "source": "Snowflake-GES-C01-Study-Guide.pdf",
+      "generated": false,
+      "generatedDate": "2026-01-23",
+      "category": "Document AI"
+    },
+    {
+      "id": 88,
+      "topic": "Cortex LLM Functions",
+      "question": "Which single Cortex capability is the core of enterprise-grade summarization workflows?",
+      "options": {
+        "A": "Summarize",
+        "B": "Document AI ingestion",
+        "C": "Guardrails",
+        "D": "External Functions"
+      },
+      "correctAnswer": "A",
+      "explanation": "The SUMMARIZE function (SNOWFLAKE.CORTEX.SUMMARIZE) is specifically designed for text summarization and is the core capability for enterprise-grade summarization workflows. It takes text input and returns a concise summary. Document AI is for extracting structured data from documents, Guardrails filter unsafe content, and External Functions are for calling external services.",
+      "multipleSelect": false,
+      "source": "Snowflake-GES-C01-Study-Guide.pdf",
+      "generated": false,
+      "generatedDate": "2026-01-23",
+      "category": "Cortex LLM Functions"
+    },
+    {
+      "id": 89,
+      "topic": "Cost & Governance",
+      "question": "Which parameter can be used by administrators to restrict access to specific LLMs within Snowflake?",
+      "options": {
+        "A": "NETWORK_POLICY",
+        "B": "SAML_IDENTITY_PROVIDER",
+        "C": "CORTEX_MODELS_ALLOWLIST",
+        "D": "CORTEX_ENABLED_CROSS_REGION"
+      },
+      "correctAnswer": "C",
+      "explanation": "CORTEX_MODELS_ALLOWLIST is the account-level parameter that allows administrators to restrict which LLM models can be used within the Snowflake account. By setting this parameter, admins can control access to specific models. NETWORK_POLICY controls network access, SAML_IDENTITY_PROVIDER is for SSO, and CORTEX_ENABLED_CROSS_REGION enables cross-region inference but doesn't restrict model access.",
+      "multipleSelect": false,
+      "source": "Snowflake-GES-C01-Study-Guide.pdf",
+      "generated": false,
+      "generatedDate": "2026-01-23",
+      "category": "Cortex LLM Functions"
+    },
+    {
+      "id": 90,
+      "topic": "Cost & Governance",
+      "question": "Which governance principle ensures that all Cortex computations occur inside Snowflake rather than external systems?",
+      "options": {
+        "A": "Data Egress",
+        "B": "Data Stays in Snowflake",
+        "C": "Multi-cluster Warehouses",
+        "D": "Zero-Copy Cloning"
+      },
+      "correctAnswer": "B",
+      "explanation": "The 'Data Stays in Snowflake' principle ensures that all Cortex AI computations occur within Snowflake's governance boundary. Customer data, including prompts and responses, stays within Snowflake when using Snowflake-hosted LLMs. This is a core privacy and security principle for Snowflake Cortex. Data Egress refers to data leaving, Multi-cluster Warehouses are for scaling, and Zero-Copy Cloning is for data duplication.",
+      "multipleSelect": false,
+      "source": "Snowflake-GES-C01-Study-Guide.pdf",
+      "generated": false,
+      "generatedDate": "2026-01-23",
+      "category": "Cost & Governance"
+    },
+    {
+      "id": 91,
+      "topic": "Cost & Governance",
+      "question": "Which Cortex principle ensures organizations can safely experiment with AI without exposing users to harmful responses?",
+      "options": {
+        "A": "Prompt Tuning",
+        "B": "Snowpark APIs",
+        "C": "Guardrails and Filters",
+        "D": "Zero-Copy Cloning"
+      },
+      "correctAnswer": "C",
+      "explanation": "Guardrails and Filters (specifically Cortex Guard) is the Cortex principle that ensures organizations can safely experiment with AI without exposing users to harmful or unsafe responses. Cortex Guard can be enabled via the 'guardrails' parameter in COMPLETE functions to filter inappropriate content. Prompt Tuning and Snowpark APIs are development features, and Zero-Copy Cloning is for data management.",
+      "multipleSelect": false,
+      "source": "Snowflake-GES-C01-Study-Guide.pdf",
+      "generated": false,
+      "generatedDate": "2026-01-23",
+      "category": "Cortex LLM Functions"
+    },
+    {
+      "id": 92,
+      "topic": "Cortex Analyst",
+      "question": "What is the primary role of memory in a multi-turn chat conversation using a Gen AI model in Snowflake Cortex Analyst?",
+      "options": {
+        "A": "To maintain context throughout multiple requests",
+        "B": "To increase the speed of response generation",
+        "C": "To securely store user credentials",
+        "D": "To limit the number of tokens processed for each request"
+      },
+      "correctAnswer": "A",
+      "explanation": "In multi-turn chat conversations with Cortex Analyst, memory (conversation history) serves the primary purpose of maintaining context throughout multiple requests. This allows the LLM to understand follow-up questions in relation to previous exchanges. Cortex Analyst uses an LLM summarization agent to efficiently manage this conversation history without performance degradation.",
+      "multipleSelect": false,
+      "source": "Snowflake-GES-C01-Study-Guide.pdf",
+      "generated": false,
+      "generatedDate": "2026-01-23",
+      "category": "Cortex Analyst"
+    },
+    {
+      "id": 93,
+      "topic": "Cortex LLM Functions",
+      "question": "A financial services company is hesitant to move data outside its Snowflake account for AI analysis. Which Snowflake feature resolves this concern?",
+      "options": {
+        "A": "External Functions",
+        "B": "Streams",
+        "C": "Replication",
+        "D": "In-database AI processing with Cortex"
+      },
+      "correctAnswer": "D",
+      "explanation": "In-database AI processing with Cortex resolves the concern of data leaving Snowflake. Snowflake Cortex allows AI computations to occur directly within Snowflake, keeping data within the platform's governance boundary. This is particularly important for regulated industries like financial services. External Functions would send data outside, Streams are for CDC, and Replication copies data to other accounts.",
+      "multipleSelect": false,
+      "source": "Snowflake-GES-C01-Study-Guide.pdf",
+      "generated": false,
+      "generatedDate": "2026-01-23",
+      "category": "General"
+    },
+    {
+      "id": 94,
+      "topic": "Cortex LLM Functions",
+      "question": "Which Snowflake Cortex LLM function should be used to generate an instructional lesson plan based on a prompt?",
+      "options": {
+        "A": "COMPLETE",
+        "B": "EXTRACT_ANSWER",
+        "C": "SUMMARIZE",
+        "D": "TRANSLATE"
+      },
+      "correctAnswer": "A",
+      "explanation": "COMPLETE (or AI_COMPLETE) is the general-purpose LLM function for generating text based on a prompt. It's ideal for creative tasks like generating lesson plans, content creation, and any open-ended text generation. EXTRACT_ANSWER extracts specific answers from text, SUMMARIZE condenses text, and TRANSLATE converts between languages - none of these generate new creative content from a prompt.",
+      "multipleSelect": false,
+      "source": "Snowflake-GES-C01-Study-Guide.pdf",
+      "generated": false,
+      "generatedDate": "2026-01-23",
+      "category": "Cortex LLM Functions"
+    },
+    {
+      "id": 95,
+      "question": "A data scientist has successfully deployed a Hugging Face sentence transformer model to Snowpark Container Services (SPCS) for GPU-powered inference, making it accessible via an HTTP endpoint. To ensure secure and proper programmatic access to this service from an external application, which of the following statements correctly describe the authentication and access control considerations for calling this public endpoint?",
+      "options": {
+        "A": "The Python API for calling the service requires the Snowflake session object directly, bypassing HTTP endpoint authentication.",
+        "B": "The public endpoint of the SPCS service can be accessed directly without any authentication, as it's a public endpoint.",
+        "C": "The 'Authorization' header with a 'Snowflake Token=\"\"' value is a valid method for authenticating requests to the public endpoint programmatically.",
+        "D": "The default role for the calling user must have the 'SNOWFLAKCORTEX USER database role granted to access the SPCS service via its public endpoint.",
+        "E": "Applications must use key pair authentication to generate a JSON Web Token (JWT), exchange it with Snowflake for an OAuth token, and then use this OAuth token to authenticate requests to the public endpoint."
+      },
+      "correctAnswer": [
+        "C",
+        "E"
+      ],
+      "explanation": "Source: actual4test.com Q4. Correct answer(s): C,E",
+      "category": "SPCS & ML",
+      "difficulty": "Medium",
+      "multiSelect": true
+    },
+    {
+      "id": 96,
+      "question": "A data engineer is building a robust pipeline to process customer feedback. They need to extract specific sentiment categories (food_quality, food_taste, wait_time, food _cost) from text reviews and ensure the output is always a valid JSON object matching a predefined schema, even for complex reviews. They also want to control the determinism of the LLM responses. Which of the following SQL statements or considerations are correct for achieving this using Snowflake Cortex AI functions?",
+      "options": {
+        "A": "The response_format argument with a JSON schema is primarily for OpenAl (GPT) models; for other models like Mistral, a strong prompt instruction such as 'Respond in strict JSON' is generally more effective.",
+        "B": "The following SQL statement uses the response_format argument and temperature setting to achieve structured output and determinism:",
+        "C": "Using AI_COMPLETE with response_format incurs additional compute cost for the overhead of verifying each token against the supplied JSON schema, in addition to standard token costs.",
+        "D": "For the most consistent structured output, especially in complex reasoning tasks, setting the temperature option to 0 when calling AI_COMPLETE is recommended.",
+        "E": "To ensure the model explicitly attempts to extract all specified fields, the 'required' array in the JSON schema is critical; AI_COMPLETE will raise an error if any required field cannot be extracted."
+      },
+      "correctAnswer": [
+        "B",
+        "D",
+        "E"
+      ],
+      "explanation": "Source: actual4test.com Q6. Correct answer(s): B,D,E",
+      "category": "Cortex LLM Functions",
+      "difficulty": "Medium",
+      "multiSelect": true
+    },
+    {
+      "id": 97,
+      "question": "Considering Snowflake's Gen AI principles for cost governance within Snowflake Cortex, an ML engineer is assessing the expenditure for an LLM fine-tuning job. Which option correctly identifies how compute costs for Cortex Fine-tuning are primarily incurred and how fine-tuned models are treated regarding usage by other customers?",
+      "options": {
+        "A": "Only inference using fine-tuned models incurs costs, not the training itself. Fine-tuned models can be openly shared on the Snowflake Marketplace.",
+        "B": "Costs are incurred per hour of compute pool usage, similar to virtual warehouses. Fine-tuned models are anonymized and used to train future foundation models for all customers.",
+        "C": "Fine-tuning costs are a flat monthly fee, irrespective of token usage or model size. Fine-tuned models become part of Snowflake's proprietary models after training.",
+        "D": "Costs are based on the number of fine-tuning jobs created, not tokens. Fine-tuned models are shared across all Snowflake customers to improve the general service.",
+        "E": "Compute costs for fine-tuning are based on the number of tokens used in training, calculated as 'number of input tokens number of epochs trained'. Fine-tuned models built using a customer's data are available exclusively for that customer's use."
+      },
+      "correctAnswer": "E",
+      "explanation": "Source: actual4test.com Q8. Correct answer(s): E",
+      "category": "Fine-Tuning",
+      "difficulty": "Medium",
+      "multiSelect": false
+    },
+    {
+      "id": 98,
+      "question": "A team of data application developers is leveraging Snowflake Copilot to streamline the creation of analytical SQL queries within their Streamlit in Snowflake application. They observe that Copilot sometimes struggles with complex joins or provides suboptimal queries when dealing with a newly integrated, deeply nested dataset. Based on Snowflake's best practices and known limitations, which actions or considerations would help improve Copilot's performance in this scenario?",
+      "options": {
+        "A": "Break down complex requests into simpler, multi-turn questions, as Copilot is designed to build complex queries through conversational refinement and follow-up questions.",
+        "B": "Ensure that a database and schema are explicitly selected for the current session, and that column names are meaningful, to provide Copilot with better context for query generation.",
+        "C": "Enable the CORTEX_MODELS_ALLOWLIST parameter to restrict Copilot to only use the largest available LLMs, thereby guaranteeing higher accuracy for complex queries.",
+        "D": "Implement curated views with descriptive and easy-to-understand names for views and columns, appropriate data types, and pre-define common/complex joins to simplify the underlying schema for Copilot.",
+        "E": "Grant Copilot direct access to the raw data using ACCOUNTADMIN privileges, allowing it to infer schema relationships more effectively from data content."
+      },
+      "correctAnswer": [
+        "A",
+        "B",
+        "D"
+      ],
+      "explanation": "Source: actual4test.com Q13. Correct answer(s): A,B,D",
+      "category": "Snowflake Copilot",
+      "difficulty": "Medium",
+      "multiSelect": true
+    },
+    {
+      "id": 99,
+      "question": "A development team is building a conversational application with Snowflake Cortex Analyst to allow business users to ask follow-up questions about structured dat a. They are specifically designing the multi-turn conversation support and considering the underlying LLM choices for components like the summarization agent. Which of the following statements accurately reflects how Cortex Analyst handles conversational context and best practices for selecting an LLM for its summarization agent?",
+      "options": {
+        "A": "The summarization agent in Cortex Analyst is primarily responsible for generating SQL queries from conversation history, thus requiring an LLM optimized for text- to-SQL tasks.",
+        "B": "Cortex Analyst directly passes the entire raw conversation history to every LLM call for all agents to ensure full context, which generally improves performance.",
+        "C": "A dedicated LLM summarization agent is introduced before the original workflow to distill conversation history into a concise context for subsequent agents, with Llama 3.1 70B identified as a suitable model due to its high summarization quality.",
+        "D": "To optimize for latency, Cortex Analyst recommends always using the smallest possible LLM for the summarization agent, such as Llama 3.1 8B, even if it has a slightly higher error rate in rewriting questions.",
+        "E": "Multi-turn conversation support primarily relies on caching previous SQL query results and re-executing them for follow-up questions, avoiding additional LLM calls for context summarization."
+      },
+      "correctAnswer": "C",
+      "explanation": "Source: actual4test.com Q17. Correct answer(s): C",
+      "category": "Cortex Analyst",
+      "difficulty": "Medium",
+      "multiSelect": false
+    },
+    {
+      "id": 100,
+      "question": "A Snowflake user attempts to access the Cortex Playground to experiment with LLM functions but receives an error indicating insufficient privileges. They have an active Snowflake session. Which of the following steps must be taken to ensure they can successfully use the Cortex Playground?",
+      "options": {
+        "A": "The user's role must be granted the SNOWFLAKE.CORTEX_USER database role, which includes the necessary privileges to call Snowflake Cortex LLM functions.",
+        "B": "The CORTEX_MODELS_ALLOWLIST account parameter must be explicitly set to include the desired LLM, even if it is a Snowflake-hosted model.",
+        "C": "The user must first create a dedicated compute pool of instance family GPU_NV_M specifically for Cortex Playground operations.",
+        "D": "The CORTEX_ENABLED_CROSS_REGION parameter must be set to ANY_REGION if the user's account is not in one of the natively supported regions for Cortex LLM functions.",
+        "E": "The user needs to manually install the TruLens SDK in their environment, as it is a prerequisite for all Cortex AI Studio features."
+      },
+      "correctAnswer": [
+        "C",
+        "D"
+      ],
+      "explanation": "To use the Cortex Playground: (C) CORTEX_ENABLED_CROSS_REGION must be set to ANY_REGION for accounts not in natively supported regions. (D) The CORTEX_MODELS_ALLOWLIST may need configuration. Note: SNOWFLAKE.CORTEX_USER role is needed but the question asks about specific steps for the error.",
+      "category": "Cortex LLM Functions",
+      "difficulty": "Medium",
+      "multiSelect": true
+    },
+    {
+      "id": 101,
+      "question": "A large e-commerce company plans to implement real-time sentiment analysis on millions of incoming customer reviews using SNOWFLAKE.CORTEX.SENTIMENT. They are concerned about managing costs and ensuring efficient processing. Which of the following statements about cost considerations and performance optimizations for SNOWFLAKE.CORTEX.SENTIMENT are true? (Select all that apply)",
+      "options": {
+        "A": "Billing for SNOWFLAKE.CORTEX.SENTIMENT is primarily based on the number of output tokens generated in the response.",
+        "B": "Snowflake recommends using a smaller warehouse (no larger than MEDIUM), as larger warehouses do not increase performance for SENTIMENT function calls.",
+        "C": "The fixed billing rate for the SENTIMENT function is 0.08 Credits per one million input tokens processed.",
+        "D": "The actual number of tokens processed and billed for a SENTIMENT call is typically higher than the raw input text length, due to an internal prompt added by the function.",
+        "E": "The newer AI_SENTIMENT function is a free, serverless alternative to SNOWFLAKE.CORTEX.SENTIMENT, offering cost savings for high-volume scenarios."
+      },
+      "correctAnswer": [
+        "B",
+        "C",
+        "D"
+      ],
+      "explanation": "B) Snowflake recommends MEDIUM or smaller warehouses for SENTIMENT as larger ones don't improve performance. C) SENTIMENT has a fixed rate of 0.08 credits per million input tokens. D) Internal prompts are added, increasing actual token count. A is wrong (input tokens, not output). E is wrong (AI_SENTIMENT is not free).",
+      "category": "Cortex LLM Functions",
+      "difficulty": "Hard",
+      "multiSelect": true
+    },
+    {
+      "id": 102,
+      "question": "A data scientist is preparing a large text document for processing with Snowflake Cortex LLMs. They need to use the COUNT_TOKENS function to estimate the input token count for different models. Given the statement: SELECT SNOWFLAKE.CORTEX.COUNT_TOKENS('mistral-7b', 'This is a sample document to test tokenization.') AS token_estimate; which of the following statements about the COUNT_TOKENS function and its output is TRUE?",
+      "options": {
+        "A": "The COUNT_TOKENS function itself incurs token-based costs, calculated based on the length of the input string, similar to embedding functions.",
+        "B": "The output value from COUNT_TOKENS for a given text string will always be the same regardless of the specified LLM model (e.g., 'mistral-7b' vs. 'llama3.1-8b').",
+        "C": "The COUNT_TOKENS function is primarily used to count output tokens generated by an LLM, not the input prompt.",
+        "D": "A token is defined as approximately four characters of text, but the exact equivalence of raw input text to tokens can vary by the Cortex model specified in the function call.",
+        "E": "The COUNT_TOKENS function can only be used for models available in the same region as the virtual warehouse executing the query."
+      },
+      "correctAnswer": "D",
+      "explanation": "D is correct: A token is approximately 4 characters, but tokenization varies by model. A is wrong (COUNT_TOKENS has no cost). B is wrong (different models have different tokenizers). C is wrong (it counts input tokens). E is wrong (no region restriction for COUNT_TOKENS).",
+      "category": "Cortex LLM Functions",
+      "difficulty": "Medium",
+      "multiSelect": false
+    },
+    {
+      "id": 103,
+      "question": "A global marketing team uses Snowflake to manage customer feedback in various languages. They need to translate customer reviews from German ('de') into English ('en') for analysis. The reviews are stored in a table named 'CUSTOMER_REVIEWS' in a column called 'REVIEW_TEXT'. Which of the following SQL statements correctly applies the SNOWFLAKE.CORTEX.TRANSLATE function and what is the expected return type for the translated text?",
+      "options": {
+        "A": "SELECT SNOWFLAKE.CORTEX.TRANSLATE(review_text, 'en') FROM CUSTOMER_REVIEWS; - Returns VARCHAR",
+        "B": "SELECT SNOWFLAKE.CORTEX.TRANSLATE(review_text, 'de', 'en', 'high_accuracy') FROM CUSTOMER_REVIEWS; - Returns VARCHAR",
+        "C": "SELECT TRANSLATE(review_text, 'en') FROM CUSTOMER_REVIEWS; - Returns VARCHAR",
+        "D": "SELECT SNOWFLAKE.CORTEX.TRANSLATE(review_text, 'de', 'en') FROM CUSTOMER_REVIEWS; - Returns VARCHAR",
+        "E": "SELECT SNOWFLAKE.CORTEX.TRANSLATE(review_text, 'English') FROM CUSTOMER_REVIEWS; - Returns VARCHAR"
+      },
+      "correctAnswer": "D",
+      "explanation": "The correct syntax for TRANSLATE is: SNOWFLAKE.CORTEX.TRANSLATE(text, source_language, target_language). Option D correctly specifies 'de' (German) as source and 'en' (English) as target. The function returns VARCHAR. Other options have incorrect syntax or parameters.",
+      "category": "Cortex LLM Functions",
+      "difficulty": "Easy",
+      "multiSelect": false
+    },
+    {
+      "id": 104,
+      "question": "An organization enforces strict LLM access control. They have configured 'CORTEX_MODELS_ALLOWLIST = 'mistral-large2'' and executed 'CALL SNOWFLAKE.MODELS.CORTEX_BASE_MODELS_REFRESH()'. A developer, whose role DEV_ROLE has been granted 'SNOWFLAKE.CORTEX_USER' and 'SNOWFLAKE.\"CORTEX-MODEL-ROLE-CLAUDE-3-5-SONNET\"', attempts to make a REST API call to 'api/v2/cortex/inference:complete' using 'claude-3-5-sonnet' as the model name in the request body. Which of the following statements are true regarding this scenario?",
+      "options": {
+        "A": "The REST API call with 'model': 'claude-3-5-sonnet' will successfully execute due to the DEV_ROLE having 'SNOWFLAKE.\"CORTEX-MODEL-ROLE-CLAUDE-3-5-SONNET\"'.",
+        "B": "The CORTEX_MODELS_ALLOWLIST parameter restricts access to models for Cortex LLM REST API calls.",
+        "C": "To successfully use 'claude-3-5-sonnet' via the REST API, the CORTEX_MODELS_ALLOWLIST must be updated to include it, or the request should specify 'model': 'SNOWFLAKE.MODELS.\"CLAUDE-3-5-SONNET\"'.",
+        "D": "An attempt to use an unallowed model via the Cortex LLM REST API would result in an HTTP '403 Not Authorized' error, even if the user's role has SNOWFLAKE.CORTEX_USER.",
+        "E": "The ENABLE_CORTEX_ANALYST_MODEL_AZURE_OPENAI parameter could be enabled to allow access to 'claude-3-5-sonnet' for this COMPLETE REST API call."
+      },
+      "correctAnswer": [
+        "A",
+        "B"
+      ],
+      "explanation": "A) The model-specific role CORTEX-MODEL-ROLE-CLAUDE-3-5-SONNET allows access even when ALLOWLIST restricts other users. B) CORTEX_MODELS_ALLOWLIST does restrict REST API access. C is partially correct but the role override should work. D is correct behavior but A takes precedence here.",
+      "category": "Cost & Governance",
+      "difficulty": "Hard",
+      "multiSelect": true
+    },
+    {
+      "id": 105,
+      "question": "A data platform administrator needs to retrieve a consolidated overview of credit consumption for all Snowflake Cortex AI functions (e.g., LLM functions, Document AI, Cortex Search) across their entire account for the past week. They are interested in the aggregated daily credit usage rather than specific token counts per query. Which Snowflake account usage views should the administrator primarily leverage to gather this information?",
+      "options": {
+        "A": "The SNOWFLAKE.ACCOUNT_USAGE.CORTEX_FUNCTIONS_QUERY_USAGE_HISTORY view to get detailed token usage for each LLM function call, then aggregate manually.",
+        "B": "The SNOWFLAKE.ORGANIZATION_USAGE.METERING_DAILY_HISTORY view, specifically filtering for SERVICE_TYPE = 'AI_SERVICES'.",
+        "C": "The SNOWFLAKE.ACCOUNT_USAGE.CORTEX_DOCUMENT_PROCESSING_USAGE_HISTORY view for Document AI costs, and SNOWFLAKE.ACCOUNT_USAGE.CORTEX_SEARCH_DAILY_USAGE_HISTORY for Cortex Search costs, then combine them.",
+        "D": "Only the SNOWFLAKE.ACCOUNT_USAGE.QUERY_HISTORY view, analyzing the EXECUTION_STATUS and TOTAL_ELAPSED_TIME columns for queries involving Cortex functions.",
+        "E": "The SNOWFLAKE.CORTEX.COUNT_TOKENS function to re-calculate estimated costs for all past queries that used Cortex AI functions."
+      },
+      "correctAnswer": "B",
+      "explanation": "B is correct: SNOWFLAKE.ORGANIZATION_USAGE.METERING_DAILY_HISTORY with SERVICE_TYPE = 'AI_SERVICES' provides consolidated daily credit consumption for all Cortex AI services. This is the most efficient way to get aggregated daily usage across all Cortex features.",
+      "category": "Cost & Governance",
+      "difficulty": "Medium",
+      "multiSelect": false
+    },
+    {
+      "id": 106,
+      "question": "A new data analyst, 'DI_ANALYST', is setting up their Snowflake environment to create and test Document AI model builds through the Snowsight user interface. The database 'document_ai_db' and schema 'analysis_schema' have already been created for this purpose, along with a dedicated virtual warehouse 'di_compute_wh'. The 'DI_ANALYST' role has been granted the SNOWFLAKE.DOCUMENT_INTELLIGENCE_CREATOR database role. Which of the following SQL commands grant the *strictly necessary USAGE privileges* required for 'DI_ANALYST' to successfully initiate a new Document AI model build in Snowsight?",
+      "options": {
+        "A": "GRANT CREATE STAGE ON SCHEMA analysis_schema TO ROLE DI_ANALYST;",
+        "B": "GRANT USAGE ON DATABASE document_ai_db TO ROLE DI_ANALYST;",
+        "C": "GRANT USAGE ON SCHEMA analysis_schema TO ROLE DI_ANALYST;",
+        "D": "GRANT USAGE ON WAREHOUSE di_compute_wh TO ROLE DI_ANALYST;",
+        "E": "GRANT OPERATE ON WAREHOUSE di_compute_wh TO ROLE DI_ANALYST;"
+      },
+      "correctAnswer": [
+        "B",
+        "C",
+        "D"
+      ],
+      "explanation": "The strictly necessary USAGE privileges are: B) USAGE on DATABASE to access the database, C) USAGE on SCHEMA to access objects within it, D) USAGE on WAREHOUSE to execute queries. A (CREATE STAGE) and E (OPERATE) are not USAGE privileges - they are different privilege types.",
+      "category": "Document AI",
+      "difficulty": "Medium",
+      "multiSelect": true
+    },
+    {
+      "id": 107,
+      "question": "An 'ACCOUNTADMIN' has configured the 'CORTEX_MODELS_ALLOWLIST' parameter to allow only the 'mistral-large2' model. A developer, whose role has been granted 'SNOWFLAKE.CORTEX_USER' and the specific application role 'SNOWFLAKE.\"CORTEX-MODEL-ROLE-LLAMA3.1-70B\"', subsequently accesses the Cortex LLM Playground. Which models would be available for selection and successful inference by this user within the Playground?",
+      "options": {
+        "A": "The 'mistral-large2' model.",
+        "B": "The 'LLAMA3.1-70B' model, when explicitly referenced as 'SNOWFLAKE.MODELS.\"LLAMA3.1-70B\"' in an AI_COMPLETE call initiated through the Playground's interface.",
+        "C": "The 'snowflake-arctic' model.",
+        "D": "All models supported by COMPLETE that are available in the account's region, as the Playground offers full model exploration.",
+        "E": "Only models specified directly in the CORTEX_MODELS_ALLOWLIST are ever visible or usable in the Playground."
+      },
+      "correctAnswer": [
+        "B",
+        "C"
+      ],
+      "explanation": "B) The model-specific role CORTEX-MODEL-ROLE-LLAMA3.1-70B grants access to that model regardless of ALLOWLIST. C) snowflake-arctic is always available as Snowflake's own model. A) mistral-large2 is in allowlist but user may not have access. D and E are incorrect - model roles can override ALLOWLIST restrictions.",
+      "category": "Cost & Governance",
+      "difficulty": "Hard",
+      "multiSelect": true
+    },
+    {
+      "id": 108,
+      "question": "A data application developer is tasked with building a multi-turn conversational AI application using Streamlit in Snowflake (SiS) that leverages the COMPLETE (SNOWFLAKE.CORTEX) LLM function. To ensure the conversation flows naturally and the LLM maintains context from previous interactions, which of the following is the most appropriate method for handling and passing the conversation history?",
+      "options": {
+        "A": "The developer should store the entire conversation history in a temporary table in Snowflake and query it with each new turn, passing only the latest user message to the COMPLETE function.",
+        "B": "Snowflake automatically manages conversational context for COMPLETE within the session, so the developer only needs to pass the current user prompt as a string.",
+        "C": "The conversation history must be explicitly managed within the Streamlit application's state, typically by initializing st.session_state.messages = [] and appending each user and assistant message as an object with 'role' and 'content' keys, then passing the full list to the prompt_or_history argument of COMPLETE.",
+        "D": "The developer should concatenate all previous user prompts and assistant responses into a single, long string, and pass this as the <prompt> argument to COMPLETE for each turn.",
+        "E": "The COMPLETE function has an optional 'conversation_id' parameter that automatically retrieves and manages conversation history when provided."
+      },
+      "correctAnswer": "C",
+      "explanation": "For multi-turn conversations with COMPLETE in Streamlit, you must explicitly manage conversation history using st.session_state.messages. Each message should be an object with 'role' (user/assistant) and 'content' keys. The full list is passed to prompt_or_history argument. Snowflake does not automatically manage context (B is wrong), and there's no conversation_id parameter (E is wrong).",
+      "category": "Streamlit",
+      "difficulty": "Medium",
+      "multiSelect": false
+    },
+    {
+      "id": 109,
+      "question": "A Snowflake developer, AI_ENGINEER, is creating a Streamlit in Snowflake (SiS) application that will utilize a range of Snowflake Cortex LLM functions, including SNOWFLAKE.CORTEX.COMPLETE, SNOWFLAKE.CORTEX.CLASSIFY_TEXT, and SNOWFLAKE.CORTEX.EMBED_TEXT_768. The application also needs to access data from tables within a specific database and schema. AI_ENGINEER has created a custom role, app_dev_role, for the application to operate under. Which of the following privileges or roles are absolutely necessary to grant to app_dev_role for the successful execution of these Cortex LLM functions and interaction with the specified database objects? (Select all that apply.)",
+      "options": {
+        "A": "The SNOWFLAKE.CORTEX_USER database role, which provides the necessary permissions to call Snowflake Cortex AI functions.",
+        "B": "The CREATE SNOWFLAKE.ML.DOCUMENT_INTELLIGENCE privilege on the schema where the application resides.",
+        "C": "The USAGE privilege on the specific database and schema where the Streamlit application and its underlying data tables are located.",
+        "D": "The ACCOUNTADMIN role to ensure unrestricted access to all Snowflake Cortex features.",
+        "E": "The CREATE COMPUTE POOL privilege to provision resources for the Streamlit application."
+      },
+      "correctAnswer": [
+        "A",
+        "C"
+      ],
+      "explanation": "A) SNOWFLAKE.CORTEX_USER database role is required to call Cortex AI functions like COMPLETE, CLASSIFY_TEXT, EMBED_TEXT_768. C) USAGE privilege on database and schema is required to access data tables. B is for Document AI only, not general LLM functions. D (ACCOUNTADMIN) grants excessive privileges. E (CREATE COMPUTE POOL) is for SPCS, not Streamlit apps.",
+      "category": "Streamlit",
+      "difficulty": "Medium",
+      "multiSelect": true
+    },
+    {
+      "id": 110,
+      "question": "A data engineer is building a Snowflake data pipeline to ingest customer reviews from a raw staging table into a processed table. For each review, they need to determine the overall sentiment (positive, neutral, negative) and store this as a distinct column. The pipeline is implemented using SQL with streams and tasks to process new data. Which Snowflake Cortex LLM function, when integrated into the SQL task, is best suited for this sentiment classification and ensures a structured, single-label output for each review?",
+      "options": {
+        "A": "Use SNOWFLAKE.CORTEX.SENTIMENT() to get a numerical score, then apply a separate SQL CASE statement or UDF for classification into 'positive', 'neutral', 'negative'.",
+        "B": "Use SNOWFLAKE.CORTEX.CLASSIFY_TEXT() with the input text and a list of categories like ['positive', 'negative', 'neutral'] to directly obtain the classification label.",
+        "C": "Use AI_COMPLETE() with a prompt such as 'Classify the sentiment of this review: [review_text] into positive, neutral, or negative.' and configure the response_format to be a string.",
+        "D": "Use SNOWFLAKE.CORTEX.EXTRACT_ANSWER() asking the question 'What is the sentiment of this review?' to get a descriptive answer that then needs parsing.",
+        "E": "Use multiple AI_FILTER() calls, one for each sentiment category (e.g., AI_FILTER(prompt='Is this review positive?')), and combine the boolean results."
+      },
+      "correctAnswer": "B",
+      "explanation": "CLASSIFY_TEXT() is purpose-built for classifying text into predefined categories and directly returns the classification label. This is more direct and efficient than: SENTIMENT() which returns a numerical score requiring additional processing (A), COMPLETE() which requires prompt engineering (C), EXTRACT_ANSWER() which returns descriptive text (D), or multiple AI_FILTER() calls (E).",
+      "category": "Cortex LLM Functions",
+      "difficulty": "Medium",
+      "multiSelect": false
+    },
+    {
+      "id": 111,
+      "question": "A financial services company is developing an automated data pipeline in Snowflake to process Federal Reserve Meeting Minutes, which are initially loaded as PDF documents. The pipeline needs to extract specific entities like the FED's stance on interest rates ('hawkish', 'dovish', or 'neutral') and the reasoning behind it, storing these as structured JSON objects within a Snowflake table. The goal is to ensure the output is always a valid JSON object with predefined keys. Which AI_COMPLETE configuration, used within an in-line SQL statement in a task, is most effective for achieving this structured extraction directly in the pipeline?",
+      "options": {
+        "A": "Using a simple prompt like 'Extract FED stance on interest rates and the reasoning as JSON from the document: [document_text]' and expecting the LLM to format it correctly without further configuration.",
+        "B": "Setting the temperature parameter to 0 and max_tokens to a sufficiently large value, along with a prompt to output JSON, to inherently guide the LLM to a structured format.",
+        "C": "Employing the response_format argument within AI_COMPLETE with a JSON schema that explicitly defines the 'stance' (enum: 'hawkish', 'dovish', 'neutral') and 'reasoning' (string) fields, ensuring strict adherence to the output structure.",
+        "D": "Utilizing multiple calls to SNOWFLAKE.CORTEX.EXTRACT_ANSWER() or AI_EXTRACT(), one for the stance and another for the reasoning, then manually constructing the JSON in a subsequent SQL step.",
+        "E": "Relying on default AI_COMPLETE behavior, as Snowflake Cortex automatically detects the need for JSON output when entity extraction with specific fields is implied by the prompt."
+      },
+      "correctAnswer": "C",
+      "explanation": "The response_format argument with a JSON schema is the most effective and direct method to ensure LLM responses adhere to a predefined JSON structure. It enforces structure, data types, and required fields, significantly reducing post-processing. Temperature=0 (B) improves consistency but doesn't enforce schema. Prompt engineering (A) doesn't guarantee strict adherence. Multiple extraction calls (D) is less efficient. Snowflake doesn't auto-detect JSON needs (E).",
+      "category": "Cortex LLM Functions",
+      "difficulty": "Hard",
+      "multiSelect": false
+    },
+    {
+      "id": 112,
+      "question": "A machine learning engineer wants to fine-tune a Llama 3.1 8B model to generate customer support responses that match their company's tone and style. The training data is stored in a table with 'prompt' and 'completion' columns. Which SQL statement correctly initiates the fine-tuning job?",
+      "options": {
+        "A": "SELECT SNOWFLAKE.CORTEX.FINETUNE('llama3.1-8b', 'SELECT prompt, completion FROM training_data', 'my_custom_model');",
+        "B": "SELECT SNOWFLAKE.CORTEX.FINE_TUNE('CREATE', 'llama3.1-8b', 'SELECT prompt, completion FROM training_data') AS job_id;",
+        "C": "CALL SNOWFLAKE.CORTEX.FINETUNE('CREATE', 'llama3.1-8b', 'SELECT prompt, completion FROM training_data', 'my_finetuned_model');",
+        "D": "CREATE MODEL my_model USING SNOWFLAKE.CORTEX.FINETUNE BASE_MODEL='llama3.1-8b' TRAINING_DATA='training_data';",
+        "E": "EXECUTE CORTEX.FINETUNE JOB WITH MODEL='llama3.1-8b' DATA=training_data OUTPUT='my_model';"
+      },
+      "correctAnswer": "C",
+      "explanation": "The correct syntax uses CALL SNOWFLAKE.CORTEX.FINETUNE() with 'CREATE' as the first argument, followed by the base model name, the training data query, and the output model name. This is a stored procedure call, not a SELECT statement or CREATE MODEL statement.",
+      "category": "Fine-Tuning",
+      "difficulty": "Medium",
+      "multiSelect": false
+    },
+    {
+      "id": 113,
+      "question": "An ML engineer has completed a fine-tuning job and wants to use the resulting model for inference. The fine-tuned model is named 'support_responder_v1'. Which statement correctly calls the fine-tuned model?",
+      "options": {
+        "A": "SELECT SNOWFLAKE.CORTEX.COMPLETE('support_responder_v1', 'How do I reset my password?');",
+        "B": "SELECT SNOWFLAKE.CORTEX.COMPLETE('@my_db.my_schema.support_responder_v1', 'How do I reset my password?');",
+        "C": "SELECT AI_COMPLETE('FINETUNE.support_responder_v1', 'How do I reset my password?');",
+        "D": "CALL SNOWFLAKE.CORTEX.INFERENCE('support_responder_v1', 'How do I reset my password?');",
+        "E": "SELECT COMPLETE(MODEL => 'support_responder_v1', PROMPT => 'How do I reset my password?');"
+      },
+      "correctAnswer": "B",
+      "explanation": "Fine-tuned models are referenced using their fully qualified name with @ prefix: '@database.schema.model_name'. The COMPLETE function is used for inference, just like with base models, but the model reference includes the @ symbol and full path.",
+      "category": "Fine-Tuning",
+      "difficulty": "Medium",
+      "multiSelect": false
+    },
+    {
+      "id": 114,
+      "question": "During a fine-tuning job, an ML engineer wants to monitor the training progress. Which methods can be used to check the status of an ongoing fine-tuning job? (Select all that apply)",
+      "options": {
+        "A": "Query the SNOWFLAKE.ACCOUNT_USAGE.FINETUNE_HISTORY view",
+        "B": "Call SNOWFLAKE.CORTEX.FINETUNE('DESCRIBE', '<job_id>') to get job details",
+        "C": "Use SNOWFLAKE.CORTEX.FINETUNE('SHOW') to list all fine-tuning jobs and their statuses",
+        "D": "Check the Snowsight UI under AI & ML > Fine-tuning Jobs",
+        "E": "Query INFORMATION_SCHEMA.CORTEX_JOBS for real-time status"
+      },
+      "correctAnswer": [
+        "B",
+        "C",
+        "D"
+      ],
+      "explanation": "B) FINETUNE('DESCRIBE', job_id) returns details about a specific job. C) FINETUNE('SHOW') lists all jobs with their statuses. D) Snowsight UI provides a visual interface for monitoring. A and E are not valid - there's no FINETUNE_HISTORY view or CORTEX_JOBS in INFORMATION_SCHEMA.",
+      "category": "Fine-Tuning",
+      "difficulty": "Medium",
+      "multiSelect": true
+    },
+    {
+      "id": 115,
+      "question": "Which of the following are valid considerations when preparing training data for Cortex Fine-tuning? (Select all that apply)",
+      "options": {
+        "A": "Training data must be in a table with exactly two columns: 'prompt' and 'completion'",
+        "B": "A minimum of 100 training examples is recommended for effective fine-tuning",
+        "C": "The training data query can include WHERE clauses to filter specific subsets of data",
+        "D": "Training examples should be representative of the actual inference use cases",
+        "E": "Fine-tuning automatically handles data augmentation, so duplicate examples are beneficial"
+      },
+      "correctAnswer": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "explanation": "A) Correct - the table must have 'prompt' and 'completion' columns. B) Correct - minimum 100 examples recommended. C) Correct - the training data is specified as a SQL query. D) Correct - data should match real use cases. E) Wrong - duplicates don't help and can cause overfitting.",
+      "category": "Fine-Tuning",
+      "difficulty": "Medium",
+      "multiSelect": true
+    },
+    {
+      "id": 116,
+      "question": "A company wants to fine-tune a model but is concerned about training costs. Which parameter in the FINETUNE function directly impacts the compute cost of the training job?",
+      "options": {
+        "A": "learning_rate - higher rates require more compute",
+        "B": "max_epochs - determines how many times the model processes the entire training dataset",
+        "C": "batch_size - larger batches require more memory and compute",
+        "D": "temperature - affects the randomness during training",
+        "E": "validation_split - the percentage of data used for validation"
+      },
+      "correctAnswer": "B",
+      "explanation": "Compute cost for fine-tuning is calculated as: (number of input tokens) × (number of epochs). The max_epochs parameter directly multiplies the token cost. More epochs = more training passes = higher cost. Other parameters don't directly scale the compute cost in the same way.",
+      "category": "Fine-Tuning",
+      "difficulty": "Easy",
+      "multiSelect": false
+    },
+    {
+      "id": 117,
+      "question": "A developer is creating a Cortex Search service to enable semantic search over product documentation. Which SQL statement correctly creates a Cortex Search service?",
+      "options": {
+        "A": "CREATE CORTEX SEARCH SERVICE doc_search ON product_docs(content) WAREHOUSE = compute_wh;",
+        "B": "CREATE CORTEX SEARCH SERVICE doc_search ON TABLE product_docs TARGET_LAG = '1 hour' WAREHOUSE = compute_wh AS (SELECT content, title, category FROM product_docs);",
+        "C": "CREATE SEARCH INDEX doc_search USING CORTEX ON product_docs(content);",
+        "D": "CALL SNOWFLAKE.CORTEX.CREATE_SEARCH_SERVICE('doc_search', 'product_docs', 'content');",
+        "E": "CREATE CORTEX SEARCH SERVICE doc_search WAREHOUSE = compute_wh AS SELECT EMBED_TEXT_768('e5-base-v2', content) FROM product_docs;"
+      },
+      "correctAnswer": "B",
+      "explanation": "The correct syntax includes: CREATE CORTEX SEARCH SERVICE, ON TABLE, TARGET_LAG for refresh frequency, WAREHOUSE for compute, and AS (SELECT...) to define the searchable columns. The service automatically handles embedding generation internally.",
+      "category": "Cortex Search",
+      "difficulty": "Medium",
+      "multiSelect": false
+    },
+    {
+      "id": 118,
+      "question": "When querying a Cortex Search service, which function is used to perform the semantic search and what does it return?",
+      "options": {
+        "A": "CORTEX_SEARCH() returns matching rows with a similarity score",
+        "B": "SNOWFLAKE.CORTEX.SEARCH_PREVIEW() returns a JSON object containing results with scores and highlighted snippets",
+        "C": "SEARCH() returns an array of document IDs ranked by relevance",
+        "D": "SNOWFLAKE.CORTEX.COMPLETE() with search_services option returns augmented responses",
+        "E": "VECTOR_SEARCH() returns the top-k nearest neighbor results"
+      },
+      "correctAnswer": "B",
+      "explanation": "SNOWFLAKE.CORTEX.SEARCH_PREVIEW() is used to query Cortex Search services. It returns a JSON object containing the search results, including relevance scores and optionally highlighted text snippets from matching documents.",
+      "category": "Cortex Search",
+      "difficulty": "Medium",
+      "multiSelect": false
+    },
+    {
+      "id": 119,
+      "question": "A Cortex Search service is configured with TARGET_LAG = '1 hour'. Which statements about the service behavior are true? (Select all that apply)",
+      "options": {
+        "A": "New data inserted into the source table will be searchable within approximately 1 hour",
+        "B": "The search service will refresh exactly every 60 minutes",
+        "C": "TARGET_LAG represents the maximum acceptable staleness of the search index",
+        "D": "Shorter TARGET_LAG values result in higher compute costs",
+        "E": "TARGET_LAG can only be set to predefined values like '1 hour', '1 day', or '1 week'"
+      },
+      "correctAnswer": [
+        "A",
+        "C",
+        "D"
+      ],
+      "explanation": "A) Correct - data becomes searchable within the TARGET_LAG window. C) Correct - it's the maximum staleness allowed. D) Correct - more frequent refreshes cost more. B) Wrong - it's a target, not exact schedule. E) Wrong - flexible time specifications are allowed.",
+      "category": "Cortex Search",
+      "difficulty": "Medium",
+      "multiSelect": true
+    },
+    {
+      "id": 120,
+      "question": "Which columns can be included in a Cortex Search service definition and how are they used? (Select all that apply)",
+      "options": {
+        "A": "Text columns for semantic search (automatically embedded)",
+        "B": "Attribute columns for filtering search results",
+        "C": "Numeric columns for range-based queries",
+        "D": "VARIANT columns containing JSON documents",
+        "E": "Columns to be returned in search results but not used for matching"
+      },
+      "correctAnswer": [
+        "A",
+        "B",
+        "E"
+      ],
+      "explanation": "A) Text columns are embedded for semantic search. B) Attribute columns enable filtering (e.g., WHERE category = 'electronics'). E) Additional columns can be returned without affecting search. C and D are not directly supported - numeric ranges and VARIANT columns have limited support.",
+      "category": "Cortex Search",
+      "difficulty": "Medium",
+      "multiSelect": true
+    },
+    {
+      "id": 121,
+      "question": "A developer is building a Streamlit in Snowflake application that uses Cortex LLM functions. Which of the following best practices should be followed for optimal performance and user experience? (Select all that apply)",
+      "options": {
+        "A": "Use st.cache_data to cache LLM responses for identical prompts",
+        "B": "Implement streaming responses using the stream option in COMPLETE for long-form generation",
+        "C": "Store conversation history in st.session_state rather than querying a database table for each turn",
+        "D": "Call COMPLETE directly in the main script rather than inside callback functions",
+        "E": "Use the smallest appropriate model for the task to minimize latency and cost"
+      },
+      "correctAnswer": [
+        "A",
+        "B",
+        "C",
+        "E"
+      ],
+      "explanation": "A) Caching identical prompts saves compute. B) Streaming improves UX for long responses. C) session_state is more efficient than database queries per turn. E) Smaller models are faster and cheaper. D is wrong - callbacks are fine and sometimes necessary for proper Streamlit flow.",
+      "category": "Streamlit",
+      "difficulty": "Medium",
+      "multiSelect": true
+    },
+    {
+      "id": 122,
+      "question": "In Snowflake ML, what is the purpose of the Feature Store and how does it integrate with Cortex?",
+      "options": {
+        "A": "Feature Store provides pre-computed embeddings for all text columns, automatically integrated with Cortex Search",
+        "B": "Feature Store is a centralized repository for managing, versioning, and serving ML features, which can be used alongside Cortex for building end-to-end ML pipelines",
+        "C": "Feature Store automatically fine-tunes Cortex models based on historical feature data",
+        "D": "Feature Store replaces the need for Cortex LLM functions by providing deterministic feature extraction",
+        "E": "Feature Store is required to use any Cortex AI function in production"
+      },
+      "correctAnswer": "B",
+      "explanation": "The Snowflake Feature Store is a centralized repository for managing ML features with versioning, lineage tracking, and point-in-time correctness. It integrates with Cortex as part of the broader ML workflow but doesn't replace or automatically interact with Cortex LLM functions.",
+      "category": "Snowflake ML",
+      "difficulty": "Medium",
+      "multiSelect": false
+    },
+    {
+      "id": 123,
+      "question": "A data scientist wants to register a custom Python ML model in the Snowflake Model Registry. Which statements about the Model Registry are correct? (Select all that apply)",
+      "options": {
+        "A": "Models can be logged using the snowflake.ml.model.log_model() function",
+        "B": "The registry supports versioning, allowing multiple versions of the same model",
+        "C": "Registered models can be deployed as User-Defined Functions (UDFs) for inference",
+        "D": "Only scikit-learn and XGBoost models are supported",
+        "E": "Model metadata including metrics and parameters can be stored alongside the model"
+      },
+      "correctAnswer": [
+        "A",
+        "B",
+        "C",
+        "E"
+      ],
+      "explanation": "A) log_model() is the function to register models. B) Versioning is supported. C) Models can be deployed as UDFs. E) Metadata is stored. D is wrong - the registry supports various frameworks including PyTorch, TensorFlow, and custom models.",
+      "category": "Snowflake ML",
+      "difficulty": "Medium",
+      "multiSelect": true
+    },
+    {
+      "id": 124,
+      "question": "A team wants to deploy a custom LLM using Snowpark Container Services for GPU-accelerated inference. Which components are required? (Select all that apply)",
+      "options": {
+        "A": "A compute pool with GPU instance type (e.g., GPU_NV_S, GPU_NV_M)",
+        "B": "A container image pushed to a Snowflake image repository",
+        "C": "A service specification YAML file defining the container configuration",
+        "D": "A dedicated virtual warehouse for the container workload",
+        "E": "An external network access integration if the model needs to call external APIs"
+      },
+      "correctAnswer": [
+        "A",
+        "B",
+        "C",
+        "E"
+      ],
+      "explanation": "A) GPU compute pool is required for GPU workloads. B) Container image must be in Snowflake image repository. C) YAML spec defines the service. E) External access integration needed for external calls. D is wrong - SPCS uses compute pools, not virtual warehouses.",
+      "category": "SPCS & ML",
+      "difficulty": "Hard",
+      "multiSelect": true
+    },
+    {
+      "id": 125,
+      "question": "When deploying a model serving endpoint using Snowpark Container Services, how do clients authenticate to the public endpoint?",
+      "options": {
+        "A": "Using the Snowflake account password in the request header",
+        "B": "Public endpoints are open and require no authentication",
+        "C": "Using key-pair authentication to generate a JWT, then exchanging it for an OAuth token",
+        "D": "Using an API key generated in the Snowflake UI",
+        "E": "Using SAML assertion from the organization's identity provider"
+      },
+      "correctAnswer": "C",
+      "explanation": "SPCS public endpoints require OAuth authentication. Clients use key-pair authentication to generate a JWT (JSON Web Token), exchange it with Snowflake for an OAuth access token, and include this token in the Authorization header of requests to the endpoint.",
+      "category": "SPCS & ML",
+      "difficulty": "Medium",
+      "multiSelect": false
+    },
+    {
+      "id": 126,
+      "question": "When building a semantic model for Cortex Analyst, which elements should be included to improve natural language to SQL accuracy? (Select all that apply)",
+      "options": {
+        "A": "Logical table definitions that map to physical tables or views",
+        "B": "Column descriptions using business-friendly terminology",
+        "C": "Sample questions and their corresponding SQL queries",
+        "D": "Relationships between tables (joins)",
+        "E": "Time intelligence configurations for date/time columns"
+      },
+      "correctAnswer": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E"
+      ],
+      "explanation": "All elements improve Cortex Analyst accuracy: A) Logical tables abstract physical schema. B) Descriptions help LLM understand business context. C) Sample Q&A pairs provide few-shot learning. D) Relationships enable proper joins. E) Time intelligence handles date-related queries correctly.",
+      "category": "Cortex Analyst",
+      "difficulty": "Medium",
+      "multiSelect": true
+    },
+    {
+      "id": 127,
+      "question": "Cortex Analyst returns SQL that produces incorrect results for a user's question. What is the recommended approach to improve accuracy for similar future questions?",
+      "options": {
+        "A": "Modify the CORTEX_ANALYST_MODEL parameter to use a larger LLM",
+        "B": "Add the question and correct SQL as a verified query in the semantic model",
+        "C": "Increase the temperature setting for more creative SQL generation",
+        "D": "Grant the user ACCOUNTADMIN privileges for better schema access",
+        "E": "Disable the semantic model and rely on direct LLM prompting"
+      },
+      "correctAnswer": "B",
+      "explanation": "Adding verified queries (question + correct SQL pairs) to the semantic model provides few-shot examples that guide the LLM to generate correct SQL for similar questions. This is the recommended approach for improving accuracy over time.",
+      "category": "Cortex Analyst",
+      "difficulty": "Easy",
+      "multiSelect": false
+    },
+    {
+      "id": 128,
+      "question": "An organization wants to restrict which Cortex LLM models can be used to control costs and ensure compliance. Which approaches are valid for implementing model access controls? (Select all that apply)",
+      "options": {
+        "A": "Set CORTEX_MODELS_ALLOWLIST at the account level to specify allowed models",
+        "B": "Grant model-specific application roles like SNOWFLAKE.\"CORTEX-MODEL-ROLE-CLAUDE-3-5-SONNET\"",
+        "C": "Use network policies to block requests to specific model endpoints",
+        "D": "Create a resource monitor specifically for Cortex AI services",
+        "E": "Revoke SNOWFLAKE.CORTEX_USER from roles that should not use any Cortex functions"
+      },
+      "correctAnswer": [
+        "A",
+        "B",
+        "E"
+      ],
+      "explanation": "A) CORTEX_MODELS_ALLOWLIST restricts available models account-wide. B) Model-specific roles provide granular access. E) Revoking CORTEX_USER prevents all Cortex function usage. C is wrong - network policies don't control model access. D is wrong - resource monitors work on warehouses, not Cortex services.",
+      "category": "Cost & Governance",
+      "difficulty": "Medium",
+      "multiSelect": true
+    },
+    {
+      "id": 129,
+      "question": "Which Snowflake views provide information about Cortex AI function usage and costs? (Select all that apply)",
+      "options": {
+        "A": "SNOWFLAKE.ACCOUNT_USAGE.METERING_DAILY_HISTORY with SERVICE_TYPE = 'AI_SERVICES'",
+        "B": "SNOWFLAKE.ORGANIZATION_USAGE.METERING_DAILY_HISTORY for organization-wide view",
+        "C": "SNOWFLAKE.ACCOUNT_USAGE.CORTEX_FUNCTIONS_USAGE_HISTORY for per-function details",
+        "D": "SNOWFLAKE.ACCOUNT_USAGE.QUERY_HISTORY filtering for queries containing 'CORTEX'",
+        "E": "SNOWFLAKE.ACCOUNT_USAGE.CORTEX_SEARCH_DAILY_USAGE_HISTORY for Search service costs"
+      },
+      "correctAnswer": [
+        "A",
+        "B",
+        "C",
+        "E"
+      ],
+      "explanation": "A) METERING_DAILY_HISTORY shows daily credits. B) Organization view for multi-account. C) CORTEX_FUNCTIONS_USAGE_HISTORY has function-level details. E) Dedicated view for Cortex Search. D is wrong - QUERY_HISTORY doesn't reliably capture Cortex costs.",
+      "category": "Cost & Governance",
+      "difficulty": "Medium",
+      "multiSelect": true
+    },
+    {
+      "id": 130,
+      "question": "A Streamlit in Snowflake application needs to display real-time LLM responses as they are generated. Which approach correctly implements streaming with SNOWFLAKE.CORTEX.COMPLETE?",
+      "options": {
+        "A": "Use the stream=True option in COMPLETE and iterate over the response generator in a st.write_stream() context",
+        "B": "Call COMPLETE with async=True and poll for results using st.spinner()",
+        "C": "Enable the CORTEX_STREAMING account parameter and use standard st.write() calls",
+        "D": "Use st.experimental_rerun() to refresh the page as each token is generated",
+        "E": "Implement WebSocket connections to receive streaming responses from Cortex"
+      },
+      "correctAnswer": "A",
+      "explanation": "COMPLETE supports streaming via the stream=True option, which returns a generator. In Streamlit, st.write_stream() can consume this generator to display tokens as they arrive, providing a real-time typing effect for better user experience.",
+      "category": "Streamlit",
+      "difficulty": "Medium",
+      "multiSelect": false
+    },
+    {
+      "id": 131,
+      "question": "Which statement correctly describes the security model for Streamlit in Snowflake applications using Cortex functions?",
+      "options": {
+        "A": "Streamlit apps run with the privileges of the user viewing the app, inheriting their Cortex access",
+        "B": "Streamlit apps always run with ACCOUNTADMIN privileges for full Cortex access",
+        "C": "Streamlit apps run with the privileges of the app owner, regardless of who views the app",
+        "D": "Cortex functions in Streamlit apps bypass all RBAC controls for performance",
+        "E": "Each Streamlit app requires a dedicated service account with Cortex privileges"
+      },
+      "correctAnswer": "C",
+      "explanation": "Streamlit in Snowflake apps run with owner's rights by default (like stored procedures with EXECUTE AS OWNER). The app owner's role determines Cortex access, not the viewer's. This allows apps to provide controlled access to Cortex features.",
+      "category": "Streamlit",
+      "difficulty": "Medium",
+      "multiSelect": false
+    },
+    {
+      "id": 132,
+      "question": "A user is using Snowflake Copilot to generate SQL queries but notices inconsistent results. Which best practices should they follow to improve Copilot's accuracy? (Select all that apply)",
+      "options": {
+        "A": "Ensure a database and schema are explicitly selected in the current session context",
+        "B": "Use descriptive column names and add comments to tables and columns",
+        "C": "Break complex requests into simpler, step-by-step questions",
+        "D": "Grant Copilot direct access to sample data for better understanding",
+        "E": "Create views with business-friendly names that abstract complex joins"
+      },
+      "correctAnswer": [
+        "A",
+        "B",
+        "C",
+        "E"
+      ],
+      "explanation": "A) Context helps Copilot understand available objects. B) Metadata improves query generation. C) Multi-turn conversations work better. E) Views simplify schema. D is wrong - Copilot uses schema metadata, not sample data access.",
+      "category": "Snowflake Copilot",
+      "difficulty": "Easy",
+      "multiSelect": true
+    },
+    {
+      "id": 133,
+      "question": "Which of the following correctly describes Snowflake Copilot's capabilities and limitations?",
+      "options": {
+        "A": "Copilot can generate DDL statements to create tables and views",
+        "B": "Copilot only generates SELECT queries and cannot modify data",
+        "C": "Copilot can execute generated queries automatically without user confirmation",
+        "D": "Copilot accesses and analyzes the actual data in tables to improve query accuracy",
+        "E": "Copilot requires the ACCOUNTADMIN role to function"
+      },
+      "correctAnswer": "B",
+      "explanation": "Snowflake Copilot is designed for analytical query generation and only produces SELECT statements. It cannot generate DDL/DML (A is wrong), doesn't auto-execute (C is wrong), uses schema metadata not data (D is wrong), and doesn't require ACCOUNTADMIN (E is wrong).",
+      "category": "Snowflake Copilot",
+      "difficulty": "Easy",
+      "multiSelect": false
+    },
+    {
+      "id": 134,
+      "question": "A company wants to automate invoice processing using Document AI. The invoices are uploaded to an internal stage. Which sequence of steps correctly sets up the automated extraction pipeline?",
+      "options": {
+        "A": "Create Document AI model → Grant CREATE STREAM → Create stream on stage → Create task with !PREDICT",
+        "B": "Upload sample documents → Train model in Snowsight → Create stream on stage → Create task calling !PREDICT method",
+        "C": "Create DOCUMENT_INTELLIGENCE database role → Upload all invoices → Run batch !PREDICT",
+        "D": "Enable Document AI feature flag → Create extraction UDF → Schedule with Snowflake Task",
+        "E": "Install Document AI package from Marketplace → Configure extraction rules → Enable auto-processing"
+      },
+      "correctAnswer": "B",
+      "explanation": "The correct workflow: 1) Upload sample documents for training, 2) Train/build the model in Snowsight UI, 3) Create a stream on the stage to detect new files, 4) Create a task that calls the model's !PREDICT method on new files from the stream.",
+      "category": "Document AI",
+      "difficulty": "Medium",
+      "multiSelect": false
+    },
+    {
+      "id": 135,
+      "question": "When using Document AI's !PREDICT method, what is returned for a field that cannot be found in the document?",
+      "options": {
+        "A": "NULL value for that field",
+        "B": "An error is raised and processing stops",
+        "C": "The 'value' key is omitted but 'score' key is still returned indicating confidence",
+        "D": "A default placeholder value like 'NOT_FOUND'",
+        "E": "An empty string with score = 0"
+      },
+      "correctAnswer": "C",
+      "explanation": "When Document AI cannot find a value for a defined field, the !PREDICT output omits the 'value' key for that field but still returns a 'score' key. This allows applications to detect missing values by checking for the absence of 'value' rather than NULL handling.",
+      "category": "Document AI",
+      "difficulty": "Medium",
+      "multiSelect": false
+    },
+    {
+      "id": 136,
+      "question": "A developer wants to use AI_COMPLETE to generate responses that strictly follow a JSON schema with an enum field. Which statement about the response_format option is correct?",
+      "options": {
+        "A": "The 'enum' constraint in JSON schema is ignored; only basic types are enforced",
+        "B": "AI_COMPLETE will only output values matching the enum definition, with no additional text",
+        "C": "Enum validation happens after generation, potentially causing retries that increase cost",
+        "D": "The enum must be defined as a separate lookup table in Snowflake",
+        "E": "response_format only works with mistral models, not claude or llama"
+      },
+      "correctAnswer": "B",
+      "explanation": "When using response_format with a JSON schema containing enum constraints, AI_COMPLETE enforces the output to match exactly the defined enum values. The structured output feature constrains generation token-by-token, ensuring valid JSON without post-processing.",
+      "category": "Cortex LLM Functions",
+      "difficulty": "Hard",
+      "multiSelect": false
+    },
+    {
+      "id": 137,
+      "question": "Which Cortex LLM function is most appropriate for each use case? Match the function to the scenario.",
+      "options": {
+        "A": "SENTIMENT() for determining if a product review is positive (-1 to 1 score)",
+        "B": "CLASSIFY_TEXT() for categorizing support tickets into predefined categories",
+        "C": "EXTRACT_ANSWER() for finding specific information mentioned in a document",
+        "D": "SUMMARIZE() for creating a brief overview of a long article",
+        "E": "All of the above correctly match functions to use cases"
+      },
+      "correctAnswer": "E",
+      "explanation": "All matches are correct: SENTIMENT returns a -1 to 1 score for sentiment. CLASSIFY_TEXT assigns text to predefined categories. EXTRACT_ANSWER finds specific answers to questions. SUMMARIZE creates condensed versions of longer text. Each function is purpose-built for its respective task.",
+      "category": "Cortex LLM Functions",
+      "difficulty": "Easy",
+      "multiSelect": false
+    },
+    {
+      "id": 138,
+      "question": "An application needs to generate embeddings for semantic search. Which statement about EMBED_TEXT functions is correct?",
+      "options": {
+        "A": "EMBED_TEXT_768 and EMBED_TEXT_1024 produce embeddings of different dimensions, affecting similarity search quality",
+        "B": "All EMBED_TEXT functions use the same underlying model regardless of dimension",
+        "C": "Embeddings from different EMBED_TEXT functions can be compared directly using cosine similarity",
+        "D": "EMBED_TEXT functions require GPU compute pools for execution",
+        "E": "EMBED_TEXT is deprecated in favor of VECTOR_EMBED"
+      },
+      "correctAnswer": "A",
+      "explanation": "EMBED_TEXT_768 produces 768-dimensional vectors while EMBED_TEXT_1024 produces 1024-dimensional vectors. Different dimensions affect storage, compute, and potentially search quality. Embeddings from different dimensions/models cannot be compared directly (C is wrong).",
+      "category": "Cortex LLM Functions",
+      "difficulty": "Medium",
+      "multiSelect": false
     }
   ],
   "studyGuide": {
