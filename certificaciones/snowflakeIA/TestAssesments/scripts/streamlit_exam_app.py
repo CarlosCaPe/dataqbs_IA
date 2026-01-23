@@ -47,6 +47,18 @@ st.set_page_config(
 
 PEARSON_VUE_CSS = """
 <style>
+    /* Reducir espacio superior de Streamlit */
+    .block-container {
+        padding-top: 1rem !important;
+        padding-bottom: 1rem !important;
+    }
+    
+    header[data-testid="stHeader"] {
+        height: 0 !important;
+        min-height: 0 !important;
+        padding: 0 !important;
+    }
+    
     /* Variables de color - Pearson VUE Dark Theme */
     :root {
         --pv-primary: #1a1a2e;
@@ -63,9 +75,9 @@ PEARSON_VUE_CSS = """
     /* Header principal */
     .exam-header {
         background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-        padding: 1rem 2rem;
+        padding: 0.8rem 1.5rem;
         border-radius: 10px;
-        margin-bottom: 1rem;
+        margin-bottom: 0.5rem;
         border-left: 4px solid #e94560;
     }
     
@@ -113,11 +125,23 @@ PEARSON_VUE_CSS = """
     /* Question Box */
     .question-box {
         background: #232741;
-        padding: 2rem;
+        padding: 1.5rem;
         border-radius: 10px;
         box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-        margin-bottom: 1rem;
+        margin-bottom: 0.5rem;
         border-left: 4px solid #29b5e8;
+        height: 100%;
+        min-height: 300px;
+    }
+    
+    /* Options Box */
+    .options-box {
+        background: linear-gradient(135deg, #1a2a3a 0%, #0d1b2a 100%);
+        padding: 1.5rem;
+        border-radius: 10px;
+        border: 1px solid #2d3e50;
+        height: 100%;
+        min-height: 300px;
     }
     
     .question-number {
@@ -372,11 +396,19 @@ def initialize_exam_state(questions: List[Dict], mode: str):
             
             # Actualizar correctAnswer con el nuevo mapeo
             original_answer = q.get('correctAnswer', '')
-            if ',' in original_answer:  # Multiple select
+            
+            # Manejar ambos formatos: lista ["A", "B"] o string "A,B"
+            if isinstance(original_answer, list):
+                # Formato nuevo: lista de respuestas
+                new_answers = [key_mapping.get(a, a) for a in original_answer]
+                q['correctAnswer'] = sorted(new_answers)
+            elif ',' in str(original_answer):
+                # Formato antiguo: string separado por comas
                 new_answers = [key_mapping.get(a.strip(), a.strip()) for a in original_answer.split(',')]
                 q['correctAnswer'] = ','.join(sorted(new_answers))
             else:
-                q['correctAnswer'] = key_mapping.get(original_answer, original_answer)
+                # Respuesta única
+                q['correctAnswer'] = key_mapping.get(str(original_answer), str(original_answer))
             
             # Guardar mapeo para referencia (debugging si es necesario)
             q['_option_mapping'] = key_mapping
@@ -426,16 +458,20 @@ def calculate_results() -> Dict:
     for q in st.session_state.questions:
         qid = q['id']
         topic = q.get('topic', 'Unknown')
-        correct_answer = q.get('correctAnswer', '').upper().replace(' ', '')
-        user_answer = st.session_state.answers.get(qid, '').upper().replace(' ', '')
+        raw_answer = q.get('correctAnswer', '')
         
-        # Normalizar respuestas múltiples
-        if ',' in correct_answer:
-            correct_set = set(correct_answer.split(','))
-            user_set = set(user_answer.split(',')) if user_answer else set()
-            is_correct = correct_set == user_set
+        # Normalizar correctAnswer a formato de comparación
+        if isinstance(raw_answer, list):
+            correct_set = set(a.upper() for a in raw_answer)
         else:
-            is_correct = correct_answer == user_answer
+            correct_answer = str(raw_answer).upper().replace(' ', '')
+            correct_set = set(correct_answer.split(',')) if ',' in correct_answer else {correct_answer}
+        
+        user_answer = st.session_state.answers.get(qid, '').upper().replace(' ', '')
+        user_set = set(user_answer.split(',')) if ',' in user_answer else ({user_answer} if user_answer else set())
+        
+        # Comparar como conjuntos
+        is_correct = correct_set == user_set
         
         if is_correct:
             results["correct"] += 1
@@ -654,8 +690,8 @@ def render_question_navigation():
     """, unsafe_allow_html=True)
 
 
-def render_question():
-    """Renderiza la pregunta actual"""
+def get_current_question_data():
+    """Obtiene y procesa los datos de la pregunta actual"""
     questions = st.session_state.questions
     current_idx = st.session_state.current_question
     question = questions[current_idx]
@@ -674,22 +710,12 @@ def render_question():
     
     # Si options ya existe como dict con valores, usarlas directamente
     if options and isinstance(options, dict) and len(options) >= 2:
-        # Verificar que no son opciones genéricas (placeholders OCR)
-        # Solo marcar como inválidas si el texto es EXACTAMENTE un placeholder
         first_val = list(options.values())[0].strip().lower() if options else ""
-        # Detectar placeholders genéricos: "Option A", "Option B", "[Ver PDF original]", etc.
         import re
         is_placeholder = bool(re.match(r'^option\s*[a-e]\.?$', first_val)) or first_val.startswith('[ver pdf')
         has_valid_options = not is_placeholder
     else:
-        # Intentar extraer del texto de la pregunta
         import re
-
-        # Extrae opciones embebidas del tipo:
-        #   "A. ... B. ... C. ..." o "A) ... B) ..."
-        # Nota: no podemos usar clases como [^A-E] porque el texto de una opción
-        # puede contener letras A-E. En su lugar, capturamos hasta el siguiente
-        # marcador de opción.
         option_pattern = r'(?:^|\s)([A-Ea-e])[.\)]\s*(.+?)(?=\s+[A-Ea-e][.\)]\s|\s*$)'
         matches = re.findall(option_pattern, question_text, flags=re.S)
         
@@ -708,43 +734,63 @@ def render_question():
         if not options or len(options) < 2:
             has_valid_options = False
     
-    # Header de la pregunta con mejor espaciado
-    type_badge = "Multiple Select" if is_multiple else "Single Select"
-    
-    # Si no hay opciones válidas, mostrar advertencia
-    warning_html = ""
     if not has_valid_options:
+        options = {"A": "[Ver PDF original]", "B": "[Ver PDF original]", "C": "[Ver PDF original]", "D": "[Ver PDF original]", "E": "[Ver PDF original]"}
+    
+    return {
+        'qid': qid,
+        'topic': topic,
+        'is_multiple': is_multiple,
+        'clean_question': clean_question,
+        'correct_answer': correct_answer,
+        'explanation': explanation,
+        'options': options,
+        'has_valid_options': has_valid_options,
+        'current_idx': current_idx,
+        'total': len(questions)
+    }
+
+
+def render_question_panel():
+    """Renderiza solo el panel de la pregunta (columna izquierda)"""
+    data = get_current_question_data()
+    
+    type_badge = "Multiple Select" if data['is_multiple'] else "Single Select"
+    
+    warning_html = ""
+    if not data['has_valid_options']:
         warning_html = """
-        <div style="background: #3a2a1a; border-left: 4px solid #f39c12; padding: 0.8rem; margin-top: 1rem; border-radius: 0 8px 8px 0;">
-            ⚠️ <strong>Nota:</strong> Las opciones de esta pregunta no se extrajeron correctamente del PDF original. 
-            Consulta el documento fuente para ver las opciones completas.
+        <div style="background: #3a2a1a; border-left: 4px solid #f39c12; padding: 0.6rem; margin-top: 0.8rem; border-radius: 0 8px 8px 0; font-size: 0.85rem;">
+            ⚠️ Opciones no extraídas correctamente.
         </div>
         """
     
     st.markdown(f"""
     <div class="question-box">
-        <div style="margin-bottom: 1rem;">
-            <span class="question-number">Question {current_idx + 1} of {len(questions)}</span>
-            <span class="question-topic">{topic}</span>
+        <div style="margin-bottom: 0.8rem;">
+            <span class="question-number">Question {data['current_idx'] + 1} of {data['total']}</span>
+            <span class="question-topic">{data['topic']}</span>
             <span class="question-type">{type_badge}</span>
         </div>
-        <div class="question-text">{clean_question}</div>
+        <div class="question-text" style="font-size: 1rem; line-height: 1.6;">{data['clean_question']}</div>
         {warning_html}
     </div>
     """, unsafe_allow_html=True)
-    
-    # Espaciado antes de opciones
-    st.markdown("<div style='margin-top: 1.5rem;'></div>", unsafe_allow_html=True)
-    
-    # Si no hay opciones válidas, usar placeholders pero marcar visualmente
-    if not has_valid_options:
-        options = {"A": "[Ver PDF original]", "B": "[Ver PDF original]", "C": "[Ver PDF original]", "D": "[Ver PDF original]", "E": "[Ver PDF original]"}
+
+
+def render_options_panel():
+    """Renderiza solo el panel de opciones (columna central)"""
+    data = get_current_question_data()
+    qid = data['qid']
+    options = data['options']
+    is_multiple = data['is_multiple']
+    correct_answer = data['correct_answer']
+    explanation = data['explanation']
     
     current_answer = st.session_state.answers.get(qid, '')
     
     if is_multiple:
-        st.markdown("**Selecciona todas las que apliquen:**")
-        st.markdown("<div style='margin-top: 0.5rem;'></div>", unsafe_allow_html=True)
+        st.markdown("**🔲 Selecciona todas las que apliquen:**")
         selected = []
         current_selections = set(current_answer.split(',')) if current_answer else set()
         
@@ -753,17 +799,14 @@ def render_question():
             checked = letter in current_selections
             if st.checkbox(f"**{letter}.** {text}", value=checked, key=f"opt_{qid}_{letter}"):
                 selected.append(letter)
-            st.markdown("<div style='margin-bottom: 0.3rem;'></div>", unsafe_allow_html=True)
         
         new_answer = ','.join(sorted(selected))
         if new_answer != current_answer:
             st.session_state.answers[qid] = new_answer
     else:
-        st.markdown("**Selecciona una:**")
-        st.markdown("<div style='margin-top: 0.5rem;'></div>", unsafe_allow_html=True)
+        st.markdown("**🔘 Selecciona una:**")
         option_list = [f"{letter}. {text}" for letter, text in sorted(options.items())]
         
-        # Encontrar índice de la respuesta actual
         current_idx_opt = None
         if current_answer:
             for i, opt in enumerate(option_list):
@@ -784,52 +827,54 @@ def render_question():
             if letter != current_answer:
                 st.session_state.answers[qid] = letter
     
-    # Espaciado antes de botones
-    st.markdown("<div style='margin-top: 1.5rem;'></div>", unsafe_allow_html=True)
-    
-    # Botón de marcar para revisión
+    # Botones de acción
+    st.markdown("---")
     is_marked = qid in st.session_state.marked
-    col1, col2, col3 = st.columns([1, 1, 2])
     
+    col1, col2 = st.columns(2)
     with col1:
-        if st.button("🔖 Mark for Review" if not is_marked else "✓ Unmark", use_container_width=True):
+        if st.button("🔖 Mark" if not is_marked else "✓ Unmark", use_container_width=True):
             if is_marked:
                 st.session_state.marked.discard(qid)
             else:
                 st.session_state.marked.add(qid)
             st.rerun()
     
-    # Modo práctica: mostrar respuesta
     if st.session_state.mode == "practice":
         with col2:
-            show_key = f"show_{qid}"
-            if st.button("👁️ Show Answer", use_container_width=True, key=show_key):
+            if st.button("👁️ Show Answer", use_container_width=True, key=f"show_{qid}"):
                 st.session_state.show_explanation[qid] = not st.session_state.show_explanation.get(qid, False)
                 st.rerun()
         
         if st.session_state.show_explanation.get(qid, False):
             user_ans = st.session_state.answers.get(qid, '')
-            is_correct = False
             
-            if ',' in correct_answer:
-                correct_set = set(correct_answer.upper().replace(' ', '').split(','))
-                user_set = set(user_ans.upper().split(',')) if user_ans else set()
-                is_correct = correct_set == user_set
+            if isinstance(correct_answer, list):
+                correct_set = set(a.upper() for a in correct_answer)
+                correct_display = ', '.join(sorted(correct_answer))
+            elif ',' in str(correct_answer):
+                correct_set = set(str(correct_answer).upper().replace(' ', '').split(','))
+                correct_display = correct_answer
             else:
-                is_correct = user_ans.upper() == correct_answer.upper()
+                correct_set = {str(correct_answer).upper()}
+                correct_display = correct_answer
             
-            box_class = "explanation-box" if is_correct else "explanation-box incorrect"
-            status = "✅ ¡Correcto!" if is_correct else "❌ Incorrecto"
+            user_set = set(user_ans.upper().split(',')) if user_ans else set()
+            is_correct = correct_set == user_set
             
-            explanation_text = explanation if explanation else "No hay explicación disponible para esta pregunta."
+            if is_correct:
+                st.success(f"✅ ¡Correcto! Respuesta: {correct_display}")
+            else:
+                st.error(f"❌ Incorrecto. Respuesta correcta: {correct_display}")
             
-            st.markdown(f"""
-            <div class="{box_class}">
-                <h4>{status}</h4>
-                <p><strong>Respuesta correcta:</strong> {correct_answer}</p>
-                <p><strong>Explicación:</strong> {explanation_text}</p>
-            </div>
-            """, unsafe_allow_html=True)
+            if explanation:
+                st.info(explanation)
+
+
+def render_question():
+    """Renderiza la pregunta actual - LEGACY, usar render_question_panel y render_options_panel"""
+    render_question_panel()
+    render_options_panel()
 
 
 def render_navigation_buttons():
@@ -978,15 +1023,21 @@ def main():
     else:
         render_header()
         
-        # Layout principal
-        col_main, col_nav = st.columns([3, 1])
+        # Layout principal: 3 columnas - Pregunta | Opciones | Navegación
+        col_question, col_options, col_nav = st.columns([2, 2, 1], gap="medium")
         
-        with col_main:
-            render_question()
-            render_navigation_buttons()
+        with col_question:
+            render_question_panel()
+        
+        with col_options:
+            render_options_panel()
         
         with col_nav:
             render_question_navigation()
+        
+        # Separador y Botones de navegación abajo
+        st.markdown("---")
+        render_navigation_buttons()
         
         # Auto-refresh para el timer (cada 30 segundos)
         if st.session_state.time_limit:

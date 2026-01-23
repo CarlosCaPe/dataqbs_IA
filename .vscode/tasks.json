@@ -6,29 +6,26 @@
 			"type": "shell",
 			"command": "poetry install",
 			"options": {
-				"cwd": "${workspaceFolder}/email_collector"
+				"cwd": "${workspaceFolder}/projects/email_collector"
 			},
-			"args": [],
 			"group": "build"
 		},
 		{
-			"label": "Precheck run",
+			"label": "Email Collector: Precheck run",
 			"type": "shell",
-			"command": "poetry run email-collect --precheck -v --config ..\\config.yaml",
+			"command": "poetry run email-collect --precheck -v --config ../../config.yaml",
 			"options": {
-				"cwd": "${workspaceFolder}/email_collector"
+				"cwd": "${workspaceFolder}/projects/email_collector"
 			},
-			"args": [],
 			"group": "build"
 		},
 		{
 			"label": "Email Collector: Full run",
 			"type": "shell",
-			"command": "poetry run email-collect -v --config ..\\config.yaml",
+			"command": "poetry run email-collect -v --config ../../config.yaml",
 			"options": {
-				"cwd": "${workspaceFolder}/email_collector"
+				"cwd": "${workspaceFolder}/projects/email_collector"
 			},
-			"args": [],
 			"group": "build"
 		},
 		{
@@ -36,9 +33,8 @@
 			"type": "shell",
 			"command": "poetry install",
 			"options": {
-				"cwd": "${workspaceFolder}/realstate"
+				"cwd": "${workspaceFolder}/projects/real_estate"
 			},
-			"args": [],
 			"group": "build"
 		},
 		{
@@ -46,9 +42,8 @@
 			"type": "shell",
 			"command": "poetry run python test_download.py",
 			"options": {
-				"cwd": "${workspaceFolder}/realstate"
+				"cwd": "${workspaceFolder}/projects/real_estate"
 			},
-			"args": [],
 			"group": "build"
 		},
 		{
@@ -58,7 +53,6 @@
 			"options": {
 				"cwd": "${workspaceFolder}/projects/tls_compara_audios"
 			},
-			"args": [],
 			"group": "build"
 		},
 		{
@@ -86,7 +80,6 @@
 			"options": {
 				"cwd": "${workspaceFolder}/projects/tls_compara_imagenes"
 			},
-			"args": [],
 			"group": "build"
 		},
 		{
@@ -102,16 +95,6 @@
 			"label": "Arbitraje: Install deps",
 			"type": "shell",
 			"command": "poetry install",
-			"options": {
-				"cwd": "${workspaceFolder}/projects/arbitraje"
-			},
-			"args": [],
-			"group": "build"
-		},
-		{
-			"label": "Arbitraje: Run (report)",
-			"type": "shell",
-			"command": "echo 'arbitraje.coingecko_arbitrage_report is deprecated; use arbitraje-ccxt'",
 			"options": {
 				"cwd": "${workspaceFolder}/projects/arbitraje"
 			},
@@ -148,9 +131,13 @@
 			"label": "Arbitraje: Validate build & tests",
 			"type": "shell",
 			"command": "pwsh -NoProfile -Command \"Set-Location 'projects/arbitraje'; poetry install --no-interaction --no-ansi; poetry run ruff check src || $true; poetry run pytest -q --rootdir . tests\"",
-			"problemMatcher": [
-				"$tsc"
-			],
+			"problemMatcher": ["$tsc"],
+			"group": "build"
+		},
+		{
+			"label": "Arbitraje: Run BF (1 iter quick)",
+			"type": "shell",
+			"command": "pwsh -NoProfile -Command \"Set-Location 'projects/arbitraje'; poetry run python -m arbitraje.arbitrage_report_ccxt --mode bf --config .\\arbitraje.prod.yaml --repeat 1 --repeat_sleep 0 --no_console_clear\"",
 			"group": "build"
 		},
 		{
@@ -160,48 +147,6 @@
 			"options": {
 				"cwd": "${workspaceFolder}"
 			},
-			"group": "build"
-		},
-		{
-			"label": "Arbitraje: Validate build & tests",
-			"type": "shell",
-			"command": "pwsh -NoProfile -Command \"Set-Location 'projects/arbitraje'; poetry install --no-interaction --no-ansi; poetry run ruff check src || $true; poetry run pytest -q --rootdir . tests\"",
-			"group": "build"
-		},
-		{
-			"label": "Arbitraje: Validate build & tests",
-			"type": "shell",
-			"command": "pwsh -NoProfile -Command \"Set-Location 'projects/arbitraje'; poetry install --no-interaction --no-ansi; poetry run ruff check src || $true; poetry run pytest -q --rootdir . tests\"",
-			"group": "build"
-		},
-		{
-			"label": "Arbitraje: Validate build & tests",
-			"type": "shell",
-			"command": "pwsh -NoProfile -Command \"Set-Location 'projects/arbitraje'; poetry install --no-interaction --no-ansi; poetry run ruff check src || $true; poetry run pytest -q --rootdir . tests\"",
-			"group": "build"
-		},
-		{
-			"label": "Arbitraje: Validate build & tests",
-			"type": "shell",
-			"command": "pwsh -NoProfile -Command \"Set-Location 'projects/arbitraje'; poetry install --no-interaction --no-ansi; poetry run ruff check src || $true; poetry run pytest -q --rootdir . tests\"",
-			"group": "build"
-		},
-		{
-			"label": "Arbitraje: Validate build & tests",
-			"type": "shell",
-			"command": "pwsh -NoProfile -Command \"Set-Location 'projects/arbitraje'; poetry install --no-interaction --no-ansi; poetry run ruff check src || $true; poetry run pytest -q --rootdir . tests\"",
-			"group": "build"
-		},
-		{
-			"label": "Arbitraje: Validate build & tests",
-			"type": "shell",
-			"command": "pwsh -NoProfile -Command \"Set-Location 'projects/arbitraje'; poetry install --no-interaction --no-ansi; poetry run pytest -q --rootdir . tests\"",
-			"group": "build"
-		},
-		{
-			"label": "Run BF (1 iter quick)",
-			"type": "shell",
-			"command": "pwsh -NoProfile -Command \"Set-Location 'projects/arbitraje'; poetry run python -m arbitraje.arbitrage_report_ccxt --mode bf --config .\\arbitraje.prod.yaml --repeat 1 --repeat_sleep 0 --no_console_clear\"",
 			"group": "build"
 		}
 	]
