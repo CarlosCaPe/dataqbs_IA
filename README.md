@@ -1,16 +1,20 @@
 # dataqbs_IA Monorepo
 
-Multi‑project Python workspace containing tooling for email ingestion/classification, evaluation engines, real estate data utilities and media comparison automation.
+Multi‑project workspace containing AI/data-engineering tools, portfolio website, crypto arbitrage, and automation utilities.
 
 ## Project Index
 
-| Project | Path | Package | Purpose | Main Command |
-|---------|------|---------|---------|--------------|
-| Email Collector | `projects/email_collector` | `email_collector` | IMAP collection, light validation & categorization | `poetry run email-collect` |
-| OAI Code Evaluator | `projects/oai_code_evaluator` | `oai_code_evaluator` | Configurable rule engine for model response auditing | `poetry run oai-eval` |
-| Real Estate Tools | `projects/real_estate` | `real_estate` | Scraping / export (EasyBroker, Wiggot) & image tasks | (scripts / CLI planned) |
-| Telus Audio Compare | `projects/telus_compara_audios` | `telus_compara_audios` | Automated A/B audio quality comparison via Playwright | `poetry run telus-compare-audio` |
-| Telus Image Compare | `projects/telus_compara_imagenes` | `telus_compara_imagenes` | Side‑by‑side image comparison automation | `poetry run telus-compare` |
+| Project | Path | Stack | Purpose |
+|---------|------|-------|---------|
+| **dataqbs.com** | `projects/dataqbs_site` | Astro + Svelte, Tailwind, Cloudflare Pages | Portfolio site with RAG chatbot |
+| **Arbitraje** | `projects/arbitraje` | Python, ccxt, pandas | Multi-exchange crypto arbitrage scanner + swap executor |
+| Email Collector | `projects/email_collector` | Python, IMAP | Email ingestion, validation & classification |
+| OAI Code Evaluator | `projects/oai_code_evaluator` | Python, YAML rules | LLM response auditing with 5-dimension scoring |
+| Real Estate Tools | `projects/real_estate` | Python, Playwright | Scraping / export (EasyBroker, Wiggot) |
+| Supplier Verifier | `projects/supplier_verifier` | Python | Supplier data verification |
+| Audio Compare | `projects/tls_compara_audios` | Python, Playwright | Automated A/B audio quality comparison |
+| Image Compare | `projects/tls_compara_imagenes` | Python, Playwright | Side-by-side image comparison |
+| Linux Setup | `projects/linux` | Bash | Windows → Linux migration scripts |
 
 Shared assets:
 - `rules/email/` → domain rule definitions (email heuristics, summaries)

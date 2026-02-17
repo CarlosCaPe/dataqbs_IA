@@ -1,0 +1,75 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.svelte';
+import ProfileCard from '../components/ProfileCard.svelte';
+import ExperienceTimeline from '../components/ExperienceTimeline.svelte';
+import ProjectsGrid from '../components/ProjectsGrid.svelte';
+import SkillsSection from '../components/SkillsSection.svelte';
+import ContactSection from '../components/ContactSection.svelte';
+import Chatbot from '../components/Chatbot.svelte';
+import Footer from '../components/Footer.svelte';
+import AboutSection from '../components/AboutSection.svelte';
+---
+
+<Layout>
+  <Header client:load />
+
+  <!-- Decorative side cubes (watermark branding) -->
+  <div class="hidden lg:block fixed left-0 top-16 bottom-0 w-12 pointer-events-none z-10" aria-hidden="true">
+    <div class="flex flex-col items-center gap-16 pt-8 opacity-[0.04]">
+      <img src="/favicon.svg" alt="" class="w-10 h-10" />
+      <img src="/favicon.svg" alt="" class="w-10 h-10" />
+      <img src="/favicon.svg" alt="" class="w-10 h-10" />
+      <img src="/favicon.svg" alt="" class="w-10 h-10" />
+      <img src="/favicon.svg" alt="" class="w-10 h-10" />
+    </div>
+  </div>
+  <div class="hidden lg:block fixed right-0 top-16 bottom-0 w-12 pointer-events-none z-10" aria-hidden="true">
+    <div class="flex flex-col items-center gap-16 pt-8 opacity-[0.04]">
+      <img src="/favicon.svg" alt="" class="w-10 h-10" />
+      <img src="/favicon.svg" alt="" class="w-10 h-10" />
+      <img src="/favicon.svg" alt="" class="w-10 h-10" />
+      <img src="/favicon.svg" alt="" class="w-10 h-10" />
+      <img src="/favicon.svg" alt="" class="w-10 h-10" />
+    </div>
+  </div>
+
+  <!-- LinkedIn-style single centered column -->
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 py-6 space-y-4">
+
+    <!-- ─── Profile Hero Card (banner + photo + info) ─── -->
+    <div class="animate-fade-in">
+      <ProfileCard client:load />
+    </div>
+
+    <!-- ─── About ─── -->
+    <div class="animate-fade-in" style="animation-delay: 80ms; animation-fill-mode: both;">
+      <AboutSection client:load />
+    </div>
+
+    <!-- ─── Experience ─── -->
+    <div class="animate-fade-in" style="animation-delay: 160ms; animation-fill-mode: both;">
+      <ExperienceTimeline client:load />
+    </div>
+
+    <!-- ─── Projects ─── -->
+    <div class="animate-fade-in" style="animation-delay: 240ms; animation-fill-mode: both;">
+      <ProjectsGrid client:load />
+    </div>
+
+    <!-- ─── Skills ─── -->
+    <div class="animate-fade-in" style="animation-delay: 320ms; animation-fill-mode: both;">
+      <SkillsSection client:load />
+    </div>
+
+    <!-- ─── Contact ─── -->
+    <div class="animate-fade-in" style="animation-delay: 400ms; animation-fill-mode: both;">
+      <ContactSection client:load />
+    </div>
+  </div>
+
+  <!-- ─── Chatbot: collapsible side tab (desktop) + FAB (mobile) ─── -->
+  <Chatbot client:load />
+
+  <Footer client:load />
+</Layout>

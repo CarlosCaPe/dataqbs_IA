@@ -68,6 +68,11 @@ certificaciones/snowflakeIA/ocr_extract.py
 *.jpeg
 *.JPEG
 
+# Allow dataqbs_site public images
+!projects/dataqbs_site/public/*.jpeg
+!projects/dataqbs_site/public/*.jpg
+!projects/dataqbs_site/public/*.png
+
 # Easybrokers images (explicit path)
 easybrokers/properties/images/
 

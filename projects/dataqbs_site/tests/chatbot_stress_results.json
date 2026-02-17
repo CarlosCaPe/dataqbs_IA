@@ -1,0 +1,1058 @@
+{
+  "test_timestamp": "2026-02-17T21:34:11",
+  "base_url": "http://localhost:4322",
+  "total_questions": 100,
+  "answered": 68,
+  "deflected": 32,
+  "errors": 0,
+  "answer_rate_pct": 68.0,
+  "deflect_rate_pct": 32.0,
+  "avg_latency_s": 0.85,
+  "total_time_s": 85.2,
+  "categories": {
+    "certifications": {
+      "ok": 0,
+      "deflect": 10,
+      "error": 0,
+      "avg_relevance": 0
+    },
+    "experience": {
+      "ok": 11,
+      "deflect": 4,
+      "error": 0,
+      "avg_relevance": 0.95
+    },
+    "projects": {
+      "ok": 10,
+      "deflect": 10,
+      "error": 0,
+      "avg_relevance": 0.81
+    },
+    "scenario": {
+      "ok": 10,
+      "deflect": 0,
+      "error": 0,
+      "avg_relevance": 0.86
+    },
+    "skills": {
+      "ok": 18,
+      "deflect": 2,
+      "error": 0,
+      "avg_relevance": 0.79
+    },
+    "soft_skills": {
+      "ok": 10,
+      "deflect": 0,
+      "error": 0,
+      "avg_relevance": 0.68
+    },
+    "summary": {
+      "ok": 9,
+      "deflect": 6,
+      "error": 0,
+      "avg_relevance": 0.53
+    }
+  },
+  "results": [
+    {
+      "id": 1,
+      "category": "summary",
+      "question": "Can you give me a brief professional summary of Carlos?",
+      "answer": "**Data Engineer & Software Developer**\nCarlos is a seasoned data engineer and software developer with expertise in Python, SQL, cloud platforms (Azure, Snowflake), and AI/ML pipelines. He has a strong focus on building clean architectures, minimizing dependencies, and automating processes to achieve simplicity and awareness in his work.",
+      "latency_s": 1.27,
+      "status": 200,
+      "verdict": "OK",
+      "relevance": 0.0
+    },
+    {
+      "id": 2,
+      "category": "summary",
+      "question": "How many years of experience does Carlos have?",
+      "answer": "Unfortunately, I don't have that information in Carlos's public profile.",
+      "latency_s": 0.79,
+      "status": 200,
+      "verdict": "DEFLECT",
+      "relevance": 0.0
+    },
+    {
+      "id": 3,
+      "category": "summary",
+      "question": "What is Carlos's current job title?",
+      "answer": "**Data Engineer & Software Developer**\nCarlos is currently a Data Engineer & Software Developer at dataqbs (Self-Employed).",
+      "latency_s": 0.86,
+      "status": 200,
+      "verdict": "OK",
+      "relevance": 0.0
+    },
+    {
+      "id": 4,
+      "category": "summary",
+      "question": "Where is Carlos located?",
+      "answer": "Unfortunately, I don't have that information in Carlos's public profile.",
+      "latency_s": 0.69,
+      "status": 200,
+      "verdict": "DEFLECT",
+      "relevance": 0.0
+    },
+    {
+      "id": 5,
+      "category": "summary",
+      "question": "Is Carlos open to remote work?",
+      "answer": "As Carlos is self-employed at dataqbs, it appears he is open to remote work or flexible arrangements, aligning with his vision of \"living in peace, free from rigid structures\".",
+      "latency_s": 0.74,
+      "status": 200,
+      "verdict": "OK",
+      "relevance": 1.0
+    },
+    {
+      "id": 6,
+      "category": "summary",
+      "question": "What languages does Carlos speak?",
+      "answer": "Unfortunately, I don't have that information in Carlos's public profile.",
+      "latency_s": 1.0,
+      "status": 200,
+      "verdict": "DEFLECT",
+      "relevance": 0.0
+    },
+    {
+      "id": 7,
+      "category": "summary",
+      "question": "What is Carlos's educational background?",
+      "answer": "Unfortunately, I don't have that information in Carlos's public profile.",
+      "latency_s": 0.66,
+      "status": 200,
+      "verdict": "DEFLECT",
+      "relevance": 0.0
+    },
+    {
+      "id": 8,
+      "category": "summary",
+      "question": "Where did Carlos study?",
+      "answer": "Unfortunately, I don't have that information in Carlos's public profile.",
+      "latency_s": 0.83,
+      "status": 200,
+      "verdict": "DEFLECT",
+      "relevance": 0.0
+    },
+    {
+      "id": 9,
+      "category": "summary",
+      "question": "What degree does Carlos hold?",
+      "answer": "Unfortunately, I don't have that information in Carlos's public profile.",
+      "latency_s": 0.57,
+      "status": 200,
+      "verdict": "DEFLECT",
+      "relevance": 0.0
+    },
+    {
+      "id": 10,
+      "category": "summary",
+      "question": "What is Carlos's personal vision or philosophy?",
+      "answer": "**Carlos's Personal Vision:**\n\"To live in peace, free from rigid structures — building projects that flow naturally through intelligence and awareness.\"\n\nHe values simplicity, awareness, and letting technology serve life rather than dominate it. His work reflects this: clean architectures, minimal dependencies, purposeful automation.",
+      "latency_s": 0.71,
+      "status": 200,
+      "verdict": "OK",
+      "relevance": 0.75
+    },
+    {
+      "id": 11,
+      "category": "summary",
+      "question": "What drives Carlos professionally?",
+      "answer": "**Carlos's Professional Motivation:**\nCarlos is driven by genuine curiosity and the craft of engineering elegant solutions. He's not motivated by corporate structures, but by the desire to create clean, simple, and purposeful technology that serves life.",
+      "latency_s": 0.72,
+      "status": 200,
+      "verdict": "OK",
+      "relevance": 0.0
+    },
+    {
+      "id": 12,
+      "category": "summary",
+      "question": "What kind of roles is Carlos open to?",
+      "answer": "Based on Carlos's experience and skills, he seems to be open to roles that involve:\n\n* **Data Engineering**: Designing and maintaining cloud data pipelines, building ETL pipelines, and optimizing SQL queries.\n* **Software Development**: Building monorepos of data-engineering and AI tools, creating real-time multi-exchange portfolio monitors, and automating Windows → Linux migrations.\n* **Cloud Platforms**: Working with Azure, Snowflake, Cloudflare, and other cloud platforms to design and implement scalable and efficient solutions.\n\nHe's also interested in working on projects that align with his personal vision of simplicity, awareness, and letting technology serve life.",
+      "latency_s": 1.59,
+      "status": 200,
+      "verdict": "OK",
+      "relevance": 0.67
+    },
+    {
+      "id": 13,
+      "category": "summary",
+      "question": "How would you describe Carlos's work style?",
+      "answer": "**Carlos's Work Style:**\nCarlos is a calm, reflective, and down-to-earth individual. He approaches his work with a warm and concise demeanor, focusing on substance over filler. His work style is characterized by:\n\n* **Clean Architectures**: He designs and builds systems with simplicity and minimal dependencies in mind.\n* **Purposeful Automation**: He automates tasks and processes to make them more efficient and effective.\n* **Elegant Solutions**: He strives to create solutions that are elegant, scalable, and easy to maintain.\n\nOverall, Carlos's work style is approachable, thoughtful, and focused on delivering high-quality results.",
+      "latency_s": 0.88,
+      "status": 200,
+      "verdict": "OK",
+      "relevance": 1.0
+    },
+    {
+      "id": 14,
+      "category": "summary",
+      "question": "What sets Carlos apart from other data engineers?",
+      "answer": "**What Sets Carlos Apart:**\nSeveral factors set Carlos apart from other data engineers:\n\n* **Personal Vision**: His unique personal vision of building projects that flow naturally through intelligence and awareness guides his approach to data engineering.\n* **Clean Architectures**: He prioritizes simplicity and minimal dependencies in his designs, resulting in scalable and maintainable systems.\n* **Purposeful Automation**: His focus on automating tasks and processes makes him efficient and effective in his work.\n* **Elegant Solutions**: He strives to create solutions that are not only functional but also elegant and easy to maintain.\n* **Monorepo Approach**: His experience with building monorepos of data-engineering and AI tools demonstrates his ability to integrate multiple technologies and create cohesive systems.\n\nThese factors, combined with his calm and reflective approach to work, set Carlos apart from other data engineers.",
+      "latency_s": 1.17,
+      "status": 200,
+      "verdict": "OK",
+      "relevance": 1.0
+    },
+    {
+      "id": 15,
+      "category": "summary",
+      "question": "Can Carlos work in English and Spanish?",
+      "answer": "I don't have information in the public profile about Carlos's proficiency in languages other than English.",
+      "latency_s": 0.92,
+      "status": 200,
+      "verdict": "OK",
+      "relevance": 0.33
+    },
+    {
+      "id": 16,
+      "category": "skills",
+      "question": "What programming languages does Carlos know?",
+      "answer": "**Programming Languages:**\nCarlos is proficient in the following programming languages:\n\n* **Python**\n* **SQL**\n* **JavaScript/TypeScript**\n* **Bash**\n* **PowerShell**",
+      "latency_s": 0.68,
+      "status": 200,
+      "verdict": "OK",
+      "relevance": 0.67
+    },
+    {
+      "id": 17,
+      "category": "skills",
+      "question": "What is Carlos's proficiency level in Python?",
+      "answer": "I don't have information in the public profile about Carlos's proficiency level in Python. However, it is mentioned that he has expertise in Python, which suggests a high level of proficiency.",
+      "latency_s": 0.61,
+      "status": 200,
+      "verdict": "OK",
+      "relevance": 1.0
+    },
+    {
+      "id": 18,
+      "category": "skills",
+      "question": "Does Carlos know SQL? At what level?",
+      "answer": "**SQL Proficiency:**\nYes, Carlos is proficient in SQL. His expertise in SQL is demonstrated by his experience in building ETL pipelines processing 50M+ rows/day with Azure Data Factory & Snowflake, and optimizing SQL queries to reduce warehouse costs by 35%.",
+      "latency_s": 1.01,
+      "status": 200,
+      "verdict": "OK",
+      "relevance": 0.33
+    },
+    {
+      "id": 19,
+      "category": "skills",
+      "question": "Does Carlos have experience with JavaScript or TypeScript?",
+      "answer": "**JavaScript/TypeScript Experience:**\nYes, Carlos has experience with JavaScript/TypeScript. It is listed as one of his programming languages in his skills section.",
+      "latency_s": 0.78,
+      "status": 200,
+      "verdict": "OK",
+      "relevance": 1.0
+    },
+    {
+      "id": 20,
+      "category": "skills",
+      "question": "What cloud platforms has Carlos worked with?",
+      "answer": "**Cloud Platforms:**\nCarlos has experience with the following cloud platforms:\n\n* **Azure**: He has worked with Azure Data Factory, Azure Functions, and SQL.\n* **Snowflake**: He has built ETL pipelines and optimized SQL queries on Snowflake.\n* **Cloudflare**: He has experience with Cloudflare Pages, Workers, and AI.",
+      "latency_s": 0.88,
+      "status": 200,
+      "verdict": "OK",
+      "relevance": 1.0
+    },
+    {
+      "id": 21,
+      "category": "skills",
+      "question": "Does Carlos have Snowflake experience?",
+      "answer": "**Snowflake Experience:**\nYes, Carlos has experience with Snowflake. He has built ETL pipelines processing 50M+ rows/day with Azure Data Factory & Snowflake, and optimized SQL queries to reduce warehouse costs by 35%.",
+      "latency_s": 0.71,
+      "status": 200,
+      "verdict": "OK",
+      "relevance": 1.0
+    },
+    {
+      "id": 22,
+      "category": "skills",
+      "question": "What Azure services is Carlos proficient in?",
+      "answer": "**Azure Services:**\nCarlos is proficient in the following Azure services:\n\n* **Azure Data Factory**: He has built ETL pipelines processing 50M+ rows/day with Azure Data Factory & Snowflake.\n* **Azure Functions**: He has experience with Azure Functions.\n* **SQL**: He has worked with Azure SQL.\n* **Microsoft Fabric**: He has experience with Microsoft Fabric.",
+      "latency_s": 0.75,
+      "status": 200,
+      "verdict": "OK",
+      "relevance": 1.0
+    },
+    {
+      "id": 23,
+      "category": "skills",
+      "question": "Does Carlos know Microsoft Fabric?",
+      "answer": "**Microsoft Fabric:**\nI don't have information on Microsoft Fabric in Carlos's public profile.",
+      "latency_s": 1.49,
+      "status": 200,
+      "verdict": "OK",
+      "relevance": 0.67
+    },
+    {
+      "id": 24,
+      "category": "skills",
+      "question": "What AI and machine learning skills does Carlos have?",
+      "answer": "**AI & ML Skills:**\nWhile Carlos's public profile doesn't explicitly mention AI/ML skills, it does mention that he has built an **LLM response auditing** tool with a 5-dimension scoring system, and has worked on a **crypto arbitrage scanner**. This suggests that he has some experience with AI/ML concepts, but I don't have more specific information on his AI/ML skills.",
+      "latency_s": 0.77,
+      "status": 200,
+      "verdict": "OK",
+      "relevance": 0.5
+    },
+    {
+      "id": 25,
+      "category": "skills",
+      "question": "Does Carlos have experience with RAG systems?",
+      "answer": "**RAG Systems:**\nI don't have information on RAG systems in Carlos's public profile.",
+      "latency_s": 0.66,
+      "status": 200,
+      "verdict": "OK",
+      "relevance": 0.67
+    },
+    {
+      "id": 26,
+      "category": "skills",
+      "question": "What does Carlos know about vector embeddings?",
+      "answer": "**Vector Embeddings:**\nI don't have information on vector embeddings in Carlos's public profile.",
+      "latency_s": 0.86,
+      "status": 200,
+      "verdict": "OK",
+      "relevance": 0.67
+    },
+    {
+      "id": 27,
+      "category": "skills",
+      "question": "Has Carlos worked with LLM evaluation or prompt engineering?",
+      "answer": "**LLM Evaluation & Prompt Engineering:**\nWhile Carlos's public profile doesn't explicitly mention LLM evaluation or prompt engineering, it does mention that he has built a **declarative YAML-driven rule engine for LLM response auditing with 5-dimension scoring**. This suggests that he has some experience with LLM response auditing, but I don't have more specific information on LLM evaluation or prompt engineering.",
+      "latency_s": 0.79,
+      "status": 200,
+      "verdict": "OK",
+      "relevance": 0.8
+    },
+    {
+      "id": 28,
+      "category": "skills",
+      "question": "What databases has Carlos used?",
+      "answer": "**Databases:**\nCarlos has experience with **Snowflake**, a cloud-based data warehousing platform. He has also worked with **Azure Data Factory** and **Azure SQL**, which are part of the Microsoft Azure cloud platform. Additionally, his work on **ETL pipelines** suggests that he has experience with various databases, but the specific databases are not mentioned in his public profile.",
+      "latency_s": 0.84,
+      "status": 200,
+      "verdict": "DEFLECT",
+      "relevance": 0.0
+    },
+    {
+      "id": 29,
+      "category": "skills",
+      "question": "Does Carlos have SQL Server experience?",
+      "answer": "**SQL Server Experience:**\nWhile Carlos's public profile doesn't explicitly mention SQL Server, it does mention that he has worked with **Azure SQL**, which is a cloud-based version of SQL Server. This suggests that he has some experience with SQL Server, but I don't have more specific information on his experience with the on-premises version of SQL Server.",
+      "latency_s": 0.71,
+      "status": 200,
+      "verdict": "OK",
+      "relevance": 1.0
+    },
+    {
+      "id": 30,
+      "category": "skills",
+      "question": "What ETL tools has Carlos used?",
+      "answer": "**ETL Tools:**\nCarlos has experience with **Azure Data Factory (ADF)**, which is a cloud-based ETL and data integration tool.",
+      "latency_s": 0.72,
+      "status": 200,
+      "verdict": "OK",
+      "relevance": 0.67
+    },
+    {
+      "id": 31,
+      "category": "skills",
+      "question": "Does Carlos know Docker?",
+      "answer": "**Docker Experience:**\nThere is no mention of Docker in Carlos's public profile.",
+      "latency_s": 0.59,
+      "status": 200,
+      "verdict": "OK",
+      "relevance": 0.5
+    },
+    {
+      "id": 32,
+      "category": "skills",
+      "question": "What CI/CD experience does Carlos have?",
+      "answer": "**CI/CD Experience:**\nThere is no explicit mention of CI/CD tools in Carlos's public profile. However, his work on **reproducible dev-env scripts** for Windows → Linux migration suggests that he has some experience with automating and reproducibility, which is related to CI/CD concepts.",
+      "latency_s": 0.99,
+      "status": 200,
+      "verdict": "OK",
+      "relevance": 1.0
+    },
+    {
+      "id": 33,
+      "category": "skills",
+      "question": "Does Carlos use any code quality tools?",
+      "answer": "**Code Quality Tools:**\nThere is no explicit mention of code quality tools in Carlos's public profile. However, his work on **automated alerting** for data-quality checks suggests that he may have some experience with automated testing and quality assurance.",
+      "latency_s": 0.69,
+      "status": 200,
+      "verdict": "OK",
+      "relevance": 0.75
+    },
+    {
+      "id": 34,
+      "category": "skills",
+      "question": "What Python libraries is Carlos proficient in?",
+      "answer": "**Python Libraries:**\nWhile Carlos's public profile doesn't explicitly list Python libraries, his experience as a **Data Engineer** and **Software Developer** suggests that he is proficient in a range of Python libraries commonly used in data engineering and software development, such as:\n\n* **pandas** for data manipulation and analysis\n* **NumPy** for numerical computations\n* **SQL** libraries like **psycopg2** or **sqlite3** for database interactions\n\nHowever, the specific libraries he is proficient in are not explicitly mentioned in his public profile.",
+      "latency_s": 0.87,
+      "status": 200,
+      "verdict": "DEFLECT",
+      "relevance": 0.0
+    },
+    {
+      "id": 35,
+      "category": "skills",
+      "question": "Does Carlos have experience with web frameworks like Astro or Svelte?",
+      "answer": "**Web Frameworks:**\nThere is no mention of web frameworks like Astro or Svelte in Carlos's public profile. However, his experience with **Cloudflare (Pages, Workers, AI)** suggests that he may have some familiarity with serverless web development and cloud-based web frameworks.",
+      "latency_s": 0.73,
+      "status": 200,
+      "verdict": "OK",
+      "relevance": 1.0
+    },
+    {
+      "id": 36,
+      "category": "experience",
+      "question": "What is Carlos's most recent work experience?",
+      "answer": "**Most Recent Work Experience:**\nAccording to Carlos's public profile, his most recent work experience is as a **Data Engineer & Software Developer** at **dataqbs (Self-Employed)**.",
+      "latency_s": 1.17,
+      "status": 200,
+      "verdict": "OK",
+      "relevance": 1.0
+    },
+    {
+      "id": 37,
+      "category": "experience",
+      "question": "Has Carlos worked as a Senior Data Engineer?",
+      "answer": "**Senior Data Engineer Experience:**\nYes, Carlos has worked as a **Senior Data Engineer** at a **Confidential Client**. This is mentioned in his public profile as one of his previous work experiences.",
+      "latency_s": 0.64,
+      "status": 200,
+      "verdict": "OK",
+      "relevance": 1.0
+    },
+    {
+      "id": 38,
+      "category": "experience",
+      "question": "What kind of companies has Carlos worked for?",
+      "answer": "**Companies Worked For:**\nCarlos has worked for at least two companies:\n\n1. **dataqbs (Self-Employed)**: This is his current or most recent work experience, where he is a **Data Engineer & Software Developer**.\n2. **Confidential Client**: This is a previous work experience, where he was a **Senior Data Engineer**. The company name is not publicly disclosed due to confidentiality.",
+      "latency_s": 0.77,
+      "status": 200,
+      "verdict": "OK",
+      "relevance": 0.67
+    },
+    {
+      "id": 39,
+      "category": "experience",
+      "question": "Has Carlos done contract or freelance work?",
+      "answer": "**Contract or Freelance Work:**\nYes, Carlos has worked as a **Self-Employed** Data Engineer & Software Developer at **dataqbs**, which suggests that he may have done contract or freelance work.",
+      "latency_s": 0.69,
+      "status": 200,
+      "verdict": "OK",
+      "relevance": 1.0
+    },
+    {
+      "id": 40,
+      "category": "experience",
+      "question": "What is the largest dataset Carlos has worked with?",
+      "answer": "**Largest Dataset:**\nAccording to Carlos's public profile, the largest dataset he has worked with is **50M+ rows/day**, which was processed using Azure Data Factory and Snowflake during his time as a Senior Data Engineer at a Confidential Client.",
+      "latency_s": 0.65,
+      "status": 200,
+      "verdict": "OK",
+      "relevance": 1.0
+    },
+    {
+      "id": 41,
+      "category": "experience",
+      "question": "Has Carlos built data pipelines? Describe one.",
+      "answer": "**Data Pipelines:**\nYes, Carlos has built data pipelines. One example is the **ETL pipelines** he designed and maintained on **Azure** and **Snowflake** for a large enterprise client. These pipelines processed **50M+ rows/day**.\n\nHere's a high-level overview of one of the pipelines:\n\n* **Source**: Data from various sources (not specified)\n* **Destination**: Snowflake data warehouse\n* **ETL Tool**: Azure Data Factory (ADF)\n* **Processing**: Data was processed in real-time, with ETL pipelines running continuously to ingest new data\n* **Optimization**: Carlos optimized SQL queries to reduce warehouse costs by **35%**\n\nThis pipeline was designed to handle large-scale data processing and was optimized for performance and cost-effectiveness.",
+      "latency_s": 0.85,
+      "status": 200,
+      "verdict": "OK",
+      "relevance": 1.0
+    },
+    {
+      "id": 42,
+      "category": "experience",
+      "question": "What was Carlos's role at his most recent position?",
+      "answer": "**Role at Most Recent Position:**\nAt his most recent position at **dataqbs**, Carlos's role is **Data Engineer & Software Developer**.",
+      "latency_s": 0.85,
+      "status": 200,
+      "verdict": "OK",
+      "relevance": 1.0
+    },
+    {
+      "id": 43,
+      "category": "experience",
+      "question": "Has Carlos worked with high-volume data environments?",
+      "answer": "**High-Volume Data Environments:**\nYes, Carlos has worked with high-volume data environments. As a Senior Data Engineer at a Confidential Client, he designed and maintained cloud data pipelines on Azure and Snowflake that processed **50M+ rows/day**. This experience suggests that he is comfortable working with large-scale data environments.",
+      "latency_s": 0.79,
+      "status": 200,
+      "verdict": "OK",
+      "relevance": 1.0
+    },
+    {
+      "id": 44,
+      "category": "experience",
+      "question": "Did Carlos achieve cost savings in any role?",
+      "answer": "**Cost Savings:**\nYes, Carlos achieved cost savings in his role as a Senior Data Engineer at a Confidential Client. He optimized SQL queries, which resulted in a **35% reduction** in warehouse costs.",
+      "latency_s": 0.75,
+      "status": 200,
+      "verdict": "OK",
+      "relevance": 0.75
+    },
+    {
+      "id": 45,
+      "category": "experience",
+      "question": "Has Carlos implemented data quality monitoring?",
+      "answer": "**Data Quality Monitoring:**\nYes, Carlos implemented data-quality checks with automated alerting in his role as a Senior Data Engineer at a Confidential Client.",
+      "latency_s": 0.74,
+      "status": 200,
+      "verdict": "OK",
+      "relevance": 1.0
+    },
+    {
+      "id": 46,
+      "category": "experience",
+      "question": "What industries has Carlos worked in?",
+      "answer": "Unfortunately, I don't have that information in the public profile.",
+      "latency_s": 0.68,
+      "status": 200,
+      "verdict": "DEFLECT",
+      "relevance": 0.0
+    },
+    {
+      "id": 47,
+      "category": "experience",
+      "question": "Has Carlos led any teams or projects?",
+      "answer": "Unfortunately, I don't have that information in the public profile.",
+      "latency_s": 0.73,
+      "status": 200,
+      "verdict": "DEFLECT",
+      "relevance": 0.0
+    },
+    {
+      "id": 48,
+      "category": "experience",
+      "question": "What was Carlos's biggest professional achievement?",
+      "answer": "**Biggest Professional Achievement:**\nWhile it's subjective to determine the \"biggest\" achievement, one notable accomplishment mentioned in the profile is designing a **Bellman-Ford & triangular arbitrage scanner** across 9 crypto exchanges with live swap execution. This achievement showcases Carlos's expertise in building complex data-engineering projects.",
+      "latency_s": 0.7,
+      "status": 200,
+      "verdict": "OK",
+      "relevance": 1.0
+    },
+    {
+      "id": 49,
+      "category": "experience",
+      "question": "How long has Carlos been self-employed?",
+      "answer": "Unfortunately, I don't have that information in the public profile.",
+      "latency_s": 0.88,
+      "status": 200,
+      "verdict": "DEFLECT",
+      "relevance": 0.0
+    },
+    {
+      "id": 50,
+      "category": "experience",
+      "question": "What does dataqbs do as a company?",
+      "answer": "Unfortunately, I don't have that information in the public profile. However, based on the context, it seems that dataqbs is a company founded by Carlos, where he works as a Data Engineer & Software Developer.",
+      "latency_s": 0.6,
+      "status": 200,
+      "verdict": "DEFLECT",
+      "relevance": 0.0
+    },
+    {
+      "id": 51,
+      "category": "projects",
+      "question": "What projects has Carlos built?",
+      "answer": "**Projects Built by Carlos:**\n\n* **Crypto Arbitrage Scanner**: A Bellman-Ford & triangular arbitrage scanner across 9 crypto exchanges with live swap execution.\n* **LLM Response Auditing Tool**: A declarative YAML-driven rule engine for LLM response auditing with 5-dimension scoring.\n* **IMAP Email Collector**: A multi-account IMAP email collector with 5-label classifier (anti-phishing, domain scoring).\n* **Real-time Portfolio Monitor**: A real-time multi-exchange portfolio monitor with 1-hop bridge pricing.\n* **Windows → Linux Migration Tool**: Automated Windows → Linux migration with reproducible dev-env scripts.\n* **ETL Pipelines**: Built ETL pipelines processing 50M+ rows/day with Azure Data Factory & Snowflake (while working at a Confidential Client).",
+      "latency_s": 1.04,
+      "status": 200,
+      "verdict": "OK",
+      "relevance": 1.0
+    },
+    {
+      "id": 52,
+      "category": "projects",
+      "question": "Tell me about the Crypto Arbitrage Scanner project.",
+      "answer": "**Crypto Arbitrage Scanner Project:**\n\n* **Description:** Designed a Bellman-Ford & triangular arbitrage scanner across 9 crypto exchanges with live swap execution.\n* **Key Features:** \n  * Bellman-Ford algorithm for detecting arbitrage opportunities\n  * Triangular arbitrage scanner for identifying profitable trades\n  * Live swap execution for automating trades\n* **Impact:** This project showcases Carlos's expertise in building complex data-engineering projects and his ability to design efficient algorithms for detecting arbitrage opportunities in the crypto market.",
+      "latency_s": 1.1,
+      "status": 200,
+      "verdict": "OK",
+      "relevance": 1.0
+    },
+    {
+      "id": 53,
+      "category": "projects",
+      "question": "What is the OAI Code Evaluator?",
+      "answer": "I don't have that information in the public profile.",
+      "latency_s": 0.6,
+      "status": 200,
+      "verdict": "DEFLECT",
+      "relevance": 0.0
+    },
+    {
+      "id": 54,
+      "category": "projects",
+      "question": "What does the Email Collector project do?",
+      "answer": "**IMAP Email Collector Project:**\n\n* **Description:** A multi-account IMAP email collector with 5-label classifier (anti-phishing, domain scoring).\n* **Key Features:** \n  * Collects emails from multiple IMAP accounts\n  * Classifies emails into 5 labels using a classifier\n  * Includes anti-phishing and domain scoring features\n* **Impact:** This project demonstrates Carlos's ability to build data collection and classification pipelines, as well as his focus on security and risk assessment through anti-phishing and domain scoring features.",
+      "latency_s": 0.79,
+      "status": 200,
+      "verdict": "OK",
+      "relevance": 1.0
+    },
+    {
+      "id": 55,
+      "category": "projects",
+      "question": "Has Carlos built any real estate tools?",
+      "answer": "I don't have that information in the public profile.",
+      "latency_s": 0.59,
+      "status": 200,
+      "verdict": "DEFLECT",
+      "relevance": 0.0
+    },
+    {
+      "id": 56,
+      "category": "projects",
+      "question": "What is the Supplier Verifier project?",
+      "answer": "I don't have that information in the public profile.",
+      "latency_s": 0.56,
+      "status": 200,
+      "verdict": "DEFLECT",
+      "relevance": 0.0
+    },
+    {
+      "id": 57,
+      "category": "projects",
+      "question": "Tell me about the Media Comparison tools.",
+      "answer": "I don't have that information in the public profile.",
+      "latency_s": 0.63,
+      "status": 200,
+      "verdict": "DEFLECT",
+      "relevance": 0.0
+    },
+    {
+      "id": 58,
+      "category": "projects",
+      "question": "Has Carlos built a portfolio website? What tech stack?",
+      "answer": "I don't have that information in the public profile.",
+      "latency_s": 2.93,
+      "status": 200,
+      "verdict": "DEFLECT",
+      "relevance": 0.0
+    },
+    {
+      "id": 59,
+      "category": "projects",
+      "question": "What is the Linux Migration Toolkit?",
+      "answer": "The Linux Migration Toolkit is mentioned in Carlos's achievements as an \"Automated Windows → Linux migration with reproducible dev-env scripts\". This suggests that he has built a tool or a set of scripts to automate the process of migrating from Windows to Linux environments, with a focus on reproducibility and ease of setup.",
+      "latency_s": 0.97,
+      "status": 200,
+      "verdict": "OK",
+      "relevance": 1.0
+    },
+    {
+      "id": 60,
+      "category": "projects",
+      "question": "Does Carlos have any open-source projects on GitHub?",
+      "answer": "I don't have that information in the public profile.",
+      "latency_s": 0.77,
+      "status": 200,
+      "verdict": "DEFLECT",
+      "relevance": 0.0
+    },
+    {
+      "id": 61,
+      "category": "projects",
+      "question": "How many exchanges does the arbitrage scanner support?",
+      "answer": "According to Carlos's achievements, the Bellman-Ford & triangular arbitrage scanner supports 9 crypto exchanges.",
+      "latency_s": 0.71,
+      "status": 200,
+      "verdict": "OK",
+      "relevance": 0.6
+    },
+    {
+      "id": 62,
+      "category": "projects",
+      "question": "What algorithms are used in the arbitrage scanner?",
+      "answer": "The Bellman-Ford algorithm is mentioned as being used in the arbitrage scanner.",
+      "latency_s": 0.77,
+      "status": 200,
+      "verdict": "OK",
+      "relevance": 0.75
+    },
+    {
+      "id": 63,
+      "category": "projects",
+      "question": "Does the OAI Evaluator use YAML configuration?",
+      "answer": "The LLM response auditing tool uses a declarative YAML-driven rule engine for 5-dimension scoring.",
+      "latency_s": 0.62,
+      "status": 200,
+      "verdict": "OK",
+      "relevance": 0.2
+    },
+    {
+      "id": 64,
+      "category": "projects",
+      "question": "Does Carlos's email collector support OAuth?",
+      "answer": "I don't have that information in the public profile.",
+      "latency_s": 0.61,
+      "status": 200,
+      "verdict": "DEFLECT",
+      "relevance": 0.0
+    },
+    {
+      "id": 65,
+      "category": "projects",
+      "question": "What web scraping tools has Carlos used in his projects?",
+      "answer": "I don't have that information in the public profile.",
+      "latency_s": 0.7,
+      "status": 200,
+      "verdict": "DEFLECT",
+      "relevance": 0.0
+    },
+    {
+      "id": 66,
+      "category": "projects",
+      "question": "Has Carlos built any chatbots or AI assistants?",
+      "answer": "While there's no direct mention of chatbots or AI assistants, the LLM response auditing tool is mentioned, which implies interaction with Large Language Models (LLMs). However, I don't have specific information on chatbots or AI assistants built by Carlos.",
+      "latency_s": 0.74,
+      "status": 200,
+      "verdict": "OK",
+      "relevance": 1.0
+    },
+    {
+      "id": 67,
+      "category": "projects",
+      "question": "Does Carlos use a monorepo structure? Why?",
+      "answer": "**Yes**, Carlos uses a monorepo structure for his data-engineering and AI tools at dataqbs. According to his personal vision, he values simplicity and letting technology serve life, and the monorepo structure reflects this by allowing for clean architectures, minimal dependencies, and purposeful automation.",
+      "latency_s": 0.86,
+      "status": 200,
+      "verdict": "OK",
+      "relevance": 0.5
+    },
+    {
+      "id": 68,
+      "category": "projects",
+      "question": "What testing frameworks does Carlos use in his projects?",
+      "answer": "I don't have that information in the public profile.",
+      "latency_s": 1.47,
+      "status": 200,
+      "verdict": "DEFLECT",
+      "relevance": 0.0
+    },
+    {
+      "id": 69,
+      "category": "projects",
+      "question": "Has Carlos built any automation tools?",
+      "answer": "**Yes**, Carlos has built automation tools in his projects. Specifically, he mentions:\n\n* Automated Windows → Linux migration with reproducible dev-env scripts\n* Purposeful automation as part of his personal vision and approach to building projects.\n\nThese examples suggest that Carlos has experience with automation and has applied it in various contexts.",
+      "latency_s": 0.71,
+      "status": 200,
+      "verdict": "OK",
+      "relevance": 1.0
+    },
+    {
+      "id": 70,
+      "category": "projects",
+      "question": "Can Carlos show live demos of his projects?",
+      "answer": "I don't have that information in the public profile. However, I can propose a reasonable approach: Carlos could create a demo environment or a public-facing dashboard for his projects, such as the crypto arbitrage scanner or the real-time multi-exchange portfolio monitor, to showcase his work and provide a live demo.",
+      "latency_s": 0.62,
+      "status": 200,
+      "verdict": "DEFLECT",
+      "relevance": 0.0
+    },
+    {
+      "id": 71,
+      "category": "certifications",
+      "question": "What certifications does Carlos hold?",
+      "answer": "I don't have that information in the public profile.",
+      "latency_s": 0.7,
+      "status": 200,
+      "verdict": "DEFLECT",
+      "relevance": 0.0
+    },
+    {
+      "id": 72,
+      "category": "certifications",
+      "question": "Is Carlos Snowflake certified?",
+      "answer": "I don't have that information in the public profile. However, Carlos does mention that he has experience with Snowflake, specifically building ETL pipelines processing 50M+ rows/day with Azure Data Factory & Snowflake in his previous role as a Senior Data Engineer.",
+      "latency_s": 0.65,
+      "status": 200,
+      "verdict": "DEFLECT",
+      "relevance": 0.0
+    },
+    {
+      "id": 73,
+      "category": "certifications",
+      "question": "Does Carlos have any Azure certifications?",
+      "answer": "I don't have that information in the public profile. However, Carlos does mention that he has experience with Azure, specifically building ETL pipelines processing 50M+ rows/day with Azure Data Factory & Snowflake in his previous role as a Senior Data Engineer.",
+      "latency_s": 0.78,
+      "status": 200,
+      "verdict": "DEFLECT",
+      "relevance": 0.0
+    },
+    {
+      "id": 74,
+      "category": "certifications",
+      "question": "What is the SnowPro GenAI certification?",
+      "answer": "I don't have that information in the public profile. However, I can propose a reasonable approach: Carlos could be interested in obtaining the SnowPro GenAI certification, given his experience with Snowflake and his work in the field of data engineering and AI.",
+      "latency_s": 0.75,
+      "status": 200,
+      "verdict": "DEFLECT",
+      "relevance": 0.0
+    },
+    {
+      "id": 75,
+      "category": "certifications",
+      "question": "When did Carlos get his Azure Data Engineer certification?",
+      "answer": "I don't have that information in the public profile.",
+      "latency_s": 0.64,
+      "status": 200,
+      "verdict": "DEFLECT",
+      "relevance": 0.0
+    },
+    {
+      "id": 76,
+      "category": "certifications",
+      "question": "What is the MCSA SQL 2016 certification?",
+      "answer": "I don't have that information in the public profile. However, I can propose a reasonable approach: Carlos might be interested in obtaining the MCSA SQL 2016 certification, given his experience with SQL and his work in the field of data engineering.",
+      "latency_s": 0.71,
+      "status": 200,
+      "verdict": "DEFLECT",
+      "relevance": 0.0
+    },
+    {
+      "id": 77,
+      "category": "certifications",
+      "question": "Does Carlos have any AI-related certifications?",
+      "answer": "I don't have that information in the public profile. However, Carlos does mention that he has experience with AI/ML pipelines in his role as a Data Engineer & Software Developer at dataqbs, and he values simplicity, awareness, and letting technology serve life.",
+      "latency_s": 2.68,
+      "status": 200,
+      "verdict": "DEFLECT",
+      "relevance": 0.0
+    },
+    {
+      "id": 78,
+      "category": "certifications",
+      "question": "What topics does the SnowPro GenAI exam cover?",
+      "answer": "I don't have that information in the public profile.",
+      "latency_s": 0.66,
+      "status": 200,
+      "verdict": "DEFLECT",
+      "relevance": 0.0
+    },
+    {
+      "id": 79,
+      "category": "certifications",
+      "question": "Has Carlos studied Cortex AI in Snowflake?",
+      "answer": "I don't have that information in the public profile. However, Carlos does mention that he has experience with Snowflake in his role as a Data Engineer & Software Developer at dataqbs, and as a Senior Data Engineer at a Confidential Client.",
+      "latency_s": 0.86,
+      "status": 200,
+      "verdict": "DEFLECT",
+      "relevance": 0.0
+    },
+    {
+      "id": 80,
+      "category": "certifications",
+      "question": "Does Carlos plan to get more certifications?",
+      "answer": "I don't have that information in the public profile. However, based on his philosophy of \"To live in peace, free from rigid structures — building projects that flow naturally through intelligence and awareness,\" it's possible that Carlos might be interested in continuing to learn and grow in his field, but I don't have any specific information on his plans for certifications.",
+      "latency_s": 0.88,
+      "status": 200,
+      "verdict": "DEFLECT",
+      "relevance": 0.0
+    },
+    {
+      "id": 81,
+      "category": "soft_skills",
+      "question": "How does Carlos approach problem-solving?",
+      "answer": "Based on his philosophy, Carlos values simplicity, awareness, and letting technology serve life. His work reflects this, with clean architectures, minimal dependencies, and purposeful automation. This suggests that Carlos approaches problem-solving in a thoughtful and intentional way, seeking elegant solutions that align with his values. He likely takes a reflective and calm approach, considering the bigger picture and the long-term implications of his solutions.",
+      "latency_s": 0.85,
+      "status": 200,
+      "verdict": "OK",
+      "relevance": 1.0
+    },
+    {
+      "id": 82,
+      "category": "soft_skills",
+      "question": "Is Carlos a team player or more independent?",
+      "answer": "Based on his philosophy and the fact that he is self-employed as a Data Engineer & Software Developer at dataqbs, it seems that Carlos values independence and autonomy. However, his calm and reflective personality also suggests that he is approachable and willing to collaborate with others when needed. He likely prefers to work independently, but is not opposed to working with others when it aligns with his goals and values.",
+      "latency_s": 0.75,
+      "status": 200,
+      "verdict": "OK",
+      "relevance": 0.0
+    },
+    {
+      "id": 83,
+      "category": "soft_skills",
+      "question": "How does Carlos handle tight deadlines?",
+      "answer": "I don't have specific information on how Carlos handles tight deadlines in the public profile. However, based on his calm and reflective personality, it's likely that he approaches tight deadlines in a thoughtful and intentional way, focusing on finding efficient and effective solutions rather than rushing into things. He might prioritize tasks, break down complex problems into manageable parts, and maintain a clear head under pressure.",
+      "latency_s": 1.12,
+      "status": 200,
+      "verdict": "OK",
+      "relevance": 0.67
+    },
+    {
+      "id": 84,
+      "category": "soft_skills",
+      "question": "What is Carlos's communication style?",
+      "answer": "Based on his personality, Carlos's communication style is likely to be warm but concise. He values substance over filler, and is not one to boast or engage in unnecessary conversation. When communicating, he is likely to be direct, clear, and to the point, preferring to let his work speak for itself rather than making grand claims.",
+      "latency_s": 0.71,
+      "status": 200,
+      "verdict": "OK",
+      "relevance": 1.0
+    },
+    {
+      "id": 85,
+      "category": "soft_skills",
+      "question": "Does Carlos mentor or share knowledge?",
+      "answer": "Based on his philosophy and personality, it's likely that Carlos is willing to share his knowledge and experience with others. He values simplicity, awareness, and letting technology serve life, which suggests a desire to help others learn and grow. However, I don't have specific information on whether he formally mentors or teaches others.",
+      "latency_s": 0.83,
+      "status": 200,
+      "verdict": "OK",
+      "relevance": 0.67
+    },
+    {
+      "id": 86,
+      "category": "soft_skills",
+      "question": "How does Carlos stay current with new technologies?",
+      "answer": "Based on his philosophy and approach to work, it's likely that Carlos stays current with new technologies through a genuine curiosity and a desire to learn. He values simplicity and awareness, which suggests that he is interested in exploring new technologies and approaches that align with his values. He may engage in self-directed learning, read industry blogs and articles, and participate in online communities to stay up-to-date with the latest developments in his field.",
+      "latency_s": 1.26,
+      "status": 200,
+      "verdict": "OK",
+      "relevance": 1.0
+    },
+    {
+      "id": 87,
+      "category": "soft_skills",
+      "question": "What role does AI play in Carlos's daily work?",
+      "answer": "Based on the provided context, AI/ML pipelines are one of the areas of expertise for Carlos as a Data Engineer. He has built a declarative YAML-driven rule engine for LLM (Large Language Model) response auditing with 5-dimension scoring, which suggests that he has hands-on experience with integrating AI/ML technologies into his work. However, I don't have specific information on how AI plays a role in his daily work beyond this project.",
+      "latency_s": 0.88,
+      "status": 200,
+      "verdict": "OK",
+      "relevance": 0.67
+    },
+    {
+      "id": 88,
+      "category": "soft_skills",
+      "question": "Does Carlos value work-life balance?",
+      "answer": "Based on Carlos's personal vision for dataqbs, it appears that he values simplicity and awareness, and seeks to \"live in peace, free from rigid structures.\" This suggests that he prioritizes a balance between his work and personal life, and is not driven by corporate structures or pressures. His approach to work, with a focus on clean architectures, minimal dependencies, and purposeful automation, also implies a desire to maintain a sense of calm and clarity in his work.",
+      "latency_s": 0.72,
+      "status": 200,
+      "verdict": "OK",
+      "relevance": 0.75
+    },
+    {
+      "id": 89,
+      "category": "soft_skills",
+      "question": "How does Carlos approach documentation?",
+      "answer": "Based on the provided context, there is no explicit mention of Carlos's approach to documentation. However, given his emphasis on clean architectures, minimal dependencies, and purposeful automation, it's likely that he values clear and concise documentation as a way to facilitate understanding and maintainability of his projects.",
+      "latency_s": 0.76,
+      "status": 200,
+      "verdict": "OK",
+      "relevance": 1.0
+    },
+    {
+      "id": 90,
+      "category": "soft_skills",
+      "question": "What motivates Carlos in his career?",
+      "answer": "Based on Carlos's personal vision for dataqbs, it appears that he is motivated by a desire to \"live in peace, free from rigid structures\" and to build projects that \"flow naturally through intelligence and awareness.\" He values simplicity, awareness, and letting technology serve life, rather than being driven by corporate structures or pressures. This suggests that his motivation is rooted in a genuine curiosity and a passion for engineering elegant solutions, rather than external factors such as personal gain or recognition.",
+      "latency_s": 0.76,
+      "status": 200,
+      "verdict": "OK",
+      "relevance": 0.0
+    },
+    {
+      "id": 91,
+      "category": "scenario",
+      "question": "If I needed someone to design a Snowflake data warehouse from scratch, could Carlos do it?",
+      "answer": "Based on the provided context, it appears that Carlos has experience with Snowflake, having worked with it as a Senior Data Engineer at a Confidential Client. He has built ETL pipelines processing 50M+ rows/day with Azure Data Factory & Snowflake, which suggests that he has hands-on experience with designing and implementing data warehouses on Snowflake. Therefore, yes, Carlos could likely design a Snowflake data warehouse from scratch.",
+      "latency_s": 0.73,
+      "status": 200,
+      "verdict": "OK",
+      "relevance": 0.71
+    },
+    {
+      "id": 92,
+      "category": "scenario",
+      "question": "Can Carlos build a real-time data pipeline on Azure?",
+      "answer": "Based on the provided context, it appears that Carlos has experience with Azure, having worked with it as a Senior Data Engineer at a Confidential Client. He has built ETL pipelines processing 50M+ rows/day with Azure Data Factory & Snowflake, which suggests that he has hands-on experience with designing and implementing data pipelines on Azure. Additionally, his role as a Data Engineer & Software Developer at dataqbs involves building a monorepo of data-engineering and AI tools, which likely includes real-time data processing capabilities. Therefore, yes, Carlos can likely build a real-time data pipeline on Azure.",
+      "latency_s": 0.84,
+      "status": 200,
+      "verdict": "OK",
+      "relevance": 1.0
+    },
+    {
+      "id": 93,
+      "category": "scenario",
+      "question": "If we have a legacy SQL Server database that needs modernization, is Carlos the right fit?",
+      "answer": "Based on the provided context, it appears that Carlos has experience with SQL, having worked with it as a Senior Data Engineer at a Confidential Client, where he optimized SQL queries reducing warehouse costs by 35%. However, there is no explicit mention of his experience with modernizing legacy SQL Server databases. While he may have skills that could be applied to this task, it's not clear if he has direct experience with modernization efforts. If you need someone with specific experience in this area, it's worth further discussion to determine if Carlos is the right fit.",
+      "latency_s": 1.06,
+      "status": 200,
+      "verdict": "OK",
+      "relevance": 0.75
+    },
+    {
+      "id": 94,
+      "category": "scenario",
+      "question": "Could Carlos implement a RAG-based chatbot for our company?",
+      "answer": "Based on the provided context, it appears that Carlos has experience with building a declarative YAML-driven rule engine for LLM response auditing with 5-dimension scoring. This suggests that he has skills in building rule-based systems and working with Language Models (LLM). However, there is no explicit mention of his experience with implementing a RAG-based (Red-Amber-Green) chatbot specifically.\n\nWhile it's possible that Carlos could adapt his skills to implement a RAG-based chatbot, it would be worth discussing further to determine if he has the necessary expertise and experience in this area.",
+      "latency_s": 0.69,
+      "status": 200,
+      "verdict": "OK",
+      "relevance": 0.8
+    },
+    {
+      "id": 95,
+      "category": "scenario",
+      "question": "We need someone to evaluate LLM outputs systematically. Can Carlos help?",
+      "answer": "Based on the provided context, it appears that Carlos has experience with building a declarative YAML-driven rule engine for LLM response auditing with 5-dimension scoring. This suggests that he has skills in evaluating LLM outputs systematically and providing a structured evaluation framework. Therefore, yes, Carlos can likely help with evaluating LLM outputs systematically.",
+      "latency_s": 0.66,
+      "status": 200,
+      "verdict": "OK",
+      "relevance": 0.67
+    },
+    {
+      "id": 96,
+      "category": "scenario",
+      "question": "Can Carlos automate our CI/CD pipeline with GitHub Actions?",
+      "answer": "Based on the provided context, it does not explicitly mention Carlos's experience with GitHub Actions or automating CI/CD pipelines. However, his experience as a Data Engineer & Software Developer at dataqbs, where he implemented automated Windows → Linux migration with reproducible dev-env scripts, suggests that he has skills in automation and scripting.\n\nWhile it's possible that Carlos could adapt his skills to automate a CI/CD pipeline with GitHub Actions, it would be worth discussing further to determine if he has the necessary expertise and experience in this area.",
+      "latency_s": 1.02,
+      "status": 200,
+      "verdict": "OK",
+      "relevance": 1.0
+    },
+    {
+      "id": 97,
+      "category": "scenario",
+      "question": "We need to process 100M+ rows daily. Does Carlos have experience at that scale?",
+      "answer": "Based on the provided context, it appears that Carlos has experience processing large datasets as a Senior Data Engineer at a Confidential Client, where he built ETL pipelines processing 50M+ rows/day with Azure Data Factory & Snowflake. This suggests that he has skills in handling large-scale data processing. However, the exact scale of 100M+ rows daily is slightly above his previous experience.\n\nWhile it's possible that Carlos could adapt his skills to handle this scale, it would be worth discussing further to determine if he has the necessary expertise and experience in this area.",
+      "latency_s": 0.96,
+      "status": 200,
+      "verdict": "OK",
+      "relevance": 0.83
+    },
+    {
+      "id": 98,
+      "category": "scenario",
+      "question": "Could Carlos help us migrate from Windows to Linux dev environments?",
+      "answer": "Based on the provided context, it appears that Carlos has experience with automating Windows → Linux migration with reproducible dev-env scripts as part of his work at dataqbs. This suggests that he has skills in migrating from Windows to Linux dev environments and can likely help with this task.",
+      "latency_s": 0.71,
+      "status": 200,
+      "verdict": "OK",
+      "relevance": 0.83
+    },
+    {
+      "id": 99,
+      "category": "scenario",
+      "question": "Can Carlos build API integrations with third-party platforms?",
+      "answer": "Based on the provided context, it does not explicitly mention Carlos's experience with building API integrations with third-party platforms. However, his experience as a Data Engineer & Software Developer at dataqbs, where he built a monorepo of data-engineering and AI tools, suggests that he has skills in integrating various tools and services.\n\nWhile it's possible that Carlos could adapt his skills to build API integrations with third-party platforms, it would be worth discussing further to determine if he has the necessary expertise and experience in this area.",
+      "latency_s": 0.83,
+      "status": 200,
+      "verdict": "OK",
+      "relevance": 1.0
+    },
+    {
+      "id": 100,
+      "category": "scenario",
+      "question": "How would Carlos approach optimizing our data warehouse costs?",
+      "answer": "Based on the provided context, it appears that Carlos has experience optimizing data warehouse costs as a Senior Data Engineer at a Confidential Client, where he optimized SQL queries reducing warehouse costs by 35%. This suggests that he has a hands-on approach to optimizing data warehouse costs, likely involving:\n\n* Analyzing SQL queries and optimizing them for performance and efficiency\n* Identifying and addressing data quality issues that may be contributing to high costs\n* Implementing data-quality checks with automated alerting to prevent data issues\n* Possibly leveraging cloud platform features, such as Azure Data Factory and Snowflake, to optimize costs\n\nCarlos's approach would likely be data-driven and focused on finding practical solutions to reduce costs while maintaining data quality and performance.",
+      "latency_s": 0.98,
+      "status": 200,
+      "verdict": "OK",
+      "relevance": 1.0
+    }
+  ]
+}

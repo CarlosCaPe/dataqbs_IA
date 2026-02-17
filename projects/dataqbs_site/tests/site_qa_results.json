@@ -1,0 +1,425 @@
+{
+  "test_timestamp": "2026-02-17T20:48:30",
+  "base_url": "http://localhost:4322",
+  "total": 69,
+  "passed": 59,
+  "failed": 0,
+  "warned": 10,
+  "elapsed_s": 13.9,
+  "results": [
+    {
+      "category": "static_assets",
+      "test": "Favicon SVG (/favicon.svg)",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "category": "static_assets",
+      "test": "robots.txt (/robots.txt)",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "category": "static_assets",
+      "test": "CV / Profile PDF (/Profile.pdf)",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "category": "static_assets",
+      "test": "RAG Knowledge Base (/knowledge.json)",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "category": "static_assets",
+      "test": "Knowledge chunks: 58",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "category": "static_assets",
+      "test": "Chunk integrity (all have text+embedding)",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "category": "page_structure",
+      "test": "Homepage loads (200 OK)",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "category": "page_structure",
+      "test": "Section #experience in static HTML",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "category": "page_structure",
+      "test": "Section #projects in static HTML",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "category": "page_structure",
+      "test": "Section #skills in static HTML",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "category": "page_structure",
+      "test": "Section #contact in static HTML",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "category": "page_structure",
+      "test": "Viewport meta tag",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "category": "page_structure",
+      "test": "Charset declaration",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "category": "page_structure",
+      "test": "Dark mode default on <html>",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "category": "page_structure",
+      "test": "CSS stylesheet linked",
+      "status": "WARN",
+      "detail": "No CSS link found in static HTML"
+    },
+    {
+      "category": "page_structure",
+      "test": "Component: Header",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "category": "page_structure",
+      "test": "Component: ProfileCard",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "category": "page_structure",
+      "test": "Component: AboutSection",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "category": "page_structure",
+      "test": "Component: ExperienceTimeline",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "category": "page_structure",
+      "test": "Component: ProjectsGrid",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "category": "page_structure",
+      "test": "Component: SkillsSection",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "category": "page_structure",
+      "test": "Component: ContactSection",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "category": "page_structure",
+      "test": "Component: Chatbot",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "category": "page_structure",
+      "test": "Component: Footer",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "category": "links",
+      "test": "External: GitHub profile → 200",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "category": "links",
+      "test": "External: LinkedIn profile → blocked by site (normal)",
+      "status": "WARN",
+      "detail": "LinkedIn blocks automated requests"
+    },
+    {
+      "category": "links",
+      "test": "External: dataqbs.com website → 200",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "category": "links",
+      "test": "External: Universidad de Guadalajara → 200",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "category": "links",
+      "test": "External: Source code repo → 200",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "category": "links",
+      "test": "Internal: Homepage (/)",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "category": "links",
+      "test": "Internal: CV download (/Profile.pdf)",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "category": "links",
+      "test": "Internal: Favicon (/favicon.svg)",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "category": "links",
+      "test": "Internal: Knowledge base (/knowledge.json)",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "category": "links",
+      "test": "Email: mailto:carlos.carrillo@dataqbs.com",
+      "status": "PASS",
+      "detail": "mailto link — cannot verify delivery, correct format confirmed"
+    },
+    {
+      "category": "links",
+      "test": "Old email (hotmail) removed from HTML",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "category": "images",
+      "test": "Image: /yo.jpeg",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "category": "images",
+      "test": "Image: /banner.jpeg",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "category": "images",
+      "test": "Image: /favicon.svg",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "category": "images",
+      "test": "Image: /udg-logo.jpeg",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "category": "api",
+      "test": "POST /api/chat (valid request)",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "category": "api",
+      "test": "Chat rejects empty message (400)",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "category": "api",
+      "test": "Chat rejects invalid JSON (400)",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "category": "api",
+      "test": "POST /api/contact (valid submission)",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "category": "api",
+      "test": "Contact rejects missing name (400)",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "category": "api",
+      "test": "Contact rejects invalid email (400)",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "category": "api",
+      "test": "Contact rejects short message (400)",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "category": "interactive",
+      "test": "View CV download link",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "category": "interactive",
+      "test": "Email link (dataqbs)",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "category": "interactive",
+      "test": "GitHub link",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "category": "interactive",
+      "test": "LinkedIn link",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "category": "interactive",
+      "test": "Website link",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "category": "interactive",
+      "test": "Chat API endpoint",
+      "status": "WARN",
+      "detail": "'/api/chat' not found in HTML+JS bundles (may be minified)"
+    },
+    {
+      "category": "interactive",
+      "test": "Contact form endpoint",
+      "status": "WARN",
+      "detail": "'/api/contact' not found in HTML+JS bundles (may be minified)"
+    },
+    {
+      "category": "interactive",
+      "test": "DOM getElementById calls",
+      "status": "WARN",
+      "detail": "'getElementById' not found in HTML+JS bundles (may be minified)"
+    },
+    {
+      "category": "interactive",
+      "test": "Scroll into view calls",
+      "status": "WARN",
+      "detail": "'scrollIntoView' not found in HTML+JS bundles (may be minified)"
+    },
+    {
+      "category": "interactive",
+      "test": "Svelte client:load directives",
+      "status": "WARN",
+      "detail": "'client:load' not found in HTML+JS bundles (may be minified)"
+    },
+    {
+      "category": "interactive",
+      "test": "UDG link → udg.mx (not #education)",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "category": "interactive",
+      "test": "Old hotmail removed from JS",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "category": "interactive",
+      "test": "New email in JS bundles",
+      "status": "WARN",
+      "detail": "carlos.carrillo@dataqbs.com not found — may be in different bundle"
+    },
+    {
+      "category": "i18n",
+      "test": "Locale 'en' found in HTML (4/4)",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "category": "i18n",
+      "test": "Locale 'es' translations",
+      "status": "WARN",
+      "detail": "Translations may be in dynamically loaded chunks"
+    },
+    {
+      "category": "i18n",
+      "test": "Locale 'de' translations",
+      "status": "WARN",
+      "detail": "Translations may be in dynamically loaded chunks"
+    },
+    {
+      "category": "security",
+      "test": "No Groq API key in HTML",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "category": "security",
+      "test": "No OpenAI API key in HTML",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "category": "security",
+      "test": "No GitHub token in HTML",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "category": "security",
+      "test": "No Groq API key in JS bundles",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "category": "security",
+      "test": "No OpenAI API key in JS bundles",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "category": "security",
+      "test": "No GitHub token in JS bundles",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "category": "security",
+      "test": "robots.txt valid",
+      "status": "PASS",
+      "detail": ""
+    }
+  ]
+}
