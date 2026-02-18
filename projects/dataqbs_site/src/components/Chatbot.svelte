@@ -102,6 +102,25 @@
     });
   }
 
+  // ── Suggestion chips ─────────────────────────────
+  function sendSuggestion(text: string) {
+    inputValue = text;
+    handleSend();
+  }
+
+  // ── Export chat history for contact form ──────────
+  function getChatTranscript(): string {
+    return messages
+      .filter((m) => m.content)
+      .map((m) => `${m.role === 'user' ? 'User' : 'Carlos AI'}: ${m.content}`)
+      .join('\n\n');
+  }
+
+  // Expose transcript globally for contact form
+  $: if (typeof window !== 'undefined') {
+    (window as any).__chatTranscript = messages.length > 1 ? getChatTranscript() : '';
+  }
+
   function handleKeydown(e: KeyboardEvent) {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
@@ -186,6 +205,28 @@
           </div>
         </div>
       {/each}
+
+      <!-- Suggestion chips (show only when no user messages yet) -->
+      {#if messages.length <= 1}
+        <div class="flex flex-wrap gap-2 mt-2">
+          <button on:click={() => sendSuggestion($t.chat.suggestion1)}
+            class="text-xs px-3 py-1.5 rounded-full bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 hover:bg-primary-200 dark:hover:bg-primary-800/40 transition-colors">
+            💬 {$t.chat.suggestion1}
+          </button>
+          <button on:click={() => sendSuggestion($t.chat.suggestion2)}
+            class="text-xs px-3 py-1.5 rounded-full bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 hover:bg-primary-200 dark:hover:bg-primary-800/40 transition-colors">
+            🏢 {$t.chat.suggestion2}
+          </button>
+          <button on:click={() => sendSuggestion($t.chat.suggestion3)}
+            class="text-xs px-3 py-1.5 rounded-full bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 hover:bg-primary-200 dark:hover:bg-primary-800/40 transition-colors">
+            ❄️ {$t.chat.suggestion3}
+          </button>
+          <button on:click={() => sendSuggestion($t.chat.suggestion4)}
+            class="text-xs px-3 py-1.5 rounded-full bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 hover:bg-primary-200 dark:hover:bg-primary-800/40 transition-colors">
+            🎓 {$t.chat.suggestion4}
+          </button>
+        </div>
+      {/if}
     </div>
 
     <!-- Turnstile (invisible) -->
@@ -193,6 +234,7 @@
 
     <!-- Input -->
     <div class="p-3 border-t border-slate-200 dark:border-slate-700">
+      <p class="text-[10px] text-slate-400 dark:text-slate-500 text-center mb-1.5">🔒 {$t.chat.privacyNote}</p>
       {#if status === 'error' && !rateLimiter.canSend()}
         <p class="text-xs text-amber-600 dark:text-amber-400 mb-2 text-center">{$t.chat.rateLimit}</p>
       {/if}
@@ -285,6 +327,28 @@
             </div>
           </div>
         {/each}
+
+        <!-- Suggestion chips (mobile, show only when no user messages yet) -->
+        {#if messages.length <= 1}
+          <div class="flex flex-wrap gap-2 mt-2">
+            <button on:click={() => sendSuggestion($t.chat.suggestion1)}
+              class="text-xs px-3 py-1.5 rounded-full bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 hover:bg-primary-200 dark:hover:bg-primary-800/40 transition-colors">
+              💬 {$t.chat.suggestion1}
+            </button>
+            <button on:click={() => sendSuggestion($t.chat.suggestion2)}
+              class="text-xs px-3 py-1.5 rounded-full bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 hover:bg-primary-200 dark:hover:bg-primary-800/40 transition-colors">
+              🏢 {$t.chat.suggestion2}
+            </button>
+            <button on:click={() => sendSuggestion($t.chat.suggestion3)}
+              class="text-xs px-3 py-1.5 rounded-full bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 hover:bg-primary-200 dark:hover:bg-primary-800/40 transition-colors">
+              ❄️ {$t.chat.suggestion3}
+            </button>
+            <button on:click={() => sendSuggestion($t.chat.suggestion4)}
+              class="text-xs px-3 py-1.5 rounded-full bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 hover:bg-primary-200 dark:hover:bg-primary-800/40 transition-colors">
+              🎓 {$t.chat.suggestion4}
+            </button>
+          </div>
+        {/if}
       </div>
 
       <!-- Turnstile mobile -->
@@ -292,6 +356,7 @@
 
       <!-- Input (mobile) -->
       <div class="p-3 border-t border-slate-200 dark:border-slate-700 pb-safe">
+        <p class="text-[10px] text-slate-400 dark:text-slate-500 text-center mb-1.5">🔒 {$t.chat.privacyNote}</p>
         <div class="flex gap-2">
           <input
             bind:this={inputElement}

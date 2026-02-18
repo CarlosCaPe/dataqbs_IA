@@ -8,14 +8,28 @@
   let sending = false;
   let sent = false;
   let errorMsg = '';
+  const maxMessageLength = 5000;
+
+  // Get chat transcript from chatbot (if any)
+  function getChatTranscript(): string {
+    if (typeof window !== 'undefined' && (window as any).__chatTranscript) {
+      return (window as any).__chatTranscript;
+    }
+    return '';
+  }
 
   async function handleSubmit() {
     if (!name.trim() || !email.trim() || !message.trim()) return;
+    if (message.length > maxMessageLength) {
+      errorMsg = `Message too long (max ${maxMessageLength} characters)`;
+      return;
+    }
 
     sending = true;
     errorMsg = '';
 
     try {
+      const chatTranscript = getChatTranscript();
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -24,7 +38,8 @@
           email: email.trim(),
           message: message.trim(),
           locale: $locale,
-          turnstileToken: '', // could integrate Turnstile here too
+          turnstileToken: '',
+          chatTranscript: chatTranscript || undefined,
         }),
       });
 
@@ -111,7 +126,9 @@
               rows="4"
               class="input-field resize-none"
               required
+              maxlength={maxMessageLength}
             ></textarea>
+            <p class="text-xs text-slate-400 dark:text-slate-500 text-right mt-0.5">{message.length}/{maxMessageLength}</p>
           </div>
           {#if errorMsg}
             <p class="text-sm text-red-600 dark:text-red-400">{errorMsg}</p>

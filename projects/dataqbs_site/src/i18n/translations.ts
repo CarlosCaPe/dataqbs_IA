@@ -37,6 +37,11 @@ export interface Translations {
     verifying: string;
     openChat: string;
     closeChat: string;
+    privacyNote: string;
+    suggestion1: string;
+    suggestion2: string;
+    suggestion3: string;
+    suggestion4: string;
   };
   contact: {
     nameLabel: string;
@@ -93,17 +98,22 @@ const en: Translations = {
   timeline: { present: 'Present', showMore: 'Show more', showLess: 'Show less', confidential: 'Confidential Client' },
   skill: { expert: 'Expert', advanced: 'Advanced', intermediate: 'Intermediate' },
   chat: {
-    title: 'Ask me anything',
+    title: 'Chat with Carlos',
     placeholder: 'Ask about my experience, skills, projects…',
     send: 'Send',
     welcome:
-      "Hi! I'm Carlos's AI assistant. Ask me about his experience, skills, projects, or certifications. I'll answer based on his professional profile.",
+      "Hi! I'm Carlos — well, my AI version. Ask me anything about my 20+ years in data engineering, my projects, skills, or certifications. **Tell me about your requirement** and I'll share how my experience can help.",
     thinking: 'Thinking…',
     error: 'Something went wrong. Please try again.',
     rateLimit: 'Too many messages. Please wait a moment.',
     verifying: 'Verifying…',
-    openChat: 'Chat with me',
+    openChat: 'Chat with Carlos',
     closeChat: 'Close chat',
+    privacyNote: 'Your messages are not stored. This conversation is private.',
+    suggestion1: 'Tell me about your requirement',
+    suggestion2: 'What companies have you worked for?',
+    suggestion3: 'Can you do Snowflake migrations?',
+    suggestion4: 'What certifications do you have?',
   },
   contact: {
     nameLabel: 'Name',
@@ -164,17 +174,22 @@ const es: Translations = {
   timeline: { present: 'Actual', showMore: 'Ver más', showLess: 'Ver menos', confidential: 'Cliente Confidencial' },
   skill: { expert: 'Experto', advanced: 'Avanzado', intermediate: 'Intermedio' },
   chat: {
-    title: 'Pregúntame lo que quieras',
+    title: 'Chatea con Carlos',
     placeholder: 'Pregunta sobre mi experiencia, habilidades, proyectos…',
     send: 'Enviar',
     welcome:
-      '¡Hola! Soy el asistente IA de Carlos. Pregúntame sobre su experiencia, habilidades, proyectos o certificaciones. Responderé basándome en su perfil profesional.',
+      '¡Hola! Soy Carlos — bueno, mi versión IA. Pregúntame lo que quieras sobre mis 20+ años en ingeniería de datos, mis proyectos, habilidades o certificaciones. **Cuéntame tu requisito** y te comparto cómo mi experiencia puede ayudar.',
     thinking: 'Pensando…',
     error: 'Algo salió mal. Intenta de nuevo.',
     rateLimit: 'Demasiados mensajes. Espera un momento.',
     verifying: 'Verificando…',
-    openChat: 'Chatea conmigo',
+    openChat: 'Chatea con Carlos',
     closeChat: 'Cerrar chat',
+    privacyNote: 'Tus mensajes no se almacenan. Esta conversación es privada.',
+    suggestion1: 'Cuéntame tu requisito',
+    suggestion2: '¿En qué empresas has trabajado?',
+    suggestion3: '¿Puedes hacer migraciones a Snowflake?',
+    suggestion4: '¿Qué certificaciones tienes?',
   },
   contact: {
     nameLabel: 'Nombre',
@@ -235,17 +250,22 @@ const de: Translations = {
   timeline: { present: 'Aktuell', showMore: 'Mehr anzeigen', showLess: 'Weniger anzeigen', confidential: 'Vertraulicher Kunde' },
   skill: { expert: 'Experte', advanced: 'Fortgeschritten', intermediate: 'Mittel' },
   chat: {
-    title: 'Frag mich alles',
+    title: 'Chat mit Carlos',
     placeholder: 'Frag nach Erfahrung, Fähigkeiten, Projekten…',
     send: 'Senden',
     welcome:
-      "Hallo! Ich bin Carlos' KI-Assistent. Frag mich nach seiner Erfahrung, seinen Fähigkeiten, Projekten oder Zertifizierungen. Ich antworte basierend auf seinem beruflichen Profil.",
+      "Hallo! Ich bin Carlos — naja, meine KI-Version. Frag mich alles über meine 20+ Jahre im Data Engineering, meine Projekte, Fähigkeiten oder Zertifizierungen. **Erzähl mir von deinem Bedarf** und ich teile dir mit, wie meine Erfahrung helfen kann.",
     thinking: 'Denke nach…',
     error: 'Etwas ist schiefgelaufen. Bitte versuche es erneut.',
     rateLimit: 'Zu viele Nachrichten. Bitte warte einen Moment.',
     verifying: 'Überprüfung…',
-    openChat: 'Chatte mit mir',
+    openChat: 'Chat mit Carlos',
     closeChat: 'Chat schließen',
+    privacyNote: 'Deine Nachrichten werden nicht gespeichert. Dieses Gespräch ist privat.',
+    suggestion1: 'Erzähl mir von deinem Bedarf',
+    suggestion2: 'Für welche Unternehmen hast du gearbeitet?',
+    suggestion3: 'Kannst du Snowflake-Migrationen machen?',
+    suggestion4: 'Welche Zertifizierungen hast du?',
   },
   contact: {
     nameLabel: 'Name',
