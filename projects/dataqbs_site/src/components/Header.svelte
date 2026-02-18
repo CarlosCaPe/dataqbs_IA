@@ -29,7 +29,7 @@
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
   }
 
-  const navItems = ['experience', 'projects', 'skills', 'contact'] as const;
+  const navItems = ['experience', 'certifications', 'projects', 'skills', 'contact'] as const;
 </script>
 
 <header class="sticky top-0 z-40 backdrop-blur-md bg-white/80 dark:bg-slate-900/80 border-b border-slate-200 dark:border-slate-700/50">

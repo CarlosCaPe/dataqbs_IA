@@ -5,7 +5,11 @@
 
   const localeMap: Record<string, string> = { en: 'en-US', es: 'es-MX', de: 'de-DE' };
 
+  const INITIAL_COUNT = 3;
+  let showAll = false;
   let expandedIndex: number | null = null;
+
+  $: displayed = showAll ? experience : experience.slice(0, INITIAL_COUNT);
 
   function toggle(i: number) {
     expandedIndex = expandedIndex === i ? null : i;
@@ -44,7 +48,7 @@
     <div class="absolute left-4 top-0 bottom-0 w-0.5 bg-slate-200 dark:bg-slate-700"></div>
 
     <div class="space-y-6">
-      {#each experience as exp, i}
+      {#each displayed as exp, i}
         <div class="relative pl-10 animate-fade-in" style="animation-delay: {i * 80}ms">
           <!-- Timeline dot -->
           <div class="absolute left-2.5 top-2 w-3 h-3 rounded-full border-2 border-primary-500 bg-white dark:bg-slate-900 z-10"></div>
@@ -117,4 +121,20 @@
       {/each}
     </div>
   </div>
+
+  <!-- Show all / Show less (LinkedIn-style) -->
+  {#if experience.length > INITIAL_COUNT}
+    <div class="mt-4 pt-3 border-t border-slate-100 dark:border-slate-700 text-center">
+      <button on:click={() => (showAll = !showAll)} class="text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors w-full py-2 flex items-center justify-center gap-1.5">
+        {#if showAll}
+          {$t.timeline.showLess}
+        {:else}
+          {$t.timeline.showAllExperiences.replace('{count}', String(experience.length))}
+        {/if}
+        <svg class="w-4 h-4 transition-transform" class:rotate-180={showAll} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+        </svg>
+      </button>
+    </div>
+  {/if}
 </section>

@@ -5,6 +5,7 @@ import ProfileCard from '../components/ProfileCard.svelte';
 import ExperienceTimeline from '../components/ExperienceTimeline.svelte';
 import ProjectsGrid from '../components/ProjectsGrid.svelte';
 import SkillsSection from '../components/SkillsSection.svelte';
+import CertificationsSection from '../components/CertificationsSection.svelte';
 import ContactSection from '../components/ContactSection.svelte';
 import Chatbot from '../components/Chatbot.svelte';
 import Footer from '../components/Footer.svelte';
@@ -52,13 +53,18 @@ import AboutSection from '../components/AboutSection.svelte';
       <ExperienceTimeline client:load />
     </div>
 
+    <!-- ─── Certifications ─── -->
+    <div class="animate-fade-in" style="animation-delay: 220ms; animation-fill-mode: both;">
+      <CertificationsSection client:load />
+    </div>
+
     <!-- ─── Projects ─── -->
-    <div class="animate-fade-in" style="animation-delay: 240ms; animation-fill-mode: both;">
+    <div class="animate-fade-in" style="animation-delay: 280ms; animation-fill-mode: both;">
       <ProjectsGrid client:load />
     </div>
 
     <!-- ─── Skills ─── -->
-    <div class="animate-fade-in" style="animation-delay: 320ms; animation-fill-mode: both;">
+    <div class="animate-fade-in" style="animation-delay: 340ms; animation-fill-mode: both;">
       <SkillsSection client:load />
     </div>
 

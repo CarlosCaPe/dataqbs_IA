@@ -1,5 +1,5 @@
 export interface Translations {
-  nav: { experience: string; projects: string; skills: string; contact: string; menu: string };
+  nav: { experience: string; certifications: string; projects: string; skills: string; contact: string; menu: string };
   profile: {
     headline: string;
     location: string;
@@ -24,7 +24,7 @@ export interface Translations {
     featuredProjects: string;
     allProjects: string;
   };
-  timeline: { present: string; showMore: string; showLess: string; confidential: string };
+  timeline: { present: string; showMore: string; showLess: string; confidential: string; showAllExperiences: string; showAllCertifications: string };
   skill: { expert: string; advanced: string; intermediate: string };
   chat: {
     title: string;
@@ -64,7 +64,7 @@ export interface Translations {
 
 // ── English ──────────────────────────────────────────
 const en: Translations = {
-  nav: { experience: 'Experience', projects: 'Projects', skills: 'Skills', contact: 'Contact', menu: 'Menu' },
+  nav: { experience: 'Experience', certifications: 'Certifications', projects: 'Projects', skills: 'Skills', contact: 'Contact', menu: 'Menu' },
   profile: {
     headline: 'AI-Driven Engineer | Data · Developer · DBA | Snowflake · Azure SQL · ADX/KQL · Python | Remote (EN/ES)',
     location: 'Mexico · Remote (Worldwide)',
@@ -95,7 +95,7 @@ const en: Translations = {
     featuredProjects: 'Featured Projects',
     allProjects: 'All Projects',
   },
-  timeline: { present: 'Present', showMore: 'Show more', showLess: 'Show less', confidential: 'Confidential Client' },
+  timeline: { present: 'Present', showMore: 'Show more', showLess: 'Show less', confidential: 'Confidential Client', showAllExperiences: 'Show all {count} experiences', showAllCertifications: 'Show all {count} certifications' },
   skill: { expert: 'Expert', advanced: 'Advanced', intermediate: 'Intermediate' },
   chat: {
     title: 'Chat with Carlos',
@@ -140,11 +140,11 @@ const en: Translations = {
 
 // ── Spanish ──────────────────────────────────────────
 const es: Translations = {
-  nav: { experience: 'Experiencia', projects: 'Proyectos', skills: 'Habilidades', contact: 'Contacto', menu: 'Menú' },
+  nav: { experience: 'Experiencia', certifications: 'Certificaciones', projects: 'Proyectos', skills: 'Habilidades', contact: 'Contacto', menu: 'Menú' },
   profile: {
     headline: 'Ingeniero AI-Driven | Datos · Desarrollador · DBA | Snowflake · Azure SQL · ADX/KQL · Python | Remoto (EN/ES)',
     location: 'México · Remoto (Mundial)',
-    viewCV: 'Ver CV',
+    viewCV: 'Ver CV (EN)',
     contactMe: 'Contáctame',
     about: 'Acerca de',
     summary:
@@ -171,7 +171,7 @@ const es: Translations = {
     featuredProjects: 'Proyectos Destacados',
     allProjects: 'Todos los Proyectos',
   },
-  timeline: { present: 'Actual', showMore: 'Ver más', showLess: 'Ver menos', confidential: 'Cliente Confidencial' },
+  timeline: { present: 'Actual', showMore: 'Ver más', showLess: 'Ver menos', confidential: 'Cliente Confidencial', showAllExperiences: 'Ver las {count} experiencias', showAllCertifications: 'Ver las {count} certificaciones' },
   skill: { expert: 'Experto', advanced: 'Avanzado', intermediate: 'Intermedio' },
   chat: {
     title: 'Chatea con Carlos',
@@ -216,11 +216,11 @@ const es: Translations = {
 
 // ── German ───────────────────────────────────────────
 const de: Translations = {
-  nav: { experience: 'Erfahrung', projects: 'Projekte', skills: 'Fähigkeiten', contact: 'Kontakt', menu: 'Menü' },
+  nav: { experience: 'Erfahrung', certifications: 'Zertifizierungen', projects: 'Projekte', skills: 'Fähigkeiten', contact: 'Kontakt', menu: 'Menü' },
   profile: {
     headline: 'KI-getriebener Ingenieur | Daten · Entwickler · DBA | Snowflake · Azure SQL · ADX/KQL · Python | Remote (EN/ES)',
     location: 'Mexiko · Remote (Weltweit)',
-    viewCV: 'CV anzeigen',
+    viewCV: 'CV anzeigen (EN)',
     contactMe: 'Kontakt aufnehmen',
     about: 'Über mich',
     summary:
@@ -247,7 +247,7 @@ const de: Translations = {
     featuredProjects: 'Ausgewählte Projekte',
     allProjects: 'Alle Projekte',
   },
-  timeline: { present: 'Aktuell', showMore: 'Mehr anzeigen', showLess: 'Weniger anzeigen', confidential: 'Vertraulicher Kunde' },
+  timeline: { present: 'Aktuell', showMore: 'Mehr anzeigen', showLess: 'Weniger anzeigen', confidential: 'Vertraulicher Kunde', showAllExperiences: 'Alle {count} Erfahrungen anzeigen', showAllCertifications: 'Alle {count} Zertifizierungen anzeigen' },
   skill: { expert: 'Experte', advanced: 'Fortgeschritten', intermediate: 'Mittel' },
   chat: {
     title: 'Chat mit Carlos',
