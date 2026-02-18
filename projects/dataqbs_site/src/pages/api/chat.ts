@@ -38,7 +38,15 @@ const QUERY_EXPANSION: Record<string, string[]> = {
   database:         ['SQL Server', 'Snowflake', 'CosmosDB', 'PostgreSQL', 'MySQL', 'databases'],
   databases:        ['SQL Server', 'Snowflake', 'CosmosDB', 'PostgreSQL', 'MySQL', 'database'],
   education:        ['university', 'degree', 'bachelor', 'computer science', 'Guadalajara'],
-  projects:         ['arbitrage', 'email collector', 'real estate', 'supplier verifier', 'OAI evaluator', 'portfolio'],
+  projects:         ['arbitrage', 'email collector', 'real estate', 'supplier verifier', 'OAI evaluator', 'portfolio',
+                     'MEMO-GRID', 'grid trading', 'VCA audits', 'IROC Video Wall', 'DRILLBLAST'],
+  mining:           ['Freeport-McMoRan', 'FMI', 'IROC', 'Video Wall', 'dig compliance', 'crusher', 'ADX', 'KQL', 'Streamlit'],
+  grid:             ['MEMO-GRID', 'grid trading', 'ETH/BTC', 'Binance', 'Optuna', 'HPO', 'backtest', 'maker-only'],
+  trading:          ['MEMO-GRID', 'arbextra', 'grid trading', 'crypto', 'ccxt', 'Binance', 'ETH/BTC'],
+  postgresql:       ['PostgreSQL', 'Azure PostgreSQL', 'VCA', 'FussionHit', 'DDL', 'audit', 'pg_stat_statements'],
+  hexaware:         ['Freeport-McMoRan', 'mining', 'Snowflake', 'DRILLBLAST', 'ADX', 'IROC', 'Video Wall'],
+  fussionhit:       ['VCA', 'PostgreSQL', 'database audit', 'DDL export', 'schema review'],
+  dashboard:        ['Streamlit', 'IROC', 'Video Wall', 'KPI', 'real-time', 'mining operations'],
 };
 
 const SOURCE_PRIORITY: Record<string, number> = {
@@ -74,6 +82,40 @@ function boostScore(rawScore: number, source: string): number {
   const priority = SOURCE_PRIORITY[source] ?? 2;
   const boost = (priority / maxPriority) * 0.05; // max +0.05 for cv
   return rawScore + boost;
+}
+
+// ── Groq API caller with retry + backoff ─────────────
+async function callGroq(
+  key: string,
+  model: string,
+  messages: unknown[],
+  maxTokens: number,
+  retries = 2,
+): Promise<Response> {
+  for (let attempt = 0; attempt <= retries; attempt++) {
+    const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${key}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        model,
+        messages,
+        stream: true,
+        max_tokens: maxTokens,
+        temperature: 0.3,
+        top_p: 0.9,
+      }),
+    });
+    if (res.status !== 429 || attempt === retries) return res;
+    const retryAfter = res.headers.get('retry-after');
+    const waitMs = retryAfter
+      ? Math.min(parseInt(retryAfter, 10) * 1000, 10_000)
+      : Math.min(1000 * 2 ** attempt, 8_000);
+    await new Promise((r) => setTimeout(r, waitMs));
+  }
+  throw new Error('Exhausted retries');
 }
 
 // ── Rate limiter (in-memory, per-deployment) ─────────
@@ -245,9 +287,10 @@ export const POST: APIRoute = async ({ request, locals }) => {
     { role: 'user' as const, content: message.slice(0, 2000) },
   ];
 
-  // ── Call Groq API (streaming) ──────────────────────
+  // ── Call Groq API (streaming) with retry + fallback ─
   const groqKey = env.GROQ_API_KEY;
   const groqModel = env.GROQ_MODEL ?? 'llama-3.3-70b-versatile';
+  const fallbackModel = env.GROQ_FALLBACK_MODEL ?? 'llama-3.1-8b-instant';
   const maxTokens = parseInt(env.MAX_CHAT_TOKENS ?? '1024', 10);
 
   if (!groqKey) {
@@ -255,21 +298,13 @@ export const POST: APIRoute = async ({ request, locals }) => {
   }
 
   try {
-    const groqRes = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${groqKey}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        model: groqModel,
-        messages: llmMessages,
-        stream: true,
-        max_tokens: maxTokens,
-        temperature: 0.3,
-        top_p: 0.9,
-      }),
-    });
+    let groqRes = await callGroq(groqKey, groqModel, llmMessages, maxTokens);
+
+    // If primary model is rate-limited, try fallback model
+    if (groqRes.status === 429 && fallbackModel !== groqModel) {
+      console.warn(`Groq 429 on ${groqModel}, falling back to ${fallbackModel}`);
+      groqRes = await callGroq(groqKey, fallbackModel, llmMessages, maxTokens, 1);
+    }
 
     if (!groqRes.ok) {
       const errorText = await groqRes.text();

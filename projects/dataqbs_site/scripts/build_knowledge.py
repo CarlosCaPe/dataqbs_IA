@@ -98,6 +98,21 @@ def collect_readmes() -> list[dict[str, str]]:
     return sources
 
 
+def collect_knowledge_docs() -> list[dict[str, str]]:
+    """Collect markdown files from the knowledge/ directory (external repos, extra docs)."""
+    sources: list[dict[str, str]] = []
+    for md_file in sorted(KNOWLEDGE_DIR.glob("*.md")):
+        text = md_file.read_text(encoding="utf-8", errors="replace").strip()
+        if len(text) < 50:
+            continue
+        sources.append({
+            "source": "github",
+            "file": f"knowledge/{md_file.name}",
+            "text": text,
+        })
+    return sources
+
+
 def collect_cv_data() -> list[dict[str, str]]:
     """
     Read structured CV data from src/data/cv.ts.
@@ -477,6 +492,10 @@ def main() -> None:
     readmes = collect_readmes()
     print(f"   READMEs:          {len(readmes)} files")
     all_sources.extend(readmes)
+
+    knowledge_docs = collect_knowledge_docs()
+    print(f"   Knowledge docs:   {len(knowledge_docs)} files")
+    all_sources.extend(knowledge_docs)
 
     cert_docs = collect_certification_docs()
     print(f"   Cert study docs:  {len(cert_docs)} files")

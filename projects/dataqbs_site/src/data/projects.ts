@@ -138,4 +138,101 @@ export const projects: Project[] = [
     category: 'ai-ml',
     featured: true,
   },
+  {
+    name: 'MEMO-GRID',
+    slug: 'memo-grid',
+    description:
+      'Maker-only grid trading bot for ETH/BTC on Binance with HPO-optimized parameters and full backtest framework.',
+    longDescription:
+      'Production grid trading microservice using ccxt with Binance Spot. Features Optuna hyperparameter optimization (50K trials), ' +
+      'backtest engine with real fee modeling, attribution analysis (alpha vs beta decomposition), Monte Carlo projections, ' +
+      'and 22 analysis tools. Includes FIFO inventory tracking, adaptive step sizing, and systemd deployment support.',
+    technologies: ['Python', 'ccxt', 'Optuna', 'pandas', 'NumPy', 'PyYAML', 'pytest'],
+    github: 'https://github.com/CarlosCaPe/memo/tree/main/MEMO-GRID',
+    highlights: [
+      'HPO with 50,000 Optuna trials (TPE sampler) for ETH/BTC grid parameters',
+      'Backtest engine spanning 2017–2026 with maker fee modeling',
+      'Attribution analysis: alpha vs beta return decomposition',
+      'Monte Carlo projections with confidence intervals',
+      '33 unit tests with full coverage',
+    ],
+    category: 'fintech',
+    featured: true,
+  },
+  {
+    name: 'VCA PostgreSQL Audits',
+    slug: 'vca-audits',
+    description:
+      'Enterprise PostgreSQL audit framework with templated DDL exports, schema analysis, and ticket-based remediation.',
+    longDescription:
+      'Full audit and schema management framework for Azure Database for PostgreSQL. ' +
+      'Includes per-object DDL export with Nunjucks templates, automated schema discovery, ' +
+      'LLM-friendly schema_knowledge.json generation, and 20+ ticket-based database improvements ' +
+      'across index optimization, FK remediation, timestamp normalization, and stored procedure reviews.',
+    technologies: ['PostgreSQL', 'Node.js', 'JavaScript', 'Nunjucks', 'Azure PostgreSQL'],
+    github: 'https://github.com/CarlosCaPe/FSH',
+    highlights: [
+      '20+ tickets: index optimization, FK remediation, schema renames, timestamp fixes',
+      'Templated per-object DDL exporter (Nunjucks) for CI/CD-friendly snapshots',
+      'Technical Design Documents for 5+ database systems',
+      'Regression test suite for critical database changes',
+      'Automated timesheet generation with Harvest API',
+    ],
+    category: 'data-engineering',
+    featured: true,
+  },
+  {
+    name: 'IROC Video Wall Dashboard',
+    slug: 'iroc-video-wall',
+    description:
+      'Production mining performance dashboard with 34 KPIs, multi-site switching, and AI chatbot for Freeport-McMoRan.',
+    longDescription:
+      'Streamlit-based production monitoring dashboard for IROC operations across 7 Freeport-McMoRan mining sites. ' +
+      'Features real-time metrics from Snowflake and Azure Data Explorer (ADX), 34 KPIs covering dig compliance, ' +
+      'crusher rates, cycle times, and ROM tonnage. Includes RAG-powered AI chatbot with GitHub Copilot SDK, ' +
+      'semantic model with 16 business outcomes per site, and auto-refresh every 60 seconds.',
+    technologies: ['Python', 'Streamlit', 'Snowflake', 'Azure Data Explorer', 'KQL', 'GitHub Copilot SDK'],
+    github: 'https://github.com/CarlosCaPe/HXW/tree/main/SQLRefactoring/VideoWallDashboard',
+    highlights: [
+      '34 KPIs across 7 mining sites with real-time auto-refresh',
+      'AI chatbot with RAG + GitHub Copilot SDK (zero-cost for enterprise)',
+      'Semantic model: 16 business outcomes × 7 sites with ADX + Snowflake queries',
+      'Docker-ready with Azure Container App deployment',
+      '100% KPI-to-query coverage verified',
+    ],
+    category: 'data-engineering',
+    featured: true,
+  },
+  {
+    name: 'Mining Operations Chatbot',
+    slug: 'mining-chatbot',
+    description:
+      'Natural-language chatbot for querying ADX and Snowflake mining data across 7 sites with semantic model.',
+    technologies: ['Python', 'Streamlit', 'Azure Data Explorer', 'Snowflake', 'YAML'],
+    github: 'https://github.com/CarlosCaPe/HXW/tree/main/chatbot',
+    highlights: [
+      'Natural-language queries for 16 business outcomes per site',
+      'ADX + Snowflake dual data source with sensor mappings',
+      '7 mining sites: Morenci, Bagdad, Sierrita, Safford, Climax, Henderson, Cerro Verde',
+      'Rule-based fallback when AI is unavailable',
+    ],
+    category: 'ai-ml',
+    featured: false,
+  },
+  {
+    name: 'Cross-Exchange Arbitrage Radar',
+    slug: 'arbextra',
+    description:
+      'BTC/USDT cross-exchange arbitrage scanner with auto-triggered taker orders and portfolio monitor.',
+    technologies: ['Python', 'ccxt', 'PyYAML', 'pandas'],
+    github: 'https://github.com/CarlosCaPe/memo/tree/main/arbextra',
+    highlights: [
+      'Scans multiple exchanges for BTC/USDT spread opportunities',
+      'Configurable auto-trigger with dry-run and live modes',
+      'Portfolio PnL tracker with token baselines and CSV export',
+      'Rebalance percentage feature with safety clamping',
+    ],
+    category: 'fintech',
+    featured: false,
+  },
 ];
