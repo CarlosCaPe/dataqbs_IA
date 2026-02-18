@@ -53,6 +53,16 @@ const QUERY_EXPANSION: Record<string, string[]> = {
   precio:           ['rate', 'tarifa', 'costo', 'hourly', 'salary', 'cost', 'pricing', 'cobras'],
   cobras:           ['rate', 'tarifa', 'precio', 'hourly', 'salary', 'cost', 'pricing', 'charge'],
   experience:       ['years', 'how long', 'since when', 'cuantos años', 'experiencia', 'tiempo'],
+  // ── Spanish triggers ──
+  certificacion:    ['certified', 'SnowPro', 'MCSA', 'MCPS', 'MCTS', 'Fabric Data Engineer', 'Azure Fundamentals', 'dbt', 'credential', 'certification'],
+  certificaciones:  ['certified', 'SnowPro', 'MCSA', 'MCPS', 'MCTS', 'Fabric Data Engineer', 'Azure Fundamentals', 'dbt', 'credential', 'certification'],
+  certificado:      ['certified', 'SnowPro', 'MCSA', 'MCPS', 'MCTS', 'Fabric Data Engineer', 'Azure Fundamentals', 'dbt', 'credential', 'certification'],
+  experiencia:      ['experience', 'years', 'roles', 'companies', 'Hexaware', 'Jabil', 'SVAM', 'Svitla', 'dataqbs'],
+  empresas:         ['companies', 'Hexaware', 'Jabil', 'SVAM', 'Svitla', 'FussionHit', 'HCL', '3Pillar', 'C&A'],
+  proyectos:        ['projects', 'arbitrage', 'MEMO-GRID', 'email collector', 'portfolio', 'IROC'],
+  habilidades:      ['skills', 'SQL', 'Python', 'Snowflake', 'Azure', 'technologies'],
+  educacion:        ['education', 'university', 'degree', 'bachelor', 'Guadalajara', 'MBA'],
+  estudios:         ['education', 'university', 'degree', 'bachelor', 'Guadalajara', 'MBA'],
 };
 
 const SOURCE_PRIORITY: Record<string, number> = {

@@ -66,6 +66,38 @@ async function sendEmailResend(
   }
 }
 
+/**
+ * Send email via Cloudflare Email Workers (send_email binding).
+ * Requires Email Routing enabled on the domain + destination verified.
+ */
+async function sendEmailCF(
+  sendEmailBinding: any,
+  from: string,
+  subject: string,
+  htmlBody: string,
+  replyTo: string,
+): Promise<boolean> {
+  try {
+    const { EmailMessage } = await import('cloudflare:email');
+    const rawMime = [
+      `From: dataqbs.com <${from}>`,
+      `To: <${DESTINATION_EMAIL}>`,
+      `Reply-To: <${replyTo}>`,
+      `Subject: ${subject}`,
+      'MIME-Version: 1.0',
+      'Content-Type: text/html; charset=utf-8',
+      '',
+      htmlBody,
+    ].join('\r\n');
+    const msg = new EmailMessage(from, DESTINATION_EMAIL, rawMime);
+    await sendEmailBinding.send(msg);
+    return true;
+  } catch (err) {
+    console.error('[CONTACT] CF Email error:', err);
+    return false;
+  }
+}
+
 export const POST: APIRoute = async ({ request, locals }) => {
   const env = (locals as any).runtime?.env ?? {};
 
@@ -126,28 +158,43 @@ export const POST: APIRoute = async ({ request, locals }) => {
   console.log('[CONTACT FORM]', JSON.stringify(record));
 
   // Send email notification
-  const resendKey = env.RESEND_API_KEY;
-  if (resendKey) {
-    const subject = `[dataqbs.com] New message from ${name}`;
-    const chatSection = chatTranscript
-      ? `<hr/><h3>💬 Chat Transcript</h3><pre style="white-space:pre-wrap;font-size:13px;background:#f5f5f5;padding:12px;border-radius:6px;">${chatTranscript}</pre>`
-      : '';
-    const htmlBody = `
-      <div style="font-family:sans-serif;max-width:600px;">
-        <h2>New Contact from dataqbs.com</h2>
-        <p><strong>Name:</strong> ${name}</p>
-        <p><strong>Email:</strong> <a href="mailto:${email}">${email}</a></p>
-        <p><strong>Locale:</strong> ${locale}</p>
-        <p><strong>IP:</strong> ${clientIP}</p>
-        <p><strong>Time:</strong> ${record.timestamp}</p>
-        <hr/>
-        <h3>📝 Message</h3>
-        <p style="white-space:pre-wrap;">${message}</p>
-        ${chatSection}
-      </div>
-    `;
-    const fromAddr = env.EMAIL_FROM ?? 'contact@dataqbs.com';
-    await sendEmailResend(resendKey, fromAddr, subject, htmlBody, email);
+  let emailSent = false;
+  const subject = `[dataqbs.com] New message from ${name}`;
+  const chatSection = chatTranscript
+    ? `<hr/><h3>💬 Chat Transcript</h3><pre style="white-space:pre-wrap;font-size:13px;background:#f5f5f5;padding:12px;border-radius:6px;">${chatTranscript}</pre>`
+    : '';
+  const htmlBody = `
+    <div style="font-family:sans-serif;max-width:600px;">
+      <h2>New Contact from dataqbs.com</h2>
+      <p><strong>Name:</strong> ${name}</p>
+      <p><strong>Email:</strong> <a href="mailto:${email}">${email}</a></p>
+      <p><strong>Locale:</strong> ${locale}</p>
+      <p><strong>IP:</strong> ${clientIP}</p>
+      <p><strong>Time:</strong> ${record.timestamp}</p>
+      <hr/>
+      <h3>📝 Message</h3>
+      <p style="white-space:pre-wrap;">${message}</p>
+      ${chatSection}
+    </div>
+  `;
+  const fromAddr = env.EMAIL_FROM ?? 'contact@dataqbs.com';
+
+  // Try CF Email Workers binding first (no external API needed)
+  const sendEmailBinding = env.SEND_EMAIL;
+  if (sendEmailBinding) {
+    emailSent = await sendEmailCF(sendEmailBinding, fromAddr, subject, htmlBody, email);
+  }
+
+  // Fallback to Resend API
+  if (!emailSent) {
+    const resendKey = env.RESEND_API_KEY;
+    if (resendKey) {
+      emailSent = await sendEmailResend(resendKey, fromAddr, subject, htmlBody, email);
+    }
+  }
+
+  if (!emailSent) {
+    console.warn('[CONTACT] No email delivery configured. Message logged only.');
   }
 
   return json({

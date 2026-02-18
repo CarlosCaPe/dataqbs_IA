@@ -1,6 +1,7 @@
 <script lang="ts">
   import { t, locale } from '../i18n/store';
   import { socialLinks } from '../data/cv';
+  import { onMount } from 'svelte';
 
   let name = '';
   let email = '';
@@ -8,7 +9,13 @@
   let sending = false;
   let sent = false;
   let errorMsg = '';
+  let hasTranscript = false;
   const maxMessageLength = 5000;
+
+  function removeTranscript() {
+    hasTranscript = false;
+    if (typeof window !== 'undefined') (window as any).__chatTranscript = '';
+  }
 
   // Get chat transcript from chatbot (if any)
   function getChatTranscript(): string {
@@ -17,6 +24,18 @@
     }
     return '';
   }
+
+  onMount(() => {
+    // Listen for chat-to-contact event from chatbot
+    window.addEventListener('chat-to-contact', ((e: CustomEvent) => {
+      hasTranscript = true;
+      // Focus on name field after scroll
+      setTimeout(() => {
+        const nameInput = document.getElementById('contact-name');
+        if (nameInput) nameInput.focus();
+      }, 600);
+    }) as EventListener);
+  });
 
   async function handleSubmit() {
     if (!name.trim() || !email.trim() || !message.trim()) return;
@@ -132,6 +151,20 @@
           </div>
           {#if errorMsg}
             <p class="text-sm text-red-600 dark:text-red-400">{errorMsg}</p>
+          {/if}
+          {#if hasTranscript}
+            <div class="flex items-center gap-2 text-xs text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/20 px-3 py-2 rounded-lg border border-emerald-200 dark:border-emerald-800">
+              <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+              </svg>
+              <span>💬 Chat conversation attached</span>
+              <button type="button" on:click={removeTranscript}
+                class="ml-auto text-slate-400 hover:text-red-500 transition-colors">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
           {/if}
           <button type="submit" class="btn-primary w-full" disabled={sending}>
             {#if sending}

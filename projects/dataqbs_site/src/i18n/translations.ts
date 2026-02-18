@@ -42,6 +42,7 @@ export interface Translations {
     suggestion2: string;
     suggestion3: string;
     suggestion4: string;
+    sendConversation: string;
   };
   contact: {
     nameLabel: string;
@@ -114,6 +115,7 @@ const en: Translations = {
     suggestion2: 'What companies have you worked for?',
     suggestion3: 'Can you do Snowflake migrations?',
     suggestion4: 'What certifications do you have?',
+    sendConversation: 'Send this conversation',
   },
   contact: {
     nameLabel: 'Name',
@@ -190,6 +192,7 @@ const es: Translations = {
     suggestion2: '¿En qué empresas has trabajado?',
     suggestion3: '¿Puedes hacer migraciones a Snowflake?',
     suggestion4: '¿Qué certificaciones tienes?',
+    sendConversation: 'Enviar esta conversación',
   },
   contact: {
     nameLabel: 'Nombre',
@@ -266,6 +269,7 @@ const de: Translations = {
     suggestion2: 'Für welche Unternehmen hast du gearbeitet?',
     suggestion3: 'Kannst du Snowflake-Migrationen machen?',
     suggestion4: 'Welche Zertifizierungen hast du?',
+    sendConversation: 'Dieses Gespräch senden',
   },
   contact: {
     nameLabel: 'Name',

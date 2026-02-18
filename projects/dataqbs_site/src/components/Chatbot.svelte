@@ -127,6 +127,23 @@
     (window as any).__chatTranscript = messages.length > 1 ? getChatTranscript() : '';
   }
 
+  // ── Send conversation to contact form ────────────
+  function sendToContact() {
+    if (typeof window === 'undefined') return;
+    const transcript = getChatTranscript();
+    (window as any).__chatTranscript = transcript;
+    // Dispatch event so ContactSection can pre-fill
+    window.dispatchEvent(new CustomEvent('chat-to-contact', { detail: { transcript } }));
+    // Close chat and scroll to contact
+    isOpen = false;
+    setTimeout(() => {
+      const el = document.getElementById('contact');
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }, 200);
+  }
+
+  $: hasConversation = messages.filter((m) => m.role === 'user').length > 0;
+
   function handleKeydown(e: KeyboardEvent) {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
@@ -240,6 +257,15 @@
 
     <!-- Input -->
     <div class="p-3 border-t border-slate-200 dark:border-slate-700">
+      {#if hasConversation}
+        <button on:click={sendToContact}
+          class="w-full mb-2 text-xs px-3 py-1.5 rounded-lg bg-emerald-50 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-400 hover:bg-emerald-100 dark:hover:bg-emerald-900/40 transition-colors flex items-center justify-center gap-1.5 border border-emerald-200 dark:border-emerald-800">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+          </svg>
+          {$t.chat.sendConversation}
+        </button>
+      {/if}
       <p class="text-[10px] text-slate-400 dark:text-slate-500 text-center mb-1.5">🔒 {$t.chat.privacyNote}</p>
       {#if status === 'error' && !rateLimiter.canSend()}
         <p class="text-xs text-amber-600 dark:text-amber-400 mb-2 text-center">{$t.chat.rateLimit}</p>
@@ -362,6 +388,15 @@
 
       <!-- Input (mobile) -->
       <div class="p-3 border-t border-slate-200 dark:border-slate-700 pb-safe">
+        {#if hasConversation}
+          <button on:click={sendToContact}
+            class="w-full mb-2 text-xs px-3 py-1.5 rounded-lg bg-emerald-50 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-400 hover:bg-emerald-100 dark:hover:bg-emerald-900/40 transition-colors flex items-center justify-center gap-1.5 border border-emerald-200 dark:border-emerald-800">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+            {$t.chat.sendConversation}
+          </button>
+        {/if}
         <p class="text-[10px] text-slate-400 dark:text-slate-500 text-center mb-1.5">🔒 {$t.chat.privacyNote}</p>
         <div class="flex gap-2">
           <input
