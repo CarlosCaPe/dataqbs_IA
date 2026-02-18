@@ -33,6 +33,38 @@ function sanitize(input: string, maxLen = 1000): string {
 
 const DESTINATION_EMAIL = 'carlos.carrillo@dataqbs.com';
 
+// ── Rate limiter (in-memory, per-deployment) ─────────
+const rateLimitMap = new Map<string, number[]>();
+const CONTACT_MAX_PER_MIN = 3; // 3 submissions per minute per IP
+
+function isRateLimited(ip: string): boolean {
+  const now = Date.now();
+  const timestamps = rateLimitMap.get(ip) ?? [];
+  const recent = timestamps.filter((t) => now - t < 60_000);
+  rateLimitMap.set(ip, recent);
+  if (recent.length >= CONTACT_MAX_PER_MIN) return true;
+  recent.push(now);
+  rateLimitMap.set(ip, recent);
+  return false;
+}
+
+// ── Turnstile verification ───────────────────────────
+async function verifyTurnstile(token: string, secret: string, ip: string): Promise<boolean> {
+  try {
+    const res = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams({ secret, response: token, remoteip: ip }),
+    });
+    const data = await res.json() as { success: boolean };
+    return data.success;
+  } catch (err) {
+    console.error('[CONTACT] Turnstile verification error:', err);
+    return false;
+  }
+}
+
+
 /**
  * Send email via Resend API.
  * Requires RESEND_API_KEY env var and a verified domain in Resend.
@@ -104,6 +136,23 @@ export const POST: APIRoute = async ({ request, locals }) => {
 
   // Rate limit by IP
   const clientIP = request.headers.get('cf-connecting-ip') ?? 'unknown';
+
+  if (isRateLimited(clientIP)) {
+    return json({ error: 'Too many submissions. Please wait a minute.' }, 429);
+  }
+
+  // Verify Turnstile token (if secret is configured)
+  const turnstileSecret = env.TURNSTILE_SECRET_KEY;
+  if (turnstileSecret) {
+    const token = body.turnstileToken;
+    if (!token) {
+      return json({ error: 'Security verification required.' }, 400);
+    }
+    const valid = await verifyTurnstile(token, turnstileSecret, clientIP);
+    if (!valid) {
+      return json({ error: 'Security verification failed.' }, 403);
+    }
+  }
 
   // Build record
   const record = {
