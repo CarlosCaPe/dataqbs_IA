@@ -2,7 +2,7 @@
  * POST /api/contact
  *
  * Receives contact form submissions.
- * Sends email notification via Resend API (or MailChannels fallback).
+ * Sends email notification via Resend API.
  * Stores in KV if available.
  * Optionally includes chat transcript as attachment.
  */
@@ -34,7 +34,7 @@ function sanitize(input: string, maxLen = 1000): string {
 const DESTINATION_EMAIL = 'carlos.carrillo@dataqbs.com';
 
 /**
- * Send email via Resend API (recommended for Cloudflare Workers).
+ * Send email via Resend API.
  * Requires RESEND_API_KEY env var and a verified domain in Resend.
  */
 async function sendEmailResend(
@@ -43,7 +43,7 @@ async function sendEmailResend(
   subject: string,
   htmlBody: string,
   replyTo: string,
-): Promise<boolean> {
+): Promise<{ ok: boolean; error?: string }> {
   try {
     const res = await fetch('https://api.resend.com/emails', {
       method: 'POST',
@@ -59,42 +59,15 @@ async function sendEmailResend(
         html: htmlBody,
       }),
     });
-    return res.ok;
+    if (!res.ok) {
+      const errBody = await res.text();
+      console.error('[CONTACT] Resend API error:', res.status, errBody);
+      return { ok: false, error: errBody };
+    }
+    return { ok: true };
   } catch (err) {
-    console.error('[CONTACT] Resend error:', err);
-    return false;
-  }
-}
-
-/**
- * Send email via Cloudflare Email Workers (send_email binding).
- * Requires Email Routing enabled on the domain + destination verified.
- */
-async function sendEmailCF(
-  sendEmailBinding: any,
-  from: string,
-  subject: string,
-  htmlBody: string,
-  replyTo: string,
-): Promise<boolean> {
-  try {
-    const { EmailMessage } = await import('cloudflare:email');
-    const rawMime = [
-      `From: dataqbs.com <${from}>`,
-      `To: <${DESTINATION_EMAIL}>`,
-      `Reply-To: <${replyTo}>`,
-      `Subject: ${subject}`,
-      'MIME-Version: 1.0',
-      'Content-Type: text/html; charset=utf-8',
-      '',
-      htmlBody,
-    ].join('\r\n');
-    const msg = new EmailMessage(from, DESTINATION_EMAIL, rawMime);
-    await sendEmailBinding.send(msg);
-    return true;
-  } catch (err) {
-    console.error('[CONTACT] CF Email error:', err);
-    return false;
+    console.error('[CONTACT] Resend fetch error:', err);
+    return { ok: false, error: String(err) };
   }
 }
 
@@ -108,7 +81,6 @@ export const POST: APIRoute = async ({ request, locals }) => {
     return json({ error: 'Invalid JSON' }, 400);
   }
 
-  // Validate
   // Validate raw length before sanitization
   if ((body.message ?? '').length > 5000) {
     return json({ error: 'Message too long (max 5000 chars)' }, 400);
@@ -157,11 +129,10 @@ export const POST: APIRoute = async ({ request, locals }) => {
   // Always log (visible in CF Workers logs)
   console.log('[CONTACT FORM]', JSON.stringify(record));
 
-  // Send email notification
-  let emailSent = false;
+  // Send email notification via Resend
   const subject = `[dataqbs.com] New message from ${name}`;
   const chatSection = chatTranscript
-    ? `<hr/><h3>💬 Chat Transcript</h3><pre style="white-space:pre-wrap;font-size:13px;background:#f5f5f5;padding:12px;border-radius:6px;">${chatTranscript}</pre>`
+    ? `<hr/><h3>Chat Transcript</h3><pre style="white-space:pre-wrap;font-size:13px;background:#f5f5f5;padding:12px;border-radius:6px;">${chatTranscript}</pre>`
     : '';
   const htmlBody = `
     <div style="font-family:sans-serif;max-width:600px;">
@@ -172,34 +143,31 @@ export const POST: APIRoute = async ({ request, locals }) => {
       <p><strong>IP:</strong> ${clientIP}</p>
       <p><strong>Time:</strong> ${record.timestamp}</p>
       <hr/>
-      <h3>📝 Message</h3>
+      <h3>Message</h3>
       <p style="white-space:pre-wrap;">${message}</p>
       ${chatSection}
     </div>
   `;
-  const fromAddr = env.EMAIL_FROM ?? 'contact@dataqbs.com';
 
-  // Try CF Email Workers binding first (no external API needed)
-  const sendEmailBinding = env.SEND_EMAIL;
-  if (sendEmailBinding) {
-    emailSent = await sendEmailCF(sendEmailBinding, fromAddr, subject, htmlBody, email);
-  }
+  const resendKey = env.RESEND_API_KEY;
+  let emailSent = false;
 
-  // Fallback to Resend API
-  if (!emailSent) {
-    const resendKey = env.RESEND_API_KEY;
-    if (resendKey) {
-      emailSent = await sendEmailResend(resendKey, fromAddr, subject, htmlBody, email);
+  if (resendKey) {
+    // Use verified domain sender, or Resend's onboarding address
+    const fromAddr = env.EMAIL_FROM ?? 'dataqbs.com <onboarding@resend.dev>';
+    const result = await sendEmailResend(resendKey, fromAddr, subject, htmlBody, email);
+    emailSent = result.ok;
+    if (!result.ok) {
+      console.error('[CONTACT] Email delivery failed:', result.error);
     }
-  }
-
-  if (!emailSent) {
-    console.warn('[CONTACT] No email delivery configured. Message logged only.');
+  } else {
+    console.warn('[CONTACT] RESEND_API_KEY not configured. Message logged only.');
   }
 
   return json({
     success: true,
-    message: 'Message received. Thank you!',
+    emailSent,
+    message: emailSent ? 'Message sent. Thank you!' : 'Message received (email delivery pending config).',
   });
 };
 

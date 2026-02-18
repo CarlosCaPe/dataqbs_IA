@@ -146,7 +146,7 @@ const es: Translations = {
   profile: {
     headline: 'Ingeniero AI-Driven | Datos · Desarrollador · DBA | Snowflake · Azure SQL · ADX/KQL · Python | Remoto (EN/ES)',
     location: 'México · Remoto (Mundial)',
-    viewCV: 'Ver CV (EN)',
+    viewCV: 'Ver CV',
     contactMe: 'Contáctame',
     about: 'Acerca de',
     summary:
@@ -223,7 +223,7 @@ const de: Translations = {
   profile: {
     headline: 'KI-getriebener Ingenieur | Daten · Entwickler · DBA | Snowflake · Azure SQL · ADX/KQL · Python | Remote (EN/ES)',
     location: 'Mexiko · Remote (Weltweit)',
-    viewCV: 'CV anzeigen (EN)',
+    viewCV: 'CV anzeigen',
     contactMe: 'Kontakt aufnehmen',
     about: 'Über mich',
     summary:

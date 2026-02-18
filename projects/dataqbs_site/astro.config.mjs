@@ -12,7 +12,7 @@ export default defineConfig({
   integrations: [svelte(), tailwind({ applyBaseStyles: false })],
   vite: {
     ssr: {
-      external: ['node:buffer', 'node:crypto', 'cloudflare:email'],
+      external: ['node:buffer', 'node:crypto'],
     },
   },
 });
