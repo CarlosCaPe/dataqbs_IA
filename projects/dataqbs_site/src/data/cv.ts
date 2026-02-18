@@ -21,6 +21,11 @@ export const profile = {
   photo: '/yo.jpeg',
   banner: '/banner.jpeg',
   cvUrl: '/Profile.pdf',
+  cvUrls: {
+    en: '/Profile.pdf',
+    es: '/Profile_es.pdf',
+    de: '/Profile_de.pdf',
+  } as Record<string, string>,
   connections: '500+',
   openToWork: [
     'SQL Developer', 'ETL Developer', 'Data Engineer',

@@ -18,6 +18,8 @@
   const rateLimiter = new RateLimiter(12);
 
   // ── Turnstile ────────────────────────────────────
+  const TURNSTILE_SITEKEY = ''; // Set a real Turnstile sitekey to enable verification
+
   onMount(() => {
     messages = [
       {
@@ -26,22 +28,27 @@
         timestamp: Date.now(),
       },
     ];
+    // If no Turnstile key configured, go straight to ready
+    if (!TURNSTILE_SITEKEY) {
+      status = 'ready';
+    }
   });
 
   function initTurnstile() {
-    if (turnstileToken || turnstileWidgetId) return;
+    if (!TURNSTILE_SITEKEY || turnstileToken || turnstileWidgetId) return;
     const container = document.getElementById('turnstile-container');
     if (!container || !(window as any).turnstile) return;
 
     status = 'verifying';
     turnstileWidgetId = (window as any).turnstile.render(container, {
-      sitekey: '0x4AAAAAAAAAAAAAAAAAAAAAAA',
+      sitekey: TURNSTILE_SITEKEY,
       callback: (token: string) => {
         turnstileToken = token;
         status = 'ready';
       },
       'error-callback': () => {
-        status = 'error';
+        // Fail open — allow chat without turnstile
+        status = 'ready';
       },
       theme: document.documentElement.classList.contains('dark') ? 'dark' : 'light',
       size: 'invisible',
@@ -49,8 +56,8 @@
   }
 
   // ── Send message ─────────────────────────────────
-  async function handleSend() {
-    const msg = inputValue.trim();
+  async function handleSend(directMessage?: string) {
+    const msg = (directMessage ?? inputValue).trim();
     if (!msg || status === 'sending' || status === 'streaming') return;
 
     if (!rateLimiter.canSend()) {
@@ -58,7 +65,7 @@
       return;
     }
 
-    if (!turnstileToken && status === 'idle') {
+    if (!turnstileToken && TURNSTILE_SITEKEY && status === 'ready') {
       initTurnstile();
       await new Promise((r) => setTimeout(r, 1500));
     }
@@ -104,8 +111,7 @@
 
   // ── Suggestion chips ─────────────────────────────
   function sendSuggestion(text: string) {
-    inputValue = text;
-    handleSend();
+    handleSend(text);
   }
 
   // ── Export chat history for contact form ──────────
