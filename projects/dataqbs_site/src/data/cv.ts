@@ -300,6 +300,7 @@ export const education: Education[] = [
     field: 'Business Administration (MBA)',
     period: { start: '2008', end: '2010' },
     location: 'Guadalajara, Jalisco, Mexico',
+    note: 'Degree in process',
     logo: '/udg-logo.jpeg',
   },
   {

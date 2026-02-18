@@ -290,6 +290,13 @@ def collect_cv_data() -> list[dict[str, str]]:
             text += f" {edu_period}."
         if edu_loc:
             text += f" Located in {edu_loc}."
+
+        # Check for note (e.g. "Degree in process")
+        if block_match:
+            note_m = re.search(r"note:\s*['\"](.+?)['\"]", block_match.group(0))
+            if note_m:
+                text += f" Note: {note_m.group(1)}."
+
         text += (
             f"\nCarlos studied at {institution} ({edu_loc or 'Mexico'}), "
             f"earning a {degree} in {field}. This academic foundation "
@@ -330,17 +337,37 @@ def collect_certifications() -> list[dict[str, str]]:
         return []
 
     raw = certs_ts.read_text(encoding="utf-8")
-    certs = re.findall(
-        r"name:\s*['\"](.+?)['\"].*?issuer:\s*['\"](.+?)['\"].*?year:\s*(\d+)",
+
+    # Parse each certification block individually to capture expired/credential info
+    cert_blocks = re.findall(
+        r"\{[^{}]*?name:\s*['\"](.+?)['\"][^{}]*?issuer:\s*['\"](.+?)['\"][^{}]*?year:\s*(\d+)[^{}]*?\}",
         raw,
         re.DOTALL,
     )
     chunks: list[dict[str, str]] = []
-    for name, issuer, year in certs:
+    for match_text, cert_match in zip(
+        re.findall(r"\{[^{}]*?name:\s*['\"].+?['\"][^{}]*?\}", raw, re.DOTALL),
+        cert_blocks,
+    ):
+        name, issuer, year = cert_match
+        expired = "expired: true" in match_text or "expired:true" in match_text
+        cred_m = re.search(r"credentialId:\s*['\"](.+?)['\"]", match_text)
+        expires_m = re.search(r"expiresYear:\s*(\d+)", match_text)
+
+        text = f"Certification: {name}, issued by {issuer} in {year}."
+        if cred_m:
+            text += f" Credential ID: {cred_m.group(1)}."
+        if expires_m:
+            text += f" Expires: {expires_m.group(1)}."
+        if expired:
+            text += " Status: EXPIRED."
+        else:
+            text += " Status: ACTIVE."
+
         chunks.append({
             "source": "certification",
             "section": "certification",
-            "text": f"Certification: {name}, issued by {issuer} in {year}.",
+            "text": text,
         })
     return chunks
 

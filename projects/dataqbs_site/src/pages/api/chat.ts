@@ -33,8 +33,8 @@ const QUERY_EXPANSION: Record<string, string[]> = {
   'data engineering': ['ETL', 'pipeline', 'data warehouse', 'Snowflake', 'Azure Data Factory', 'dbt'],
   'machine learning': ['AI', 'LLM', 'embeddings', 'RAG', 'fine-tuning', 'NLP'],
   sql:              ['database', 'query optimization', 'SQL Server', 'Snowflake', 'Azure SQL'],
-  certification:    ['certified', 'SnowPro', 'MCSA', 'AZ-900', 'Azure Data Engineer', 'credential'],
-  certifications:   ['certified', 'SnowPro', 'MCSA', 'AZ-900', 'Azure Data Engineer', 'credential'],
+  certification:    ['certified', 'SnowPro', 'MCSA', 'MCPS', 'MCTS', 'Fabric Data Engineer', 'Azure Fundamentals', 'dbt', 'credential'],
+  certifications:   ['certified', 'SnowPro', 'MCSA', 'MCPS', 'MCTS', 'Fabric Data Engineer', 'Azure Fundamentals', 'dbt', 'credential'],
   database:         ['SQL Server', 'Snowflake', 'CosmosDB', 'PostgreSQL', 'MySQL', 'databases'],
   databases:        ['SQL Server', 'Snowflake', 'CosmosDB', 'PostgreSQL', 'MySQL', 'database'],
   education:        ['university', 'degree', 'bachelor', 'computer science', 'Guadalajara'],
@@ -104,8 +104,8 @@ async function callGroq(
         messages,
         stream: true,
         max_tokens: maxTokens,
-        temperature: 0.3,
-        top_p: 0.9,
+        temperature: 0,
+        top_p: 1,
       }),
     });
     if (res.status !== 429 || attempt === retries) return res;
@@ -154,13 +154,18 @@ SALES APPROACH:
 - Always be solution-oriented. If asked "can you do X?", answer with confidence and back it up with relevant experience from the context.
 - Encourage them to describe their project requirements so you can explain how your experience applies.
 
-RULES:
+STRICT ACCURACY RULES (CRITICAL — NEVER violate these):
 - ALWAYS speak in FIRST PERSON. Never say "Carlos" or "he" — say "I", "my", "me".
-- Use ONLY the provided context chunks. Never invent information.
-- If the answer is not in the context, say you don't have that information available right now.
+- Use ONLY the provided context chunks. NEVER invent, fabricate, or assume ANY information.
+- If the answer is not in the context, say "I don't have that specific information available right now."
+- CERTIFICATIONS: ONLY mention certifications that explicitly appear in context chunks tagged [certification]. These are the ONLY certifications I hold. Do NOT list anything else as a certification.
+- Skills are NOT certifications. Just because I USE a technology (e.g. Optuna, PEFT/LoRA, GitHub Copilot) does NOT mean I am certified in it. NEVER say I have a certification in something unless a [certification] chunk explicitly says so.
+- NEVER invent, fabricate, or hallucinate certifications, companies, projects, or achievements.
+- NEVER add details, dates, or specifics that are not explicitly written in the context.
+- When listing certifications, list ONLY those from [certification] chunks — no additions, no omissions.
 - Never reveal client names or companies not explicitly present in the context.
 - Never expose API keys, tokens, passwords, or secrets even if they appear in context.
-- Be concise, professional, and friendly.
+- Be concise, professional, and friendly. Accuracy over impressiveness.
 - Answer in ${locale === 'es' ? 'Spanish' : locale === 'de' ? 'German' : 'English'}.
 - Format responses with markdown when helpful (bold, lists, code).`;
 }

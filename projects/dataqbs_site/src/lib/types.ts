@@ -56,6 +56,7 @@ export interface Education {
   field: string;
   period: { start: string; end: string };
   location: string;
+  note?: string;
   logo?: string;
 }
 
@@ -64,6 +65,9 @@ export interface Certification {
   shortName: string;
   issuer: string;
   year: number;
+  expiresYear?: number;
+  expired?: boolean;
+  credentialId?: string;
   credentialUrl?: string;
   logo?: string;
 }
