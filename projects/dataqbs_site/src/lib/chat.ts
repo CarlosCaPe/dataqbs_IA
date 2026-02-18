@@ -52,34 +52,37 @@ export async function sendChatMessage(opts: SendMessageOptions): Promise<void> {
 
     const decoder = new TextDecoder();
     let fullText = '';
+    let buffer = ''; // Buffer for incomplete SSE lines split across chunks
 
     while (true) {
       const { done, value } = await reader.read();
       if (done) break;
 
-      const chunk = decoder.decode(value, { stream: true });
+      buffer += decoder.decode(value, { stream: true });
 
-      // Parse SSE lines
-      const lines = chunk.split('\n');
+      // Process complete lines only (split by \n), keep the last partial line in buffer
+      const lines = buffer.split('\n');
+      buffer = lines.pop() ?? ''; // Last element may be incomplete — keep it in buffer
+
       for (const line of lines) {
-        if (line.startsWith('data: ')) {
-          const data = line.slice(6);
-          if (data === '[DONE]') {
-            onDone(fullText);
-            return;
-          }
-          try {
-            const parsed = JSON.parse(data);
-            const delta = parsed.choices?.[0]?.delta?.content ?? '';
-            if (delta) {
-              fullText += delta;
-              onChunk(fullText);
-            }
-          } catch {
-            // If not JSON, treat as plain text
-            fullText += data;
+        const trimmed = line.trim();
+        if (!trimmed.startsWith('data: ')) continue;
+
+        const data = trimmed.slice(6);
+        if (data === '[DONE]') {
+          onDone(fullText);
+          return;
+        }
+
+        try {
+          const parsed = JSON.parse(data);
+          const delta = parsed.choices?.[0]?.delta?.content ?? '';
+          if (delta) {
+            fullText += delta;
             onChunk(fullText);
           }
+        } catch {
+          // Incomplete JSON — skip silently (will be completed in next chunk)
         }
       }
     }
