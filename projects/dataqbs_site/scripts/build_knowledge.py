@@ -197,8 +197,12 @@ def collect_cv_data() -> list[dict[str, str]]:
         hl = headline.group(1)
         if "EN/ES" in hl or "EN" in hl:
             profile_parts.append("Languages spoken: English (fluent), Spanish (native)")
-        if "Remote" in hl:
-            profile_parts.append("Availability: Open to remote and hybrid work arrangements")
+
+    # Detect availability from location field (NOT hardcoded)
+    if loc:
+        loc_text = loc.group(1)
+        if "Remote" in loc_text:
+            profile_parts.append(f"Availability: {loc_text}. Carlos works REMOTE ONLY — he does NOT do hybrid or on-site.")
 
     if len(profile_parts) > 1:
         chunks.append({

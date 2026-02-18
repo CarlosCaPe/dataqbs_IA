@@ -88,16 +88,30 @@ function expandQuery(message: string): string {
   return `${message} (related: ${[...expansions].join(', ')})`;
 }
 
-/**
- * Apply source-priority boost to raw cosine scores.
- * Adds a small bonus (0–0.05) so higher-priority sources
- * float up when similarity scores are close.
- */
-function boostScore(rawScore: number, source: string): number {
+// ── BM25-style keyword scoring ───────────────────────
+function keywordScore(query: string, text: string): number {
+  const queryTerms = query.toLowerCase().replace(/[^a-záéíóúüñ0-9\s]/gi, '').split(/\s+/).filter(t => t.length > 2);
+  if (queryTerms.length === 0) return 0;
+  const textLower = text.toLowerCase();
+  let hits = 0;
+  for (const term of queryTerms) {
+    if (textLower.includes(term)) hits++;
+  }
+  return hits / queryTerms.length; // 0..1 ratio of matched terms
+}
+
+// ── Hybrid scoring: vector + keyword ─────────────────
+function hybridScore(
+  vectorScore: number,
+  kwScore: number,
+  source: string,
+  vectorWeight = 0.6,
+  kwWeight = 0.4,
+): number {
   const maxPriority = 10;
   const priority = SOURCE_PRIORITY[source] ?? 2;
-  const boost = (priority / maxPriority) * 0.05; // max +0.05 for cv
-  return rawScore + boost;
+  const sourceBoost = (priority / maxPriority) * 0.05;
+  return (vectorScore * vectorWeight) + (kwScore * kwWeight) + sourceBoost;
 }
 
 // ── Groq API caller with retry + backoff ─────────────
@@ -265,27 +279,26 @@ export const POST: APIRoute = async ({ request, locals }) => {
     }
   }
 
-  // ── Vector search with source-priority boost ───────
+  // ── Hybrid search: vector + keyword ─────────────────
   let contextChunks: string[] = [];
 
-  if (queryEmbedding.length > 0 && chunks.length > 0) {
+  if (chunks.length > 0) {
     const scored = chunks.map((c) => {
       const source = c.metadata?.source ?? '';
-      const raw = cosineSimilarity(queryEmbedding, c.embedding);
+      const vecScore = queryEmbedding.length > 0 ? cosineSimilarity(queryEmbedding, c.embedding) : 0;
+      const kwScore = keywordScore(expandedQuery, c.text);
+      // If no vector embedding, use keyword-only (weight 1.0)
+      const vw = queryEmbedding.length > 0 ? 0.6 : 0;
+      const kw = queryEmbedding.length > 0 ? 0.4 : 1.0;
       return {
         text: c.text,
-        score: boostScore(raw, source),
+        score: hybridScore(vecScore, kwScore, source, vw, kw),
         source,
       };
     });
     scored.sort((a, b) => b.score - a.score);
     contextChunks = scored.slice(0, maxContextChunks).map(
       (s) => `[${s.source}] ${s.text}`,
-    );
-  } else if (chunks.length > 0) {
-    // No embeddings available — use first N chunks as fallback
-    contextChunks = chunks.slice(0, maxContextChunks).map(
-      (c) => `[${c.metadata?.source ?? ''}] ${c.text}`,
     );
   }
 
