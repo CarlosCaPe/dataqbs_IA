@@ -26,6 +26,24 @@ export const profile = {
     'SQL Developer', 'ETL Developer', 'Data Engineer',
     'Integration Lead', 'AI Engineer',
   ],
+  rate: {
+    hourly: { usd: 40, mxn: 686, eur: 33 },
+    monthly: { usd: 6400, mxn: 109760, eur: 5280 },
+    yearly: { usd: 76800, mxn: 1317120, eur: 63360 },
+    note: 'Based on 160 hrs/month. Exchange rates approximate (Feb 2026). Negotiable depending on project scope and duration.',
+  },
+  technologyExperience: [
+    { name: 'SQL / SQL Server', since: 2003, years: '20+', level: 'expert' },
+    { name: 'SSIS / SSRS / SSAS', since: 2005, years: '18+', level: 'expert' },
+    { name: 'Snowflake', since: 2018, years: '7+', level: 'expert' },
+    { name: 'Azure (SQL, ADF, Functions)', since: 2021, years: '4+', level: 'advanced' },
+    { name: 'ADX / KQL', since: 2025, years: '1+', level: 'advanced' },
+    { name: 'Python', since: 2025, years: '1+', level: 'advanced', note: 'Adopted seriously in 2025 with AI-assisted development (GitHub Copilot, ChatGPT, Claude). Not used professionally before 2025.' },
+    { name: 'Node.js / JavaScript', since: 2025, years: '1+', level: 'advanced' },
+    { name: 'PostgreSQL', since: 2025, years: '1+', level: 'advanced' },
+    { name: 'Docker', since: 2025, years: '1+', level: 'intermediate' },
+    { name: 'Linux', since: 2025, years: '1+', level: 'advanced' },
+  ],
 };
 
 export const socialLinks: SocialLink[] = [
@@ -145,7 +163,7 @@ export const experience: Experience[] = [
       'Delivered curated datasets via SharePoint, improving visibility for academic stakeholders',
       'Supported data transformation and scheduling through custom scripts and CI-controlled processes',
     ],
-    technologies: ['Snowflake', 'SQL Server', 'SSIS', 'Python', 'Salesforce API', 'SharePoint'],
+    technologies: ['Snowflake', 'SQL Server', 'SSIS', 'Salesforce API', 'SharePoint'],
   },
   {
     company: 'Svitla Systems, Inc.',
@@ -193,7 +211,7 @@ export const experience: Experience[] = [
       'Designed landing, staging, and refined zones for scalable ingestion and transformation',
       'Supported distributed teams in manufacturing analytics modernization',
     ],
-    technologies: ['Snowflake', 'AWS', 'Hadoop', 'Impala', 'SQL Server PDW', 'Python'],
+    technologies: ['Snowflake', 'AWS', 'Hadoop', 'Impala', 'SQL Server PDW'],
   },
   {
     company: '3Pillar Global',
@@ -311,7 +329,7 @@ export const skills: SkillGroup[] = [
     category: 'Languages',
     icon: '💻',
     skills: [
-      { name: 'Python', level: 'expert' },
+      { name: 'Python', level: 'advanced' },
       { name: 'SQL', level: 'expert' },
       { name: 'JavaScript / TypeScript', level: 'advanced' },
       { name: 'KQL (Kusto)', level: 'advanced' },

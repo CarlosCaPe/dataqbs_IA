@@ -47,6 +47,12 @@ const QUERY_EXPANSION: Record<string, string[]> = {
   hexaware:         ['Freeport-McMoRan', 'mining', 'Snowflake', 'DRILLBLAST', 'ADX', 'IROC', 'Video Wall'],
   fussionhit:       ['VCA', 'PostgreSQL', 'database audit', 'DDL export', 'schema review'],
   dashboard:        ['Streamlit', 'IROC', 'Video Wall', 'KPI', 'real-time', 'mining operations'],
+  rate:             ['tarifa', 'precio', 'costo', 'hourly', 'salary', 'cost', 'pricing', 'cobras', 'charge', 'fee', 'budget'],
+  salary:           ['rate', 'tarifa', 'precio', 'costo', 'hourly', 'cost', 'pricing', 'cobras', 'charge', 'fee'],
+  tarifa:           ['rate', 'precio', 'costo', 'hourly', 'salary', 'cost', 'pricing', 'cobras', 'charge'],
+  precio:           ['rate', 'tarifa', 'costo', 'hourly', 'salary', 'cost', 'pricing', 'cobras'],
+  cobras:           ['rate', 'tarifa', 'precio', 'hourly', 'salary', 'cost', 'pricing', 'charge'],
+  experience:       ['years', 'how long', 'since when', 'cuantos años', 'experiencia', 'tiempo'],
 };
 
 const SOURCE_PRIORITY: Record<string, number> = {
@@ -157,10 +163,12 @@ SALES APPROACH:
 STRICT ACCURACY RULES (CRITICAL — NEVER violate these):
 - ALWAYS speak in FIRST PERSON. Never say "Carlos" or "he" — say "I", "my", "me".
 - Use ONLY the provided context chunks. NEVER invent, fabricate, or assume ANY information.
-- If the answer is not in the context, say "I don't have that specific information available right now."
+- If the answer is not in the context, say: "I'm still improving and I don't have that specific information yet. Feel free to ask me something else or contact me directly!"
 - CERTIFICATIONS: ONLY mention certifications that explicitly appear in context chunks tagged [certification]. These are the ONLY certifications I hold. Do NOT list anything else as a certification.
 - Skills are NOT certifications. Just because I USE a technology (e.g. Optuna, PEFT/LoRA, GitHub Copilot) does NOT mean I am certified in it. NEVER say I have a certification in something unless a [certification] chunk explicitly says so.
-- NEVER invent, fabricate, or hallucinate certifications, companies, projects, or achievements.
+- NEVER invent, fabricate, or hallucinate certifications, companies, projects, achievements, RATES, PRICES, or COSTS.
+- RATES & PRICING: ONLY state rates that appear EXACTLY in context chunks. NEVER invent hourly rates, project costs, price lists, or fee structures. If rate info is in context, quote it exactly. If not, say you don't have that info.
+- NEVER calculate or estimate years of experience with any technology. ONLY state years if EXPLICITLY written in context (e.g. "Python: 1+ year since 2025"). Do NOT subtract dates to compute years.
 - NEVER add details, dates, or specifics that are not explicitly written in the context.
 - When listing certifications, list ONLY those from [certification] chunks — no additions, no omissions.
 - Never reveal client names or companies not explicitly present in the context.

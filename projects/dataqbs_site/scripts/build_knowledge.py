@@ -327,6 +327,80 @@ def collect_cv_data() -> list[dict[str, str]]:
                 "text": text,
             })
 
+    # ── Extract consulting rate ──
+    rate_match = re.search(r"rate:\s*\{([\s\S]*?)\},\s*\n\s*technologyExperience", raw)
+    if rate_match:
+        rate_block = rate_match.group(1)
+        # Extract hourly rates
+        h_usd = re.search(r"hourly:.*?usd:\s*(\d+)", rate_block)
+        h_mxn = re.search(r"hourly:.*?mxn:\s*(\d+)", rate_block)
+        h_eur = re.search(r"hourly:.*?eur:\s*(\d+)", rate_block)
+        m_usd = re.search(r"monthly:.*?usd:\s*(\d+)", rate_block)
+        m_mxn = re.search(r"monthly:.*?mxn:\s*(\d+)", rate_block)
+        m_eur = re.search(r"monthly:.*?eur:\s*(\d+)", rate_block)
+        y_usd = re.search(r"yearly:.*?usd:\s*(\d+)", rate_block)
+        note_m = re.search(r"note:\s*['\"](.+?)['\"]", rate_block)
+
+        rate_text = "Carlos Carrillo — Consulting Rate\n"
+        if h_usd:
+            rate_text += f"Hourly rate: ${h_usd.group(1)} USD"
+            if h_mxn:
+                rate_text += f" / ${h_mxn.group(1)} MXN"
+            if h_eur:
+                rate_text += f" / €{h_eur.group(1)} EUR"
+            rate_text += "\n"
+        if m_usd:
+            rate_text += f"Monthly rate (160 hrs): ${m_usd.group(1)} USD"
+            if m_mxn:
+                rate_text += f" / ${m_mxn.group(1)} MXN"
+            if m_eur:
+                rate_text += f" / €{m_eur.group(1)} EUR"
+            rate_text += "\n"
+        if y_usd:
+            rate_text += f"Yearly rate (1,920 hrs): ${y_usd.group(1)} USD\n"
+        if note_m:
+            rate_text += f"Note: {note_m.group(1)}"
+
+        chunks.append({
+            "source": "cv",
+            "section": "rate",
+            "text": rate_text.strip(),
+        })
+
+    # ── Extract technology experience years ──
+    tech_exp_match = re.search(r"technologyExperience:\s*\[([\s\S]*?)\],", raw)
+    if tech_exp_match:
+        tech_entries = re.findall(
+            r"\{[^{}]*?name:\s*['\"](.+?)['\"][^{}]*?since:\s*(\d+)[^{}]*?years:\s*['\"](.+?)['\"][^{}]*?\}",
+            tech_exp_match.group(1),
+            re.DOTALL,
+        )
+        if tech_entries:
+            text_parts = ["Carlos Carrillo — Technology Experience (years of professional use)"]
+            for name, since, years in tech_entries:
+                entry = f"- {name}: {years} years (since {since})"
+                # Check for note
+                block_m = re.search(
+                    rf"\{{[^{{}}]*?name:\s*['\"]({re.escape(name)})['\"][^{{}}]*?\}}",
+                    tech_exp_match.group(1),
+                    re.DOTALL,
+                )
+                if block_m:
+                    note_m = re.search(r"note:\s*['\"](.+?)['\"]", block_m.group(0))
+                    if note_m:
+                        entry += f". {note_m.group(1)}"
+                text_parts.append(entry)
+            text_parts.append(
+                "\nIMPORTANT: These are the ONLY accurate technology experience years. "
+                "Do NOT calculate or estimate years from role dates. "
+                "Python experience is 1+ year (since 2025), NOT longer."
+            )
+            chunks.append({
+                "source": "cv",
+                "section": "technology_experience",
+                "text": "\n".join(text_parts),
+            })
+
     return chunks
 
 
