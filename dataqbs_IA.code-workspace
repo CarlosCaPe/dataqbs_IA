@@ -1,13 +1,24 @@
 {
     "folders": [
         {
-            "path": "."
+            "path": ".",
+            "name": "dataqbs_IA"
         },
         {
-            "path": "email_collector"
+            "path": "../HXW",
+            "name": "HXW (Freeport-McMoRan)"
         },
         {
-            "path": "easybrokers"
+            "path": "../memo",
+            "name": "memo (trading)"
+        },
+        {
+            "path": "../FSH",
+            "name": "FSH (FussionHit)"
+        },
+        {
+            "path": "../aiditi",
+            "name": "aiditi"
         }
     ],
     "settings": {
