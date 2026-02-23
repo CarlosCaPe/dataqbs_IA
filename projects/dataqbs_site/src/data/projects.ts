@@ -204,6 +204,28 @@ export const projects: Project[] = [
     featured: true,
   },
   {
+    name: 'Ore Tracing & Stockpile Simulation',
+    slug: 'ore-tracing',
+    description:
+      'Physics-based simulation platform for predicting mineral composition and mass flow through mining processing circuits.',
+    longDescription:
+      'End-to-end ore tracing system that simulates stockpile behavior using 3D block models and tracks mineralogy ' +
+      'through the comminution circuit (secondary/tertiary crushers → mills → flotation). Features predictive ' +
+      'calibration of industrial belt scales with Kalman filtering, crush-out time estimation, lag-based propagation ' +
+      'models, and nowcast simulation for multiple mine sites. Data pipeline reads sensor data at 1-minute resolution ' +
+      'from a cloud data warehouse, runs simulations, and writes traced mineral states back for downstream analytics.',
+    technologies: ['Python', 'Snowflake', 'Azure ML Pipelines', 'Dagster', 'NumPy', 'SciPy', 'PyYAML', 'Dynaconf'],
+    highlights: [
+      'Physics-based 3D stockpile simulation with block-level mass tracking',
+      'Mineral composition tracing through crusher → mill → flotation circuits',
+      'Kalman filter belt-scale correction with inertia weighting',
+      'Nowcast and crush-out time prediction for operational planning',
+      'Multi-site deployment with config-driven YAML architecture',
+    ],
+    category: 'data-engineering',
+    featured: true,
+  },
+  {
     name: 'Mining Operations Chatbot',
     slug: 'mining-chatbot',
     description:

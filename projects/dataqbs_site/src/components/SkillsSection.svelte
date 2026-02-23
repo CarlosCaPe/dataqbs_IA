@@ -29,7 +29,7 @@
       <div class="p-5 animate-fade-in rounded-lg bg-slate-50 dark:bg-slate-700/40 border border-slate-100 dark:border-slate-700" style="animation-delay: {gi * 60}ms">
         <h3 class="font-semibold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
           <span class="text-lg">{group.icon}</span>
-          {group.category}
+          {$t.skillCategory[group.category] ?? group.category}
         </h3>
         <div class="space-y-3">
           {#each group.skills as skill}

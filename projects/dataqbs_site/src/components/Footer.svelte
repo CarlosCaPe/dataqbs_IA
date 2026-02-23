@@ -9,15 +9,6 @@
     </p>
     <p class="text-xs text-slate-400 dark:text-slate-500">
       {$t.footer.builtWith}
-      ·
-      <a
-        href="https://github.com/CarlosCaPe/dataqbs_IA"
-        target="_blank"
-        rel="noopener"
-        class="text-primary-500 hover:underline"
-      >
-        {$t.footer.source}
-      </a>
     </p>
   </div>
 </footer>

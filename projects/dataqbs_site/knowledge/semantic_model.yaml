@@ -110,6 +110,8 @@ query_expansion:
     - "ADX"
     - "KQL"
     - "Streamlit"
+    - "ore tracing"
+    - "stockpile simulation"
   grid:
     - "MEMO-GRID"
     - "grid trading"
@@ -137,10 +139,12 @@ query_expansion:
     - "Freeport-McMoRan"
     - "mining"
     - "Snowflake"
-    - "DRILLBLAST"
+    - "incremental ETL"
     - "ADX"
     - "IROC"
     - "Video Wall"
+    - "ore tracing"
+    - "stockpile simulation"
   fussionhit:
     - "VCA"
     - "PostgreSQL"
@@ -160,7 +164,8 @@ query_expansion:
     - "MEMO-GRID"
     - "VCA audits"
     - "IROC Video Wall"
-    - "DRILLBLAST"
+    - "ore tracing"
+    - "stockpile simulation"
 
 # ── Chunking Rules ───────────────────────────────────
 # Defines how to respect entity boundaries during text splitting

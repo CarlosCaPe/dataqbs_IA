@@ -38,18 +38,18 @@
             {$t.cert.issuedBy} {cert.issuer} · {cert.year}
             {#if cert.expired}
               <span class="ml-1 inline-flex items-center px-1.5 py-0.5 rounded text-xs font-medium bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300">
-                Expired
+                {$t.cert.expired}
               </span>
             {:else if cert.expiresYear}
               <span class="ml-1 text-slate-400 dark:text-slate-500">
-                · Expires {cert.expiresYear}
+                · {$t.cert.expires} {cert.expiresYear}
               </span>
             {/if}
           </p>
 
           {#if cert.credentialId}
             <p class="text-xs text-slate-400 dark:text-slate-500 mt-0.5">
-              Credential ID: {cert.credentialId}
+              {$t.cert.credentialId}: {cert.credentialId}
             </p>
           {/if}
         </div>

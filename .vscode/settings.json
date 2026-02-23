@@ -13,7 +13,13 @@
     "PATH": "/var/data/python/bin:${env:HOME}/.local/bin:${env:PATH}"
   },
   "python-envs.defaultEnvManager": "ms-python.python:system",
-  "python-envs.pythonProjects": [],
+  "python-envs.pythonProjects": [
+    {
+      "path": "",
+      "envManager": "ms-python.python:system",
+      "packageManager": "ms-python.python:pip"
+    }
+  ],
   // Inject variables from .env files into terminals started by Python extension
   "python.terminal.useEnvFile": true,
   // Allow tasks to run automatically without confirmation prompt

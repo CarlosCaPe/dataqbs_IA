@@ -23,8 +23,8 @@ export const profile = {
   cvUrl: '/Profile.pdf',
   connections: '500+',
   openToWork: [
-    'SQL Developer', 'ETL Developer', 'Data Engineer',
-    'Integration Lead', 'AI Engineer',
+    'Data Engineer', 'Cloud Data Consultant', 'Solutions Architect',
+    'AI Engineer', 'DBA', 'Integration Lead', 'Developer',
   ],
   rate: {
     hourly: { usd: 40, mxn: 686, eur: 33 },
@@ -48,12 +48,6 @@ export const profile = {
 
 export const socialLinks: SocialLink[] = [
   {
-    platform: 'GitHub',
-    url: 'https://github.com/CarlosCaPe',
-    icon: 'github',
-    label: 'CarlosCaPe',
-  },
-  {
     platform: 'LinkedIn',
     url: 'https://linkedin.com/in/carlosalbertocarrillo',
     icon: 'linkedin',
@@ -64,6 +58,12 @@ export const socialLinks: SocialLink[] = [
     url: 'mailto:carlos.carrillo@dataqbs.com',
     icon: 'email',
     label: 'carlos.carrillo@dataqbs.com',
+  },
+  {
+    platform: 'WhatsApp',
+    url: 'https://wa.me/5213313233421',
+    icon: 'whatsapp',
+    label: '+52 1 331 323 3421',
   },
 
 ];
@@ -78,7 +78,7 @@ export const experience: Experience[] = [
     role: 'Data Integration Lead',
     period: { start: '2025-03', end: null },
     location: 'Mexico · Remote',
-    type: 'contract',
+    type: 'full-time',
     description:
       'Led Snowflake → Azure SQL integration for Freeport-McMoRan mining operations. ' +
       'Deployed incremental sync pipelines, built regression testing CLI, optimized Snowflake views, ' +
@@ -91,6 +91,7 @@ export const experience: Experience[] = [
       'Developed IROC Video Wall (Streamlit, 7 mining sites, 60s auto-refresh, AI chat) and Mining Operations Chatbot (NL queries across ADX+Snowflake). Docker, Azure App Service, Azure AD SSO',
       'Built schema extraction across 3 Azure SQL environments, KQL/ADX infrastructure (2 clusters, 20+ site DBs), config-driven execution with Entra ID/Kerberos auth',
       'Leveraged GitHub Copilot (Enterprise) for pipeline architecture, SQL generation, benchmarking, and dashboard development',
+      'Built physics-based stockpile simulation with 3D block modeling for ore tracing through comminution circuits (crushers → mills → flotation). Predictive mineralogy tracking, belt-scale calibration with Kalman filtering, and crush-out time estimation across multiple mine sites',
     ],
     technologies: [
       'Snowflake', 'Azure SQL', 'ADX/KQL', 'Azure Functions', 'App Service',
@@ -102,7 +103,7 @@ export const experience: Experience[] = [
   {
     company: 'FussionHit',
     role: 'Senior Database Engineer',
-    period: { start: '2025-01', end: null },
+    period: { start: '2024-09', end: '2025-03' },
     location: 'Remote',
     type: 'contract',
     description:
@@ -286,7 +287,7 @@ export const experience: Experience[] = [
   {
     company: 'Jabil Circuit de México',
     role: 'Developer Trainee',
-    period: { start: '2003-08', end: '2004-05' },
+    period: { start: '2003-08', end: '2004-03' },
     location: 'Guadalajara, Mexico',
     type: 'full-time',
     description:

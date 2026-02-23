@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { t } from '../i18n/store';
-  import { locale } from '../i18n/store';
+  import { t, locale } from '../i18n/store';
   import { experience } from '../data/cv';
+  import { experienceTranslations } from '../data/cv_translations';
 
   const localeMap: Record<string, string> = { en: 'en-US', es: 'es-MX', de: 'de-DE' };
 
@@ -9,21 +9,27 @@
   let showAll = false;
   let expandedIndex: number | null = null;
 
-  $: displayed = showAll ? experience : experience.slice(0, INITIAL_COUNT);
+  // Reactive translations — re-computes whenever $locale changes
+  $: localizedExperience = experience.map((exp, i) => {
+    const tr = ($locale !== 'en') ? experienceTranslations[$locale]?.[i] : null;
+    return {
+      ...exp,
+      description: tr?.description ?? exp.description,
+      achievements: (tr?.achievements?.length) ? tr.achievements : exp.achievements,
+    };
+  });
+
+  $: displayed = showAll ? localizedExperience : localizedExperience.slice(0, INITIAL_COUNT);
 
   function toggle(i: number) {
     expandedIndex = expandedIndex === i ? null : i;
   }
 
-  function formatPeriod(start: string, end: string | null): string {
-    const bcp = localeMap[$locale] || 'en-US';
+  function formatPeriod(start: string, end: string | null, loc: string, present: string): string {
+    const bcp = localeMap[loc] || 'en-US';
     const s = new Date(start + '-01').toLocaleDateString(bcp, { year: 'numeric', month: 'short' });
-    const e = end ? new Date(end + '-01').toLocaleDateString(bcp, { year: 'numeric', month: 'short' }) : $t.timeline.present;
+    const e = end ? new Date(end + '-01').toLocaleDateString(bcp, { year: 'numeric', month: 'short' }) : present;
     return `${s} — ${e}`;
-  }
-
-  function displayCompany(exp: typeof experience[0]): string {
-    return exp.hidden ? $t.timeline.confidential : exp.company;
   }
 
   const typeColors: Record<string, string> = {
@@ -59,8 +65,8 @@
               <div>
                 <h3 class="font-semibold text-slate-900 dark:text-white text-lg">{exp.role}</h3>
                 <p class="text-sm text-slate-600 dark:text-slate-300 flex items-center gap-2 mt-0.5">
-                  {displayCompany(exp)}
-                  <span class={typeColors[exp.type] || 'badge-blue'}>{exp.type}</span>
+                  {exp.hidden ? $t.timeline.confidential : exp.company}
+                  <span class={typeColors[exp.type] || 'badge-blue'}>{$t.experienceType[exp.type] ?? exp.type}</span>
                 </p>
               </div>
               <div class="text-sm text-slate-500 dark:text-slate-400 whitespace-nowrap flex items-center gap-1">
@@ -68,7 +74,7 @@
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                     d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                 </svg>
-                {formatPeriod(exp.period.start, exp.period.end)}
+                {formatPeriod(exp.period.start, exp.period.end, $locale, $t.timeline.present)}
               </div>
             </div>
 

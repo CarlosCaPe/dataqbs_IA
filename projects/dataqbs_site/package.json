@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "dev": "astro dev",
-    "build": "python scripts/build_knowledge.py && astro build",
+    "build": "node scripts/i18n-audit.mjs && python scripts/build_knowledge.py && astro build",
     "build:site": "astro build",
     "preview": "wrangler pages dev dist",
     "deploy": "npm run build && wrangler pages deploy dist",

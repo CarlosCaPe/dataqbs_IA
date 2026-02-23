@@ -115,80 +115,110 @@ LABELS = {
 # ══════════════════════════════════════════════════════════════
 SUMMARIES = {
     "en": (
-        "Senior Data Engineer and Cloud Data Consultant with 20+ years of experience "
-        "modernizing analytics ecosystems with Snowflake, Microsoft Fabric, Azure SQL, "
-        "and SQL Server. I build automated, scalable pipelines and resilient data models "
-        "that turn raw data into reliable, actionable insight -- especially in high-volume, "
-        "mission-critical environments. My toolkit is deep SQL + Python, paired with "
-        "AI-assisted development (GitHub Copilot, ChatGPT, Claude) to deliver solutions "
-        "that are cloud-native, operationally practical, and designed to evolve."
+        "Senior Data Engineer, AI builder, and Cloud Consultant with 20+ years turning complex data problems "
+        "into production systems. I architect end-to-end solutions -- from incremental ETL pipelines and "
+        "Snowflake/Azure SQL data warehouses to RAG-powered chatbots, physics-based mining simulations, "
+        "real-time dashboards (34 KPIs across 7 mine sites), and algorithmic trading engines with "
+        "50K-trial hyperparameter optimization. My core stack is deep SQL + Python, extended with AI tooling "
+        "I actually build with -- not just use: LLM evaluation pipelines, vector embedding search, "
+        "Kalman-filter calibration, and Bellman-Ford graph algorithms. I deliver in high-volume, "
+        "mission-critical environments where uptime, cost efficiency, and long-term maintainability are "
+        "survival -- cloud-native, operationally practical, and designed to evolve beyond prototypes. "
+        "Fully remote for years with US and LATAM teams -- structured delivery, documentation-driven "
+        "workflows, and clear technical communication across time zones."
     ),
     "es": (
-        "Ingeniero de Datos Senior y Consultor Cloud con mas de 20 anos de experiencia "
-        "modernizando ecosistemas analiticos con Snowflake, Microsoft Fabric, Azure SQL "
-        "y SQL Server. Construyo pipelines automatizados y escalables, y modelos de datos "
-        "resilientes que convierten datos crudos en informacion confiable y accionable -- "
-        "especialmente en entornos de alto volumen y mision critica. Mi toolkit es SQL "
-        "profundo + Python, combinado con desarrollo asistido por IA (GitHub Copilot, "
-        "ChatGPT, Claude) para entregar soluciones cloud-native, practicas y disenadas para evolucionar."
+        "Ingeniero de Datos Senior, constructor de IA y Consultor Cloud con mas de 20 anos convirtiendo "
+        "problemas complejos de datos en sistemas en produccion. Arquitecto soluciones end-to-end -- desde "
+        "pipelines ETL incrementales y data warehouses en Snowflake/Azure SQL hasta chatbots RAG, "
+        "simulaciones fisicas para mineria, dashboards en tiempo real (34 KPIs en 7 sitios mineros) y "
+        "motores de trading algoritmico con optimizacion de 50K trials. Mi stack core es SQL profundo + "
+        "Python, extendido con herramientas de IA que realmente construyo -- no solo uso: pipelines de "
+        "evaluacion LLM, busqueda por embeddings vectoriales, calibracion con filtros de Kalman y "
+        "algoritmos de grafos Bellman-Ford. Entrego en entornos de alto volumen y mision critica donde "
+        "el uptime, la eficiencia en costos y la mantenibilidad a largo plazo son supervivencia -- "
+        "cloud-native, operacionalmente practico y disenado para evolucionar mas alla de los prototipos. "
+        "Totalmente remoto por anos con equipos de EE.UU. y LATAM -- entrega estructurada, flujos "
+        "documentados y comunicacion tecnica clara entre zonas horarias."
     ),
     "de": (
-        "Senior Data Engineer und Cloud-Datenberater mit ueber 20 Jahren Erfahrung "
-        "in der Modernisierung analytischer Oekosysteme mit Snowflake, Microsoft Fabric, "
-        "Azure SQL und SQL Server. Ich baue automatisierte, skalierbare Pipelines und "
-        "belastbare Datenmodelle, die Rohdaten in zuverlaessige, umsetzbare Erkenntnisse "
-        "verwandeln -- besonders in hochvolumigen, missionskritischen Umgebungen. "
-        "Mein Toolkit ist tiefes SQL + Python, gepaart mit KI-gestuetzter Entwicklung "
-        "(GitHub Copilot, ChatGPT, Claude) fuer cloud-native, praktische Loesungen."
+        "Senior Data Engineer, KI-Entwickler und Cloud-Berater mit ueber 20 Jahren Erfahrung in der "
+        "Umsetzung komplexer Datenprobleme in Produktionssysteme. Ich architekturiere End-to-End-Loesungen "
+        "-- von inkrementellen ETL-Pipelines und Snowflake/Azure SQL Data Warehouses bis hin zu "
+        "RAG-Chatbots, physikbasierten Bergbausimulationen, Echtzeit-Dashboards (34 KPIs ueber 7 "
+        "Minenstandorte) und algorithmischen Trading-Engines mit 50K-Trial-Hyperparameter-Optimierung. "
+        "Mein Kernstack ist tiefes SQL + Python, erweitert mit KI-Tools, die ich tatsaechlich baue -- "
+        "nicht nur nutze: LLM-Evaluierungspipelines, Vektor-Embedding-Suche, Kalman-Filter-Kalibrierung "
+        "und Bellman-Ford-Graphalgorithmen. Ich liefere in hochvolumigen, missionskritischen Umgebungen, "
+        "in denen Betriebszeit, Kosteneffizienz und langfristige Wartbarkeit ueberlebenswichtig sind -- "
+        "Cloud-nativ, operativ praktisch und fuer die Weiterentwicklung ueber Prototypen hinaus konzipiert. "
+        "Seit Jahren vollstaendig remote mit US- und LATAM-Teams -- strukturierte Lieferung, "
+        "dokumentationsgetriebene Workflows und klare technische Kommunikation ueber Zeitzonen hinweg."
     ),
 }
 
 # ══════════════════════════════════════════════════════════════
 #  ACHIEVEMENT TRANSLATIONS — indexed by experience order
-#  Only top 3 achievements per role are shown in the PDF.
+#  ALL achievements per role are shown in the PDF.
 # ══════════════════════════════════════════════════════════════
 ACH_ES = [
-    # 0: Hexaware Technologies
+    # 0: Hexaware Technologies (8 achievements)
     [
         "Lidere la integracion Snowflake -> Azure SQL; despliegue pipeline de sincronizacion incremental de 14 tablas con procedimientos MERGE, programacion cada 15 min, deteccion delta con HASH, verificacion E2E (~590K filas) en DEV->TEST->PROD",
         "Disene cargas incrementales basadas en marca de agua usando timestamps de negocio y respaldos DW_MODIFY_TS para dashboards de Connected Operations",
         "Construi snowrefactor, CLI en Python para pruebas de regresion de vistas Snowflake: extraccion automatica de DDL, despliegue, comparacion de esquemas y benchmarking en flujos CTE estilo dbt",
+        "Optimice vistas Snowflake mediante pushdown profundo de CTEs en arquitecturas UNION ALL (65s->9.7s, 5x). Benchmarke migracion Snowflake->ADX: SENSOR_SNAPSHOT_GET 30s->0.15s (200x)",
+        "Desarrolle IROC Video Wall (Streamlit, 7 sitios mineros, auto-refresh 60s, chat IA) y Chatbot de Operaciones Mineras (consultas NL sobre ADX+Snowflake). Docker, Azure App Service, Azure AD SSO",
+        "Construi extraccion de esquemas en 3 ambientes Azure SQL, infraestructura KQL/ADX (2 clusters, 20+ DBs por sitio), ejecucion config-driven con auth Entra ID/Kerberos",
+        "Aproveche GitHub Copilot (Enterprise) para arquitectura de pipelines, generacion SQL, benchmarking y desarrollo de dashboards",
+        "Construi simulacion de stockpile basada en fisica con modelado 3D de bloques para trazado de mineral a traves de circuitos de conminucion (trituradoras -> molinos -> flotacion). Seguimiento predictivo de mineralogia, calibracion de basculas con filtrado Kalman y estimacion de tiempos de crush-out en multiples sitios mineros",
     ],
-    # 1: FussionHit
+    # 1: FussionHit (6 achievements)
     [
         "Construi framework de auditoria PostgreSQL con exportaciones DDL templadas por objeto (Nunjucks/Jinja)",
         "Entregue 20+ tickets de base de datos (optimizacion de indices, remediacion de FK, renombramientos de esquema, normalizacion de timestamps)",
         "Redacte Documentos de Diseno Tecnico para las bases de datos Student Concierge, Relief Vet, VWR, Appointment Waitlist y Feature Flags",
+        "Cree suite de pruebas de regresion para todos los tickets criticos con validacion offline",
+        "Desarrolle guia de Mejores Practicas para PostgreSQL en Azure Flexible Server",
+        "Integre flujos de trabajo con Jira, Harvest API y Microsoft Graph API",
     ],
-    # 2: dataqbs
+    # 2: dataqbs (6 achievements)
     [
         "Entregue ingenieria de datos para VCA Animal Hospitals, C&amp;A Mexico, BCG, Moviro, Svitla, Quesos Navarro",
         "Construi MEMO-GRID: bot avanzado de grid trading con HPO Optuna (50K pruebas), multiplicador 23x BTC, analisis de atribucion (95.7% alfa)",
         "Disene escaner de arbitraje cripto triangular con Bellman-Ford a traves de 9 exchanges con ejecucion de swaps en vivo",
+        "Construi motor de reglas declarativo basado en YAML para auditoria de respuestas LLM con scoring en 5 dimensiones",
+        "Implemente colector de correo IMAP multi-cuenta con clasificador de 5 etiquetas (anti-phishing, scoring de dominios)",
+        "Cree este sitio portfolio (dataqbs.com) con chatbot RAG, embeddings vectoriales y streaming LLM con Groq",
     ],
-    # 3: SVAM International
+    # 3: SVAM International (5 achievements)
     [
         "Lidere migracion de SQL Server on-prem y SSIS a Snowflake, disenando nuevos modelos fact/dimension para analitica de certificaciones estudiantiles",
         "Automatice ingestion de JSON desde APIs de Salesforce hacia Snowflake usando Python",
         "Construi pruebas de validacion y reconciliacion de datos, asegurando precision de carga end-to-end",
+        "Entregue datasets curados via SharePoint, mejorando la visibilidad para stakeholders academicos",
+        "Soporte transformacion de datos y scheduling mediante scripts custom y procesos controlados por CI",
     ],
-    # 4: Svitla Systems
+    # 4: Svitla Systems (4 achievements)
     [
         "Disene y despliegue el primer data warehouse en Azure SQL de la empresa para analitica de ventas en la nube",
         "Desarrolle paquetes SSIS para extracciones on-prem y orqueste actualizaciones con Azure Data Factory",
         "Construi modelos de datos star-schema flexibles para escalar segun crecian las necesidades de reporteo",
+        "Colabore con equipos de BI para publicar dashboards de Power BI en Azure",
     ],
-    # 5: Epikso Mexico
+    # 5: Epikso Mexico (4 achievements)
     [
         "Administre seguridad de Snowflake, acceso basado en roles y ajuste de rendimiento",
         "Implemente Infrastructure-as-Code para configuracion automatizada de ambientes",
         "Monitoree rendimiento de consultas y optimize almacenamiento/micro-particionamiento",
+        "Integre pipelines CI/CD via Bitbucket, mejorando el control de despliegues",
     ],
-    # 6: Jabil (Data Technical Lead)
+    # 6: Jabil (Data Technical Lead) (4 achievements)
     [
         "Dirigi migracion de Hadoop + Impala + SQL Server PDW a Snowflake en AWS, habilitando analitica mas rapida",
         "Construi orquestacion streaming y basada en tareas usando funciones nativas de automatizacion de Snowflake",
         "Disene zonas de landing, staging y refinadas para ingestion y transformacion escalable",
+        "Soporte equipos distribuidos en la modernizacion de analitica de manufactura",
     ],
     # 7: 3Pillar Global
     [
@@ -222,47 +252,63 @@ ACH_ES = [
 ]
 
 ACH_DE = [
-    # 0: Hexaware Technologies
+    # 0: Hexaware Technologies (8 achievements)
     [
         "Leitete die Snowflake -> Azure SQL Integration; bereitete inkrementelle Sync-Pipeline fuer 14 Tabellen mit MERGE-Prozeduren, 15-Min-Planung, HASH-Delta-Erkennung, E2E-Verifizierung (~590K Zeilen) in DEV->TEST->PROD",
         "Entwarf wasserzeichenbasierte inkrementelle Ladevorgaenge mit Business-Timestamps und DW_MODIFY_TS-Fallbacks fuer Connected Operations Dashboards",
         "Entwickelte snowrefactor, Python-CLI fuer Snowflake-View-Regressionstests: automatisierter DDL-Pull, Deployment, Schema-Vergleich und Benchmarking in dbt-Style CTE-Workflows",
+        "Optimierte Snowflake-Views durch tiefes CTE-Pushdown in UNION ALL-Architekturen (65s->9,7s, 5x). Benchmarkte Snowflake->ADX-Migration: SENSOR_SNAPSHOT_GET 30s->0,15s (200x)",
+        "Entwickelte IROC Video Wall (Streamlit, 7 Bergbaustandorte, 60s Auto-Refresh, KI-Chat) und Mining Operations Chatbot (NL-Abfragen ueber ADX+Snowflake). Docker, Azure App Service, Azure AD SSO",
+        "Entwickelte Schema-Extraktion ueber 3 Azure SQL-Umgebungen, KQL/ADX-Infrastruktur (2 Cluster, 20+ Standort-DBs), konfigurationsgesteuerte Ausfuehrung mit Entra ID/Kerberos-Auth",
+        "Nutzte GitHub Copilot (Enterprise) fuer Pipeline-Architektur, SQL-Generierung, Benchmarking und Dashboard-Entwicklung",
+        "Entwickelte physikbasierte Stockpile-Simulation mit 3D-Blockmodellierung fuer Erzverfolgung durch Zerkleinerungskreislaeufe (Brecher -> Muehlen -> Flotation). Praediktive Mineralogie-Verfolgung, Bandwaagen-Kalibrierung mit Kalman-Filterung und Crush-out-Zeitschaetzung ueber mehrere Bergbaustandorte",
     ],
-    # 1: FussionHit
+    # 1: FussionHit (6 achievements)
     [
         "Entwickelte PostgreSQL-Audit-Framework mit objektbezogenen Template-DDL-Exporten (Nunjucks/Jinja)",
         "Lieferte 20+ Datenbank-Tickets (Index-Optimierung, FK-Bereinigung, Schema-Umbenennungen, Timestamp-Normalisierung)",
         "Verfasste Technische Design-Dokumente fuer die Datenbanken Student Concierge, Relief Vet, VWR, Appointment Waitlist und Feature Flags",
+        "Erstellte Regressionstestsuite fuer alle kritischen Tickets mit Offline-Validierung",
+        "Entwickelte Best-Practices-Leitfaden fuer PostgreSQL auf Azure Flexible Server",
+        "Integrierte Jira-, Harvest-API- und Microsoft-Graph-API-Workflows",
     ],
-    # 2: dataqbs
+    # 2: dataqbs (6 achievements)
     [
         "Lieferte Data Engineering fuer VCA Animal Hospitals, C&amp;A Mexico, BCG, Moviro, Svitla, Quesos Navarro",
         "Entwickelte MEMO-GRID: fortgeschrittenen Grid-Trading-Bot mit Optuna HPO (50K Versuche), 23x BTC-Multiplikator, Attributionsanalyse (95,7% Alpha)",
         "Entwarf Bellman-Ford &amp; triangulaeren Krypto-Arbitrage-Scanner ueber 9 Boersen mit Live-Swap-Ausfuehrung",
+        "Entwickelte deklarative YAML-gesteuerte Regelengine fuer LLM-Antwortpruefung mit 5-Dimensionen-Bewertung",
+        "Implementierte Multi-Account-IMAP-E-Mail-Sammler mit 5-Label-Klassifikator (Anti-Phishing, Domain-Bewertung)",
+        "Erstellte diese Portfolio-Website (dataqbs.com) mit RAG-Chatbot, Vektor-Embeddings und Groq-LLM-Streaming",
     ],
-    # 3: SVAM International
+    # 3: SVAM International (5 achievements)
     [
         "Leitete Migration von On-Prem SQL Server und SSIS zu Snowflake, Entwurf neuer Fact/Dimension-Modelle fuer Studentenzertifizierungs-Analytik",
         "Automatisierte JSON-Aufnahme von Salesforce-APIs in Snowflake mit Python",
         "Entwickelte Datenvalidierungs- und Abgleichtests zur Sicherstellung der End-to-End-Ladegenauigkeit",
+        "Lieferte kuratierte Datensaetze ueber SharePoint zur Verbesserung der Sichtbarkeit fuer akademische Stakeholder",
+        "Unterstuetzte Datentransformation und Scheduling durch benutzerdefinierte Skripte und CI-gesteuerte Prozesse",
     ],
-    # 4: Svitla Systems
+    # 4: Svitla Systems (4 achievements)
     [
         "Entwarf und implementierte das erste Azure SQL Data Warehouse des Unternehmens fuer Cloud-basierte Vertriebsanalytik",
         "Entwickelte SSIS-Pakete fuer On-Prem-Extraktionen und orchestrierte Updates mit Azure Data Factory",
         "Erstellte flexible Star-Schema-Datenmodelle zur Skalierung nach wachsenden Reporting-Anforderungen",
+        "Zusammenarbeit mit BI-Teams zur Veroeffentlichung von Power BI-Dashboards auf Azure",
     ],
-    # 5: Epikso Mexico
+    # 5: Epikso Mexico (4 achievements)
     [
         "Verwaltete Snowflake-Sicherheit, rollenbasierten Zugriff und Performance-Tuning",
         "Implementierte Infrastructure-as-Code fuer automatisierte Umgebungseinrichtung",
         "Ueberwachte Abfrageleistung und optimierte Speicher/Micro-Partitioning",
+        "Integrierte CI/CD-Pipelines ueber Bitbucket zur Verbesserung der Deployment-Kontrolle",
     ],
-    # 6: Jabil (Data Technical Lead)
+    # 6: Jabil (Data Technical Lead) (4 achievements)
     [
         "Leitete Migration von Hadoop + Impala + SQL Server PDW zu Snowflake auf AWS fuer schnellere Analytik",
         "Entwickelte Streaming- und aufgabenbasierte Orchestrierung mit nativen Snowflake-Automatisierungsfunktionen",
         "Entwarf Landing-, Staging- und Refined-Zonen fuer skalierbare Aufnahme und Transformation",
+        "Unterstuetzte verteilte Teams bei der Modernisierung der Fertigungsanalytik",
     ],
     # 7: 3Pillar Global
     [
@@ -571,18 +617,17 @@ def generate_pdf(lang: str, experiences: list, education: list, skills: list,
             Paragraph(meta, styles["CVSmall"]),
         ]
 
-        # Get translated achievements (top 3)
+        # Get translated achievements (ALL)
         if lang != "en" and lang in ACH_TRANSLATIONS and idx < len(ACH_TRANSLATIONS[lang]):
             translated_achs = ACH_TRANSLATIONS[lang][idx]
         else:
             translated_achs = exp["achievements"]
 
-        for ach in translated_achs[:3]:
-            ach_text = ach if len(ach) <= 250 else ach[:247] + "..."
-            block.append(Paragraph(f"- {ach_text}", styles["CVBullet"]))
+        for ach in translated_achs:
+            block.append(Paragraph(f"- {ach}", styles["CVBullet"]))
 
         if exp["technologies"]:
-            techs_text = ", ".join(exp["technologies"][:12])
+            techs_text = ", ".join(exp["technologies"])
             block.append(Paragraph(
                 f'<font color="#64748b"><i>{tr["technologies"]}: {techs_text}</i></font>',
                 styles["CVSmall"],

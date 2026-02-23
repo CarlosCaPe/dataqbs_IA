@@ -55,12 +55,16 @@ export interface Translations {
     emailPlaceholder: string;
     messagePlaceholder: string;
     linksHeading: string;
+    messageTooLong: string;
+    chatAttached: string;
   };
   theme: { light: string; dark: string; toggle: string };
   lang: { label: string; es: string; en: string; de: string };
   footer: { rights: string; builtWith: string; source: string };
   project: { viewCode: string; liveDemo: string; highlights: string };
-  cert: { issuedBy: string; verify: string };
+  cert: { issuedBy: string; verify: string; expired: string; expires: string; credentialId: string };
+  experienceType: Record<string, string>;
+  skillCategory: Record<string, string>;
 }
 
 // ── English ──────────────────────────────────────────
@@ -73,12 +77,14 @@ const en: Translations = {
     contactMe: 'Contact me',
     about: 'About',
     summary:
-      "I'm a Senior Data Engineer and Cloud Data Consultant with 20+ years of experience modernizing analytics ecosystems " +
-      'with Snowflake, Microsoft Fabric, Azure SQL, and SQL Server. ' +
-      'I build automated, scalable pipelines and resilient data models that turn raw data into reliable, actionable insight — ' +
-      'especially in high-volume, mission-critical environments where performance, cost efficiency, and long-term maintainability are survival. ' +
-      'My toolkit is deep SQL + Python, paired with AI-assisted development (GitHub Copilot, ChatGPT, Claude) ' +
-      'to deliver solutions that are cloud-native, operationally practical, and designed to evolve beyond prototypes.',
+      "Senior Data Engineer, AI builder, and Cloud Consultant with 20+ years turning complex data problems into production systems. " +
+      'I architect end-to-end solutions — from incremental ETL pipelines and Snowflake/Azure SQL data warehouses to RAG-powered chatbots, ' +
+      'physics-based mining simulations, real-time dashboards (34 KPIs across 7 mine sites), and algorithmic trading engines with 50K-trial hyperparameter optimization. ' +
+      'My core stack is deep SQL + Python, extended with AI tooling I actually build with — not just use: ' +
+      'LLM evaluation pipelines, vector embedding search, Kalman-filter calibration, and Bellman-Ford graph algorithms. ' +
+      'I deliver in high-volume, mission-critical environments where uptime, cost efficiency, and long-term maintainability are survival — ' +
+      'cloud-native, operationally practical, and designed to evolve beyond prototypes. ' +
+      'Fully remote for years with US and LATAM teams — structured delivery, documentation-driven workflows, and clear technical communication across time zones.',
     vision: 'To live in peace, free from rigid structures — building projects that flow naturally through intelligence and awareness. Technology should serve life, not the other way around.',
     visionLabel: 'Vision',
     contactInfo: 'Contact info',
@@ -127,8 +133,8 @@ const en: Translations = {
     namePlaceholder: 'Your name',
     emailPlaceholder: 'your@email.com',
     messagePlaceholder: 'Your message…',
-    linksHeading: 'Links',
-  },
+    linksHeading: 'Links',    messageTooLong: 'Message too long (max {max} characters)',
+    chatAttached: 'Chat conversation attached',  },
   theme: { light: 'Light', dark: 'Dark', toggle: 'Toggle theme' },
   lang: { label: 'Language', es: 'Español', en: 'English', de: 'Deutsch' },
   footer: {
@@ -137,7 +143,9 @@ const en: Translations = {
     source: 'Source code',
   },
   project: { viewCode: 'View Code', liveDemo: 'Live Demo', highlights: 'Highlights' },
-  cert: { issuedBy: 'Issued by', verify: 'Verify' },
+  cert: { issuedBy: 'Issued by', verify: 'Verify', expired: 'Expired', expires: 'Expires', credentialId: 'Credential ID' },
+  experienceType: { 'full-time': 'Full-time', 'contract': 'Contract', 'freelance': 'Freelance', 'self-employed': 'Self-employed' },
+  skillCategory: { 'Languages': 'Languages', 'Data & Cloud': 'Data & Cloud', 'AI & ML': 'AI & ML', 'Libraries & Frameworks': 'Libraries & Frameworks', 'DevOps & Tools': 'DevOps & Tools', 'Databases': 'Databases' },
 };
 
 // ── Spanish ──────────────────────────────────────────
@@ -150,12 +158,14 @@ const es: Translations = {
     contactMe: 'Contáctame',
     about: 'Acerca de',
     summary:
-      'Soy un Ingeniero de Datos Senior y Consultor Cloud con más de 20 años de experiencia modernizando ecosistemas analíticos ' +
-      'con Snowflake, Microsoft Fabric, Azure SQL y SQL Server. ' +
-      'Construyo pipelines automatizados y escalables, y modelos de datos resilientes que convierten datos crudos en información confiable y accionable — ' +
-      'especialmente en entornos de alto volumen y misión crítica donde el rendimiento, la eficiencia en costos y la mantenibilidad a largo plazo son supervivencia. ' +
-      'Mi toolkit es SQL profundo + Python, combinado con desarrollo asistido por IA (GitHub Copilot, ChatGPT, Claude) ' +
-      'para entregar soluciones cloud-native, operacionalmente prácticas y diseñadas para evolucionar más allá de los prototipos.',
+      'Ingeniero de Datos Senior, constructor de IA y Consultor Cloud con más de 20 años convirtiendo problemas complejos de datos en sistemas en producción. ' +
+      'Arquitecto soluciones end-to-end — desde pipelines ETL incrementales y data warehouses en Snowflake/Azure SQL hasta chatbots RAG, ' +
+      'simulaciones físicas para minería, dashboards en tiempo real (34 KPIs en 7 sitios mineros) y motores de trading algorítmico con optimización de 50K trials. ' +
+      'Mi stack core es SQL profundo + Python, extendido con herramientas de IA que realmente construyo — no solo uso: ' +
+      'pipelines de evaluación LLM, búsqueda por embeddings vectoriales, calibración con filtros de Kalman y algoritmos de grafos Bellman-Ford. ' +
+      'Entrego en entornos de alto volumen y misión crítica donde el uptime, la eficiencia en costos y la mantenibilidad a largo plazo son supervivencia — ' +
+      'cloud-native, operacionalmente práctico y diseñado para evolucionar más allá de los prototipos. ' +
+      'Totalmente remoto por años con equipos de EE.UU. y LATAM — entrega estructurada, flujos documentados y comunicación técnica clara entre zonas horarias.',
     vision: 'Vivir en paz, libre de estructuras rígidas — construyendo proyectos que fluyen naturalmente a través de inteligencia y consciencia. La tecnología debe servir a la vida, no al revés.',
     visionLabel: 'Visión',
     contactInfo: 'Info de contacto',
@@ -204,8 +214,8 @@ const es: Translations = {
     namePlaceholder: 'Tu nombre',
     emailPlaceholder: 'tu@correo.com',
     messagePlaceholder: 'Tu mensaje…',
-    linksHeading: 'Enlaces',
-  },
+    linksHeading: 'Enlaces',    messageTooLong: 'Mensaje demasiado largo (m\u00e1ximo {max} caracteres)',
+    chatAttached: 'Conversaci\u00f3n de chat adjunta',  },
   theme: { light: 'Claro', dark: 'Oscuro', toggle: 'Cambiar tema' },
   lang: { label: 'Idioma', es: 'Español', en: 'English', de: 'Deutsch' },
   footer: {
@@ -214,7 +224,9 @@ const es: Translations = {
     source: 'Código fuente',
   },
   project: { viewCode: 'Ver Código', liveDemo: 'Demo', highlights: 'Destacados' },
-  cert: { issuedBy: 'Emitido por', verify: 'Verificar' },
+  cert: { issuedBy: 'Emitido por', verify: 'Verificar', expired: 'Expirada', expires: 'Expira', credentialId: 'ID de Credencial' },
+  experienceType: { 'full-time': 'Tiempo completo', 'contract': 'Contrato', 'freelance': 'Freelance', 'self-employed': 'Independiente' },
+  skillCategory: { 'Languages': 'Lenguajes', 'Data & Cloud': 'Datos y Nube', 'AI & ML': 'IA y ML', 'Libraries & Frameworks': 'Librerías y Frameworks', 'DevOps & Tools': 'DevOps y Herramientas', 'Databases': 'Bases de Datos' },
 };
 
 // ── German ───────────────────────────────────────────
@@ -227,12 +239,14 @@ const de: Translations = {
     contactMe: 'Kontakt aufnehmen',
     about: 'Über mich',
     summary:
-      'Ich bin ein Senior Data Engineer und Cloud-Datenberater mit über 20 Jahren Erfahrung in der Modernisierung analytischer Ökosysteme ' +
-      'mit Snowflake, Microsoft Fabric, Azure SQL und SQL Server. ' +
-      'Ich baue automatisierte, skalierbare Pipelines und belastbare Datenmodelle, die Rohdaten in zuverlässige, umsetzbare Erkenntnisse verwandeln — ' +
-      'besonders in hochvolumigen, missionskritischen Umgebungen, in denen Leistung, Kosteneffizienz und langfristige Wartbarkeit überlebenswichtig sind. ' +
-      'Mein Toolkit ist tiefes SQL + Python, gepaart mit KI-gestützter Entwicklung (GitHub Copilot, ChatGPT, Claude), ' +
-      'um Lösungen zu liefern, die Cloud-nativ, operativ praktisch und für die Weiterentwicklung über Prototypen hinaus konzipiert sind.',
+      'Senior Data Engineer, KI-Entwickler und Cloud-Berater mit über 20 Jahren Erfahrung in der Umsetzung komplexer Datenprobleme in Produktionssysteme. ' +
+      'Ich architekturiere End-to-End-Lösungen — von inkrementellen ETL-Pipelines und Snowflake/Azure SQL Data Warehouses bis hin zu RAG-Chatbots, ' +
+      'physikbasierten Bergbausimulationen, Echtzeit-Dashboards (34 KPIs über 7 Minenstandorte) und algorithmischen Trading-Engines mit 50K-Trial-Hyperparameter-Optimierung. ' +
+      'Mein Kernstack ist tiefes SQL + Python, erweitert mit KI-Tools, die ich tatsächlich baue — nicht nur nutze: ' +
+      'LLM-Evaluierungspipelines, Vektor-Embedding-Suche, Kalman-Filter-Kalibrierung und Bellman-Ford-Graphalgorithmen. ' +
+      'Ich liefere in hochvolumigen, missionskritischen Umgebungen, in denen Betriebszeit, Kosteneffizienz und langfristige Wartbarkeit überlebenswichtig sind — ' +
+      'Cloud-nativ, operativ praktisch und für die Weiterentwicklung über Prototypen hinaus konzipiert. ' +
+      'Seit Jahren vollständig remote mit US- und LATAM-Teams — strukturierte Lieferung, dokumentationsgetriebene Workflows und klare technische Kommunikation über Zeitzonen hinweg.',
     vision: 'In Frieden leben, frei von starren Strukturen — Projekte aufbauen, die natürlich durch Intelligenz und Bewusstsein fließen. Technologie sollte dem Leben dienen, nicht umgekehrt.',
     visionLabel: 'Vision',
     contactInfo: 'Kontaktdaten',
@@ -281,8 +295,8 @@ const de: Translations = {
     namePlaceholder: 'Dein Name',
     emailPlaceholder: 'deine@email.de',
     messagePlaceholder: 'Deine Nachricht…',
-    linksHeading: 'Links',
-  },
+    linksHeading: 'Links',    messageTooLong: 'Nachricht zu lang (max. {max} Zeichen)',
+    chatAttached: 'Chat-Gespr\u00e4ch angeh\u00e4ngt',  },
   theme: { light: 'Hell', dark: 'Dunkel', toggle: 'Thema wechseln' },
   lang: { label: 'Sprache', es: 'Español', en: 'English', de: 'Deutsch' },
   footer: {
@@ -291,7 +305,9 @@ const de: Translations = {
     source: 'Quellcode',
   },
   project: { viewCode: 'Code ansehen', liveDemo: 'Live-Demo', highlights: 'Highlights' },
-  cert: { issuedBy: 'Ausgestellt von', verify: 'Verifizieren' },
+  cert: { issuedBy: 'Ausgestellt von', verify: 'Verifizieren', expired: 'Abgelaufen', expires: 'Läuft ab', credentialId: 'Zertifikats-ID' },
+  experienceType: { 'full-time': 'Vollzeit', 'contract': 'Vertrag', 'freelance': 'Freiberuflich', 'self-employed': 'Selbstständig' },
+  skillCategory: { 'Languages': 'Sprachen', 'Data & Cloud': 'Daten & Cloud', 'AI & ML': 'KI & ML', 'Libraries & Frameworks': 'Bibliotheken & Frameworks', 'DevOps & Tools': 'DevOps & Werkzeuge', 'Databases': 'Datenbanken' },
 };
 
 export const translations: Record<string, Translations> = { en, es, de };

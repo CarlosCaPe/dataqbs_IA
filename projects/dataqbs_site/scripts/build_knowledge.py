@@ -85,7 +85,10 @@ def collect_readmes() -> list[dict[str, str]]:
         # Skip node_modules, .venv, etc.
         rel = readme.relative_to(MONOREPO_DIR)
         parts = rel.parts
-        if any(p.startswith(".") or p in ("node_modules", ".venv", "dist", "__pycache__") for p in parts):
+        # Skip build artifacts AND security-sensitive dirs (trading configs, API key refs)
+        SKIP_DIRS = {"node_modules", ".venv", "dist", "__pycache__"}
+        SECURITY_EXCLUDE = {"arbitraje", "scalpin", "vpn", "linux", "memo", "arbextra", "MEMO-GRID", "MEMO-GRID-RADAR"}
+        if any(p.startswith(".") or p in SKIP_DIRS or p in SECURITY_EXCLUDE for p in parts):
             continue
         text = readme.read_text(encoding="utf-8", errors="replace").strip()
         if len(text) < 50:
@@ -628,6 +631,20 @@ def main() -> None:
                 },
             })
     print(f"   Total chunks:     {len(chunks)}")
+
+    # 2b. Security filter — drop chunks that leak env-var names or trading internals
+    REDACT_PATTERNS = re.compile(
+        r"(API_KEY|API_SECRET|API_TOKEN|_PASSWORD)\b"
+        r"|BINANCE_|MEXC_|BITGET_|BYBIT_"
+        r"|\barbitraje\b|\bswapper\b|\bscalpin\b",
+        re.IGNORECASE,
+    )
+    before = len(chunks)
+    chunks = [c for c in chunks if not REDACT_PATTERNS.search(c["text"])]
+    dropped = before - len(chunks)
+    if dropped:
+        print(f"   🔒 Redacted:      {dropped} chunks (security filter)")
+    print(f"   Final chunks:     {len(chunks)}")
     print()
 
     # 3. Generate embeddings

@@ -1,4 +1,9 @@
 User-agent: *
 Allow: /
 
+# Block API and internal assets from crawlers
+Disallow: /api/
+Disallow: /knowledge.json
+Disallow: /_astro/
+
 Sitemap: https://www.dataqbs.com/sitemap.xml
