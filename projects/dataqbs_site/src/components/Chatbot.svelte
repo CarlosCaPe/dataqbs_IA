@@ -28,27 +28,45 @@
         timestamp: Date.now(),
       },
     ];
-    // If no Turnstile key configured, go straight to ready
-    if (!TURNSTILE_SITEKEY) {
-      status = 'ready';
+    status = 'ready';
+
+    // Start Turnstile as soon as the script is available
+    if (TURNSTILE_SITEKEY) {
+      waitForTurnstile();
     }
   });
+
+  function waitForTurnstile() {
+    if ((window as any).turnstile) {
+      initTurnstile();
+    } else {
+      // Poll every 200ms until the Turnstile script has loaded (max 10s)
+      let attempts = 0;
+      const interval = setInterval(() => {
+        attempts++;
+        if ((window as any).turnstile) {
+          clearInterval(interval);
+          initTurnstile();
+        } else if (attempts > 50) {
+          clearInterval(interval);
+          // Fail open — Turnstile script never loaded
+        }
+      }, 200);
+    }
+  }
 
   function initTurnstile() {
     if (!TURNSTILE_SITEKEY || turnstileToken || turnstileWidgetId) return;
     const container = document.getElementById('turnstile-container');
     if (!container || !(window as any).turnstile) return;
 
-    status = 'verifying';
     turnstileWidgetId = (window as any).turnstile.render(container, {
       sitekey: TURNSTILE_SITEKEY,
       callback: (token: string) => {
         turnstileToken = token;
-        status = 'ready';
       },
       'error-callback': () => {
         // Fail open — allow chat without turnstile
-        status = 'ready';
       },
       theme: document.documentElement.classList.contains('dark') ? 'dark' : 'light',
       size: 'invisible',
@@ -65,9 +83,11 @@
       return;
     }
 
-    if (!turnstileToken && TURNSTILE_SITEKEY && status === 'ready') {
-      initTurnstile();
-      await new Promise((r) => setTimeout(r, 1500));
+    // Wait for Turnstile token if not yet available (max 3s)
+    if (!turnstileToken && TURNSTILE_SITEKEY) {
+      for (let i = 0; i < 15 && !turnstileToken; i++) {
+        await new Promise((r) => setTimeout(r, 200));
+      }
     }
 
     const userMsg: ChatMessage = { role: 'user', content: msg, timestamp: Date.now() };
