@@ -11,6 +11,7 @@
   let status: ChatStatus = 'idle';
   let isOpen = false;
   let turnstileToken: string | null = null;
+  let turnstileVerified = false;  // true after first message succeeds
   let turnstileWidgetId: string | null = null;
   let messagesContainer: HTMLDivElement;
   let inputElement: HTMLInputElement;
@@ -104,7 +105,7 @@
       message: msg,
       history: messages.filter((m) => m.role !== 'system'),
       locale: $locale,
-      turnstileToken: turnstileToken ?? undefined,
+      turnstileToken: turnstileVerified ? undefined : (turnstileToken ?? undefined),
       onChunk: (text) => {
         status = 'streaming';
         messages = messages.map((m, i) =>
@@ -114,6 +115,7 @@
       },
       onDone: (fullText) => {
         status = 'ready';
+        turnstileVerified = true;  // Token was used; don't resend
         messages = messages.map((m, i) =>
           i === messages.length - 1 ? { ...m, content: fullText } : m,
         );

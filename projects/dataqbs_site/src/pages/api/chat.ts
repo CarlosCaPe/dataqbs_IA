@@ -269,11 +269,13 @@ export const POST: APIRoute = async ({ request, locals }) => {
     return new Response(JSON.stringify({ error: 'Rate limit exceeded' }), { status: 429 });
   }
 
-  // Validate Turnstile — REQUIRE token when secret key is configured
-  if (env.TURNSTILE_SECRET_KEY && !turnstileToken) {
+  // Validate Turnstile — only on the FIRST message (no history).
+  // Tokens are single-use; subsequent messages in the same session skip validation.
+  const isFirstMessage = history.length === 0;
+  if (isFirstMessage && env.TURNSTILE_SECRET_KEY && !turnstileToken) {
     return new Response(JSON.stringify({ error: 'Security verification required' }), { status: 400 });
   }
-  if (turnstileToken && env.TURNSTILE_SECRET_KEY) {
+  if (isFirstMessage && turnstileToken && env.TURNSTILE_SECRET_KEY) {
     try {
       const tsRes = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
         method: 'POST',
