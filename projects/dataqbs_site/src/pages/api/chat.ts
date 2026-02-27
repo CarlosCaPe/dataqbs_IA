@@ -295,14 +295,14 @@ export const POST: APIRoute = async ({ request, locals }) => {
     }
   }
 
-  // ── Load knowledge ─────────────────────────────────
+  // ── Load knowledge from KV (private, not public) ───
   let chunks: { text: string; embedding: number[]; metadata: Record<string, string> }[] = [];
   try {
-    const knowledgeUrl = new URL('/knowledge.json', request.url);
-    const knowledgeRes = await fetch(knowledgeUrl.toString());
-    if (knowledgeRes.ok) {
-      const knowledge = (await knowledgeRes.json()) as { chunks: typeof chunks };
-      chunks = knowledge.chunks ?? [];
+    const kvData = env.KNOWLEDGE_STORE
+      ? await env.KNOWLEDGE_STORE.get('knowledge', 'json') as { chunks: typeof chunks } | null
+      : null;
+    if (kvData) {
+      chunks = kvData.chunks ?? [];
     }
   } catch {
     // No knowledge available — LLM will answer from system prompt only

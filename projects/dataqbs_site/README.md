@@ -27,24 +27,25 @@ Personal portfolio site for [www.dataqbs.com](https://www.dataqbs.com) with a Li
 ## Architecture
 
 ```
-Browser → index.html (static, CDN)
+Browser → index.html (SSR, nonce middleware)
        → POST /api/chat
              │  1. Validate Turnstile token
-             │  2. Embed query via Workers AI
-             │  3. Query expansion (synonym mapping)
-             │  4. Cosine similarity + source priority boost
-             │  5. Top-10 chunks → build prompt
-             │  6. Stream response from Groq
+             │  2. Load knowledge from KV (private)
+             │  3. Embed query via Workers AI
+             │  4. Query expansion (synonym mapping)
+             │  5. Cosine similarity + source priority boost
+             │  6. Top-10 chunks → build prompt
+             │  7. Stream response from Groq
              └→ SSE response to browser
 
-knowledge.json (static asset, generated at build time)
-       ← build_knowledge.py
+KV namespace KNOWLEDGE_STORE (not publicly accessible)
+       ← build_knowledge.py + wrangler kv put
              │  1. Read CV data (src/data/cv.ts)
              │  2. Read certifications (src/data/certs.ts)
              │  3. Read READMEs from monorepo
              │  4. Chunk text (512 tokens, 64 overlap)
              │  5. Embed via Workers AI API
-             └→ public/knowledge.json
+             └→ KV key "knowledge"
 ```
 
 ## Project Structure
@@ -67,6 +68,8 @@ projects/dataqbs_site/
 │   ├── env.d.ts
 │   ├── middleware.ts          ← CSP nonce injection (SSR)
 │   ├── layouts/Layout.astro
+│   ├── pages/
+│   │   ├── knowledge.json.ts  ← 404 blocker (prevents old CDN cache access)
 │   ├── pages/
 │   │   ├── index.astro
 │   │   └── api/
@@ -229,7 +232,7 @@ This site was hardened after a security audit inspired by the [Bloomberg article
 | 5 | XSS via `{@html}` | HIGH | ✅ Fixed | DOMPurify with strict allowlist |
 | 6 | HTML injection in emails | MEDIUM | ✅ Fixed | `htmlEncode()` on all interpolated values |
 | 7 | System prompt leaks PII | MEDIUM | ✅ Fixed | Removed WhatsApp, rates, pricing formulas |
-| 8 | `knowledge.json` accessible | LOW | ⚠️ Partial | noindex + no-store headers (still downloadable) |
+| 8 | `knowledge.json` accessible | LOW | ✅ Fixed | Moved to KV binding + SSR 404 blocker route |
 | 9 | Missing `.gitignore` patterns | MEDIUM | ✅ Fixed | `.env.local`, `.env.production`, `.dev.vars` |
 | 10 | No pre-commit secret scan | MEDIUM | ✅ Fixed | gitleaks v8.21.2 pre-commit hook |
 | 11 | CSP `unsafe-inline` | LOW | ✅ Fixed | Nonce-based CSP via Astro middleware |

@@ -13,7 +13,7 @@ MAX_CHAT_TOKENS      = "300"
 MAX_CONTEXT_CHUNKS = "10"
 RATE_LIMIT_PER_MIN = "12"
 
-# ── KV for contact form (optional — create namespace first) ──
-# [[kv_namespaces]]
-# binding = "CONTACT_STORE"
-# id     = "<your-kv-namespace-id>"
+# ── KV for knowledge base (private, not publicly accessible) ──
+[[kv_namespaces]]
+binding = "KNOWLEDGE_STORE"
+id      = "74ce589850ed4c808275116ffdb322e1"

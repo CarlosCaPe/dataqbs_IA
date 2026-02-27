@@ -5,7 +5,3 @@
   Permissions-Policy: camera=(), microphone=(), geolocation=()
   Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
   X-XSS-Protection: 1; mode=block
-
-/knowledge.json
-  X-Robots-Tag: noindex
-  Cache-Control: private, no-store

@@ -32,6 +32,7 @@ These rules apply to ALL projects in this repo, especially `dataqbs_site`:
 - **DOMPurify**: `src/lib/markdown.ts` sanitizes all `{@html}` output. Never bypass the allowlist.
 - **htmlEncode**: `src/pages/api/contact.ts` encodes all user inputs in email HTML. Never interpolate raw user data.
 - **System Prompt**: `src/pages/api/chat.ts` must never contain PII (phone numbers, exact rates, pricing formulas).
+- **Knowledge Store**: `knowledge.json` is stored in Cloudflare KV (`KNOWLEDGE_STORE` binding), NOT in `public/`. Route `src/pages/knowledge.json.ts` blocks any public access.
 - **CORS**: Locked to `https://www.dataqbs.com` — never set to `*`.
 - **WAF**: Cloudflare dashboard rate limiting rule: 15 req/10s on `/api/*`.
 - **Headers**: HSTS, X-Frame-Options DENY, nosniff, Referrer-Policy strict — set in `public/_headers`.
