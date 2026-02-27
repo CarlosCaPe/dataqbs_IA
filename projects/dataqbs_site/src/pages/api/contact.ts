@@ -31,6 +31,16 @@ function sanitize(input: string, maxLen = 1000): string {
     .trim();
 }
 
+// HTML-encode for safe interpolation in email body
+function htmlEncode(str: string): string {
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
 const DESTINATION_EMAIL = 'carlos.carrillo@dataqbs.com';
 
 // ── Rate limiter (in-memory, per-deployment) ─────────
@@ -180,21 +190,19 @@ export const POST: APIRoute = async ({ request, locals }) => {
 
   // Send email notification via Resend
   const subject = `[dataqbs.com] New message from ${name}`;
-  const chatSection = chatTranscript
-    ? `<hr/><h3>Chat Transcript</h3><pre style="white-space:pre-wrap;font-size:13px;background:#f5f5f5;padding:12px;border-radius:6px;">${chatTranscript}</pre>`
-    : '';
+  const hasChatTranscript = !!chatTranscript;
   const htmlBody = `
     <div style="font-family:sans-serif;max-width:600px;">
       <h2>New Contact from dataqbs.com</h2>
-      <p><strong>Name:</strong> ${name}</p>
-      <p><strong>Email:</strong> <a href="mailto:${email}">${email}</a></p>
-      <p><strong>Locale:</strong> ${locale}</p>
-      <p><strong>IP:</strong> ${clientIP}</p>
-      <p><strong>Time:</strong> ${record.timestamp}</p>
+      <p><strong>Name:</strong> ${htmlEncode(name)}</p>
+      <p><strong>Email:</strong> <a href="mailto:${htmlEncode(email)}">${htmlEncode(email)}</a></p>
+      <p><strong>Locale:</strong> ${htmlEncode(locale)}</p>
+      <p><strong>IP:</strong> ${htmlEncode(clientIP)}</p>
+      <p><strong>Time:</strong> ${htmlEncode(record.timestamp)}</p>
       <hr/>
       <h3>Message</h3>
-      <p style="white-space:pre-wrap;">${message}</p>
-      ${chatSection}
+      <p style="white-space:pre-wrap;">${htmlEncode(message)}</p>
+      ${hasChatTranscript ? `<hr/><h3>Chat Transcript</h3><pre style="white-space:pre-wrap;font-size:13px;background:#f5f5f5;padding:12px;border-radius:6px;">${htmlEncode(chatTranscript)}</pre>` : ''}
     </div>
   `;
 

@@ -18,7 +18,7 @@
   const rateLimiter = new RateLimiter(12);
 
   // ── Turnstile ────────────────────────────────────
-  const TURNSTILE_SITEKEY = ''; // Set a real Turnstile sitekey to enable verification
+  const TURNSTILE_SITEKEY = '0x4AAAAAACjWMTF9SAi1pa7U';
 
   onMount(() => {
     messages = [

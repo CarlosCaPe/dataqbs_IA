@@ -1,8 +1,16 @@
 /**
  * Lightweight markdown → HTML renderer for chat messages.
  * Handles: code blocks, inline code, bold, italic, links, lists, line breaks.
- * No external dependencies.
+ * Final output is sanitized with DOMPurify to prevent XSS.
  */
+import DOMPurify from 'dompurify';
+
+const PURIFY_CONFIG = {
+  ALLOWED_TAGS: ['p', 'br', 'strong', 'em', 'code', 'pre', 'a', 'ul', 'ol', 'li'],
+  ALLOWED_ATTR: ['href', 'target', 'rel', 'class'],
+  ALLOW_DATA_ATTR: false,
+};
+
 export function renderMarkdown(raw: string): string {
   let html = escapeHtml(raw);
 
@@ -41,6 +49,11 @@ export function renderMarkdown(raw: string): string {
   // Single newlines → <br>
   html = html.replace(/\n/g, '<br>');
 
+  // Defense-in-depth: sanitize final HTML to block any XSS bypasses
+  if (typeof window !== 'undefined') {
+    return DOMPurify.sanitize(`<p>${html}</p>`, PURIFY_CONFIG);
+  }
+  // SSR fallback (DOMPurify needs DOM) — escapeHtml already ran
   return `<p>${html}</p>`;
 }
 

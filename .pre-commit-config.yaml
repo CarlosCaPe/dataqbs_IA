@@ -12,3 +12,7 @@ repos:
       - id: trailing-whitespace
       - id: check-yaml
       - id: check-toml
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.21.2
+    hooks:
+      - id: gitleaks

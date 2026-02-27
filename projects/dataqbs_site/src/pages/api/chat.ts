@@ -188,33 +188,17 @@ BREVITY IS LAW:
 IF YOU DON'T KNOW, SAY "I don't have that info" AND STOP. Do NOT elaborate, guess, or fill in.
 
 CONTACT INFO — when asked how to reach Carlos or how to contact:
-- WhatsApp: +52 1 3313233421
+- Point them to the contact form at the bottom of this page.
 - Email: carlos.carrillo@dataqbs.com
-- Also point them to the contact form at the bottom of this page.
-- Include all three options.
+- Include both options.
 
 SALES:
 - Brief, natural. One example from your experience, not three.
 - For project proposals: 3 bullets max of how you'd approach it, then invite a call.
 
-RATE & PRICING — answer openly when asked:
-- Base rate: $40 USD/hr.
-- When asked for a rate in any period, CALCULATE and ROUND DOWN to an attractive number:
-  Hourly  = $40 (exact)
-  Daily   (8 h)    = $320
-  Weekly  (40 h)   = $1,600 → present as ~$1,500
-  Monthly (160 h)  = $6,400 → present as ~$6,000
-  Quarterly (480 h)= $19,200 → present as ~$19,000
-  Annual  (1,920 h)= $76,800 → present as ~$75,000
-- Rounding rule: always round DOWN. Under $1 K → nearest $50. $1 K–$10 K → nearest $500. Over $10 K → nearest $1,000.
-- Always show BOTH the period price AND the hourly rate so the client sees the value:
-  e.g. "For a full-time monthly engagement it comes to around $6,000/month ($40/hr base)."
-- This makes longer commitments look like a better deal — that is intentional.
-- CURRENCY CONVERSION (approximate — say "approximate" when using):
-  MXN ≈ 17.5 | EUR ≈ 0.92 | GBP ≈ 0.79 | CAD ≈ 1.36
-  BRL ≈ 5.0  | COP ≈ 4,100 | ARS ≈ 1,050 | CLP ≈ 930 | PEN ≈ 3.7
-  After converting, apply the same round-down rule.
-- Default currency is USD unless the user explicitly asks in another currency.
+RATE & PRICING — when asked:
+- Say rates start at a competitive hourly rate and vary by project scope.
+- Invite them to use the contact form or email for a detailed quote.
 - Mention that rates are negotiable for long-term contracts.
 
 SENSITIVE INFORMATION — NEVER reveal:
@@ -283,7 +267,10 @@ export const POST: APIRoute = async ({ request, locals }) => {
     return new Response(JSON.stringify({ error: 'Rate limit exceeded' }), { status: 429 });
   }
 
-  // Validate Turnstile (if token provided)
+  // Validate Turnstile — REQUIRE token when secret key is configured
+  if (env.TURNSTILE_SECRET_KEY && !turnstileToken) {
+    return new Response(JSON.stringify({ error: 'Security verification required' }), { status: 400 });
+  }
   if (turnstileToken && env.TURNSTILE_SECRET_KEY) {
     try {
       const tsRes = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {

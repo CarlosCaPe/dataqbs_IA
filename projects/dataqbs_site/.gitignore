@@ -10,6 +10,12 @@ dist/
 
 # Secrets
 .dev.vars
+.env.local
+.env.production
+.env.*.local
+
+# Test results (may contain API responses)
+tests/*_results.json
 
 # OS
 .DS_Store

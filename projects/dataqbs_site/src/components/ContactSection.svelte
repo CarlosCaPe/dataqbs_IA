@@ -12,6 +12,10 @@
   let hasTranscript = false;
   const maxMessageLength = 5000;
 
+  // ── Turnstile ────────────────────────────────────
+  const TURNSTILE_SITEKEY = '0x4AAAAAACjWMTF9SAi1pa7U';
+  let contactTurnstileToken: string | null = null;
+
   function removeTranscript() {
     hasTranscript = false;
     if (typeof window !== 'undefined') (window as any).__chatTranscript = '';
@@ -35,6 +39,20 @@
         if (nameInput) nameInput.focus();
       }, 600);
     }) as EventListener);
+
+    // Render Turnstile invisible widget for contact form
+    if (TURNSTILE_SITEKEY && (window as any).turnstile) {
+      const container = document.getElementById('contact-turnstile');
+      if (container) {
+        (window as any).turnstile.render(container, {
+          sitekey: TURNSTILE_SITEKEY,
+          callback: (token: string) => { contactTurnstileToken = token; },
+          'error-callback': () => { contactTurnstileToken = null; },
+          theme: document.documentElement.classList.contains('dark') ? 'dark' : 'light',
+          size: 'invisible',
+        });
+      }
+    }
   });
 
   async function handleSubmit() {
@@ -57,7 +75,7 @@
           email: email.trim(),
           message: message.trim(),
           locale: $locale,
-          turnstileToken: '',
+          turnstileToken: contactTurnstileToken || '',
           chatTranscript: chatTranscript || undefined,
         }),
       });
@@ -167,6 +185,8 @@
               </button>
             </div>
           {/if}
+          <!-- Turnstile invisible widget for contact form -->
+          <div id="contact-turnstile" class="hidden"></div>
           <button type="submit" class="btn-primary w-full" disabled={sending}>
             {#if sending}
               <svg class="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
