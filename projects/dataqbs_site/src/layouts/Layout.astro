@@ -82,22 +82,62 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
       type="application/ld+json"
       set:html={JSON.stringify({
         '@context': 'https://schema.org',
-        '@type': 'Person',
-        name: 'Carlos Carrillo',
-        url: 'https://www.dataqbs.com',
-        jobTitle: 'AI-Driven Engineer | Data · Developer · DBA',
-        description: 'Senior Data Engineer with 20+ years of experience in Snowflake, Azure SQL, Python, and AI-assisted development.',
-        knowsAbout: ['Data Engineering', 'Python', 'SQL', 'Snowflake', 'Azure', 'AI/ML', 'ETL', 'Cloud Architecture'],
-        sameAs: ['https://linkedin.com/in/carlosalbertocarrillo'],
-        address: {
-          '@type': 'PostalAddress',
-          addressCountry: 'MX',
-        },
-        worksFor: {
-          '@type': 'Organization',
-          name: 'dataqbs',
-          url: 'https://www.dataqbs.com',
-        },
+        '@graph': [
+          {
+            '@type': 'WebSite',
+            '@id': 'https://www.dataqbs.com/#website',
+            url: 'https://www.dataqbs.com',
+            name: 'Carlos Carrillo | Data Engineer & Software Developer',
+            description: description,
+            inLanguage: ['en', 'es', 'de'],
+            publisher: { '@id': 'https://www.dataqbs.com/#person' },
+          },
+          {
+            '@type': 'ProfilePage',
+            '@id': 'https://www.dataqbs.com/#profilepage',
+            url: 'https://www.dataqbs.com',
+            name: title,
+            isPartOf: { '@id': 'https://www.dataqbs.com/#website' },
+            mainEntity: { '@id': 'https://www.dataqbs.com/#person' },
+            dateModified: new Date().toISOString().split('T')[0],
+          },
+          {
+            '@type': 'Person',
+            '@id': 'https://www.dataqbs.com/#person',
+            name: 'Carlos Carrillo',
+            givenName: 'Carlos',
+            familyName: 'Carrillo',
+            url: 'https://www.dataqbs.com',
+            image: new URL('/og-image.png', 'https://www.dataqbs.com').href,
+            jobTitle: 'AI-Driven Engineer | Data · Developer · DBA',
+            description: 'Senior Data Engineer and Cloud Data Consultant with 20+ years of experience modernizing analytics ecosystems across Snowflake, Azure SQL, Python, and AI-assisted development.',
+            knowsAbout: [
+              'Data Engineering', 'Python', 'SQL', 'Snowflake',
+              'Azure', 'AI/ML', 'ETL', 'Cloud Architecture',
+              'dbt', 'Microsoft Fabric', 'KQL', 'Cloudflare Workers',
+            ],
+            hasCredential: [
+              { '@type': 'EducationalOccupationalCredential', name: 'Generative AI Professional Certificate', credentialCategory: 'certification', recognizedBy: { '@type': 'Organization', name: 'Snowflake' } },
+              { '@type': 'EducationalOccupationalCredential', name: 'Fabric Data Engineer Associate', credentialCategory: 'certification', recognizedBy: { '@type': 'Organization', name: 'Microsoft' } },
+              { '@type': 'EducationalOccupationalCredential', name: 'Azure Data Fundamentals (DP-900)', credentialCategory: 'certification', recognizedBy: { '@type': 'Organization', name: 'Microsoft' } },
+              { '@type': 'EducationalOccupationalCredential', name: 'Azure Fundamentals (AZ-900)', credentialCategory: 'certification', recognizedBy: { '@type': 'Organization', name: 'Microsoft' } },
+              { '@type': 'EducationalOccupationalCredential', name: 'dbt Fundamentals', credentialCategory: 'certification', recognizedBy: { '@type': 'Organization', name: 'dbt Labs' } },
+            ],
+            sameAs: [
+              'https://www.linkedin.com/in/carlosalbertocarrillo',
+              'https://github.com/CarlosCaPe',
+            ],
+            address: {
+              '@type': 'PostalAddress',
+              addressCountry: 'MX',
+            },
+            worksFor: [
+              { '@type': 'Organization', name: 'Hexaware Technologies', url: 'https://www.hexaware.com' },
+              { '@type': 'Organization', name: 'FussionHit' },
+              { '@type': 'Organization', name: 'dataqbs', url: 'https://www.dataqbs.com' },
+            ],
+          },
+        ],
       })}
     />
   </head>
