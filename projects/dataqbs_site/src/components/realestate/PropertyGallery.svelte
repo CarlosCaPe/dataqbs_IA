@@ -73,12 +73,12 @@
       .replace(/\/\//g, '/')          // collapse double slashes
       .replace(/[?#].*/g, '');        // strip query strings and fragments
     // Validate basePath starts with expected prefix
-    const safeBase = basePath.startsWith('/realstate/') ? basePath : '/realstate';
+    const safeBase = basePath.startsWith('/realestate/') ? basePath : '/realestate';
     return `${safeBase}/${sanitized}`;
   }
 
   function photoOfLabel(n: number, tot: number): string {
-    return $t.rs.photoOf.replace('{n}', String(n)).replace('{total}', String(tot));
+    return $t.re.photoOf.replace('{n}', String(n)).replace('{total}', String(tot));
   }
 </script>
 
@@ -116,7 +116,7 @@
       {#each sortedImages.slice(1, 13) as img, i}
         <button
           on:click={() => openLightbox(i + 1)}
-          class="relative group rounded-lg overflow-hidden aspect-square focus:outline-none focus:ring-2 focus:ring-rs-500"
+          class="relative group rounded-lg overflow-hidden aspect-square focus:outline-none focus:ring-2 focus:ring-re-500"
         >
           <img
             src={getImageUrl(img)}
@@ -131,7 +131,7 @@
       {#if sortedImages.length > 13}
         <button
           on:click={() => openLightbox(13)}
-          class="relative group rounded-lg overflow-hidden aspect-square bg-slate-800 flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-rs-500"
+          class="relative group rounded-lg overflow-hidden aspect-square bg-slate-800 flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-re-500"
         >
           <span class="text-white font-semibold text-sm">+{sortedImages.length - 13}</span>
         </button>
@@ -212,7 +212,7 @@
         <button
           on:click|stopPropagation={() => goTo(i)}
           class="w-2 h-2 rounded-full transition-all duration-200 flex-shrink-0
-            {i === currentIndex ? 'bg-rs-500 scale-125' : 'bg-white/40 hover:bg-white/70'}"
+            {i === currentIndex ? 'bg-re-500 scale-125' : 'bg-white/40 hover:bg-white/70'}"
           aria-label="Go to photo {i + 1}"
         />
       {/each}

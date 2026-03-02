@@ -41,7 +41,7 @@ export const onRequest = defineMiddleware(async (context, next) => {
     "font-src 'self' https://fonts.gstatic.com",
     "img-src 'self' data: https:",
     "connect-src 'self' https://api.resend.com https://challenges.cloudflare.com",
-    "frame-src https://challenges.cloudflare.com",
+    "frame-src https://challenges.cloudflare.com https://www.openstreetmap.org",
     "base-uri 'self'",
     "form-action 'self'",
   ].join('; ');

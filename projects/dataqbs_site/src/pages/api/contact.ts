@@ -42,6 +42,7 @@ function htmlEncode(str: string): string {
 }
 
 const DESTINATION_EMAIL = 'carlos.carrillo@dataqbs.com';
+const REALESTATE_EMAILS = ['carlos.carrillo@dataqbs.com', 'claudia.zuniga@dataqbs.com'];
 
 // ── Rate limiter (in-memory, per-deployment) ─────────
 const rateLimitMap = new Map<string, number[]>();
@@ -82,6 +83,7 @@ async function verifyTurnstile(token: string, secret: string, ip: string): Promi
 async function sendEmailResend(
   apiKey: string,
   from: string,
+  recipients: string[],
   subject: string,
   htmlBody: string,
   replyTo: string,
@@ -95,7 +97,7 @@ async function sendEmailResend(
       },
       body: JSON.stringify({
         from,
-        to: [DESTINATION_EMAIL],
+        to: recipients,
         reply_to: replyTo,
         subject,
         html: htmlBody,
@@ -189,14 +191,15 @@ export const POST: APIRoute = async ({ request, locals }) => {
   console.log('[CONTACT FORM]', JSON.stringify(record));
 
   // Send email notification via Resend
-  const isRealstate = message.startsWith('[realstate');
-  const subject = isRealstate
-    ? `[realstate] New inquiry from ${name}`
+  const isRealestate = message.startsWith('[realestate');
+  const subject = isRealestate
+    ? `[realestate] New inquiry from ${name}`
     : `[dataqbs.com] New message from ${name}`;
   const hasChatTranscript = !!chatTranscript;
+  const emailSource = isRealestate ? 'realestate (dataqbs)' : 'dataqbs.com';
   const htmlBody = `
     <div style="font-family:sans-serif;max-width:600px;">
-      <h2>New Contact from dataqbs.com</h2>
+      <h2>New Contact from ${htmlEncode(emailSource)}</h2>
       <p><strong>Name:</strong> ${htmlEncode(name)}</p>
       <p><strong>Email:</strong> <a href="mailto:${htmlEncode(email)}">${htmlEncode(email)}</a></p>
       <p><strong>Locale:</strong> ${htmlEncode(locale)}</p>
@@ -215,7 +218,8 @@ export const POST: APIRoute = async ({ request, locals }) => {
   if (resendKey) {
     // Use verified domain sender, or Resend's onboarding address
     const fromAddr = env.EMAIL_FROM ?? 'dataqbs.com <onboarding@resend.dev>';
-    const result = await sendEmailResend(resendKey, fromAddr, subject, htmlBody, email);
+    const toList = isRealestate ? REALESTATE_EMAILS : [DESTINATION_EMAIL];
+    const result = await sendEmailResend(resendKey, fromAddr, toList, subject, htmlBody, email);
     emailSent = result.ok;
     if (!result.ok) {
       console.error('[CONTACT] Email delivery failed:', result.error);

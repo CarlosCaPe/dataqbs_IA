@@ -25,16 +25,16 @@
 
 <header class="sticky top-0 z-40 backdrop-blur-md bg-white/80 dark:bg-slate-900/80 border-b border-slate-200 dark:border-slate-700/50">
   <!-- Decorative RS cubes -->
-  <img src="/rs-favicon.svg" alt="" class="absolute left-0 top-0 h-full w-auto opacity-[0.07] pointer-events-none select-none" aria-hidden="true" />
-  <img src="/rs-favicon.svg" alt="" class="absolute right-0 top-0 h-full w-auto opacity-[0.07] pointer-events-none select-none" aria-hidden="true" />
+  <img src="/re-favicon.svg" alt="" class="absolute left-0 top-0 h-full w-auto opacity-[0.07] pointer-events-none select-none" aria-hidden="true" />
+  <img src="/re-favicon.svg" alt="" class="absolute right-0 top-0 h-full w-auto opacity-[0.07] pointer-events-none select-none" aria-hidden="true" />
 
   <div class="max-w-5xl mx-auto px-4 sm:px-6 relative">
     <div class="flex items-center justify-between h-16">
 
       <!-- RS Logo -->
-      <a href="/realstate" class="flex items-center gap-2 font-bold text-lg text-rs-600 dark:text-rs-400">
-        <img src="/rs-favicon.svg" alt="realstate" class="w-8 h-8" />
-        <span class="hidden sm:inline">realstate</span>
+      <a href="/realestate" class="flex items-center gap-2 font-bold text-lg text-re-600 dark:text-re-400">
+        <img src="/re-favicon.svg" alt="realestate" class="w-8 h-8" />
+        <span class="hidden sm:inline">realestate</span>
       </a>
 
       <!-- Controls -->
@@ -56,8 +56,8 @@
                   on:click={() => setLocale(loc)}
                   class="w-full text-left px-3 py-2 rounded-lg text-sm hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors"
                   class:font-semibold={$locale === loc}
-                  class:text-rs-600={$locale === loc}
-                  class:dark:text-rs-400={$locale === loc}
+                  class:text-re-600={$locale === loc}
+                  class:dark:text-re-400={$locale === loc}
                 >
                   {$t.lang[loc]}
                 </button>

@@ -33,11 +33,11 @@
   // Map feature categories to i18n keys
   function getCategoryLabel(cat: string): string {
     const map: Record<string, string> = {
-      Exterior: $t.rs.exterior,
-      Interior: $t.rs.interior,
-      Equipamiento: $t.rs.equipment,
-      Seguridad: $t.rs.security,
-      Estatus: $t.rs.status,
+      Exterior: $t.re.exterior,
+      Interior: $t.re.interior,
+      Equipamiento: $t.re.equipment,
+      Seguridad: $t.re.security,
+      Estatus: $t.re.status,
     };
     return map[cat] || cat;
   }
@@ -64,8 +64,8 @@
   <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
     <div class="space-y-2">
       <div class="flex items-center gap-2">
-        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-rs-100 text-rs-800 dark:bg-rs-900/30 dark:text-rs-300">
-          {$t.rs.sale}
+        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-re-100 text-re-800 dark:bg-re-900/30 dark:text-re-300">
+          {$t.re.sale}
         </span>
         <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-slate-100 text-slate-700 dark:bg-slate-700 dark:text-slate-300">
           {property.property_type}
@@ -86,7 +86,7 @@
       </p>
     </div>
     <div class="flex flex-col items-end gap-1 flex-shrink-0">
-      <span class="text-3xl sm:text-4xl font-bold text-rs-600 dark:text-rs-400">
+      <span class="text-3xl sm:text-4xl font-bold text-re-600 dark:text-re-400">
         {priceFormatted}
       </span>
       {#if pricePerM2}
@@ -113,14 +113,14 @@
   <!-- ── Quick Specs ────────────────────────────────── -->
   <div class="card p-6">
     <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
-      📐 {$t.rs.overview}
+      📐 {$t.re.overview}
     </h2>
     <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
       {#if property.bedrooms != null}
         <div class="flex flex-col items-center p-3 rounded-lg bg-slate-50 dark:bg-slate-700/50">
           <span class="text-2xl">🛏️</span>
           <span class="text-2xl font-bold text-slate-900 dark:text-white">{property.bedrooms}</span>
-          <span class="text-xs text-slate-500 dark:text-slate-400">{$t.rs.bedrooms}</span>
+          <span class="text-xs text-slate-500 dark:text-slate-400">{$t.re.bedrooms}</span>
         </div>
       {/if}
       {#if property.bathrooms != null}
@@ -129,56 +129,56 @@
           <span class="text-2xl font-bold text-slate-900 dark:text-white">
             {property.bathrooms}{#if property.half_bathrooms}.5{/if}
           </span>
-          <span class="text-xs text-slate-500 dark:text-slate-400">{$t.rs.bathrooms}</span>
+          <span class="text-xs text-slate-500 dark:text-slate-400">{$t.re.bathrooms}</span>
         </div>
       {/if}
       {#if property.parking_spaces != null}
         <div class="flex flex-col items-center p-3 rounded-lg bg-slate-50 dark:bg-slate-700/50">
           <span class="text-2xl">🚗</span>
           <span class="text-2xl font-bold text-slate-900 dark:text-white">{property.parking_spaces}</span>
-          <span class="text-xs text-slate-500 dark:text-slate-400">{$t.rs.parking}</span>
+          <span class="text-xs text-slate-500 dark:text-slate-400">{$t.re.parking}</span>
         </div>
       {/if}
       {#if property.lot_size != null}
         <div class="flex flex-col items-center p-3 rounded-lg bg-slate-50 dark:bg-slate-700/50">
           <span class="text-2xl">📏</span>
           <span class="text-2xl font-bold text-slate-900 dark:text-white">{property.lot_size}</span>
-          <span class="text-xs text-slate-500 dark:text-slate-400">{$t.rs.lotSize} ({property.lot_size_unit})</span>
+          <span class="text-xs text-slate-500 dark:text-slate-400">{$t.re.lotSize} ({property.lot_size_unit})</span>
         </div>
       {/if}
       {#if property.construction_size != null}
         <div class="flex flex-col items-center p-3 rounded-lg bg-slate-50 dark:bg-slate-700/50">
           <span class="text-2xl">🏗️</span>
           <span class="text-2xl font-bold text-slate-900 dark:text-white">{property.construction_size}</span>
-          <span class="text-xs text-slate-500 dark:text-slate-400">{$t.rs.construction} ({property.construction_size_unit})</span>
+          <span class="text-xs text-slate-500 dark:text-slate-400">{$t.re.construction} ({property.construction_size_unit})</span>
         </div>
       {/if}
       {#if property.floors != null}
         <div class="flex flex-col items-center p-3 rounded-lg bg-slate-50 dark:bg-slate-700/50">
           <span class="text-2xl">🏢</span>
           <span class="text-2xl font-bold text-slate-900 dark:text-white">{property.floors}</span>
-          <span class="text-xs text-slate-500 dark:text-slate-400">{$t.rs.floors}</span>
+          <span class="text-xs text-slate-500 dark:text-slate-400">{$t.re.floors}</span>
         </div>
       {/if}
       {#if property.year_built != null}
         <div class="flex flex-col items-center p-3 rounded-lg bg-slate-50 dark:bg-slate-700/50">
           <span class="text-2xl">📅</span>
           <span class="text-2xl font-bold text-slate-900 dark:text-white">{property.year_built}</span>
-          <span class="text-xs text-slate-500 dark:text-slate-400">{$t.rs.yearBuilt}</span>
+          <span class="text-xs text-slate-500 dark:text-slate-400">{$t.re.yearBuilt}</span>
         </div>
       {/if}
       {#if property.age != null}
         <div class="flex flex-col items-center p-3 rounded-lg bg-slate-50 dark:bg-slate-700/50">
           <span class="text-2xl">⏳</span>
           <span class="text-2xl font-bold text-slate-900 dark:text-white">{property.age}</span>
-          <span class="text-xs text-slate-500 dark:text-slate-400">{$t.rs.age} ({$t.rs.years})</span>
+          <span class="text-xs text-slate-500 dark:text-slate-400">{$t.re.age} ({$t.re.years})</span>
         </div>
       {/if}
       {#if property.floor != null}
         <div class="flex flex-col items-center p-3 rounded-lg bg-slate-50 dark:bg-slate-700/50">
           <span class="text-2xl">🔢</span>
           <span class="text-2xl font-bold text-slate-900 dark:text-white">{property.floor}</span>
-          <span class="text-xs text-slate-500 dark:text-slate-400">{$t.rs.floor}</span>
+          <span class="text-xs text-slate-500 dark:text-slate-400">{$t.re.floor}</span>
         </div>
       {/if}
     </div>
@@ -187,7 +187,7 @@
   <!-- ── Description ────────────────────────────────── -->
   <div class="card p-6">
     <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
-      📝 {$t.rs.description}
+      📝 {$t.re.description}
     </h2>
     <div class="prose prose-slate dark:prose-invert max-w-none text-sm leading-relaxed">
       {#each descriptionFormatted.split('\n') as line}
@@ -208,18 +208,18 @@
   {#if Object.keys(featureGroups).length > 0}
     <div class="card p-6">
       <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
-        ✨ {$t.rs.features}
+        ✨ {$t.re.features}
       </h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
         {#each Object.entries(featureGroups) as [category, features]}
           <div>
-            <h3 class="text-sm font-semibold text-rs-600 dark:text-rs-400 uppercase tracking-wider mb-2 flex items-center gap-1">
+            <h3 class="text-sm font-semibold text-re-600 dark:text-re-400 uppercase tracking-wider mb-2 flex items-center gap-1">
               {getCategoryIcon(category)} {getCategoryLabel(category)}
             </h3>
             <ul class="space-y-1.5">
               {#each features as feature}
                 <li class="flex items-start gap-2 text-sm text-slate-600 dark:text-slate-300">
-                  <svg class="w-4 h-4 text-rs-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <svg class="w-4 h-4 text-re-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
                   </svg>
                   {feature}
@@ -236,7 +236,7 @@
   {#if property.location}
     <div class="card p-6">
       <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
-        📍 {$t.rs.location}
+        📍 {$t.re.location}
       </h2>
       <div class="space-y-3">
         <div class="flex flex-wrap gap-2 text-sm">
@@ -266,7 +266,7 @@
         {#if property.nearby_places?.length > 0}
           <div class="mt-4">
             <h3 class="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
-              {$t.rs.nearby}
+              {$t.re.nearby}
             </h3>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
               {#each property.nearby_places as place}
@@ -288,11 +288,11 @@
   {#if property.tags?.length > 0}
     <div class="card p-6">
       <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
-        🏷️ {$t.rs.tags}
+        🏷️ {$t.re.tags}
       </h2>
       <div class="flex flex-wrap gap-2">
         {#each property.tags as tag}
-          <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-rs-100 text-rs-700 dark:bg-rs-900/30 dark:text-rs-300">
+          <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-re-100 text-re-700 dark:bg-re-900/30 dark:text-re-300">
             {tag}
           </span>
         {/each}
@@ -312,11 +312,11 @@
   <footer class="border-t border-slate-200 dark:border-slate-700 pt-8 pb-4">
     <div class="text-center space-y-2">
       <div class="flex items-center justify-center gap-2">
-        <img src="/rs-favicon.svg" alt="realstate" class="w-6 h-6" />
-        <span class="font-bold text-rs-600 dark:text-rs-400">realstate</span>
+        <img src="/re-favicon.svg" alt="realestate" class="w-6 h-6" />
+        <span class="font-bold text-re-600 dark:text-re-400">realestate</span>
       </div>
       <p class="text-sm text-slate-500 dark:text-slate-400">
-        © {new Date().getFullYear()} realstate
+        © {new Date().getFullYear()} realestate
       </p>
     </div>
   </footer>

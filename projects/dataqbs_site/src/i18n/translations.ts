@@ -65,7 +65,7 @@ export interface Translations {
   cert: { issuedBy: string; verify: string; expired: string; expires: string; credentialId: string };
   experienceType: Record<string, string>;
   skillCategory: Record<string, string>;
-  rs: {
+  re: {
     sale: string;
     bedrooms: string;
     bathrooms: string;
@@ -181,7 +181,7 @@ const en: Translations = {
   cert: { issuedBy: 'Issued by', verify: 'Verify', expired: 'Expired', expires: 'Expires', credentialId: 'Credential ID' },
   experienceType: { 'full-time': 'Full-time', 'contract': 'Contract', 'freelance': 'Freelance', 'self-employed': 'Self-employed' },
   skillCategory: { 'Languages': 'Languages', 'Data & Cloud': 'Data & Cloud', 'AI & ML': 'AI & ML', 'Libraries & Frameworks': 'Libraries & Frameworks', 'DevOps & Tools': 'DevOps & Tools', 'Databases': 'Databases' },
-  rs: {
+  re: {
     sale: 'For Sale',
     bedrooms: 'Bedrooms',
     bathrooms: 'Bathrooms',
@@ -214,7 +214,7 @@ const en: Translations = {
     backToList: 'Back',
     propertyType: 'Property Type',
     viewMore: 'View More',
-    brand: 'realstate',
+    brand: 'realestate',
   },
 };
 
@@ -297,7 +297,7 @@ const es: Translations = {
   cert: { issuedBy: 'Emitido por', verify: 'Verificar', expired: 'Expirada', expires: 'Expira', credentialId: 'ID de Credencial' },
   experienceType: { 'full-time': 'Tiempo completo', 'contract': 'Contrato', 'freelance': 'Freelance', 'self-employed': 'Independiente' },
   skillCategory: { 'Languages': 'Lenguajes', 'Data & Cloud': 'Datos y Nube', 'AI & ML': 'IA y ML', 'Libraries & Frameworks': 'Librerías y Frameworks', 'DevOps & Tools': 'DevOps y Herramientas', 'Databases': 'Bases de Datos' },
-  rs: {
+  re: {
     sale: 'En Venta',
     bedrooms: 'Recámaras',
     bathrooms: 'Baños',
@@ -330,7 +330,7 @@ const es: Translations = {
     backToList: 'Volver',
     propertyType: 'Tipo de Propiedad',
     viewMore: 'Ver Más',
-    brand: 'realstate',
+    brand: 'realestate',
   },
 };
 
@@ -413,7 +413,7 @@ const de: Translations = {
   cert: { issuedBy: 'Ausgestellt von', verify: 'Verifizieren', expired: 'Abgelaufen', expires: 'Läuft ab', credentialId: 'Zertifikats-ID' },
   experienceType: { 'full-time': 'Vollzeit', 'contract': 'Vertrag', 'freelance': 'Freiberuflich', 'self-employed': 'Selbstständig' },
   skillCategory: { 'Languages': 'Sprachen', 'Data & Cloud': 'Daten & Cloud', 'AI & ML': 'KI & ML', 'Libraries & Frameworks': 'Bibliotheken & Frameworks', 'DevOps & Tools': 'DevOps & Werkzeuge', 'Databases': 'Datenbanken' },
-  rs: {
+  re: {
     sale: 'Zu Verkaufen',
     bedrooms: 'Schlafzimmer',
     bathrooms: 'Badezimmer',
@@ -446,7 +446,7 @@ const de: Translations = {
     backToList: 'Zurück',
     propertyType: 'Immobilientyp',
     viewMore: 'Mehr anzeigen',
-    brand: 'realstate',
+    brand: 'realestate',
   },
 };
 

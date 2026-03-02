@@ -18,7 +18,7 @@ export default {
           900: '#1e3a8a',
           950: '#172554',
         },
-        rs: {
+        re: {
           50: '#fef2f2',
           100: '#fee2e2',
           200: '#fecaca',

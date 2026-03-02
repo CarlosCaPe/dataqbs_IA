@@ -8,9 +8,9 @@ interface Props {
 }
 
 const {
-  title = 'realstate | Propiedades en Venta',
+  title = 'realestate | Propiedades en Venta',
   description = 'Propiedades en venta en Guadalajara y zona metropolitana. Casas y departamentos seleccionados con ficha técnica completa.',
-  image = '/rs-favicon.svg',
+  image = '/re-favicon.svg',
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
@@ -21,13 +21,13 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/svg+xml" href="/rs-favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href="/re-favicon.svg" />
     <link rel="canonical" href={canonicalURL} />
 
     <!-- SEO -->
     <title>{title}</title>
     <meta name="description" content={description} />
-    <meta name="author" content="realstate" />
+    <meta name="author" content="realestate" />
     <meta name="keywords" content="Bienes Raíces, Guadalajara, Tlajomulco, Tlaquepaque, Casa, Departamento, Venta, Jalisco" />
 
     <!-- Open Graph -->
@@ -76,7 +76,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
       set:html={JSON.stringify({
         '@context': 'https://schema.org',
         '@type': 'RealEstateAgent',
-        name: 'realstate',
+        name: 'realestate',
         url: canonicalURL.href,
         description: description,
         areaServed: {
