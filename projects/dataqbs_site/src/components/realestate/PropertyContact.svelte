@@ -31,38 +31,31 @@
   $: emailSubject = encodeURIComponent(`${$t.re.requestInfo}: ${propertyTitle}`);
   $: emailUrl = `mailto:${CONTACT_EMAIL}?subject=${emailSubject}`;
 
+  function renderTurnstile() {
+    const container = document.getElementById('re-contact-turnstile');
+    if (!container || !(window as any).turnstile) return false;
+    (window as any).turnstile.render(container, {
+      sitekey: TURNSTILE_SITEKEY,
+      callback: (token: string) => { turnstileToken = token; turnstileError = false; },
+      'error-callback': () => { turnstileToken = null; turnstileError = true; },
+      theme: document.documentElement.classList.contains('dark') ? 'dark' : 'light',
+      size: 'invisible',
+    });
+    return true;
+  }
+
   onMount(() => {
-    // Render Turnstile invisible widget
-    if (TURNSTILE_SITEKEY && (window as any).turnstile) {
-      const container = document.getElementById('re-contact-turnstile');
-      if (container) {
-        (window as any).turnstile.render(container, {
-          sitekey: TURNSTILE_SITEKEY,
-          callback: (token: string) => { turnstileToken = token; turnstileError = false; },
-          'error-callback': () => { turnstileToken = null; turnstileError = true; },
-          theme: document.documentElement.classList.contains('dark') ? 'dark' : 'light',
-          size: 'invisible',
-        });
+    if (!TURNSTILE_SITEKEY) return;
+    if (renderTurnstile()) return;
+    // Poll every 500ms until Turnstile script loads (max 10s)
+    let attempts = 0;
+    const interval = setInterval(() => {
+      attempts++;
+      if (renderTurnstile() || attempts >= 20) {
+        clearInterval(interval);
+        if (attempts >= 20 && !turnstileToken) turnstileError = true;
       }
-    } else if (TURNSTILE_SITEKEY) {
-      // Turnstile script not loaded yet — retry once after a short delay
-      setTimeout(() => {
-        if ((window as any).turnstile) {
-          const container = document.getElementById('re-contact-turnstile');
-          if (container) {
-            (window as any).turnstile.render(container, {
-              sitekey: TURNSTILE_SITEKEY,
-              callback: (token: string) => { turnstileToken = token; turnstileError = false; },
-              'error-callback': () => { turnstileToken = null; turnstileError = true; },
-              theme: document.documentElement.classList.contains('dark') ? 'dark' : 'light',
-              size: 'invisible',
-            });
-          }
-        } else {
-          turnstileError = true;
-        }
-      }, 2000);
-    }
+    }, 500);
   });
 
   async function handleSubmit() {

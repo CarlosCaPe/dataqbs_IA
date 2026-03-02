@@ -8,9 +8,9 @@
 
   // Language note for non-Spanish users
   $: showLangNote = $locale !== 'es';
-  const langNotes: Record<string, string> = {
-    en: 'This listing is in Spanish. Contact us for assistance in English.',
-    de: 'Diese Anzeige ist auf Spanisch. Kontaktieren Sie uns für Hilfe auf Deutsch.',
+  const langNotes: Record<string, { text: string; cta: string }> = {
+    en: { text: 'This listing is in Spanish.', cta: 'Contact us for assistance in English' },
+    de: { text: 'Diese Anzeige ist auf Spanisch.', cta: 'Kontaktieren Sie uns für Hilfe auf Deutsch' },
   };
 
   // Group features by category
@@ -64,7 +64,7 @@
   <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
     <div class="space-y-2">
       <div class="flex items-center gap-2">
-        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-re-100 text-re-800 dark:bg-re-900/30 dark:text-re-300">
+        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-re-600 text-white dark:bg-re-700 dark:text-white">
           {$t.re.sale}
         </span>
         <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-slate-100 text-slate-700 dark:bg-slate-700 dark:text-slate-300">
@@ -86,7 +86,7 @@
       </p>
     </div>
     <div class="flex flex-col items-end gap-1 flex-shrink-0">
-      <span class="text-3xl sm:text-4xl font-bold text-re-600 dark:text-re-400">
+      <span class="inline-block px-4 py-2 rounded-xl text-3xl sm:text-4xl font-bold bg-re-600 text-white shadow-md">
         {priceFormatted}
       </span>
       {#if pricePerM2}
@@ -103,7 +103,12 @@
       <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
       </svg>
-      <span>{langNotes[$locale] || langNotes.en}</span>
+      <span>
+        {(langNotes[$locale] || langNotes.en).text}
+        <a href="#contact" class="underline font-medium hover:text-amber-900 dark:hover:text-amber-100">
+          {(langNotes[$locale] || langNotes.en).cta} &darr;
+        </a>
+      </span>
     </div>
   {/if}
 
