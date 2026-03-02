@@ -1,0 +1,268 @@
+{
+  "classified_at": "2026-03-02T11:56:57.460646-06:00",
+  "model": "openai/clip-vit-base-patch32 (HuggingFace transformers)",
+  "total_images": 13,
+  "duplicates_removed": 0,
+  "results": [
+    {
+      "file": "ENTRADA_01.jpeg",
+      "original_file": null,
+      "classification": "ENTRADA",
+      "confidence": 34.9,
+      "top_matches": [
+        {
+          "label": "ENTRADA",
+          "confidence": 34.9
+        },
+        {
+          "label": "FACHADA_EDIFICIO",
+          "confidence": 20.3
+        },
+        {
+          "label": "TERRAZA",
+          "confidence": 19.5
+        }
+      ]
+    },
+    {
+      "file": "COCINA_01.jpeg",
+      "original_file": null,
+      "classification": "COCINA",
+      "confidence": 22.3,
+      "top_matches": [
+        {
+          "label": "COCINA",
+          "confidence": 22.3
+        },
+        {
+          "label": "AREA_LAVADO",
+          "confidence": 18.4
+        },
+        {
+          "label": "AREA_SOCIAL",
+          "confidence": 18.0
+        }
+      ]
+    },
+    {
+      "file": "FACHADA_EDIFICIO_01.jpeg",
+      "original_file": null,
+      "classification": "FACHADA_EDIFICIO",
+      "confidence": 39.0,
+      "top_matches": [
+        {
+          "label": "FACHADA_EDIFICIO",
+          "confidence": 39.0
+        },
+        {
+          "label": "VISTA_EXTERIOR",
+          "confidence": 25.8
+        },
+        {
+          "label": "COCHERA",
+          "confidence": 13.6
+        }
+      ]
+    },
+    {
+      "file": "BAÑO_01.jpeg",
+      "original_file": null,
+      "classification": "BAÑO",
+      "confidence": 91.5,
+      "top_matches": [
+        {
+          "label": "BAÑO",
+          "confidence": 91.5
+        },
+        {
+          "label": "AREA_LAVADO",
+          "confidence": 7.7
+        },
+        {
+          "label": "VESTIDOR",
+          "confidence": 0.3
+        }
+      ]
+    },
+    {
+      "file": "AREA_SOCIAL_01.jpeg",
+      "original_file": null,
+      "classification": "AREA_SOCIAL",
+      "confidence": 34.6,
+      "top_matches": [
+        {
+          "label": "AREA_SOCIAL",
+          "confidence": 34.6
+        },
+        {
+          "label": "PASILLO",
+          "confidence": 18.7
+        },
+        {
+          "label": "VESTIDOR",
+          "confidence": 12.3
+        }
+      ]
+    },
+    {
+      "file": "VESTIDOR_01.jpeg",
+      "original_file": null,
+      "classification": "VESTIDOR",
+      "confidence": 44.7,
+      "top_matches": [
+        {
+          "label": "VESTIDOR",
+          "confidence": 44.7
+        },
+        {
+          "label": "PASILLO",
+          "confidence": 21.2
+        },
+        {
+          "label": "COMEDOR",
+          "confidence": 4.7
+        }
+      ]
+    },
+    {
+      "file": "BAÑO_02.jpeg",
+      "original_file": null,
+      "classification": "BAÑO",
+      "confidence": 97.5,
+      "top_matches": [
+        {
+          "label": "BAÑO",
+          "confidence": 97.5
+        },
+        {
+          "label": "AREA_LAVADO",
+          "confidence": 0.9
+        },
+        {
+          "label": "VESTIDOR",
+          "confidence": 0.9
+        }
+      ]
+    },
+    {
+      "file": "BAÑO_03.jpeg",
+      "original_file": null,
+      "classification": "BAÑO",
+      "confidence": 99.4,
+      "top_matches": [
+        {
+          "label": "BAÑO",
+          "confidence": 99.4
+        },
+        {
+          "label": "AREA_LAVADO",
+          "confidence": 0.4
+        },
+        {
+          "label": "VESTIDOR",
+          "confidence": 0.1
+        }
+      ]
+    },
+    {
+      "file": "AREA_SOCIAL_02.jpeg",
+      "original_file": null,
+      "classification": "AREA_SOCIAL",
+      "confidence": 49.6,
+      "top_matches": [
+        {
+          "label": "AREA_SOCIAL",
+          "confidence": 49.6
+        },
+        {
+          "label": "VESTIDOR",
+          "confidence": 21.7
+        },
+        {
+          "label": "PASILLO",
+          "confidence": 5.9
+        }
+      ]
+    },
+    {
+      "file": "COCINA_02.jpeg",
+      "original_file": null,
+      "classification": "COCINA",
+      "confidence": 63.6,
+      "top_matches": [
+        {
+          "label": "COCINA",
+          "confidence": 63.6
+        },
+        {
+          "label": "COCINA_BARRA",
+          "confidence": 23.7
+        },
+        {
+          "label": "AREA_LAVADO",
+          "confidence": 10.2
+        }
+      ]
+    },
+    {
+      "file": "ROOF_GARDEN_01.jpeg",
+      "original_file": null,
+      "classification": "ROOF_GARDEN",
+      "confidence": 59.7,
+      "top_matches": [
+        {
+          "label": "ROOF_GARDEN",
+          "confidence": 59.7
+        },
+        {
+          "label": "TERRAZA",
+          "confidence": 15.1
+        },
+        {
+          "label": "COCHERA",
+          "confidence": 15.0
+        }
+      ]
+    },
+    {
+      "file": "ROOF_GARDEN_02.jpeg",
+      "original_file": null,
+      "classification": "ROOF_GARDEN",
+      "confidence": 59.0,
+      "top_matches": [
+        {
+          "label": "ROOF_GARDEN",
+          "confidence": 59.0
+        },
+        {
+          "label": "TERRAZA",
+          "confidence": 24.7
+        },
+        {
+          "label": "COCHERA",
+          "confidence": 12.4
+        }
+      ]
+    },
+    {
+      "file": "VESTIDOR_02.jpeg",
+      "original_file": null,
+      "classification": "VESTIDOR",
+      "confidence": 33.7,
+      "top_matches": [
+        {
+          "label": "VESTIDOR",
+          "confidence": 33.7
+        },
+        {
+          "label": "PASILLO",
+          "confidence": 15.1
+        },
+        {
+          "label": "AREA_LAVADO",
+          "confidence": 9.6
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,116 @@
+---
+export const prerender = true;
+
+import RealstateLayout from '../../layouts/RealstateLayout.astro';
+import RealstateHeader from '../../components/realstate/RealstateHeader.svelte';
+
+// Import both property data files
+import casaData from '../../../../malaga/ventaCasaBSA/ficha_tecnica.json';
+import deptoData from '../../../../malaga/ventaDepartamento/ficha_tecnica.json';
+
+const properties = [
+  { data: casaData, slug: 'ventaCasaBSA', image: '/realstate/ventaCasaBSA/FACHADA_01.jpeg' },
+  { data: deptoData, slug: 'ventaDepartamento', image: '/realstate/ventaDepartamento/FACHADA_EDIFICIO_01.jpeg' },
+];
+---
+
+<RealstateLayout
+  title="realstate | Propiedades en Venta"
+  description="Casas y departamentos en venta en Guadalajara y zona metropolitana. Propiedades verificadas con ficha técnica completa."
+>
+  <RealstateHeader client:load />
+
+  <!-- Decorative RS watermarks -->
+  <div class="hidden lg:block fixed left-0 top-16 bottom-0 w-12 pointer-events-none z-10" aria-hidden="true">
+    <div class="flex flex-col items-center gap-16 pt-8 opacity-[0.04]">
+      <img src="/rs-favicon.svg" alt="" class="w-10 h-10" />
+      <img src="/rs-favicon.svg" alt="" class="w-10 h-10" />
+      <img src="/rs-favicon.svg" alt="" class="w-10 h-10" />
+    </div>
+  </div>
+  <div class="hidden lg:block fixed right-0 top-16 bottom-0 w-12 pointer-events-none z-10" aria-hidden="true">
+    <div class="flex flex-col items-center gap-16 pt-8 opacity-[0.04]">
+      <img src="/rs-favicon.svg" alt="" class="w-10 h-10" />
+      <img src="/rs-favicon.svg" alt="" class="w-10 h-10" />
+      <img src="/rs-favicon.svg" alt="" class="w-10 h-10" />
+    </div>
+  </div>
+
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 py-8">
+    <!-- Hero -->
+    <div class="text-center mb-12">
+      <div class="flex items-center justify-center gap-3 mb-4">
+        <img src="/rs-favicon.svg" alt="realstate" class="w-12 h-12" />
+        <h1 class="text-4xl font-bold text-rs-600 dark:text-rs-400">realstate</h1>
+      </div>
+      <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+        Propiedades verificadas en Guadalajara y zona metropolitana. Casas y departamentos seleccionados con ficha técnica completa.
+      </p>
+    </div>
+
+    <!-- Property Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {properties.map((prop) => (
+        <a
+          href={`/realstate/${prop.slug}`}
+          class="group card overflow-hidden hover:shadow-xl transition-all duration-300"
+        >
+          <div class="relative h-48 overflow-hidden">
+            <img
+              src={prop.image}
+              alt={prop.data.title_short}
+              class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+              loading="lazy"
+            />
+            <div class="absolute top-3 left-3">
+              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-rs-600 text-white shadow-lg">
+                {prop.data.operations?.[0]?.formatted_amount || 'Consultar'}
+              </span>
+            </div>
+          </div>
+          <div class="p-4 space-y-2">
+            <h2 class="font-bold text-slate-900 dark:text-white group-hover:text-rs-600 dark:group-hover:text-rs-400 transition-colors">
+              {prop.data.title_short}
+            </h2>
+            <p class="text-sm text-slate-500 dark:text-slate-400 line-clamp-2">
+              {prop.data.description_short}
+            </p>
+            <div class="flex items-center gap-4 text-sm text-slate-600 dark:text-slate-300 pt-2">
+              {prop.data.bedrooms && (
+                <span class="flex items-center gap-1">
+                  🛏️ {prop.data.bedrooms}
+                </span>
+              )}
+              {prop.data.bathrooms && (
+                <span class="flex items-center gap-1">
+                  🚿 {prop.data.bathrooms}
+                </span>
+              )}
+              {prop.data.construction_size && (
+                <span class="flex items-center gap-1">
+                  📐 {prop.data.construction_size} m²
+                </span>
+              )}
+            </div>
+            <div class="flex items-center gap-1 text-xs text-slate-400 dark:text-slate-500">
+              📍 {prop.data.location?.municipality}, {prop.data.location?.state}
+            </div>
+          </div>
+        </a>
+      ))}
+    </div>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-200 dark:border-slate-700 mt-12 pt-8 pb-4">
+      <div class="text-center space-y-2">
+        <div class="flex items-center justify-center gap-2">
+          <img src="/rs-favicon.svg" alt="realstate" class="w-6 h-6" />
+          <span class="font-bold text-rs-600 dark:text-rs-400">realstate</span>
+        </div>
+        <p class="text-sm text-slate-500 dark:text-slate-400">
+          © {new Date().getFullYear()} realstate. Todos los derechos reservados.
+        </p>
+      </div>
+    </footer>
+  </main>
+</RealstateLayout>

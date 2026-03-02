@@ -1,0 +1,748 @@
+{
+  "classified_at": "2026-03-02T11:22:56.071226-06:00",
+  "model": "openai/clip-vit-base-patch32 (HuggingFace transformers)",
+  "total_images": 37,
+  "duplicates_removed": 0,
+  "results": [
+    {
+      "file": "AREA_SOCIAL_01.jpeg",
+      "original_file": null,
+      "classification": "AREA_SOCIAL",
+      "confidence": 39.3,
+      "top_matches": [
+        {
+          "label": "AREA_SOCIAL",
+          "confidence": 39.3
+        },
+        {
+          "label": "SALA",
+          "confidence": 19.6
+        },
+        {
+          "label": "RECAMARA",
+          "confidence": 13.2
+        }
+      ]
+    },
+    {
+      "file": "AREA_SOCIAL_02.jpeg",
+      "original_file": null,
+      "classification": "AREA_SOCIAL",
+      "confidence": 46.6,
+      "top_matches": [
+        {
+          "label": "AREA_SOCIAL",
+          "confidence": 46.6
+        },
+        {
+          "label": "SALA",
+          "confidence": 16.7
+        },
+        {
+          "label": "SALA_COMEDOR",
+          "confidence": 14.1
+        }
+      ]
+    },
+    {
+      "file": "FACHADA_01.jpeg",
+      "original_file": null,
+      "classification": "FACHADA",
+      "confidence": 59.6,
+      "top_matches": [
+        {
+          "label": "FACHADA",
+          "confidence": 59.6
+        },
+        {
+          "label": "VISTA_EXTERIOR",
+          "confidence": 19.7
+        },
+        {
+          "label": "COCHERA",
+          "confidence": 10.8
+        }
+      ]
+    },
+    {
+      "file": "AREA_LAVADO_01.jpeg",
+      "original_file": null,
+      "classification": "AREA_LAVADO",
+      "confidence": 51.5,
+      "top_matches": [
+        {
+          "label": "AREA_LAVADO",
+          "confidence": 51.5
+        },
+        {
+          "label": "BAÑO",
+          "confidence": 45.5
+        },
+        {
+          "label": "VESTIDOR",
+          "confidence": 2.3
+        }
+      ]
+    },
+    {
+      "file": "BAÑO_01.jpeg",
+      "original_file": null,
+      "classification": "BAÑO",
+      "confidence": 97.8,
+      "top_matches": [
+        {
+          "label": "BAÑO",
+          "confidence": 97.8
+        },
+        {
+          "label": "AREA_LAVADO",
+          "confidence": 1.7
+        },
+        {
+          "label": "VESTIDOR",
+          "confidence": 0.3
+        }
+      ]
+    },
+    {
+      "file": "VESTIDOR_01.jpeg",
+      "original_file": null,
+      "classification": "VESTIDOR",
+      "confidence": 90.0,
+      "top_matches": [
+        {
+          "label": "VESTIDOR",
+          "confidence": 90.0
+        },
+        {
+          "label": "AREA_LAVADO",
+          "confidence": 4.4
+        },
+        {
+          "label": "RECAMARA",
+          "confidence": 1.6
+        }
+      ]
+    },
+    {
+      "file": "SALA_COMEDOR_01.jpeg",
+      "original_file": null,
+      "classification": "SALA_COMEDOR",
+      "confidence": 64.2,
+      "top_matches": [
+        {
+          "label": "SALA_COMEDOR",
+          "confidence": 64.2
+        },
+        {
+          "label": "COMEDOR",
+          "confidence": 27.9
+        },
+        {
+          "label": "OFICINA",
+          "confidence": 2.6
+        }
+      ]
+    },
+    {
+      "file": "AREA_SOCIAL_03.jpeg",
+      "original_file": null,
+      "classification": "AREA_SOCIAL",
+      "confidence": 39.1,
+      "top_matches": [
+        {
+          "label": "AREA_SOCIAL",
+          "confidence": 39.1
+        },
+        {
+          "label": "AREA_LAVADO",
+          "confidence": 27.7
+        },
+        {
+          "label": "COCHERA",
+          "confidence": 5.6
+        }
+      ]
+    },
+    {
+      "file": "BAÑO_02.jpeg",
+      "original_file": null,
+      "classification": "BAÑO",
+      "confidence": 98.3,
+      "top_matches": [
+        {
+          "label": "BAÑO",
+          "confidence": 98.3
+        },
+        {
+          "label": "AREA_LAVADO",
+          "confidence": 1.4
+        },
+        {
+          "label": "PLANO_DISTRIBUCION",
+          "confidence": 0.1
+        }
+      ]
+    },
+    {
+      "file": "AREA_LAVADO_02.jpeg",
+      "original_file": null,
+      "classification": "AREA_LAVADO",
+      "confidence": 45.2,
+      "top_matches": [
+        {
+          "label": "AREA_LAVADO",
+          "confidence": 45.2
+        },
+        {
+          "label": "VESTIDOR",
+          "confidence": 36.6
+        },
+        {
+          "label": "BAÑO",
+          "confidence": 6.7
+        }
+      ]
+    },
+    {
+      "file": "SALA_01.jpeg",
+      "original_file": null,
+      "classification": "SALA",
+      "confidence": 36.1,
+      "top_matches": [
+        {
+          "label": "SALA",
+          "confidence": 36.1
+        },
+        {
+          "label": "AREA_SOCIAL",
+          "confidence": 23.7
+        },
+        {
+          "label": "ESCALERAS",
+          "confidence": 16.8
+        }
+      ]
+    },
+    {
+      "file": "AREA_LAVADO_03.jpeg",
+      "original_file": null,
+      "classification": "AREA_LAVADO",
+      "confidence": 44.7,
+      "top_matches": [
+        {
+          "label": "AREA_LAVADO",
+          "confidence": 44.7
+        },
+        {
+          "label": "AREA_SOCIAL",
+          "confidence": 31.5
+        },
+        {
+          "label": "BAÑO",
+          "confidence": 5.4
+        }
+      ]
+    },
+    {
+      "file": "RECAMARA_01.jpeg",
+      "original_file": null,
+      "classification": "RECAMARA",
+      "confidence": 56.2,
+      "top_matches": [
+        {
+          "label": "RECAMARA",
+          "confidence": 56.2
+        },
+        {
+          "label": "AREA_SOCIAL",
+          "confidence": 18.0
+        },
+        {
+          "label": "RECAMARA_PRINCIPAL",
+          "confidence": 9.5
+        }
+      ]
+    },
+    {
+      "file": "BAÑO_03.jpeg",
+      "original_file": null,
+      "classification": "BAÑO",
+      "confidence": 96.2,
+      "top_matches": [
+        {
+          "label": "BAÑO",
+          "confidence": 96.2
+        },
+        {
+          "label": "AREA_LAVADO",
+          "confidence": 2.8
+        },
+        {
+          "label": "OFICINA",
+          "confidence": 0.5
+        }
+      ]
+    },
+    {
+      "file": "ESCALERAS_01.jpeg",
+      "original_file": null,
+      "classification": "ESCALERAS",
+      "confidence": 89.2,
+      "top_matches": [
+        {
+          "label": "ESCALERAS",
+          "confidence": 89.2
+        },
+        {
+          "label": "SALA_COMEDOR",
+          "confidence": 2.8
+        },
+        {
+          "label": "TERRAZA",
+          "confidence": 2.0
+        }
+      ]
+    },
+    {
+      "file": "VESTIDOR_02.jpeg",
+      "original_file": null,
+      "classification": "VESTIDOR",
+      "confidence": 69.8,
+      "top_matches": [
+        {
+          "label": "VESTIDOR",
+          "confidence": 69.8
+        },
+        {
+          "label": "AREA_LAVADO",
+          "confidence": 26.0
+        },
+        {
+          "label": "BODEGA",
+          "confidence": 2.1
+        }
+      ]
+    },
+    {
+      "file": "SALA_02.jpeg",
+      "original_file": null,
+      "classification": "SALA",
+      "confidence": 35.2,
+      "top_matches": [
+        {
+          "label": "SALA",
+          "confidence": 35.2
+        },
+        {
+          "label": "AREA_SOCIAL",
+          "confidence": 30.4
+        },
+        {
+          "label": "SALA_COMEDOR",
+          "confidence": 22.0
+        }
+      ]
+    },
+    {
+      "file": "AREA_LAVADO_04.jpeg",
+      "original_file": null,
+      "classification": "AREA_LAVADO",
+      "confidence": 75.6,
+      "top_matches": [
+        {
+          "label": "AREA_LAVADO",
+          "confidence": 75.6
+        },
+        {
+          "label": "VESTIDOR",
+          "confidence": 12.5
+        },
+        {
+          "label": "BAÑO",
+          "confidence": 10.8
+        }
+      ]
+    },
+    {
+      "file": "ESCALERAS_02.jpeg",
+      "original_file": null,
+      "classification": "ESCALERAS",
+      "confidence": 97.3,
+      "top_matches": [
+        {
+          "label": "ESCALERAS",
+          "confidence": 97.3
+        },
+        {
+          "label": "FACHADA",
+          "confidence": 0.5
+        },
+        {
+          "label": "SALA_COMEDOR",
+          "confidence": 0.4
+        }
+      ]
+    },
+    {
+      "file": "VISTA_EXTERIOR_01.jpeg",
+      "original_file": null,
+      "classification": "VISTA_EXTERIOR",
+      "confidence": 45.5,
+      "top_matches": [
+        {
+          "label": "VISTA_EXTERIOR",
+          "confidence": 45.5
+        },
+        {
+          "label": "COCHERA",
+          "confidence": 24.0
+        },
+        {
+          "label": "TERRAZA",
+          "confidence": 19.9
+        }
+      ]
+    },
+    {
+      "file": "COCHERA_01.jpeg",
+      "original_file": null,
+      "classification": "COCHERA",
+      "confidence": 42.7,
+      "top_matches": [
+        {
+          "label": "COCHERA",
+          "confidence": 42.7
+        },
+        {
+          "label": "TERRAZA",
+          "confidence": 34.2
+        },
+        {
+          "label": "PANELES_SOLARES",
+          "confidence": 12.4
+        }
+      ]
+    },
+    {
+      "file": "PANELES_SOLARES_01.jpeg",
+      "original_file": null,
+      "classification": "PANELES_SOLARES",
+      "confidence": 95.3,
+      "top_matches": [
+        {
+          "label": "PANELES_SOLARES",
+          "confidence": 95.3
+        },
+        {
+          "label": "TERRAZA",
+          "confidence": 2.8
+        },
+        {
+          "label": "AREA_LAVADO",
+          "confidence": 0.8
+        }
+      ]
+    },
+    {
+      "file": "PANELES_SOLARES_02.jpeg",
+      "original_file": null,
+      "classification": "PANELES_SOLARES",
+      "confidence": 59.2,
+      "top_matches": [
+        {
+          "label": "PANELES_SOLARES",
+          "confidence": 59.2
+        },
+        {
+          "label": "COCHERA",
+          "confidence": 20.0
+        },
+        {
+          "label": "TERRAZA",
+          "confidence": 13.8
+        }
+      ]
+    },
+    {
+      "file": "TERRAZA_01.jpeg",
+      "original_file": null,
+      "classification": "TERRAZA",
+      "confidence": 84.4,
+      "top_matches": [
+        {
+          "label": "TERRAZA",
+          "confidence": 84.4
+        },
+        {
+          "label": "ALBERCA",
+          "confidence": 4.1
+        },
+        {
+          "label": "PANELES_SOLARES",
+          "confidence": 3.4
+        }
+      ]
+    },
+    {
+      "file": "PANELES_SOLARES_03.jpeg",
+      "original_file": null,
+      "classification": "PANELES_SOLARES",
+      "confidence": 99.5,
+      "top_matches": [
+        {
+          "label": "PANELES_SOLARES",
+          "confidence": 99.5
+        },
+        {
+          "label": "COCHERA",
+          "confidence": 0.2
+        },
+        {
+          "label": "TERRAZA",
+          "confidence": 0.1
+        }
+      ]
+    },
+    {
+      "file": "PANELES_SOLARES_04.jpeg",
+      "original_file": null,
+      "classification": "PANELES_SOLARES",
+      "confidence": 91.5,
+      "top_matches": [
+        {
+          "label": "PANELES_SOLARES",
+          "confidence": 91.5
+        },
+        {
+          "label": "AREA_LAVADO",
+          "confidence": 5.1
+        },
+        {
+          "label": "TERRAZA",
+          "confidence": 1.6
+        }
+      ]
+    },
+    {
+      "file": "PANELES_SOLARES_05.jpeg",
+      "original_file": null,
+      "classification": "PANELES_SOLARES",
+      "confidence": 31.2,
+      "top_matches": [
+        {
+          "label": "PANELES_SOLARES",
+          "confidence": 31.2
+        },
+        {
+          "label": "COCHERA",
+          "confidence": 27.4
+        },
+        {
+          "label": "OFICINA",
+          "confidence": 15.1
+        }
+      ]
+    },
+    {
+      "file": "AREA_LAVADO_05.jpeg",
+      "original_file": null,
+      "classification": "AREA_LAVADO",
+      "confidence": 69.9,
+      "top_matches": [
+        {
+          "label": "AREA_LAVADO",
+          "confidence": 69.9
+        },
+        {
+          "label": "BODEGA",
+          "confidence": 9.4
+        },
+        {
+          "label": "VESTIDOR",
+          "confidence": 6.0
+        }
+      ]
+    },
+    {
+      "file": "AREA_LAVADO_06.jpeg",
+      "original_file": null,
+      "classification": "AREA_LAVADO",
+      "confidence": 61.2,
+      "top_matches": [
+        {
+          "label": "AREA_LAVADO",
+          "confidence": 61.2
+        },
+        {
+          "label": "PANELES_SOLARES",
+          "confidence": 17.2
+        },
+        {
+          "label": "COCHERA",
+          "confidence": 12.6
+        }
+      ]
+    },
+    {
+      "file": "AREA_LAVADO_07.jpeg",
+      "original_file": null,
+      "classification": "AREA_LAVADO",
+      "confidence": 67.4,
+      "top_matches": [
+        {
+          "label": "AREA_LAVADO",
+          "confidence": 67.4
+        },
+        {
+          "label": "BAÑO",
+          "confidence": 23.3
+        },
+        {
+          "label": "COCHERA",
+          "confidence": 3.0
+        }
+      ]
+    },
+    {
+      "file": "PANELES_SOLARES_06.jpeg",
+      "original_file": null,
+      "classification": "PANELES_SOLARES",
+      "confidence": 99.4,
+      "top_matches": [
+        {
+          "label": "PANELES_SOLARES",
+          "confidence": 99.4
+        },
+        {
+          "label": "COCHERA",
+          "confidence": 0.5
+        },
+        {
+          "label": "VISTA_EXTERIOR",
+          "confidence": 0.0
+        }
+      ]
+    },
+    {
+      "file": "PANELES_SOLARES_07.jpeg",
+      "original_file": null,
+      "classification": "PANELES_SOLARES",
+      "confidence": 78.2,
+      "top_matches": [
+        {
+          "label": "PANELES_SOLARES",
+          "confidence": 78.2
+        },
+        {
+          "label": "TERRAZA",
+          "confidence": 18.1
+        },
+        {
+          "label": "ALBERCA",
+          "confidence": 2.2
+        }
+      ]
+    },
+    {
+      "file": "PANELES_SOLARES_08.jpeg",
+      "original_file": null,
+      "classification": "PANELES_SOLARES",
+      "confidence": 98.1,
+      "top_matches": [
+        {
+          "label": "PANELES_SOLARES",
+          "confidence": 98.1
+        },
+        {
+          "label": "COCHERA",
+          "confidence": 0.7
+        },
+        {
+          "label": "ALBERCA",
+          "confidence": 0.6
+        }
+      ]
+    },
+    {
+      "file": "PANELES_SOLARES_09.jpeg",
+      "original_file": null,
+      "classification": "PANELES_SOLARES",
+      "confidence": 88.6,
+      "top_matches": [
+        {
+          "label": "PANELES_SOLARES",
+          "confidence": 88.6
+        },
+        {
+          "label": "TERRAZA",
+          "confidence": 5.4
+        },
+        {
+          "label": "COCHERA",
+          "confidence": 2.8
+        }
+      ]
+    },
+    {
+      "file": "PANELES_SOLARES_10.jpeg",
+      "original_file": null,
+      "classification": "PANELES_SOLARES",
+      "confidence": 99.5,
+      "top_matches": [
+        {
+          "label": "PANELES_SOLARES",
+          "confidence": 99.5
+        },
+        {
+          "label": "COCHERA",
+          "confidence": 0.3
+        },
+        {
+          "label": "TERRAZA",
+          "confidence": 0.1
+        }
+      ]
+    },
+    {
+      "file": "AREA_LAVADO_08.jpeg",
+      "original_file": null,
+      "classification": "AREA_LAVADO",
+      "confidence": 38.0,
+      "top_matches": [
+        {
+          "label": "AREA_LAVADO",
+          "confidence": 38.0
+        },
+        {
+          "label": "BAÑO",
+          "confidence": 23.0
+        },
+        {
+          "label": "ALBERCA",
+          "confidence": 9.7
+        }
+      ]
+    },
+    {
+      "file": "TERRAZA_02.jpeg",
+      "original_file": null,
+      "classification": "TERRAZA",
+      "confidence": 46.8,
+      "top_matches": [
+        {
+          "label": "TERRAZA",
+          "confidence": 46.8
+        },
+        {
+          "label": "JARDIN",
+          "confidence": 23.6
+        },
+        {
+          "label": "VISTA_EXTERIOR",
+          "confidence": 8.4
+        }
+      ]
+    }
+  ]
+}

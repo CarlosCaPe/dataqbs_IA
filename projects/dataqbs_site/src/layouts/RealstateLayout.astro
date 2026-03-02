@@ -1,0 +1,85 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+}
+
+const {
+  title = 'realstate | Propiedades en Venta',
+  description = 'Propiedades en venta en Guadalajara y zona metropolitana. Casas y departamentos seleccionados con ficha técnica completa.',
+  image = '/rs-favicon.svg',
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!doctype html>
+<html lang="es" class="scroll-smooth dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/rs-favicon.svg" />
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- SEO -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content="realstate" />
+    <meta name="keywords" content="Bienes Raíces, Guadalajara, Tlajomulco, Tlaquepaque, Casa, Departamento, Venta, Jalisco" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={new URL(image, Astro.site)} />
+    <meta property="og:locale" content="es_MX" />
+    <meta property="og:locale:alternate" content="en_US" />
+    <meta property="og:locale:alternate" content="de_DE" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={new URL(image, Astro.site)} />
+
+    <!-- Fonts (same as dataqbs) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Theme: prevent FOUC – default to dark -->
+    <script is:inline>
+      (function () {
+        var saved = localStorage.getItem('theme');
+        var isDark = saved ? saved === 'dark' : true;
+        document.documentElement.classList.toggle('dark', isDark);
+      })();
+    </script>
+
+    <!-- JSON-LD Structured Data -->
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'RealEstateAgent',
+        name: 'realstate',
+        url: canonicalURL.href,
+        description: description,
+        areaServed: {
+          '@type': 'Place',
+          name: 'Guadalajara Metropolitan Area, Jalisco, Mexico',
+        },
+      })}
+    />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

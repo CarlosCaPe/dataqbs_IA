@@ -65,6 +65,41 @@ export interface Translations {
   cert: { issuedBy: string; verify: string; expired: string; expires: string; credentialId: string };
   experienceType: Record<string, string>;
   skillCategory: Record<string, string>;
+  rs: {
+    sale: string;
+    bedrooms: string;
+    bathrooms: string;
+    halfBath: string;
+    parking: string;
+    lotSize: string;
+    construction: string;
+    floors: string;
+    floor: string;
+    yearBuilt: string;
+    age: string;
+    years: string;
+    condition: string;
+    features: string;
+    location: string;
+    nearby: string;
+    description: string;
+    overview: string;
+    tags: string;
+    gallery: string;
+    photoOf: string;
+    contactUs: string;
+    requestInfo: string;
+    pricePerM2: string;
+    exterior: string;
+    interior: string;
+    equipment: string;
+    security: string;
+    status: string;
+    backToList: string;
+    propertyType: string;
+    viewMore: string;
+    brand: string;
+  };
 }
 
 // ── English ──────────────────────────────────────────
@@ -146,6 +181,41 @@ const en: Translations = {
   cert: { issuedBy: 'Issued by', verify: 'Verify', expired: 'Expired', expires: 'Expires', credentialId: 'Credential ID' },
   experienceType: { 'full-time': 'Full-time', 'contract': 'Contract', 'freelance': 'Freelance', 'self-employed': 'Self-employed' },
   skillCategory: { 'Languages': 'Languages', 'Data & Cloud': 'Data & Cloud', 'AI & ML': 'AI & ML', 'Libraries & Frameworks': 'Libraries & Frameworks', 'DevOps & Tools': 'DevOps & Tools', 'Databases': 'Databases' },
+  rs: {
+    sale: 'For Sale',
+    bedrooms: 'Bedrooms',
+    bathrooms: 'Bathrooms',
+    halfBath: 'Half Bath',
+    parking: 'Parking',
+    lotSize: 'Lot Size',
+    construction: 'Construction',
+    floors: 'Floors',
+    floor: 'Floor',
+    yearBuilt: 'Year Built',
+    age: 'Age',
+    years: 'years',
+    condition: 'Condition',
+    features: 'Features & Amenities',
+    location: 'Location',
+    nearby: 'Nearby',
+    description: 'Description',
+    overview: 'Overview',
+    tags: 'Tags',
+    gallery: 'Gallery',
+    photoOf: 'Photo {n} of {total}',
+    contactUs: 'Contact Us',
+    requestInfo: 'Request Information',
+    pricePerM2: 'Price per m²',
+    exterior: 'Exterior',
+    interior: 'Interior',
+    equipment: 'Equipment',
+    security: 'Security',
+    status: 'Status',
+    backToList: 'Back',
+    propertyType: 'Property Type',
+    viewMore: 'View More',
+    brand: 'realstate',
+  },
 };
 
 // ── Spanish ──────────────────────────────────────────
@@ -227,6 +297,41 @@ const es: Translations = {
   cert: { issuedBy: 'Emitido por', verify: 'Verificar', expired: 'Expirada', expires: 'Expira', credentialId: 'ID de Credencial' },
   experienceType: { 'full-time': 'Tiempo completo', 'contract': 'Contrato', 'freelance': 'Freelance', 'self-employed': 'Independiente' },
   skillCategory: { 'Languages': 'Lenguajes', 'Data & Cloud': 'Datos y Nube', 'AI & ML': 'IA y ML', 'Libraries & Frameworks': 'Librerías y Frameworks', 'DevOps & Tools': 'DevOps y Herramientas', 'Databases': 'Bases de Datos' },
+  rs: {
+    sale: 'En Venta',
+    bedrooms: 'Recámaras',
+    bathrooms: 'Baños',
+    halfBath: 'Medio Baño',
+    parking: 'Estacionamientos',
+    lotSize: 'Terreno',
+    construction: 'Construcción',
+    floors: 'Plantas',
+    floor: 'Piso',
+    yearBuilt: 'Año',
+    age: 'Antigüedad',
+    years: 'años',
+    condition: 'Estado',
+    features: 'Características',
+    location: 'Ubicación',
+    nearby: 'Cerca',
+    description: 'Descripción',
+    overview: 'Resumen',
+    tags: 'Etiquetas',
+    gallery: 'Galería',
+    photoOf: 'Foto {n} de {total}',
+    contactUs: 'Contáctanos',
+    requestInfo: 'Solicitar Información',
+    pricePerM2: 'Precio por m²',
+    exterior: 'Exterior',
+    interior: 'Interior',
+    equipment: 'Equipamiento',
+    security: 'Seguridad',
+    status: 'Estatus',
+    backToList: 'Volver',
+    propertyType: 'Tipo de Propiedad',
+    viewMore: 'Ver Más',
+    brand: 'realstate',
+  },
 };
 
 // ── German ───────────────────────────────────────────
@@ -308,6 +413,41 @@ const de: Translations = {
   cert: { issuedBy: 'Ausgestellt von', verify: 'Verifizieren', expired: 'Abgelaufen', expires: 'Läuft ab', credentialId: 'Zertifikats-ID' },
   experienceType: { 'full-time': 'Vollzeit', 'contract': 'Vertrag', 'freelance': 'Freiberuflich', 'self-employed': 'Selbstständig' },
   skillCategory: { 'Languages': 'Sprachen', 'Data & Cloud': 'Daten & Cloud', 'AI & ML': 'KI & ML', 'Libraries & Frameworks': 'Bibliotheken & Frameworks', 'DevOps & Tools': 'DevOps & Werkzeuge', 'Databases': 'Datenbanken' },
+  rs: {
+    sale: 'Zu Verkaufen',
+    bedrooms: 'Schlafzimmer',
+    bathrooms: 'Badezimmer',
+    halfBath: 'Halbes Bad',
+    parking: 'Parkplätze',
+    lotSize: 'Grundstück',
+    construction: 'Baufläche',
+    floors: 'Stockwerke',
+    floor: 'Etage',
+    yearBuilt: 'Baujahr',
+    age: 'Alter',
+    years: 'Jahre',
+    condition: 'Zustand',
+    features: 'Ausstattung & Merkmale',
+    location: 'Standort',
+    nearby: 'In der Nähe',
+    description: 'Beschreibung',
+    overview: 'Überblick',
+    tags: 'Stichwörter',
+    gallery: 'Galerie',
+    photoOf: 'Foto {n} von {total}',
+    contactUs: 'Kontaktieren Sie uns',
+    requestInfo: 'Information anfordern',
+    pricePerM2: 'Preis pro m²',
+    exterior: 'Außen',
+    interior: 'Innen',
+    equipment: 'Ausstattung',
+    security: 'Sicherheit',
+    status: 'Status',
+    backToList: 'Zurück',
+    propertyType: 'Immobilientyp',
+    viewMore: 'Mehr anzeigen',
+    brand: 'realstate',
+  },
 };
 
 export const translations: Record<string, Translations> = { en, es, de };

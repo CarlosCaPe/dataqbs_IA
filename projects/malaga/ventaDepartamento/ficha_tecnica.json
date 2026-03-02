@@ -1,0 +1,247 @@
+{
+  "public_id": "MLG-VDEPTO-001",
+  "title": "Departamento con Roof Garden Exclusivo – A una cuadra del ITESO",
+  "title_short": "Depto 2 Rec. Roof Garden, Parques del Bosque",
+  "description": "🏢 DEPARTAMENTO EN VENTA CON ROOF GARDEN EXCLUSIVO – A UNA CUADRA DEL ITESO\n\n📐 76 m² de construcción · Piso 2 · 2 Niveles · 2 Recámaras · 1 Baño · 1 Estacionamiento\n💰 $2,700,000 MXN\n\nInvierte en una de las zonas con mayor demanda y plusvalía. Departamento de 2 niveles ubicado prácticamente a una cuadra del ITESO, ideal para inversión o vivienda.\n\n🏠 PLANTA PRINCIPAL (Piso 2)\n• 2 recámaras con clóset\n• 1 baño completo\n• Sala-comedor\n• Cocina con barra\n• Cuarto de servicio\n\n🔝 PLANTA ALTA\n• Roof garden privado con pérgola y tarja\n\n🚗 ESTACIONAMIENTO\n• 1 cajón de estacionamiento\n\n🔒 SEGURIDAD\n• Dentro de coto con seguridad 24/7\n\n📍 UBICACIÓN\nBahía de Acapulco, Parques del Bosque, Tlaquepaque, Jalisco. A una cuadra del ITESO — excelente conectividad y demanda de renta estudiantil.\n\n📈 Excelente oportunidad para inversión o vivienda, en una ubicación estratégica cerca del ITESO, con gran potencial de rentabilidad y plusvalía en la zona.\n\n✅ Listo para escriturar.",
+  "description_short": "Departamento 2 rec. con roof garden privado, pérgola y tarja. A 1 cuadra del ITESO, coto con seguridad 24/7. Ideal inversión o vivienda.",
+  "bedrooms": 2,
+  "bathrooms": 1,
+  "half_bathrooms": 0,
+  "parking_spaces": 1,
+  "lot_size": null,
+  "lot_size_unit": "m²",
+  "construction_size": 76,
+  "construction_size_unit": "m²",
+  "lot_length": null,
+  "lot_width": null,
+  "floors": 2,
+  "floor": 2,
+  "age": null,
+  "year_built": null,
+  "internal_id": "PDB-RG-001",
+  "expenses": null,
+  "maintenance_fee": {
+    "amount": null,
+    "currency": "MXN",
+    "period": "monthly",
+    "notes": "Cuota de mantenimiento del coto — confirmar monto vigente"
+  },
+  "location": {
+    "name": "Bahía de Acapulco, Parques del Bosque, Tlaquepaque, Jalisco",
+    "neighborhood": "Parques del Bosque",
+    "street": "Bahía de Acapulco",
+    "municipality": "San Pedro Tlaquepaque",
+    "state": "Jalisco",
+    "country": "MX",
+    "latitude": 20.6084,
+    "longitude": -103.4063,
+    "postal_code": "45609",
+    "show_exact_location": false,
+    "hide_exact_location": true,
+    "exterior_number": null,
+    "interior_number": null
+  },
+  "property_type": "Departamento",
+  "property_subtype": "Departamento en Coto",
+  "condition": null,
+  "created_at": "2026-02-25T09:34:00-06:00",
+  "updated_at": "2026-03-02T13:00:00-06:00",
+  "published_at": null,
+  "operations": [
+    {
+      "type": "sale",
+      "amount": 2700000.0,
+      "currency": "MXN",
+      "formatted_amount": "$2,700,000 MXN",
+      "price_per_m2": 35526.32,
+      "commission": {
+        "type": "percentage",
+        "value": null,
+        "notes": "Negociar comisión con propietario"
+      },
+      "unit": "total"
+    }
+  ],
+  "property_files": [],
+  "videos": [],
+  "virtual_tour": null,
+  "collaboration_notes": null,
+  "public_url": null,
+  "shared_commission_percentage": null,
+  "exclusive": null,
+  "foreclosure": false,
+  "tags": [
+    "roof garden",
+    "pérgola",
+    "ITESO",
+    "inversión",
+    "renta estudiantil",
+    "coto privado",
+    "seguridad 24/7",
+    "Parques del Bosque",
+    "Tlaquepaque",
+    "cocina con barra",
+    "cuarto de servicio"
+  ],
+  "private_description": "Departamento en Parques del Bosque, a 1 cuadra del ITESO. Alta demanda de renta estudiantil. Ideal para inversionistas.",
+  "show_prices": true,
+  "share_commission": false,
+  "property_images": [
+    {
+      "title": "Fachada del edificio",
+      "url": "inputImages/FACHADA_EDIFICIO_01.jpeg",
+      "position": 0,
+      "category": "FACHADA_EDIFICIO"
+    },
+    {
+      "title": "Entrada del departamento",
+      "url": "inputImages/ENTRADA_01.jpeg",
+      "position": 1,
+      "category": "ENTRADA"
+    },
+    {
+      "title": "Cocina con barra",
+      "url": "inputImages/COCINA_02.jpeg",
+      "position": 2,
+      "category": "COCINA"
+    },
+    {
+      "title": "Cocina — vista alternativa",
+      "url": "inputImages/COCINA_01.jpeg",
+      "position": 3,
+      "category": "COCINA"
+    },
+    {
+      "title": "Sala-comedor",
+      "url": "inputImages/AREA_SOCIAL_01.jpeg",
+      "position": 4,
+      "category": "AREA_SOCIAL"
+    },
+    {
+      "title": "Sala — vista alternativa",
+      "url": "inputImages/AREA_SOCIAL_02.jpeg",
+      "position": 5,
+      "category": "AREA_SOCIAL"
+    },
+    {
+      "title": "Recámara / clóset",
+      "url": "inputImages/VESTIDOR_01.jpeg",
+      "position": 6,
+      "category": "VESTIDOR"
+    },
+    {
+      "title": "Recámara — segunda",
+      "url": "inputImages/VESTIDOR_02.jpeg",
+      "position": 7,
+      "category": "VESTIDOR"
+    },
+    {
+      "title": "Baño completo",
+      "url": "inputImages/BAÑO_01.jpeg",
+      "position": 8,
+      "category": "BAÑO"
+    },
+    {
+      "title": "Baño — detalle regadera",
+      "url": "inputImages/BAÑO_02.jpeg",
+      "position": 9,
+      "category": "BAÑO"
+    },
+    {
+      "title": "Baño — detalle acabados",
+      "url": "inputImages/BAÑO_03.jpeg",
+      "position": 10,
+      "category": "BAÑO"
+    },
+    {
+      "title": "Roof garden con pérgola",
+      "url": "inputImages/ROOF_GARDEN_01.jpeg",
+      "position": 11,
+      "category": "ROOF_GARDEN"
+    },
+    {
+      "title": "Roof garden — vista alternativa",
+      "url": "inputImages/ROOF_GARDEN_02.jpeg",
+      "position": 12,
+      "category": "ROOF_GARDEN"
+    }
+  ],
+  "agent": {
+    "name": null,
+    "phone": null,
+    "email": null,
+    "notes": "Completar datos del agente o propietario"
+  },
+  "features": [
+    {
+      "name": "Roof garden privado con pérgola y tarja",
+      "category": "Exterior"
+    },
+    {
+      "name": "1 cajón de estacionamiento",
+      "category": "Exterior"
+    },
+    {
+      "name": "2 recámaras con clóset",
+      "category": "Interior"
+    },
+    {
+      "name": "Sala-comedor",
+      "category": "Interior"
+    },
+    {
+      "name": "Cocina con barra",
+      "category": "Interior"
+    },
+    {
+      "name": "Cuarto de servicio",
+      "category": "Interior"
+    },
+    {
+      "name": "1 baño completo",
+      "category": "Interior"
+    },
+    {
+      "name": "2 niveles",
+      "category": "Interior"
+    },
+    {
+      "name": "Coto cerrado con seguridad 24/7",
+      "category": "Seguridad"
+    }
+  ],
+  "nearby_places": [
+    {
+      "name": "ITESO — Universidad Jesuita de Guadalajara",
+      "type": "Universidad",
+      "distance_km": 0.2
+    },
+    {
+      "name": "Periférico Sur",
+      "type": "Vialidad",
+      "distance_km": 1
+    },
+    {
+      "name": "Plaza del Sol",
+      "type": "Centro Comercial",
+      "distance_km": 5
+    }
+  ],
+  "_malaga_meta": {
+    "project": "ventaDepartamento",
+    "source": "manual + CLIP ViT-B-32 classification",
+    "images_pending_classification": false,
+    "total_images_in_folder": 13,
+    "images_in_listing": 13,
+    "images_excluded": 0,
+    "last_classified_at": "2026-03-02T13:00:00-06:00",
+    "notes": "13 fotos clasificadas y renombradas. Orden: fachada → entrada → cocina → sala → recámaras → baño → roof garden.",
+    "pending_actions": [
+      "Confirmar año de construcción",
+      "Agregar datos del agente/propietario",
+      "Confirmar cuota de mantenimiento del coto",
+      "Verificar coordenadas GPS exactas",
+      "Confirmar código postal"
+    ]
+  }
+}
