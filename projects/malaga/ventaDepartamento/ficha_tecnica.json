@@ -94,75 +94,81 @@
       "category": "FACHADA_EDIFICIO"
     },
     {
+      "title": "Vista exterior del fraccionamiento",
+      "url": "inputImages/VISTA_EXTERIOR_01.jpeg",
+      "position": 1,
+      "category": "VISTA_EXTERIOR"
+    },
+    {
       "title": "Entrada del departamento",
       "url": "inputImages/ENTRADA_01.jpeg",
-      "position": 1,
+      "position": 2,
       "category": "ENTRADA"
     },
     {
       "title": "Cocina con barra",
       "url": "inputImages/COCINA_02.jpeg",
-      "position": 2,
+      "position": 3,
       "category": "COCINA"
     },
     {
       "title": "Cocina — vista alternativa",
       "url": "inputImages/COCINA_01.jpeg",
-      "position": 3,
+      "position": 4,
       "category": "COCINA"
     },
     {
       "title": "Sala-comedor",
       "url": "inputImages/AREA_SOCIAL_01.jpeg",
-      "position": 4,
+      "position": 5,
       "category": "AREA_SOCIAL"
     },
     {
       "title": "Sala — vista alternativa",
       "url": "inputImages/AREA_SOCIAL_02.jpeg",
-      "position": 5,
+      "position": 6,
       "category": "AREA_SOCIAL"
     },
     {
       "title": "Recámara / clóset",
       "url": "inputImages/VESTIDOR_01.jpeg",
-      "position": 6,
+      "position": 7,
       "category": "VESTIDOR"
     },
     {
       "title": "Recámara — segunda",
       "url": "inputImages/VESTIDOR_02.jpeg",
-      "position": 7,
+      "position": 8,
       "category": "VESTIDOR"
     },
     {
       "title": "Baño completo",
       "url": "inputImages/BAÑO_01.jpeg",
-      "position": 8,
+      "position": 9,
       "category": "BAÑO"
     },
     {
       "title": "Baño — detalle regadera",
       "url": "inputImages/BAÑO_02.jpeg",
-      "position": 9,
+      "position": 10,
       "category": "BAÑO"
     },
     {
       "title": "Baño — detalle acabados",
       "url": "inputImages/BAÑO_03.jpeg",
-      "position": 10,
+      "position": 11,
       "category": "BAÑO"
     },
     {
       "title": "Roof garden con pérgola",
       "url": "inputImages/ROOF_GARDEN_01.jpeg",
-      "position": 11,
+      "position": 12,
       "category": "ROOF_GARDEN"
     },
     {
       "title": "Roof garden — vista alternativa",
       "url": "inputImages/ROOF_GARDEN_02.jpeg",
-      "position": 12,
+      "position": 13,
       "category": "ROOF_GARDEN"
     }
   ],
