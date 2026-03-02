@@ -189,7 +189,10 @@ export const POST: APIRoute = async ({ request, locals }) => {
   console.log('[CONTACT FORM]', JSON.stringify(record));
 
   // Send email notification via Resend
-  const subject = `[dataqbs.com] New message from ${name}`;
+  const isRealstate = message.startsWith('[realstate');
+  const subject = isRealstate
+    ? `[realstate] New inquiry from ${name}`
+    : `[dataqbs.com] New message from ${name}`;
   const hasChatTranscript = !!chatTranscript;
   const htmlBody = `
     <div style="font-family:sans-serif;max-width:600px;">

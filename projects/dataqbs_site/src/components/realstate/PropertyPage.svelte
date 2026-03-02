@@ -195,7 +195,7 @@
           <br />
         {:else if line.startsWith('•')}
           <p class="ml-4 mb-1 text-slate-600 dark:text-slate-300">{line}</p>
-        {:else if line.match(/^[🏡🛏️⚡🔒📍✅📐💰📈🏠🔝🚗🏢]/u)}
+        {:else if line.match(/^(\p{Emoji_Presentation}|\p{Extended_Pictographic})/u)}
           <p class="font-semibold text-slate-800 dark:text-slate-200 mt-3 mb-1">{line}</p>
         {:else}
           <p class="text-slate-600 dark:text-slate-300 mb-1">{line}</p>

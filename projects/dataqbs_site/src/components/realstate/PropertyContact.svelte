@@ -5,31 +5,32 @@
   export let propertyTitle: string = '';
   export let propertyId: string = '';
 
+  // ── Contact constants (single source of truth) ───
+  const WHATSAPP_NUMBER = '5213313233421';
+  const CONTACT_EMAIL   = 'carlos.carrillo@dataqbs.com';
+  const LINKEDIN_URL    = 'https://linkedin.com/in/carlosalbertocarrillo';
+
   let name = '';
   let email = '';
   let message = '';
   let sending = false;
   let sent = false;
   let errorMsg = '';
+  let turnstileError = false;
   const maxMessageLength = 5000;
 
   // ── Turnstile ────────────────────────────────────
   const TURNSTILE_SITEKEY = '0x4AAAAAACjWMTF9SAi1pa7U';
   let turnstileToken: string | null = null;
 
-  // Pre-fill message with property context
-  $: if (!message && propertyTitle) {
-    message = propertyTitle;
-  }
-
   // Contact channels with property context baked in
   $: whatsappMsg = encodeURIComponent(
     `${$t.rs.requestInfo}: ${propertyTitle}`
   );
-  $: whatsappUrl = `https://wa.me/5213313233421?text=${whatsappMsg}`;
+  $: whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${whatsappMsg}`;
 
   $: emailSubject = encodeURIComponent(`${$t.rs.requestInfo}: ${propertyTitle}`);
-  $: emailUrl = `mailto:carlos.carrillo@dataqbs.com?subject=${emailSubject}`;
+  $: emailUrl = `mailto:${CONTACT_EMAIL}?subject=${emailSubject}`;
 
   onMount(() => {
     // Render Turnstile invisible widget
@@ -38,17 +39,41 @@
       if (container) {
         (window as any).turnstile.render(container, {
           sitekey: TURNSTILE_SITEKEY,
-          callback: (token: string) => { turnstileToken = token; },
-          'error-callback': () => { turnstileToken = null; },
+          callback: (token: string) => { turnstileToken = token; turnstileError = false; },
+          'error-callback': () => { turnstileToken = null; turnstileError = true; },
           theme: document.documentElement.classList.contains('dark') ? 'dark' : 'light',
           size: 'invisible',
         });
       }
+    } else if (TURNSTILE_SITEKEY) {
+      // Turnstile script not loaded yet — retry once after a short delay
+      setTimeout(() => {
+        if ((window as any).turnstile) {
+          const container = document.getElementById('rs-contact-turnstile');
+          if (container) {
+            (window as any).turnstile.render(container, {
+              sitekey: TURNSTILE_SITEKEY,
+              callback: (token: string) => { turnstileToken = token; turnstileError = false; },
+              'error-callback': () => { turnstileToken = null; turnstileError = true; },
+              theme: document.documentElement.classList.contains('dark') ? 'dark' : 'light',
+              size: 'invisible',
+            });
+          }
+        } else {
+          turnstileError = true;
+        }
+      }, 2000);
     }
   });
 
   async function handleSubmit() {
     if (!name.trim() || !email.trim() || !message.trim()) return;
+    // Client-side email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email.trim())) {
+      errorMsg = $t.contact.error;
+      return;
+    }
     if (message.length > maxMessageLength) {
       errorMsg = `Max ${maxMessageLength} characters`;
       return;
@@ -158,6 +183,10 @@
             <p class="text-sm text-red-600 dark:text-red-400">{errorMsg}</p>
           {/if}
 
+          {#if turnstileError}
+            <p class="text-sm text-amber-600 dark:text-amber-400">⚠️ Security widget failed to load. Please refresh the page.</p>
+          {/if}
+
           <!-- Turnstile invisible widget -->
           <div id="rs-contact-turnstile" class="hidden"></div>
 
@@ -194,7 +223,7 @@
         </div>
         <div class="flex-1 min-w-0">
           <p class="text-sm font-medium text-slate-900 dark:text-white">WhatsApp</p>
-          <p class="text-xs text-slate-500 dark:text-slate-400">+52 1 331 323 3421</p>
+        <p class="text-xs text-slate-500 dark:text-slate-400">+52 1 331 323 3421</p>
         </div>
         <svg class="w-4 h-4 text-slate-400 group-hover:text-green-500 transition-colors flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
@@ -214,7 +243,7 @@
         </div>
         <div class="flex-1 min-w-0">
           <p class="text-sm font-medium text-slate-900 dark:text-white">Email</p>
-          <p class="text-xs text-slate-500 dark:text-slate-400">carlos.carrillo@dataqbs.com</p>
+        <p class="text-xs text-slate-500 dark:text-slate-400">{CONTACT_EMAIL}</p>
         </div>
         <svg class="w-4 h-4 text-slate-400 group-hover:text-rs-500 transition-colors flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
@@ -223,7 +252,7 @@
 
       <!-- LinkedIn -->
       <a
-        href="https://linkedin.com/in/carlosalbertocarrillo"
+        href={LINKEDIN_URL}
         target="_blank"
         rel="noopener noreferrer"
         class="flex items-center gap-3 p-3 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700/50 transition-colors group"

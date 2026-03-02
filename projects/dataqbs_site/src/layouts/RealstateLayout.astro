@@ -54,9 +54,16 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
       rel="stylesheet"
     />
 
+    <!-- Cloudflare Turnstile (invisible) -->
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+
     <!-- Theme: prevent FOUC – default to dark -->
     <script is:inline>
       (function () {
+        if (localStorage.getItem('theme-v') !== '2') {
+          localStorage.removeItem('theme');
+          localStorage.setItem('theme-v', '2');
+        }
         var saved = localStorage.getItem('theme');
         var isDark = saved ? saved === 'dark' : true;
         document.documentElement.classList.toggle('dark', isDark);

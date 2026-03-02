@@ -65,7 +65,13 @@
   function getImageUrl(img: { url: string }) {
     const filename = img.url.replace('inputImages/', '');
     // Security: sanitize filename to prevent path traversal
-    const sanitized = filename.replace(/\.\./g, '').replace(/[<>"']/g, '');
+    const sanitized = filename
+      .replace(/\.\./g, '')            // strip ..
+      .replace(/%2e%2e/gi, '')         // strip URL-encoded ..
+      .replace(/[<>"'\\]/g, '')        // strip dangerous chars + backslash
+      .replace(/\0/g, '')             // strip null bytes
+      .replace(/\/\//g, '/')          // collapse double slashes
+      .replace(/[?#].*/g, '');        // strip query strings and fragments
     // Validate basePath starts with expected prefix
     const safeBase = basePath.startsWith('/realstate/') ? basePath : '/realstate';
     return `${safeBase}/${sanitized}`;

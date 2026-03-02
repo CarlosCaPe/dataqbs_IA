@@ -3,6 +3,7 @@ export const prerender = true;
 
 import RealstateLayout from '../../layouts/RealstateLayout.astro';
 import RealstateHeader from '../../components/realstate/RealstateHeader.svelte';
+import PropertyContact from '../../components/realstate/PropertyContact.svelte';
 
 // Import both property data files
 import casaData from '../../../../malaga/ventaCasaBSA/ficha_tecnica.json';
@@ -68,6 +69,15 @@ const properties = [
           </div>
         </a>
       ))}
+    </div>
+
+    <!-- Contact Section -->
+    <div class="mt-10 card p-6">
+      <PropertyContact
+        client:load
+        propertyTitle="realstate — Propiedades en Venta"
+        propertyId="landing"
+      />
     </div>
 
     <!-- Footer -->
