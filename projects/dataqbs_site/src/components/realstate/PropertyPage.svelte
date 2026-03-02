@@ -1,6 +1,7 @@
 <script lang="ts">
   import { t, locale } from '../../i18n/store';
   import PropertyGallery from './PropertyGallery.svelte';
+  import PropertyContact from './PropertyContact.svelte';
 
   export let property: Record<string, any>;
   export let basePath: string = '';
@@ -299,28 +300,12 @@
     </div>
   {/if}
 
-  <!-- ── CTA ────────────────────────────────────────── -->
-  <div class="card p-6 bg-gradient-to-r from-rs-600 to-rs-700 dark:from-rs-700 dark:to-rs-800 border-rs-500">
-    <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
-      <div>
-        <h2 class="text-xl font-bold text-white">
-          {$t.rs.requestInfo}
-        </h2>
-        <p class="text-rs-100 text-sm mt-1">
-          {property.title_short || property.title}
-        </p>
-      </div>
-      <a
-        href="mailto:carlos.carrillo@dataqbs.com?subject={encodeURIComponent($t.rs.requestInfo + ': ' + (property.title_short || property.title))}"
-        rel="noopener noreferrer"
-        class="inline-flex items-center gap-2 px-6 py-3 rounded-lg font-semibold text-sm bg-white text-rs-700 hover:bg-rs-50 active:bg-rs-100 transition-all duration-150 shadow-lg hover:shadow-xl"
-      >
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-        </svg>
-        {$t.rs.contactUs}
-      </a>
-    </div>
+  <!-- ── Contact Section ────────────────────────────── -->
+  <div class="card p-6">
+    <PropertyContact
+      propertyTitle={property.title_short || property.title}
+      propertyId={property.public_id || property.internal_id || ''}
+    />
   </div>
 
   <!-- ── Footer ─────────────────────────────────────── -->
