@@ -15,7 +15,7 @@ import propertyData from '../../../../malaga/ventaDepartamento/ficha_tecnica.jso
 >
   <RealestateHeader client:load />
 
-  <!-- Decorative RS watermarks -->
+  <!-- Decorative RE watermarks -->
   <div class="hidden lg:block fixed left-0 top-16 bottom-0 w-12 pointer-events-none z-10" aria-hidden="true">
     <div class="flex flex-col items-center gap-16 pt-8 opacity-[0.04]">
       <img src="/re-favicon.svg" alt="" class="w-10 h-10" />
@@ -31,9 +31,11 @@ import propertyData from '../../../../malaga/ventaDepartamento/ficha_tecnica.jso
     </div>
   </div>
 
-  <PropertyPage
-    client:load
-    property={propertyData}
-    basePath="/realestate/ventaDepartamento"
-  />
+  <main>
+    <PropertyPage
+      client:load
+      property={propertyData}
+      basePath="/realestate/ventaDepartamento"
+    />
+  </main>
 </RealestateLayout>

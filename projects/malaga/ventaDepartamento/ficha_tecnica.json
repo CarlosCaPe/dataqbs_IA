@@ -2,7 +2,7 @@
   "public_id": "MLG-VDEPTO-001",
   "title": "Departamento con Roof Garden Exclusivo – A una cuadra del ITESO",
   "title_short": "Depto 2 Rec. Roof Garden, Parques del Bosque",
-  "description": "🏢 DEPARTAMENTO EN VENTA CON ROOF GARDEN EXCLUSIVO – A UNA CUADRA DEL ITESO\n\n📐 76 m² de construcción · Piso 2 · 2 Niveles · 2 Recámaras · 1 Baño · 1 Estacionamiento\n💰 $2,700,000 MXN\n\nInvierte en una de las zonas con mayor demanda y plusvalía. Departamento de 2 niveles ubicado prácticamente a una cuadra del ITESO, ideal para inversión o vivienda.\n\n🏠 PLANTA PRINCIPAL (Piso 2)\n• 2 recámaras con clóset\n• 1 baño completo\n• Sala-comedor\n• Cocina con barra\n• Cuarto de servicio\n\n🔝 PLANTA ALTA\n• Roof garden privado con pérgola y tarja\n\n🚗 ESTACIONAMIENTO\n• 1 cajón de estacionamiento\n\n🔒 SEGURIDAD\n• Dentro de coto con seguridad 24/7\n\n📍 UBICACIÓN\nBahía de Acapulco, Parques del Bosque, Tlaquepaque, Jalisco. A una cuadra del ITESO — excelente conectividad y demanda de renta estudiantil.\n\n📈 Excelente oportunidad para inversión o vivienda, en una ubicación estratégica cerca del ITESO, con gran potencial de rentabilidad y plusvalía en la zona.\n\n✅ Listo para escriturar.",
+  "description": "🏢 DEPARTAMENTO EN VENTA CON ROOF GARDEN EXCLUSIVO – A UNA CUADRA DEL ITESO\n\n📐 76 m² de construcción · Piso 2 · 2 Niveles · 2 Recámaras · 1 Baño · 1 Estacionamiento\n💰 $2,750,000 MXN\n\nInvierte en una de las zonas con mayor demanda y plusvalía. Departamento de 2 niveles ubicado prácticamente a una cuadra del ITESO, ideal para inversión o vivienda.\n\n🏠 PLANTA PRINCIPAL (Piso 2)\n• 2 recámaras con clóset\n• 1 baño completo\n• Sala-comedor\n• Cocina con barra\n• Cuarto de servicio\n\n🔝 PLANTA ALTA\n• Roof garden privado con pérgola y tarja\n\n🚗 ESTACIONAMIENTO\n• 1 cajón de estacionamiento\n\n🔒 SEGURIDAD\n• Dentro de coto con seguridad 24/7\n\n📍 UBICACIÓN\nBahía de Acapulco, Parques del Bosque, Tlaquepaque, Jalisco. A una cuadra del ITESO — excelente conectividad y demanda de renta estudiantil.\n\n📈 Excelente oportunidad para inversión o vivienda, en una ubicación estratégica cerca del ITESO, con gran potencial de rentabilidad y plusvalía en la zona.\n\n✅ Listo para escriturar.",
   "description_short": "Departamento 2 rec. con roof garden privado, pérgola y tarja. A 1 cuadra del ITESO, coto con seguridad 24/7. Ideal inversión o vivienda.",
   "bedrooms": 2,
   "bathrooms": 1,
@@ -50,10 +50,10 @@
   "operations": [
     {
       "type": "sale",
-      "amount": 2700000.0,
+      "amount": 2750000.0,
       "currency": "MXN",
-      "formatted_amount": "$2,700,000 MXN",
-      "price_per_m2": 35526.32,
+      "formatted_amount": "$2,750,000 MXN",
+      "price_per_m2": 36184.21,
       "commission": {
         "type": "percentage",
         "value": null,

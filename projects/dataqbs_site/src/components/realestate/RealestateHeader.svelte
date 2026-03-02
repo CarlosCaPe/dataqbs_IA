@@ -24,7 +24,7 @@
 </script>
 
 <header class="sticky top-0 z-40 backdrop-blur-md bg-white/80 dark:bg-slate-900/80 border-b border-slate-200 dark:border-slate-700/50">
-  <!-- Decorative RS cubes -->
+  <!-- Decorative RE cubes -->
   <img src="/re-favicon.svg" alt="" class="absolute left-0 top-0 h-full w-auto opacity-[0.07] pointer-events-none select-none" aria-hidden="true" />
   <img src="/re-favicon.svg" alt="" class="absolute right-0 top-0 h-full w-auto opacity-[0.07] pointer-events-none select-none" aria-hidden="true" />
 

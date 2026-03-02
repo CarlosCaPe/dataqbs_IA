@@ -69,9 +69,16 @@ certificaciones/snowflakeIA/ocr_extract.py
 *.JPEG
 
 # Allow dataqbs_site public images
+!projects/dataqbs_site/public/**/*.jpeg
+!projects/dataqbs_site/public/**/*.jpg
+!projects/dataqbs_site/public/**/*.png
 !projects/dataqbs_site/public/*.jpeg
 !projects/dataqbs_site/public/*.jpg
 !projects/dataqbs_site/public/*.png
+
+# Allow malaga property images
+!projects/malaga/**/inputImages/*.jpeg
+!projects/malaga/**/inputImages/*.jpg
 
 # Easybrokers images (explicit path)
 easybrokers/properties/images/

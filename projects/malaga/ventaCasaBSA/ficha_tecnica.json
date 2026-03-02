@@ -2,7 +2,7 @@
   "public_id": "MLG-VCBSA-001",
   "title": "Casa Moderna con Paneles Solares en Bosques de Santa Anita – Coto 9",
   "title_short": "Casa 3 Rec. Coto 9, BSA Tlajomulco",
-  "description": "🏡 SE VENDE · Casa Moderna en Bosques de Santa Anita – Coto 9\n\n📐 Terreno: 220 m² · 2 Plantas · 3 Recámaras · 3.5 Baños · 3 Estacionamientos\n💰 $6,700,000 MXN\n\nCasa contemporánea en uno de los cotos más buscados de Bosques de Santa Anita (Coto 9), Tlajomulco de Zúñiga. Lista para escriturar — entra con maletas y nada más.\n\n🏠 PLANTA BAJA\n• Cochera techada para 3 autos con instalación 220 V y cargador para auto eléctrico\n• Medio baño de visitas\n• Oficina independiente — ideal para home office\n• Área de lavado techada\n• Jardín trasero con pasillo de servidumbre\n\n🛏️ PLANTA ALTA\n• 3 recámaras amplias, cada una con baño completo y walking closet\n• Área social / family room\n• Sala-comedor\n\n⚡ EQUIPAMIENTO Y PLUSES\n• 8 paneles solares instalados en techo — ahorro real en recibo de CFE\n• Cargador / instalación 220 V para auto eléctrico en cochera\n• Baños estilo japonés (WC inteligente)\n• Aljibe de reserva de agua (suministro garantizado)\n• Calentador de agua\n• Aire acondicionado\n• Terraza\n\n🔒 SEGURIDAD\n• Coto cerrado con vigilancia 24/7\n• Acceso vehicular controlado por sistema\n\n📍 UBICACIÓN\nBosques de Santa Anita, Tlajomulco de Zúñiga, Jalisco. A minutos de Periférico Sur, con acceso rápido a centros comerciales, colegios y hospitales. Zona arbolada, tranquila y con plusvalía en crecimiento.\n\n✅ Excelente mantenimiento. Lista para escriturar.\nIdeal para familias que buscan seguridad, espacio y calidad de vida.",
+  "description": "🏡 SE VENDE · Casa Moderna en Bosques de Santa Anita – Coto 9\n\n📐 Terreno: 220 m² · 2 Plantas · 3 Recámaras · 3.5 Baños · 3 Estacionamientos\n💰 $6,500,000 MXN\n\nCasa contemporánea en uno de los cotos más buscados de Bosques de Santa Anita (Coto 9), Tlajomulco de Zúñiga. Lista para escriturar — entra con maletas y nada más.\n\n🏠 PLANTA BAJA\n• Cochera techada para 3 autos con instalación 220 V y cargador para auto eléctrico\n• Medio baño de visitas\n• Oficina independiente — ideal para home office\n• Área de lavado techada\n• Jardín trasero con pasillo de servidumbre\n• Fuente decorativa debajo de la escalera\n\n🛏️ PLANTA ALTA\n• 3 recámaras amplias, cada una con baño completo y walking closet\n• Área social / family room\n• Sala-comedor\n\n⚡ EQUIPAMIENTO Y PLUSES\n• 8 paneles solares instalados en techo — ahorro real en recibo de CFE\n• Cargador / instalación 220 V para auto eléctrico en cochera\n• Baños estilo japonés (WC inteligente)\n• Aljibe de reserva de agua (suministro garantizado)\n• Calentador de agua\n• Aire acondicionado\n• Terraza\n\n🔒 SEGURIDAD\n• Coto cerrado con vigilancia 24/7\n• Acceso vehicular controlado por sistema\n\n📍 UBICACIÓN\nBosques de Santa Anita, Tlajomulco de Zúñiga, Jalisco. A minutos de Periférico Sur, con acceso rápido a centros comerciales, colegios y hospitales. Zona arbolada, tranquila y con plusvalía en crecimiento.\n\n✅ Excelente mantenimiento. Lista para escriturar.\nIdeal para familias que buscan seguridad, espacio y calidad de vida.",
   "description_short": "Casa moderna 3 rec. c/u con baño y walking closet, 8 paneles solares, cochera 3 autos con cargador eléctrico, aljibe, coto privado con seguridad 24/7. Lista para escriturar.",
   "bedrooms": 3,
   "bathrooms": 3,
@@ -50,11 +50,11 @@
   "operations": [
     {
       "type": "sale",
-      "amount": 6700000.0,
+      "amount": 6500000.0,
       "currency": "MXN",
-      "formatted_amount": "$6,700,000 MXN",
-      "price_per_m2": 23928.57,
-      "price_per_m2_construction": 23928.57,
+      "formatted_amount": "$6,500,000 MXN",
+      "price_per_m2": 29545.45,
+      "price_per_m2_construction": 23214.29,
       "commission": {
         "type": "percentage",
         "value": null,
@@ -86,7 +86,7 @@
     "Bosques de Santa Anita",
     "Tlajomulco"
   ],
-  "private_description": "Casa moderna en Bosques de Santa Anita, Coto 9. Venta directa del propietario. Documentación lista para escriturar. Precio firme $6,700,000 MXN.",
+  "private_description": "Casa moderna en Bosques de Santa Anita, Coto 9. Venta directa del propietario. Documentación lista para escriturar. Precio firme $6,500,000 MXN.",
   "show_prices": true,
   "share_commission": false,
   "property_images": [
@@ -239,6 +239,18 @@
       "url": "inputImages/PANELES_SOLARES_10.jpeg",
       "position": 24,
       "category": "PANELES_SOLARES"
+    },
+    {
+      "title": "Pasillo de servidumbre — jardín trasero",
+      "url": "inputImages/PASILLO_SERVIDUMBRE_01.jpeg",
+      "position": 25,
+      "category": "PASILLO_SERVIDUMBRE"
+    },
+    {
+      "title": "Fuente decorativa debajo de la escalera",
+      "url": "inputImages/FUENTE_ESCALERA_01.jpeg",
+      "position": 26,
+      "category": "FUENTE"
     }
   ],
   "excluded_images": {
@@ -280,6 +292,10 @@
     {
       "name": "Pasillo de servidumbre",
       "category": "Exterior"
+    },
+    {
+      "name": "Fuente decorativa debajo de la escalera",
+      "category": "Interior"
     },
     {
       "name": "Fachada moderna",
@@ -381,11 +397,11 @@
     "project": "ventaCasaBSA",
     "source": "manual + CLIP ViT-B-32 classification",
     "images_pending_classification": false,
-    "total_images_in_folder": 37,
-    "images_in_listing": 25,
+    "total_images_in_folder": 39,
+    "images_in_listing": 27,
     "images_excluded": 12,
     "last_classified_at": "2026-03-02T12:00:00-06:00",
-    "notes": "25 fotos seleccionadas de 37. Se excluyeron 5 AREA_LAVADO y 7 PANELES_SOLARES redundantes. Orden: fachada → exterior → interior → servicios → paneles.",
+    "notes": "27 fotos seleccionadas de 39. Se excluyeron 5 AREA_LAVADO y 7 PANELES_SOLARES redundantes. Se agregaron pasillo de servidumbre y fuente decorativa. Orden: fachada → exterior → interior → servicios → paneles → extras.",
     "pending_actions": [
       "Confirmar tamaño de construcción (estimado 280 m²)",
       "Confirmar año de construcción (estimado 2018)",

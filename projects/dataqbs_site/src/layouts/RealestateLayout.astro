@@ -67,6 +67,9 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
         var saved = localStorage.getItem('theme');
         var isDark = saved ? saved === 'dark' : true;
         document.documentElement.classList.toggle('dark', isDark);
+        // Sync lang attribute with stored locale
+        var lang = localStorage.getItem('locale') || 'es';
+        document.documentElement.lang = lang;
       })();
     </script>
 

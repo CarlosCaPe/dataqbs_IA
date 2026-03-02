@@ -98,7 +98,7 @@
         class="w-full h-64 sm:h-80 md:h-96 object-cover transition-transform duration-300 group-hover:scale-105 pointer-events-none select-none"
         loading="eager"
         draggable="false"
-        oncontextmenu="return false;"
+        on:contextmenu|preventDefault
       />
       <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
       <div class="absolute bottom-4 left-4 right-4 flex justify-between items-end opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -145,6 +145,7 @@
   <!-- svelte-ignore a11y-click-events-have-key-events -->
   <!-- svelte-ignore a11y-no-static-element-interactions -->
   <div class="fixed inset-0 z-50 bg-black/95 flex flex-col items-center justify-center"
+       role="dialog" aria-modal="true" aria-label="Image gallery"
        on:touchstart={handleTouchStart}
        on:touchend={handleTouchEnd}>
 
@@ -172,7 +173,7 @@
           alt={currentImage.title}
           class="max-h-full max-w-full object-contain rounded-lg shadow-2xl animate-fade-in pointer-events-none select-none"
           draggable="false"
-          oncontextmenu="return false;"
+          on:contextmenu|preventDefault
         />
       {/if}
     </div>
