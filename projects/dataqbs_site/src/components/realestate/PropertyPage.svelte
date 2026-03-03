@@ -13,6 +13,10 @@
     de: { text: 'Diese Anzeige ist auf Spanisch.', cta: 'Kontaktieren Sie uns für Hilfe auf Deutsch' },
   };
 
+  // i18n titles: use translated title if available for current locale
+  $: localizedTitle = ($locale !== 'es' && property.title_i18n?.[$locale]) || property.title;
+  $: localizedTitleShort = ($locale !== 'es' && property.title_short_i18n?.[$locale]) || property.title_short || localizedTitle;
+
   // Group features by category
   $: featureGroups = (property.features || []).reduce(
     (acc: Record<string, string[]>, f: { name: string; category: string }) => {
@@ -75,7 +79,7 @@
         </span>
       </div>
       <h1 class="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white leading-tight">
-        {property.title}
+        {localizedTitle}
       </h1>
       <p class="text-slate-500 dark:text-slate-400 text-sm flex items-center gap-1">
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -308,7 +312,7 @@
   <!-- ── Contact Section ────────────────────────────── -->
   <div class="card p-6">
     <PropertyContact
-      propertyTitle={property.title_short || property.title}
+      propertyTitle={localizedTitleShort}
       propertyId={property.public_id || property.internal_id || ''}
     />
   </div>

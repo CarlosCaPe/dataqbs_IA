@@ -12,6 +12,14 @@
 import { defineMiddleware } from 'astro:middleware';
 
 export const onRequest = defineMiddleware(async (context, next) => {
+  // Skip nonce injection for prerendered/static pages (served by CF Pages
+  // without the worker — nonces baked at build time are useless).
+  const path = context.url.pathname;
+  const isStaticRoute = path.startsWith('/realestate');
+  if (isStaticRoute) {
+    return next();
+  }
+
   // Generate a unique nonce for this request
   const nonce = crypto.randomUUID().replace(/-/g, '');
 
@@ -46,9 +54,17 @@ export const onRequest = defineMiddleware(async (context, next) => {
     "form-action 'self'",
   ].join('; ');
 
-  // Create new response with nonce-injected HTML and updated CSP
+  // Create new response with nonce-injected HTML and updated CSP + security headers
   const newHeaders = new Headers(response.headers);
   newHeaders.set('Content-Security-Policy', csp);
+  newHeaders.set('Strict-Transport-Security', 'max-age=31536000; includeSubDomains; preload');
+  newHeaders.set('X-Frame-Options', 'DENY');
+  newHeaders.set('X-Content-Type-Options', 'nosniff');
+  newHeaders.set('Referrer-Policy', 'strict-origin-when-cross-origin');
+  newHeaders.set('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
+  newHeaders.set('X-XSS-Protection', '1; mode=block');
+  // Remove permissive CORS on HTML pages (CF Pages default)
+  newHeaders.delete('Access-Control-Allow-Origin');
 
   return new Response(nonceHtml, {
     status: response.status,

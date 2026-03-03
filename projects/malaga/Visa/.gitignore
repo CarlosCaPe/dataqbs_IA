@@ -1,0 +1,14 @@
+# Personal identity documents — NEVER commit
+inputImages/Pasaportes.jpeg
+inputImages/IfeCarlos.png
+inputImages/ActaMatrimonio.pdf
+inputImages/ActaNacimientoClaudia.pdf
+inputImages/ActaNacimiento_Carlos_Original.pdf
+inputImages/Acta_de_Nacimiento_*.pdf
+inputImages/Profile_ES.pdf
+
+# Scripts with hardcoded API keys
+extract_all_docs.py
+
+# Raw extraction data (contains PII)
+extraction_raw.json

@@ -12,7 +12,32 @@ import propertyData from '../../../../malaga/ventaCasaBSA/ficha_tecnica.json';
 <RealestateLayout
   title={`${propertyData.title_short} | realestate`}
   description={propertyData.description_short}
+  image="/realestate/ventaCasaBSA/FACHADA_01v2.jpeg"
 >
+  <!-- JSON-LD Structured Data for this property -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'RealEstateListing',
+    name: propertyData.title,
+    description: propertyData.description_short,
+    url: 'https://www.dataqbs.com/realestate/ventaCasaBSA/',
+    image: 'https://www.dataqbs.com/realestate/ventaCasaBSA/FACHADA_01v2.jpeg',
+    datePosted: '2025-12-01',
+    offers: {
+      '@type': 'Offer',
+      price: propertyData.operations?.[0]?.amount,
+      priceCurrency: 'MXN',
+      availability: 'https://schema.org/InStock',
+    },
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: propertyData.location?.name,
+      addressLocality: propertyData.location?.city,
+      addressRegion: propertyData.location?.state,
+      postalCode: propertyData.location?.zip,
+      addressCountry: 'MX',
+    },
+  })} slot="head" />
   <RealestateHeader client:load />
 
   <!-- Decorative RE watermarks -->

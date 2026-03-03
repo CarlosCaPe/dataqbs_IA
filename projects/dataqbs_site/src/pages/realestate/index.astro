@@ -4,13 +4,14 @@ export const prerender = true;
 import RealestateLayout from '../../layouts/RealestateLayout.astro';
 import RealestateHeader from '../../components/realestate/RealestateHeader.svelte';
 import PropertyContact from '../../components/realestate/PropertyContact.svelte';
+import PropertyCard from '../../components/realestate/PropertyCard.svelte';
 
 // Import both property data files
 import casaData from '../../../../malaga/ventaCasaBSA/ficha_tecnica.json';
 import deptoData from '../../../../malaga/ventaDepartamento/ficha_tecnica.json';
 
 const properties = [
-  { data: casaData, slug: 'ventaCasaBSA', image: '/realestate/ventaCasaBSA/FACHADA_01.jpeg' },
+  { data: casaData, slug: 'ventaCasaBSA', image: '/realestate/ventaCasaBSA/FACHADA_01v2.jpeg' },
   { data: deptoData, slug: 'ventaDepartamento', image: '/realestate/ventaDepartamento/FACHADA_EDIFICIO_01.jpeg' },
 ];
 ---
@@ -47,27 +48,14 @@ const properties = [
     <!-- Property photos grid -->
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
       {properties.map((prop) => (
-        <a
-          href={`/realestate/${prop.slug}`}
-          class="group relative block rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 aspect-[4/3]"
-        >
-          <img
-            src={prop.image}
-            alt={prop.data.title_short}
-            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-            loading="lazy"
-          />
-          <!-- Gradient overlay with title -->
-          <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-300" />
-          <div class="absolute bottom-0 left-0 right-0 p-5">
-            <h2 class="text-white font-bold text-lg sm:text-xl drop-shadow-lg">
-              {prop.data.title_short}
-            </h2>
-            <span class="inline-block mt-2 px-3 py-1 rounded-full text-xs font-semibold bg-re-600 text-white shadow">
-              {prop.data.operations?.[0]?.formatted_amount || 'Consultar'}
-            </span>
-          </div>
-        </a>
+        <PropertyCard
+          client:load
+          slug={prop.slug}
+          image={prop.image}
+          title_short={prop.data.title_short}
+          title_short_i18n={prop.data.title_short_i18n}
+          formatted_amount={prop.data.operations?.[0]?.formatted_amount || 'Consultar'}
+        />
       ))}
     </div>
 

@@ -1,0 +1,1393 @@
+{
+  "source": {
+    "institution": "Ministerio de Asuntos Exteriores, Unión Europea y Cooperación",
+    "office": "Consulado General de España en Estambul",
+    "contact_email": "cog.estambul@maec.es",
+    "address": "Plaza del Marqués de Salamanca, 8. 28006 Madrid (España)",
+    "website_type": "Sitio oficial del MAEUEC",
+    "language": "Castellano",
+    "last_updated": "2025-01-07"
+  },
+  "visa_type": "Visado de Teletrabajo – Nómadas Digitales",
+  "legal_basis": "Ley 14/2013",
+  "general_notes": {
+    "nie_required": "El solicitante deberá estar en posesión del número de identificación fiscal (NIE) en el momento de la solicitud. El NIE se gestiona en: cog.estambul@maec.es",
+    "translation": "Los documentos redactados en otros idiomas deberán ir acompañados de traducción jurada al español.",
+    "legalization": "Los documentos oficiales emitidos por autoridades distintas de las españolas deberán ir debidamente legalizados o apostillados."
+  },
+  "requirements": [
+    {
+      "number": 1,
+      "title": "Pasaporte en vigor",
+      "description": "Copia de pasaporte completo en vigor, con una duración mínima de tres meses posterior a la estancia prevista en España.",
+      "notes": "Si es residente en Turquía, ha de contar con una residencia de larga duración acreditada."
+    },
+    {
+      "number": 2,
+      "title": "Certificado de empadronamiento",
+      "description": "Certificado de empadronamiento (Ikametgah Tezkeresi)."
+    },
+    {
+      "number": 3,
+      "title": "Tasa de visado",
+      "description": "Tasa de visado: 94 USD en metálico y exacto."
+    },
+    {
+      "number": 4,
+      "title": "Formulario de solicitud",
+      "description": "Formulario de solicitud de visado firmado por la persona teletrabajadora."
+    },
+    {
+      "number": 5,
+      "title": "Acreditación de relación laboral o profesional",
+      "description": "Acreditación de una relación laboral o profesional a la fecha de solicitud con la empresa o empresas extranjeras con las que mantiene dicha relación (mínimo de tres meses anteriores a la solicitud).",
+      "sub_requirements": {
+        "cuenta_ajena": {
+          "label": "Trabajador por cuenta ajena",
+          "details": "Certificado de la empresa que refleje la antigüedad del trabajador en la empresa, así como el permiso explícito de la empresa al trabajador para realizar su trabajo en remoto."
+        },
+        "cuenta_propia": {
+          "label": "Trabajador por cuenta propia",
+          "details": "Certificado que refleje la antigüedad de la actividad que desarrolla, así como los términos y condiciones en los que va a ejercer la actividad profesional a distancia."
+        }
+      }
+    },
+    {
+      "number": 6,
+      "title": "Acreditación de actividad real y continuada de la empresa",
+      "description": "Acreditación de una actividad real y continuada de la empresa o grupo de empresas.",
+      "sub_requirements": [
+        "Certificado de registro mercantil o similar que refleje la fecha de constitución de la empresa y tipo de actividad.",
+        "Certificado de la Agencia Tributaria de Turquía (o del país donde declare su actividad) de la declaración de renta, beneficios o similar del año anterior. Si se trata de un certificado no expedido por autoridades extranjeras, debe venir debidamente legalizado/apostillado."
+      ]
+    },
+    {
+      "number": 7,
+      "title": "Autorización de trabajo en remoto (cuenta ajena)",
+      "description": "En los supuestos de trabajador por cuenta ajena: carta de la empresa extranjera autorizando el trabajo en remoto. Esta carta debe estar firmada por representante de la misma, cuya personalidad debe acreditarse fehacientemente."
+    },
+    {
+      "number": 8,
+      "title": "Documentación de actividad profesional a distancia (cuenta propia)",
+      "description": "En los supuestos de trabajador por cuenta propia: documentación que acredite los términos y las condiciones en los que va a ejercer la actividad profesional a distancia."
+    },
+    {
+      "number": 9,
+      "title": "Acreditación de recursos económicos",
+      "description": "Demostrar recursos económicos suficientes según el Salario Mínimo Interprofesional (SMI).",
+      "thresholds": {
+        "titular": "200% del Salario Mínimo Interprofesional",
+        "primer_familiar": "75% del SMI adicional",
+        "familiares_restantes": "25% del SMI adicional por cada uno"
+      },
+      "notes": "En el caso de ascendientes o descendientes mayores de 18 años, deben demostrar dependencia económica del titular de la solicitud y no haber constituido unidad familiar propia (art. 62.4)."
+    },
+    {
+      "number": 10,
+      "title": "Certificado de antecedentes penales",
+      "description": "Certificado de antecedentes penales del país o países en los que haya residido durante los dos últimos años, debidamente legalizado, y una declaración responsable de la inexistencia de antecedentes en los últimos 5 años."
+    },
+    {
+      "number": 11,
+      "title": "Seguro de enfermedad",
+      "description": "Acreditación de seguro de enfermedad público o privado que proporcione coberturas equiparables a las del Sistema Nacional de Salud.",
+      "conditions": [
+        "El seguro deberá ser concertado con una entidad aseguradora autorizada para operar en España.",
+        "Deberá permanecer activo durante el periodo de vigencia de la autorización.",
+        "No se consideran válidos los seguros de viaje.",
+        "Si la persona solicitante está cubierta por una norma internacional de coordinación de sistemas de seguridad social que prevé la cobertura sanitaria en España, deberá acreditarlo mediante el certificado de derecho emitido por la institución competente del Estado en cuyo sistema de seguridad social esté asegurado."
+      ]
+    },
+    {
+      "number": 12,
+      "title": "Declaración responsable de Seguridad Social",
+      "description": "Declaración responsable donde figure el compromiso de cumplimiento, con carácter previo al inicio de la actividad laboral o profesional, de las obligaciones en materia de seguridad social.",
+      "notes": "En caso de no cobertura mediante norma internacional de coordinación de sistemas de seguridad social y trabajo por cuenta ajena, acreditación de la inscripción de la empresa, o justificación de solicitud de su inscripción en la Seguridad Social."
+    },
+    {
+      "number": 13,
+      "title": "Acreditación de titulación o experiencia profesional",
+      "description": "Original y copia de la acreditación de la titulación o experiencia profesional establecida en el art. 74.bis de la Ley.",
+      "options": [
+        "Acreditación de la condición de graduados o postgraduados de universidades de reconocido prestigio, mediante presentación de la titulación o documentación que acredite una experiencia profesional mínima de tres años en funciones análogas a las del puesto a desempeñar.",
+        "En el caso de profesiones reguladas, se debe acreditar la homologación del título conforme a la normativa sectorial relativa a su ejercicio."
+      ]
+    }
+  ],
+  "related_notices": [
+    "Elecciones a las Cortes de Castilla y León de 15 de marzo de 2026",
+    "Elecciones al Consejo de Residentes Españoles 2026",
+    "Nuevas Tasas Consulares 2026",
+    "Elecciones a las Cortes de Aragón de 08 de febrero de 2026",
+    "Nuevas Tasas consulares a partir del 01.07.25"
+  ],
+  "useful_links": {
+    "cita_previa": "Cita previa MAEUEC",
+    "sede_electronica": "Sede Electrónica MAEUEC",
+    "portal_administracion": "Portal Administracion.gob.es",
+    "cooperacion_espanola": "Cooperación Española",
+    "instituto_cervantes": "Instituto Cervantes",
+    "portal_transparencia": "Portal Transparencia"
+  },
+  "consulate_guadalajara": {
+    "office": "Consulado General de España en Guadalajara",
+    "role": "Consulado donde se realizará el trámite de visado",
+    "address": {
+      "street": "Avenida Pablo Neruda nº 2710, 5º piso, Edificio ALTUS",
+      "neighborhood": "Colonia Providencia",
+      "postal_code": "44630",
+      "city": "Guadalajara",
+      "state": "Jalisco",
+      "country": "México"
+    },
+    "emails": {
+      "pasaportes_y_matricula": "cog.guadalajara.pas@maec.es",
+      "citas_registro_matricula": "cog.guadalajara.citrmc@maec.es",
+      "registro_civil_y_nacionalidad": "cog.guadalajara.rgc@maec.es",
+      "visados": "cog.guadalajara.vis@maec.es",
+      "general": "cog.guadalajara@maec.es",
+      "ley_memoria_democratica": "cog.guadalajara.lmd@maec.es"
+    },
+    "phones": {
+      "oficina": [
+        "33 3630 0450",
+        "33 3630 0466",
+        "33 3630 0822"
+      ],
+      "fax": "33 3616 0396",
+      "emergencia_consular": "33 3116 4272",
+      "calling_notes": {
+        "desde_mexico": "Sin prefijo",
+        "internacional": "Prefijo 0052"
+      }
+    },
+    "emergency_service": {
+      "description": "Servicio de emergencia consular 24 horas, incluyendo festivos y fines de semana.",
+      "coverage": [
+        "Aguascalientes",
+        "Colima",
+        "Jalisco",
+        "Nayarit",
+        "Zacatecas"
+      ],
+      "examples": [
+        "Documentarse por necesidad de viaje urgente obligatorio",
+        "Accidente grave",
+        "Detención"
+      ],
+      "notes": "No se ofrece información sobre trámites en este servicio. Solicitar en horario normal de oficina o por correo electrónico."
+    },
+    "warnings": {
+      "citas_fraudulentas": "El servicio de citas es gratuito y personal. No se deje engañar por terceros que ofrecen citas a cambio de dinero o datos personales. El Consulado no se hace responsable por citas falsas o cargos inesperados.",
+      "recommendation": "No comparta su información personal con terceros y evite el uso de servicios no oficiales. Si necesita ayuda, busque profesionales legales."
+    },
+    "social_media": ["Facebook", "X (Twitter)"],
+    "source_type": "Sitio oficial del MAEUEC"
+  },
+  "applicant_profile": {
+    "role": "Solicitante principal del visado de teletrabajo",
+    "full_name": "Carlos Carrillo",
+    "headline": "AI-Driven Engineer | Data - Developer - DBA | Snowflake - Azure SQL - ADX/KQL - Python | Remote",
+    "contact": {
+      "email": "carlos.carrillo@dataqbs.com",
+      "website": "dataqbs.com",
+      "linkedin": "linkedin.com/in/carlosalbertocarrillo",
+      "github": "github.com/CarlosCaPe"
+    },
+    "location": "México - Remoto",
+    "availability": "Solo Remoto (Mundial)",
+    "open_to": ["SQL Developer", "ETL Developer", "Data Engineer", "Integration Lead", "AI Engineer"],
+    "languages": {
+      "español": "Nativo",
+      "inglés": "Profesional"
+    },
+    "summary": "Ingeniero de Datos Senior y Consultor Cloud con más de 20 años de experiencia modernizando ecosistemas analíticos con Snowflake, Microsoft Fabric, Azure SQL y SQL Server. Construye pipelines automatizados y escalables, y modelos de datos resilientes. Toolkit: SQL profundo + Python, desarrollo asistido por IA (GitHub Copilot, ChatGPT, Claude).",
+    "experience": [
+      {
+        "title": "Data Integration Lead",
+        "company": "Hexaware Technologies",
+        "period": "2025-03 — Actual",
+        "location": "México · Remote",
+        "highlights": [
+          "Lideró integración Snowflake → Azure SQL; pipeline de sincronización incremental de 14 tablas con MERGE",
+          "Diseñó cargas incrementales basadas en marca de agua para dashboards de Connected Operations",
+          "Construyó snowrefactor, CLI en Python para pruebas de regresión de vistas Snowflake",
+          "Optimizó vistas Snowflake (65s→9.7s, 5x). Benchmarked Snowflake→ADX: 30s→0.15s (200x)",
+          "Desarrolló IROC Video Wall (Streamlit, 7 sitios mineros) y Chatbot de Operaciones Mineras",
+          "Construyó simulación de stockpile basada en física con modelado 3D para minería"
+        ],
+        "technologies": "Snowflake, Azure SQL, ADX/KQL, Azure Functions, Python, Streamlit, Docker, GitHub Enterprise, Copilot"
+      },
+      {
+        "title": "Senior Database Engineer",
+        "company": "FussionHit",
+        "period": "2024-09 — 2025-03",
+        "location": "Remote",
+        "highlights": [
+          "Construyó framework de auditoría PostgreSQL con exportaciones DDL templadas",
+          "Entregó 20+ tickets de base de datos (optimización de índices, remediación de FK)",
+          "Redactó Documentos de Diseño Técnico para múltiples bases de datos",
+          "Desarrolló guía de Mejores Prácticas para PostgreSQL en Azure Flexible Server"
+        ],
+        "technologies": "PostgreSQL, Azure Database for PostgreSQL, Node.js, JavaScript, Nunjucks"
+      },
+      {
+        "title": "Data Engineer & AI Developer",
+        "company": "dataqbs",
+        "period": "2011-01 — Actual",
+        "location": "Guadalajara, México · Remote",
+        "highlights": [
+          "Ingeniería de datos para VCA Animal Hospitals, C&A México, BCG, Moviro, Svitla, Quesos Navarro",
+          "Construyó MEMO-GRID: bot de grid trading con HPO Optuna (50K pruebas), multiplicador 23x BTC",
+          "Diseñó escáner de arbitraje cripto triangular con Bellman-Ford a través de 9 exchanges",
+          "Construyó motor de reglas declarativo basado en YAML para auditoría de respuestas LLM",
+          "Implementó colector de correo IMAP multi-cuenta con clasificador de 5 etiquetas",
+          "Creó portfolio dataqbs.com con chatbot RAG, embeddings vectoriales y streaming LLM con Groq"
+        ],
+        "technologies": "Python, SQL Server, PostgreSQL, Snowflake, SSIS/SSRS/SSAS, Tableau, Power BI, Dataiku DSS, Azure Data Factory, Node.js, ccxt, pandas, Astro, Svelte"
+      },
+      {
+        "title": "ETL Engineer",
+        "company": "SVAM International Inc.",
+        "period": "2022-11 — 2024-09",
+        "location": "México · Remote",
+        "highlights": [
+          "Lideró migración de SQL Server on-prem y SSIS a Snowflake",
+          "Automatizó ingestión de JSON desde APIs de Salesforce hacia Snowflake usando Python",
+          "Construyó pruebas de validación y reconciliación de datos end-to-end"
+        ],
+        "technologies": "Snowflake, SQL Server, SSIS, Salesforce API, SharePoint"
+      },
+      {
+        "title": "Senior ETL Developer",
+        "company": "Svitla Systems, Inc.",
+        "period": "2021-05 — 2023-10",
+        "location": "México · Remote",
+        "highlights": [
+          "Diseñó y desplegó el primer data warehouse en Azure SQL para analítica de ventas",
+          "Desarrolló paquetes SSIS y orquestó con Azure Data Factory",
+          "Construyó modelos star-schema flexibles para reporteo escalable"
+        ],
+        "technologies": "Azure SQL, SSIS, Azure Data Factory, Power BI, SQL Server"
+      },
+      {
+        "title": "Snowflake Administrator",
+        "company": "Epikso México",
+        "period": "2022-01 — 2023-01",
+        "location": "México · Remote",
+        "technologies": "Snowflake, Bitbucket, CI/CD, Infrastructure-as-Code"
+      },
+      {
+        "title": "Data Technical Lead",
+        "company": "Jabil",
+        "period": "2018-01 — 2022-03",
+        "location": "Guadalajara, México",
+        "technologies": "Snowflake, AWS, Hadoop, Impala, SQL Server PDW"
+      },
+      {
+        "title": "Software Engineer Lead",
+        "company": "3Pillar Global",
+        "period": "2016-06 — 2018-01",
+        "location": "Guadalajara, México",
+        "technologies": "SQL Server, SSIS, SSRS, EDI"
+      },
+      {
+        "title": "SQL SSRS Consultant",
+        "company": "HCL Technologies",
+        "period": "2014-08 — 2016-06",
+        "location": "Guadalajara, México",
+        "technologies": "SQL Server, SSRS, SharePoint, Actuate"
+      },
+      {
+        "title": "Database Analyst II",
+        "company": "Jabil",
+        "period": "2011-08 — 2014-08",
+        "location": "Guadalajara, México",
+        "technologies": "SQL Server, SSIS, Oracle, SAP, MySQL"
+      },
+      {
+        "title": "BI Developer",
+        "company": "C&A México",
+        "period": "2005-09 — 2011-08",
+        "location": "Guadalajara, México",
+        "technologies": "SQL Server, SSAS, SSRS, SSIS, OLAP"
+      },
+      {
+        "title": "Developer",
+        "company": "FIRMEPLUS",
+        "period": "2004-04 — 2005-05",
+        "location": "Guadalajara, México",
+        "technologies": "PHP, SQL Server, MySQL"
+      },
+      {
+        "title": "Developer Trainee",
+        "company": "Jabil Circuit de México",
+        "period": "2003-08 — 2004-05",
+        "location": "Guadalajara, México",
+        "technologies": "SQL Server, Web Development"
+      }
+    ],
+    "certifications": [
+      {"name": "Generative AI Professional Certificate", "issuer": "Snowflake", "year": 2026, "status": "Activo"},
+      {"name": "Microsoft Certified: Fabric Data Engineer Associate", "issuer": "Microsoft", "year": 2025, "status": "Activo"},
+      {"name": "Microsoft Certified: Azure Data Fundamentals", "issuer": "Microsoft", "year": 2025, "status": "Activo"},
+      {"name": "Microsoft Certified: Azure Fundamentals", "issuer": "Microsoft", "year": 2025, "status": "Activo"},
+      {"name": "dbt Fundamentals", "issuer": "dbt Labs", "year": 2025, "status": "Activo"},
+      {"name": "MCSA: SQL Server 2012/2014", "issuer": "Microsoft", "year": 2015, "status": "Activo"},
+      {"name": "MCSA: SQL Server 2008", "issuer": "Microsoft", "year": 2012, "status": "Activo"},
+      {"name": "MCPS: Microsoft Certified Professional", "issuer": "Microsoft", "year": 2012, "status": "Activo"},
+      {"name": "MCTS: SQL Server 2008, BI Development and Maintenance", "issuer": "Microsoft", "year": 2011, "status": "Activo"},
+      {"name": "MCTS: SQL Server 2008, Implementation and Maintenance", "issuer": "Microsoft", "year": 2010, "status": "Activo"},
+      {"name": "SnowPro Core Certification", "issuer": "Snowflake", "year": 2024, "status": "Expirado"}
+    ],
+    "skills": {
+      "languages": ["Python", "SQL", "JavaScript/TypeScript", "KQL (Kusto)", "Bash", "Node.js", "PowerShell"],
+      "data_and_cloud": ["Snowflake", "Azure (SQL, ADF, Functions)", "Azure Data Explorer (ADX)", "Microsoft Fabric", "Cloudflare (Pages, Workers, AI)"],
+      "ai_and_ml": ["LLM Evaluation & Prompt Eng.", "RAG", "Snowflake Cortex AI", "Vector Embeddings & Search", "GitHub Copilot SDK", "Optuna (HPO)", "Fine-Tuning (PEFT/LoRA)"],
+      "libraries_and_frameworks": ["pandas/NumPy", "ccxt", "Streamlit", "Playwright", "Astro/Svelte", "Nunjucks/Jinja2", "Rich/rapidfuzz"],
+      "devops_and_tools": ["GitHub Actions CI/CD", "Poetry/pip", "ruff/pre-commit/pytest", "Docker", "QEMU/KVM", "Linux (Pop!_OS)"],
+      "databases": ["SQL Server", "Snowflake", "PostgreSQL", "Azure SQL/Azure PostgreSQL", "SQLite"]
+    },
+    "education": [
+      {"degree": "Maestría en Administración de Empresas (MBA)", "institution": "Universidad de Guadalajara", "period": "2008-2010"},
+      {"degree": "Licenciatura en Ciencias de la Computación", "institution": "Universidad de Guadalajara", "period": "1999-2003"}
+    ],
+    "visa_relevance": {
+      "years_of_experience": "20+",
+      "current_employer": "Hexaware Technologies (cuenta ajena, remoto)",
+      "work_modality": "100% remoto",
+      "base_city": "Guadalajara, México",
+      "education_level": "MBA + Licenciatura en Ciencias de la Computación (Universidad de Guadalajara)",
+      "certifications_count": 11,
+      "active_certifications_count": 10
+    }
+  },
+  "passport_data": {
+    "extraction_method": "Llama 4 Scout (Groq Vision API) — meta-llama/llama-4-scout-17b-16e-instruct",
+    "extraction_date": "2026-03-03",
+    "source_image": "inputImages/Pasaportes.jpeg",
+    "cross_reference_sources": [
+      "inputImages/Pasaportes.jpeg (4 pasaportes)",
+      "inputImages/IfeCarlos.png (INE/IFE de Carlos)",
+      "inputImages/ActaNacimiento_Carlos_Original.pdf",
+      "inputImages/ActaNacimientoClaudia.pdf (manuscrita)",
+      "inputImages/Acta_de_Nacimiento_CAZA170316MJCRXRA5.pdf (Ariana)",
+      "inputImages/Acta_de_Nacimiento_CAZD130913HJCRXNA8.pdf (Dante)",
+      "inputImages/ActaMatrimonio.pdf"
+    ],
+    "cross_reference_method": "Consenso por mayoría: cada campo verificado contra TODAS las fuentes disponibles. En caso de discrepancia, prevalece el acta de nacimiento (documento rector legal) y el CURP oficial. Lógica familiar mexicana aplicada: hijos llevan apellido paterno del padre + apellido paterno de la madre.",
+    "data_quality_audit": {
+      "audit_date": "2026-03-03",
+      "audit_version": "v2 — con 7 documentos cruzados",
+      "tool_used": "Groq Vision API — meta-llama/llama-4-scout-17b-16e-instruct",
+      "image_quality": "720×1280px JPEG (pasaportes), 1384×1772 PNG (INE), PDFs a 200 DPI.",
+      "reliability_rating": "ALTA — Datos verificados por consenso múltiple (7 documentos). Solo MRZ y número de pasaporte de Ariana tienen incertidumbre residual (verificar físicamente).",
+      "errors_found_and_fixed": [
+        "1. CRÍTICO: Nombre hija: ARLINA → ARIANA (confirmado por Carlos + acta nacimiento + CURP CAZA)",
+        "2. CRÍTICO: Segundo nombre hija: CECILIA → CAELI (acta nacimiento dice ARIANA CAELI, CURP CAZA170316MJCRXRA5 confirma)",
+        "3. CRÍTICO: DOB Carlos: pasaporte OCR daba 1961, corregido a 16/09/1981 (INE + CURP + acta nacimiento + acta matrimonio = 4 fuentes)",
+        "4. MEDIO: Apellidos Claudia en pasaporte MRZ: Groq leía CARRILLO (esposo) → Sus apellidos reales son ZÚNIGA BERNARDINO (acta matrimonio + actas hijos confirman)",
+        "5. MENOR: Acta Claudia manuscrita: OCR leyó 'Buitiga/Bernardina' → es Zúñiga/Bernardino (por consenso de otros 3 docs)",
+        "6. MENOR: DOB Claudia en acta manuscrita: 07/01/1981 → 07/06/1981 (pasaporte + matrimonio confirman junio)",
+        "7. MENOR: Pasaporte Ariana número 10 dígitos (6435954518) — consistente en ambas extracciones OCR"
+      ]
+    },
+    "applicants": [
+      {
+        "role": "titular_nomada_digital",
+        "full_name": "CARLOS ALBERTO CARRILLO PEÑA",
+        "surnames": "CARRILLO PEÑA",
+        "given_names": "CARLOS ALBERTO",
+        "nationality": "MEXICANO",
+        "date_of_birth": "16/09/1981",
+        "sex": "H",
+        "place_of_birth": "GUADALAJARA, JALISCO",
+        "CURP": "CAPC810916HJCRXR09",
+        "passport_number": "N07091828",
+        "date_of_issue": "18/02/2023",
+        "date_of_expiry": "18/02/2033",
+        "issuing_authority": "SECRETARIA DE RELACIONES EXTERIORES",
+        "passport_validity_for_visa": "Vigente, expira 18/02/2033 — cumple requisito",
+        "parents": {
+          "father": "VICTOR MANUEL CARRILLO RESENDIZ",
+          "mother": "MARIA DOLORES PEÑA ORTEGA"
+        },
+        "verified_by": ["pasaporte", "INE", "acta_nacimiento", "acta_matrimonio", "actas_hijos_como_padre"],
+        "confidence": "100% — 5 fuentes coinciden en todos los campos"
+      },
+      {
+        "role": "dependiente_conyuge",
+        "full_name": "CLAUDIA ELIZABETH ZÚNIGA BERNARDINO",
+        "surnames": "ZÚNIGA BERNARDINO",
+        "given_names": "CLAUDIA ELIZABETH",
+        "nationality": "MEXICANA",
+        "date_of_birth": "07/06/1981",
+        "sex": "F",
+        "place_of_birth": "GUADALAJARA, JALISCO",
+        "passport_number": "64359528",
+        "date_of_issue": "02/12/2021",
+        "date_of_expiry": "02/12/2031",
+        "issuing_authority": "SECRETARIA DE RELACIONES EXTERIORES",
+        "passport_validity_for_visa": "Vigente, expira 02/12/2031 — cumple requisito",
+        "economic_threshold": "75% del SMI (primer familiar)",
+        "parents": {
+          "father": "ZÚNIGA (apellido completo por confirmar — acta manuscrita ilegible)",
+          "mother": "BERNARDINO (apellido completo por confirmar — acta manuscrita ilegible)"
+        },
+        "verified_by": ["pasaporte", "acta_nacimiento_manuscrita", "acta_matrimonio", "actas_hijos_como_madre"],
+        "confidence": "95% — Apellidos confirmados por acta matrimonio + actas hijos. Acta nac. manuscrita ilegible pero consistente en lo legible."
+      },
+      {
+        "role": "dependiente_hijo",
+        "full_name": "DANTE LEONEL CARRILLO ZÚNIGA",
+        "surnames": "CARRILLO ZÚNIGA",
+        "given_names": "DANTE LEONEL",
+        "nationality": "MEXICANO",
+        "date_of_birth": "13/09/2013",
+        "sex": "H",
+        "place_of_birth": "GUADALAJARA, JALISCO",
+        "CURP": "CAZD130913HJCRXNA8",
+        "passport_number": "64359529",
+        "date_of_issue": "02/12/2021",
+        "date_of_expiry": "02/12/2027",
+        "issuing_authority": "SECRETARIA DE RELACIONES EXTERIORES",
+        "age_at_application": 12,
+        "passport_validity_for_visa": "Vigente, expira 02/12/2027 — cumple requisito",
+        "economic_threshold": "25% del SMI (familiar adicional)",
+        "verified_by": ["pasaporte", "acta_nacimiento", "CURP_archivo"],
+        "confidence": "100% — 3 fuentes coinciden en todos los campos"
+      },
+      {
+        "role": "dependiente_hija",
+        "full_name": "ARIANA CAELI CARRILLO ZÚNIGA",
+        "surnames": "CARRILLO ZÚNIGA",
+        "given_names": "ARIANA CAELI",
+        "nationality": "MEXICANA",
+        "date_of_birth": "16/03/2017",
+        "sex": "F",
+        "place_of_birth": "ZAPOPAN, JALISCO",
+        "CURP": "CAZA170316MJCRXRA5",
+        "passport_number": "6435954518",
+        "passport_number_note": "10 dígitos — consistente en 2 extracciones OCR independientes. Verificar contra pasaporte físico.",
+        "date_of_issue": "02/12/2021",
+        "date_of_expiry": "02/12/2027",
+        "issuing_authority": "SECRETARIA DE RELACIONES EXTERIORES",
+        "age_at_application": 9,
+        "passport_validity_for_visa": "Vigente, expira 02/12/2027 — cumple requisito",
+        "economic_threshold": "25% del SMI (familiar adicional)",
+        "verified_by": ["pasaporte", "acta_nacimiento", "CURP_archivo"],
+        "confidence": "100% nombre y datos — Acta dice ARIANA CAELI (no Cecilia, no Celi). CURP CAZA confirma."
+      }
+    ]
+  },
+  "ine_data": {
+    "extraction_method": "Llama 4 Scout (Groq Vision API)",
+    "extraction_date": "2026-03-03",
+    "source_image": "inputImages/IfeCarlos.png",
+    "holder": "titular_nomada_digital",
+    "full_name_ine": "Carlos Alberto Carrillo Peña",
+    "surnames": ["Carrillo", "Peña"],
+    "given_names": ["Carlos", "Alberto"],
+    "date_of_birth": "16/09/1981",
+    "sex": "H",
+    "address": {
+      "street": "Cto Valle de Bravo 117 31 C",
+      "neighborhood": "Fracc Bosques de Sta Anita",
+      "postal_code": "45645",
+      "municipality": "Tlajomulco de Zúñiga",
+      "state": "Jalisco"
+    },
+    "voter_key": "CRPEC81091614H700",
+    "curp": "CAPC810916HJCRXR09",
+    "registration_year": "1999",
+    "electoral_section": "3578",
+    "validity": "2024-2034",
+    "name_confirmed": "Todos los documentos (pasaporte, INE, acta nacimiento, acta matrimonio) coinciden: CARLOS ALBERTO CARRILLO PEÑA. CURP: CAPC810916HJCRXR09."
+  },
+  "birth_certificates": {
+    "extraction_method": "Groq Vision API — meta-llama/llama-4-scout-17b-16e-instruct",
+    "extraction_date": "2026-03-03",
+    "carlos": {
+      "source": "inputImages/ActaNacimiento_Carlos_Original.pdf",
+      "nombre": "CARLOS ALBERTO CARRILLO PEÑA",
+      "fecha_nacimiento": "16/09/1981",
+      "lugar_nacimiento": "GUADALAJARA, JALISCO",
+      "sexo": "HOMBRE",
+      "padre": "VICTOR MANUEL CARRILLO RESENDIZ",
+      "madre": "MARIA DOLORES PEÑA ORTEGA",
+      "acta_numero": "9387",
+      "fecha_registro": "13/10/1981",
+      "municipio_registro": "GUADALAJARA",
+      "estado_registro": "JALISCO"
+    },
+    "claudia": {
+      "source": "inputImages/ActaNacimientoClaudia.pdf",
+      "note": "ACTA MANUSCRITA — difícil de leer. Datos cruzados con acta de matrimonio y actas de hijos para verificar.",
+      "nombre": "CLAUDIA ELIZABETH ZÚÑIGA BERNARDINO",
+      "nombre_ocr_raw": "Claudia Elizabeth Buitiga Bernardina (OCR leyó mal la manuscrita)",
+      "nombre_corregido_por": "Acta de matrimonio + actas de hijos dicen ZÚÑIGA BERNARDINO",
+      "fecha_nacimiento": "07/06/1981",
+      "fecha_nacimiento_ocr_raw": "07/01/1981 (OCR leyó enero, pero pasaporte y acta matrimonio dicen junio)",
+      "lugar_nacimiento": "GUADALAJARA, JALISCO",
+      "sexo": "FEMENINO",
+      "padre": "OCR leyó 'Jorge Raul Buitiga Samaniego' — probablemente ZÚÑIGA SAMANIEGO o similar",
+      "madre": "OCR leyó 'Maria Guadalupe Bernardina Sanchez' — probablemente BERNARDINO SÁNCHEZ o similar",
+      "acta_numero": "3264",
+      "fecha_registro": "04/07/1981"
+    },
+    "ariana": {
+      "source": "inputImages/Acta_de_Nacimiento_CAZA170316MJCRXRA5.pdf",
+      "nombre": "ARIANA CAELI CARRILLO ZUÑIGA",
+      "fecha_nacimiento": "16/03/2017",
+      "lugar_nacimiento": "ZAPOPAN, JALISCO",
+      "sexo": "MUJER",
+      "CURP": "CAZA170316MJCRXRA5",
+      "padre": "CARLOS ALBERTO CARRILLO PEÑA",
+      "madre": "CLAUDIA ELIZABETH ZUÑIGA BERNARDINO",
+      "acta_numero": "104",
+      "fecha_registro": "22/03/2017",
+      "municipio_registro": "SAN PEDRO TLAQUEPAQUE",
+      "estado_registro": "JALISCO"
+    },
+    "dante": {
+      "source": "inputImages/Acta_de_Nacimiento_CAZD130913HJCRXNA8.pdf",
+      "nombre": "DANTE LEONEL CARRILLO ZUÑIGA",
+      "fecha_nacimiento": "13/09/2013",
+      "lugar_nacimiento": "GUADALAJARA, JALISCO",
+      "sexo": "HOMBRE",
+      "CURP": "CAZD130913HJCRXNA8",
+      "padre": "CARLOS ALBERTO CARRILLO PEÑA",
+      "madre": "CLAUDIA ELIZABETH ZUÑIGA BERNARDINO",
+      "acta_numero": "5199",
+      "fecha_registro": "13/09/2013",
+      "municipio_registro": "GUADALAJARA",
+      "estado_registro": "JALISCO"
+    }
+  },
+  "marriage_certificate": {
+    "extraction_method": "Groq Vision API — meta-llama/llama-4-scout-17b-16e-instruct",
+    "extraction_date": "2026-03-03",
+    "source": "inputImages/ActaMatrimonio.pdf",
+    "contrayente_1": {
+      "nombre_completo": "CARLOS ALBERTO CARRILLO PEÑA",
+      "fecha_nacimiento": "16/09/1981"
+    },
+    "contrayente_2": {
+      "nombre_completo": "CLAUDIA ELIZABETH ZUÑIGA BERNARDINO",
+      "fecha_nacimiento": "07/06/1981"
+    },
+    "fecha_matrimonio": "13/11/2009",
+    "lugar_matrimonio": "TONALÁ, JALISCO",
+    "regimen_patrimonial": "SOCIEDAD LEGAL",
+    "acta_numero": "66",
+    "municipio_registro": "TONALÁ",
+    "estado_registro": "JALISCO"
+  },
+  "guadalajara_visa_requirements": {
+    "source": "https://www.exteriores.gob.es/Consulados/guadalajara/es/ServiciosConsulares/Paginas/index.aspx?scco=México&scd=147&scca=Visados&scs=Visados+Nacionales+-+Visado+de+residencia+para+teletrabajo+(nómada+digital)",
+    "fetched_date": "2026-03-03",
+    "visa_type": "Visado Nacional de residencia para teletrabajo (nómada digital)",
+    "legal_basis": "Ley 14/2013",
+    "visa_fee": "$1,905.00 MXN en efectivo (por cada solicitud)",
+    "visa_validity": "1 año (o la misma validez que la autorización de residencia si es inferior a 1 año)",
+    "processing_time": "10 días hábiles desde presentación (puede ampliarse si piden documentos adicionales o entrevista)",
+    "pickup_deadline": "1 mes desde notificación de resolución favorable",
+    "appeal_reposicion": "1 mes desde notificación de denegación",
+    "appeal_contencioso": "2 meses ante el Tribunal Superior de Justicia de Madrid",
+    "tracking_url": "https://sutramiteconsular.maec.es/Home.aspx",
+    "nie_required": "Sí — debe solicitarse al mismo tiempo que el visado",
+    "total_applicants": 4,
+    "total_visa_fees_estimate": "$7,620.00 MXN (4 solicitudes × $1,905.00)",
+    "documents_general": {
+      "description": "Documentos generales requeridos para CADA solicitante (titular y familiares)",
+      "items": [
+        {
+          "id": "G1",
+          "name": "Formulario de solicitud de visado nacional",
+          "detail": "Cada solicitante (o su representante) completará y firmará una solicitud. Para menores, firma uno de los progenitores.",
+          "quantity": "4 formularios (1 por persona)"
+        },
+        {
+          "id": "G2",
+          "name": "Fotografía tamaño carné",
+          "detail": "Reciente, a color, fondo claro, de frente, sin gafas oscuras ni reflejos ni prendas que oculten el óvalo de la cara.",
+          "quantity": "4 fotografías (1 por persona)"
+        },
+        {
+          "id": "G3",
+          "name": "Pasaporte válido y en vigor",
+          "detail": "Original + fotocopia de páginas con datos biométricos. Validez mínima 1 año, dos páginas en blanco, no expedido hace más de 10 años.",
+          "quantity": "4 pasaportes + 4 fotocopias"
+        },
+        {
+          "id": "G4",
+          "name": "Certificado de antecedentes penales",
+          "detail": "Solo mayores de edad. Original + copia del certificado expedido por el país de residencia de los últimos 2 años. Más declaración responsable de inexistencia de antecedentes en los últimos 5 años.",
+          "applies_to": ["Carlos (titular)", "Claudia (cónyuge)"],
+          "quantity": "2 certificados + 2 declaraciones responsables"
+        },
+        {
+          "id": "G5",
+          "name": "Prueba de residencia en la demarcación consular",
+          "detail": "Acreditar residencia legal en México (Jalisco está dentro de la demarcación de Guadalajara).",
+          "quantity": "4 comprobantes de domicilio o equivalentes"
+        },
+        {
+          "id": "G6",
+          "name": "Abono de la tasa de visado",
+          "detail": "$1,905.00 MXN en efectivo por solicitud.",
+          "quantity": "$7,620.00 MXN total (4 × $1,905.00)"
+        },
+        {
+          "id": "G7",
+          "name": "Seguro de enfermedad",
+          "detail": "Original + copia. Seguro público o privado con entidad aseguradora autorizada a operar en España (inscrita en DGSFP). Debe cubrir todos los riesgos del Sistema Nacional de Salud. No son válidos seguros de viaje.",
+          "registry_url": "http://www.dgsfp.mineco.es/es/Consumidor/RegistrosPublicos/Paginas/Aseguradoras.aspx",
+          "alternative": "Si existe convenio internacional de Seguridad Social que cubra al teletrabajador, presentar certificado de derecho de cobertura emitido por la institución competente del Estado asegurador.",
+          "quantity": "1 póliza que cubra a los 4 miembros de la familia"
+        }
+      ]
+    },
+    "documents_specific_worker": {
+      "description": "Documentos específicos para Carlos (teletrabajador por cuenta ajena)",
+      "items": [
+        {
+          "id": "E1",
+          "name": "Certificado de la empresa",
+          "detail": "Debe reflejar: (a) antigüedad del trabajador en la empresa (no inferior a 3 meses) y (b) autorización expresa de la empresa para trabajar en remoto. Original + copia.",
+          "company": "Hexaware Technologies",
+          "carlos_start_date": "2025-03",
+          "months_at_application": "12+ meses (cumple sobradamente el mínimo de 3 meses)"
+        },
+        {
+          "id": "E2",
+          "name": "Certificado del Registro Mercantil",
+          "detail": "Del organismo equivalente del país donde está constituida la empresa. Debe reflejar fecha de constitución (no inferior a 1 año) y tipo de actividad. Original + copia."
+        },
+        {
+          "id": "E3",
+          "name": "Declaración responsable de Seguridad Social",
+          "detail": "De la empresa o del trabajador. Compromiso de cumplimiento de obligaciones en materia de seguridad social previo al inicio de la actividad."
+        },
+        {
+          "id": "E4",
+          "name": "Justificante de inscripción de la empresa en SS española + afiliación del trabajador",
+          "detail": "Justificante de solicitud de inscripción de la empresa en la Seguridad Social española y justificante de la afiliación del trabajador.",
+          "alternative": "Si existe convenio bilateral México-España de Seguridad Social, se puede sustituir por certificado de legislación aplicable para teletrabajadores emitido por IMSS/equivalente mexicano.",
+          "convention_note": "México SÍ tiene convenio bilateral de Seguridad Social con España. Consultar si IMSS emite certificado específico para teletrabajadores.",
+          "convention_urls": {
+            "convenios_bilaterales": "https://www.seg-social.es/wps/portal/wss/internet/InformacionUtil/32078/32253",
+            "certificados_legislacion": "https://www.seg-social.es/wps/portal/wss/internet/InformacionUtil/32078/38626/38627"
+          }
+        },
+        {
+          "id": "E5",
+          "name": "Acreditación de recursos económicos",
+          "detail": "Cantidad mensual que represente: titular 200% SMI + primer familiar 75% SMI + 2 familiares adicionales 25% SMI cada uno.",
+          "proof_methods": "Contrato de trabajo, oferta firme de empleo, estados de cuenta. Acreditar titularidad, licitud y disponibilidad de fondos.",
+          "smi_note": "Consultar SMI vigente en momento de solicitud para calcular montos exactos."
+        },
+        {
+          "id": "E6",
+          "name": "Acreditación de titulación o experiencia profesional",
+          "detail": "Original + copia del título de graduado o postgraduado de universidad de reconocido prestigio. Alternativamente, documentos que acrediten experiencia profesional mínima de 3 años en funciones análogas.",
+          "carlos_has": "Lic. Ciencias de la Computación (UdeG 1999-2003) + MBA (UdeG 2008-2010) + 20 años de experiencia + 10 certificaciones activas"
+        }
+      ]
+    },
+    "documents_specific_family": {
+      "description": "Documentos específicos para familiares (Claudia, Dante, Ariana)",
+      "items": [
+        {
+          "id": "F1",
+          "name": "Documentos de parentesco",
+          "detail": "Certificados de nacimiento o matrimonio expedidos por el registro civil. Deben probar la relación con Carlos.",
+          "needed": [
+            "Acta de matrimonio de Carlos y Claudia (original + copia)",
+            "Acta de nacimiento de Dante Leonel (original + copia)",
+            "Acta de nacimiento de Ariana Caeli (original + copia)"
+          ]
+        }
+      ]
+    },
+    "nie_simultaneous": {
+      "description": "Es necesario solicitar al mismo tiempo que el visado un NIE (Número de Identificación de Extranjero) para CADA solicitante.",
+      "page": "Sección 'Pasaportes y otros documentos > Número de Identificación de Extranjero' del consulado.",
+      "quantity": "4 solicitudes de NIE"
+    }
+  },
+  "action_plan": {
+    "description": "Plan de pasos para que Carlos y familia obtengan el Visado de Teletrabajo (Nómada Digital) tramitando en el Consulado General de España en Guadalajara, Jalisco.",
+    "source_authority": "Consulado General de España en Guadalajara — exteriores.gob.es",
+    "last_updated": "2026-03-03",
+    "regla_general_apostilla": "Los documentos oficiales emitidos por autoridades NO españolas deben ir apostillados (Convenio de La Haya). México es parte del convenio. La apostilla se tramita ante la SRE (Secretaría de Relaciones Exteriores) en cualquier Delegación/CIAC.",
+    "document_inventory": {
+      "description": "Estado real de cada documento al 03/03/2026",
+      "legend": "✅ = LO TIENES | ⚠️ = LO TIENES PERO FALTA APOSTILLA | ❌ = NO LO TIENES AÚN",
+      "documents": [
+        {
+          "doc": "Pasaporte Carlos",
+          "status": "✅ LO TIENES",
+          "apostilla": "NO requiere",
+          "costo_pendiente": "$0"
+        },
+        {
+          "doc": "Pasaporte Claudia",
+          "status": "✅ LO TIENES",
+          "apostilla": "NO requiere",
+          "costo_pendiente": "$0"
+        },
+        {
+          "doc": "Pasaporte Dante",
+          "status": "✅ LO TIENES",
+          "apostilla": "NO requiere",
+          "costo_pendiente": "$0"
+        },
+        {
+          "doc": "Pasaporte Ariana",
+          "status": "✅ LO TIENES",
+          "apostilla": "NO requiere",
+          "costo_pendiente": "$0"
+        },
+        {
+          "doc": "INE Carlos (comprobante de domicilio)",
+          "status": "✅ LO TIENES",
+          "apostilla": "NO requiere — es comprobante de domicilio, no documento oficial para el expediente del visado",
+          "costo_pendiente": "$0"
+        },
+        {
+          "doc": "Acta de nacimiento Carlos",
+          "status": "⚠️ TIENES ORIGINAL — FALTA APOSTILLA",
+          "apostilla": "SÍ — ante SRE",
+          "costo_pendiente": "~$830 MXN (apostilla SRE)"
+        },
+        {
+          "doc": "Acta de nacimiento Claudia",
+          "status": "⚠️ TIENES ORIGINAL (manuscrita) — FALTA APOSTILLA",
+          "apostilla": "SÍ — ante SRE. NOTA: es acta manuscrita antigua, verificar que la SRE la acepte para apostillar. Si no, obtener copia certificada reciente del Registro Civil (~$91 MXN en línea) y apostillar esa.",
+          "costo_pendiente": "~$830 MXN (apostilla) + posible $91 MXN (copia certificada nueva)"
+        },
+        {
+          "doc": "Acta de nacimiento Dante",
+          "status": "⚠️ TIENES ORIGINAL — FALTA APOSTILLA",
+          "apostilla": "SÍ — ante SRE",
+          "costo_pendiente": "~$830 MXN (apostilla SRE)"
+        },
+        {
+          "doc": "Acta de nacimiento Ariana Caeli",
+          "status": "⚠️ TIENES ORIGINAL — FALTA APOSTILLA",
+          "apostilla": "SÍ — ante SRE",
+          "costo_pendiente": "~$830 MXN (apostilla SRE)"
+        },
+        {
+          "doc": "Acta de matrimonio Carlos-Claudia",
+          "status": "⚠️ TIENES ORIGINAL — FALTA APOSTILLA",
+          "apostilla": "SÍ — ante SRE",
+          "costo_pendiente": "~$830 MXN (apostilla SRE)"
+        },
+        {
+          "doc": "Título universitario UdeG (Lic. Ciencias Computación)",
+          "status": "⚠️ TIENES ORIGINAL — FALTA APOSTILLA",
+          "apostilla": "SÍ — ante SRE (documento expedido por autoridad educativa mexicana)",
+          "costo_pendiente": "~$830 MXN (apostilla SRE)"
+        },
+        {
+          "doc": "Antecedentes penales Carlos (SSPC federal)",
+          "status": "❌ NO LO TIENES",
+          "apostilla": "SÍ — el consulado pide 'debidamente legalizado'",
+          "costo_pendiente": "$0 (trámite en línea GRATUITO) + ~$830 MXN (apostilla SRE)",
+          "donde": "https://antecedentes.segob.gob.mx/"
+        },
+        {
+          "doc": "Antecedentes penales Claudia (SSPC federal)",
+          "status": "❌ NO LO TIENES",
+          "apostilla": "SÍ",
+          "costo_pendiente": "$0 (trámite GRATUITO) + ~$830 MXN (apostilla SRE)",
+          "donde": "https://antecedentes.segob.gob.mx/"
+        },
+        {
+          "doc": "Declaración responsable de antecedentes (últimos 5 años)",
+          "status": "❌ NO LO TIENES",
+          "apostilla": "NO — es documento privado firmado por el solicitante",
+          "costo_pendiente": "$0 (redacción propia)"
+        },
+        {
+          "doc": "Carta de Hexaware autorizando teletrabajo desde España",
+          "status": "❌ NO LO TIENES",
+          "apostilla": "NO — documento privado de empresa. Pero la personalidad del firmante debe acreditarse fehacientemente.",
+          "costo_pendiente": "$0 (Hexaware lo emite)"
+        },
+        {
+          "doc": "Acta de poderes / nombramiento del representante legal de Hexaware",
+          "status": "❌ NO LO TIENES",
+          "apostilla": "DEPENDE — si es notarial mexicano, puede requerir apostilla. Si es documento privado corporativo, NO.",
+          "costo_pendiente": "~$830 MXN si requiere apostilla"
+        },
+        {
+          "doc": "Certificado del Registro Público de Comercio de Hexaware MX",
+          "status": "❌ NO LO TIENES",
+          "apostilla": "SÍ — es documento oficial expedido por autoridad mexicana",
+          "costo_pendiente": "~$1,200-$2,000 MXN (derechos RPC, varía por estado) + ~$830 MXN (apostilla SRE)"
+        },
+        {
+          "doc": "Opinión de Cumplimiento 32-D SAT (declaración fiscal Hexaware)",
+          "status": "❌ NO LO TIENES",
+          "apostilla": "SÍ — documento oficial del SAT",
+          "costo_pendiente": "$0 (trámite GRATUITO en sat.gob.mx) + ~$830 MXN (apostilla SRE)"
+        },
+        {
+          "doc": "Certificado IMSS de legislación aplicable (convenio bilateral MX-ES)",
+          "status": "❌ NO LO TIENES",
+          "apostilla": "DEPENDE — si el IMSS emite certificado oficial, puede requerir apostilla. Consultar.",
+          "costo_pendiente": "$0 (trámite institucional) + posible ~$830 MXN (apostilla)"
+        },
+        {
+          "doc": "Declaración responsable de Seguridad Social",
+          "status": "❌ NO LO TIENES",
+          "apostilla": "NO — documento privado firmado",
+          "costo_pendiente": "$0"
+        },
+        {
+          "doc": "Contrato de trabajo Carlos-Hexaware",
+          "status": "❌ NO LO TIENES (no lo has proporcionado)",
+          "apostilla": "NO — documento privado. Si está en inglés, necesita traducción jurada.",
+          "costo_pendiente": "$0 (ya lo tiene Carlos) + posible $1,500-$3,500 MXN por traducción jurada si es en inglés"
+        },
+        {
+          "doc": "Seguro de enfermedad (aseguradora DGSFP)",
+          "status": "❌ NO LO TIENES",
+          "apostilla": "NO — documento de empresa aseguradora española",
+          "costo_pendiente": "~€100-€300/mes/persona = ~€400-€1,200/mes para 4 personas. Primer pago: €4,800-€14,400 (pago anual)"
+        },
+        {
+          "doc": "Fotos carné ×4 miembros",
+          "status": "❌ NO LO TIENES",
+          "apostilla": "NO",
+          "costo_pendiente": "~$400-$800 MXN (4 sets, estudio fotográfico)"
+        },
+        {
+          "doc": "Nóminas recientes Hexaware (3 meses)",
+          "status": "❌ NO LO TIENES (no proporcionadas)",
+          "apostilla": "NO — documentos privados",
+          "costo_pendiente": "$0"
+        },
+        {
+          "doc": "Estados de cuenta bancarios (3-6 meses)",
+          "status": "❌ NO LO TIENES (no proporcionados)",
+          "apostilla": "NO — documentos bancarios",
+          "costo_pendiente": "$0"
+        }
+      ]
+    },
+    "costs_summary": {
+      "description": "Desglose de costos oficiales estimados al 2026. Verificar tarifas vigentes antes de tramitar.",
+      "note_apostilla": "Costo apostilla SRE: ~$830 MXN/documento (Ley Federal de Derechos 2025, art. 20-VI). La tarifa se actualiza anualmente en el DOF. Verificar tarifa vigente en gob.mx/sre.",
+      "items": [
+        {
+          "concepto": "Apostillas SRE (mínimo 8 documentos)",
+          "documents": "4 actas nacimiento + acta matrimonio + título UdeG + antecedentes Carlos + antecedentes Claudia",
+          "count": 8,
+          "unit_cost": "~$830 MXN",
+          "subtotal": "~$6,640 MXN",
+          "additional": "Posibles: Certificado RPC ($830), 32-D SAT ($830), acta poderes ($830), certificado IMSS ($830) = hasta $3,320 MXN más",
+          "where": "SRE — Delegación Jalisco / CIAC Guadalajara o en línea via https://citas.sre.gob.mx/"
+        },
+        {
+          "concepto": "Actas digitales certificadas (si necesitas copias recientes)",
+          "unit_cost": "~$91 MXN/acta",
+          "note": "Solo si el consulado pide fecha de expedición reciente. Se tramitan en https://www.miregistrocivil.gob.mx/",
+          "subtotal": "~$455 MXN (5 actas) — solo si necesario"
+        },
+        {
+          "concepto": "Antecedentes penales (SSPC federal)",
+          "unit_cost": "GRATUITO",
+          "count": 2,
+          "subtotal": "$0",
+          "where": "https://antecedentes.segob.gob.mx/"
+        },
+        {
+          "concepto": "Opinión de Cumplimiento 32-D SAT",
+          "unit_cost": "GRATUITO",
+          "count": 1,
+          "subtotal": "$0",
+          "where": "https://www.sat.gob.mx/ → portal empresarial de Hexaware"
+        },
+        {
+          "concepto": "Certificado del Registro Público de Comercio",
+          "unit_cost": "~$1,200-$2,000 MXN",
+          "count": 1,
+          "subtotal": "~$1,200-$2,000 MXN",
+          "where": "Registro Público de la Propiedad y del Comercio del estado donde esté inscrita Hexaware"
+        },
+        {
+          "concepto": "Tasa consular del visado",
+          "unit_cost": "$1,905.00 MXN/persona",
+          "count": 4,
+          "subtotal": "$7,620.00 MXN",
+          "note": "Efectivo exacto el día de la cita. Esta tarifa es oficial del consulado.",
+          "where": "Consulado General de España en Guadalajara — el día de la cita"
+        },
+        {
+          "concepto": "Fotos carné formato Schengen",
+          "unit_cost": "~$100-$200 MXN/persona",
+          "count": 4,
+          "subtotal": "~$400-$800 MXN"
+        },
+        {
+          "concepto": "Traducción jurada (si documentos de Hexaware están en inglés)",
+          "unit_cost": "~$1,500-$3,500 MXN/página",
+          "note": "Solo si carta de Hexaware, contrato, o acta de poderes están en inglés. Debe ser traductor jurado certificado por MAEC (España) o perito traductor mexicano.",
+          "subtotal": "~$3,000-$10,500 MXN (estimado 2-3 páginas)"
+        },
+        {
+          "concepto": "Seguro médico DGSFP (4 personas, pago anual)",
+          "note": "Aseguradora inscrita en DGSFP. Varía mucho según aseguradora y coberturas. Sanitas, MAPFRE, Adeslas son opciones comunes para nómadas digitales.",
+          "estimate_monthly": "€400-€1,200/mes (4 personas)",
+          "estimate_annual": "€4,800-€14,400 (~$83,000-$249,000 MXN al tipo de cambio ~$17.35/EUR)",
+          "subtotal": "€4,800-€14,400/año"
+        }
+      ],
+      "total_estimated": {
+        "minimum_mxn": "~$19,315 MXN (sin seguro médico, sin traducciones, mínimas apostillas)",
+        "typical_mxn": "~$28,000-$32,000 MXN (sin seguro médico)",
+        "seguro_medico_anual": "€4,800-€14,400 (~$83,000-$249,000 MXN)",
+        "grand_total_first_year": "~$111,000-$281,000 MXN (incluyendo seguro médico anual)",
+        "exchange_rate_used": "$17.35 MXN/EUR (DOF 03/03/2026)"
+      }
+    },
+    "phases": [
+      {
+        "phase": 1,
+        "name": "Documentos personales y registro civil",
+        "steps": [
+          {
+            "step": "1.1",
+            "action": "Verificar vigencia de pasaportes (todos)",
+            "detail": "Todos los pasaportes deben tener mínimo 1 año de vigencia a partir de la fecha de solicitud. No deben haber sido expedidos hace más de 10 años.",
+            "status": "✅ CUMPLE",
+            "status_check": {
+              "carlos": "Expira 18/02/2033, expedido 18/02/2023 (3 años) → CUMPLE",
+              "claudia": "Expira 02/12/2031, expedido 02/12/2021 (4 años) → CUMPLE",
+              "dante": "Expira 02/12/2027, expedido 02/12/2021 → CUMPLE (18 meses restantes en junio 2026)",
+              "ariana": "Expira 02/12/2027, expedido 02/12/2021 → CUMPLE (18 meses restantes en junio 2026)"
+            },
+            "apostilla": "NO — los pasaportes no se apostillan",
+            "costo": "$0",
+            "warning": "Pasaportes de menores expiran 02/12/2027. Solicitar visado ANTES de diciembre 2026."
+          },
+          {
+            "step": "1.2",
+            "action": "Obtener fotos tamaño carné formato Schengen",
+            "detail": "4 sets de fotografías recientes, color, fondo blanco, de frente, sin gafas. Formato visa española/Schengen.",
+            "status": "❌ FALTA",
+            "apostilla": "NO",
+            "costo": "~$400-$800 MXN (4 sets en estudio fotográfico)"
+          },
+          {
+            "step": "1.3",
+            "action": "Obtener actas del registro civil APOSTILLADAS",
+            "detail": "Se necesitan 5 actas: 4 de nacimiento (Carlos, Claudia, Dante, Ariana) + 1 de matrimonio. TODAS deben ir apostilladas por la SRE. Si el consulado pide fecha de expedición reciente, obtener copias certificadas nuevas en miregistrocivil.gob.mx antes de apostillar.",
+            "status": "⚠️ TIENES ORIGINALES — FALTA APOSTILLA en las 5",
+            "documents": [
+              {"doc": "Acta nacimiento Carlos (acta #9387)", "tienes": true, "apostillada": false},
+              {"doc": "Acta nacimiento Claudia (acta #3264, manuscrita)", "tienes": true, "apostillada": false, "warning": "Es manuscrita antigua. Si SRE no acepta para apostillar, obtener copia certificada digital ($91 MXN) y apostillar esa."},
+              {"doc": "Acta nacimiento Dante (acta #5199)", "tienes": true, "apostillada": false},
+              {"doc": "Acta nacimiento Ariana Caeli (acta #104)", "tienes": true, "apostillada": false},
+              {"doc": "Acta matrimonio Carlos-Claudia (acta #66, Tonalá)", "tienes": true, "apostillada": false}
+            ],
+            "costo": "5 × ~$830 MXN = ~$4,150 MXN (apostillas) + posible $91-$455 MXN (copias certificadas nuevas si necesario)",
+            "donde_apostillar": "SRE — Delegación Jalisco / CIAC Guadalajara. Cita en https://citas.sre.gob.mx/",
+            "donde_actas_digitales": "https://www.miregistrocivil.gob.mx/ — $91 MXN/acta"
+          },
+          {
+            "step": "1.4",
+            "action": "Obtener antecedentes penales APOSTILLADOS (solo adultos)",
+            "detail": "Carlos y Claudia: obtener constancia de no antecedentes penales de la SSPC federal (GRATUITO en línea). Luego apostillar cada una ante SRE. Además, redactar declaración responsable de inexistencia de antecedentes en los últimos 5 años (documento libre, firmado, sin apostilla).",
+            "status": "❌ FALTA TODO",
+            "applies_to": ["Carlos", "Claudia"],
+            "costo": "$0 (trámite SSPC) + 2 × ~$830 MXN (apostillas) = ~$1,660 MXN",
+            "donde_tramitar": "https://antecedentes.segob.gob.mx/ (en línea, GRATUITO, se descarga PDF)",
+            "donde_apostillar": "SRE — Delegación Jalisco / CIAC Guadalajara"
+          },
+          {
+            "step": "1.5",
+            "action": "Comprobante de domicilio en la demarcación consular",
+            "detail": "Acreditar residencia en Jalisco. La INE de Carlos muestra domicilio en Fracc. Bosques de Sta Anita, Tlajomulco de Zúñiga, Jalisco (CP 45645) → dentro de la demarcación del Consulado de Guadalajara.",
+            "status": "✅ TIENES — INE sirve como comprobante",
+            "apostilla": "NO — la INE no se apostilla para este uso",
+            "costo": "$0"
+          }
+        ]
+      },
+      {
+        "phase": 2,
+        "name": "Documentación laboral y empresarial — ESCENARIO A (Hexaware México)",
+        "scenario": "Hexaware Technologies México emite carta y coopera con SS española",
+        "steps": [
+          {
+            "step": "2.1",
+            "action": "Solicitar carta oficial de Hexaware Technologies México",
+            "detail": "Hexaware México emite carta en papel membretado firmada por representante legal. Debe incluir: nombre completo, puesto, fecha de ingreso (marzo 2025 → 15+ meses a junio 2026), autorización explícita de teletrabajo desde España, que la relación laboral continuará vigente, salario bruto, nombre/cargo/firma del representante, sello.",
+            "status": "❌ FALTA",
+            "apostilla": "NO — documento privado de empresa",
+            "costo": "$0 (Hexaware lo emite sin cargo)",
+            "format": "Original en español o con traducción jurada. Firma del representante acreditada con acta de poderes.",
+            "timing": "Pedir en MARZO 2026, tenerla lista en ABRIL 2026",
+            "copies": "Original + 1 copia"
+          },
+          {
+            "step": "2.2",
+            "action": "Obtener acta de poderes del firmante",
+            "detail": "Copia certificada del acta notarial donde se nombra al representante legal de Hexaware que firma la carta. Si está en inglés, traducción jurada.",
+            "status": "❌ FALTA",
+            "apostilla": "POSIBLE — si es escritura notarial mexicana, puede requerir apostilla",
+            "costo": "$0 (Hexaware lo proporciona) + posible ~$830 MXN apostilla + posible traducción jurada ~$1,500-$3,500 MXN",
+            "copies": "Original + 1 copia"
+          },
+          {
+            "step": "2.3",
+            "action": "Certificado del Registro Público de Comercio de Hexaware MX",
+            "detail": "Obtener del RPC (o Registro Público de la Propiedad y del Comercio del estado correspondiente) certificado con: denominación social, fecha de constitución (1+ año), objeto social, domicilio social.",
+            "status": "❌ FALTA",
+            "apostilla": "SÍ — documento oficial de autoridad mexicana",
+            "costo": "~$1,200-$2,000 MXN (derechos RPC) + ~$830 MXN (apostilla SRE) = ~$2,030-$2,830 MXN",
+            "copies": "Original + 1 copia"
+          },
+          {
+            "step": "2.4",
+            "action": "Obtener declaración fiscal de Hexaware — 32-D SAT",
+            "detail": "Opinión de Cumplimiento del SAT (32-D positiva). Hexaware la descarga desde el portal del SAT. Acredita 'actividad real y continuada' de la empresa.",
+            "status": "❌ FALTA",
+            "apostilla": "SÍ — documento oficial del SAT = autoridad mexicana",
+            "costo": "$0 (trámite GRATUITO en sat.gob.mx) + ~$830 MXN (apostilla SRE)",
+            "copies": "Original + 1 copia"
+          },
+          {
+            "step": "2.5",
+            "action": "Gestionar Seguridad Social — convenio bilateral IMSS o inscripción TGSS",
+            "detail": "VÍA PRINCIPAL: Solicitar al IMSS 'Certificado de Legislación Aplicable' al amparo del convenio bilateral México-España. Si el IMSS no lo emite para teletrabajadores → VÍA ALTERNATIVA: Hexaware solicita CCC en la TGSS española y afilia a Carlos.",
+            "status": "❌ FALTA",
+            "apostilla": "POSIBLE — si el IMSS emite certificado oficial, puede requerir apostilla",
+            "costo_via_principal": "$0 (trámite institucional IMSS) + posible ~$830 MXN apostilla",
+            "costo_via_alternativa": "Alta en TGSS gratuita, pero Hexaware pagaría ~30% del salario bruto en cuotas patronales mensuales (~$4,500 USD/mes)",
+            "timing": "Iniciar en MARZO 2026. Si vía alternativa, en ABRIL para tener CCC en MAYO."
+          },
+          {
+            "step": "2.6",
+            "action": "Declaración responsable de Seguridad Social",
+            "detail": "Documento libre firmado por Carlos declarando compromiso de cumplir obligaciones de SS antes de iniciar actividad en España.",
+            "status": "❌ FALTA",
+            "apostilla": "NO — documento privado",
+            "costo": "$0",
+            "copies": "Original + 1 copia"
+          },
+          {
+            "step": "2.7",
+            "action": "Obtener contrato de trabajo con Hexaware",
+            "detail": "Copia del contrato laboral vigente. Si está en inglés: traducción jurada al español.",
+            "status": "❌ FALTA (no proporcionado aún)",
+            "apostilla": "NO — documento privado",
+            "costo": "$0 + posible traducción jurada ~$1,500-$3,500 MXN",
+            "copies": "Original + 1 copia"
+          }
+        ]
+      },
+      {
+        "phase": 3,
+        "name": "Acreditación económica y profesional",
+        "steps": [
+          {
+            "step": "3.1",
+            "action": "Verificar que el ingreso cumple 325% SMI",
+            "detail": "Carlos (200% SMI) + Claudia (75%) + Dante (25%) + Ariana (25%) = 325% SMI mensual. SMI 2025 prorrateado: €1,323/mes → 325% = ~€4,300/mes. Carlos gana $15,000 USD/mes (~€13,500) → 3.14x el mínimo.",
+            "status": "✅ CUMPLE SOBRADAMENTE",
+            "costo": "$0"
+          },
+          {
+            "step": "3.2",
+            "action": "Preparar pruebas de recursos económicos",
+            "detail": "Nóminas recientes de Hexaware (últimos 3 meses) + estados de cuenta bancarios (3-6 meses). Acreditar titularidad, licitud y disponibilidad de fondos.",
+            "status": "❌ FALTA (Carlos debe reunirlos)",
+            "apostilla": "NO — documentos privados/bancarios",
+            "costo": "$0"
+          },
+          {
+            "step": "3.3",
+            "action": "Título universitario APOSTILLADO",
+            "detail": "Título de Lic. en Ciencias de la Computación (UdeG, 1999-2003). Debe ir apostillado (documento expedido por autoridad educativa mexicana). Carlos tiene el original pero NO tiene cédula profesional. El título debería ser suficiente.",
+            "status": "⚠️ TIENES ORIGINAL — FALTA APOSTILLA",
+            "apostilla": "SÍ — ante SRE",
+            "costo": "~$830 MXN (apostilla SRE)",
+            "copies": "Original apostillado + 1 copia"
+          }
+        ]
+      },
+      {
+        "phase": 4,
+        "name": "Seguro de enfermedad",
+        "steps": [
+          {
+            "step": "4.1",
+            "action": "Contratar seguro médico con aseguradora inscrita en DGSFP",
+            "detail": "Aseguradora autorizada para operar en España (registro DGSFP). Cobertura equiparable al SNS español. NO valen seguros de viaje. Cubrir a los 4 miembros. Opciones: Sanitas, MAPFRE, Adeslas, Asisa.",
+            "status": "❌ FALTA",
+            "apostilla": "NO — documento de aseguradora española",
+            "costo": "~€100-€300/mes/persona. Para 4 personas: ~€400-€1,200/mes. Pago anual: €4,800-€14,400 (~$83,000-$249,000 MXN)",
+            "dgsfp_registry": "http://www.dgsfp.mineco.es/es/Consumidor/RegistrosPublicos/Paginas/Aseguradoras.aspx"
+          }
+        ]
+      },
+      {
+        "phase": 5,
+        "name": "Solicitud de NIE simultáneo",
+        "steps": [
+          {
+            "step": "5.1",
+            "action": "Preparar solicitud de NIE para cada miembro",
+            "detail": "El NIE se solicita al mismo tiempo que el visado. 4 solicitudes. No tiene costo adicional separado (incluido en la tasa del visado).",
+            "status": "❌ FALTA — se hace el día de la cita",
+            "costo": "Incluido en la tasa del visado",
+            "email_consultas": "cog.guadalajara.vis@maec.es"
+          }
+        ]
+      },
+      {
+        "phase": 6,
+        "name": "Cita y presentación en el Consulado",
+        "steps": [
+          {
+            "step": "6.1",
+            "action": "Solicitar cita previa",
+            "detail": "Contactar al consulado: cog.guadalajara.vis@maec.es o sistema de cita previa MAEUEC. La cita es GRATUITA.",
+            "status": "❌ FALTA — solicitar en mayo 2026 para 1ª quincena de junio",
+            "costo": "$0",
+            "cita_previa_url": "https://sede.maec.gob.es/pagina/index/directorio/citaprevia",
+            "warning": "NO usar intermediarios. El consulado advierte: 'No se deje engañar por terceros que ofrecen citas a cambio de dinero.'"
+          },
+          {
+            "step": "6.2",
+            "action": "Presentación personal de la solicitud",
+            "detail": "Carlos y Claudia en persona. Para menores, presenta un progenitor. Llevar TODOS los originales + copias + dinero exacto.",
+            "status": "❌ — JUNIO 2026",
+            "costo": "$7,620.00 MXN ($1,905.00 × 4 solicitudes) — EFECTIVO EXACTO",
+            "location": "Consulado General de España en Guadalajara — Av. Pablo Neruda 2710, 5º piso, Edificio ALTUS, Col. Providencia, 44630"
+          },
+          {
+            "step": "6.3",
+            "action": "Recibir resguardo de solicitud",
+            "detail": "El consulado entrega resguardo con código de seguimiento.",
+            "costo": "$0",
+            "tracking_url": "https://sutramiteconsular.maec.es/Home.aspx"
+          }
+        ]
+      },
+      {
+        "phase": 7,
+        "name": "Post-solicitud",
+        "steps": [
+          {
+            "step": "7.1",
+            "action": "Esperar resolución (~10 días hábiles)",
+            "detail": "Plazo legal: 10 días desde el día siguiente a la presentación. Puede ampliarse si piden documentos adicionales.",
+            "costo": "$0"
+          },
+          {
+            "step": "7.2",
+            "action": "Responder a subsanaciones",
+            "detail": "El consulado puede pedir documentos faltantes o convocar a entrevista.",
+            "costo": "Variable (posibles documentos adicionales)"
+          },
+          {
+            "step": "7.3",
+            "action": "Retirar visado (si favorable)",
+            "detail": "Retirar personalmente en el consulado, sin cita, máximo 1 mes desde notificación.",
+            "costo": "$0"
+          },
+          {
+            "step": "7.4",
+            "action": "En caso de denegación",
+            "detail": "Recurso de reposición ante el consulado (1 mes) o recurso contencioso-administrativo ante TSJ de Madrid (2 meses).",
+            "costo": "Variable (posible asesoría legal)"
+          }
+        ]
+      }
+    ]
+  },
+  "questions_for_carlos": {
+    "description": "Respuestas recibidas el 03/03/2026. Quedan preguntas de seguimiento abiertas.",
+    "answers_received": {
+      "Q1": {
+        "question": "¿En qué país está constituida Hexaware Technologies?",
+        "answer": "México",
+        "action": "Obtener certificado del Registro Público de Comercio de México (o equivalente estatal de Jalisco)."
+      },
+      "Q2": {
+        "question": "¿Carlos está en IMSS o como independiente?",
+        "answer": "Tiene IMSS a través de Hexaware Y también factura como independiente. Continuará con Hexaware (cuenta ajena) como modalidad principal del visado.",
+        "action": "RESUELTO — modalidad CUENTA AJENA con Hexaware. La facturación independiente es complementaria y no afecta la solicitud de visado."
+      },
+      "Q3": {
+        "question": "¿Cuál es el salario bruto mensual?",
+        "answer": "$15,000 USD mensuales demostrables.",
+        "action": "CUMPLE SOBRADAMENTE. SMI 2025: €1,134/mes (14 pagas). 325% SMI ≈ €3,685/mes. $15,000 USD ≈ €13,500+ → más de 3.6x el umbral."
+      },
+      "Q4": {
+        "question": "¿Carlos y Claudia están legalmente casados?",
+        "answer": "SÍ, están legalmente casados. Existe acta de matrimonio. Claudia es ZUNIGA BERNARDINO (paterno ZUNIGA, materno BERNARDINO).",
+        "action": "RESUELTO — obtener acta de matrimonio reciente del Registro Civil. Presentar original + copia."
+      },
+      "Q5": {
+        "question": "¿Tiene los títulos originales?",
+        "answer": "Sí tiene título universitario. NO tiene cédula profesional.",
+        "action": "El título universitario de la UdeG debería ser suficiente. El consulado pide 'título de graduado o postgraduado'. Llevar original + copia. Como respaldo, llevar cartas de experiencia profesional (20+ años)."
+      },
+      "Q6": {
+        "question": "¿Ha residido fuera de México en los últimos 2 años?",
+        "answer": "No, nunca ha residido fuera de México.",
+        "action": "Solo antecedentes penales de México. Simplifica el trámite."
+      },
+      "Q7": {
+        "question": "¿Cuándo presentar solicitud?",
+        "answer": "Junio 2026. Meta de llegada a España: 5 de agosto 2026.",
+        "action": "Pasaportes de menores expiran 02/12/2027. Desde junio 2026 quedan ~18 meses → CUMPLE. Timeline: junio solicitud + 10 días resolución + julio retirada + 5 agosto viaje."
+      }
+    },
+    "modality_resolved": {
+      "title": "✅ RESUELTO: CUENTA AJENA (empleado de Hexaware)",
+      "resolved_date": "2026-03-03",
+      "description": "Carlos continuará como empleado de Hexaware Technologies (México) trabajando en remoto desde España. La facturación independiente adicional es un tema fiscal aparte, no afecta la solicitud de visado.",
+      "modality": "cuenta_ajena",
+      "restriction": "Solo puede trabajar para empresas situadas FUERA de España (Hexaware está en México → cumple).",
+      "documents_required": [
+        "E1: Carta de Hexaware con antigüedad (desde marzo 2025, 15+ meses a junio 2026) + autorización expresa de trabajo remoto desde España",
+        "E2: Certificado del Registro Público de Comercio de México de Hexaware (fecha de constitución, tipo de actividad)",
+        "E3: Declaración responsable de cumplimiento de obligaciones de Seguridad Social",
+        "E4: Justificante de solicitud de inscripción de Hexaware en la SS española + afiliación de Carlos. O alternativamente: certificado de legislación aplicable del IMSS bajo convenio bilateral México-España.",
+        "E5: Acreditación de recursos económicos ($15,000 USD/mes → CUMPLE 3.14x)",
+        "E6: Título universitario UdeG (original + copia)"
+      ],
+      "note_on_freelance": "Carlos también factura como independiente además de Hexaware. Esto NO cambia la modalidad del visado (sigue siendo cuenta ajena). La actividad independiente adicional deberá regularizarse fiscalmente en España por separado una vez residente."
+    },
+    "open_questions": [
+      {
+        "id": "Q10",
+        "status": "RESUELTO — ESCENARIO A CONFIRMADO",
+        "question": "¿Hexaware emitiría la carta de autorización de trabajo remoto desde España y cooperaría con la inscripción en la SS española (o alternativa vía convenio bilateral IMSS)?",
+        "answer": "SÍ — ESCENARIO A: Hexaware México emite carta de autorización de teletrabajo desde España y coopera con la inscripción en SS española o vía convenio bilateral IMSS. Carlos tiene pláticas activas con Hexaware México.",
+        "scenario_selected": "A",
+        "scenario_description": "Hexaware Technologies México (empresa mexicana) emite carta de autorización de trabajo remoto desde España, coopera con inscripción en la Seguridad Social española y/o apoya trámite vía convenio bilateral México-España a través del IMSS.",
+        "impact": "Requisitos E1 y E4 cubiertos. E1: carta de Hexaware MX con antigüedad + autorización remota. E4: Hexaware MX se inscribe en TGSS o se gestiona certificado de legislación aplicable vía IMSS.",
+        "urgency": "RESUELTO — Escenario A como plan base"
+      }
+    ]
+  },
+  "timeline": {
+    "description": "Cronograma basado en respuestas confirmadas de Carlos (03/03/2026).",
+    "target_arrival_spain": "2026-08-05",
+    "target_submission": "Junio 2026 (primera quincena recomendada)",
+    "passport_deadline_safe": "Antes de diciembre 2026 (por vigencia de pasaportes de menores)",
+    "scenario": "A — Hexaware México emite carta + coopera con SS española",
+    "all_questions_resolved": "7 de 7 resueltas. Escenario A seleccionado: Hexaware MX emite carta de teletrabajo y coopera con inscripción en SS española o vía convenio bilateral IMSS.",
+    "milestones": [
+      {
+        "month": "Marzo 2026",
+        "week": "Semanas 1-4",
+        "actions": [
+          "✅ Confirmar con Hexaware que emitirán carta de teletrabajo (Escenario A)",
+          "📋 Pedir a Hexaware que inicie borrador de la carta (paso 2.1)",
+          "📋 Solicitar a Hexaware datos del representante legal que firmará (paso 2.2)",
+          "📋 Consultar con IMSS si pueden emitir certificado de legislación aplicable para teletrabajadores bajo convenio bilateral MX-ES (paso 2.5)",
+          "📋 Ir al Registro Civil: solicitar actas recientes de matrimonio Carlos-Claudia, nacimiento Dante, nacimiento Ariana",
+          "📋 Reunir INEs vigentes de Carlos y Claudia",
+          "📋 Localizar título universitario UdeG de Carlos (original)"
+        ]
+      },
+      {
+        "month": "Abril 2026",
+        "week": "Semanas 5-8",
+        "actions": [
+          "📄 RECIBIR carta oficial de Hexaware firmada por representante legal (paso 2.1)",
+          "📄 RECIBIR acta de poderes / nombramiento del firmante (paso 2.2)",
+          "📄 Obtener certificado del Registro Público de Comercio de Hexaware México (paso 2.3)",
+          "📄 Obtener constancia de situación fiscal / Opinión de Cumplimiento 32-D del SAT de Hexaware (paso 2.4)",
+          "📄 RECIBIR respuesta del IMSS sobre certificado de desplazamiento. SI NO lo emiten → solicitar a Hexaware que inicie inscripción en TGSS española (CCC) como vía alternativa (paso 2.5)",
+          "📄 Obtener certificados de antecedentes penales de Carlos y Claudia (SSPC federal o estatal Jalisco)",
+          "📄 Obtener contrato de trabajo vigente Carlos-Hexaware (paso 2.7)",
+          "📄 Si documentos de Hexaware están en inglés → encargar traducciones juradas al español",
+          "📋 RECOGER actas del Registro Civil (matrimonio + nacimientos)"
+        ]
+      },
+      {
+        "month": "Mayo 2026",
+        "week": "Semanas 9-13",
+        "actions": [
+          "🏥 Contratar seguro de enfermedad para 4 miembros con aseguradora inscrita en DGSFP (Sanitas, MAPFRE, Adeslas, etc.)",
+          "📄 Si se fue a vía alternativa SS → RECIBIR CCC de TGSS + justificante de afiliación de Carlos",
+          "📄 Preparar estados de cuenta bancarios de los últimos 3-6 meses (cuentas de Carlos)",
+          "📄 Reunir recibos de nómina recientes de Hexaware (últimos 3 meses)",
+          "📄 Redactar y firmar declaración responsable de SS (paso 2.6)",
+          "📷 Tomar fotos carné tipo visa española/Schengen para los 4 miembros",
+          "📄 Preparar comprobante de domicilio reciente en Jalisco",
+          "📄 Fotocopiar TODOS los documentos (cada documento: original + 1 copia)",
+          "📞 Solicitar cita previa al Consulado de Guadalajara para PRIMERA QUINCENA DE JUNIO",
+          "   → Email: cog.guadalajara.vis@maec.es",
+          "   → O vía: https://sede.maec.gob.es/pagina/index/directorio/citaprevia",
+          "✅ REVISIÓN FINAL: verificar que TODOS los documentos (27+ páginas) están completos, traducidos, apostillados si aplica"
+        ]
+      },
+      {
+        "month": "Junio 2026 (1ª quincena)",
+        "week": "Semanas 14-15",
+        "actions": [
+          "🏛️ PRESENTAR solicitud de visado + NIE (4 personas) en el Consulado General de España en Guadalajara",
+          "   → Dirección: Av. Pablo Neruda 2710, 5º piso, Edificio ALTUS, Col. Providencia, 44630",
+          "   → Llevar $7,620 MXN en efectivo ($1,905 × 4 solicitudes)",
+          "   → Carlos y Claudia se presentan EN PERSONA",
+          "   → Para Dante y Ariana, presenta Carlos o Claudia como progenitor",
+          "📄 Recibir resguardo de solicitud con código de seguimiento",
+          "   → Seguimiento en: https://sutramiteconsular.maec.es/Home.aspx"
+        ]
+      },
+      {
+        "month": "Junio-Julio 2026",
+        "week": "Semanas 16-19",
+        "actions": [
+          "⏳ Esperar resolución (~10 días hábiles desde presentación)",
+          "📞 Responder subsanaciones si las piden (el consulado contactará por email o teléfono)",
+          "✅ Retirar visado personalmente en el consulado (sin cita, plazo máximo 1 mes desde notificación favorable)",
+          "✈️ Comprar vuelos GDL → Málaga para 4 personas con fecha ~5 de agosto"
+        ]
+      },
+      {
+        "month": "Agosto 2026",
+        "week": "Semana 20+",
+        "actions": [
+          "✈️ VIAJE A ESPAÑA — llegada prevista 5 de agosto 2026",
+          "🏠 El visado acredita residencia durante su validez (1 año)",
+          "📋 En España: empadronarse en el municipio de Málaga (necesario para muchos trámites)",
+          "📋 Opcional: solicitar TIE (Tarjeta de Identidad de Extranjero) ante la Oficina de Extranjeros más cercana",
+          "📋 Abrir cuenta bancaria española",
+          "📋 Dar de alta actividad fiscal en AEAT (si aplica por facturación independiente)"
+        ]
+      }
+    ],
+    "smi_calculation": {
+      "smi_2025_mensual_14_pagas": "€1,134.00",
+      "smi_mensual_prorrateado_12_meses": "€1,323.00",
+      "note": "El SMI se fija en 14 pagas. Para cálculo mensual se prorratea: (€1,134 × 14) / 12 = €1,323/mes. Verificar si hay actualización para 2026 en el BOE.",
+      "thresholds": {
+        "carlos_200pct": "€2,646.00/mes",
+        "claudia_75pct": "€992.25/mes",
+        "dante_25pct": "€330.75/mes",
+        "ariana_25pct": "€330.75/mes",
+        "total_family_minimum": "€4,299.75/mes"
+      },
+      "carlos_income": {
+        "monthly_usd": "$15,000.00",
+        "monthly_eur_approx": "~€13,500.00",
+        "ratio_vs_threshold": "~3.14x el mínimo requerido"
+      },
+      "verdict": "CUMPLE SOBRADAMENTE"
+    }
+  }
+}

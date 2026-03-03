@@ -153,17 +153,18 @@ export const POST: APIRoute = async ({ request, locals }) => {
     return json({ error: 'Too many submissions. Please wait a minute.' }, 429);
   }
 
-  // Verify Turnstile token (if secret is configured)
+  // Verify Turnstile token — fail closed if secret is missing in production
   const turnstileSecret = env.TURNSTILE_SECRET_KEY;
-  if (turnstileSecret) {
-    const token = body.turnstileToken;
-    if (!token) {
-      return json({ error: 'Security verification required.' }, 400);
-    }
-    const valid = await verifyTurnstile(token, turnstileSecret, clientIP);
-    if (!valid) {
-      return json({ error: 'Security verification failed.' }, 403);
-    }
+  if (!turnstileSecret) {
+    return json({ error: 'Security not configured.' }, 503);
+  }
+  const token = body.turnstileToken;
+  if (!token) {
+    return json({ error: 'Security verification required.' }, 400);
+  }
+  const valid = await verifyTurnstile(token, turnstileSecret, clientIP);
+  if (!valid) {
+    return json({ error: 'Security verification failed.' }, 403);
   }
 
   // Build record
@@ -235,9 +236,27 @@ export const POST: APIRoute = async ({ request, locals }) => {
   });
 };
 
+const ALLOWED_ORIGIN = 'https://www.dataqbs.com';
+
+// ── CORS preflight ───────────────────────────────────
+export const OPTIONS: APIRoute = () => {
+  return new Response(null, {
+    status: 204,
+    headers: {
+      'Access-Control-Allow-Origin': ALLOWED_ORIGIN,
+      'Access-Control-Allow-Methods': 'POST, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type',
+      'Access-Control-Max-Age': '86400',
+    },
+  });
+};
+
 function json(data: unknown, status = 200): Response {
   return new Response(JSON.stringify(data), {
     status,
-    headers: { 'Content-Type': 'application/json' },
+    headers: {
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': ALLOWED_ORIGIN,
+    },
   });
 }

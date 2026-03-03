@@ -1,3 +1,4 @@
+# ── Global security headers (all pages) ──────────────
 /*
   X-Frame-Options: DENY
   X-Content-Type-Options: nosniff
@@ -5,12 +6,29 @@
   Permissions-Policy: camera=(), microphone=(), geolocation=()
   Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
   X-XSS-Protection: 1; mode=block
+  ! Access-Control-Allow-Origin
 
-# Prevent image indexing for realestate photos (nested paths)
-/realestate/ventaCasaBSA/*
-  X-Robots-Tag: noindex
-  Cache-Control: public, max-age=31536000, immutable
+# ── CSP for prerendered/static pages (nonces unavailable, use unsafe-inline) ──
+/realestate/*
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://challenges.cloudflare.com https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://api.resend.com https://challenges.cloudflare.com; frame-src https://challenges.cloudflare.com https://www.openstreetmap.org; base-uri 'self'; form-action 'self'
 
-/realestate/ventaDepartamento/*
-  X-Robots-Tag: noindex
-  Cache-Control: public, max-age=31536000, immutable
+# ── No-cache HTML for realestate pages (always get fresh content) ─
+/realestate/
+  Cache-Control: no-cache, no-store, must-revalidate
+/realestate/ventaCasaBSA/
+  Cache-Control: no-cache, no-store, must-revalidate
+/realestate/ventaDepartamento/
+  Cache-Control: no-cache, no-store, must-revalidate
+
+# ── Cache realestate assets (images) ──────────────────
+/realestate/ventaCasaBSA/*.jpeg
+  Cache-Control: public, max-age=86400, s-maxage=86400
+
+/realestate/ventaCasaBSA/*.jpg
+  Cache-Control: public, max-age=86400, s-maxage=86400
+
+/realestate/ventaDepartamento/*.jpeg
+  Cache-Control: public, max-age=86400, s-maxage=86400
+
+/realestate/ventaDepartamento/*.jpg
+  Cache-Control: public, max-age=86400, s-maxage=86400

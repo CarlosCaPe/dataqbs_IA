@@ -49,12 +49,20 @@ export function renderMarkdown(raw: string): string {
   // Single newlines → <br>
   html = html.replace(/\n/g, '<br>');
 
-  // Defense-in-depth: sanitize final HTML to block any XSS bypasses
+  // Defense-in-depth: sanitize final HTML to block any XSS bypasses.
+  // DOMPurify requires a DOM. On the server (SSR) we strip all HTML tags
+  // that were re-introduced by the markdown parser, keeping only text.
   if (typeof window !== 'undefined') {
     return DOMPurify.sanitize(`<p>${html}</p>`, PURIFY_CONFIG);
   }
-  // SSR fallback (DOMPurify needs DOM) — escapeHtml already ran
-  return `<p>${html}</p>`;
+  // SSR fallback: strip any HTML tags the markdown parser introduced,
+  // then re-escape to guarantee no XSS even without DOMPurify.
+  const stripped = `<p>${html}</p>`
+    .replace(/<[^>]*>/g, '') // remove all tags
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+  return `<p>${stripped}</p>`;
 }
 
 function escapeHtml(text: string): string {

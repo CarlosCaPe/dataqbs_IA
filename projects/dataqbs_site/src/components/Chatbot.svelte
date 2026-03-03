@@ -405,9 +405,6 @@
         {/if}
       </div>
 
-      <!-- Turnstile mobile -->
-      <div id="turnstile-container-mobile" class="hidden"></div>
-
       <!-- Input (mobile) -->
       <div class="p-3 border-t border-slate-200 dark:border-slate-700 pb-safe">
         {#if hasConversation}
@@ -433,6 +430,7 @@
             on:click={handleSend}
             class="btn-primary px-3"
             disabled={!inputValue.trim() || status === 'sending' || status === 'streaming'}
+            aria-label={$t.chat.send}
           >
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

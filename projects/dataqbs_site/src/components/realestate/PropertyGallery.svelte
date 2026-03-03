@@ -101,8 +101,7 @@
         on:contextmenu|preventDefault
       />
       <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-      <div class="absolute bottom-4 left-4 right-4 flex justify-between items-end opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-        <span class="text-white text-sm font-medium drop-shadow-lg">{sortedImages[0].title}</span>
+      <div class="absolute bottom-4 left-4 right-4 flex justify-end items-end opacity-0 group-hover:opacity-100 transition-opacity duration-300">
         <span class="text-white/80 text-xs bg-black/50 px-2 py-1 rounded-full">
           {photoOfLabel(1, total)}
         </span>
@@ -178,12 +177,7 @@
       {/if}
     </div>
 
-    <!-- Caption -->
-    {#if currentImage}
-      <div class="absolute bottom-16 text-center text-white/90 text-sm font-medium px-4">
-        {currentImage.title}
-      </div>
-    {/if}
+    <!-- Caption hidden by design -->
 
     <!-- Prev button -->
     <button

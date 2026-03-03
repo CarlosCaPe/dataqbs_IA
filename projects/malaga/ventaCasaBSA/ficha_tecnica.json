@@ -1,23 +1,31 @@
 {
   "public_id": "MLG-VCBSA-001",
   "title": "Casa Moderna con Paneles Solares en Bosques de Santa Anita – Coto 9",
+  "title_i18n": {
+    "en": "Modern House with Solar Panels in Bosques de Santa Anita – Gated Community 9",
+    "de": "Modernes Haus mit Solarpaneelen in Bosques de Santa Anita – Wohnanlage 9"
+  },
   "title_short": "Casa 3 Rec. Coto 9, BSA Tlajomulco",
-  "description": "🏡 SE VENDE · Casa Moderna en Bosques de Santa Anita – Coto 9\n\n📐 Terreno: 220 m² · 2 Plantas · 3 Recámaras · 3.5 Baños · 3 Estacionamientos\n💰 $6,500,000 MXN\n\nCasa contemporánea en uno de los cotos más buscados de Bosques de Santa Anita (Coto 9), Tlajomulco de Zúñiga. Lista para escriturar — entra con maletas y nada más.\n\n🏠 PLANTA BAJA\n• Cochera techada para 3 autos con instalación 220 V y cargador para auto eléctrico\n• Medio baño de visitas\n• Oficina independiente — ideal para home office\n• Área de lavado techada\n• Jardín trasero con pasillo de servidumbre\n• Fuente decorativa debajo de la escalera\n\n🛏️ PLANTA ALTA\n• 3 recámaras amplias, cada una con baño completo y walking closet\n• Área social / family room\n• Sala-comedor\n\n⚡ EQUIPAMIENTO Y PLUSES\n• 8 paneles solares instalados en techo — ahorro real en recibo de CFE\n• Cargador / instalación 220 V para auto eléctrico en cochera\n• Baños estilo japonés (WC inteligente)\n• Aljibe de reserva de agua (suministro garantizado)\n• Calentador de agua\n• Aire acondicionado\n• Terraza\n\n🔒 SEGURIDAD\n• Coto cerrado con vigilancia 24/7\n• Acceso vehicular controlado por sistema\n\n📍 UBICACIÓN\nBosques de Santa Anita, Tlajomulco de Zúñiga, Jalisco. A minutos de Periférico Sur, con acceso rápido a centros comerciales, colegios y hospitales. Zona arbolada, tranquila y con plusvalía en crecimiento.\n\n✅ Excelente mantenimiento. Lista para escriturar.\nIdeal para familias que buscan seguridad, espacio y calidad de vida.",
-  "description_short": "Casa moderna 3 rec. c/u con baño y walking closet, 8 paneles solares, cochera 3 autos con cargador eléctrico, aljibe, coto privado con seguridad 24/7. Lista para escriturar.",
+  "title_short_i18n": {
+    "en": "3-Bed House, Gated Community 9, BSA Tlajomulco",
+    "de": "3-Zi. Haus, Wohnanlage 9, BSA Tlajomulco"
+  },
+  "description": "🏡 SE VENDE · Casa Moderna en Bosques de Santa Anita – Coto 9\n\n📐 Construcción: 215 m² · Terreno: 220 m² · 2 Plantas · 3 Recámaras · 3.5 Baños · 3 Estacionamientos\n💰 $6,550,000 MXN\n\nCasa contemporánea en uno de los cotos más buscados de Bosques de Santa Anita (Coto 9), Tlajomulco de Zúñiga. Lista para escriturar — entra con maletas y nada más.\n\n🏠 PLANTA BAJA\n• Sala-comedor\n• Cochera para 3 autos con instalación 220 V y cargador para auto eléctrico\n• Medio baño de visitas\n• Oficina independiente — ideal para home office\n• Área de lavado techada\n• Jardín trasero con pasillo de servidumbre\n• Fuente decorativa debajo de la escalera\n\n🛏️ PLANTA ALTA\n• 3 recámaras amplias, cada una con baño completo y walking closet\n• Área social / family room\n\n⚡ EQUIPAMIENTO Y PLUSES\n• 8 paneles solares instalados en techo — ahorro real en recibo de CFE\n• Cargador / instalación 220 V para auto eléctrico en cochera\n• Baños estilo japonés (WC inteligente)\n• Aljibe de reserva de agua (suministro garantizado)\n• Calentador de agua\n• Aire acondicionado\n\n🏟️ AMENIDADES DEL FRACCIONAMIENTO\n• Casa club con terraza\n• Cancha de fútbol\n• Cancha de voleibol\n• Cancha de tenis\n• Salón de eventos\n• Capilla de la Sagrada Familia\n\n🔒 SEGURIDAD\n• Coto cerrado con vigilancia 24/7\n• Acceso vehicular controlado por sistema\n\n📍 UBICACIÓN\nBosques de Santa Anita, Tlajomulco de Zúñiga, Jalisco. A minutos de Periférico Sur, con acceso rápido a centros comerciales, colegios y hospitales. Zona arbolada, tranquila y con plusvalía en crecimiento.\n\n✅ Excelente mantenimiento. Lista para escriturar.\nIdeal para familias que buscan seguridad, espacio y calidad de vida.",
+  "description_short": "Casa moderna 3 rec. c/u con baño y walking closet, 8 paneles solares, cochera 3 autos con cargador eléctrico, aljibe, amenidades (canchas, casa club, capilla). Coto privado con seguridad 24/7. Lista para escriturar.",
   "bedrooms": 3,
   "bathrooms": 3,
   "half_bathrooms": 1,
   "parking_spaces": 3,
   "lot_size": 220,
   "lot_size_unit": "m²",
-  "construction_size": 280,
+  "construction_size": 215,
   "construction_size_unit": "m²",
   "lot_length": null,
   "lot_width": null,
   "floors": 2,
   "floor": null,
-  "age": 8,
-  "year_built": 2018,
+  "age": 9,
+  "year_built": 2016,
   "internal_id": "BSA-C9-001",
   "expenses": null,
   "maintenance_fee": {
@@ -50,11 +58,10 @@
   "operations": [
     {
       "type": "sale",
-      "amount": 6500000.0,
+      "amount": 6550000.0,
       "currency": "MXN",
-      "formatted_amount": "$6,500,000 MXN",
-      "price_per_m2": 29545.45,
-      "price_per_m2_construction": 23214.29,
+      "formatted_amount": "$6,550,000 MXN",
+      "price_per_m2": 30465.12,
       "commission": {
         "type": "percentage",
         "value": null,
@@ -83,21 +90,25 @@
     "baño japonés",
     "walking closet",
     "seguridad 24/7",
+    "amenidades",
+    "casa club",
+    "canchas deportivas",
+    "capilla",
     "Bosques de Santa Anita",
     "Tlajomulco"
   ],
-  "private_description": "Casa moderna en Bosques de Santa Anita, Coto 9. Venta directa del propietario. Documentación lista para escriturar. Precio firme $6,500,000 MXN.",
+  "private_description": "Casa moderna en Bosques de Santa Anita, Coto 9. Venta directa del propietario. Documentación lista para escriturar. Precio firme $6,550,000 MXN.",
   "show_prices": true,
   "share_commission": false,
   "property_images": [
     {
       "title": "Fachada principal",
-      "url": "inputImages/FACHADA_01.jpeg",
+      "url": "inputImages/FACHADA_01v2.jpeg",
       "position": 0,
       "category": "FACHADA"
     },
     {
-      "title": "Cochera techada 3 autos con cargador eléctrico",
+      "title": "Cochera 3 autos con cargador eléctrico",
       "url": "inputImages/COCHERA_01.jpeg",
       "position": 1,
       "category": "COCHERA"
@@ -187,16 +198,16 @@
       "category": "ESCALERAS"
     },
     {
-      "title": "Terraza con vista",
+      "title": "Casa club — terraza (área común)",
       "url": "inputImages/TERRAZA_01.jpeg",
       "position": 16,
-      "category": "TERRAZA"
+      "category": "AMENIDADES"
     },
     {
-      "title": "Terraza — ángulo lateral",
+      "title": "Casa club — terraza, vista lateral (área común)",
       "url": "inputImages/TERRAZA_02.jpeg",
       "position": 17,
-      "category": "TERRAZA"
+      "category": "AMENIDADES"
     },
     {
       "title": "Área de lavado techada",
@@ -272,7 +283,7 @@
   },
   "features": [
     {
-      "name": "Cochera techada para 3 autos",
+      "name": "Cochera para 3 autos",
       "category": "Exterior"
     },
     {
@@ -296,15 +307,11 @@
       "category": "Exterior"
     },
     {
-      "name": "Terraza",
-      "category": "Exterior"
-    },
-    {
       "name": "3 recámaras con baño completo y walking closet",
       "category": "Interior"
     },
     {
-      "name": "Sala-comedor con doble altura",
+      "name": "Sala-comedor",
       "category": "Interior"
     },
     {
@@ -358,6 +365,30 @@
     {
       "name": "Excelente mantenimiento",
       "category": "Estatus"
+    },
+    {
+      "name": "Casa club con terraza",
+      "category": "Amenidades"
+    },
+    {
+      "name": "Cancha de fútbol",
+      "category": "Amenidades"
+    },
+    {
+      "name": "Cancha de voleibol",
+      "category": "Amenidades"
+    },
+    {
+      "name": "Cancha de tenis",
+      "category": "Amenidades"
+    },
+    {
+      "name": "Salón de eventos",
+      "category": "Amenidades"
+    },
+    {
+      "name": "Capilla de la Sagrada Familia",
+      "category": "Amenidades"
     }
   ],
   "nearby_places": [

@@ -40,17 +40,29 @@
       }, 600);
     }) as EventListener);
 
-    // Render Turnstile invisible widget for contact form
-    if (TURNSTILE_SITEKEY && (window as any).turnstile) {
+    // Render Turnstile invisible widget for contact form (with polling fallback)
+    function renderContactTurnstile(): boolean {
       const container = document.getElementById('contact-turnstile');
-      if (container) {
-        (window as any).turnstile.render(container, {
-          sitekey: TURNSTILE_SITEKEY,
-          callback: (token: string) => { contactTurnstileToken = token; },
-          'error-callback': () => { contactTurnstileToken = null; },
-          theme: document.documentElement.classList.contains('dark') ? 'dark' : 'light',
-          size: 'invisible',
-        });
+      if (!container || !(window as any).turnstile) return false;
+      (window as any).turnstile.render(container, {
+        sitekey: TURNSTILE_SITEKEY,
+        callback: (token: string) => { contactTurnstileToken = token; },
+        'error-callback': () => { contactTurnstileToken = null; },
+        theme: document.documentElement.classList.contains('dark') ? 'dark' : 'light',
+        size: 'invisible',
+      });
+      return true;
+    }
+
+    if (TURNSTILE_SITEKEY) {
+      if (!renderContactTurnstile()) {
+        let attempts = 0;
+        const interval = setInterval(() => {
+          attempts++;
+          if (renderContactTurnstile() || attempts >= 20) {
+            clearInterval(interval);
+          }
+        }, 500);
       }
     }
   });

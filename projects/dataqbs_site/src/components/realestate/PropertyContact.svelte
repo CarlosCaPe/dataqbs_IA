@@ -6,8 +6,8 @@
   export let propertyId: string = '';
 
   // ── Contact constants (single source of truth) ───
-  const WHATSAPP_NUMBER = '523313233421';
-  const CONTACT_EMAIL   = 'carlos.carrillo@dataqbs.com';
+  const WHATSAPP_NUMBER = '5213333777577';
+  const CONTACT_EMAIL   = 'claudia.zuniga@dataqbs.com';
 
   let name = '';
   let email = '';
@@ -215,7 +215,7 @@
         </div>
         <div class="flex-1 min-w-0">
           <p class="text-sm font-medium text-slate-900 dark:text-white">WhatsApp</p>
-        <p class="text-xs text-slate-500 dark:text-slate-400">+52 33 1323 3421</p>
+        <p class="text-xs text-slate-500 dark:text-slate-400">+52 33 3377 7577</p>
         </div>
         <svg class="w-4 h-4 text-slate-400 group-hover:text-green-500 transition-colors flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
