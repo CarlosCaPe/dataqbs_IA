@@ -1,5 +1,10 @@
 # dataqbs_IA — AI Agent Instructions
 
+## ⚠️ Keep Instructions In Sync
+This file (`copilot-instructions.md`) and `projects/dataqbs_site/.claude/CLAUDE.md` (+ rules/) must stay synchronized.
+When updating CV workflows, security rules, or deployment steps here, also update the Claude Code files.
+Both AI assistants should give the same guidance for the same project.
+
 ## Repository Structure
 
 - **Monorepo** managed by Poetry at the root `pyproject.toml`
@@ -37,12 +42,55 @@ These rules apply to ALL projects in this repo, especially `dataqbs_site`:
 - **WAF**: Cloudflare dashboard rate limiting rule: 15 req/10s on `/api/*`.
 - **Headers**: HSTS, X-Frame-Options DENY, nosniff, Referrer-Policy strict — set in `public/_headers`.
 
+### Five-Layer Defense (Contact Form)
+1. **Turnstile** — Server-side validation via `TURNSTILE_SECRET_KEY`
+2. **Honeypot** — Hidden `website` field; reject silently if filled
+3. **Speed check** — `_loadedAt` timestamp; reject if < 3 seconds
+4. **Origin header** — Must match `https://www.dataqbs.com`
+5. **Rate limiting** — 3 req/min per IP + WAF rule (15 req/10s)
+
 ### When Adding New API Endpoints
 1. Add Turnstile validation (check `TURNSTILE_SECRET_KEY` env var)
 2. Set CORS to production domain only
 3. Add rate limiting (in-memory as fallback, WAF rule in dashboard)
 4. Sanitize all user inputs before use in HTML/email
 5. Never log or expose API keys in responses
+
+## CV Structure Rules (dataqbs_site)
+
+### Index Convention
+All CV entries indexed 0-12 MUST match across these files:
+- `src/data/cv.ts` — Main experience data
+- `src/data/cv_translations.ts` — ES and DE translations (keyed by index)
+- `scripts/generate_cv_pdfs.py` — ACH_ES and ACH_DE arrays
+- `src/layouts/Layout.astro` — JSON-LD worksFor
+- `src/pages/api/chat.ts` — QUERY_EXPANSION triggers
+
+### Current Structure (2026-03)
+| Index | Company | Type |
+|-------|---------|------|
+| 0 | NewFire Global | contract |
+| 1 | Hexaware Technologies | full-time (ended) |
+| 2 | dataqbs | freelance (ongoing) |
+| 3-12 | Past roles | various |
+
+### Multi-Employment Rules
+- **Full-time** roles CANNOT visually overlap
+- **Contracts** can overlap (under dataqbs umbrella)
+- FussionHit = VCA project under dataqbs clients, NOT separate entry
+
+### CV Update Workflow ⚠️ CRITICAL
+When adding/modifying CV entries, follow this order:
+1. Update `cv.ts`
+2. Reindex `cv_translations.ts` (ES and DE)
+3. Reindex `generate_cv_pdfs.py` (ACH_ES and ACH_DE)
+4. Update `Layout.astro` JSON-LD worksFor
+5. Update `chat.ts` QUERY_EXPANSION (if needed)
+6. **REGENERATE PDFs**: `python scripts/generate_cv_pdfs.py`
+7. Build: `npm run build`
+8. Deploy: `npx wrangler pages deploy dist --project-name dataqbs-site`
+
+Missing step 6 will cause PDF downloads to show outdated CV data!
 
 ## Developer Workflows
 

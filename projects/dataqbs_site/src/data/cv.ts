@@ -74,9 +74,24 @@ export const socialLinks: SocialLink[] = [
 export const experience: Experience[] = [
   // ── Current roles ──────────────────────────────────
   {
+    company: 'NewFire Global',
+    role: 'Senior Engineer',
+    period: { start: '2026-03', end: null },
+    location: 'Remote',
+    type: 'contract',
+    description:
+      'Onboarding into cloud-native development workflows with Cloud Code API integration in Visual Studio.',
+    achievements: [
+      'Ramping up on Cloud Code API and Visual Studio integration for cloud development workflows',
+    ],
+    technologies: [
+      'Cloud Code API', 'Visual Studio', 'Google Cloud',
+    ],
+  },
+  {
     company: 'Hexaware Technologies',
     role: 'Data Integration Lead',
-    period: { start: '2025-03', end: null },
+    period: { start: '2025-03', end: '2026-03' },
     location: 'Mexico · Remote',
     type: 'full-time',
     description:
@@ -101,35 +116,11 @@ export const experience: Experience[] = [
     ],
   },
   {
-    company: 'FussionHit',
-    role: 'Senior Database Engineer',
-    period: { start: '2024-09', end: '2025-03' },
-    location: 'Remote',
-    type: 'contract',
-    description:
-      'Database engineer for VCA Animal Hospitals on Azure Database for PostgreSQL. Built a full auditing ' +
-      'and DDL export framework, performed schema performance reviews, and delivered ticket-based database ' +
-      'remediation with TDD-quality documentation across multiple production databases.',
-    achievements: [
-      'Built PostgreSQL audit framework with per-object templated DDL exports (Nunjucks/Jinja)',
-      'Delivered 20+ database tickets (index optimization, FK remediation, schema renames, timestamp normalization)',
-      'Authored Technical Design Documents for Student Concierge, Relief Vet, VWR, Appointment Waitlist, and Feature Flags databases',
-      'Created regression test suite for all critical tickets with offline validation',
-      'Developed PostgreSQL Best Practices guide for Azure Flexible Server',
-      'Integrated Jira, Harvest API, and Microsoft Graph API workflows',
-    ],
-    technologies: [
-      'PostgreSQL', 'Azure Database for PostgreSQL', 'Node.js', 'JavaScript',
-      'Nunjucks', 'pg_stat_statements', 'EXPLAIN', 'Jira', 'Harvest API',
-      'GitHub Copilot',
-    ],
-  },
-  {
     company: 'dataqbs',
-    role: 'Data Engineer & AI Developer',
+    role: 'Senior Data Engineer',
     period: { start: '2011-01', end: null },
     location: 'Guadalajara, Mexico · Remote',
-    type: 'self-employed',
+    type: 'freelance',
     description:
       'Independent consultancy providing BI, data engineering, and database solutions for US and LATAM clients. ' +
       'Also building internal R&D projects: crypto arbitrage scanner, grid trading bots, LLM evaluation engine, ' +

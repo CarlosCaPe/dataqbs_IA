@@ -17,8 +17,16 @@ export interface ExperienceTranslation {
 //  SPANISH
 // ══════════════════════════════════════════════════════
 const es: Record<number, ExperienceTranslation> = {
-  // 0 — Hexaware Technologies
+  // 0 — NewFire Global
   0: {
+    description:
+      'Incorporación en flujos de desarrollo cloud-native con integración de Cloud Code API en Visual Studio.',
+    achievements: [
+      'Incorporándome en Cloud Code API e integración con Visual Studio para flujos de desarrollo en la nube',
+    ],
+  },
+  // 1 — Hexaware Technologies
+  1: {
     description:
       'Lideré la integración Snowflake → Azure SQL para operaciones mineras de Freeport-McMoRan. ' +
       'Desplegué pipelines de sincronización incremental, construí CLI de pruebas de regresión, optimicé vistas Snowflake, ' +
@@ -32,21 +40,6 @@ const es: Record<number, ExperienceTranslation> = {
       'Construí extracción de esquemas en 3 ambientes Azure SQL, infraestructura KQL/ADX (2 clusters, 20+ DBs por sitio), ejecución config-driven con auth Entra ID/Kerberos',
       'Aproveché GitHub Copilot (Enterprise) para arquitectura de pipelines, generación SQL, benchmarking y desarrollo de dashboards',
       'Construí simulación de stockpile basada en física con modelado 3D de bloques para trazado de mineral a través de circuitos de conminución (trituradoras → molinos → flotación). Seguimiento predictivo de mineralogía, calibración de básculas con filtrado Kalman y estimación de tiempos de crush-out en múltiples sitios mineros',
-    ],
-  },
-  // 1 — FussionHit
-  1: {
-    description:
-      'Ingeniero de bases de datos para VCA Animal Hospitals en Azure Database for PostgreSQL. Construí un framework completo ' +
-      'de auditoría y exportación DDL, realicé revisiones de rendimiento de esquemas, y entregué remediación de bases de datos ' +
-      'basada en tickets con documentación de calidad TDD en múltiples bases de datos de producción.',
-    achievements: [
-      'Construí framework de auditoría PostgreSQL con exportaciones DDL templadas por objeto (Nunjucks/Jinja)',
-      'Entregué 20+ tickets de base de datos (optimización de índices, remediación de FK, renombramientos de esquema, normalización de timestamps)',
-      'Redacté Documentos de Diseño Técnico para las bases de datos Student Concierge, Relief Vet, VWR, Appointment Waitlist y Feature Flags',
-      'Creé suite de pruebas de regresión para todos los tickets críticos con validación offline',
-      'Desarrollé guía de Mejores Prácticas para PostgreSQL en Azure Flexible Server',
-      'Integré flujos de trabajo con Jira, Harvest API y Microsoft Graph API',
     ],
   },
   // 2 — dataqbs
@@ -168,8 +161,16 @@ const es: Record<number, ExperienceTranslation> = {
 //  GERMAN
 // ══════════════════════════════════════════════════════
 const de: Record<number, ExperienceTranslation> = {
-  // 0 — Hexaware Technologies
+  // 0 — NewFire Global
   0: {
+    description:
+      'Einarbeitung in Cloud-native Entwicklungsworkflows mit Cloud Code API-Integration in Visual Studio.',
+    achievements: [
+      'Einarbeitung in Cloud Code API und Visual Studio-Integration fuer Cloud-Entwicklungsworkflows',
+    ],
+  },
+  // 1 — Hexaware Technologies
+  1: {
     description:
       'Leitete die Snowflake → Azure SQL Integration fuer Freeport-McMoRan Bergbauoperationen. ' +
       'Bereitete inkrementelle Sync-Pipelines, baute CLI fuer Regressionstests, optimierte Snowflake-Views ' +
@@ -183,21 +184,6 @@ const de: Record<number, ExperienceTranslation> = {
       'Entwickelte Schema-Extraktion ueber 3 Azure SQL-Umgebungen, KQL/ADX-Infrastruktur (2 Cluster, 20+ Standort-DBs), konfigurationsgesteuerte Ausfuehrung mit Entra ID/Kerberos-Auth',
       'Nutzte GitHub Copilot (Enterprise) fuer Pipeline-Architektur, SQL-Generierung, Benchmarking und Dashboard-Entwicklung',
       'Entwickelte physikbasierte Stockpile-Simulation mit 3D-Blockmodellierung fuer Erzverfolgung durch Zerkleinerungskreislaeufe (Brecher → Muehlen → Flotation). Praediktive Mineralogie-Verfolgung, Bandwaagen-Kalibrierung mit Kalman-Filterung und Crush-out-Zeitschaetzung ueber mehrere Bergbaustandorte',
-    ],
-  },
-  // 1 — FussionHit
-  1: {
-    description:
-      'Datenbankingenieur fuer VCA Animal Hospitals auf Azure Database for PostgreSQL. Entwickelte ein vollstaendiges ' +
-      'Audit- und DDL-Export-Framework, fuehrte Schema-Performance-Reviews durch und lieferte ticketbasierte Datenbank-' +
-      'Sanierung mit TDD-Qualitaetsdokumentation ueber mehrere Produktionsdatenbanken.',
-    achievements: [
-      'Entwickelte PostgreSQL-Audit-Framework mit objektbezogenen Template-DDL-Exporten (Nunjucks/Jinja)',
-      'Lieferte 20+ Datenbank-Tickets (Index-Optimierung, FK-Bereinigung, Schema-Umbenennungen, Timestamp-Normalisierung)',
-      'Verfasste Technische Design-Dokumente fuer die Datenbanken Student Concierge, Relief Vet, VWR, Appointment Waitlist und Feature Flags',
-      'Erstellte Regressionstestsuite fuer alle kritischen Tickets mit Offline-Validierung',
-      'Entwickelte Best-Practices-Leitfaden fuer PostgreSQL auf Azure Flexible Server',
-      'Integrierte Jira-, Harvest-API- und Microsoft-Graph-API-Workflows',
     ],
   },
   // 2 — dataqbs

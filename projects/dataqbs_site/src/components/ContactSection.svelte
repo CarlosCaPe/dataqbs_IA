@@ -11,6 +11,8 @@
   let errorMsg = '';
   let hasTranscript = false;
   const maxMessageLength = 5000;
+  let honeypot = '';           // spam honeypot — must stay empty
+  const pageLoadedAt = Date.now();  // anti-speed-bot timestamp
 
   // ── Turnstile ────────────────────────────────────
   const TURNSTILE_SITEKEY = '0x4AAAAAACjWMTF9SAi1pa7U';
@@ -89,6 +91,8 @@
           locale: $locale,
           turnstileToken: contactTurnstileToken || '',
           chatTranscript: chatTranscript || undefined,
+          website: honeypot,
+          _loadedAt: pageLoadedAt,
         }),
       });
 
@@ -199,6 +203,11 @@
           {/if}
           <!-- Turnstile invisible widget for contact form -->
           <div id="contact-turnstile" class="hidden"></div>
+          <!-- Honeypot: invisible to humans, bots auto-fill it -->
+          <div class="absolute -left-[9999px]" aria-hidden="true" tabindex="-1">
+            <label for="website">Website</label>
+            <input type="text" id="website" name="website" bind:value={honeypot} autocomplete="off" tabindex="-1" />
+          </div>
           <button type="submit" class="btn-primary w-full" disabled={sending}>
             {#if sending}
               <svg class="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">

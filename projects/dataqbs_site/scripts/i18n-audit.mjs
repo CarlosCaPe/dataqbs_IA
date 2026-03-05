@@ -111,6 +111,7 @@ const SAFE_PATTERNS = [
   /^http/, /^mailto/, /^tel:/, /^wa\.me/,
   /^Profile/, /^\.pdf/, /^\.jpeg/,
   /items-center|justify-|flex-|rounded|bg-|text-|border-|gap-|px-|py-|mt-|mb-|ml-|mr-/, // CSS classes
+  /^Website$/, /^WhatsApp$/, /^Email$/, // Brand names and honeypot field
 ];
 
 function scanSvelteHardcoded(dir) {

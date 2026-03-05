@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "stopplag"
+version = "0.1.0"
+description = "StopPlag – transcripción y análisis de entrevistas de usuario para detección de plagio"
+authors = ["Carlos <you@example.com>"]
+license = "MIT"
+
+packages = [
+	{ include = "stopplag", from = "src" }
+]
+
+[tool.poetry.dependencies]
+python = ">=3.10,<3.14"
+openai-whisper = ">=20231117"
+ffmpeg-python = "^0.2.0"
+
+[tool.poetry.scripts]
+stopplag-transcribe = "stopplag.transcribe:main"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

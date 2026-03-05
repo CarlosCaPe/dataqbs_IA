@@ -1,6 +1,6 @@
 # Hexaware Technologies — Freeport-McMoRan Mining Data Engineering
 
-Carlos Carrillo works at Hexaware Technologies (full-time) as a Data Integration Lead on the Freeport-McMoRan mining operations project.
+Carlos Carrillo worked at Hexaware Technologies (full-time, Mar 2025 – Mar 2026) as a Data Integration Lead on the Freeport-McMoRan mining operations project.
 
 ## Role & Responsibilities
 

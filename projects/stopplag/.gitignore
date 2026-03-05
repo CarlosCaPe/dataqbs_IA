@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+*.egg-info/
+
+# Audio files (don't commit large media)
+audios/*.ogg
+audios/*.mp3
+audios/*.wav
+audios/*.m4a
+
+# Input images (downloaded from client site — large)
+inputImages/
+
+# Whisper model cache
+*.pt
+
+# Logs
+transcription_log*.txt
+nohup.out

@@ -162,7 +162,11 @@ SUMMARIES = {
 #  ALL achievements per role are shown in the PDF.
 # ══════════════════════════════════════════════════════════════
 ACH_ES = [
-    # 0: Hexaware Technologies (8 achievements)
+    # 0: NewFire Global (1 achievement)
+    [
+        "Incorporandome en Cloud Code API e integracion con Visual Studio para flujos de desarrollo en la nube",
+    ],
+    # 1: Hexaware Technologies (8 achievements)
     [
         "Lidere la integracion Snowflake -> Azure SQL; despliegue pipeline de sincronizacion incremental de 14 tablas con procedimientos MERGE, programacion cada 15 min, deteccion delta con HASH, verificacion E2E (~590K filas) en DEV->TEST->PROD",
         "Disene cargas incrementales basadas en marca de agua usando timestamps de negocio y respaldos DW_MODIFY_TS para dashboards de Connected Operations",
@@ -172,15 +176,6 @@ ACH_ES = [
         "Construi extraccion de esquemas en 3 ambientes Azure SQL, infraestructura KQL/ADX (2 clusters, 20+ DBs por sitio), ejecucion config-driven con auth Entra ID/Kerberos",
         "Aproveche GitHub Copilot (Enterprise) para arquitectura de pipelines, generacion SQL, benchmarking y desarrollo de dashboards",
         "Construi simulacion de stockpile basada en fisica con modelado 3D de bloques para trazado de mineral a traves de circuitos de conminucion (trituradoras -> molinos -> flotacion). Seguimiento predictivo de mineralogia, calibracion de basculas con filtrado Kalman y estimacion de tiempos de crush-out en multiples sitios mineros",
-    ],
-    # 1: FussionHit (6 achievements)
-    [
-        "Construi framework de auditoria PostgreSQL con exportaciones DDL templadas por objeto (Nunjucks/Jinja)",
-        "Entregue 20+ tickets de base de datos (optimizacion de indices, remediacion de FK, renombramientos de esquema, normalizacion de timestamps)",
-        "Redacte Documentos de Diseno Tecnico para las bases de datos Student Concierge, Relief Vet, VWR, Appointment Waitlist y Feature Flags",
-        "Cree suite de pruebas de regresion para todos los tickets criticos con validacion offline",
-        "Desarrolle guia de Mejores Practicas para PostgreSQL en Azure Flexible Server",
-        "Integre flujos de trabajo con Jira, Harvest API y Microsoft Graph API",
     ],
     # 2: dataqbs (6 achievements)
     [
@@ -252,7 +247,11 @@ ACH_ES = [
 ]
 
 ACH_DE = [
-    # 0: Hexaware Technologies (8 achievements)
+    # 0: NewFire Global (1 achievement)
+    [
+        "Einarbeitung in Cloud Code API und Visual Studio-Integration fuer Cloud-Entwicklungsworkflows",
+    ],
+    # 1: Hexaware Technologies (8 achievements)
     [
         "Leitete die Snowflake -> Azure SQL Integration; bereitete inkrementelle Sync-Pipeline fuer 14 Tabellen mit MERGE-Prozeduren, 15-Min-Planung, HASH-Delta-Erkennung, E2E-Verifizierung (~590K Zeilen) in DEV->TEST->PROD",
         "Entwarf wasserzeichenbasierte inkrementelle Ladevorgaenge mit Business-Timestamps und DW_MODIFY_TS-Fallbacks fuer Connected Operations Dashboards",
@@ -262,15 +261,6 @@ ACH_DE = [
         "Entwickelte Schema-Extraktion ueber 3 Azure SQL-Umgebungen, KQL/ADX-Infrastruktur (2 Cluster, 20+ Standort-DBs), konfigurationsgesteuerte Ausfuehrung mit Entra ID/Kerberos-Auth",
         "Nutzte GitHub Copilot (Enterprise) fuer Pipeline-Architektur, SQL-Generierung, Benchmarking und Dashboard-Entwicklung",
         "Entwickelte physikbasierte Stockpile-Simulation mit 3D-Blockmodellierung fuer Erzverfolgung durch Zerkleinerungskreislaeufe (Brecher -> Muehlen -> Flotation). Praediktive Mineralogie-Verfolgung, Bandwaagen-Kalibrierung mit Kalman-Filterung und Crush-out-Zeitschaetzung ueber mehrere Bergbaustandorte",
-    ],
-    # 1: FussionHit (6 achievements)
-    [
-        "Entwickelte PostgreSQL-Audit-Framework mit objektbezogenen Template-DDL-Exporten (Nunjucks/Jinja)",
-        "Lieferte 20+ Datenbank-Tickets (Index-Optimierung, FK-Bereinigung, Schema-Umbenennungen, Timestamp-Normalisierung)",
-        "Verfasste Technische Design-Dokumente fuer die Datenbanken Student Concierge, Relief Vet, VWR, Appointment Waitlist und Feature Flags",
-        "Erstellte Regressionstestsuite fuer alle kritischen Tickets mit Offline-Validierung",
-        "Entwickelte Best-Practices-Leitfaden fuer PostgreSQL auf Azure Flexible Server",
-        "Integrierte Jira-, Harvest-API- und Microsoft-Graph-API-Workflows",
     ],
     # 2: dataqbs (6 achievements)
     [

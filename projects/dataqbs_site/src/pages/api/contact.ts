@@ -17,6 +17,8 @@ interface ContactPayload {
   locale: string;
   turnstileToken?: string;
   chatTranscript?: string;
+  website?: string;       // honeypot — must be empty
+  _loadedAt?: number;     // timestamp when form loaded (anti-speed-bot)
 }
 
 // Basic email regex
@@ -118,11 +120,31 @@ async function sendEmailResend(
 export const POST: APIRoute = async ({ request, locals }) => {
   const env = (locals as any).runtime?.env ?? {};
 
+  // ── Origin check (bots using curl/scripts won't have correct origin) ──
+  const origin = request.headers.get('origin') ?? '';
+  if (origin && origin !== 'https://www.dataqbs.com') {
+    return json({ error: 'Invalid origin' }, 403);
+  }
+
   let body: ContactPayload;
   try {
     body = await request.json();
   } catch {
     return json({ error: 'Invalid JSON' }, 400);
+  }
+
+  // ── Honeypot check (invisible field — bots auto-fill it, humans don't) ──
+  if (body.website) {
+    // Silently accept to not tip off the bot, but don't process
+    return json({ success: true, emailSent: true, message: 'Message sent. Thank you!' });
+  }
+
+  // ── Speed check (reject if submitted < 3s after page load) ──
+  if (body._loadedAt) {
+    const elapsed = Date.now() - body._loadedAt;
+    if (elapsed < 3000) {
+      return json({ success: true, emailSent: true, message: 'Message sent. Thank you!' });
+    }
   }
 
   // Validate raw length before sanitization
