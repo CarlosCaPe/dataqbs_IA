@@ -76,7 +76,7 @@ export const experience: Experience[] = [
   {
     company: 'Hexaware Technologies',
     role: 'Data Integration Lead',
-    period: { start: '2025-03', end: '2026-03' },
+    period: { start: '2025-02', end: '2026-03' },
     location: 'Mexico · Remote',
     type: 'full-time',
     description:
