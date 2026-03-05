@@ -17,18 +17,18 @@ All CV entries are numbered 0-11 (12 total). The index in `cv.ts` MUST match:
 ## Current Structure (as of 2026-03)
 | Index | Company | Type | Period |
 |-------|---------|------|--------|
-| 0 | Hexaware Technologies | full-time | ended 2026-03 |
-| 1 | dataqbs | freelance | 2017-06 → present |
-| 2 | SVAM International | full-time | ended |
-| 3 | Svitla Systems | contract | ended |
-| 4 | Epikso Mexico | full-time | ended |
-| 5 | Jabil (Data Technical Lead) | full-time | ended |
-| 6 | 3Pillar Global | full-time | ended |
-| 7 | HCL Technologies | full-time | ended |
-| 8 | Jabil (IT Analyst) | full-time | ended |
-| 9 | C&A SA de CV | full-time | ended |
-| 10 | FIRMEPLUS | full-time | ended |
-| 11 | Jabil Circuit de México | full-time | ended |
+| 0 | Hexaware Technologies | full-time | 2025-03 → 2026-03 |
+| 1 | dataqbs | freelance | 2011-01 → present |
+| 2 | SVAM International Inc. | contract | 2022-11 → 2024-09 |
+| 3 | Svitla Systems, Inc. | contract | 2021-05 → 2023-10 |
+| 4 | Epikso Mexico | contract | 2022-01 → 2023-01 |
+| 5 | Jabil (Data Technical Lead) | full-time | 2018-01 → 2022-03 |
+| 6 | 3Pillar Global | full-time | 2016-06 → 2018-01 |
+| 7 | HCL Technologies | full-time | 2014-08 → 2016-06 |
+| 8 | Jabil (Database Analyst II) | full-time | 2011-08 → 2014-08 |
+| 9 | C&A México | full-time | 2005-09 → 2011-08 |
+| 10 | FIRMEPLUS | full-time | 2004-04 → 2005-05 |
+| 11 | Jabil Circuit de México | full-time | 2003-08 → 2004-03 |
 
 ## Multi-Employment Rules
 - **Full-time** roles CANNOT visually overlap with other full-times
