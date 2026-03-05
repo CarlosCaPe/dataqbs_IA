@@ -27,8 +27,9 @@
 
   function formatPeriod(start: string, end: string | null, loc: string, present: string): string {
     const bcp = localeMap[loc] || 'en-US';
-    const s = new Date(start + '-01').toLocaleDateString(bcp, { year: 'numeric', month: 'short' });
-    const e = end ? new Date(end + '-01').toLocaleDateString(bcp, { year: 'numeric', month: 'short' }) : present;
+    const opts: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'short', timeZone: 'UTC' };
+    const s = new Date(start + '-01').toLocaleDateString(bcp, opts);
+    const e = end ? new Date(end + '-01').toLocaleDateString(bcp, opts) : present;
     return `${s} — ${e}`;
   }
 
