@@ -24,6 +24,52 @@ interface ContactPayload {
 // Basic email regex
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+// ── Spam detection ───────────────────────────────────
+// Disposable/suspicious email domains
+const BLOCKED_EMAIL_DOMAINS = [
+  'mailinator.com', 'tempmail.com', 'throwaway.email', 'guerrillamail.com',
+  'sharklasers.com', 'grr.la', 'guerrillamail.info', 'pokemail.net',
+  'spam4.me', 'yopmail.com', 'fakeinbox.com', 'trashmail.com',
+  'maildrop.cc', 'dispostable.com', '10minutemail.com', 'temp-mail.org',
+];
+
+// Check for repetitive spam patterns
+function isSpamMessage(text: string): { spam: boolean; reason?: string } {
+  // 1. Check for excessive repetition (same 10+ char pattern repeated 5+ times)
+  const repetitionMatch = text.match(/(.{10,})\1{4,}/);
+  if (repetitionMatch) {
+    return { spam: true, reason: 'Repetitive pattern detected' };
+  }
+
+  // 2. Check character entropy (gibberish detection)
+  const uniqueChars = new Set(text.toLowerCase().replace(/\s/g, '')).size;
+  const textLen = text.replace(/\s/g, '').length;
+  if (textLen > 100 && uniqueChars < 15) {
+    return { spam: true, reason: 'Low entropy content' };
+  }
+
+  // 3. Check for excessive special character sequences
+  const specialSeq = text.match(/[&$%#@!^*()]{5,}/g);
+  if (specialSeq && specialSeq.length > 2) {
+    return { spam: true, reason: 'Excessive special characters' };
+  }
+
+  // 4. Check message/unique-word ratio (spam often has few unique words repeated)
+  const words = text.toLowerCase().split(/\s+/).filter(w => w.length > 2);
+  const uniqueWords = new Set(words).size;
+  if (words.length > 50 && uniqueWords < words.length * 0.1) {
+    return { spam: true, reason: 'Repetitive word pattern' };
+  }
+
+  return { spam: false };
+}
+
+// Check if email domain is blocked
+function isBlockedEmailDomain(email: string): boolean {
+  const domain = email.split('@')[1]?.toLowerCase();
+  return BLOCKED_EMAIL_DOMAINS.some(blocked => domain?.includes(blocked));
+}
+
 // Input sanitization
 function sanitize(input: string, maxLen = 1000): string {
   return input
@@ -166,6 +212,18 @@ export const POST: APIRoute = async ({ request, locals }) => {
   }
   if (!message || message.length < 10) {
     return json({ error: 'Message is required (min 10 chars)' }, 400);
+  }
+
+  // ── Spam detection (silently reject to not tip off spammers) ──
+  if (isBlockedEmailDomain(email)) {
+    console.log(`[CONTACT] Blocked disposable email: ${email}`);
+    return json({ success: true, emailSent: true, message: 'Message sent. Thank you!' });
+  }
+
+  const spamCheck = isSpamMessage(message);
+  if (spamCheck.spam) {
+    console.log(`[CONTACT] Spam detected: ${spamCheck.reason} | IP: ${request.headers.get('cf-connecting-ip')}`);
+    return json({ success: true, emailSent: true, message: 'Message sent. Thank you!' });
   }
 
   // Rate limit by IP
