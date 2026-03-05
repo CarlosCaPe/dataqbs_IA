@@ -42,12 +42,13 @@ These rules apply to ALL projects in this repo, especially `dataqbs_site`:
 - **WAF**: Cloudflare dashboard rate limiting rule: 15 req/10s on `/api/*`.
 - **Headers**: HSTS, X-Frame-Options DENY, nosniff, Referrer-Policy strict — set in `public/_headers`.
 
-### Five-Layer Defense (Contact Form)
+### Six-Layer Defense (Contact Form)
 1. **Turnstile** — Server-side validation via `TURNSTILE_SECRET_KEY`
 2. **Honeypot** — Hidden `website` field; reject silently if filled
 3. **Speed check** — `_loadedAt` timestamp; reject if < 3 seconds
 4. **Origin header** — Must match `https://www.dataqbs.com`
 5. **Rate limiting** — 3 req/min per IP + WAF rule (15 req/10s)
+6. **Spam detection** — Entropy, repetition, disposable email blocking; silent reject
 
 ### When Adding New API Endpoints
 1. Add Turnstile validation (check `TURNSTILE_SECRET_KEY` env var)

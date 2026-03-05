@@ -9,7 +9,7 @@ allowed-tools: Read, Grep, Glob
 
 Perform security audit on public-facing endpoints.
 
-## Five-Layer Defense Check
+## Six-Layer Defense Check
 
 ### 1. Turnstile Validation
 - [ ] `contact.ts` validates `cf-turnstile-response` server-side
@@ -33,6 +33,18 @@ Perform security audit on public-facing endpoints.
 ### 5. Rate Limiting
 - [ ] In-memory rate limiter (3 req/min per IP)
 - [ ] WAF rule in CF dashboard (15 req/10s on `/api/*`)
+
+### 6. Spam Detection
+- [ ] `isSpamMessage()` checks entropy, repetition, special chars, word ratio
+- [ ] `isBlockedEmailDomain()` blocks disposable email domains
+- [ ] `BLOCKED_EMAIL_DOMAINS` array includes mailinator, tempmail, etc.
+- [ ] Silent reject returns fake success to not tip off spammers
+
+## Attack Testing Script
+```bash
+API="https://www.dataqbs.com/api/contact"
+# No Turnstile → fail | Wrong origin → fail | Spam content → silent reject
+```
 
 ## Files to Audit
 ```

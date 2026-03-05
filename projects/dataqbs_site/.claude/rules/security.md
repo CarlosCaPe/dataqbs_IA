@@ -7,7 +7,7 @@ paths:
 
 # Security Rules for dataqbs_site
 
-## Five-Layer Defense (Contact Form)
+## Six-Layer Defense (Contact Form)
 Every public endpoint must implement these layers in order:
 
 1. **Turnstile** — Server-side validation via `TURNSTILE_SECRET_KEY`
@@ -15,9 +15,10 @@ Every public endpoint must implement these layers in order:
 3. **Speed check** — `_loadedAt` timestamp; reject if < 3 seconds
 4. **Origin header** — Must match `https://www.dataqbs.com` (or `http://localhost` in dev)
 5. **Rate limiting** — 3 requests/minute per IP (in-memory + WAF rule in CF dashboard)
+6. **Spam detection** — Entropy check, repetition patterns, disposable email blocking
 
 ## Silent Rejection Pattern
-When rejecting bots (honeypot/speed check), return fake success:
+When rejecting bots (honeypot/speed/spam), return fake success:
 ```typescript
 return new Response(JSON.stringify({ success: true }), {
   status: 200,
