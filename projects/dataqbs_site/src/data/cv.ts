@@ -74,21 +74,6 @@ export const socialLinks: SocialLink[] = [
 export const experience: Experience[] = [
   // ── Current roles ──────────────────────────────────
   {
-    company: 'NewFire Global',
-    role: 'Senior Engineer',
-    period: { start: '2026-03', end: null },
-    location: 'Remote',
-    type: 'contract',
-    description:
-      'Onboarding into cloud-native development workflows with Cloud Code API integration in Visual Studio.',
-    achievements: [
-      'Ramping up on Cloud Code API and Visual Studio integration for cloud development workflows',
-    ],
-    technologies: [
-      'Cloud Code API', 'Visual Studio', 'Google Cloud',
-    ],
-  },
-  {
     company: 'Hexaware Technologies',
     role: 'Data Integration Lead',
     period: { start: '2025-03', end: '2026-03' },
@@ -126,7 +111,7 @@ export const experience: Experience[] = [
       'Also building internal R&D projects: crypto arbitrage scanner, grid trading bots, LLM evaluation engine, ' +
       'email classification system, and this portfolio site with RAG chatbot.',
     achievements: [
-      'Delivered data engineering for VCA Animal Hospitals, C&A México, BCG, Moviro, Svitla, Quesos Navarro',
+      'Delivered data engineering for NewFire Global, VCA Animal Hospitals, C&A México, BCG, Moviro, Svitla, Quesos Navarro',
       'Built MEMO-GRID: advanced grid trading bot with Optuna HPO (50K trials), 23× BTC multiplier, attribution analysis (95.7% alpha)',
       'Designed Bellman-Ford & triangular crypto arbitrage scanner across 9 exchanges with live swap execution',
       'Built declarative YAML-driven rule engine for LLM response auditing with 5-dimension scoring',

@@ -17,16 +17,8 @@ export interface ExperienceTranslation {
 //  SPANISH
 // ══════════════════════════════════════════════════════
 const es: Record<number, ExperienceTranslation> = {
-  // 0 — NewFire Global
+  // 0 — Hexaware Technologies
   0: {
-    description:
-      'Incorporación en flujos de desarrollo cloud-native con integración de Cloud Code API en Visual Studio.',
-    achievements: [
-      'Incorporándome en Cloud Code API e integración con Visual Studio para flujos de desarrollo en la nube',
-    ],
-  },
-  // 1 — Hexaware Technologies
-  1: {
     description:
       'Lideré la integración Snowflake → Azure SQL para operaciones mineras de Freeport-McMoRan. ' +
       'Desplegué pipelines de sincronización incremental, construí CLI de pruebas de regresión, optimicé vistas Snowflake, ' +
@@ -42,14 +34,14 @@ const es: Record<number, ExperienceTranslation> = {
       'Construí simulación de stockpile basada en física con modelado 3D de bloques para trazado de mineral a través de circuitos de conminución (trituradoras → molinos → flotación). Seguimiento predictivo de mineralogía, calibración de básculas con filtrado Kalman y estimación de tiempos de crush-out en múltiples sitios mineros',
     ],
   },
-  // 2 — dataqbs
-  2: {
+  // 1 — dataqbs
+  1: {
     description:
       'Consultoría independiente proporcionando BI, ingeniería de datos y soluciones de bases de datos para clientes de EE.UU. y LATAM. ' +
       'También construyendo proyectos internos de I+D: escáner de arbitraje cripto, bots de grid trading, motor de evaluación LLM, ' +
       'sistema de clasificación de correos, y este sitio portfolio con chatbot RAG.',
     achievements: [
-      'Entregué ingeniería de datos para VCA Animal Hospitals, C&A México, BCG, Moviro, Svitla, Quesos Navarro',
+      'Entregué ingeniería de datos para NewFire Global, VCA Animal Hospitals, C&A México, BCG, Moviro, Svitla, Quesos Navarro',
       'Construí MEMO-GRID: bot avanzado de grid trading con HPO Optuna (50K pruebas), multiplicador 23× BTC, análisis de atribución (95.7% alfa)',
       'Diseñé escáner de arbitraje cripto triangular con Bellman-Ford a través de 9 exchanges con ejecución de swaps en vivo',
       'Construí motor de reglas declarativo basado en YAML para auditoría de respuestas LLM con scoring en 5 dimensiones',
@@ -57,8 +49,8 @@ const es: Record<number, ExperienceTranslation> = {
       'Creé este sitio portfolio (dataqbs.com) con chatbot RAG, embeddings vectoriales y streaming LLM con Groq',
     ],
   },
-  // 3 — SVAM International
-  3: {
+  // 2 — SVAM International
+  2: {
     description:
       'Lideré migración de SQL Server on-prem y SSIS a Snowflake para analítica de certificaciones estudiantiles.',
     achievements: [
@@ -69,8 +61,8 @@ const es: Record<number, ExperienceTranslation> = {
       'Soporté transformación de datos y scheduling mediante scripts custom y procesos controlados por CI',
     ],
   },
-  // 4 — Svitla Systems
-  4: {
+  // 3 — Svitla Systems
+  3: {
     description:
       'Diseñé y desplegué el primer data warehouse en Azure SQL de la empresa para analítica de ventas en la nube.',
     achievements: [
@@ -80,8 +72,8 @@ const es: Record<number, ExperienceTranslation> = {
       'Colaboré con equipos de BI para publicar dashboards de Power BI en Azure',
     ],
   },
-  // 5 — Epikso Mexico
-  5: {
+  // 4 — Epikso Mexico
+  4: {
     description:
       'Administré seguridad de Snowflake, ajuste de rendimiento e Infrastructure-as-Code para configuración automatizada de ambientes.',
     achievements: [
@@ -91,8 +83,8 @@ const es: Record<number, ExperienceTranslation> = {
       'Integré pipelines CI/CD vía Bitbucket, mejorando el control de despliegues',
     ],
   },
-  // 6 — Jabil (Data Technical Lead)
-  6: {
+  // 5 — Jabil (Data Technical Lead)
+  5: {
     description:
       'Dirigí migración de Hadoop + Impala + SQL Server PDW a Snowflake en AWS para analítica de manufactura.',
     achievements: [
@@ -102,8 +94,8 @@ const es: Record<number, ExperienceTranslation> = {
       'Soporté equipos distribuidos en la modernización de analítica de manufactura',
     ],
   },
-  // 7 — 3Pillar Global
-  7: {
+  // 6 — 3Pillar Global
+  6: {
     description:
       'Desarrollé integraciones de datos EDI y capas de reporteo para clientes empresariales.',
     achievements: [
@@ -111,8 +103,8 @@ const es: Record<number, ExperienceTranslation> = {
       'Mantuve sincronización confiable de datos entre múltiples socios externos',
     ],
   },
-  // 8 — HCL Technologies
-  8: {
+  // 7 — HCL Technologies
+  7: {
     description:
       'Migré y optimicé reportes Actuate hacia SSRS y SharePoint para reporteo empresarial.',
     achievements: [
@@ -120,8 +112,8 @@ const es: Record<number, ExperienceTranslation> = {
       'Desarrollé lógica SQL de alto rendimiento para reportes empresariales',
     ],
   },
-  // 9 — Jabil (Database Analyst II)
-  9: {
+  // 8 — Jabil (Database Analyst II)
+  8: {
     description:
       'Creé y mantuve flujos ETL integrando sistemas Oracle, SAP y MySQL con confiabilidad de bases de datos 24/7.',
     achievements: [
@@ -129,8 +121,8 @@ const es: Record<number, ExperienceTranslation> = {
       'Aseguré confiabilidad 24/7 de bases de datos y optimización de rendimiento',
     ],
   },
-  // 10 — C&A México
-  10: {
+  // 9 — C&A México
+  9: {
     description:
       'Diseñé cubos OLAP y reportes interactivos para analítica retail a través de unidades de negocio.',
     achievements: [
@@ -139,16 +131,16 @@ const es: Record<number, ExperienceTranslation> = {
       'Mantuve ambientes SQL de alto rendimiento a través de unidades de negocio',
     ],
   },
-  // 11 — FIRMEPLUS
-  11: {
+  // 10 — FIRMEPLUS
+  10: {
     description:
       'Desarrollo de software y bases de datos con PHP, SQL Server y MySQL.',
     achievements: [
       'Desarrollo de software y bases de datos (PHP, SQL Server, MySQL)',
     ],
   },
-  // 12 — Jabil Circuit de México
-  12: {
+  // 11 — Jabil Circuit de México
+  11: {
     description:
       'Apoyo en desarrollo de bases de datos y aplicaciones web.',
     achievements: [
@@ -161,16 +153,8 @@ const es: Record<number, ExperienceTranslation> = {
 //  GERMAN
 // ══════════════════════════════════════════════════════
 const de: Record<number, ExperienceTranslation> = {
-  // 0 — NewFire Global
+  // 0 — Hexaware Technologies
   0: {
-    description:
-      'Einarbeitung in Cloud-native Entwicklungsworkflows mit Cloud Code API-Integration in Visual Studio.',
-    achievements: [
-      'Einarbeitung in Cloud Code API und Visual Studio-Integration fuer Cloud-Entwicklungsworkflows',
-    ],
-  },
-  // 1 — Hexaware Technologies
-  1: {
     description:
       'Leitete die Snowflake → Azure SQL Integration fuer Freeport-McMoRan Bergbauoperationen. ' +
       'Bereitete inkrementelle Sync-Pipelines, baute CLI fuer Regressionstests, optimierte Snowflake-Views ' +
@@ -186,14 +170,14 @@ const de: Record<number, ExperienceTranslation> = {
       'Entwickelte physikbasierte Stockpile-Simulation mit 3D-Blockmodellierung fuer Erzverfolgung durch Zerkleinerungskreislaeufe (Brecher → Muehlen → Flotation). Praediktive Mineralogie-Verfolgung, Bandwaagen-Kalibrierung mit Kalman-Filterung und Crush-out-Zeitschaetzung ueber mehrere Bergbaustandorte',
     ],
   },
-  // 2 — dataqbs
-  2: {
+  // 1 — dataqbs
+  1: {
     description:
       'Unabhaengige Beratung fuer BI, Data Engineering und Datenbankloesungen fuer US- und LATAM-Kunden. ' +
       'Baut auch interne F&E-Projekte: Krypto-Arbitrage-Scanner, Grid-Trading-Bots, LLM-Bewertungsengine, ' +
       'E-Mail-Klassifizierungssystem und diese Portfolio-Website mit RAG-Chatbot.',
     achievements: [
-      'Lieferte Data Engineering fuer VCA Animal Hospitals, C&A Mexico, BCG, Moviro, Svitla, Quesos Navarro',
+      'Lieferte Data Engineering fuer NewFire Global, VCA Animal Hospitals, C&A Mexico, BCG, Moviro, Svitla, Quesos Navarro',
       'Entwickelte MEMO-GRID: fortgeschrittenen Grid-Trading-Bot mit Optuna HPO (50K Versuche), 23× BTC-Multiplikator, Attributionsanalyse (95,7% Alpha)',
       'Entwarf Bellman-Ford & triangulaeren Krypto-Arbitrage-Scanner ueber 9 Boersen mit Live-Swap-Ausfuehrung',
       'Entwickelte deklarative YAML-gesteuerte Regelengine fuer LLM-Antwortpruefung mit 5-Dimensionen-Bewertung',
@@ -201,8 +185,8 @@ const de: Record<number, ExperienceTranslation> = {
       'Erstellte diese Portfolio-Website (dataqbs.com) mit RAG-Chatbot, Vektor-Embeddings und Groq-LLM-Streaming',
     ],
   },
-  // 3 — SVAM International
-  3: {
+  // 2 — SVAM International
+  2: {
     description:
       'Leitete Migration von On-Prem SQL Server und SSIS zu Snowflake fuer Studentenzertifizierungs-Analytik.',
     achievements: [
@@ -213,8 +197,8 @@ const de: Record<number, ExperienceTranslation> = {
       'Unterstuetzte Datentransformation und Scheduling durch benutzerdefinierte Skripte und CI-gesteuerte Prozesse',
     ],
   },
-  // 4 — Svitla Systems
-  4: {
+  // 3 — Svitla Systems
+  3: {
     description:
       'Entwarf und implementierte das erste Azure SQL Data Warehouse des Unternehmens fuer Cloud-basierte Vertriebsanalytik.',
     achievements: [
@@ -224,8 +208,8 @@ const de: Record<number, ExperienceTranslation> = {
       'Zusammenarbeit mit BI-Teams zur Veroeffentlichung von Power BI-Dashboards auf Azure',
     ],
   },
-  // 5 — Epikso Mexico
-  5: {
+  // 4 — Epikso Mexico
+  4: {
     description:
       'Verwaltete Snowflake-Sicherheit, Performance-Tuning und Infrastructure-as-Code fuer automatisierte Umgebungseinrichtung.',
     achievements: [
@@ -235,8 +219,8 @@ const de: Record<number, ExperienceTranslation> = {
       'Integrierte CI/CD-Pipelines ueber Bitbucket zur Verbesserung der Deployment-Kontrolle',
     ],
   },
-  // 6 — Jabil (Data Technical Lead)
-  6: {
+  // 5 — Jabil (Data Technical Lead)
+  5: {
     description:
       'Leitete Migration von Hadoop + Impala + SQL Server PDW zu Snowflake auf AWS fuer Fertigungsanalytik.',
     achievements: [
@@ -246,8 +230,8 @@ const de: Record<number, ExperienceTranslation> = {
       'Unterstuetzte verteilte Teams bei der Modernisierung der Fertigungsanalytik',
     ],
   },
-  // 7 — 3Pillar Global
-  7: {
+  // 6 — 3Pillar Global
+  6: {
     description:
       'Entwickelte EDI-Datenintegrationen und Reporting-Schichten fuer Unternehmenskunden.',
     achievements: [
@@ -255,8 +239,8 @@ const de: Record<number, ExperienceTranslation> = {
       'Sicherstellte zuverlaessige Datensynchronisation mit mehreren externen Partnern',
     ],
   },
-  // 8 — HCL Technologies
-  8: {
+  // 7 — HCL Technologies
+  7: {
     description:
       'Migrierte und optimierte Actuate-Berichte in SSRS und SharePoint fuer Unternehmensreporting.',
     achievements: [
@@ -264,8 +248,8 @@ const de: Record<number, ExperienceTranslation> = {
       'Entwickelte performante SQL-Logik fuer Unternehmensreporting',
     ],
   },
-  // 9 — Jabil (Database Analyst II)
-  9: {
+  // 8 — Jabil (Database Analyst II)
+  8: {
     description:
       'Erstellte und wartete ETL-Workflows zur Integration von Oracle-, SAP- und MySQL-Systemen mit 24/7-Datenbankzuverlaessigkeit.',
     achievements: [
@@ -273,8 +257,8 @@ const de: Record<number, ExperienceTranslation> = {
       'Sicherstellte 24/7-Datenbankzuverlaessigkeit und Leistungsoptimierung',
     ],
   },
-  // 10 — C&A México
-  10: {
+  // 9 — C&A México
+  9: {
     description:
       'Entwarf OLAP-Cubes und interaktive Berichte fuer Einzelhandelsanalytik ueber Geschaeftsbereiche hinweg.',
     achievements: [
@@ -283,16 +267,16 @@ const de: Record<number, ExperienceTranslation> = {
       'Wartete Hochleistungs-SQL-Umgebungen ueber Geschaeftsbereiche hinweg',
     ],
   },
-  // 11 — FIRMEPLUS
-  11: {
+  // 10 — FIRMEPLUS
+  10: {
     description:
       'Software- und Datenbankentwicklung mit PHP, SQL Server und MySQL.',
     achievements: [
       'Software- und Datenbankentwicklung (PHP, SQL Server, MySQL)',
     ],
   },
-  // 12 — Jabil Circuit de México
-  12: {
+  // 11 — Jabil Circuit de México
+  11: {
     description:
       'Unterstuetzte Datenbank- und Webanwendungsentwicklung.',
     achievements: [

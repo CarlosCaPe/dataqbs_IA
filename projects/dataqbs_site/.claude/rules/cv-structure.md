@@ -8,7 +8,7 @@ paths:
 # CV Structure Rules
 
 ## Index Convention
-All CV entries are numbered 0-12. The index in `cv.ts` MUST match:
+All CV entries are numbered 0-11 (12 total). The index in `cv.ts` MUST match:
 - `cv_translations.ts` ES section keys
 - `cv_translations.ts` DE section keys
 - `generate_cv_pdfs.py` ACH_ES array indices
@@ -17,24 +17,23 @@ All CV entries are numbered 0-12. The index in `cv.ts` MUST match:
 ## Current Structure (as of 2026-03)
 | Index | Company | Type | Period |
 |-------|---------|------|--------|
-| 0 | NewFire Global | contract | 2026-03 → present |
-| 1 | Hexaware Technologies | full-time | ended 2026-03 |
-| 2 | dataqbs | freelance | 2017-06 → present |
-| 3 | SVAM International | full-time | ended |
-| 4 | Svitla Systems | contract | ended |
-| 5 | Epikso Mexico | full-time | ended |
-| 6 | Jabil (Data Technical Lead) | full-time | ended |
-| 7 | 3Pillar Global | full-time | ended |
-| 8 | HCL Technologies | full-time | ended |
-| 9 | Jabil (IT Analyst) | full-time | ended |
-| 10 | C&A SA de CV | full-time | ended |
-| 11 | Molex | full-time | ended |
-| 12 | Jabil Circuit de México | full-time | ended |
+| 0 | Hexaware Technologies | full-time | ended 2026-03 |
+| 1 | dataqbs | freelance | 2017-06 → present |
+| 2 | SVAM International | full-time | ended |
+| 3 | Svitla Systems | contract | ended |
+| 4 | Epikso Mexico | full-time | ended |
+| 5 | Jabil (Data Technical Lead) | full-time | ended |
+| 6 | 3Pillar Global | full-time | ended |
+| 7 | HCL Technologies | full-time | ended |
+| 8 | Jabil (IT Analyst) | full-time | ended |
+| 9 | C&A SA de CV | full-time | ended |
+| 10 | FIRMEPLUS | full-time | ended |
+| 11 | Jabil Circuit de México | full-time | ended |
 
 ## Multi-Employment Rules
 - **Full-time** roles CANNOT visually overlap with other full-times
 - **Contracts** can overlap (they're under dataqbs umbrella)
-- FussionHit work is a VCA project, listed in dataqbs clients, NOT as separate entry
+- NewFire Global and FussionHit work are dataqbs clients, NOT separate entries
 
 ## Adding New Experience Entry
 1. Add to `src/data/cv.ts` experiences array at correct index
@@ -57,8 +56,9 @@ All CV entries are numbered 0-12. The index in `cv.ts` MUST match:
 6. Remove query expansion trigger if exists
 
 ## Client List in dataqbs Entry
-The dataqbs entry (index 2) lists freelance clients:
+The dataqbs entry (index 1) lists freelance clients:
+- NewFire Global
 - VCA Animal Hospitals
 - C&A Mexico
 - BCG, Moviro, Svitla, Quesos Navarro
-- Do NOT list companies that have their own entry (like NewFire Global)
+- Contract work appears under dataqbs, NOT as separate CV entries

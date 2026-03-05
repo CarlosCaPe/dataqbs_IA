@@ -33,11 +33,10 @@ npx wrangler pages deploy dist --project-name dataqbs-site
 - **Build**: `public/_headers` sets HSTS, CSP, X-Frame-Options
 
 ## CV Index Convention
-All CV-related files MUST share the same index order:
-- Index 0: NewFire Global (current contract)
-- Index 1: Hexaware (ended full-time)
-- Index 2: dataqbs (ongoing freelance)
-- Indices 3-12: Past roles in reverse chronological order
+All CV-related files MUST share the same index order (0-11, 12 total):
+- Index 0: Hexaware (ended full-time)
+- Index 1: dataqbs (ongoing freelance, includes NewFire Global as client)
+- Indices 2-11: Past roles in reverse chronological order
 
 When adding/removing entries:
 1. Update `cv.ts` first

@@ -162,11 +162,7 @@ SUMMARIES = {
 #  ALL achievements per role are shown in the PDF.
 # ══════════════════════════════════════════════════════════════
 ACH_ES = [
-    # 0: NewFire Global (1 achievement)
-    [
-        "Incorporandome en Cloud Code API e integracion con Visual Studio para flujos de desarrollo en la nube",
-    ],
-    # 1: Hexaware Technologies (8 achievements)
+    # 0: Hexaware Technologies (8 achievements)
     [
         "Lidere la integracion Snowflake -> Azure SQL; despliegue pipeline de sincronizacion incremental de 14 tablas con procedimientos MERGE, programacion cada 15 min, deteccion delta con HASH, verificacion E2E (~590K filas) en DEV->TEST->PROD",
         "Disene cargas incrementales basadas en marca de agua usando timestamps de negocio y respaldos DW_MODIFY_TS para dashboards de Connected Operations",
@@ -177,16 +173,16 @@ ACH_ES = [
         "Aproveche GitHub Copilot (Enterprise) para arquitectura de pipelines, generacion SQL, benchmarking y desarrollo de dashboards",
         "Construi simulacion de stockpile basada en fisica con modelado 3D de bloques para trazado de mineral a traves de circuitos de conminucion (trituradoras -> molinos -> flotacion). Seguimiento predictivo de mineralogia, calibracion de basculas con filtrado Kalman y estimacion de tiempos de crush-out en multiples sitios mineros",
     ],
-    # 2: dataqbs (6 achievements)
+    # 1: dataqbs (6 achievements)
     [
-        "Entregue ingenieria de datos para VCA Animal Hospitals, C&amp;A Mexico, BCG, Moviro, Svitla, Quesos Navarro",
+        "Entregue ingenieria de datos para NewFire Global, VCA Animal Hospitals, C&amp;A Mexico, BCG, Moviro, Svitla, Quesos Navarro",
         "Construi MEMO-GRID: bot avanzado de grid trading con HPO Optuna (50K pruebas), multiplicador 23x BTC, analisis de atribucion (95.7% alfa)",
         "Disene escaner de arbitraje cripto triangular con Bellman-Ford a traves de 9 exchanges con ejecucion de swaps en vivo",
         "Construi motor de reglas declarativo basado en YAML para auditoria de respuestas LLM con scoring en 5 dimensiones",
         "Implemente colector de correo IMAP multi-cuenta con clasificador de 5 etiquetas (anti-phishing, scoring de dominios)",
         "Cree este sitio portfolio (dataqbs.com) con chatbot RAG, embeddings vectoriales y streaming LLM con Groq",
     ],
-    # 3: SVAM International (5 achievements)
+    # 2: SVAM International (5 achievements)
     [
         "Lidere migracion de SQL Server on-prem y SSIS a Snowflake, disenando nuevos modelos fact/dimension para analitica de certificaciones estudiantiles",
         "Automatice ingestion de JSON desde APIs de Salesforce hacia Snowflake usando Python",
@@ -194,64 +190,60 @@ ACH_ES = [
         "Entregue datasets curados via SharePoint, mejorando la visibilidad para stakeholders academicos",
         "Soporte transformacion de datos y scheduling mediante scripts custom y procesos controlados por CI",
     ],
-    # 4: Svitla Systems (4 achievements)
+    # 3: Svitla Systems (4 achievements)
     [
         "Disene y despliegue el primer data warehouse en Azure SQL de la empresa para analitica de ventas en la nube",
         "Desarrolle paquetes SSIS para extracciones on-prem y orqueste actualizaciones con Azure Data Factory",
         "Construi modelos de datos star-schema flexibles para escalar segun crecian las necesidades de reporteo",
         "Colabore con equipos de BI para publicar dashboards de Power BI en Azure",
     ],
-    # 5: Epikso Mexico (4 achievements)
+    # 4: Epikso Mexico (4 achievements)
     [
         "Administre seguridad de Snowflake, acceso basado en roles y ajuste de rendimiento",
         "Implemente Infrastructure-as-Code para configuracion automatizada de ambientes",
         "Monitoree rendimiento de consultas y optimize almacenamiento/micro-particionamiento",
         "Integre pipelines CI/CD via Bitbucket, mejorando el control de despliegues",
     ],
-    # 6: Jabil (Data Technical Lead) (4 achievements)
+    # 5: Jabil (Data Technical Lead) (4 achievements)
     [
         "Dirigi migracion de Hadoop + Impala + SQL Server PDW a Snowflake en AWS, habilitando analitica mas rapida",
         "Construi orquestacion streaming y basada en tareas usando funciones nativas de automatizacion de Snowflake",
         "Disene zonas de landing, staging y refinadas para ingestion y transformacion escalable",
         "Soporte equipos distribuidos en la modernizacion de analitica de manufactura",
     ],
-    # 7: 3Pillar Global
+    # 6: 3Pillar Global
     [
         "Desarrolle integraciones de datos EDI y capas de reporteo con SQL Server, SSIS y SSRS",
         "Mantuve sincronizacion confiable de datos entre multiples socios externos",
     ],
-    # 8: HCL Technologies
+    # 7: HCL Technologies
     [
         "Migre y optimize reportes Actuate hacia SSRS y SharePoint",
         "Desarrolle logica SQL de alto rendimiento para reportes empresariales",
     ],
-    # 9: Jabil (Database Analyst II)
+    # 8: Jabil (Database Analyst II)
     [
         "Cree y mantuve flujos ETL usando SSIS, integrando sistemas Oracle, SAP y MySQL",
         "Asegure confiabilidad 24/7 de bases de datos y optimizacion de rendimiento",
     ],
-    # 10: C&A Mexico
+    # 9: C&A Mexico
     [
         "Disene cubos OLAP (SSAS) y reportes interactivos SSRS para analitica retail",
         "Construi flujos ETL desde mainframes y tiendas regionales hacia data warehouse centralizado",
         "Mantuve ambientes SQL de alto rendimiento a traves de unidades de negocio",
     ],
-    # 11: FIRMEPLUS
+    # 10: FIRMEPLUS
     [
         "Desarrollo de software y bases de datos (PHP, SQL Server, MySQL)",
     ],
-    # 12: Jabil Circuit de Mexico
+    # 11: Jabil Circuit de Mexico
     [
         "Apoye desarrollo de bases de datos y aplicaciones web",
     ],
 ]
 
 ACH_DE = [
-    # 0: NewFire Global (1 achievement)
-    [
-        "Einarbeitung in Cloud Code API und Visual Studio-Integration fuer Cloud-Entwicklungsworkflows",
-    ],
-    # 1: Hexaware Technologies (8 achievements)
+    # 0: Hexaware Technologies (8 achievements)
     [
         "Leitete die Snowflake -> Azure SQL Integration; bereitete inkrementelle Sync-Pipeline fuer 14 Tabellen mit MERGE-Prozeduren, 15-Min-Planung, HASH-Delta-Erkennung, E2E-Verifizierung (~590K Zeilen) in DEV->TEST->PROD",
         "Entwarf wasserzeichenbasierte inkrementelle Ladevorgaenge mit Business-Timestamps und DW_MODIFY_TS-Fallbacks fuer Connected Operations Dashboards",
@@ -262,16 +254,16 @@ ACH_DE = [
         "Nutzte GitHub Copilot (Enterprise) fuer Pipeline-Architektur, SQL-Generierung, Benchmarking und Dashboard-Entwicklung",
         "Entwickelte physikbasierte Stockpile-Simulation mit 3D-Blockmodellierung fuer Erzverfolgung durch Zerkleinerungskreislaeufe (Brecher -> Muehlen -> Flotation). Praediktive Mineralogie-Verfolgung, Bandwaagen-Kalibrierung mit Kalman-Filterung und Crush-out-Zeitschaetzung ueber mehrere Bergbaustandorte",
     ],
-    # 2: dataqbs (6 achievements)
+    # 1: dataqbs (6 achievements)
     [
-        "Lieferte Data Engineering fuer VCA Animal Hospitals, C&amp;A Mexico, BCG, Moviro, Svitla, Quesos Navarro",
+        "Lieferte Data Engineering fuer NewFire Global, VCA Animal Hospitals, C&amp;A Mexico, BCG, Moviro, Svitla, Quesos Navarro",
         "Entwickelte MEMO-GRID: fortgeschrittenen Grid-Trading-Bot mit Optuna HPO (50K Versuche), 23x BTC-Multiplikator, Attributionsanalyse (95,7% Alpha)",
         "Entwarf Bellman-Ford &amp; triangulaeren Krypto-Arbitrage-Scanner ueber 9 Boersen mit Live-Swap-Ausfuehrung",
         "Entwickelte deklarative YAML-gesteuerte Regelengine fuer LLM-Antwortpruefung mit 5-Dimensionen-Bewertung",
         "Implementierte Multi-Account-IMAP-E-Mail-Sammler mit 5-Label-Klassifikator (Anti-Phishing, Domain-Bewertung)",
         "Erstellte diese Portfolio-Website (dataqbs.com) mit RAG-Chatbot, Vektor-Embeddings und Groq-LLM-Streaming",
     ],
-    # 3: SVAM International (5 achievements)
+    # 2: SVAM International (5 achievements)
     [
         "Leitete Migration von On-Prem SQL Server und SSIS zu Snowflake, Entwurf neuer Fact/Dimension-Modelle fuer Studentenzertifizierungs-Analytik",
         "Automatisierte JSON-Aufnahme von Salesforce-APIs in Snowflake mit Python",
@@ -279,53 +271,53 @@ ACH_DE = [
         "Lieferte kuratierte Datensaetze ueber SharePoint zur Verbesserung der Sichtbarkeit fuer akademische Stakeholder",
         "Unterstuetzte Datentransformation und Scheduling durch benutzerdefinierte Skripte und CI-gesteuerte Prozesse",
     ],
-    # 4: Svitla Systems (4 achievements)
+    # 3: Svitla Systems (4 achievements)
     [
         "Entwarf und implementierte das erste Azure SQL Data Warehouse des Unternehmens fuer Cloud-basierte Vertriebsanalytik",
         "Entwickelte SSIS-Pakete fuer On-Prem-Extraktionen und orchestrierte Updates mit Azure Data Factory",
         "Erstellte flexible Star-Schema-Datenmodelle zur Skalierung nach wachsenden Reporting-Anforderungen",
         "Zusammenarbeit mit BI-Teams zur Veroeffentlichung von Power BI-Dashboards auf Azure",
     ],
-    # 5: Epikso Mexico (4 achievements)
+    # 4: Epikso Mexico (4 achievements)
     [
         "Verwaltete Snowflake-Sicherheit, rollenbasierten Zugriff und Performance-Tuning",
         "Implementierte Infrastructure-as-Code fuer automatisierte Umgebungseinrichtung",
         "Ueberwachte Abfrageleistung und optimierte Speicher/Micro-Partitioning",
         "Integrierte CI/CD-Pipelines ueber Bitbucket zur Verbesserung der Deployment-Kontrolle",
     ],
-    # 6: Jabil (Data Technical Lead) (4 achievements)
+    # 5: Jabil (Data Technical Lead) (4 achievements)
     [
         "Leitete Migration von Hadoop + Impala + SQL Server PDW zu Snowflake auf AWS fuer schnellere Analytik",
         "Entwickelte Streaming- und aufgabenbasierte Orchestrierung mit nativen Snowflake-Automatisierungsfunktionen",
         "Entwarf Landing-, Staging- und Refined-Zonen fuer skalierbare Aufnahme und Transformation",
         "Unterstuetzte verteilte Teams bei der Modernisierung der Fertigungsanalytik",
     ],
-    # 7: 3Pillar Global
+    # 6: 3Pillar Global
     [
         "Entwickelte EDI-Datenintegrationen und Reporting-Schichten mit SQL Server, SSIS und SSRS",
         "Sicherstellte zuverlaessige Datensynchronisation mit mehreren externen Partnern",
     ],
-    # 8: HCL Technologies
+    # 7: HCL Technologies
     [
         "Migrierte und optimierte Actuate-Berichte in SSRS und SharePoint",
         "Entwickelte performante SQL-Logik fuer Unternehmensreporting",
     ],
-    # 9: Jabil (Database Analyst II)
+    # 8: Jabil (Database Analyst II)
     [
         "Erstellte und wartete ETL-Workflows mit SSIS zur Integration von Oracle-, SAP- und MySQL-Systemen",
         "Sicherstellte 24/7-Datenbankzuverlaessigkeit und Leistungsoptimierung",
     ],
-    # 10: C&A Mexico
+    # 9: C&A Mexico
     [
         "Entwarf OLAP-Cubes (SSAS) und interaktive SSRS-Berichte fuer Einzelhandelsanalytik",
         "Erstellte ETL-Workflows von Mainframes und regionalen Filialen zum zentralen Data Warehouse",
         "Wartete Hochleistungs-SQL-Umgebungen ueber Geschaeftsbereiche hinweg",
     ],
-    # 11: FIRMEPLUS
+    # 10: FIRMEPLUS
     [
         "Software- und Datenbankentwicklung (PHP, SQL Server, MySQL)",
     ],
-    # 12: Jabil Circuit de Mexico
+    # 11: Jabil Circuit de Mexico
     [
         "Unterstuetzte Datenbank- und Webanwendungsentwicklung",
     ],

@@ -59,7 +59,7 @@ These rules apply to ALL projects in this repo, especially `dataqbs_site`:
 ## CV Structure Rules (dataqbs_site)
 
 ### Index Convention
-All CV entries indexed 0-12 MUST match across these files:
+All CV entries indexed 0-11 (12 total) MUST match across these files:
 - `src/data/cv.ts` — Main experience data
 - `src/data/cv_translations.ts` — ES and DE translations (keyed by index)
 - `scripts/generate_cv_pdfs.py` — ACH_ES and ACH_DE arrays
@@ -69,15 +69,14 @@ All CV entries indexed 0-12 MUST match across these files:
 ### Current Structure (2026-03)
 | Index | Company | Type |
 |-------|---------|------|
-| 0 | NewFire Global | contract |
-| 1 | Hexaware Technologies | full-time (ended) |
-| 2 | dataqbs | freelance (ongoing) |
-| 3-12 | Past roles | various |
+| 0 | Hexaware Technologies | full-time (ended) |
+| 1 | dataqbs | freelance (ongoing) |
+| 2-11 | Past roles | various |
 
 ### Multi-Employment Rules
 - **Full-time** roles CANNOT visually overlap
 - **Contracts** can overlap (under dataqbs umbrella)
-- FussionHit = VCA project under dataqbs clients, NOT separate entry
+- NewFire Global and FussionHit = dataqbs clients, NOT separate entries
 
 ### CV Update Workflow ⚠️ CRITICAL
 When adding/modifying CV entries, follow this order:
