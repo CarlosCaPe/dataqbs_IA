@@ -150,10 +150,10 @@ export const projects: Project[] = [
     technologies: ['Python', 'ccxt', 'Optuna', 'pandas', 'NumPy', 'PyYAML', 'pytest'],
     github: 'https://github.com/CarlosCaPe/memo/tree/main/MEMO-GRID',
     highlights: [
-      'HPO with 50,000 Optuna trials (TPE sampler) for ETH/BTC grid parameters',
+      'v7.0.0: ETH/BTC Grid beats HODL BTC — ROI +47,331% vs +1,958% (2017–2026)',
+      'HPO with 50,000 Optuna trials (TPE sampler) for grid parameters',
       'Backtest engine spanning 2017–2026 with maker fee modeling',
       'Attribution analysis: alpha vs beta return decomposition',
-      'Monte Carlo projections with confidence intervals',
       '33 unit tests with full coverage',
     ],
     category: 'fintech',
@@ -167,15 +167,15 @@ export const projects: Project[] = [
     longDescription:
       'Full audit and schema management framework for Azure Database for PostgreSQL. ' +
       'Includes per-object DDL export with Nunjucks templates, automated schema discovery, ' +
-      'LLM-friendly schema_knowledge.json generation, and 20+ ticket-based database improvements ' +
+      'LLM-friendly schema_knowledge.json generation, and 60+ ticket-based database improvements ' +
       'across index optimization, FK remediation, timestamp normalization, and stored procedure reviews.',
     technologies: ['PostgreSQL', 'Node.js', 'JavaScript', 'Nunjucks', 'Azure PostgreSQL'],
     github: 'https://github.com/CarlosCaPe/FSH',
     highlights: [
-      '20+ tickets: index optimization, FK remediation, schema renames, timestamp fixes',
+      '60+ tickets: index optimization, FK remediation, schema renames, timestamp fixes',
+      '4,100-line TDD for enterprise SQL MI vs PostgreSQL migration evaluation (DA-147)',
       'Templated per-object DDL exporter (Nunjucks) for CI/CD-friendly snapshots',
       'Technical Design Documents for 5+ database systems',
-      'Regression test suite for critical database changes',
       'Automated timesheet generation with Harvest API',
     ],
     category: 'data-engineering',
@@ -194,11 +194,11 @@ export const projects: Project[] = [
     technologies: ['Python', 'Streamlit', 'Snowflake', 'Azure Data Explorer', 'KQL', 'GitHub Copilot SDK'],
     github: 'https://github.com/CarlosCaPe/HXW/tree/main/SQLRefactoring/VideoWallDashboard',
     highlights: [
-      '34 KPIs across 7 mining sites with real-time auto-refresh',
+      '125 KPI queries across 7 mining sites with 100% coverage verified',
       'AI chatbot with RAG + GitHub Copilot SDK (zero-cost for enterprise)',
       'Semantic model: 16 business outcomes × 7 sites with ADX + Snowflake queries',
+      '1,369-line architecture document with 20 Mermaid diagrams',
       'Docker-ready with Azure Container App deployment',
-      '100% KPI-to-query coverage verified',
     ],
     category: 'data-engineering',
     featured: true,
