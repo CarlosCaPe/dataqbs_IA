@@ -454,23 +454,61 @@ def collect_certifications() -> list[dict[str, str]]:
 
 
 def collect_projects() -> list[dict[str, str]]:
-    """Read projects from src/data/projects.ts."""
+    """Read projects from src/data/projects.ts — includes description, longDescription, highlights, and technologies."""
     proj_ts = PROJECT_DIR / "src" / "data" / "projects.ts"
     if not proj_ts.exists():
         return []
 
     raw = proj_ts.read_text(encoding="utf-8")
-    projects = re.findall(
-        r"name:\s*['\"](.+?)['\"].*?description:\s*\n?\s*['\"](.+?)['\"]",
-        raw,
-        re.DOTALL,
-    )
+
+    # Split into project blocks (each starts with '  {' and ends with '  },')
+    blocks = re.split(r"\n  \{", raw)
+
     chunks: list[dict[str, str]] = []
-    for name, desc in projects:
+    for block in blocks:
+        name_m = re.search(r"name:\s*['\"](.+?)['\"]", block)
+        if not name_m:
+            continue
+        name = name_m.group(1)
+
+        # Extract description
+        desc_m = re.search(r"(?<!\w)description:\s*\n?\s*['\"](.+?)['\"]", block, re.DOTALL)
+        desc = desc_m.group(1).strip() if desc_m else ""
+
+        # Extract longDescription (may span multiple lines with string concatenation)
+        long_m = re.search(r"longDescription:\s*\n?\s*(.+?)(?=\n\s*(?:technologies|github|highlights|category|featured|demo)\b)", block, re.DOTALL)
+        long_desc = ""
+        if long_m:
+            raw_long = long_m.group(1)
+            # Remove JS string concat: 'text' + \n 'text'
+            parts = re.findall(r"['\"](.+?)['\"]", raw_long)
+            long_desc = " ".join(parts)
+
+        # Extract highlights
+        hl_m = re.search(r"highlights:\s*\[(.+?)\]", block, re.DOTALL)
+        highlights = []
+        if hl_m:
+            highlights = re.findall(r"['\"](.+?)['\"]", hl_m.group(1))
+
+        # Extract technologies
+        tech_m = re.search(r"technologies:\s*\[(.+?)\]", block, re.DOTALL)
+        techs = []
+        if tech_m:
+            techs = re.findall(r"['\"](.+?)['\"]", tech_m.group(1))
+
+        # Build rich text
+        parts = [f"Project: {name}. {desc}"]
+        if long_desc:
+            parts.append(long_desc)
+        if highlights:
+            parts.append("Key achievements: " + "; ".join(highlights))
+        if techs:
+            parts.append("Technologies: " + ", ".join(techs))
+
         chunks.append({
             "source": "project",
             "section": "project",
-            "text": f"Project: {name}. {desc}",
+            "text": "\n".join(parts),
         })
     return chunks
 
