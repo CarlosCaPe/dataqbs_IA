@@ -165,15 +165,18 @@ export const projects: Project[] = [
     description:
       'Enterprise PostgreSQL audit framework with templated DDL exports, schema analysis, and ticket-based remediation.',
     longDescription:
-      'Full audit and schema management framework for Azure Database for PostgreSQL. ' +
-      'Includes per-object DDL export with Nunjucks templates, automated schema discovery, ' +
+      'Full audit and schema management framework for Azure Database for PostgreSQL at VCA (Veterinary Centres of America), ' +
+      'part of Mars Veterinary Health (MVH). Includes per-object DDL export with Nunjucks templates, automated schema discovery, ' +
       'LLM-friendly schema_knowledge.json generation, and 60+ ticket-based database improvements ' +
-      'across index optimization, FK remediation, timestamp normalization, and stored procedure reviews.',
+      'across index optimization, FK remediation, timestamp normalization, and stored procedure reviews. ' +
+      'DA-147 (Voyager Health migration evaluation): 4,100-line Technical Design Document evaluating ' +
+      'SQL Managed Instance vs PostgreSQL migration feasibility for the Voyager Health platform, ' +
+      'covering Cosmos DB dependencies, 50+ microservices, SignalR, and Azure DevOps CI/CD pipelines.',
     technologies: ['PostgreSQL', 'Node.js', 'JavaScript', 'Nunjucks', 'Azure PostgreSQL'],
     github: 'https://github.com/CarlosCaPe/FSH',
     highlights: [
       '60+ tickets: index optimization, FK remediation, schema renames, timestamp fixes',
-      '4,100-line TDD for enterprise SQL MI vs PostgreSQL migration evaluation (DA-147)',
+      'DA-147 Voyager Health: 4,100-line TDD evaluating SQL MI vs PostgreSQL migration for Mars Veterinary Health',
       'Templated per-object DDL exporter (Nunjucks) for CI/CD-friendly snapshots',
       'Technical Design Documents for 5+ database systems',
       'Automated timesheet generation with Harvest API',

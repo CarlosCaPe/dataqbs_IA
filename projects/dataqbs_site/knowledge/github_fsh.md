@@ -31,7 +31,16 @@ Carlos Carrillo worked at FussionHit as a Senior Database Engineer on the VCA (V
 - DA-83: VWR (Virtual Waiting Room) DB review (3 functions, anti-patterns)
 - DA-84: EC Database Views/Procedures review
 
+### DA-147 — Voyager Health Migration Evaluation
+- Ticket DA-147: Deep Dive Discovery into Mars Veterinary Health (MVH) / Voyager Health Documentation and Requirements
+- 4,100-line Technical Design Document evaluating SQL Managed Instance (SQL MI) vs PostgreSQL migration feasibility
+- Voyager Health is the production platform of Mars Veterinary Health (MVH), running on Azure SQL Managed Instance
+- Analysis covered: Cosmos DB dependencies (deeply embedded), 50+ active microservices, SignalR real-time, Azure DevOps CI/CD
+- Conclusion: migration not recommended due to 200+ Cosmos DB integration points across the Voyager Health platform
+- Epic DA-145 — Voyager Health Collaboration
+
 ### Technical Design Documents
+- DA-147 Voyager Health migration evaluation (4,100 lines — largest TDD)
 - Student Concierge & Relief Vet DB review (858 lines, full architecture)
 - VWR DB Performance, Observability, and Schema Design Audit
 - Appointment Waitlist DB Review (16 tables, 1 procedure)
