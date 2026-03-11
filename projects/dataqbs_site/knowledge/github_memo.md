@@ -1,6 +1,8 @@
 # memo — Trading & Monitoring Tools
 
-Carlos Carrillo's personal trading tools repository at dataqbs, including grid trading bots, cross-exchange arbitrage radar, and portfolio monitoring.
+**Period: 2024–2026 (recent, actively developed)**
+
+Carlos Carrillo's personal trading tools repository at dataqbs, including grid trading bots, cross-exchange arbitrage radar, and portfolio monitoring. These are Carlos's most recent personal projects (2024–2026), actively maintained and evolving.
 
 ## Projects
 

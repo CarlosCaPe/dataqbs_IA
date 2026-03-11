@@ -1,6 +1,8 @@
 # FussionHit — VCA PostgreSQL Audits & Schema Management
 
-Carlos Carrillo worked at FussionHit as a Senior Database Engineer on the VCA (Veterinary Centres of America) project.
+**Period: 2024–2026 (recent, ongoing through dataqbs freelance)**
+
+Carlos Carrillo worked at FussionHit as a Senior Database Engineer on the VCA (Veterinary Centres of America) project. This is one of Carlos's most recent projects (2024–2026), delivered as a dataqbs freelance client.
 
 ## Role & Responsibilities
 
