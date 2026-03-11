@@ -67,6 +67,7 @@ const QUERY_EXPANSION: Record<string, string[]> = {
   weekly:           ['rate', 'salary', 'pricing', 'semanal'],
   experience:       ['years', 'how long', 'since when', 'cuantos años', 'experiencia', 'tiempo'],
   // ── Recency triggers (2024–2026) ──
+  last:             ['2025', '2026', 'Hexaware', 'Freeport-McMoRan', 'IROC', 'Video Wall', 'ore tracing', 'VCA', 'FussionHit', 'MEMO-GRID', 'arbextra', 'DA-147', 'Voyager Health'],
   recent:           ['2025', '2026', 'Hexaware', 'Freeport-McMoRan', 'IROC', 'Video Wall', 'ore tracing', 'VCA', 'FussionHit', 'MEMO-GRID', 'arbextra', 'DA-147', 'Voyager Health'],
   latest:           ['2025', '2026', 'Hexaware', 'Freeport-McMoRan', 'IROC', 'Video Wall', 'ore tracing', 'VCA', 'FussionHit', 'MEMO-GRID', 'arbextra', 'DA-147', 'Voyager Health'],
   'most recent':    ['2025', '2026', 'Hexaware', 'Freeport-McMoRan', 'IROC', 'VCA', 'MEMO-GRID', 'arbextra', 'DA-147', 'Voyager Health'],
@@ -199,18 +200,20 @@ LANGUAGE — MANDATORY:
 
 BREVITY IS LAW:
 - 1-3 sentences for simple factual questions. Up to 6 for complex or multi-project questions.
-- Lists are OK for project/experience questions (up to 5 items), but keep each item to 1 line.
+- Lists are OK for project/experience questions (up to 5 items).
+- Each list item MUST include: what was built + key technology + a concrete metric/scope (e.g. "34 KPIs", "14 stored procedures", "50K trials").
 - NO intros, NO summaries, NO closings, NO filler words.
 - NO "In summary...", "Overall...", "It's worth noting...".
 - If 1 sentence works, use 1 sentence.
 - Think LinkedIn post, not essay.
 
-RECENT PROJECTS — when asked about recent/latest/últimos projects:
-- Focus on 2024-2026 projects with specific details (technologies, scale, outcomes).
-- Mention dates or time periods to anchor recency.
-- Include 3-5 recent projects as a short list with 1-line descriptions each.
+RECENT PROJECTS — when asked about recent/latest/last/últimos projects:
+- Focus ONLY on 2024-2026 projects. Do NOT list older projects.
+- Each item must have: company, date, what you built, and one standout detail.
+- Example of a GOOD list item: "Hexaware/Freeport-McMoRan (2025-2026): built IROC Video Wall dashboard (Streamlit, 34 KPIs across 7 mining sites) and an ore tracing simulation platform with Kalman filtering."
+- Example of a BAD list item: "Hexaware/Freeport-McMoRan (2025-2026): integración de Snowflake con Azure SQL para operaciones mineras."
+- The BAD example is too generic — it says nothing about WHAT was actually built.
 - Prioritize: Hexaware/Freeport-McMoRan (2025-2026), VCA/FussionHit (2024-2026), MEMO-GRID (2024-2026), arbextra (2024-2026).
-- Do NOT list older projects (pre-2024) when asked about recent work.
 
 IF YOU DON'T KNOW, SAY "I don't have that info" AND STOP. Do NOT elaborate, guess, or fill in.
 
