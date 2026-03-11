@@ -23,17 +23,17 @@
   }
 </script>
 
-<header class="sticky top-0 z-40 backdrop-blur-md bg-white/80 dark:bg-slate-900/80 border-b border-slate-200 dark:border-slate-700/50">
-  <!-- Decorative RE cubes -->
-  <img src="/re-favicon.svg" alt="" class="absolute left-0 top-0 h-full w-auto opacity-[0.07] pointer-events-none select-none" aria-hidden="true" />
-  <img src="/re-favicon.svg" alt="" class="absolute right-0 top-0 h-full w-auto opacity-[0.07] pointer-events-none select-none" aria-hidden="true" />
+<header class="sticky top-0 z-40 backdrop-blur-md bg-white/80 dark:bg-slate-900/80 border-b border-slate-200 dark:border-slate-700/50 relative">
+  <!-- Decorative RE cubes (inline SVG to avoid Firefox sizing bug with <img> SVG) -->
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="40" height="40" fill="none" class="absolute left-2 top-1/2 -translate-y-1/2 opacity-[0.06] pointer-events-none select-none" aria-hidden="true"><rect width="64" height="64" rx="14" fill="#dc2626"/><text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-weight="700" font-size="28" fill="white">RE</text></svg>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="40" height="40" fill="none" class="absolute right-2 top-1/2 -translate-y-1/2 opacity-[0.06] pointer-events-none select-none" aria-hidden="true"><rect width="64" height="64" rx="14" fill="#dc2626"/><text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-weight="700" font-size="28" fill="white">RE</text></svg>
 
   <div class="max-w-5xl mx-auto px-4 sm:px-6 relative">
     <div class="flex items-center justify-between h-16">
 
       <!-- RS Logo -->
       <a href="/realestate" class="flex items-center gap-2 font-bold text-lg text-re-600 dark:text-re-400">
-        <img src="/re-favicon.svg" alt="realestate" class="w-8 h-8" />
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="32" height="32" fill="none" class="w-8 h-8 flex-shrink-0"><rect width="64" height="64" rx="14" fill="#dc2626"/><text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-weight="700" font-size="28" fill="white">RE</text></svg>
         <span class="hidden sm:inline">realestate</span>
       </a>
 

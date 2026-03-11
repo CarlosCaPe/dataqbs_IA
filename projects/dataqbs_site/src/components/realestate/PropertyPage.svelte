@@ -128,8 +128,12 @@
       {#if property.bedrooms != null}
         <div class="flex flex-col items-center p-3 rounded-lg bg-slate-50 dark:bg-slate-700/50">
           <span class="text-2xl">🛏️</span>
-          <span class="text-2xl font-bold text-slate-900 dark:text-white">{property.bedrooms}</span>
-          <span class="text-xs text-slate-500 dark:text-slate-400">{$t.re.bedrooms}</span>
+          <span class="text-2xl font-bold text-slate-900 dark:text-white">
+            {property.bedrooms}{#if property.additional_rooms}+{property.additional_rooms}{/if}
+          </span>
+          <span class="text-xs text-slate-500 dark:text-slate-400">
+            {$t.re.bedrooms}{#if property.additional_rooms} + hab.{/if}
+          </span>
         </div>
       {/if}
       {#if property.bathrooms != null}
@@ -191,6 +195,15 @@
         </div>
       {/if}
     </div>
+
+    {#if property.rooms_summary}
+      <div class="mt-4 p-3 rounded-lg bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800">
+        <p class="text-sm text-blue-800 dark:text-blue-300 flex items-start gap-2">
+          <span class="shrink-0">ℹ️</span>
+          <span>{property.rooms_summary}</span>
+        </p>
+      </div>
+    {/if}
   </div>
 
   <!-- ── Description ────────────────────────────────── -->
@@ -321,7 +334,7 @@
   <footer class="border-t border-slate-200 dark:border-slate-700 pt-8 pb-4">
     <div class="text-center space-y-2">
       <div class="flex items-center justify-center gap-2">
-        <img src="/re-favicon.svg" alt="realestate" class="w-6 h-6" />
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="24" height="24" fill="none" class="w-6 h-6 flex-shrink-0"><rect width="64" height="64" rx="14" fill="#dc2626"/><text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-weight="700" font-size="28" fill="white">RE</text></svg>
         <span class="font-bold text-re-600 dark:text-re-400">realestate</span>
       </div>
       <p class="text-sm text-slate-500 dark:text-slate-400">

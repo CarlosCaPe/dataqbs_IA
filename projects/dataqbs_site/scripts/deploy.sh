@@ -98,7 +98,7 @@ if [[ -n "$CACHE_TOKEN" ]]; then
     -H "Content-Type: application/json" \
     --data '{"purge_everything": true}' 2>&1)
 
-  if echo "$PURGE_RESULT" | grep -q '"success":true'; then
+  if echo "$PURGE_RESULT" | grep -q '"success"[[:space:]]*:[[:space:]]*true'; then
     echo -e "${GREEN}✓ Cache purged successfully${NC}"
   else
     warn "Cache purge failed (token may lack Zone:Cache Purge permission)"

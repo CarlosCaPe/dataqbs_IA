@@ -14,11 +14,17 @@
 
 # ── No-cache HTML for realestate pages (always get fresh content) ─
 /realestate/
-  Cache-Control: no-cache, no-store, must-revalidate
+  Cache-Control: no-cache, no-store, must-revalidate, max-age=0
+  Pragma: no-cache
+  Expires: 0
 /realestate/ventaCasaBSA/
-  Cache-Control: no-cache, no-store, must-revalidate
+  Cache-Control: no-cache, no-store, must-revalidate, max-age=0
+  Pragma: no-cache
+  Expires: 0
 /realestate/ventaDepartamento/
-  Cache-Control: no-cache, no-store, must-revalidate
+  Cache-Control: no-cache, no-store, must-revalidate, max-age=0
+  Pragma: no-cache
+  Expires: 0
 
 # ── Cache realestate assets (images) ──────────────────
 /realestate/ventaCasaBSA/*.jpeg
