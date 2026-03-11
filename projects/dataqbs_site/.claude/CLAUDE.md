@@ -1,9 +1,7 @@
-# dataqbs_site — AI Agent Instructions
+# dataqbs_site — Project Context
 
-## ⚠️ Keep Instructions In Sync
-This file and `../../.github/copilot-instructions.md` must stay synchronized.
-When updating CV workflows, security rules, or deployment steps here, also update the Copilot instructions.
-Both AI assistants should give the same guidance for the same project.
+> Universal constraints (code discipline, security, git) are in `~/.claude/CLAUDE.md`.
+> This file covers only dataqbs_site-specific context.
 
 ## Project Overview
 Portfolio website + RAG chatbot for dataqbs.com. Astro 4.16 + Svelte 4 + Tailwind 3.4, deployed on Cloudflare Pages (hybrid SSR).
