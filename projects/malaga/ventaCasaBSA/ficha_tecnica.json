@@ -42,8 +42,8 @@
     "municipality": "Tlajomulco de Zúñiga",
     "state": "Jalisco",
     "country": "MX",
-    "latitude": 20.5580,
-    "longitude": -103.4150,
+    "latitude": 20.558,
+    "longitude": -103.415,
     "street": null,
     "postal_code": "45645",
     "show_exact_location": false,
@@ -55,7 +55,7 @@
   "property_subtype": "Casa en Coto",
   "condition": "Excelente",
   "created_at": "2026-01-24T13:58:00-06:00",
-  "updated_at": "2026-03-02T12:00:00-06:00",
+  "updated_at": "2025-07-16T00:00:00-06:00",
   "published_at": null,
   "operations": [
     {
@@ -108,170 +108,185 @@
   "share_commission": false,
   "property_images": [
     {
-      "title": "Fachada principal",
-      "url": "inputImages/FACHADA_01v2.jpeg",
+      "title": "Fachada principal — casa moderna en coto privado",
+      "url": "inputImages/FACHADA_01.jpeg",
       "position": 0,
       "category": "FACHADA"
     },
     {
-      "title": "Cochera 3 autos con cargador eléctrico",
-      "url": "inputImages/COCHERA_01.jpeg",
-      "position": 1,
-      "category": "COCHERA"
-    },
-    {
-      "title": "Sala-comedor con doble altura",
+      "title": "Sala-comedor con doble altura y ventanales",
       "url": "inputImages/SALA_COMEDOR_01.jpeg",
-      "position": 2,
+      "position": 1,
       "category": "SALA_COMEDOR"
     },
     {
-      "title": "Sala de estar — planta baja",
+      "title": "Sala de estar con piso laminado y luz natural",
       "url": "inputImages/SALA_01.jpeg",
-      "position": 3,
+      "position": 2,
       "category": "SALA"
     },
     {
-      "title": "Sala — vista alternativa",
-      "url": "inputImages/SALA_02.jpeg",
-      "position": 4,
-      "category": "SALA"
-    },
-    {
-      "title": "Recámara principal",
+      "title": "Recámara principal — planta alta con baño y walking closet",
       "url": "inputImages/RECAMARA_01.jpeg",
+      "position": 3,
+      "category": "RECAMARA"
+    },
+    {
+      "title": "Recámara con ventanal amplio y luz natural",
+      "url": "inputImages/RECAMARA_02.jpeg",
+      "position": 4,
+      "category": "RECAMARA"
+    },
+    {
+      "title": "Recámara infantil — decoración púrpura",
+      "url": "inputImages/RECAMARA_03.jpeg",
       "position": 5,
       "category": "RECAMARA"
     },
     {
-      "title": "Baño completo — estilo japonés",
-      "url": "inputImages/BAÑO_01.jpeg",
+      "title": "Recámara infantil — estilo colorido",
+      "url": "inputImages/RECAMARA_04.jpeg",
       "position": 6,
+      "category": "RECAMARA"
+    },
+    {
+      "title": "Baño completo con WC estilo japonés inteligente",
+      "url": "inputImages/BAÑO_01.jpeg",
+      "position": 7,
       "category": "BAÑO"
     },
     {
       "title": "Baño completo — segundo",
       "url": "inputImages/BAÑO_02.jpeg",
-      "position": 7,
+      "position": 8,
       "category": "BAÑO"
     },
     {
       "title": "Baño completo — tercero",
       "url": "inputImages/BAÑO_03.jpeg",
-      "position": 8,
+      "position": 9,
       "category": "BAÑO"
     },
     {
-      "title": "Walking closet — recámara principal",
-      "url": "inputImages/VESTIDOR_01.jpeg",
-      "position": 9,
-      "category": "VESTIDOR"
-    },
-    {
-      "title": "Walking closet — segunda recámara",
-      "url": "inputImages/VESTIDOR_02.jpeg",
+      "title": "Baño moderno con cancel de vidrio templado, lavabo ovalado y espejo LED",
+      "url": "inputImages/BAÑO_04.jpeg",
       "position": 10,
+      "category": "BAÑO"
+    },
+    {
+      "title": "Walking closet principal con gabinetes de madera",
+      "url": "inputImages/VESTIDOR_01.jpeg",
+      "position": 11,
       "category": "VESTIDOR"
     },
     {
-      "title": "Área social / family room — planta alta",
-      "url": "inputImages/AREA_SOCIAL_01.jpeg",
-      "position": 11,
-      "category": "AREA_SOCIAL"
-    },
-    {
-      "title": "Área social — vista alternativa",
-      "url": "inputImages/AREA_SOCIAL_02.jpeg",
+      "title": "Vestidor amplio con gabinetes, cajones y banco central",
+      "url": "inputImages/VESTIDOR_02.jpeg",
       "position": 12,
-      "category": "AREA_SOCIAL"
+      "category": "VESTIDOR"
     },
     {
-      "title": "Área social — tercer ángulo",
-      "url": "inputImages/AREA_SOCIAL_03.jpeg",
+      "title": "Oficina / home office en planta baja (~8 m²) con puerta y ventana",
+      "url": "inputImages/OFICINA_01.jpeg",
       "position": 13,
-      "category": "AREA_SOCIAL"
+      "category": "OFICINA"
     },
     {
-      "title": "Escaleras interiores",
-      "url": "inputImages/ESCALERAS_01.jpeg",
-      "position": 14,
-      "category": "ESCALERAS"
-    },
-    {
-      "title": "Escaleras — vista superior",
-      "url": "inputImages/ESCALERAS_02.jpeg",
-      "position": 15,
-      "category": "ESCALERAS"
-    },
-    {
-      "title": "Casa club — terraza (área común)",
-      "url": "inputImages/TERRAZA_01.jpeg",
-      "position": 16,
-      "category": "AMENIDADES"
-    },
-    {
-      "title": "Área de lavado techada",
+      "title": "Cuarto de lavado con lavadora, secadora y organizador",
       "url": "inputImages/AREA_LAVADO_01.jpeg",
+      "position": 14,
+      "category": "AREA_LAVADO"
+    },
+    {
+      "title": "Cuarto de lavado — estantes y almacenamiento",
+      "url": "inputImages/AREA_LAVADO_02.jpeg",
+      "position": 15,
+      "category": "AREA_LAVADO"
+    },
+    {
+      "title": "Escaleras interiores con barandal de cristal",
+      "url": "inputImages/ESCALERAS_01.jpeg",
+      "position": 16,
+      "category": "ESCALERAS"
+    },
+    {
+      "title": "Escaleras — vista desde planta alta",
+      "url": "inputImages/ESCALERAS_02.jpeg",
       "position": 17,
-      "category": "AREA_LAVADO"
+      "category": "ESCALERAS"
     },
     {
-      "title": "Área de lavado — conexiones",
-      "url": "inputImages/AREA_LAVADO_04.jpeg",
+      "title": "Fuente decorativa debajo de la escalera",
+      "url": "inputImages/FUENTE_01.jpeg",
       "position": 18,
-      "category": "AREA_LAVADO"
+      "category": "FUENTE"
     },
     {
-      "title": "Área de lavado — detalle",
-      "url": "inputImages/AREA_LAVADO_05.jpeg",
+      "title": "Jardín trasero con área recreativa",
+      "url": "inputImages/JARDIN_01.jpeg",
       "position": 19,
-      "category": "AREA_LAVADO"
+      "category": "JARDIN"
     },
     {
-      "title": "8 paneles solares — vista general del techo",
-      "url": "inputImages/PANELES_SOLARES_03.jpeg",
+      "title": "Jardín — vegetación y área verde",
+      "url": "inputImages/JARDIN_02.jpeg",
       "position": 20,
-      "category": "PANELES_SOLARES"
+      "category": "JARDIN"
     },
     {
-      "title": "Paneles solares — detalle de instalación",
-      "url": "inputImages/PANELES_SOLARES_01.jpeg",
+      "title": "Jardín — vista completa del patio trasero",
+      "url": "inputImages/JARDIN_03.jpeg",
       "position": 21,
-      "category": "PANELES_SOLARES"
+      "category": "JARDIN"
     },
     {
-      "title": "Paneles solares — cobertura completa en techo",
-      "url": "inputImages/PANELES_SOLARES_10.jpeg",
+      "title": "Pasillo interior con paneles hexagonales decorativos e iluminación empotrada",
+      "url": "inputImages/PASILLO_01.jpeg",
       "position": 22,
-      "category": "PANELES_SOLARES"
+      "category": "PASILLO"
     },
     {
-      "title": "Pasillo de servidumbre — jardín trasero",
+      "title": "Pasillo de servidumbre — acceso al jardín trasero",
       "url": "inputImages/PASILLO_SERVIDUMBRE_01.jpeg",
       "position": 23,
       "category": "PASILLO_SERVIDUMBRE"
     },
     {
-      "title": "Fuente decorativa debajo de la escalera",
-      "url": "inputImages/FUENTE_ESCALERA_01.jpeg",
+      "title": "8 paneles solares instalados en techo — ahorro en CFE",
+      "url": "inputImages/PANELES_SOLARES_01.jpeg",
       "position": 24,
-      "category": "FUENTE"
+      "category": "PANELES_SOLARES"
+    },
+    {
+      "title": "Paneles solares — detalle de instalación",
+      "url": "inputImages/PANELES_SOLARES_02.jpeg",
+      "position": 25,
+      "category": "PANELES_SOLARES"
+    },
+    {
+      "title": "Paneles solares — cobertura en techo",
+      "url": "inputImages/PANELES_SOLARES_03.jpeg",
+      "position": 26,
+      "category": "PANELES_SOLARES"
     }
   ],
   "excluded_images": {
-    "_comment": "Imágenes excluidas de la ficha publicable por redundancia. Se conservan en inputImages/ como respaldo.",
+    "_comment": "Imágenes excluidas de la galería principal por redundancia o bajo impacto visual. Se conservan en el directorio público como respaldo documental.",
     "images": [
-      "AREA_LAVADO_02.jpeg",
-      "AREA_LAVADO_03.jpeg",
-      "AREA_LAVADO_06.jpeg",
-      "AREA_LAVADO_07.jpeg",
-      "PANELES_SOLARES_02.jpeg",
+      "SALA_COMEDOR_02.jpeg",
+      "VESTIDOR_03.jpeg",
+      "BAÑO_05.jpeg",
       "PANELES_SOLARES_04.jpeg",
       "PANELES_SOLARES_05.jpeg",
       "PANELES_SOLARES_06.jpeg",
       "PANELES_SOLARES_07.jpeg",
       "PANELES_SOLARES_08.jpeg",
-      "PANELES_SOLARES_09.jpeg"
+      "PANELES_SOLARES_09.jpeg",
+      "PANELES_SOLARES_10.jpeg",
+      "PANELES_SOLARES_11.jpeg",
+      "CUARTO_SERVICIO_01.jpeg",
+      "CUARTO_SERVICIO_02.jpeg",
+      "AZOTEA_01.jpeg"
     ]
   },
   "agent": {
@@ -419,19 +434,16 @@
   ],
   "_malaga_meta": {
     "project": "ventaCasaBSA",
-    "source": "manual + CLIP ViT-B-32 classification",
+    "source": "GPT-4o vision reclassification (2025-07) + manual curation",
     "images_pending_classification": false,
-    "total_images_in_folder": 39,
+    "total_images_in_folder": 41,
     "images_in_listing": 27,
-    "images_excluded": 12,
-    "last_classified_at": "2026-03-02T12:00:00-06:00",
-    "notes": "27 fotos seleccionadas de 39. Se excluyeron 5 AREA_LAVADO y 7 PANELES_SOLARES redundantes. Se agregaron pasillo de servidumbre y fuente decorativa. Orden: fachada → exterior → interior → servicios → paneles → extras.",
+    "images_excluded": 14,
+    "last_classified_at": "2025-07-16T00:00:00-06:00",
+    "notes": "41 fotos (35 reclasificadas + 6 nuevas). 17/35 tenían categoría incorrecta — corregidas vía GPT-4o vision. Se excluyeron SALA_COMEDOR_02 y VESTIDOR_03 por similitud visual con fotos existentes. 27 en galería, 14 excluidas.",
     "pending_actions": [
-      "Confirmar tamaño de construcción (estimado 280 m²)",
-      "Confirmar año de construcción (estimado 2018)",
-      "Agregar datos del agente/propietario",
-      "Confirmar cuota de mantenimiento del coto",
       "Obtener fotos de cocina (no hay ninguna)",
+      "Confirmar cuota de mantenimiento del coto",
       "Obtener coordenadas GPS exactas",
       "Considerar tour virtual / video"
     ]
