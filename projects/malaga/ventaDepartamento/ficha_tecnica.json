@@ -1,17 +1,17 @@
 {
   "public_id": "MLG-VDEPTO-001",
-  "title": "Departamento con Roof Garden Exclusivo – A una cuadra del ITESO",
+  "title": "Departamento en Venta con Roof Garden Exclusivo – A una cuadra del ITESO",
   "title_i18n": {
-    "en": "Exclusive Rooftop Apartment – One Block from ITESO",
-    "de": "Exklusive Dachterrassenwohnung – Einen Block vom ITESO"
+    "en": "Apartment for Sale with Exclusive Roof Garden – One Block from ITESO",
+    "de": "Wohnung zum Verkauf mit exklusiver Dachterrasse – Einen Block vom ITESO"
   },
-  "title_short": "Depto 2 Rec. Roof Garden, Parques del Bosque",
+  "title_short": "Depto en Venta 2 Rec. Roof Garden, Parques del Bosque",
   "title_short_i18n": {
-    "en": "2-Bed Apt. Roof Garden, Parques del Bosque",
-    "de": "2-Zi. Whg. Dachterrasse, Parques del Bosque"
+    "en": "2-Bed Apt. for Sale, Roof Garden, Parques del Bosque",
+    "de": "2-Zi. Whg. zum Verkauf, Dachterrasse, Parques del Bosque"
   },
   "description": "🏢 DEPARTAMENTO EN VENTA CON ROOF GARDEN EXCLUSIVO – A UNA CUADRA DEL ITESO\n\n📐 76 m² de construcción · Piso 2 · 2 Niveles · 2 Recámaras · 1 Baño · 1 Estacionamiento\n💰 $2,750,000 MXN\n\nInvierte en una de las zonas con mayor demanda y plusvalía. Departamento de 2 niveles ubicado prácticamente a una cuadra del ITESO, ideal para inversión o vivienda.\n\n🏠 PLANTA PRINCIPAL (Piso 2)\n• 2 recámaras con clóset\n• 1 baño completo\n• Sala-comedor\n• Cocina con barra\n• Cuarto de servicio\n\n🔝 PLANTA ALTA\n• Roof garden privado con pérgola y tarja\n\n🚗 ESTACIONAMIENTO\n• 1 cajón de estacionamiento\n\n🔒 SEGURIDAD\n• Dentro de coto con seguridad 24/7\n\n📍 UBICACIÓN\nBahía de Acapulco, Parques del Bosque, Tlaquepaque, Jalisco. A una cuadra del ITESO — excelente conectividad y demanda de renta estudiantil.\n\n📈 Excelente oportunidad para inversión o vivienda, en una ubicación estratégica cerca del ITESO, con gran potencial de rentabilidad y plusvalía en la zona.\n\n✅ Listo para escriturar.",
-  "description_short": "Departamento 2 rec. con roof garden privado, pérgola y tarja. A 1 cuadra del ITESO, coto con seguridad 24/7. Ideal inversión o vivienda.",
+  "description_short": "Departamento en venta: 2 rec. con roof garden privado, pérgola y tarja. A 1 cuadra del ITESO, coto con seguridad 24/7. Ideal inversión o vivienda.",
   "bedrooms": 2,
   "bathrooms": 1,
   "half_bathrooms": 0,
@@ -49,7 +49,7 @@
     "exterior_number": null,
     "interior_number": null
   },
-  "property_type": "Departamento",
+  "property_type": "Departamento en Venta",
   "property_subtype": "Departamento en Coto",
   "condition": null,
   "created_at": "2026-02-25T09:34:00-06:00",

@@ -1,9 +1,8 @@
 # dataqbs_IA — AI Agent Instructions
 
-## ⚠️ Keep Instructions In Sync
-This file (`copilot-instructions.md`) and `projects/dataqbs_site/.claude/CLAUDE.md` (+ rules/) must stay synchronized.
-When updating CV workflows, security rules, or deployment steps here, also update the Claude Code files.
-Both AI assistants should give the same guidance for the same project.
+> Universal constraints are in `~/.claude/CLAUDE.md`. This file covers repo-specific context only.
+> **Single source of truth.** `.github/copilot-instructions.md` is auto-synced from this file.
+> Run `sync-ai-docs dataqbs_IA` to propagate changes.
 
 ## Repository Structure
 
@@ -117,8 +116,32 @@ pre-commit install             # One-time setup
 pre-commit run --all-files     # Manual scan
 ```
 
+## Shared Config
+- `config.yaml` — email, IMAP settings
+- `scalpin.yaml` — market monitor settings
+
 ## Conventions
 - Config-first: behavior defined in YAML files, wired in code
 - Use VS Code tasks (`.vscode/tasks.json`) for common operations
 - All projects should have a README.md explaining setup and run commands
 - Keep logs in `logs/` directories, never commit log files
+- Each project is self-contained under `projects/<name>/`
+- Pre-commit hooks: gitleaks (blocks secrets)
+
+## QueryMaster — Database Query Agent
+
+Global CLI for running queries against any database engine. Dry-run by default.
+
+```bash
+PYTHONPATH=~/.local/bin python3 -m querymaster --engine <engine> --conn <name> "<SQL or prompt>"
+qm --engine sqlite --conn local_memo_hpo "SELECT count(*) FROM trials" --execute
+```
+
+### Available connections for this project
+No direct database connections in this project. Use connections from other projects:
+- `local_memo_hpo` (sqlite) — Optuna HPO database
+
+### Config
+- Connections: `~/.config/querymaster/connections.json`
+- History: `~/.local/share/querymaster/history/`
+- Skills (Claude): `~/.claude/skills/querymaster*/`
