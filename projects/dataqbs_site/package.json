@@ -5,11 +5,11 @@
   "private": true,
   "scripts": {
     "dev": "astro dev",
-    "build": "node scripts/i18n-audit.mjs && python scripts/build_knowledge.py && astro build",
+    "build": "node scripts/i18n-audit.mjs && python3 scripts/build_knowledge.py && astro build",
     "build:site": "astro build",
     "preview": "wrangler pages dev dist",
     "deploy": "npm run build && wrangler pages deploy dist",
-    "gen-knowledge": "python scripts/build_knowledge.py",
+    "gen-knowledge": "python3 scripts/build_knowledge.py",
     "astro": "astro"
   },
   "dependencies": {
