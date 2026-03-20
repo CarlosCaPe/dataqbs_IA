@@ -3,6 +3,24 @@ import type { Certification } from '../lib/types';
 export const certifications: Certification[] = [
   // ── Active certifications ──────────────────────────
   {
+    name: 'Certificate of Completion: Introduction to Agent Skills',
+    shortName: 'Anthropic Agents',
+    issuer: 'Anthropic',
+    year: 2026,
+    credentialId: 't3j2knij9735',
+    credentialUrl: '',
+    logo: '🤖',
+  },
+  {
+    name: 'Certificate of Completion: AI Fluency Framework & Foundations',
+    shortName: 'Anthropic AI Fluency',
+    issuer: 'Anthropic',
+    year: 2026,
+    credentialId: '3fg9fxpyta6i',
+    credentialUrl: '',
+    logo: '🤖',
+  },
+  {
     name: 'Generative AI Professional Certificate by Snowflake',
     shortName: 'Snowflake GenAI',
     issuer: 'Snowflake',
