@@ -27,10 +27,10 @@ export const profile = {
     'AI Engineer', 'DBA', 'Integration Lead', 'Developer',
   ],
   rate: {
-    hourly: { usd: 40, mxn: 686, eur: 33 },
-    monthly: { usd: 6400, mxn: 109760, eur: 5280 },
-    yearly: { usd: 76800, mxn: 1317120, eur: 63360 },
-    note: 'Based on 160 hrs/month. Exchange rates approximate (Feb 2026). Negotiable depending on project scope and duration.',
+    hourly: { usd: 43, mxn: 738, eur: 35 },
+    monthly: { usd: 6880, mxn: 118072, eur: 5600 },
+    yearly: { usd: 82560, mxn: 1416864, eur: 67200 },
+    note: 'Based on 160 hrs/month. Exchange rates approximate (Mar 2026). Negotiable depending on project scope and duration.',
   },
   technologyExperience: [
     { name: 'SQL / SQL Server', since: 2003, years: '20+', level: 'expert' },
