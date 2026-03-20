@@ -190,6 +190,16 @@ const es: Record<string, ProjectTranslation> = {
       'Función de rebalanceo porcentual con límites de seguridad',
     ],
   },
+  'desico-workday': {
+    description:
+      'Consultoría técnica para la integración de time-tracking de DESICO con Workday — arquitectura, mapeo de datos y QA.',
+    highlights: [
+      'Integración inbound: sistema fuente → sFTP → Workday Studio → API Put_Time_Clock_Events',
+      'Mapeo de códigos de tiempo y validación de reglas de negocio (horas extra, turnos, sindicatos)',
+      'Coordinación multi-stakeholder: DESICO, HR Path, Quantum',
+      'Rollout por fases con períodos de hypercare (Abr–Jun 2026)',
+    ],
+  },
 };
 
 // ══════════════════════════════════════════════════════
@@ -366,6 +376,16 @@ const de: Record<string, ProjectTranslation> = {
       'Konfigurierbarer Auto-Trigger mit Dry-Run- und Live-Modi',
       'Portfolio-PnL-Tracker mit Token-Baselines und CSV-Export',
       'Rebalance-Prozent-Feature mit Sicherheitsbegrenzung',
+    ],
+  },
+  'desico-workday': {
+    description:
+      'Technische Beratung für die Workday-Zeiterfassungsintegration von DESICO — Architektur, Datenmapping und QA.',
+    highlights: [
+      'Inbound-Integration: Quellsystem → sFTP → Workday Studio → Put_Time_Clock_Events API',
+      'Zeitcode-Mapping und Geschäftsregelvalidierung (Überstunden, Schichten, Gewerkschaften)',
+      'Multi-Stakeholder-Koordination: DESICO, HR Path, Quantum',
+      'Phasen-Rollout mit Hypercare-Perioden (Apr–Jun 2026)',
     ],
   },
 };

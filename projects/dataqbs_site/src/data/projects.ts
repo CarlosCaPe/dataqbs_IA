@@ -154,6 +154,7 @@ export const projects: Project[] = [
       'HPO with 50,000 Optuna trials (TPE sampler) for grid parameters',
       'Backtest engine spanning 2017–2026 with maker fee modeling',
       'Attribution analysis: alpha vs beta return decomposition',
+      'Production microservice (RADAR) with dust consolidation and balance monitoring',
       '33 unit tests with full coverage',
     ],
     category: 'fintech',
@@ -200,6 +201,8 @@ export const projects: Project[] = [
       '125 KPI queries across 7 mining sites with 100% coverage verified',
       'AI chatbot with RAG + GitHub Copilot SDK (zero-cost for enterprise)',
       'Semantic model: 16 business outcomes × 7 sites with ADX + Snowflake queries',
+      'Azure Functions ETL pipeline: SQL Server → Snowflake with Docker + Kerberos auth',
+      'Multi-environment Azure SQL DDL extraction (DEV/TEST/PROD) with Entra ID',
       '1,369-line architecture document with 20 Mermaid diagrams',
       'Docker-ready with Azure Container App deployment',
     ],
@@ -258,6 +261,26 @@ export const projects: Project[] = [
       'Rebalance percentage feature with safety clamping',
     ],
     category: 'fintech',
+    featured: false,
+  },
+  {
+    name: 'Workday Time Tracking Integration',
+    slug: 'desico-workday',
+    description:
+      'Technical consulting for DESICO\'s Workday time-tracking integration — architecture, data mapping, and QA.',
+    longDescription:
+      'Integration project to load time records from DESICO\'s source system into Workday via Workday Studio (EIB). ' +
+      'Responsibilities include integration architecture design, time code mapping (source → Workday), ' +
+      'business rule validation (overtime, shift differentials, union rules), sFTP transport coordination with Quantum, ' +
+      'and reconciliation report design. Phased rollout: Apr–Jun 2026.',
+    technologies: ['Workday Studio', 'sFTP', 'CSV/Flat File', 'EIB', 'Business Processes'],
+    highlights: [
+      'Inbound integration: source system → sFTP → Workday Studio → Put_Time_Clock_Events API',
+      'Time code mapping and business rule validation (overtime, shifts, unions)',
+      'Multi-stakeholder coordination: DESICO, HR Path, Quantum',
+      'Phased rollout with hypercare periods (Apr–Jun 2026)',
+    ],
+    category: 'data-engineering',
     featured: false,
   },
 ];

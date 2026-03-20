@@ -111,7 +111,8 @@ export const experience: Experience[] = [
       'Also building internal R&D projects: crypto arbitrage scanner, grid trading bots, LLM evaluation engine, ' +
       'email classification system, and this portfolio site with RAG chatbot.',
     achievements: [
-      'Delivered data engineering for NewFire Global, VCA Animal Hospitals, C&A México, BCG, Moviro, Svitla, Quesos Navarro',
+      'Delivered data engineering for NewFire Global, VCA Animal Hospitals, DESICO (Workday), C&A México, BCG, Moviro, Svitla, Quesos Navarro',
+      'Consulting: DESICO Workday time-tracking integration — architecture, time code mapping, business rule validation, phased rollout',
       'Built MEMO-GRID: advanced grid trading bot with Optuna HPO (50K trials), 23× BTC multiplier, attribution analysis (95.7% alpha)',
       'Designed Bellman-Ford & triangular crypto arbitrage scanner across 9 exchanges with live swap execution',
       'Built declarative YAML-driven rule engine for LLM response auditing with 5-dimension scoring',
