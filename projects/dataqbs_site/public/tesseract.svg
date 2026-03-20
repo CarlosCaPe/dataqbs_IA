@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Tesseract: isometric outer cube + inner cube + connecting edges -->
+  <!-- Outer cube (hexagonal isometric projection) -->
+  <path d="M100,15 L185,60 L185,140 L100,185 L15,140 L15,60 Z" stroke-opacity="0.5"/>
+  <!-- Outer back edges -->
+  <line x1="100" y1="15" x2="100" y2="100" stroke-opacity="0.12"/>
+  <line x1="185" y1="60" x2="100" y2="100" stroke-opacity="0.12"/>
+  <line x1="15" y1="60" x2="100" y2="100" stroke-opacity="0.12"/>
+  <!-- Inner cube (smaller, same projection, centered) -->
+  <path d="M100,55 L148,80 L148,120 L100,145 L52,120 L52,80 Z" stroke-opacity="0.85"/>
+  <!-- Inner back edges -->
+  <line x1="100" y1="55" x2="100" y2="100" stroke-opacity="0.2"/>
+  <line x1="148" y1="80" x2="100" y2="100" stroke-opacity="0.2"/>
+  <line x1="52" y1="80" x2="100" y2="100" stroke-opacity="0.2"/>
+  <!-- Connecting edges (outer → inner, 6 visible) -->
+  <line x1="100" y1="15" x2="100" y2="55" stroke-opacity="0.3"/>
+  <line x1="185" y1="60" x2="148" y2="80" stroke-opacity="0.3"/>
+  <line x1="15" y1="60" x2="52" y2="80" stroke-opacity="0.3"/>
+  <line x1="100" y1="185" x2="100" y2="145" stroke-opacity="0.3"/>
+  <line x1="185" y1="140" x2="148" y2="120" stroke-opacity="0.3"/>
+  <line x1="15" y1="140" x2="52" y2="120" stroke-opacity="0.3"/>
+</svg>

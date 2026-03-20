@@ -17,24 +17,29 @@ import AboutSection from '../components/AboutSection.svelte';
 <Layout>
   <Header client:load />
 
-  <!-- Decorative side cubes (watermark branding) -->
+  <!-- Decorative side tesseracts (watermark branding) -->
   <div class="hidden lg:block fixed left-0 top-16 bottom-0 w-12 pointer-events-none z-10" aria-hidden="true">
-    <div class="flex flex-col items-center gap-16 pt-8 opacity-[0.04]">
-      <img src="/favicon.svg" alt="" class="w-10 h-10" />
-      <img src="/favicon.svg" alt="" class="w-10 h-10" />
-      <img src="/favicon.svg" alt="" class="w-10 h-10" />
-      <img src="/favicon.svg" alt="" class="w-10 h-10" />
-      <img src="/favicon.svg" alt="" class="w-10 h-10" />
+    <div class="flex flex-col items-center gap-16 pt-8 opacity-[0.04] text-primary-600 dark:text-primary-400">
+      <img src="/tesseract.svg" alt="" class="w-10 h-10" />
+      <img src="/tesseract.svg" alt="" class="w-10 h-10" />
+      <img src="/tesseract.svg" alt="" class="w-10 h-10" />
+      <img src="/tesseract.svg" alt="" class="w-10 h-10" />
+      <img src="/tesseract.svg" alt="" class="w-10 h-10" />
     </div>
   </div>
   <div class="hidden lg:block fixed right-0 top-16 bottom-0 w-12 pointer-events-none z-10" aria-hidden="true">
-    <div class="flex flex-col items-center gap-16 pt-8 opacity-[0.04]">
-      <img src="/favicon.svg" alt="" class="w-10 h-10" />
-      <img src="/favicon.svg" alt="" class="w-10 h-10" />
-      <img src="/favicon.svg" alt="" class="w-10 h-10" />
-      <img src="/favicon.svg" alt="" class="w-10 h-10" />
-      <img src="/favicon.svg" alt="" class="w-10 h-10" />
+    <div class="flex flex-col items-center gap-16 pt-8 opacity-[0.04] text-primary-600 dark:text-primary-400">
+      <img src="/tesseract.svg" alt="" class="w-10 h-10" />
+      <img src="/tesseract.svg" alt="" class="w-10 h-10" />
+      <img src="/tesseract.svg" alt="" class="w-10 h-10" />
+      <img src="/tesseract.svg" alt="" class="w-10 h-10" />
+      <img src="/tesseract.svg" alt="" class="w-10 h-10" />
     </div>
+  </div>
+
+  <!-- Subliminal tesseract — centered background watermark -->
+  <div class="fixed inset-0 flex items-center justify-center pointer-events-none z-0" aria-hidden="true">
+    <img src="/tesseract.svg" alt="" class="w-[600px] h-[600px] opacity-[0.02] text-primary-500 dark:text-primary-400" />
   </div>
 
   <!-- LinkedIn-style single centered column -->
